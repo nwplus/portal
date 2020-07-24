@@ -8,7 +8,7 @@ import ProgressBar from './components/ProgressBar'
 import TimeDisplay from './components/TimeDisplay'
 
 const ExampleText = styled.div`
-  color: ${p => p.theme.text}
+  color: ${p => p.theme.colors.text}
 `
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <GlobalStyle />
         <ExampleText>Live website.</ExampleText>
         <TimeDisplay days={1} hours={23} minutes={0} seconds={40}></TimeDisplay>
-        <ProgressBar current={33} total={100}></ProgressBar>
+        <ProgressBar percent={33}></ProgressBar>
       </ThemeProvider>
     </>
   );

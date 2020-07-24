@@ -21,7 +21,7 @@ const TimeUnitText = styled(TimeText)`
   margin: 0 10px;
 `
 
-const Seperator = styled.span`
+const Separator = styled.span`
   width: 20px;
   font-size: 4em;
 `
@@ -40,11 +40,11 @@ const TimeDisplay = ({ days, hours, minutes, seconds }) => {
         <TimeDiv>
             <TimeFlex>
                 <TimeText>{fmt(days)}</TimeText>
-                <Seperator>:</Seperator>
+                <Separator>:</Separator>
                 <TimeText>{fmt(hours)}</TimeText>
-                <Seperator>:</Seperator>
+                <Separator>:</Separator>
                 <TimeText>{fmt(minutes)}</TimeText>
-                <Seperator>:</Seperator>
+                <Separator>:</Separator>
                 <TimeText>{fmt(seconds)}</TimeText>
             </TimeFlex>
             <TimeFlex>

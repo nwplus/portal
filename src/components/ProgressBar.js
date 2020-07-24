@@ -13,7 +13,7 @@ const ProgressBarContainer = styled.div`
 
 // filled part of progress bar
 const FlexPrimary = styled.div`
-  flex: 0 0 ${p => p.percent * 100}%;
+  flex: 0 0 ${p => p.percent}%;
   background-color: ${p => p.theme.colors.highlight};
 `
 
@@ -22,10 +22,10 @@ const FlexSecondary = styled.div`
   background-color: ${p => p.theme.colors.primary};
 `
 
-const ProgressBar = ({current, total}) => {
+const ProgressBar = ({percent}) => {
     return (
         <ProgressBarContainer>
-            <FlexPrimary percent={current / total}/>
+            <FlexPrimary percent={percent}/>
             <FlexSecondary />
         </ProgressBarContainer>
     );
