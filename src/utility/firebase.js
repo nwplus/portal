@@ -1,8 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-console.log(process.env.REACT_APP_FIREBASE_API_KEY)
-
 if (!firebase.apps.length) {
   const config = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
