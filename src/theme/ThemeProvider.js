@@ -10,7 +10,7 @@ const theme = {
   },
 }
 
-export default ({children}) => (
+export default ({ children }) => (
   <ThemeProvider theme={theme}>
     {children}
   </ThemeProvider>
