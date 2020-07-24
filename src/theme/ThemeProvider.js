@@ -2,7 +2,12 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components'
 
 const theme = {
-  copy: '#fff'
+  colors: {
+    background: '#fff',
+    primary: '#E4E3EB',
+    highlight: '#4A5089',
+    text: '#000',
+  },
 }
 
 export default ({children}) => (
