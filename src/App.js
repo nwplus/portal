@@ -10,16 +10,16 @@ import TimeDisplay from './components/TimeDisplay'
 
 
 function App() {
-  const [hackathons, setHackathons] = useState()
+  const [hackathon, setHackathon] = useState()
 
   // example getting all hackathons data
   useEffect(() => {
     db.collection(DB_COLLECTION).doc(DB_HACKATHON).get().then(doc => {
       const data = doc.data()
-      setHackathons(data)
+      setHackathon(data)
       console.log(data)
     })
-  }, [setHackathons])
+  }, [setHackathon])
 
   return (
     <>
