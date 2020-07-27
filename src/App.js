@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import { db } from './utility/firebase'
+import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 
 // temp for testing
 import ProgressBar from './components/ProgressBar'
@@ -13,10 +14,8 @@ function App() {
 
   // example getting all hackathons data
   useEffect(() => {
-    db.collection('Hackathons').get().then(querySnapshot => {
-      const data = querySnapshot.docs.map(doc => {
-        return doc.data()
-      })
+    db.collection(DB_COLLECTION).doc(DB_HACKATHON).get().then(doc => {
+      const data = doc.data()
       setHackathons(data)
       console.log(data)
     })
