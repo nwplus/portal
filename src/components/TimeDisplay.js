@@ -12,7 +12,7 @@ const TimeDiv = styled.div`
 
 const TimeText = styled.span`
   color: ${p => p.theme.colors.text};
-  width: 6vw;
+  width: 90px;
   font-size: 4em;
 `
 
