@@ -14,11 +14,11 @@ function App() {
   // example getting all hackathons data
   useEffect(() => {
     db.collection('Hackathons').get().then(querySnapshot => {
-      const paths = querySnapshot.docs.map(doc => {
+      const data = querySnapshot.docs.map(doc => {
         return doc.data()
       })
-      setHackathons(paths)
-      console.log(paths)
+      setHackathons(data)
+      console.log(data)
     })
   }, [setHackathons])
 
