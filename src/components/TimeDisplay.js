@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const TimeDiv = styled.div`
   padding: 2em 0;
   text-align: center;
-  margin: 1em;
+  margin: 0;
   border-radius: 3px;
   font-weight: 600;
   background-color: ${p => p.theme.colors.primary};

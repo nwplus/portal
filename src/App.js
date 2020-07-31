@@ -7,7 +7,7 @@ import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 // temp for testing
 import ProgressBar from './components/ProgressBar'
 import TimeDisplay from './components/TimeDisplay'
-
+import { H1, H2, H3, P } from './components/Common'
 
 function App() {
   const [hackathon, setHackathon] = useState()
@@ -25,8 +25,15 @@ function App() {
     <>
       <ThemeProvider>
         <GlobalStyle />
-        <TimeDisplay days={1} hours={23} minutes={0} seconds={40}></TimeDisplay>
-        <ProgressBar percent={33}></ProgressBar>
+        <H1>Live website.</H1>
+        <>
+          <H1>This is an h1.</H1>
+          <H2>This is an h2.</H2>
+          <H3>This is an h3.</H3>
+          <P>Here's your regular Lorem Ipsum shpeel. It's some really long text. I'm really writing this way later than I should be. Is this what it's like to sell your soul to nwPlus? </P>
+          <TimeDisplay days={1} hours={23} minutes={0} seconds={40}></TimeDisplay>
+          <ProgressBar percent={33}></ProgressBar>
+        </>
       </ThemeProvider>
     </>
   );
