@@ -7,7 +7,7 @@ import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 // temp for testing
 import ProgressBar from './components/ProgressBar'
 import TimeDisplay from './components/TimeDisplay'
-import { H1, H2, H3, P } from './components/Common'
+import { H1, H2, H3, P } from './components/Typography'
 
 function App() {
   const [hackathon, setHackathon] = useState()
