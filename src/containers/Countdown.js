@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ProgressBar from '../components/ProgressBar'
 import TimeDisplay from '../components/TimeDisplay'
 
-const HackerCountdown = ({countDownDate, eventDurationHours}) => {
+const Countdown = ({countDownDate, eventDurationHours}) => {
     const [now, setNow] = useState(new Date());
 
     useEffect(() => {
@@ -18,7 +18,6 @@ const HackerCountdown = ({countDownDate, eventDurationHours}) => {
     const rawHours = 24 * diff.getDay() + diff.getHours() + diff.getMinutes() / 60
     const progress = 1 - (rawHours / eventDurationHours)
 
-
     return (
         <>
             <TimeDisplay days={diff.getDay()} hours={diff.getHours()} minutes={diff.getMinutes()} seconds={diff.getSeconds()}></TimeDisplay>
@@ -27,4 +26,4 @@ const HackerCountdown = ({countDownDate, eventDurationHours}) => {
     );
 }
 
-export default HackerCountdown
+export default Countdown
