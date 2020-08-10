@@ -3,7 +3,7 @@ import './fonts/style.css';
  
 export default createGlobalStyle`
   body {
-    margin: 0;
+    margin: 2em;
     font-family: "HK Grotesk";
   }
 `;

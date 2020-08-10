@@ -5,7 +5,7 @@ const ProgressBarContainer = styled.div`
   color: ${p => p.theme.colors.text};
   display: flex;
   height: 15px;
-  margin: 1em;
+  margin: 1em 0;
   border-radius: 3px;
   overflow: hidden;
   border: 1px solid ${p => p.theme.colors.primary};
