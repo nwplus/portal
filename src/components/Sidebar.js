@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components'
+import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 
 const SidebarContainer = styled.div`
@@ -18,21 +19,28 @@ const ItemsContainer = styled.div`
   flex-direction: column;
 `;
 
-const StyledLink = styled(A)`
+const StyledA = styled(A)`
   display: block;
   margin: 0.3em 0;
   padding: 0.3em 0;
 `
 
 export default () => {
+  const [location] = useLocation();
+
   return (
     <SidebarContainer>
       <Header>Some Title</Header>
       <ItemsContainer>
-        <StyledLink>DASHBOARD</StyledLink>
-        <StyledLink>FAQ</StyledLink>
-        <StyledLink>SPONSORS</StyledLink>
-        <StyledLink>SCHEDULE</StyledLink>
+      <Link href='/'>
+        <StyledA selected={location === '/'}>DASHBOARD</StyledA>
+      </Link>
+      <Link href='/faq'>
+        <StyledA selected={location === '/faq'}>FAQ</StyledA>
+      </Link>
+      <Link href='/sponsors'>
+        <StyledA selected={location === '/sponsors'}>SPONSORS</StyledA>
+      </Link>
       </ItemsContainer>
     </SidebarContainer>
   );
