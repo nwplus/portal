@@ -7,6 +7,8 @@ const theme = {
     primary: '#E4E3EB',
     highlight: '#4A5089',
     text: '#000',
+    link: '#31E0E0',
+    linkHover: '#222' //TODO
   },
   typography: {
     h1: {
