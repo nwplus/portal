@@ -29,7 +29,7 @@ export const P = styled.p`
   ${text};
 `
 
-export const Link = styled.a`
+export const A = styled.a`
   cursor: pointer;
   font-weight: bold;
   color: ${p => p.theme.colors.link};

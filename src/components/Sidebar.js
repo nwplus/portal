@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from './Typography'
+import { A } from './Typography'
 
 const SidebarContainer = styled.div`
   border-right: 1px solid #aaa;
@@ -18,7 +18,7 @@ const ItemsContainer = styled.div`
   flex-direction: column;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(A)`
   display: block;
   margin: 0.3em 0;
   padding: 0.3em 0;
