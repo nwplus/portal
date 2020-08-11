@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Route } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import Home from './pages/Home'
-import Charcuterie from './pages/Charcuterie'
-import Faq from './pages/Faq'
-import Sponsors from './pages/Sponsors'
+import {
+  Charcuterie,
+  Home,
+  Faq,
+  Sponsors
+} from './pages'
 import { db } from './utility/firebase'
 import Page from './components/Page'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
