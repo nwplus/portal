@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components'
+import { Card } from './Common'
 
-const TimeDiv = styled.div`
-  padding: 2em 0;
-  text-align: center;
+const TimeDiv = styled(Card)`
   margin: 0;
-  border-radius: 3px;
+  text-align: center;
   font-weight: 600;
-  background-color: ${p => p.theme.colors.primary};
 `
 
 const TimeText = styled.span`

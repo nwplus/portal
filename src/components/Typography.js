@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 // mix-ins
-const text = css`
+export const text = css`
   color: ${p => p.theme.colors.text}
 `
 
@@ -34,6 +34,7 @@ export const A = styled.a`
   font-weight: bold;
   text-decoration: none;
   color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.link)};
+  transition: color 0.5s cubic-bezier(.25,.8,.25,1);
   &:hover {
     color: ${p => p.theme.colors.linkHover};
   }
