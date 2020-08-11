@@ -11,7 +11,6 @@ We hope for the Live Site to
   - the slack/discord workspace
   - hacker package / slides / prize info
   - devpost
-- match hackers and mentors
 - be reusable across different hackathons
 
 ## 💯 epic features
@@ -21,7 +20,6 @@ We hope for the Live Site to
 - [x] Countdown
 - [ ] Event schedule
 - [ ] Live FAQ
-- [ ] Hacker/Mentor matching
 
 ## dev
 
