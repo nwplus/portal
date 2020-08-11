@@ -28,3 +28,16 @@ export const H3 = styled.h3`
 export const P = styled.p`
   ${text};
 `
+
+export const A = styled.a`
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.link)};
+  &:hover {
+    color: ${p => p.theme.colors.linkHover};
+  }
+  &:focus {
+    color: ${p => p.theme.colors.linkHover};
+  }
+`
