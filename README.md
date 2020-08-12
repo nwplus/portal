@@ -38,4 +38,8 @@ We hope for the Live Site to
 
 <hr>
 
+<<<<<<< Updated upstream
 big cool project by [nwPlus](https://www.nwplus.io/).
+=======
+big cool project by [nwPlus](https://www.nwplus.io/)
+>>>>>>> Stashed changes
