@@ -15,7 +15,6 @@ import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 function App() {
   const [hackathon, setHackathon] = useState()
 
-  // example getting all hackathons data
   useEffect(() => {
     db.collection(DB_COLLECTION).doc(DB_HACKATHON).get().then(doc => {
       const data = doc.data()
