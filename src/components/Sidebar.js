@@ -41,6 +41,12 @@ export default () => {
       <Link href='/sponsors'>
         <StyledA selected={location === '/sponsors'}>SPONSORS</StyledA>
       </Link>
+      {
+        process.env.NODE_ENV !== 'production' && 
+        <Link href='/charcuterie'>
+          <StyledA selected={location === '/charcuterie'}>CHARCUTERIE</StyledA>
+        </Link>
+      }
       </ItemsContainer>
     </SidebarContainer>
   );

@@ -27,6 +27,7 @@ export const H3 = styled.h3`
 
 export const P = styled.p`
   ${text};
+  margin: 0;
 `
 
 export const A = styled.a`

@@ -4,7 +4,7 @@ import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 
 export default () => {
-  const [announcements, setAnnouncements] = useState(['hi', 'two'])
+  const [announcements, setAnnouncements] = useState([])
 
   useEffect(() => {
     db
