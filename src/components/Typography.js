@@ -27,6 +27,7 @@ export const H3 = styled.h3`
 
 export const P = styled.p`
   ${text};
+  ${p => (p.highlight && 'color: ' + p.theme.colors.link)};
   margin: 0;
 `
 

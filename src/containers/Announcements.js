@@ -19,5 +19,5 @@ export default () => {
       });
   }, [setAnnouncements])
 
-  return <Announcements announcements={announcements}/>
+  return announcements.length ? <Announcements announcements={announcements}/> : null
 };
