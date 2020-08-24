@@ -33,10 +33,9 @@ export const P = styled.p`
 
 export const A = styled.a`
   cursor: pointer;
-  font-weight: bold;
   text-decoration: none;
   color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.link)};
-  transition: color 0.5s cubic-bezier(.25,.8,.25,1);
+  transition: color 0.3s cubic-bezier(.25,.8,.25,1);
   &:hover {
     color: ${p => p.theme.colors.linkHover};
   }
