@@ -11,8 +11,8 @@ export default () => {
       .collection(DB_COLLECTION)
       .doc(DB_HACKATHON)
       .collection('Announcements')
-      .get()
-      .then(querySnapshot => {
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(querySnapshot => {
         setAnnouncements(
           Object.values(querySnapshot.docs.map(doc => doc.data()))
         )
