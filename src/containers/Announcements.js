@@ -7,7 +7,7 @@ export default () => {
   const [announcements, setAnnouncements] = useState([])
 
   useEffect(() => {
-    db
+    const unsubscribe = db
       .collection(DB_COLLECTION)
       .doc(DB_HACKATHON)
       .collection('Announcements')
@@ -17,6 +17,7 @@ export default () => {
           Object.values(querySnapshot.docs.map(doc => doc.data()))
         )
       });
+      return unsubscribe
   }, [setAnnouncements])
 
   return announcements.length ? <Announcements announcements={announcements}/> : null
