@@ -25,7 +25,7 @@ export default ({announcements}) => (
           <ReactMarkdown
             linkTarget='_blank'
             allowedTypes={['text', 'paragraph', 'strong', 'emphasis', 'link', 'break', 'list', 'listItem']}
-            renderers={{link: A}}
+            renderers={{link: A, paragraph: P}}
             source={announcement.content}
           />
           <P highlight>{timeAgo} @ {date}</P>
