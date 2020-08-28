@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { text } from './Typography'
 
 export const Card = styled.div`
-  padding: 1em;
+  padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.primary};
 `

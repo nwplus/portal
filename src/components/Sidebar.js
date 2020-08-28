@@ -21,6 +21,7 @@ const ItemsContainer = styled.div`
 
 const StyledA = styled(A)`
   display: block;
+  font-weight: bold;
   margin: 0.3em 0;
   padding: 0.3em 0;
 `
@@ -41,6 +42,12 @@ export default () => {
       <Link href='/sponsors'>
         <StyledA selected={location === '/sponsors'}>SPONSORS</StyledA>
       </Link>
+      {
+        process.env.NODE_ENV !== 'production' && 
+        <Link href='/charcuterie'>
+          <StyledA selected={location === '/charcuterie'}>CHARCUTERIE</StyledA>
+        </Link>
+      }
       </ItemsContainer>
     </SidebarContainer>
   );
