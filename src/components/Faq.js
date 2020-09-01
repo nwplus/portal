@@ -1,6 +1,6 @@
 import React from 'react';
 import Accordion from '../components/Accordion';
-import { H1, P, H2 } from './Typography';
+import { P, H2 } from './Typography';
 import styled from 'styled-components'
 import { CardLike } from './Common'
 
@@ -9,6 +9,10 @@ const DetailFlex = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+
+  @media (max-width: 1200px) {
+    display: block;
+  }
 `
 
 const DetailColumn = styled.ul`
@@ -63,7 +67,6 @@ export default ({ faq }) => {
 
   return (
     <>
-      <H1>Frequently Asked Questions</H1>
       {
         (Object.keys(categories)).map(category => {
           return (

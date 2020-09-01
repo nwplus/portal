@@ -28,3 +28,13 @@ export const SecondaryButton = styled(Button)`
   border: 1px solid ${p => p.theme.colors.highlight};
   padding: calc(1em - 1px);
 `
+
+export const SearchBar = styled.input.attrs({
+  type: 'text',
+})`
+  ${CardLike};
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
+`
