@@ -33,21 +33,21 @@ export default () => {
     <SidebarContainer>
       <Header>Some Title</Header>
       <ItemsContainer>
-      <Link href='/'>
-        <StyledA selected={location === '/'}>DASHBOARD</StyledA>
-      </Link>
-      <Link href='/faq'>
-        <StyledA selected={location === '/faq'}>FAQ</StyledA>
-      </Link>
-      <Link href='/sponsors'>
-        <StyledA selected={location === '/sponsors'}>SPONSORS</StyledA>
-      </Link>
-      {
-        process.env.NODE_ENV !== 'production' && 
-        <Link href='/charcuterie'>
-          <StyledA selected={location === '/charcuterie'}>CHARCUTERIE</StyledA>
+        <Link href='/'>
+          <StyledA selected={location === '/'}>DASHBOARD</StyledA>
         </Link>
-      }
+        <Link href='/faq'>
+          <StyledA selected={location === '/faq'}>FAQ</StyledA>
+        </Link>
+        <Link href='/sponsors'>
+          <StyledA selected={location === '/sponsors'}>SPONSORS</StyledA>
+        </Link>
+        {
+          process.env.NODE_ENV !== 'production' &&
+          <Link href='/charcuterie'>
+            <StyledA selected={location === '/charcuterie'}>CHARCUTERIE</StyledA>
+          </Link>
+        }
       </ItemsContainer>
     </SidebarContainer>
   );

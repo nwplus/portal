@@ -31,28 +31,28 @@ const TimeFlex = styled.div`
 `
 
 const TimeDisplay = ({ days, hours, minutes, seconds }) => {
-    // formats to 2-digit num with prepended 0
-    function fmt(time) {return ("0" + time).slice(-2)}
+  // formats to 2-digit num with prepended 0
+  function fmt(time) { return ("0" + time).slice(-2) }
 
-    return (
-        <TimeDiv>
-            <TimeFlex>
-                <TimeText>{fmt(days)}</TimeText>
-                <Separator>:</Separator>
-                <TimeText>{fmt(hours)}</TimeText>
-                <Separator>:</Separator>
-                <TimeText>{fmt(minutes)}</TimeText>
-                <Separator>:</Separator>
-                <TimeText>{fmt(seconds)}</TimeText>
-            </TimeFlex>
-            <TimeFlex>
-                <TimeUnitText>day</TimeUnitText>
-                <TimeUnitText>hr</TimeUnitText>
-                <TimeUnitText>min</TimeUnitText>
-                <TimeUnitText>sec</TimeUnitText>
-            </TimeFlex>
-        </TimeDiv>
-    );
+  return (
+    <TimeDiv>
+      <TimeFlex>
+        <TimeText>{fmt(days)}</TimeText>
+        <Separator>:</Separator>
+        <TimeText>{fmt(hours)}</TimeText>
+        <Separator>:</Separator>
+        <TimeText>{fmt(minutes)}</TimeText>
+        <Separator>:</Separator>
+        <TimeText>{fmt(seconds)}</TimeText>
+      </TimeFlex>
+      <TimeFlex>
+        <TimeUnitText>day</TimeUnitText>
+        <TimeUnitText>hr</TimeUnitText>
+        <TimeUnitText>min</TimeUnitText>
+        <TimeUnitText>sec</TimeUnitText>
+      </TimeFlex>
+    </TimeDiv>
+  );
 }
 
 export default TimeDisplay

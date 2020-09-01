@@ -1,12 +1,65 @@
 import React from 'react';
-import { Card } from './Common';
-import { H1, P, H3 } from './Typography';
+import Accordion from '../components/Accordion';
+import { H1, P, H2 } from './Typography';
+import styled from 'styled-components'
+import { CardLike } from './Common'
+
+const DetailFlex = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+`
+
+const DetailColumn = styled.ul`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  margin: 0;
+  margin-right: 1em;
+  padding: 0;
+
+  & > li {
+    ${CardLike};
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    list-style-type: none;
+  }
+`
 
 export default ({ faq }) => {
   const categories = faq.reduce((q, a) => {
     q[a.category] = [...q[a.category] || [], a]; // group by category
     return q;
   }, {});
+
+  function splitHalf(arr) {
+    const half = Math.ceil(arr.length / 2);
+    return [arr.splice(0, half), arr.splice(-half)];
+  }
+
+  function createFAQList(entries) {
+    return (
+      <DetailFlex>
+        {
+          splitHalf(entries).map(half =>
+            <DetailColumn>{half.map(singleEntry)}</DetailColumn>
+          )
+        }
+      </DetailFlex>
+    );
+  }
+
+  function singleEntry(entry) {
+    return (
+      <li>
+        <Accordion heading={entry.question}>
+          <P>{entry.answer}</P>
+        </Accordion>
+      </li>
+    );
+  }
 
   return (
     <>
@@ -15,15 +68,8 @@ export default ({ faq }) => {
         (Object.keys(categories)).map(category => {
           return (
             <>
-              <H3>{category}</H3>
-              {
-                categories[category].map(q => {
-                  return <Card key={q.question}>
-                    <H3>{q.question}</H3>
-                    <P>{q.answer}</P>
-                  </Card>
-                })
-              }
+              <H2>{category}</H2>
+              {createFAQList(categories[category])}
             </>
           );
         })

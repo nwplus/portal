@@ -17,8 +17,8 @@ export default () => {
           Object.values(querySnapshot.docs.map(doc => doc.data()))
         )
       });
-      return unsubscribe
+    return unsubscribe
   }, [setAnnouncements])
 
-  return announcements.length ? <Announcements announcements={announcements}/> : null
+  return announcements.length ? <Announcements announcements={announcements} /> : null
 };

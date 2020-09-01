@@ -1,10 +1,14 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { text } from './Typography'
 
-export const Card = styled.div`
+export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.primary};
+`
+
+export const Card = styled.div`
+  ${CardLike};
 `
 
 export const Button = styled.button`
