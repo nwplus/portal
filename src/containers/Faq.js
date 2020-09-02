@@ -28,7 +28,7 @@ export default () => {
     () => {
       const handler = setTimeout(() => {
         setDebouncedSearch(search);
-      }, 300); // 300ms
+      }, 10);
 
       return () => {
         // teardown

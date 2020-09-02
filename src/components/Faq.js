@@ -32,10 +32,14 @@ const DetailColumn = styled.ul`
   }
 `
 
+const DetailAnswer = styled(P)`
+  margin-bottom: 0.85em;
+`
+
 export default ({ faq }) => {
-  const categories = faq.reduce((q, a) => {
-    q[a.category] = [...q[a.category] || [], a]; // group by category
-    return q;
+  const categories = faq.reduce((accumulator, question) => {
+    accumulator[question.category] = [...accumulator[question.category] || [], question];
+    return accumulator; // group by category
   }, {});
 
   function splitHalf(arr) {
@@ -59,7 +63,7 @@ export default ({ faq }) => {
     return (
       <li>
         <Accordion heading={entry.question}>
-          <P>{entry.answer}</P>
+          <DetailAnswer>{entry.answer}</DetailAnswer>
         </Accordion>
       </li>
     );
