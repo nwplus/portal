@@ -42,7 +42,6 @@ export default () => {
             countDownDate={countDownDate}
             eventName={eventName}
             eventDurationHours={eventDurationHours}
-            >
-        </Countdown>
+        />
     );
 };
