@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Faq from '../components/Faq'
-import { H1 } from '../components/Typography';
+import { H1, H2 } from '../components/Typography';
 import { SearchBar } from '../components/Common';
 import { db } from '../utility/firebase'
 import { FAQ_COLLECTION, DB_HACKATHON } from '../utility/Constants'
@@ -57,7 +57,7 @@ export default () => {
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
-      {faqs.length ? <Faq faq={filtered} /> : null}
+      {filtered.length ? <Faq faq={filtered} /> : <H2> No results found. </H2>}
     </>
   )
 };
