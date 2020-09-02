@@ -29,10 +29,7 @@ export default () => {
         return unsubscribe
     }, [setStart, setEnd])
 
-    console.log(start, end)
-
     const eventDurationHours = (end.getTime() - start.getTime()) / 1000 / 3600
-
     const beforeHackingStart = (new Date()).getTime() < start
     const countDownDate = beforeHackingStart ? start : end
     const eventName = beforeHackingStart ? "Hacking starts in..." : "Hacking ends in..."
