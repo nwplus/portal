@@ -3,6 +3,7 @@ import { H1, H2, H3, P, A } from '../components/Typography'
 import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
+import Livestream from '../components/Livestream'
 
 export default () => (
   <>
@@ -15,7 +16,7 @@ export default () => (
     </>
     <>
       <H2>Countdown</H2>
-      <Countdown countDownDate={new Date("Fri Aug 05 2020 00:01:22 GMT-0700 (Pacific Daylight Time)")} eventDurationHours={48} />
+      <Countdown countDownDate={new Date("Fri Aug 05 2020 00:01:22 GMT-0700 (Pacific Daylight Time)")} eventDurationHours={48} eventName="Hacking ends in..." />
     </>
     <Card>
       <H2>Card Element</H2>
@@ -26,5 +27,7 @@ export default () => (
     <Accordion heading="Accordion Component">
       Some hidden content. This can get pretty long too, and even contain other stuff like headers or images.
     </Accordion>
+    <H2>Livestream Component</H2>
+    <Livestream />
   </>
 )

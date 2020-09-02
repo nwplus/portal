@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import { Card } from './Common'
 
-const TimeDiv = styled(Card)`
+const TimeDiv = styled.div`
   margin: 0;
   text-align: center;
   font-weight: 600;
@@ -46,7 +45,7 @@ const TimeDisplay = ({ days, hours, minutes, seconds }) => {
         <TimeText>{fmt(seconds)}</TimeText>
       </TimeFlex>
       <TimeFlex>
-        <TimeUnitText>day</TimeUnitText>
+        <TimeUnitText>{days === 1 ? 'day' : 'days'}</TimeUnitText>
         <TimeUnitText>hr</TimeUnitText>
         <TimeUnitText>min</TimeUnitText>
         <TimeUnitText>sec</TimeUnitText>

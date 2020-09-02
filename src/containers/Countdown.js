@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-
-import ProgressBar from '../components/ProgressBar'
+import styled from 'styled-components'
+import { H2 } from '../components/Typography'
 import TimeDisplay from '../components/TimeDisplay'
 
-const Countdown = ({ countDownDate, eventDurationHours }) => {
+export const CenteredCard = styled.div`
+  text-align: center;
+`
+
+const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -14,15 +18,17 @@ const Countdown = ({ countDownDate, eventDurationHours }) => {
   }, []);
 
   // calculate ratios
-  const diff = new Date(Math.abs(countDownDate - now));
-  const rawHours = 24 * diff.getDay() + diff.getHours() + diff.getMinutes() / 60
-  const progress = 1 - (rawHours / eventDurationHours)
+  const diff = Math.max(countDownDate - now, 0); // floor to 0 if in the past
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
+  const minutes = Math.floor((diff / (1000 * 60)) % 60)
+  const seconds = Math.floor((diff / 1000) % 60)
 
   return (
-    <>
-      <TimeDisplay days={diff.getDay()} hours={diff.getHours()} minutes={diff.getMinutes()} seconds={diff.getSeconds()}></TimeDisplay>
-      <ProgressBar percent={progress * 100}></ProgressBar>
-    </>
+    <CenteredCard>
+      <H2>{eventName.toUpperCase()}</H2>
+      <TimeDisplay days={days} hours={hours} minutes={minutes} seconds={seconds} />
+    </CenteredCard>
   );
 }
 
