@@ -42,12 +42,12 @@ export default ({ faq }) => {
     return accumulator; // group by category
   }, {});
 
-  function splitHalf(arr) {
+  const splitHalf = (arr) => {
     const half = Math.ceil(arr.length / 2);
     return [arr.splice(0, half), arr.splice(-half)];
   }
 
-  function createFAQList(entries) {
+  const createFAQList = (entries) => {
     return (
       <DetailFlex>
         {
@@ -59,7 +59,7 @@ export default ({ faq }) => {
     );
   }
 
-  function singleEntry(entry) {
+  const singleEntry = (entry) => {
     return (
       <li>
         <Accordion heading={entry.question}>
