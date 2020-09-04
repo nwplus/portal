@@ -4,6 +4,8 @@ import { H3 } from './Typography';
 
 const Accordion = styled.details`
   display: inline-block;
+  width: 100%;
+  cursor: pointer;
   
   & > summary:focus {
     outline: 0;
