@@ -1,6 +1,7 @@
 import React from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
 import { Card, Button, SecondaryButton } from '../components/Common.js'
+import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 
 export default () => (
@@ -22,5 +23,8 @@ export default () => (
       <Button>Primary</Button>
       <SecondaryButton>Secondary</SecondaryButton>
     </Card>
+    <Accordion heading="Accordion Component">
+      Some hidden content. This can get pretty long too, and even contain other stuff like headers or images.
+    </Accordion>
   </>
 )

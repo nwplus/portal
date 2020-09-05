@@ -22,13 +22,13 @@ const FlexSecondary = styled.div`
   background-color: ${p => p.theme.colors.primary};
 `
 
-const ProgressBar = ({percent}) => {
-    return (
-        <ProgressBarContainer>
-            <FlexPrimary percent={percent}/>
-            <FlexSecondary />
-        </ProgressBarContainer>
-    );
+const ProgressBar = ({ percent }) => {
+  return (
+    <ProgressBarContainer>
+      <FlexPrimary percent={percent} />
+      <FlexSecondary />
+    </ProgressBarContainer>
+  );
 }
 
 export default ProgressBar

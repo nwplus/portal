@@ -1,10 +1,14 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { text } from './Typography'
 
-export const Card = styled.div`
+export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.primary};
+`
+
+export const Card = styled.div`
+  ${CardLike};
 `
 
 export const Button = styled.button`
@@ -23,4 +27,14 @@ export const SecondaryButton = styled(Button)`
   color: ${p => p.theme.colors.highlight};
   border: 1px solid ${p => p.theme.colors.highlight};
   padding: calc(1em - 1px);
+`
+
+export const SearchBar = styled.input.attrs({
+  type: 'text',
+})`
+  ${CardLike};
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
 `

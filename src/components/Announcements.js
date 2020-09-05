@@ -13,7 +13,7 @@ const Announcement = styled.div`
   margin: 1em 0;
 `
 
-export default ({announcements}) => (
+export default ({ announcements }) => (
   <Card>
     <StyledH1>Announcements</StyledH1>
     {
@@ -25,7 +25,7 @@ export default ({announcements}) => (
           <ReactMarkdown
             linkTarget='_blank'
             allowedTypes={['text', 'paragraph', 'strong', 'emphasis', 'link', 'break', 'list', 'listItem']}
-            renderers={{link: A, paragraph: P}}
+            renderers={{ link: A, paragraph: P }}
             source={announcement.content}
           />
           <P highlight>{timeAgo} @ {date}</P>
