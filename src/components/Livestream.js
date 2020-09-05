@@ -9,13 +9,13 @@ const TwitchFrame = styled.iframe`
 `
 
 const LivestreamContainer = styled(Card)`
-    text-align: center;
+  text-align: center;
 `
 
 const LeftAlign = styled.div`
-    width: 1280px;
-    text-align: left;
-    margin: 0 auto;
+  width: 1280px;
+  text-align: left;
+  margin: 0 auto;
 `
 
 const Pulse = keyframes`
@@ -40,22 +40,22 @@ const LiveDot = styled.span`
 `
 
 const Livestream = () => {
-    return (
-        <LivestreamContainer>
-            <TwitchFrame
-                src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=live.nwplus.io"
-                height="720"
-                width="1280"
-                frameborder="0"
-                scrolling="no"
-                allowfullscreen="true">
-            </TwitchFrame>
-            <LeftAlign>
-                <H2><LiveDot /> nwPlus - Live</H2>
+  return (
+    <LivestreamContainer>
+      <TwitchFrame
+        src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=live.nwplus.io"
+        height="720"
+        width="1280"
+        frameborder="0"
+        scrolling="no"
+        allowfullscreen="true">
+      </TwitchFrame>
+      <LeftAlign>
+        <H2><LiveDot /> nwPlus - Live</H2>
                 View on <a href="https://www.twitch.tv/nwplus" target="_blank" rel="noopener noreferrer">Twitch</a>
-            </LeftAlign>
-        </LivestreamContainer>
-    );
+      </LeftAlign>
+    </LivestreamContainer>
+  );
 }
 
 export default Livestream
