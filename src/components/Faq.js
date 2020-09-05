@@ -26,6 +26,7 @@ const DetailColumn = styled.ul`
 
   & > li {
     ${CardLike};
+    margin: 0;
     padding: 0.5em 1em;
     margin-bottom: 1em;
     list-style-type: none;
