@@ -7,12 +7,6 @@ export default () => {
   const [start, setStart] = useState(new Date())
   const [end, setEnd] = useState(new Date())
 
-  function toDateTime(secs) {
-    var t = new Date(1970, 0, 1);
-    t.setSeconds(secs);
-    return t;
-  }
-
   useEffect(() => {
     const unsubscribe = db
       .collection(DB_COLLECTION)
@@ -22,8 +16,8 @@ export default () => {
       .onSnapshot(querySnapshot => {
         const d = querySnapshot.docs[0].data()
         if (d) {
-          setStart(toDateTime(d.startTime.seconds))
-          setEnd(toDateTime(d.endTime.seconds))
+          setStart(new Date(d.startTime))
+          setEnd(new Date(d.endTime))
         }
       });
     return unsubscribe

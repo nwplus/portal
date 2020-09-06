@@ -52,7 +52,6 @@ const Livestream = () => {
       </TwitchFrame>
       <LeftAlign>
         <H2><LiveDot /> nwPlus - Live</H2>
-                View on <a href="https://www.twitch.tv/nwplus" target="_blank" rel="noopener noreferrer">Twitch</a>
       </LeftAlign>
     </LivestreamContainer>
   );

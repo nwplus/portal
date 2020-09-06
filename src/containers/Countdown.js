@@ -4,7 +4,7 @@ import { H2 } from '../components/Typography'
 import TimeDisplay from '../components/TimeDisplay'
 import ProgressBar from '../components/ProgressBar'
 
-export const CenteredCard = styled.div`
+export const Centered = styled.div`
   text-align: center;
 `
 
@@ -29,11 +29,11 @@ const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
   const progress = 1 - (rawHours / eventDurationHours)
 
   return (
-    <CenteredCard>
+    <Centered>
       <H2>{eventName.toUpperCase()}</H2>
       <TimeDisplay days={days} hours={hours} minutes={minutes} seconds={seconds} />
       <ProgressBar percent={progress * 100} />
-    </CenteredCard>
+    </Centered>
   );
 }
 

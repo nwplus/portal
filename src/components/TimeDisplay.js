@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 
-const TimeDiv = styled.div`
+const TimeContainer = styled.div`
   margin: 0;
   text-align: center;
   font-weight: 600;
@@ -34,7 +34,7 @@ const TimeDisplay = ({ days, hours, minutes, seconds }) => {
   function fmt(time) { return ("0" + time).slice(-2) }
 
   return (
-    <TimeDiv>
+    <TimeContainer>
       <TimeFlex>
         <TimeText>{fmt(days)}</TimeText>
         <Separator>:</Separator>
@@ -50,7 +50,7 @@ const TimeDisplay = ({ days, hours, minutes, seconds }) => {
         <TimeUnitText>min</TimeUnitText>
         <TimeUnitText>sec</TimeUnitText>
       </TimeFlex>
-    </TimeDiv>
+    </TimeContainer>
   );
 }
 
