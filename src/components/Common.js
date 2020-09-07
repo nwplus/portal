@@ -5,6 +5,7 @@ export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.primary};
+  margin: 2em 0;
 `
 
 export const Card = styled.div`
