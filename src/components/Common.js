@@ -4,7 +4,7 @@ import { text } from './Typography'
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
-  background-color: ${p => p.theme.colors.primary};
+  background-color: ${p => p.theme.colors.secondaryBackground};
   margin: 2em 0;
 `
 

@@ -9,7 +9,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 60px;
+  padding: 24px 60px;
+  box-sizing: border-box;
   width: 100%;
 `;
 

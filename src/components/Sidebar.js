@@ -4,14 +4,14 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 
 const SidebarContainer = styled.div`
-  border-right: 1px solid #aaa;
-  min-width: 200px;
-  padding: 30px;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  min-width: 275px;
 `;
 
 const Header = styled.h1`
   font-weight: bold;
   font-size: 32px;
+  margin: 30px;
 `;
 
 const ItemsContainer = styled.div`
@@ -22,8 +22,11 @@ const ItemsContainer = styled.div`
 const StyledA = styled(A)`
   display: block;
   font-weight: bold;
-  margin: 0.3em 0;
-  padding: 0.3em 0;
+  padding: 1em 30px;
+  ${p => (p.selected && `background: ${p.theme.colors.secondaryBackground};`)}
+  &:hover {
+    background: ${p => p.theme.colors.secondaryBackground};
+  }
 `
 
 export default () => {

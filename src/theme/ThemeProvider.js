@@ -3,12 +3,13 @@ import { ThemeProvider } from 'styled-components'
 
 const theme = {
   colors: {
-    background: '#fff',
-    primary: '#EEEEEE',
-    highlight: '#4A5089',
-    text: '#000',
-    link: '#31E0E0',
-    linkHover: '#222' //TODO
+    background: '#2D2937',
+    secondaryBackground: '#1D1B24',
+    primary: '#31E0E0',
+    highlight: '#fff',
+    text: '#fff',
+    link: 'rgba(255, 255, 255, 0.6)',
+    linkHover: '#fff' //TODO
   },
   typography: {
     h1: {
