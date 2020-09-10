@@ -6,9 +6,9 @@ const theme = {
     background: '#2D2937',
     secondaryBackground: '#1D1B24',
     primary: '#31E0E0',
-    highlight: '#fff',
+    highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
-    link: 'rgba(255, 255, 255, 0.6)',
+    link: '#31E0E0',
     linkHover: '#fff' //TODO
   },
   typography: {

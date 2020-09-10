@@ -27,15 +27,18 @@ export const H3 = styled.h3`
 
 export const P = styled.p`
   ${text};
-  ${p => (p.highlight && 'color: ' + p.theme.colors.link)};
+  ${p => (p.highlight && 'color: ' + p.theme.colors.highlight)};
   margin: 0;
 `
 
 export const A = styled.a`
   cursor: pointer;
   text-decoration: none;
-  color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.link)};
+  color: ${p => p.theme.colors.link};
   transition: all 0.5s cubic-bezier(.25,.8,.25,1);
+  &:hover {
+    color: ${p => p.theme.colors.linkHover};
+  }
   &:focus {
     color: ${p => p.theme.colors.linkHover};
   }
