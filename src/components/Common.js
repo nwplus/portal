@@ -4,7 +4,7 @@ import { text } from './Typography'
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
-  background-color: ${p => p.theme.colors.primary};
+  background-color: ${p => p.theme.colors.secondaryBackground};
   margin: 2em 0;
 `
 
@@ -15,7 +15,8 @@ export const Card = styled.div`
 export const Button = styled.button`
   ${text};
   cursor: pointer;
-  background: ${p => p.theme.colors.highlight};
+  font-family: 'HK Grotesk';
+  background: ${p => p.theme.colors.primary};
   color: ${p => p.theme.colors.background};
   padding: 1em;
   border: none;
@@ -25,8 +26,8 @@ export const Button = styled.button`
 
 export const SecondaryButton = styled(Button)`
   background: ${p => p.theme.colors.background};
-  color: ${p => p.theme.colors.highlight};
-  border: 1px solid ${p => p.theme.colors.highlight};
+  color: ${p => p.theme.colors.primary};
+  border: 1px solid ${p => p.theme.colors.primary};
   padding: calc(1em - 1px);
 `
 

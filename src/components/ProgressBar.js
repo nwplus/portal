@@ -8,18 +8,18 @@ const ProgressBarContainer = styled.div`
   margin: 1em 0;
   border-radius: 3px;
   overflow: hidden;
-  border: 1px solid ${p => p.theme.colors.primary};
+  border: 2px solid ${p => p.theme.colors.secondaryBackground};
+  background-color: ${p => p.theme.colors.secondaryBackground};
 `
 
 // filled part of progress bar
 const FlexPrimary = styled.div`
   flex: 0 0 ${p => p.percent}%;
-  background-color: ${p => p.theme.colors.highlight};
+  background-color: ${p => p.theme.colors.primary};
 `
 
 // rest of progress bar
 const FlexSecondary = styled.div`
-  background-color: ${p => p.theme.colors.primary};
 `
 
 const ProgressBar = ({ percent }) => {

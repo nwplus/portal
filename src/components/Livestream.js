@@ -3,17 +3,28 @@ import styled, { keyframes } from 'styled-components'
 import { Card } from '../components/Common.js'
 import { H2 } from '../components/Typography'
 
+const Container = styled(Card)`
+  text-align: center;
+`
+
+const TwitchContainer = styled.div`
+  overflow: hidden;
+  /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  position: relative;
+`
+
 const TwitchFrame = styled.iframe`
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   border: none;
 `
 
-const LivestreamContainer = styled(Card)`
-  text-align: center;
-`
-
 const LeftAlign = styled.div`
-  width: 1280px;
   text-align: left;
   margin: 0 auto;
 `
@@ -41,19 +52,19 @@ const LiveDot = styled.span`
 
 const Livestream = () => {
   return (
-    <LivestreamContainer>
-      <TwitchFrame
-        src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=live.nwplus.io"
-        height="720"
-        width="1280"
-        frameborder="0"
-        scrolling="no"
-        allowfullscreen="true">
-      </TwitchFrame>
+    <Container>
+      <TwitchContainer>
+        <TwitchFrame
+          src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=live.nwplus.io"
+          frameborder="0"
+          scrolling="no"
+          allowfullscreen="true">
+        </TwitchFrame>
+      </TwitchContainer>
       <LeftAlign>
         <H2><LiveDot /> nwPlus - Live</H2>
       </LeftAlign>
-    </LivestreamContainer>
+    </Container>
   );
 }
 
