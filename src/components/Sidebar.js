@@ -12,6 +12,7 @@ const Header = styled.h1`
   font-weight: bold;
   font-size: 32px;
   margin: 30px;
+  margin-left: 60px;
 `;
 
 const ItemsContainer = styled.div`
@@ -22,7 +23,7 @@ const ItemsContainer = styled.div`
 const StyledA = styled(A)`
   display: block;
   font-weight: bold;
-  padding: 1em 30px;
+  padding: 1em 60px;
   color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.highlight)};
   ${p => (p.selected && `background: ${p.theme.colors.secondaryBackground};`)}
   &:hover {
@@ -38,7 +39,7 @@ export default () => {
 
   return (
     <SidebarContainer>
-      <Header>Some Title</Header>
+      <Header>nwHacks</Header>
       <ItemsContainer>
         <Link href='/'>
           <StyledA selected={location === '/'}>DASHBOARD</StyledA>

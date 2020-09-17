@@ -32,7 +32,7 @@ const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
     <Centered>
       <H2>{eventName.toUpperCase()}</H2>
       <TimeDisplay days={days} hours={hours} minutes={minutes} seconds={seconds} />
-      <ProgressBar percent={progress * 100} />
+      {/* <ProgressBar percent={progress * 100} /> */}
     </Centered>
   );
 }
