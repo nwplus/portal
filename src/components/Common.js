@@ -17,7 +17,7 @@ export const Button = styled.a`
   display: block;
   text-decoration: none;
   font-family: 'HK Grotesk';
-  font-weight: 600;
+  font-weight: ${p => p.theme.typography.h2.weight};
   background: ${p => p.theme.colors.primary};
   color: ${p => p.theme.colors.background};
   text-align: center;

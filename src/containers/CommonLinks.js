@@ -19,9 +19,15 @@ export default () => {
       .doc(DB_HACKATHON)
       .collection('QuickLinks')
       .orderBy('label')
-      .onSnapshot(querySnapshot => {
+      .get()
+      .then(querySnapshot => {
         setLinks(
-          Object.values(querySnapshot.docs.map(doc => doc.data()))
+          // Only keep the common links
+          Object.values(querySnapshot.docs.reduce((filtered, doc) => {
+            const data = doc.data()
+            data.common && filtered.push(data)
+            return filtered
+          }, []))
         )
       });
     return unsubscribe
