@@ -6,7 +6,8 @@ import {
   Charcuterie,
   Home,
   Faq,
-  Sponsors
+  Sponsors,
+  Quicklinks
 } from './pages'
 import Page from './components/Page'
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='/charcuterie'><Charcuterie /></Route>
           <Route path='/faq'><Faq /></Route>
           <Route path='/sponsors'><Sponsors /></Route>
+          <Route path='/quicklinks'><Quicklinks /></Route>
         </Page>
       </ThemeProvider>
     </>

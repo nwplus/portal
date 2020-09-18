@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { H2 } from '../components/Typography'
 import TimeDisplay from '../components/TimeDisplay'
-import ProgressBar from '../components/ProgressBar'
+// import ProgressBar from '../components/ProgressBar'
 
 export const Centered = styled.div`
   text-align: center;
@@ -25,8 +25,8 @@ const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
   const minutes = Math.floor((diff / (1000 * 60)) % 60)
   const seconds = Math.floor((diff / 1000) % 60)
 
-  const rawHours = 24 * days + hours + minutes / 60
-  const progress = 1 - (rawHours / eventDurationHours)
+  // const rawHours = 24 * days + hours + minutes / 60
+  // const progress = 1 - (rawHours / eventDurationHours)
 
   return (
     <Centered>

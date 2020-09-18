@@ -66,6 +66,9 @@ export default () => {
         <Link href='/'>
           <StyledA selected={location === '/'}>DASHBOARD</StyledA>
         </Link>
+        <Link href='/quicklinks'>
+          <StyledA selected={location === '/quicklinks'}>QUICKLINKS</StyledA>
+        </Link>
         <Link href='/faq'>
           <StyledA selected={location === '/faq'}>FAQ</StyledA>
         </Link>
