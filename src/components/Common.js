@@ -12,23 +12,25 @@ export const Card = styled.div`
   ${CardLike};
 `
 
-export const Button = styled.button`
+export const Button = styled.a`
   ${text};
-  cursor: pointer;
+  display: block;
+  text-decoration: none;
   font-family: 'HK Grotesk';
+  font-weight: ${p => p.theme.typography.h2.weight};
   background: ${p => p.theme.colors.primary};
   color: ${p => p.theme.colors.background};
-  padding: 1em;
-  border: none;
+  text-align: center;
+  width: 75px;
+  padding: 0.75em 2.5em;
   border-radius: 3px;
-  margin-right: 1.5em;
+  margin: 1em;
 `
 
 export const SecondaryButton = styled(Button)`
   background: ${p => p.theme.colors.background};
   color: ${p => p.theme.colors.primary};
   border: 1px solid ${p => p.theme.colors.primary};
-  padding: calc(1em - 1px);
 `
 
 export const SearchBar = styled.input.attrs({
