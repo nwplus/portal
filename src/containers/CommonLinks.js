@@ -14,7 +14,7 @@ export default () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    const unsubscribe = db
+    db
       .collection(DB_COLLECTION)
       .doc(DB_HACKATHON)
       .collection('QuickLinks')
@@ -30,7 +30,6 @@ export default () => {
           }, []))
         )
       });
-    return unsubscribe
   }, [setLinks])
 
   return (
