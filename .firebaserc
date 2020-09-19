@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "nwplus-ubc-dev"
+    "default": "nwplus-ubc"
+  },
+  "targets": {
+    "nwplus-ubc-dev": {
+      "hosting": {
+        "production": [
+          "nw-livesite"
+        ]
+      }
+    }
   }
 }
