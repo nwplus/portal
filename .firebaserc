@@ -3,7 +3,7 @@
     "default": "nwplus-ubc"
   },
   "targets": {
-    "nwplus-ubc-dev": {
+    "nwplus-ubc": {
       "hosting": {
         "production": [
           "nw-livesite"
