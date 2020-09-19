@@ -55,7 +55,7 @@ const Livestream = () => {
     <Container>
       <TwitchContainer>
         <TwitchFrame
-          src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=live.nwplus.io&parent=nwplus-ubc.firebaseapp.com"
+          src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=live.nwplus.io&parent=nw-livesite.firebaseapp.com"
           frameborder="0"
           scrolling="no"
           allowfullscreen="true">
