@@ -43,6 +43,7 @@ export const CommonLinks = () => {
       {
         links.map(link => (
           <Button
+            key={link.href}
             href={link.href}
             rel="noopener noreferrer"
             target="_blank"
@@ -70,6 +71,7 @@ export const QuickLinks = () => {
       })
       .then(links => {
         //TODO: Group links into categories
+        console.log(links)
         setLinks(links)
       })
   }, [setLinks])
@@ -79,7 +81,7 @@ export const QuickLinks = () => {
     <ButtonContainer>
       {
         links.map(link => (
-          <QuicklinksCard title={link.label} />
+          <QuicklinksCard key={link.label} title={link.label} />
         ))
       }
     </ButtonContainer>
