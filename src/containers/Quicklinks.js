@@ -9,27 +9,32 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
 `
+const getLinks = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .collection('QuickLinks')
+    .orderBy('label')
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    });
+}
 
-export default () => {
+export const CommonLinks = () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    db
-      .collection(DB_COLLECTION)
-      .doc(DB_HACKATHON)
-      .collection('QuickLinks')
-      .orderBy('label')
-      .get()
-      .then(querySnapshot => {
-        setLinks(
-          // Only keep the common links
-          Object.values(querySnapshot.docs.reduce((filtered, doc) => {
-            const data = doc.data()
-            data.common && filtered.push(data)
-            return filtered
-          }, []))
-        )
-      });
+    getLinks()
+      .then(docs => {
+        // Only keep the common links
+        const filtered = Object.values(docs.reduce((result, doc) => {
+          const data = doc.data()
+          data.common && result.push(data)
+          return result
+        }, []))
+        setLinks(filtered)
+      })
   }, [setLinks])
 
   return (
