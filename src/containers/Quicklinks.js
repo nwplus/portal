@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Button } from '../components/Common'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import QuicklinksCard from '../components/QuicklinksCard'
 
 const ButtonContainer = styled.div`
   margin: 1em;
@@ -78,9 +79,7 @@ export const QuickLinks = () => {
     <ButtonContainer>
       {
         links.map(link => (
-          <p>
-            {link.href} - {link.label}
-          </p>
+          <QuicklinksCard title={link.label} />
         ))
       }
     </ButtonContainer>
