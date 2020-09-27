@@ -53,3 +53,36 @@ export const CommonLinks = () => {
     </ButtonContainer>
   );
 }
+
+export const QuickLinks = () => {
+  const [links, setLinks] = useState([])
+
+  useEffect(() => {
+    getLinks()
+      .then(docs => {
+        // Only keep the uncommon links
+        return Object.values(docs.reduce((result, doc) => {
+          const data = doc.data()
+          !data.common && result.push(data)
+          return result
+        }, []))
+      })
+      .then(links => {
+        //TODO: Group links into categories
+        setLinks(links)
+      })
+  }, [setLinks])
+
+  //TODO: Use QuickLinks card component
+  return (
+    <ButtonContainer>
+      {
+        links.map(link => (
+          <p>
+            {link.href} - {link.label}
+          </p>
+        ))
+      }
+    </ButtonContainer>
+  );
+}
