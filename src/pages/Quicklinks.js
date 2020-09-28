@@ -1,8 +1,11 @@
 import React from 'react';
-import CommonLinks from '../containers/CommonLinks'
+import { CommonLinks, QuickLinks } from '../containers/Quicklinks'
 
 export default () => {
   return (
-    <CommonLinks />
+    <>
+      <CommonLinks />
+      <QuickLinks />
+    </>
   )
 }
