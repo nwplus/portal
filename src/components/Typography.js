@@ -34,7 +34,7 @@ export const P = styled.p`
 export const A = styled.a`
   cursor: pointer;
   text-decoration: none;
-  border-bottom: 1px solid ${p => p.theme.colors.text};
+  border-bottom: 1px solid ${p => p.theme.colors.link};
   color: ${p => p.theme.colors.link};
   transition: all 0.5s cubic-bezier(.25,.8,.25,1);
   &:hover {

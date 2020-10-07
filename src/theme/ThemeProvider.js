@@ -8,8 +8,8 @@ const theme = {
     primary: '#31E0E0',
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
-    link: '#31E0E0',
-    linkHover: '#fff' //TODO
+    link: '#fff',
+    linkHover: '#31E0E0' //TODO
   },
   typography: {
     h1: {
