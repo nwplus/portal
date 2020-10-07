@@ -41,4 +41,5 @@ export const SearchBar = styled.input.attrs({
   padding: 12px 20px;
   margin: 8px 0;
   border: none;
+  color: ${p => p.theme.colors.text};
 `
