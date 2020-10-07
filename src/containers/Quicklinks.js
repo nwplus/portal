@@ -76,7 +76,6 @@ export const QuickLinks = () => {
       })
   }, [setLinks])
 
-  //TODO: Use QuickLinks card component
   return (
     <ButtonContainer>
       {
