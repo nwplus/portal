@@ -30,16 +30,19 @@ export const P = styled.p`
   ${p => (p.highlight && `color: ${p.theme.colors.link}`)};
   margin: 0;
 `
-
+// note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
 export const A = styled.a`
   cursor: pointer;
   text-decoration: none;
+  border-bottom: 1px solid ${p => p.theme.colors.text};
   color: ${p => p.theme.colors.link};
   transition: all 0.5s cubic-bezier(.25,.8,.25,1);
   &:hover {
     color: ${p => p.theme.colors.linkHover};
+    border-bottom: 1px solid ${p => p.theme.colors.linkHover};
   }
   &:focus {
     color: ${p => p.theme.colors.linkHover};
+    border-bottom: 1px solid ${p => p.theme.colors.linkHover};
   }
 `
