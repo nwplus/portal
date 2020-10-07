@@ -76,12 +76,12 @@ export const QuickLinks = () => {
       })
   }, [setLinks])
 
-  //TODO: Use QuickLinks card component
   return (
     <ButtonContainer>
       {
         links.map(link => (
-          <QuicklinksCard key={link.label} title={link.label} />
+          // TODO: map on link categories, not links
+          <QuicklinksCard key={link.label} title={link.label} links={links} />
         ))
       }
     </ButtonContainer>
