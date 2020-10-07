@@ -46,3 +46,15 @@ export const A = styled.a`
     border-bottom: 1px solid ${p => p.theme.colors.linkHover};
   }
 `
+export const UL = styled.ul`
+  list-style: none;
+  padding-inline-start: 10px;
+`
+export const LI = styled.li`
+  margin: 0 0 10px 0; 
+  &:before {
+    content: "-";
+    padding-right: 8px;
+    color: ${p => p.theme.colors.text};
+  }
+`
