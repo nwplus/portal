@@ -57,6 +57,18 @@ const LiveLabel = styled.p`
 export default () => {
   const [location] = useLocation();
 
+  const links = [
+    { location: "/", text: "DASHBOARD" },
+    { location: "/schedule", text: "SCHEDULE" },
+    { location: "/quicklinks", text: "QUICKLINKS" },
+    { location: "/faq", text: "FAQ" },
+    { location: "/sponsors", text: "SPONSORS" },
+  ]
+
+  if (process.env.NODE_ENV !== 'production') {
+    links.push({ location: "/charcuterie", text: "CHARCUTERIE" })
+  }
+
   return (
     <SidebarContainer>
       <Logo src={logo} alt="logo" />
@@ -64,23 +76,14 @@ export default () => {
         <LiveDot />LIVE
       </LiveLabel>
       <ItemsContainer>
-        <Link href='/'>
-          <StyledA selected={location === '/'}>DASHBOARD</StyledA>
-        </Link>
-        <Link href='/quicklinks'>
-          <StyledA selected={location === '/quicklinks'}>QUICKLINKS</StyledA>
-        </Link>
-        <Link href='/faq'>
-          <StyledA selected={location === '/faq'}>FAQ</StyledA>
-        </Link>
-        <Link href='/sponsors'>
-          <StyledA selected={location === '/sponsors'}>SPONSORS</StyledA>
-        </Link>
         {
-          process.env.NODE_ENV !== 'production' &&
-          <Link href='/charcuterie'>
-            <StyledA selected={location === '/charcuterie'}>CHARCUTERIE</StyledA>
-          </Link>
+          links.map(link => {
+            return (
+              <Link href={link.location}>
+                <StyledA selected={location === link.location}>{link.text}</StyledA>
+              </Link>
+            );
+          })
         }
       </ItemsContainer>
     </SidebarContainer>

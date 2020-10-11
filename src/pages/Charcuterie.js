@@ -4,6 +4,7 @@ import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
+import Schedule from '../components/Schedule'
 
 export default () => (
   <>
@@ -29,5 +30,7 @@ export default () => (
     </Accordion>
     <H2>Livestream Component</H2>
     <Livestream />
+    <H2>Schedule Component</H2>
+    <Schedule />
   </>
 )
