@@ -9,6 +9,14 @@ const StyledH1 = styled(H1)`
   margin: 0 0 0.5em 0;
 `
 
+const StyledP = styled(P)`
+  margin-bottom: 0.5em;
+`
+
+const Time = styled(P)`
+  margin-bottom: 0.75em;
+`
+
 const Announcement = styled.div`
   margin: 1em 0;
 `
@@ -25,10 +33,10 @@ export default ({ announcements }) => (
           <ReactMarkdown
             linkTarget='_blank'
             allowedTypes={['text', 'paragraph', 'strong', 'emphasis', 'link', 'break', 'list', 'listItem']}
-            renderers={{ link: A, paragraph: P }}
+            renderers={{ link: A, paragraph: StyledP }}
             source={announcement.content}
           />
-          <P highlight>{timeAgo} @ {date}</P>
+          <Time highlight>{timeAgo} @ {date}</Time>
         </Announcement>
       })
     }
