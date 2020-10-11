@@ -16,3 +16,5 @@ if (!firebase.apps.length) {
 }
 
 export const db = firebase.firestore()
+
+export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
