@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Schedule from '../components/Schedule'
 import { H1 } from '../components/Typography';
 import { db } from '../utility/firebase'
-import { DAYOF_COLLECTION } from '../utility/Constants'
-
-const EventTypes = ["notices", "main", "workshops", "minievents"]
+import { DB_COLLECTION, DB_HACKATHON, DAYOF_COLLECTION } from '../utility/Constants'
 
 export default () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const unsubscribe = db
+      .collection(DB_COLLECTION)
+      .doc(DB_HACKATHON)
       .collection(DAYOF_COLLECTION)
-      .where('type', 'in', EventTypes)
       .orderBy('startTime', 'asc')
       .onSnapshot(querySnapshot => {
         setEvents(
