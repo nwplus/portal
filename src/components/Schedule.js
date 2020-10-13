@@ -4,17 +4,44 @@ import { Card } from './Common';
 import { P, H3 } from './Typography';
 
 const HOUR_HEIGHT = 150
-const EVENT_GAP = 10
+const EVENT_GAP = 5
+const EVENT_WIDTH = 400
 
 const ScheduleFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: ${props => (props.duration * HOUR_HEIGHT) - 20}px;
 `
 
 const ScheduleColumn = styled.div`
-  flex: 0 0 400px;
-  height: auto;
+  flex: 0 0 ${EVENT_WIDTH}px;
+`
+
+const TimelineColumnContainer = styled.div`
+  flex: 0 0 100px;
+  height: ${props => (props.duration * HOUR_HEIGHT) - 20}px;
+`
+
+const TimelineBlock = styled.div`
+  position: absolute;
+  transform: translateY(-${EVENT_GAP + 1}px);
+`
+
+const TimelineHR = styled.hr`
+  display: inline-block;
+  width: 70vw;
+  margin-top: ${props => (props.hourOffset * HOUR_HEIGHT)}px;
+
+  border: 0;
+  border-bottom: 1px dashed ${p => p.theme.colors.foreground};
+`
+
+const TimelineLabel = styled.span`
+  padding-right: 1em;
+`
+
+const EventDescription = styled(P)`
+  opacity: 0.8;
+  margin-bottom: 2em;
 `
 
 const EventCard = styled(Card)`
@@ -22,25 +49,29 @@ const EventCard = styled(Card)`
   background-color: ${p => p.theme.colors.foreground};
   margin: 5px;
   padding: ${EVENT_GAP}px 15px;
-  width: 350px;
+  width: ${EVENT_WIDTH - 50}px;
   margin-top: ${props => (props.hourOffset * HOUR_HEIGHT)}px;
   height: ${props => (props.duration * HOUR_HEIGHT) - (EVENT_GAP * 4)}px;
   overflow-y: scroll;
-
-  &:after {
-    content  : "";
-    position : absolute;
-    z-index  : 1;
-    bottom   : 0;
-    left     : 0;
-    pointer-events   : none;
-    background-image : linear-gradient(to bottom, 
-                      rgba(255,255,255, 0), 
-                      ${p => p.theme.colors.foreground} 90%);
-    width    : 100%;
-    height   : 3em;
-  }
 `
+
+const TimelineColumn = ({ hackathonStart, duration }) => {
+  duration = Math.max(0, duration)
+  return (
+    <TimelineColumnContainer duration={duration}>
+      {[...Array(duration)].map((v, i) => {
+        const labelTime = new Date(hackathonStart.getTime() + (i * 60 * 60 * 1000))
+        const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+        return (
+          <TimelineBlock>
+            <TimelineLabel>{label}</TimelineLabel>
+            <TimelineHR hourOffset={i} />
+          </TimelineBlock>
+        )
+      })}
+    </TimelineColumnContainer>
+  )
+}
 
 export default ({ events, hackathonStart, hackathonEnd }) => {
   const produceOptimalSchedule = (events) => {
@@ -94,14 +125,15 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
 
   return (
     <Card>
-      <ScheduleFlexContainer duration={durationOfHackathon}>
+      <ScheduleFlexContainer>
+        <TimelineColumn hackathonStart={hackathonStart} duration={durationOfHackathon} />
         {schedule.map((column) =>
           <ScheduleColumn>
             {column.map((event) =>
               <EventCard hourOffset={event.hourOffset} duration={event.duration}>
-                <H3>{event.name}</H3>
+                <H3>{event.name} | {event.type}</H3>
                 <P>{formatTime(event.startTime)} - {formatTime(event.endTime)}</P>
-                <P>{event.description}</P>
+                <EventDescription>{event.description}</EventDescription>
               </EventCard>
             )}
           </ScheduleColumn>
