@@ -6,6 +6,7 @@ const theme = {
     background: '#2D2937',
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
+    warning: '#E03131',
     primary: '#31E0E0',
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',

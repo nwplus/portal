@@ -53,7 +53,15 @@ const EventDescription = styled(P)`
 
 const EventCard = styled(Card)`
   position: absolute;
-  background-color: ${p => p.theme.colors.foreground};
+
+  ${p => props =>
+    props.delayed ? `
+      background: linear-gradient(${p.theme.colors.warning}, ${p.theme.colors.foreground});
+    ` : `
+      background-color: ${p.theme.colors.foreground};
+    `
+  }
+
   margin: 5px;
   padding: ${EVENT_GAP}px 15px;
   width: ${EVENT_WIDTH - 50}px;
@@ -170,8 +178,8 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
         {schedule.map((column) =>
           <ScheduleColumn>
             {column.map((event) =>
-              <EventCard hourOffset={event.hourOffset} duration={event.duration}>
-                <H3>{event.name}</H3>
+              <EventCard hourOffset={event.hourOffset} duration={event.duration} delayed={event.delayed}>
+                <H3>{event.name}{event.delayed && " (DELAYED)"}</H3>
                 <PositionedTag colour={EventTypes[event.type][1]}>{EventTypes[event.type][0]}</PositionedTag>
                 <P>{formatTime(event.startTime)} - {formatTime(event.endTime)}</P>
                 <EventDescription>{event.description}</EventDescription>
