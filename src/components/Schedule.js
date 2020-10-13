@@ -7,6 +7,13 @@ const HOUR_HEIGHT = 150
 const EVENT_GAP = 5
 const EVENT_WIDTH = 400
 
+const EventTypes = {
+  "main": ["MAIN", "#FFFFFF"],
+  "minievents": ["ACTIVITY", "#FFE27A"],
+  "workshop": ["WORKSHOP", "#31E0E0"],
+  "notices": ["NOTICE", "#9EFF7C"],
+}
+
 const ScheduleFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -53,6 +60,34 @@ const EventCard = styled(Card)`
   margin-top: ${props => (props.hourOffset * HOUR_HEIGHT)}px;
   height: ${props => (props.duration * HOUR_HEIGHT) - (EVENT_GAP * 4)}px;
   overflow-y: scroll;
+
+  & > h3 {
+    opacity: 1;
+  }
+`
+
+const TagLegendContainer = styled.div`
+  margin-bottom: 1.5em;
+  text-align: right;
+
+  & > span {
+    margin-right: 5px;
+  }
+`
+
+const Tag = styled.span`
+  color: ${p => p.theme.colors.background};
+  font-weight: ${p => p.theme.typography.h3.weight};
+  margin: 0;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background-color: ${props => props.colour};
+`
+
+const PositionedTag = styled(Tag)`
+  position: absolute;
+  right: 15px;
+  top: 15px;
 `
 
 const TimelineColumn = ({ hackathonStart, duration }) => {
@@ -125,13 +160,19 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
 
   return (
     <Card>
+      <TagLegendContainer>
+        {Object.entries(EventTypes).map(entry => {
+          return <Tag colour={entry[1][1]}>{entry[1][0]}</Tag>
+        })}
+      </TagLegendContainer>
       <ScheduleFlexContainer>
         <TimelineColumn hackathonStart={hackathonStart} duration={durationOfHackathon} />
         {schedule.map((column) =>
           <ScheduleColumn>
             {column.map((event) =>
               <EventCard hourOffset={event.hourOffset} duration={event.duration}>
-                <H3>{event.name} | {event.type}</H3>
+                <H3>{event.name}</H3>
+                <PositionedTag colour={EventTypes[event.type][1]}>{EventTypes[event.type][0]}</PositionedTag>
                 <P>{formatTime(event.startTime)} - {formatTime(event.endTime)}</P>
                 <EventDescription>{event.description}</EventDescription>
               </EventCard>
