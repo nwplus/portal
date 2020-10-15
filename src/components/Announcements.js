@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { format } from 'timeago.js';
 import ReactMarkdown from 'react-markdown';
 import { Card } from './Common';
-import { H1, H2, P, A } from './Typography';
+import { H1, P, A } from './Typography';
 import NotificationToggle from '../containers/NotificationToggle';
 
 const StyledH1 = styled(H1)`
@@ -31,7 +31,7 @@ const AnnouncementHeader = styled.div`
 `
 
 // TODO should AnnouncementHeader just be a separate component?
-export default ({ announcements, notifsEnabled }) => (
+export default ({ announcements }) => (
   <Card>
     <AnnouncementHeader>
       <StyledH1>Announcements</StyledH1>
