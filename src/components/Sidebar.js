@@ -77,9 +77,9 @@ export default () => {
       </LiveLabel>
       <ItemsContainer>
         {
-          links.map(link => {
+          links.map((link, i) => {
             return (
-              <Link href={link.location}>
+              <Link key={i} href={link.location}>
                 <StyledA selected={location === link.location}>{link.text}</StyledA>
               </Link>
             );

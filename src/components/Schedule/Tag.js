@@ -29,8 +29,9 @@ export const PositionedTag = styled(Tag)`
 export const TagLegend = () => {
   return (
     <TagLegendContainer>
-      {Object.entries(EVENT_TYPES).map(entry => {
-        return <Tag colour={entry[1][1]}>{entry[1][0]}</Tag>
+      {Object.entries(EVENT_TYPES).map((entry, i) => {
+        const event_type = entry[1]
+        return <Tag key={i} colour={event_type.colour}>{event_type.label}</Tag>
       })}
     </TagLegendContainer>
   )

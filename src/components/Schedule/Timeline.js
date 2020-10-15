@@ -33,7 +33,7 @@ export const TimelineColumn = ({ hackathonStart, duration }) => {
         const labelTime = new Date(hackathonStart.getTime() + (i * 60 * 60 * 1000))
         const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
         return (
-          <TimelineBlock>
+          <TimelineBlock key={i}>
             <TimelineLabel>{label}</TimelineLabel>
             <TimelineHR hourOffset={i} />
           </TimelineBlock>

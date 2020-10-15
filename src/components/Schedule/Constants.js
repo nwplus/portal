@@ -3,8 +3,8 @@ export const EVENT_GAP = 5
 export const EVENT_WIDTH = 400
 
 export const EVENT_TYPES = {
-  "main": ["MAIN", "#FFFFFF"],
-  "minievents": ["ACTIVITY", "#FFE27A"],
-  "workshop": ["WORKSHOP", "#31E0E0"],
-  "notices": ["NOTICE", "#9EFF7C"],
+  "main": { label: "MAIN", colour: "#FFFFFF" },
+  "minievents": { label: "ACTIVITY", colour: "#FFE27A" },
+  "workshop": { label: "WORKSHOP", colour: "#31E0E0" },
+  "notices": { label: "NOTICE", colour: "#9EFF7C" },
 }

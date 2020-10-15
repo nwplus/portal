@@ -24,7 +24,7 @@ const EventCard = styled(Card)`
   margin: 5px;
   padding: ${EVENT_GAP}px 15px;
   width: ${EVENT_WIDTH - 50}px;
-  margin-top: ${props => (props.hourOffset * HOUR_HEIGHT)}px;
+  margin-top: ${props => (props.timeStart * HOUR_HEIGHT)}px;
   height: ${props => (props.duration * HOUR_HEIGHT) - (EVENT_GAP * 4)}px;
   overflow-y: scroll;
 
@@ -41,9 +41,9 @@ const formatTime = (timeString) => {
 
 export default ({ event }) => {
   return (
-    <EventCard hourOffset={event.hourOffset} duration={event.duration} delayed={event.delayed}>
+    <EventCard timeStart={event.timeStart} duration={event.duration} delayed={event.delayed}>
       <H3>{event.name}{event.delayed && " (DELAYED)"}</H3>
-      <PositionedTag colour={EVENT_TYPES[event.type][1]}>{EVENT_TYPES[event.type][0]}</PositionedTag>
+      <PositionedTag colour={EVENT_TYPES[event.type].colour}>{EVENT_TYPES[event.type].label}</PositionedTag>
       <P>{formatTime(event.startTime)} - {formatTime(event.endTime)}</P>
       <EventDescription>{event.description}</EventDescription>
     </EventCard>

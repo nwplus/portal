@@ -20,7 +20,7 @@ const msToHours = ms => ms / 1000 / 60 / 60
 const ScheduleColumn = ({ column }) => {
   return (
     <FlexColumn>
-      {column.map((event) => <Event event={event} />)}
+      {column.map((event, i) => <Event key={i} event={event} />)}
     </FlexColumn>
   )
 }
@@ -34,7 +34,7 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
     // are not in the schedule
     while (unusedEvents.length > 0) {
       let latestTime = new Date(0) // epoch time lmao
-      let usedIndices = []
+      let usedEvents = []
 
       // produce optimal schedule and track which events are used
       const sched = unusedEvents.reduce((accumulator, event, i) => {
@@ -42,23 +42,21 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
         if (curTime.getTime() >= latestTime.getTime()) {
           // set offset as number of hours between start of hackathon and this event
           const hoursFromStart = msToHours(curTime - hackathonStart)
-          event.hourOffset = hoursFromStart
+          event.timeStart = hoursFromStart
 
           // set duration of event
           const duration = msToHours((new Date(event.endTime)) - (new Date(event.startTime)))
           event.duration = duration
 
           accumulator.push(event)
-          usedIndices.push(i)
+          usedEvents.push(event)
           latestTime = new Date(event.endTime)
         }
         return accumulator;
       }, [])
 
       // update unused by removing used events
-      unusedEvents = unusedEvents.filter((value, index) => {
-        return usedIndices.indexOf(index) === -1;
-      })
+      unusedEvents = unusedEvents.filter(event => !usedEvents.includes(event))
 
       // add schedule to columns list
       res.push(sched)
@@ -74,7 +72,7 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
       <TagLegend />
       <ScheduleFlexContainer>
         <TimelineColumn hackathonStart={hackathonStart} duration={durationOfHackathon} />
-        {schedule.map((column) => <ScheduleColumn column={column} />)}
+        {schedule.map((column, i) => <ScheduleColumn key={i} column={column} />)}
       </ScheduleFlexContainer>
     </Card>
   );
