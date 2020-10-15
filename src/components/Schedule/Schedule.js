@@ -27,7 +27,7 @@ const ScheduleColumn = ({ column }) => {
 
 export default ({ events, hackathonStart, hackathonEnd }) => {
   const produceOptimalSchedule = (events) => {
-    const res = []
+    const columns = []
     let unusedEvents = events;
 
     // build optimal columns list while there are still events that
@@ -59,9 +59,9 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
       unusedEvents = unusedEvents.filter(event => !usedEvents.includes(event))
 
       // add schedule to columns list
-      res.push(sched)
+      columns.push(sched)
     }
-    return res
+    return columns
   }
 
   const schedule = produceOptimalSchedule(events)
