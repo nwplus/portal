@@ -4,7 +4,7 @@ const requestPermission = (permissionCallback) => {
   if (checkNotificationPromise()) {
     Notification.requestPermission().then(permissionCallback)
   } else {
-    Notification.requestPermission(permissionCallback);
+    Notification.requestPermission(permissionCallback)
   }
 }
 
@@ -23,12 +23,12 @@ const getCurrentPermission = () => {
 }
 
 const isCurrentPermission = (permission) => {
-  return getCurrentPermission() === permission;
+  return getCurrentPermission() === permission
 }
 
 const areEnabled = () => {
   const settingsJSON = localStorage.getItem(NOTIFICATION_SETTINGS_CACHE_KEY)
-  const settings = settingsJSON ? JSON.parse(settingsJSON) : null;
+  const settings = settingsJSON ? JSON.parse(settingsJSON) : null
   return settings
     && settings.notificationsEnabled === true
     && getCurrentPermission() === NOTIFICATION_PERMISSIONS.GRANTED

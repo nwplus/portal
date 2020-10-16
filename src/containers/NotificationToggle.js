@@ -16,13 +16,12 @@ const ToggleSwitchContainer = styled.div`
 `
 
 export default () => {
-  const [toggled, setToggled] = useState(false);
+  const [toggled, setToggled] = useState(false)
 
   useEffect(() => {
-    setToggled(notifications.areEnabled());
+    setToggled(notifications.areEnabled())
   }, [])
 
-  // TODO have to have "blocked" dead state for toggle switch when permission is "denied"
   const onToggle = (e) => {
     if (notifications.isCurrentPermission(N_PERMISSIONS.DEFAULT)) {
       notifications.requestPermission(permission => {
@@ -45,6 +44,7 @@ export default () => {
     <ToggleSwitchContainer>
       <ToggleSwitch
         checked={toggled}
+        disabled={notifications.isCurrentPermission(N_PERMISSIONS.DENIED)}
         onChange={onToggle}
       />
       <StyledH2>Notifications</StyledH2>

@@ -12,7 +12,7 @@ import {
 import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
-import notifications from './utility/notifications';
+import notifications from './utility/notifications'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = (announcement) => {
@@ -37,7 +37,7 @@ function App() {
         if (changedDoc && changedDoc.type === 'added') { // TODO notify on update events?
           notifyUser(changedDoc.doc.data())
         }
-      });
+      })
     return unsubscribe
   }, [])
 
