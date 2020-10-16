@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { H2 } from '../components/Typography';
 import ToggleSwitch from '../components/ToggleSwitch';
 import notifications from '../utility/notifications';
-import { NOTIFICATION_PERMISSIONS as N_PERMISSIONS, NOTIFICATION_SETTINGS_CACHE_KEY } from '../utility/Constants';
+import {
+  NOTIFICATION_PERMISSIONS as N_PERMISSIONS,
+  NOTIFICATION_SETTINGS_CACHE_KEY as N_SETTINGS_CACHE_KEY
+} from '../utility/Constants';
 
 const StyledH2 = styled(H2)`
   margin: 0 0 0 0.5em;
@@ -37,7 +40,7 @@ export default () => {
     setToggled(notificationsEnabled)
 
     const nSettingsJSON = JSON.stringify({ notificationsEnabled })
-    localStorage.setItem(NOTIFICATION_SETTINGS_CACHE_KEY, nSettingsJSON)
+    localStorage.setItem(N_SETTINGS_CACHE_KEY, nSettingsJSON)
   }
 
   return (

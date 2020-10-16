@@ -1,3 +1,4 @@
+import icon from "../assets/notification-icon.ico";
 import { NOTIFICATION_SETTINGS_CACHE_KEY, NOTIFICATION_PERMISSIONS } from "./Constants";
 
 const requestPermission = (permissionCallback) => {
@@ -34,8 +35,8 @@ const areEnabled = () => {
     && getCurrentPermission() === NOTIFICATION_PERMISSIONS.GRANTED
 }
 
-const trigger = (content) => {
-  new Notification(content)
+const trigger = (title, body) => {
+  new Notification(title, { body, icon });
 }
 
 export default {

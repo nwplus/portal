@@ -18,7 +18,7 @@ import notifications from './utility/notifications'
 const notifyUser = (announcement) => {
   const isDataRecent = new Date() - new Date(announcement.timestamp) < 5000
   if (isDataRecent && notifications.areEnabled()) {
-    notifications.trigger(announcement.content)
+    notifications.trigger("New Announcement", announcement.content)
   }
 }
 
