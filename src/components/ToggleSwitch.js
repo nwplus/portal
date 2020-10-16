@@ -6,8 +6,8 @@ const ToggleSwitch = ({ checked, onChange }) => {
       <input
         type="checkbox"
         className="toggle-switch-checkbox"
-      // checked={checked}
-      // onChange={(e) => console.log("clicked")}
+        checked={checked}
+        onChange={onChange}
       />
     </div>
   );

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { H2 } from '../components/Typography';
 import ToggleSwitch from '../components/ToggleSwitch';
-import { NP_CACHE_KEY } from '../utility/Constants';
+import notifications from '../utility/notifications';
+import { NOTIFICATION_PERMISSIONS as N_PERMISSIONS, NOTIFICATION_SETTINGS_CACHE_KEY } from '../utility/Constants';
 
 const StyledH2 = styled(H2)`
   margin: 0 0 0 0.5em;
@@ -14,54 +15,37 @@ const ToggleSwitchContainer = styled.div`
   align-items: center;
 `
 
-const checkNotificationPromise = () => {
-  try {
-    Notification.requestPermission().then();
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
-
 export default () => {
   const [toggled, setToggled] = useState(false);
 
   useEffect(() => {
-    const notifPermissionsJSON = localStorage.getItem(NP_CACHE_KEY)
-    if (notifPermissionsJSON) {
-      const notifPermissions = JSON.parse(notifPermissionsJSON);
-      setToggled(notifPermissions.enabled === true)
-    }
+    setToggled(notifications.areEnabled());
   }, [])
 
   // TODO have to have "blocked" dead state for toggle switch when permission is "denied"
-  const toggleNotifications = (e) => {
-    if (Notification.permission !== 'granted') {
-      if (checkNotificationPromise()) {
-        Notification.requestPermission().then(handlePermission)
-      } else {
-        Notification.requestPermission(handlePermission);
-      }
-    } else {
-      cacheNotificationPermissions(!toggled)
+  const onToggle = (e) => {
+    if (notifications.isCurrentPermission(N_PERMISSIONS.DEFAULT)) {
+      notifications.requestPermission(permission => {
+        toggleNotifications(permission === N_PERMISSIONS.GRANTED)
+      })
+    } else if (notifications.isCurrentPermission(N_PERMISSIONS.GRANTED)) {
+      toggleNotifications(!toggled)
     }
   }
 
-  const handlePermission = (permission) => {
-    cacheNotificationPermissions(permission === 'granted')
-  }
+  // toggle switch UI and cache notifications settings
+  const toggleNotifications = (notificationsEnabled) => {
+    setToggled(notificationsEnabled)
 
-  const cacheNotificationPermissions = (enabled) => {
-    setToggled(enabled)
-    const notifPermissionsJSON = JSON.stringify({ enabled })
-    localStorage.setItem(NP_CACHE_KEY, notifPermissionsJSON)
+    const nSettingsJSON = JSON.stringify({ notificationsEnabled })
+    localStorage.setItem(NOTIFICATION_SETTINGS_CACHE_KEY, nSettingsJSON)
   }
 
   return (
     <ToggleSwitchContainer>
       <ToggleSwitch
         checked={toggled}
-        onChange={toggleNotifications}
+        onChange={onToggle}
       />
       <StyledH2>Notifications</StyledH2>
     </ToggleSwitchContainer>
