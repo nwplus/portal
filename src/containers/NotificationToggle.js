@@ -10,6 +10,7 @@ import {
 
 const StyledH2 = styled(H2)`
   margin: 0 0 0 0.5em;
+  opacity: 1;
 `
 
 const ToggleSwitchContainer = styled.div`
@@ -25,14 +26,14 @@ export default () => {
     setToggled(notifications.areEnabled())
   }, [])
 
-  const onToggle = (e) => {
+  const handleToggle = (e) => {
     if (notifications.isCurrentPermission(N_PERMISSIONS.DEFAULT)) {
       notifications.requestPermission(permission => {
         toggleNotifications(permission === N_PERMISSIONS.GRANTED)
       })
-    } else if (notifications.isCurrentPermission(N_PERMISSIONS.GRANTED)) {
-      toggleNotifications(!toggled)
     }
+
+    toggleNotifications(!toggled)
   }
 
   // toggle switch UI and cache notifications settings
@@ -48,7 +49,7 @@ export default () => {
       <ToggleSwitch
         checked={toggled}
         disabled={notifications.isCurrentPermission(N_PERMISSIONS.DENIED)}
-        onChange={onToggle}
+        onChange={handleToggle}
       />
       <StyledH2>Notifications</StyledH2>
     </ToggleSwitchContainer>

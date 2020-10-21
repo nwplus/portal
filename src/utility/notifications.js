@@ -19,12 +19,8 @@ const checkNotificationPromise = () => {
   return true;
 }
 
-const getCurrentPermission = () => {
-  return Notification.permission
-}
-
 const isCurrentPermission = (permission) => {
-  return getCurrentPermission() === permission
+  return Notification.permission === permission
 }
 
 const areEnabled = () => {
@@ -32,7 +28,7 @@ const areEnabled = () => {
   const settings = settingsJSON ? JSON.parse(settingsJSON) : null
   return settings
     && settings.notificationsEnabled === true
-    && getCurrentPermission() === NOTIFICATION_PERMISSIONS.GRANTED
+    && Notification.permission === NOTIFICATION_PERMISSIONS.GRANTED
 }
 
 const trigger = (title, body) => {
@@ -41,7 +37,6 @@ const trigger = (title, body) => {
 
 export default {
   requestPermission,
-  getCurrentPermission,
   isCurrentPermission,
   areEnabled,
   trigger
