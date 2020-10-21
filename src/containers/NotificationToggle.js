@@ -8,15 +8,15 @@ import {
   NOTIFICATION_SETTINGS_CACHE_KEY as N_SETTINGS_CACHE_KEY
 } from '../utility/Constants';
 
-const StyledH2 = styled(H2)`
-  margin: 0 0 0 0.5em;
-  opacity: 1;
-`
-
-const ToggleSwitchContainer = styled.div`
+const NotificationToggleContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`
+
+const StyledH2 = styled(H2)`
+  margin: 0 0 0 0.5em;
+  opacity: 1;
 `
 
 export default () => {
@@ -45,13 +45,14 @@ export default () => {
   }
 
   return (
-    <ToggleSwitchContainer>
+    <NotificationToggleContainer>
       <ToggleSwitch
         checked={toggled}
         disabled={notifications.isCurrentPermission(N_PERMISSIONS.DENIED)}
+        disabledTooltip={"Notifications blocked, change browser settings"}
         onChange={handleToggle}
       />
       <StyledH2>Notifications</StyledH2>
-    </ToggleSwitchContainer>
+    </NotificationToggleContainer>
   );
 };

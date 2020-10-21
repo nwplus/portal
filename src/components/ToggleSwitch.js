@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const ToggleSwitchContainer = styled.div`
   display: inline-block;
@@ -38,6 +38,13 @@ const ToggleSwitchGraphic = styled.div`
     content: '';
     display: inline-block;
   }
+
+  ${p =>
+    p.disabled &&
+    css`
+      cursor: not-allowed;
+      opacity: 0.3;
+    `};
 `
 
 const Input = styled.input`
@@ -60,17 +67,20 @@ const Input = styled.input`
   }
 `
 
-// TODO have to have "blocked" dead state for toggle switch when permission is "denied"
-const ToggleSwitch = ({ checked, disabled, onChange }) => {
+const ToggleSwitch = ({ checked, disabled, disabledTooltip, onChange }) => {
   return (
     <ToggleSwitchContainer>
       <label>
         <Input
           type="checkbox"
-        // checked={checked}
-        // onChange={(e) => console.log("clicked")}
+          checked={checked}
+          disabled={disabled}
+          onChange={onChange}
         />
-        <ToggleSwitchGraphic />
+        <ToggleSwitchGraphic
+          disabled={disabled}
+          title={disabled ? disabledTooltip : ''}
+        />
       </label>
     </ToggleSwitchContainer>
   );

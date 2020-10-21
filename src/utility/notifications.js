@@ -1,5 +1,8 @@
 import icon from "../assets/notification-icon.ico";
-import { NOTIFICATION_SETTINGS_CACHE_KEY, NOTIFICATION_PERMISSIONS } from "./Constants";
+import {
+  NOTIFICATION_SETTINGS_CACHE_KEY,
+  NOTIFICATION_PERMISSIONS
+} from "./Constants";
 
 const requestPermission = (permissionCallback) => {
   if (checkNotificationPromise()) {
