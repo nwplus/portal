@@ -22,7 +22,6 @@ const Announcement = styled.div`
   margin: 1em 0;
 `
 
-// TODO not sure if this is how we should put margin bottom
 const AnnouncementHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -30,7 +29,6 @@ const AnnouncementHeader = styled.div`
   margin: 0 0 1em 0;
 `
 
-// TODO should AnnouncementHeader just be a separate component?
 export default ({ announcements }) => (
   <Card>
     <AnnouncementHeader>

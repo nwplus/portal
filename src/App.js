@@ -16,7 +16,7 @@ import notifications from './utility/notifications'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = (announcement) => {
-  const isRecent = new Date() - new Date(announcement.timestamp) < 5000 // TODO will this cause timezone bugs lol
+  const isRecent = new Date() - new Date(announcement.timestamp) < 5000
   if (isRecent && notifications.areEnabled()) {
     notifications.trigger("New Announcement", announcement.content)
   }
@@ -34,7 +34,7 @@ function App() {
         const changedDoc = querySnapshot.docChanges()[0]
 
         // don't want to notify on 'remove' + 'modified' db events
-        if (changedDoc && changedDoc.type === 'added') { // TODO notify on update events?
+        if (changedDoc && changedDoc.type === 'added') {
           notifyUser(changedDoc.doc.data())
         }
       })

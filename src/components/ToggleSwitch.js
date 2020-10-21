@@ -5,7 +5,7 @@ const ToggleSwitchContainer = styled.div`
   display: inline-block;
 `
 
-// TODO maybe put 'off' background colour in ThemeProvider?
+// TODO maybe put background colour in ThemeProvider?
 const ToggleSwitchGraphic = styled.div`
   width: 35px;
   height: 30px;
