@@ -15,7 +15,7 @@ We hope for the Live Site to
 
 ## 💯 epic features
 
-- [ ] Web notifications/announcements
+- [x] Web notifications/announcements
   - [ ] Ability to filter what types of announcements one may wish to receive (e.g. only notify me about workshops)
 - [x] Countdown
 - [ ] Event schedule
