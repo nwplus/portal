@@ -7,3 +7,4 @@ export const NOTIFICATION_PERMISSIONS = Object.freeze({
   DEFAULT: 'default',
   DENIED: 'denied',
 })
+export const DAYOF_COLLECTION = 'DayOf'

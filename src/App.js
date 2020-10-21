@@ -7,7 +7,8 @@ import {
   Home,
   Faq,
   Sponsors,
-  Quicklinks
+  Quicklinks,
+  Schedule
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
@@ -49,6 +50,7 @@ function App() {
           <Route path='/'><Home /></Route>
           <Route path='/charcuterie'><Charcuterie /></Route>
           <Route path='/faq'><Faq /></Route>
+          <Route path='/schedule'><Schedule /></Route>
           <Route path='/sponsors'><Sponsors /></Route>
           <Route path='/quicklinks'><Quicklinks /></Route>
         </Page>
