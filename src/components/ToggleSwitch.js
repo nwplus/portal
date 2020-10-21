@@ -5,11 +5,10 @@ const ToggleSwitchContainer = styled.div`
   display: inline-block;
 `
 
-// TODO maybe put background colour in ThemeProvider?
 const ToggleSwitchGraphic = styled.div`
   width: 35px;
   height: 30px;
-  background: #4F4A59;
+  background: ${p => p.theme.colors.foreground};
   z-index: 0;
   cursor: pointer;
   position: relative;
@@ -18,7 +17,6 @@ const ToggleSwitchGraphic = styled.div`
   text-align: right;
   padding: 0 10px;
   bottom: 10px;
-  color: rgba(0,0,0,.5);
   transition: all 250ms;
 
   &:before {

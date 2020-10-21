@@ -24,9 +24,10 @@ export default () => {
 
   useEffect(() => {
     setToggled(notifications.areEnabled())
-  }, [])
+  }, [setToggled])
 
   const handleToggle = (e) => {
+    // if user's first time on site, request notification permissions from browser
     if (notifications.isCurrentPermission(N_PERMISSIONS.DEFAULT)) {
       notifications.requestPermission(permission => {
         toggleNotifications(permission === N_PERMISSIONS.GRANTED)
