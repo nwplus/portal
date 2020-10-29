@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Button } from '../components/Common'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
-import QuicklinksCard from '../components/QuicklinksCard'
+import Quicklinks from '../components/Quicklinks'
 
 const ButtonContainer = styled.div`
   margin: 1em;
@@ -71,19 +71,42 @@ export const QuickLinks = () => {
       })
       .then(links => {
         //TODO: Group links into categories
-        console.log(links)
-        setLinks(links)
+        const dummyLinks = [
+          {
+            category: 'FOO',
+            href: 'https://google.com/',
+            label: 'foo google 1'
+          },
+          {
+            category: 'FOO',
+            href: 'https://google.com/',
+            label: 'foogle 2'
+          },
+          {
+            category: 'BAR',
+            href: 'https://google.com/',
+            label: 'bar gle 3'
+          },
+          {
+            category: 'BAR',
+            href: 'https://github.com/',
+            label: 'bar GitHub'
+          },
+          {
+            category: 'HELLO',
+            href: 'https://github.com/',
+            label: 'helloGitHub'
+          },
+          {
+            category: 'WORLD',
+            href: 'https://github.com/',
+            label: 'worldGitHub'
+          }
+        ]
+        setLinks(dummyLinks);
       })
   }, [setLinks])
-
   return (
-    <ButtonContainer>
-      {
-        links.map(link => (
-          // TODO: map on link categories, not links
-          <QuicklinksCard key={link.label} title={link.label} links={links} />
-        ))
-      }
-    </ButtonContainer>
+    <Quicklinks links={links} />
   );
 }
