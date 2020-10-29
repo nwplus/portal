@@ -16,7 +16,6 @@ export default ({ title, links }) => {
       <UL>
         {
           links.map((link) =>
-            // TODO: "key" prop must be unique, else error in console (nbd imo? -AC)
             <LI key={link.label}><A href={link.href}>{link.label}</A></LI>
           )
         }
