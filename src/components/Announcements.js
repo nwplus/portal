@@ -4,18 +4,37 @@ import { format } from 'timeago.js';
 import ReactMarkdown from 'react-markdown';
 import { Card } from './Common';
 import { H1, P, A } from './Typography';
+import NotificationToggle from '../containers/NotificationToggle';
 
 const StyledH1 = styled(H1)`
-  margin: 0 0 0.5em 0;
+  margin: 0 0 0 0;
+`
+
+const StyledP = styled(P)`
+  margin-bottom: 0.5em;
+`
+
+const Time = styled(P)`
+  margin-bottom: 0.75em;
 `
 
 const Announcement = styled.div`
   margin: 1em 0;
 `
 
+const AnnouncementHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 1em 0;
+`
+
 export default ({ announcements }) => (
   <Card>
-    <StyledH1>Announcements</StyledH1>
+    <AnnouncementHeader>
+      <StyledH1>Announcements</StyledH1>
+      <NotificationToggle />
+    </AnnouncementHeader>
     {
       announcements.map(announcement => {
         const timeAgo = format(announcement.timestamp)
@@ -25,10 +44,10 @@ export default ({ announcements }) => (
           <ReactMarkdown
             linkTarget='_blank'
             allowedTypes={['text', 'paragraph', 'strong', 'emphasis', 'link', 'break', 'list', 'listItem']}
-            renderers={{ link: A, paragraph: P }}
+            renderers={{ link: A, paragraph: StyledP }}
             source={announcement.content}
           />
-          <P highlight>{timeAgo} @ {date}</P>
+          <Time highlight>{timeAgo} @ {date}</Time>
         </Announcement>
       })
     }

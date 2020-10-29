@@ -27,7 +27,7 @@ export const H3 = styled.h3`
 
 export const P = styled.p`
   ${text};
-  ${p => (p.highlight && `color: ${p.theme.colors.link}`)};
+  ${p => (p.highlight && `color: ${p.theme.colors.linkHover}`)};
   margin: 0;
 `
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
