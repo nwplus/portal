@@ -70,40 +70,7 @@ export const QuickLinks = () => {
         }, []))
       })
       .then(links => {
-        //TODO: Group links into categories
-        const dummyLinks = [
-          {
-            category: 'FOO',
-            href: 'https://google.com/',
-            label: 'foo google 1'
-          },
-          {
-            category: 'FOO',
-            href: 'https://google.com/',
-            label: 'foogle 2'
-          },
-          {
-            category: 'BAR',
-            href: 'https://google.com/',
-            label: 'bar gle 3'
-          },
-          {
-            category: 'BAR',
-            href: 'https://github.com/',
-            label: 'bar GitHub'
-          },
-          {
-            category: 'HELLO',
-            href: 'https://github.com/',
-            label: 'helloGitHub'
-          },
-          {
-            category: 'WORLD',
-            href: 'https://github.com/',
-            label: 'worldGitHub'
-          }
-        ]
-        setLinks(dummyLinks);
+        setLinks(links);
       })
   }, [setLinks])
   return (
