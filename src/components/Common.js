@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { text } from './Typography'
+import { P } from './Typography';
 
 export const CardLike = css`
   padding: 2em;
@@ -42,4 +43,37 @@ export const SearchBar = styled.input.attrs({
   margin: 8px 0;
   border: none;
   color: ${p => p.theme.colors.text};
+`
+
+export const DetailContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @media (max-width: 1200px) {
+    display: block;
+  }
+`
+
+export const DetailColumn = styled.ul`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  margin: 0;
+  margin-right: 1em;
+  padding: 0;
+
+  & > li {
+    ${CardLike};
+    margin: 0;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    list-style-type: none;
+  }
+`
+
+export const DetailAnswer = styled(P)`
+  margin-bottom: 0.85em;
 `
