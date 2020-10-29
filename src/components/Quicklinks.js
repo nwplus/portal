@@ -36,9 +36,5 @@ export default ({ links }) => {
     );
   }
 
-  return (
-    <>
-      {createQuicklinksBlocks(categories)}
-    </>
-  );
+  return createQuicklinksBlocks(categories);
 }
