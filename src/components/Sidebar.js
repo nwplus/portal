@@ -24,13 +24,16 @@ const StyledA = styled(A)`
   display: block;
   font-weight: bold;
   padding: 1em 60px;
+  border-bottom: none;
   color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.highlight)};
   ${p => (p.selected && `background: ${p.theme.colors.secondaryBackground};`)}
   &:hover {
     background: ${p => p.theme.colors.secondaryBackground};
+    border-bottom: none;
   }
   &:focus {
     background: ${p => p.theme.colors.secondaryBackground};
+    border-bottom: none;
   }
 `
 
