@@ -59,7 +59,6 @@ export const DetailContainer = styled.div`
 export const DetailColumn = styled.ul`
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
   flex: 1;
   margin: 0;
   margin-right: 1em;
