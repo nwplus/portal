@@ -11,8 +11,8 @@ export default () => {
       .onSnapshot(doc => {
         const d = doc.data()
         if (d) {
-          setStart(new Date(d.hackingStartTime))
-          setEnd(new Date(d.hackingEndTime))
+          setStart(new Date(d.hackingStart))
+          setEnd(new Date(d.hackingEnd))
         }
       });
     return unsubscribe
