@@ -18,17 +18,17 @@ export default ({ faq }) => {
     return (
       <DetailContainer>
         {
-          splitHalf(entries).map(half =>
-            <DetailColumn>{half.map(singleEntry)}</DetailColumn>
+          splitHalf(entries).map((half, i) =>
+            <DetailColumn key={i}>{half.map(singleEntry)}</DetailColumn>
           )
         }
       </DetailContainer>
     );
   }
 
-  const singleEntry = (entry) => {
+  const singleEntry = (entry, i) => {
     return (
-      <li>
+      <li key={i}>
         <Accordion heading={entry.question}>
           <DetailAnswer>{entry.answer}</DetailAnswer>
         </Accordion>
@@ -36,18 +36,12 @@ export default ({ faq }) => {
     );
   }
 
-  return (
-    <>
-      {
-        (Object.keys(categories)).map(category => {
-          return (
-            <>
-              <H2>{category}</H2>
-              {createFAQList(categories[category])}
-            </>
-          );
-        })
-      }
-    </>
-  );
+  return (Object.keys(categories)).map((category, i) => {
+    return (
+      <div key={i}>
+        <H2>{category}</H2>
+        {createFAQList(categories[category])}
+      </div>
+    );
+  })
 }

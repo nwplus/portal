@@ -15,6 +15,11 @@ const FlexColumn = styled.div`
   flex: 0 0 ${EVENT_WIDTH}px;
 `
 
+const OverflowContainer = styled(Card)`
+  overflow-x: scroll;
+  position: relative;
+`
+
 const msToHours = ms => ms / 1000 / 60 / 60
 
 const ScheduleColumn = ({ column }) => {
@@ -68,12 +73,12 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   const durationOfHackathon = msToHours(hackathonEnd - hackathonStart)
 
   return (
-    <Card>
+    <OverflowContainer>
       <TagLegend />
       <ScheduleFlexContainer>
-        <TimelineColumn hackathonStart={hackathonStart} duration={durationOfHackathon} />
+        <TimelineColumn hackathonStart={hackathonStart} duration={durationOfHackathon} numCols={schedule.length} />
         {schedule.map((column, i) => <ScheduleColumn key={i} column={column} />)}
       </ScheduleFlexContainer>
-    </Card>
+    </OverflowContainer>
   );
 }
