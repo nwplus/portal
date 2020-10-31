@@ -1,41 +1,7 @@
 import React from 'react';
 import Accordion from '../components/Accordion';
-import { P, H2 } from './Typography';
-import styled from 'styled-components'
-import { CardLike } from './Common'
-
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-
-  @media (max-width: 1200px) {
-    display: block;
-  }
-`
-
-const DetailColumn = styled.ul`
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-  margin: 0;
-  margin-right: 1em;
-  padding: 0;
-
-  & > li {
-    ${CardLike};
-    margin: 0;
-    padding: 0.5em 1em;
-    margin-bottom: 1em;
-    list-style-type: none;
-  }
-`
-
-const DetailAnswer = styled(P)`
-  margin-bottom: 0.85em;
-`
+import { H2 } from './Typography';
+import { DetailContainer, DetailColumn, DetailAnswer } from './Common'
 
 export default ({ faq }) => {
   const categories = faq.reduce((accumulator, question) => {

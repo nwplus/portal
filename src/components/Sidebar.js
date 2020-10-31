@@ -24,13 +24,16 @@ const StyledA = styled(A)`
   display: block;
   font-weight: bold;
   padding: 1em 60px;
+  border-bottom: none;
   color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.highlight)};
   ${p => (p.selected && `background: ${p.theme.colors.secondaryBackground};`)}
   &:hover {
     background: ${p => p.theme.colors.secondaryBackground};
+    border-bottom: none;
   }
   &:focus {
     background: ${p => p.theme.colors.secondaryBackground};
+    border-bottom: none;
   }
 `
 
@@ -64,6 +67,18 @@ export default () => {
       });
   }, [])
 
+  const links = [
+    { location: "/", text: "DASHBOARD" },
+    { location: "/schedule", text: "SCHEDULE" },
+    { location: "/quicklinks", text: "QUICKLINKS" },
+    { location: "/faq", text: "FAQ" },
+    { location: "/sponsors", text: "SPONSORS" },
+  ]
+
+  if (process.env.NODE_ENV !== 'production') {
+    links.push({ location: "/charcuterie", text: "CHARCUTERIE" })
+  }
+
   return (
     <SidebarContainer>
       <Logo src={imgUrl} alt="logo" />
@@ -71,23 +86,14 @@ export default () => {
         <LiveDot />LIVE
       </LiveLabel>
       <ItemsContainer>
-        <Link href='/'>
-          <StyledA selected={location === '/'}>DASHBOARD</StyledA>
-        </Link>
-        <Link href='/quicklinks'>
-          <StyledA selected={location === '/quicklinks'}>QUICKLINKS</StyledA>
-        </Link>
-        <Link href='/faq'>
-          <StyledA selected={location === '/faq'}>FAQ</StyledA>
-        </Link>
-        <Link href='/sponsors'>
-          <StyledA selected={location === '/sponsors'}>SPONSORS</StyledA>
-        </Link>
         {
-          process.env.NODE_ENV !== 'production' &&
-          <Link href='/charcuterie'>
-            <StyledA selected={location === '/charcuterie'}>CHARCUTERIE</StyledA>
-          </Link>
+          links.map((link, i) => {
+            return (
+              <Link key={i} href={link.location}>
+                <StyledA selected={location === link.location}>{link.text}</StyledA>
+              </Link>
+            );
+          })
         }
       </ItemsContainer>
     </SidebarContainer>

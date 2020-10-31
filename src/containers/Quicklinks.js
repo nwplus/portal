@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Button } from '../components/Common'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
-import QuicklinksCard from '../components/QuicklinksCard'
+import Quicklinks from '../components/Quicklinks'
 
 const ButtonContainer = styled.div`
   margin: 1em;
@@ -70,20 +70,10 @@ export const QuickLinks = () => {
         }, []))
       })
       .then(links => {
-        //TODO: Group links into categories
-        console.log(links)
-        setLinks(links)
+        setLinks(links);
       })
   }, [setLinks])
-
   return (
-    <ButtonContainer>
-      {
-        links.map(link => (
-          // TODO: map on link categories, not links
-          <QuicklinksCard key={link.label} title={link.label} links={links} />
-        ))
-      }
-    </ButtonContainer>
+    <Quicklinks links={links} />
   );
 }
