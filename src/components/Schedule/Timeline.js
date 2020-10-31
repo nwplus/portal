@@ -26,7 +26,7 @@ const TimelineLabel = styled.span`
 `
 
 export const TimelineColumn = ({ hackathonStart, duration }) => {
-  duration = Math.max(0, duration)
+  duration = Math.floor(Math.max(0, duration))
   return (
     <TimelineColumnContainer duration={duration}>
       {[...Array(duration)].map((v, i) => {
