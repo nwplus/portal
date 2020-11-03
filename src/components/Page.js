@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
 import MobileMenuBar from './MobileMenuBar';
+import { mediaQueries } from './Common';
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const Page = ({ children }) => {
     min-height: 100%;
     border-right: 1px solid rgba(255, 255, 255, 0.3);
     transition: opacity 1s ease-out;
-    @media (max-width: 600px) {
+    ${[mediaQueries[0]]} {
       ${props => props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
       
     }

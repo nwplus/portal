@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components'
 import logo from '../assets/logo.svg'
 import menu from '../assets/menu.svg'
-
+import { mediaQueries } from './Common';
 
 const MobileMenuBarContainer = styled.div`
   display: none; 
   padding: 20px;
-  @media only screen and (max-width: 600px) {
+  ${[mediaQueries[0]]} {
     display: inline-block;
     text-align: center;
     width: 100%;

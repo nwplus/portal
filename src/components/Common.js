@@ -76,3 +76,9 @@ export const DetailColumn = styled.ul`
 export const DetailAnswer = styled(P)`
   margin-bottom: 0.85em;
 `
+
+const breakpoints = [576, 768, 992, 1200]
+
+export const mediaQueries = breakpoints.map(
+  bp => `@media only screen and (max-width: ${bp}px)`
+)
