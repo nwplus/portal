@@ -28,20 +28,20 @@ const Page = ({ children }) => {
     border-right: 1px solid rgba(255, 255, 255, 0.3);
     transition: opacity 1s ease-out;
     @media (max-width: 600px) {
-      ${props => props.display ? 'visibility: visible' : 'visibility: hidden; display: none'};
+      ${props => props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
       
     }
   `;
 
 
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   return (
     <Container>
-      <SidebarContainer display={showSidebar}>
+      <SidebarContainer showMobileSidebar={showMobileSidebar}>
         <Sidebar />
       </SidebarContainer>
       <LeftColumn>
-        <MobileMenuBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+        <MobileMenuBar showMobileSidebar={showMobileSidebar} setShowMobileSidebar={setShowMobileSidebar} />
         <Content>{children}</Content>
       </LeftColumn>
     </Container>

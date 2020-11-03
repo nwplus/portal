@@ -28,10 +28,10 @@ const Menu = styled.img`
   width: 30px;
 `;
 
-export default ({ showSidebar, setShowSidebar }) => {
+export default ({ showMobileSidebar, setShowMobileSidebar }) => {
   return (
     <MobileMenuBarContainer>
-      <Menu src={menu} alt="menu" onClick={() => setShowSidebar(!showSidebar)} />
+      <Menu src={menu} alt="menu" onClick={() => setShowMobileSidebar(!showMobileSidebar)} />
       <a href="/">
         <Logo src={logo} alt="logo" />
       </a>
