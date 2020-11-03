@@ -5,7 +5,6 @@ import { A } from './Typography'
 import logo from '../assets/logo.svg'
 
 const SidebarContainer = styled.div`
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
   min-width: 275px;
 `;
 
