@@ -2,6 +2,12 @@ import styled, { css } from 'styled-components'
 import { text } from './Typography'
 import { P } from './Typography';
 
+const screenBreakpoints = [576, 768, 992, 1200]
+
+export const mediaQueries = screenBreakpoints.map(
+  bp => `@media only screen and (max-width: ${bp}px)`
+)
+
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
@@ -51,7 +57,7 @@ export const DetailContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  @media (max-width: 1200px) {
+  ${[mediaQueries[3]]} {
     display: block;
   }
 `
@@ -76,9 +82,3 @@ export const DetailColumn = styled.ul`
 export const DetailAnswer = styled(P)`
   margin-bottom: 0.85em;
 `
-
-const breakpoints = [576, 768, 992, 1200]
-
-export const mediaQueries = breakpoints.map(
-  bp => `@media only screen and (max-width: ${bp}px)`
-)
