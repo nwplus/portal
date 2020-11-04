@@ -3,14 +3,14 @@ import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
-import { mediaQueries } from './Common';
+import { maxWidthMediaQueries } from './Common';
 
 const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
   border-right: 1px solid rgba(255, 255, 255, 0.3);
   transition: opacity 1s ease-out;
-  ${[mediaQueries[0]]} {
+  ${maxWidthMediaQueries("mobile")} {
     ${props => props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
     
   }
