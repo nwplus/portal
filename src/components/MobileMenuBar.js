@@ -6,12 +6,12 @@ import { maxWidthMediaQueries } from './Common';
 
 const MobileMenuBarContainer = styled.div`
   display: none; 
-  padding: 15px;
-  ${maxWidthMediaQueries("mobile")} {
+  ${maxWidthMediaQueries('mobile')} {
+    padding: 15px;
     display: inline-block;
     text-align: center;
     width: 100%;
-    box-sizing: border-box
+    box-sizing: border-box;
     -webkit-box-shadow: 0 6px 8px -8px #000;
     -moz-box-shadow: 0 6px 8px -8px #000;
     box-shadow: 0 6px 8px -8px #000;

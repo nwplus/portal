@@ -10,7 +10,7 @@ const SidebarContainer = styled.div`
   min-height: 100%;
   border-right: 1px solid rgba(255, 255, 255, 0.3);
   transition: opacity 1s ease-out;
-  ${maxWidthMediaQueries("mobile")} {
+  ${maxWidthMediaQueries('mobile')} {
     ${props => props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
     
   }

@@ -10,7 +10,7 @@ const screenBreakpoints = {
 }
 
 export const maxWidthMediaQueries = ((size) => {
-  return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`;
+  return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
 })
 
 export const CardLike = css`
@@ -62,7 +62,7 @@ export const DetailContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  ${maxWidthMediaQueries("desktop")} {
+  ${maxWidthMediaQueries('desktop')} {
     display: block;
   }
 `
