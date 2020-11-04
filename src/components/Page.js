@@ -9,7 +9,7 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const LeftColumn = styled.div`
+const RightContentContainer = styled.div`
   box-sizing: border-box;
   width: 100%;
 `;
@@ -29,10 +29,10 @@ const Page = ({ children }) => {
   return (
     <Container>
       <Sidebar showMobileSidebar={showMobileSidebar} />
-      <LeftColumn>
+      <RightContentContainer>
         <MobileMenuBar showMobileSidebar={showMobileSidebar} setShowMobileSidebar={setShowMobileSidebar} />
         <Content>{children}</Content>
-      </LeftColumn>
+      </RightContentContainer>
     </Container>
   );
 }

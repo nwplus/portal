@@ -6,11 +6,12 @@ import { maxWidthMediaQueries } from './Common';
 
 const MobileMenuBarContainer = styled.div`
   display: none; 
-  padding: 20px;
+  padding: 15px;
   ${maxWidthMediaQueries("mobile")} {
     display: inline-block;
     text-align: center;
     width: 100%;
+    box-sizing: border-box
     -webkit-box-shadow: 0 6px 8px -8px #000;
     -moz-box-shadow: 0 6px 8px -8px #000;
     box-shadow: 0 6px 8px -8px #000;
@@ -19,7 +20,7 @@ const MobileMenuBarContainer = styled.div`
 
 const Logo = styled.img`
   display: inline-block;
-  margin-left: -30px;
+  margin-left: -50px;
   width: 20px;
 `;
 
