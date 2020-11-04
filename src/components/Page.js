@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
 import MobileMenuBar from './MobileMenuBar';
-import { mediaQueries } from './Common';
 
 const Container = styled.div`
   display: flex;
@@ -24,23 +23,12 @@ const Content = styled.div`
 
 
 const Page = ({ children }) => {
-  const SidebarContainer = styled.div`
-    min-height: 100%;
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
-    transition: opacity 1s ease-out;
-    ${[mediaQueries[0]]} {
-      ${props => props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
-      
-    }
-  `;
 
 
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   return (
     <Container>
-      <SidebarContainer showMobileSidebar={showMobileSidebar}>
-        <Sidebar />
-      </SidebarContainer>
+      <Sidebar showMobileSidebar={showMobileSidebar} />
       <LeftColumn>
         <MobileMenuBar showMobileSidebar={showMobileSidebar} setShowMobileSidebar={setShowMobileSidebar} />
         <Content>{children}</Content>
