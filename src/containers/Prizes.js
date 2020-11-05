@@ -100,13 +100,15 @@ export const SponsorPrizes = () => {
       })
   }, [setSponsorPrizes]);
 
-  return (
-    <>
-      <CenteredH1>Sponsored Categories</CenteredH1>
-      { createPrizeList(sponsorPrizes)}
-    </>
-
-  );
+  if (sponsorPrizes.length > 0) {
+    return (
+      <>
+        <CenteredH1>Sponsored Categories</CenteredH1>
+        { createPrizeList(sponsorPrizes)}
+      </>
+    );
+  }
+  return null;
 }
 
 export default () => {
