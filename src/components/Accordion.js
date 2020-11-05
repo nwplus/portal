@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 import styled from 'styled-components'
-import { H3 } from './Typography';
+import { H3 } from './Typography'
 
 const Accordion = styled.details`
   display: inline-block;
   width: 100%;
   cursor: pointer;
-  
+
   & > summary:focus {
     outline: 0;
   }
@@ -24,5 +24,5 @@ export default ({ heading, children }) => {
       </summary>
       {children}
     </Accordion>
-  );
+  )
 }

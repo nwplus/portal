@@ -1,5 +1,5 @@
-import React from 'react';
-import { A, UL, LI, H2 } from './Typography';
+import React from 'react'
+import { A, UL, LI, H2 } from './Typography'
 
 import styled from 'styled-components'
 import { CardLike } from '../components/Common.js'
@@ -14,12 +14,12 @@ export default ({ title, links }) => {
     <QuicklinksCard>
       <H2>{title}</H2>
       <UL>
-        {
-          links.map((link) =>
-            <LI key={link.label}><A href={link.href}>{link.label}</A></LI>
-          )
-        }
+        {links.map(link => (
+          <LI key={link.label}>
+            <A href={link.href}>{link.label}</A>
+          </LI>
+        ))}
       </UL>
     </QuicklinksCard>
-  );
+  )
 }

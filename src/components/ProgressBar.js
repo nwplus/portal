@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styled from 'styled-components'
 
 const ProgressBarContainer = styled.div`
@@ -19,8 +19,7 @@ const FlexPrimary = styled.div`
 `
 
 // rest of progress bar
-const FlexSecondary = styled.div`
-`
+const FlexSecondary = styled.div``
 
 const ProgressBar = ({ percent }) => {
   return (
@@ -28,7 +27,7 @@ const ProgressBar = ({ percent }) => {
       <FlexPrimary percent={percent} />
       <FlexSecondary />
     </ProgressBarContainer>
-  );
+  )
 }
 
 export default ProgressBar

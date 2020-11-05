@@ -5,11 +5,4 @@ import Sponsors from './Sponsors'
 import Quicklinks from './Quicklinks'
 import Schedule from './Schedule'
 
-export {
-  Charcuterie,
-  Home,
-  Faq,
-  Sponsors,
-  Quicklinks,
-  Schedule
-}
+export { Charcuterie, Home, Faq, Sponsors, Quicklinks, Schedule }

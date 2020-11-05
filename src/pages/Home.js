@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import Announcements from '../containers/Announcements'
 import HackerCountdown from '../containers/HackerCountdown'
 import { CommonLinks } from '../containers/Quicklinks'
@@ -12,5 +12,5 @@ export default () => {
       <Livestream />
       <Announcements />
     </>
-  );
+  )
 }
