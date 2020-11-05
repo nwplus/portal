@@ -65,14 +65,21 @@ export const MainPrizes = () => {
           return result
         }, []))
       })
-      .then(mainPrizes => {
-        setMainPrizes(mainPrizes);
+      .then(prizes => {
+        setMainPrizes(prizes);
       })
   }, [setMainPrizes]);
 
-  return (
-    createPrizeList(dummyMainPrizes)
-  );
+
+  if (mainPrizes.length > 0) {
+    return (
+      <>
+        <CenteredH1>Overall Prizes</CenteredH1>
+        { createPrizeList(mainPrizes)}
+      </>
+    );
+  }
+  return null;
 }
 
 export const SponsorPrizes = () => {
@@ -88,76 +95,25 @@ export const SponsorPrizes = () => {
           return result
         }, []))
       })
-      .then(sponsorPrizes => {
-        setSponsorPrizes(sponsorPrizes);
+      .then(prizes => {
+        setSponsorPrizes(prizes);
       })
   }, [setSponsorPrizes]);
 
   return (
-    createPrizeList(dummySponsorPrizes)
+    <>
+      <CenteredH1>Sponsored Categories</CenteredH1>
+      { createPrizeList(sponsorPrizes)}
+    </>
+
   );
 }
-const dummyMainPrizes = [
-  {
-    place: "1",
-    title: "1st Place",
-    content: "hello|hi|what's up"
-  },
-  {
-    place: "2",
-    title: "2nd Place",
-    content: "hello|hi|what's up"
-  },
-  {
-    place: "3",
-    title: "3rd Place",
-    content: "hello|hi|what's up",
-    main: true
-  }
-]
-
-const dummySponsorPrizes = [
-  {
-    place: false,
-    title: "sponsor prize 1",
-    content: "hello|hi|what's up"
-  },
-  {
-    place: false,
-    title: "sponsor prize 2",
-    content: "hello|hi|what's up"
-  },
-  {
-    place: false,
-    title: "sponsor prize 3",
-    content: "hello|hi|what's up"
-  },
-  {
-    place: false,
-    title: "sponsor prize 4",
-    content: "hello|hi|what's up"
-  },
-  {
-    place: false,
-    title: "sponsor prize 5",
-    content: "hello|hi|what's up"
-  },
-  {
-    place: false,
-    title: "sponsor prize 6",
-    content: "hello|hi|what's up"
-  }
-]
-
 
 export default () => {
-
   return (
-    <div>
-      <CenteredH1>Overall Prizes</CenteredH1>
+    <>
       <MainPrizes />
-      <CenteredH1>Sponsored Categories</CenteredH1>
       <SponsorPrizes />
-    </div>
+    </>
   );
 }
