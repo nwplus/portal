@@ -8,7 +8,7 @@ const ToggleSwitchContainer = styled.div`
 const ToggleSwitchGraphic = styled.div`
   width: 35px;
   height: 30px;
-  background: ${(p) => p.theme.colors.foreground};
+  background: ${p => p.theme.colors.foreground};
   z-index: 0;
   cursor: pointer;
   position: relative;
@@ -37,7 +37,7 @@ const ToggleSwitchGraphic = styled.div`
     display: inline-block;
   }
 
-  ${(p) =>
+  ${p =>
     p.disabled &&
     css`
       cursor: not-allowed;
@@ -49,7 +49,7 @@ const Input = styled.input`
   visibility: hidden;
 
   &:checked + ${ToggleSwitchGraphic} {
-    background: ${(p) => p.theme.colors.primary};
+    background: ${p => p.theme.colors.primary};
     text-align: left;
   }
 

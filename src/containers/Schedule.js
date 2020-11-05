@@ -11,7 +11,7 @@ export default () => {
   const [end, setEnd] = useState(new Date())
 
   useEffect(() => {
-    const unsubscribe = livesiteDocRef.onSnapshot((doc) => {
+    const unsubscribe = livesiteDocRef.onSnapshot(doc => {
       const d = doc.data()
       if (d) {
         setStart(new Date(d.hackathonStart))
@@ -27,8 +27,8 @@ export default () => {
       .doc(DB_HACKATHON)
       .collection(DAYOF_COLLECTION)
       .orderBy('startTime', 'asc')
-      .onSnapshot((querySnapshot) => {
-        setEvents(Object.values(querySnapshot.docs.map((doc) => doc.data())))
+      .onSnapshot(querySnapshot => {
+        setEvents(Object.values(querySnapshot.docs.map(doc => doc.data())))
       })
     return unsubscribe
   }, [setEvents])

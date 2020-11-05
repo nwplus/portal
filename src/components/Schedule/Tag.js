@@ -12,12 +12,12 @@ export const TagLegendContainer = styled.div`
 `
 
 export const Tag = styled.span`
-  color: ${(p) => p.theme.colors.background};
-  font-weight: ${(p) => p.theme.typography.h3.weight};
+  color: ${p => p.theme.colors.background};
+  font-weight: ${p => p.theme.typography.h3.weight};
   margin: 0;
   padding: 2px 5px;
   border-radius: 4px;
-  background-color: ${(props) => props.colour};
+  background-color: ${props => props.colour};
 `
 
 export const PositionedTag = styled(Tag)`

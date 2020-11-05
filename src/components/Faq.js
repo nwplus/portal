@@ -9,12 +9,12 @@ export default ({ faq }) => {
     return accumulator // group by category
   }, {})
 
-  const splitHalf = (arr) => {
+  const splitHalf = arr => {
     const half = Math.ceil(arr.length / 2)
     return [arr.splice(0, half), arr.splice(-half)]
   }
 
-  const createFAQList = (entries) => {
+  const createFAQList = entries => {
     return (
       <DetailContainer>
         {splitHalf(entries).map((half, i) => (

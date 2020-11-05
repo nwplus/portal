@@ -9,12 +9,12 @@ export default ({ links }) => {
     return accumulator // group by category
   }, {})
 
-  const splitHalf = (arr) => {
+  const splitHalf = arr => {
     const half = Math.ceil(arr.length / 2)
     return [arr.splice(0, half), arr.splice(-half)]
   }
 
-  const createQuicklinksBlocks = (categories) => {
+  const createQuicklinksBlocks = categories => {
     return (
       <DetailContainer>
         {splitHalf(Object.keys(categories)).map((categoryNames, halfIndex) => {

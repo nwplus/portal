@@ -12,8 +12,8 @@ export default () => {
       .doc(DB_HACKATHON)
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
-      .onSnapshot((querySnapshot) => {
-        setAnnouncements(Object.values(querySnapshot.docs.map((doc) => doc.data())))
+      .onSnapshot(querySnapshot => {
+        setAnnouncements(Object.values(querySnapshot.docs.map(doc => doc.data())))
       })
     return unsubscribe
   }, [setAnnouncements])

@@ -8,7 +8,7 @@ const TimeContainer = styled.div`
 `
 
 const TimeText = styled.span`
-  color: ${(p) => p.theme.colors.text};
+  color: ${p => p.theme.colors.text};
   width: 90px;
   font-size: 4em;
 `

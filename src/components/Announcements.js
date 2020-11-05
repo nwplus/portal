@@ -35,7 +35,7 @@ export default ({ announcements }) => (
       <StyledH1>Announcements</StyledH1>
       <NotificationToggle />
     </AnnouncementHeader>
-    {announcements.map((announcement) => {
+    {announcements.map(announcement => {
       const timeAgo = format(announcement.timestamp)
       const options = {
         year: 'numeric',

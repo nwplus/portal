@@ -17,7 +17,7 @@ const getLinks = () => {
     .collection('QuickLinks')
     .orderBy('label')
     .get()
-    .then((querySnapshot) => {
+    .then(querySnapshot => {
       return querySnapshot.docs
     })
 }
@@ -26,7 +26,7 @@ export const CommonLinks = () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    getLinks().then((docs) => {
+    getLinks().then(docs => {
       // Only keep the common links
       const filtered = Object.values(
         docs.reduce((result, doc) => {
@@ -41,7 +41,7 @@ export const CommonLinks = () => {
 
   return (
     <ButtonContainer>
-      {links.map((link) => (
+      {links.map(link => (
         <Button key={link.href} href={link.href} rel="noopener noreferrer" target="_blank">
           {link.label}
         </Button>
@@ -55,7 +55,7 @@ export const QuickLinks = () => {
 
   useEffect(() => {
     getLinks()
-      .then((docs) => {
+      .then(docs => {
         // Only keep the uncommon links
         return Object.values(
           docs.reduce((result, doc) => {
@@ -65,7 +65,7 @@ export const QuickLinks = () => {
           }, [])
         )
       })
-      .then((links) => {
+      .then(links => {
         setLinks(links)
       })
   }, [setLinks])

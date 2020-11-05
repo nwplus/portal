@@ -1,7 +1,7 @@
 import icon from '../assets/notification-icon.ico'
 import { NOTIFICATION_SETTINGS_CACHE_KEY, NOTIFICATION_PERMISSIONS } from './Constants'
 
-const requestPermission = (permissionCallback) => {
+const requestPermission = permissionCallback => {
   if (checkNotificationPromise()) {
     Notification.requestPermission().then(permissionCallback)
   } else {
@@ -19,7 +19,7 @@ const checkNotificationPromise = () => {
   return true
 }
 
-const isCurrentPermission = (permission) => {
+const isCurrentPermission = permission => {
   return Notification.permission === permission
 }
 

@@ -7,7 +7,7 @@ export default () => {
   const [end, setEnd] = useState(new Date())
 
   useEffect(() => {
-    const unsubscribe = livesiteDocRef.onSnapshot((doc) => {
+    const unsubscribe = livesiteDocRef.onSnapshot(doc => {
       const d = doc.data()
       if (d) {
         setStart(new Date(d.hackingStart))

@@ -9,7 +9,7 @@ import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
 
 // only notify user if announcement was created within last 5 secs
-const notifyUser = (announcement) => {
+const notifyUser = announcement => {
   const isRecent = new Date() - new Date(announcement.timestamp) < 5000
   if (isRecent && notifications.areEnabled()) {
     notifications.trigger('New Announcement', announcement.content)
@@ -23,7 +23,7 @@ function App() {
       .doc(DB_HACKATHON)
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
-      .onSnapshot((querySnapshot) => {
+      .onSnapshot(querySnapshot => {
         // firebase doc that triggered db change event
         const changedDoc = querySnapshot.docChanges()[0]
 

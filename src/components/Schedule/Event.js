@@ -13,7 +13,7 @@ const EventDescription = styled(P)`
 const EventCard = styled(Card)`
   position: absolute;
 
-  ${(p) => (props) =>
+  ${p => props =>
     props.delayed
       ? `
       background: linear-gradient(${p.theme.colors.warning}, ${p.theme.colors.foreground});
@@ -25,8 +25,8 @@ const EventCard = styled(Card)`
   margin: 5px;
   padding: ${EVENT_GAP}px 15px;
   width: ${EVENT_WIDTH - 50}px;
-  margin-top: ${(props) => props.timeStart * HOUR_HEIGHT}px;
-  height: ${(props) => props.duration * HOUR_HEIGHT - EVENT_GAP * 4}px;
+  margin-top: ${props => props.timeStart * HOUR_HEIGHT}px;
+  height: ${props => props.duration * HOUR_HEIGHT - EVENT_GAP * 4}px;
   overflow-y: scroll;
 
   & > h3 {
@@ -34,7 +34,7 @@ const EventCard = styled(Card)`
   }
 `
 
-const formatTime = (timeString) => {
+const formatTime = timeString => {
   const time = new Date(timeString)
   const options = {
     month: 'short',

@@ -11,7 +11,7 @@ const SidebarContainer = styled.div`
   border-right: 1px solid rgba(255, 255, 255, 0.3);
   transition: opacity 1s ease-out;
   ${maxWidthMediaQueries('mobile')} {
-    ${(props) =>
+    ${props =>
       props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
   }
 `
@@ -32,14 +32,14 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 60px;
   border-bottom: none;
-  color: ${(p) => (p.selected ? p.theme.colors.linkHover : p.theme.colors.highlight)};
-  ${(p) => p.selected && `background: ${p.theme.colors.secondaryBackground};`}
+  color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.highlight)};
+  ${p => p.selected && `background: ${p.theme.colors.secondaryBackground};`}
   &:hover {
-    background: ${(p) => p.theme.colors.secondaryBackground};
+    background: ${p => p.theme.colors.secondaryBackground};
     border-bottom: none;
   }
   &:focus {
-    background: ${(p) => p.theme.colors.secondaryBackground};
+    background: ${p => p.theme.colors.secondaryBackground};
     border-bottom: none;
   }
 `
@@ -47,7 +47,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background-color: ${(p) => p.theme.colors.text};
+  background-color: ${p => p.theme.colors.text};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -58,8 +58,8 @@ const LiveLabel = styled.p`
   font-weight: 600;
   font-size: 0.9em;
   border-radius: 7px;
-  background-color: ${(p) => p.theme.colors.primary};
-  color: ${(p) => p.theme.colors.secondaryBackground};
+  background-color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.secondaryBackground};
   width: 4em;
   padding: 5px;
 `

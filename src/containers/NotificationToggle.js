@@ -26,10 +26,10 @@ export default () => {
     setToggled(notifications.areEnabled())
   }, [setToggled])
 
-  const handleToggle = (e) => {
+  const handleToggle = e => {
     // if user's first time on site, request notification permissions from browser
     if (notifications.isCurrentPermission(N_PERMISSIONS.DEFAULT)) {
-      notifications.requestPermission((permission) => {
+      notifications.requestPermission(permission => {
         toggleNotifications(permission === N_PERMISSIONS.GRANTED)
       })
     }
@@ -38,7 +38,7 @@ export default () => {
   }
 
   // toggle switch UI and cache notifications settings
-  const toggleNotifications = (notificationsEnabled) => {
+  const toggleNotifications = notificationsEnabled => {
     setToggled(notificationsEnabled)
 
     const nSettingsJSON = JSON.stringify({ notificationsEnabled })

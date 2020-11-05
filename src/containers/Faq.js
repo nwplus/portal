@@ -15,8 +15,8 @@ export default () => {
     const unsubscribe = db
       .collection(FAQ_COLLECTION)
       .where('hackathonIDs', 'array-contains-any', [DB_HACKATHON, 'livesite'])
-      .onSnapshot((querySnapshot) => {
-        setFaqs(Object.values(querySnapshot.docs.map((doc) => doc.data())))
+      .onSnapshot(querySnapshot => {
+        setFaqs(Object.values(querySnapshot.docs.map(doc => doc.data())))
       })
     return unsubscribe
   }, [setFaqs])
@@ -37,7 +37,7 @@ export default () => {
   useEffect(
     () =>
       setFiltered(
-        faqs.filter((faq) => {
+        faqs.filter(faq => {
           const [head, body] = [faq.question.toLowerCase(), faq.answer.toLowerCase()]
           return head.includes(debouncedSearch) || body.includes(debouncedSearch)
         })
@@ -51,7 +51,7 @@ export default () => {
       <SearchBar
         placeholder="Search FAQ..."
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={e => setSearch(e.target.value)}
       />
       {filtered.length ? <Faq faq={filtered} /> : <H2> No results found. </H2>}
     </>

@@ -20,7 +20,7 @@ const OverflowContainer = styled(Card)`
   position: relative;
 `
 
-const msToHours = (ms) => ms / 1000 / 60 / 60
+const msToHours = ms => ms / 1000 / 60 / 60
 
 const ScheduleColumn = ({ column }) => {
   return (
@@ -33,7 +33,7 @@ const ScheduleColumn = ({ column }) => {
 }
 
 export default ({ events, hackathonStart, hackathonEnd }) => {
-  const produceOptimalSchedule = (events) => {
+  const produceOptimalSchedule = events => {
     const columns = []
     let unusedEvents = events
 
@@ -63,7 +63,7 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
       }, [])
 
       // update unused by removing used events
-      unusedEvents = unusedEvents.filter((event) => !usedEvents.includes(event))
+      unusedEvents = unusedEvents.filter(event => !usedEvents.includes(event))
 
       // add schedule to columns list
       columns.push(sched)
