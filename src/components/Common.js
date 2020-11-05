@@ -92,6 +92,7 @@ export const DetailAnswer = styled(P)`
 // "even" (all subarrays but the last have the same length):
 // https://stackoverflow.com/questions/8188548/splitting-a-js-array-into-n-arrays
 export const chunkify = ((a, n, balanced) => {
+  const numChunks = n;
   if (n < 2)
     return [a];
   var len = a.length,
@@ -120,5 +121,11 @@ export const chunkify = ((a, n, balanced) => {
     }
     out.push(a.slice(size * n));
   }
+
+  // push empty arrays if not enough elements to fulfill chunks 
+  while (out.length < numChunks) {
+    out.push([]);
+  }
+
   return out;
 });
