@@ -30,6 +30,13 @@ export const P = styled.p`
   ${p => (p.highlight && `color: ${p.theme.colors.linkHover}`)};
   margin: 0;
 `
+
+export const I = styled.i`
+  ${text};
+  ${p => (p.highlight && `color: ${p.theme.colors.linkHover}`)};
+  margin: 0;
+`
+
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
 export const A = styled.a`
   cursor: pointer;
@@ -51,7 +58,7 @@ export const UL = styled.ul`
   padding-inline-start: 10px;
 `
 export const LI = styled.li`
-  margin: 0 0 10px 0; 
+  margin: 10px 0; 
   &:before {
     content: "-";
     padding-right: 8px;
