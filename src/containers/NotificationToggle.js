@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { H2 } from '../components/Typography';
-import ToggleSwitch from '../components/ToggleSwitch';
-import notifications from '../utility/notifications';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { H2 } from '../components/Typography'
+import ToggleSwitch from '../components/ToggleSwitch'
+import notifications from '../utility/notifications'
 import {
   NOTIFICATION_PERMISSIONS as N_PERMISSIONS,
-  NOTIFICATION_SETTINGS_CACHE_KEY as N_SETTINGS_CACHE_KEY
-} from '../utility/Constants';
+  NOTIFICATION_SETTINGS_CACHE_KEY as N_SETTINGS_CACHE_KEY,
+} from '../utility/Constants'
 
 const NotificationToggleContainer = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ export default () => {
   const handleToggle = (e) => {
     // if user's first time on site, request notification permissions from browser
     if (notifications.isCurrentPermission(N_PERMISSIONS.DEFAULT)) {
-      notifications.requestPermission(permission => {
+      notifications.requestPermission((permission) => {
         toggleNotifications(permission === N_PERMISSIONS.GRANTED)
       })
     }
@@ -50,10 +50,10 @@ export default () => {
       <ToggleSwitch
         checked={toggled}
         disabled={notifications.isCurrentPermission(N_PERMISSIONS.DENIED)}
-        disabledTooltip={"Notifications blocked, change browser settings"}
+        disabledTooltip={'Notifications blocked, change browser settings'}
         onChange={handleToggle}
       />
       <StyledH2>Notifications</StyledH2>
     </NotificationToggleContainer>
-  );
-};
+  )
+}

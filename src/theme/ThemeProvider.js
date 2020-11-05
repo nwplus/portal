@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 const theme = {
@@ -11,7 +11,7 @@ const theme = {
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',
-    linkHover: '#31E0E0' //TODO
+    linkHover: '#31E0E0', //TODO
   },
   typography: {
     h1: {
@@ -27,12 +27,8 @@ const theme = {
       weight: 600,
       size: '1em',
       opacity: 0.5,
-    }
-  }
+    },
+  },
 }
 
-export default ({ children }) => (
-  <ThemeProvider theme={theme}>
-    {children}
-  </ThemeProvider>
-)
+export default ({ children }) => <ThemeProvider theme={theme}>{children}</ThemeProvider>

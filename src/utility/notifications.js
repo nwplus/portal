@@ -1,8 +1,5 @@
-import icon from "../assets/notification-icon.ico";
-import {
-  NOTIFICATION_SETTINGS_CACHE_KEY,
-  NOTIFICATION_PERMISSIONS
-} from "./Constants";
+import icon from '../assets/notification-icon.ico'
+import { NOTIFICATION_SETTINGS_CACHE_KEY, NOTIFICATION_PERMISSIONS } from './Constants'
 
 const requestPermission = (permissionCallback) => {
   if (checkNotificationPromise()) {
@@ -15,11 +12,11 @@ const requestPermission = (permissionCallback) => {
 // need this for safari support
 const checkNotificationPromise = () => {
   try {
-    Notification.requestPermission().then();
+    Notification.requestPermission().then()
   } catch (e) {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 const isCurrentPermission = (permission) => {
@@ -29,18 +26,20 @@ const isCurrentPermission = (permission) => {
 const areEnabled = () => {
   const settingsJSON = localStorage.getItem(NOTIFICATION_SETTINGS_CACHE_KEY)
   const settings = settingsJSON ? JSON.parse(settingsJSON) : null
-  return settings
-    && settings.notificationsEnabled === true
-    && Notification.permission === NOTIFICATION_PERMISSIONS.GRANTED
+  return (
+    settings &&
+    settings.notificationsEnabled === true &&
+    Notification.permission === NOTIFICATION_PERMISSIONS.GRANTED
+  )
 }
 
 const trigger = (title, body) => {
-  new Notification(title, { body, icon });
+  new Notification(title, { body, icon })
 }
 
 export default {
   requestPermission,
   isCurrentPermission,
   areEnabled,
-  trigger
+  trigger,
 }

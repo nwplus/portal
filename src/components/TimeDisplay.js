@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styled from 'styled-components'
 
 const TimeContainer = styled.div`
@@ -8,7 +8,7 @@ const TimeContainer = styled.div`
 `
 
 const TimeText = styled.span`
-  color: ${p => p.theme.colors.text};
+  color: ${(p) => p.theme.colors.text};
   width: 90px;
   font-size: 4em;
 `
@@ -31,7 +31,9 @@ const TimeFlex = styled.div`
 
 const TimeDisplay = ({ days, hours, minutes, seconds }) => {
   // formats to 2-digit num with prepended 0
-  function fmt(time) { return ("0" + time).slice(-2) }
+  function fmt(time) {
+    return ('0' + time).slice(-2)
+  }
 
   return (
     <TimeContainer>
@@ -51,7 +53,7 @@ const TimeDisplay = ({ days, hours, minutes, seconds }) => {
         <TimeUnitText>sec</TimeUnitText>
       </TimeFlex>
     </TimeContainer>
-  );
+  )
 }
 
 export default TimeDisplay

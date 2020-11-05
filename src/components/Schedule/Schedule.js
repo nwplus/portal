@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Card } from '../Common';
+import React from 'react'
+import styled from 'styled-components'
+import { Card } from '../Common'
 import { EVENT_WIDTH } from './Constants'
 import { TimelineColumn } from './Timeline'
 import { TagLegend } from './Tag'
@@ -20,12 +20,14 @@ const OverflowContainer = styled(Card)`
   position: relative;
 `
 
-const msToHours = ms => ms / 1000 / 60 / 60
+const msToHours = (ms) => ms / 1000 / 60 / 60
 
 const ScheduleColumn = ({ column }) => {
   return (
     <FlexColumn>
-      {column.map((event, i) => <Event key={i} event={event} />)}
+      {column.map((event, i) => (
+        <Event key={i} event={event} />
+      ))}
     </FlexColumn>
   )
 }
@@ -33,7 +35,7 @@ const ScheduleColumn = ({ column }) => {
 export default ({ events, hackathonStart, hackathonEnd }) => {
   const produceOptimalSchedule = (events) => {
     const columns = []
-    let unusedEvents = events;
+    let unusedEvents = events
 
     // build optimal columns list while there are still events that
     // are not in the schedule
@@ -50,18 +52,18 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
           event.timeStart = hoursFromStart
 
           // set duration of event
-          const duration = msToHours((new Date(event.endTime)) - (new Date(event.startTime)))
+          const duration = msToHours(new Date(event.endTime) - new Date(event.startTime))
           event.duration = duration
 
           accumulator.push(event)
           usedEvents.push(event)
           latestTime = new Date(event.endTime)
         }
-        return accumulator;
+        return accumulator
       }, [])
 
       // update unused by removing used events
-      unusedEvents = unusedEvents.filter(event => !usedEvents.includes(event))
+      unusedEvents = unusedEvents.filter((event) => !usedEvents.includes(event))
 
       // add schedule to columns list
       columns.push(sched)
@@ -76,9 +78,15 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
     <OverflowContainer>
       <TagLegend />
       <ScheduleFlexContainer>
-        <TimelineColumn hackathonStart={hackathonStart} duration={durationOfHackathon} numCols={schedule.length} />
-        {schedule.map((column, i) => <ScheduleColumn key={i} column={column} />)}
+        <TimelineColumn
+          hackathonStart={hackathonStart}
+          duration={durationOfHackathon}
+          numCols={schedule.length}
+        />
+        {schedule.map((column, i) => (
+          <ScheduleColumn key={i} column={column} />
+        ))}
       </ScheduleFlexContainer>
     </OverflowContainer>
-  );
+  )
 }

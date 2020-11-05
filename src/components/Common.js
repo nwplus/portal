@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { text } from './Typography'
-import { P } from './Typography';
+import { P } from './Typography'
 
 const screenBreakpoints = {
   xs: 576,
@@ -9,14 +9,14 @@ const screenBreakpoints = {
   desktop: 1200,
 }
 
-export const maxWidthMediaQueries = ((size) => {
+export const maxWidthMediaQueries = (size) => {
   return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
-})
+}
 
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
-  background-color: ${p => p.theme.colors.secondaryBackground};
+  background-color: ${(p) => p.theme.colors.secondaryBackground};
   margin: 2em 0;
 `
 
@@ -29,9 +29,9 @@ export const Button = styled.a`
   display: block;
   text-decoration: none;
   font-family: 'HK Grotesk';
-  font-weight: ${p => p.theme.typography.h2.weight};
-  background: ${p => p.theme.colors.primary};
-  color: ${p => p.theme.colors.background};
+  font-weight: ${(p) => p.theme.typography.h2.weight};
+  background: ${(p) => p.theme.colors.primary};
+  color: ${(p) => p.theme.colors.background};
   text-align: center;
   width: 75px;
   padding: 0.75em 2.5em;
@@ -40,9 +40,9 @@ export const Button = styled.a`
 `
 
 export const SecondaryButton = styled(Button)`
-  background: ${p => p.theme.colors.background};
-  color: ${p => p.theme.colors.primary};
-  border: 1px solid ${p => p.theme.colors.primary};
+  background: ${(p) => p.theme.colors.background};
+  color: ${(p) => p.theme.colors.primary};
+  border: 1px solid ${(p) => p.theme.colors.primary};
 `
 
 export const SearchBar = styled.input.attrs({
@@ -53,7 +53,7 @@ export const SearchBar = styled.input.attrs({
   padding: 12px 20px;
   margin: 8px 0;
   border: none;
-  color: ${p => p.theme.colors.text};
+  color: ${(p) => p.theme.colors.text};
 `
 
 export const DetailContainer = styled.div`

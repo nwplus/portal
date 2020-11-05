@@ -2,14 +2,7 @@ import React, { useEffect } from 'react'
 import { Route } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import {
-  Charcuterie,
-  Home,
-  Faq,
-  Sponsors,
-  Quicklinks,
-  Schedule
-} from './pages'
+import { Charcuterie, Home, Faq, Sponsors, Quicklinks, Schedule } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
@@ -19,7 +12,7 @@ import notifications from './utility/notifications'
 const notifyUser = (announcement) => {
   const isRecent = new Date() - new Date(announcement.timestamp) < 5000
   if (isRecent && notifications.areEnabled()) {
-    notifications.trigger("New Announcement", announcement.content)
+    notifications.trigger('New Announcement', announcement.content)
   }
 }
 
@@ -30,7 +23,7 @@ function App() {
       .doc(DB_HACKATHON)
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
-      .onSnapshot(querySnapshot => {
+      .onSnapshot((querySnapshot) => {
         // firebase doc that triggered db change event
         const changedDoc = querySnapshot.docChanges()[0]
 
@@ -47,16 +40,28 @@ function App() {
       <ThemeProvider>
         <GlobalStyle />
         <Page>
-          <Route path='/'><Home /></Route>
-          <Route path='/charcuterie'><Charcuterie /></Route>
-          <Route path='/faq'><Faq /></Route>
-          <Route path='/schedule'><Schedule /></Route>
-          <Route path='/sponsors'><Sponsors /></Route>
-          <Route path='/quicklinks'><Quicklinks /></Route>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/charcuterie">
+            <Charcuterie />
+          </Route>
+          <Route path="/faq">
+            <Faq />
+          </Route>
+          <Route path="/schedule">
+            <Schedule />
+          </Route>
+          <Route path="/sponsors">
+            <Sponsors />
+          </Route>
+          <Route path="/quicklinks">
+            <Quicklinks />
+          </Route>
         </Page>
       </ThemeProvider>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
