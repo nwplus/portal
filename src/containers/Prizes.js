@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 import { CardLike, DetailContainer, DetailColumn, chunkify } from '../components/Common'
-import { H2, UL, LI } from '../components/Typography';
+import { H2, UL, LI, I } from '../components/Typography';
 
 const CenteredH1 = styled.h1`
   text-align: center;
@@ -44,6 +44,7 @@ const singlePrize = (prize) => {
   return (
     <PrizeCard>
       <H2>{prize.title}</H2>
+      { (prize.sponsor === '') ? null : <I>{`Sponsored by ${prize.sponsor}`}</I>}
       <UL>
         {prize.content.split("|").map((item) => <LI key={prize.title + item}>{item}</LI>)}
       </UL>
