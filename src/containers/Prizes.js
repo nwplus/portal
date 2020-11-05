@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CenteredH1 = styled.h2`
+const CenteredH1 = styled.h1`
   text-align: center;
 `
 
