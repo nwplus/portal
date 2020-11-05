@@ -3,10 +3,17 @@ import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
+import { maxWidthMediaQueries } from './Common';
 
 const SidebarContainer = styled.div`
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
   min-width: 275px;
+  min-height: 100%;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  transition: opacity 1s ease-out;
+  ${maxWidthMediaQueries('mobile')} {
+    ${props => props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
+    
+  }
 `;
 
 const Logo = styled.img`
@@ -57,7 +64,7 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
-export default () => {
+export default ({ showMobileSidebar }) => {
   const [location] = useLocation();
 
   const links = [
@@ -73,7 +80,7 @@ export default () => {
   }
 
   return (
-    <SidebarContainer>
+    <SidebarContainer showMobileSidebar={showMobileSidebar}>
       <Logo src={logo} alt="logo" />
       <LiveLabel>
         <LiveDot />LIVE

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
+import MobileMenuBar from './MobileMenuBar';
 
 const Container = styled.div`
   display: flex;
   align-items: stretch;
   min-height: 100vh;
+`;
+
+const RightContentContainer = styled.div`
+  box-sizing: border-box;
+  width: 100%;
 `;
 
 const Content = styled.div`
@@ -14,9 +20,21 @@ const Content = styled.div`
   width: 100%;
 `;
 
-export default ({ children }) => (
-  <Container>
-    <Sidebar />
-    <Content>{children}</Content>
-  </Container>
-);
+
+
+const Page = ({ children }) => {
+
+
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+  return (
+    <Container>
+      <Sidebar showMobileSidebar={showMobileSidebar} />
+      <RightContentContainer>
+        <MobileMenuBar showMobileSidebar={showMobileSidebar} setShowMobileSidebar={setShowMobileSidebar} />
+        <Content>{children}</Content>
+      </RightContentContainer>
+    </Container>
+  );
+}
+
+export default Page; 

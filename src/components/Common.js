@@ -2,6 +2,17 @@ import styled, { css } from 'styled-components'
 import { text } from './Typography'
 import { P } from './Typography';
 
+const screenBreakpoints = {
+  xs: 576,
+  mobile: 768,
+  tablet: 992,
+  desktop: 1200,
+}
+
+export const maxWidthMediaQueries = ((size) => {
+  return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
+})
+
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
@@ -51,7 +62,7 @@ export const DetailContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  @media (max-width: 1200px) {
+  ${maxWidthMediaQueries('desktop')} {
     display: block;
   }
 `
