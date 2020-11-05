@@ -10,7 +10,6 @@ const CenteredH1 = styled.h1`
 `
 const COLUMNS_OF_PRIZES = 3;
 
-
 const PrizeCard = styled.div`
   ${CardLike};
   margin: 0.5em 0;
