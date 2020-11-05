@@ -1,5 +1,5 @@
-import React from 'react';
-import { A, UL, LI, H2 } from './Typography';
+import React from 'react'
+import { A, UL, LI, H2 } from './Typography'
 
 import styled from 'styled-components'
 import { CardLike } from '../components/Common.js'
