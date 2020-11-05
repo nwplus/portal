@@ -44,6 +44,36 @@ export const SecondaryButton = styled(Button)`
   color: ${p => p.theme.colors.primary};
   border: 1px solid ${p => p.theme.colors.primary};
 `
+// todo: error message
+export const TextInput = styled.input.attrs({
+  type: 'text',
+})`
+  ${CardLike};  
+  width: 300px;
+  padding: 10px;
+  margin: 1em;
+  border: 2px solid ${p => p.theme.colors.highlight};
+  border-radius: 7px;
+  color: ${p => p.theme.colors.primary};
+  font-family: 'HK Grotesk';
+  font-size: ${p => p.theme.typography.h3.size};
+  &:hover {
+    border: 2px solid ${p => p.theme.colors.primary};
+  }
+  &:focus {
+    border: 2px solid ${p => p.theme.colors.primary};
+    outline: none;
+  }
+  ::placeholder {
+    color: ${p => p.theme.colors.highlight};
+  }
+  &:disabled {
+    border: 2px solid ${p => p.theme.colors.warning};
+    ::placeholder {
+      color: ${p => p.theme.colors.warning};
+    }
+  }
+`
 
 export const SearchBar = styled.input.attrs({
   type: 'text',

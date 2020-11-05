@@ -1,6 +1,6 @@
 import React from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
-import { Card, Button, SecondaryButton } from '../components/Common.js'
+import { Card, Button, SecondaryButton, TextInput } from '../components/Common.js'
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
@@ -23,6 +23,8 @@ export default () => (
       <P>It can contain content. And even buttons!</P>
       <Button>Primary</Button>
       <SecondaryButton>Secondary</SecondaryButton>
+      <TextInput placeholder="Hint Text" />
+      <TextInput placeholder="Hint Text" disabled={true} />
     </Card>
     <Accordion heading="Accordion Component">
       Some hidden content. This can get pretty long too, and even contain other stuff like headers or images.
