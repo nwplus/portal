@@ -59,7 +59,7 @@ export default () => {
   useEffect(() => {
     getPrizes()
       .then(docs => {
-        let prizes
+        let prizes = {}
         prizes.main = Object.values(
           docs.reduce((result, doc) => {
             const data = doc.data()
@@ -74,6 +74,7 @@ export default () => {
             return result
           }, [])
         )
+        return prizes
       })
       .then(prizes => {
         setMainPrizes(prizes.main)
