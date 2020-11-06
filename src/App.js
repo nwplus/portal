@@ -2,7 +2,17 @@ import React, { useEffect } from 'react'
 import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import { Charcuterie, Home, Faq, Sponsors, Quicklinks, Schedule, Judging, JudgingDone, JudgingView } from './pages'
+import {
+  Charcuterie,
+  Home,
+  Faq,
+  Sponsors,
+  Quicklinks,
+  Schedule,
+  Judging,
+  JudgingDone,
+  JudgingView,
+} from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
@@ -62,9 +72,7 @@ function App() {
             <Route path="/judging">
               <Judging />
             </Route>
-            <Route path="/judging/view/:id">
-              {params => <JudgingView id={params.id} />}
-            </Route>
+            <Route path="/judging/view/:id">{params => <JudgingView id={params.id} />}</Route>
             <Route path="/judging/done">
               <JudgingDone />
             </Route>

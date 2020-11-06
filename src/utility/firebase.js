@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 
 if (!firebase.apps.length) {
   const config = {
@@ -24,4 +25,15 @@ export const getJudgingStatus = callback => {
     const d = doc.data()
     callback(d.judgingOpen)
   })
+}
+
+export const getSponsors = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .collection('Sponsors')
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    })
 }

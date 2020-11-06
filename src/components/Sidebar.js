@@ -12,7 +12,7 @@ const SidebarContainer = styled.div`
   transition: opacity 1s ease-out;
   ${maxWidthMediaQueries('mobile')} {
     ${props =>
-    props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
+      props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
   }
 `
 
