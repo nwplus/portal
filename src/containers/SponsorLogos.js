@@ -19,13 +19,10 @@ export default () => {
     })
   }, [setSponsors])
 
-  if (sponsors.length) {
-    return (
-      <>
-        <CenteredH2>A huge thank you to all our sponsors!</CenteredH2>
-        <Sponsors sponsors={sponsors} />
-      </>
-    )
-  }
-  return null
+  return sponsors.length ? (
+    <>
+      <CenteredH2>A huge thank you to all our sponsors!</CenteredH2>
+      <Sponsors sponsors={sponsors} />
+    </>
+  ) : null
 }
