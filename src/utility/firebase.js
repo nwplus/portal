@@ -10,7 +10,7 @@ if (!firebase.apps.length) {
     measurementId: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   }
   firebase.initializeApp(config)
 }
@@ -18,3 +18,10 @@ if (!firebase.apps.length) {
 export const db = firebase.firestore()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
+
+export const getJudgingStatus = callback => {
+  return livesiteDocRef.onSnapshot(doc => {
+    const d = doc.data()
+    callback(d.judgingOpen)
+  })
+}

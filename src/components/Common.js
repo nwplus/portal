@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { text } from './Typography'
-import { P } from './Typography';
+import { P } from './Typography'
 
 const screenBreakpoints = {
   xs: 576,
@@ -9,9 +9,9 @@ const screenBreakpoints = {
   desktop: 1200,
 }
 
-export const maxWidthMediaQueries = ((size) => {
+export const maxWidthMediaQueries = size => {
   return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
-})
+}
 
 export const CardLike = css`
   padding: 2em;
@@ -87,45 +87,3 @@ export const DetailColumn = styled.ul`
 export const DetailAnswer = styled(P)`
   margin-bottom: 0.85em;
 `
-// given array, split into array of chunks of size n 
-// "balanced" (subarrays' lengths differ as less as possible) or 
-// "even" (all subarrays but the last have the same length):
-// https://stackoverflow.com/questions/8188548/splitting-a-js-array-into-n-arrays
-export const chunkify = ((a, n, balanced) => {
-  const numChunks = n;
-  if (n < 2)
-    return [a];
-  var len = a.length,
-    out = [],
-    i = 0,
-    size;
-  if (len % n === 0) {
-    size = Math.floor(len / n);
-    while (i < len) {
-      out.push(a.slice(i, i += size));
-    }
-  }
-  else if (balanced) {
-    while (i < len) {
-      size = Math.ceil((len - i) / n--);
-      out.push(a.slice(i, i += size));
-    }
-  }
-  else {
-    n--;
-    size = Math.floor(len / n);
-    if (len % size === 0)
-      size--;
-    while (i < size * n) {
-      out.push(a.slice(i, i += size));
-    }
-    out.push(a.slice(size * n));
-  }
-
-  // push empty arrays if not enough elements to fulfill chunks 
-  while (out.length < numChunks) {
-    out.push([]);
-  }
-
-  return out;
-});

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
-import { CardLike, DetailContainer, DetailColumn, chunkify } from '../components/Common'
+import { CardLike, DetailContainer, DetailColumn } from '../components/Common'
 import { H2, UL, LI, I } from '../components/Typography';
+import { chunkify } from '../utility/utilities'
 
 const CenteredH1 = styled.h1`
   text-align: center;
