@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import MobileMenuBar from './MobileMenuBar'
+import { getJudgingStatus } from '../utility/firebase'
 
 const Container = styled.div`
   display: flex;
@@ -22,9 +23,16 @@ const Content = styled.div`
 
 const Page = ({ children }) => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false)
+  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
+
+  useEffect(() => {
+    const unsubscribe = getJudgingStatus(setIsJudgingOpen)
+    return unsubscribe
+  }, [setIsJudgingOpen])
+
   return (
     <Container>
-      <Sidebar showMobileSidebar={showMobileSidebar} />
+      <Sidebar isJudgingOpen={isJudgingOpen} showMobileSidebar={showMobileSidebar} />
       <RightContentContainer>
         <MobileMenuBar
           showMobileSidebar={showMobileSidebar}
