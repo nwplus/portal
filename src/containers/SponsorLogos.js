@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { db } from '../utility/firebase'
-import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import { getSponsors } from '../utility/firebase'
 import Sponsors from '../components/SponsorLogos'
 
-const CenteredH1 = styled.h2`
+const CenteredH2 = styled.h2`
   text-align: center;
   margin-bottom: 1em;
 `
-const getSponsors = () => {
-  return db
-    .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
-    .collection('Sponsors')
-    .get()
-    .then(querySnapshot => {
-      return querySnapshot.docs
-    })
-}
 
 export default () => {
   const [sponsors, setSponsors] = useState([])
@@ -25,13 +14,7 @@ export default () => {
   useEffect(() => {
     getSponsors().then(docs => {
       // only keep non-inkind sponsors
-      const filtered = Object.values(
-        docs.reduce((result, doc) => {
-          const data = doc.data()
-          data.tier !== 'inkind' && result.push(data)
-          return result
-        }, [])
-      )
+      const filtered = docs.filter(doc => doc.data().tier !== 'inkind').map(doc => doc.data())
       setSponsors(filtered)
     })
   }, [setSponsors])
@@ -39,7 +22,7 @@ export default () => {
   if (sponsors.length) {
     return (
       <>
-        <CenteredH1>A huge thank you to all our sponsors!</CenteredH1>
+        <CenteredH2>A huge thank you to all our sponsors!</CenteredH2>
         <Sponsors sponsors={sponsors} />
       </>
     )

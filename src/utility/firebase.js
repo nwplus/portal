@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 
 if (!firebase.apps.length) {
   const config = {
@@ -18,3 +19,14 @@ if (!firebase.apps.length) {
 export const db = firebase.firestore()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
+
+export const getSponsors = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .collection('Sponsors')
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    })
+}

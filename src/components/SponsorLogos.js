@@ -24,11 +24,11 @@ const SponsorImage = styled.img`
 `
 
 const platWidth = 250
-const tierData = {
-  platinum: { rank: 1, width: platWidth },
-  gold: { rank: 2, width: platWidth * 0.9 },
-  silver: { rank: 3, width: platWidth * 0.8 },
-  bronze: { rank: 4, width: platWidth * 0.7 },
+const tierRanks = {
+  platinum: 0,
+  gold: 1,
+  silver: 2,
+  bronze: 3,
 }
 
 export default ({ sponsors }) => {
@@ -39,7 +39,7 @@ export default ({ sponsors }) => {
 
   // sort by rank (plat - bronze)
   const sortedTiers = Object.keys(tiers).sort((t1, t2) => {
-    return tierData[t1].rank - tierData[t2].rank
+    return tierRanks[t1] - tierRanks[t2]
   })
 
   const createSponsorList = entries => {
@@ -47,7 +47,7 @@ export default ({ sponsors }) => {
   }
 
   const singleSponsor = (entry, i) => {
-    const imgWidth = tierData[entry.tier].width
+    const imgWidth = platWidth * (1 - 0.1 * tierRanks[entry.tier])
     return (
       <SponsorContainer key={i}>
         <a href={entry.link}>
