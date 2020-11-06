@@ -13,12 +13,10 @@ export default () => {
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
       .onSnapshot(querySnapshot => {
-        setAnnouncements(
-          Object.values(querySnapshot.docs.map(doc => doc.data()))
-        )
-      });
+        setAnnouncements(Object.values(querySnapshot.docs.map(doc => doc.data())))
+      })
     return unsubscribe
   }, [setAnnouncements])
 
   return announcements.length ? <Announcements announcements={announcements} /> : null
-};
+}

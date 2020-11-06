@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { H2 } from '../components/Typography'
 import TimeDisplay from '../components/TimeDisplay'
@@ -9,17 +9,17 @@ export const Centered = styled.div`
 `
 
 const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
-  const [now, setNow] = useState(new Date());
+  const [now, setNow] = useState(new Date())
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setNow(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+      setNow(new Date())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   // calculate ratios
-  const diff = Math.max(countDownDate - now, 0); // floor to 0 if in the past
+  const diff = Math.max(countDownDate - now, 0) // floor to 0 if in the past
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
   const minutes = Math.floor((diff / (1000 * 60)) % 60)
@@ -34,7 +34,7 @@ const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
       <TimeDisplay days={days} hours={hours} minutes={minutes} seconds={seconds} />
       {/* <ProgressBar percent={progress * 100} /> */}
     </Centered>
-  );
+  )
 }
 
 export default Countdown
