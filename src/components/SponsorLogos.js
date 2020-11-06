@@ -33,10 +33,7 @@ const tierData = {
 
 export default ({ sponsors }) => {
   const tiers = sponsors.reduce((accumulator, sponsor) => {
-    if (sponsor.tier !== 'inkind') {
-      // no inkind logos on livesite
-      accumulator[sponsor.tier] = [...(accumulator[sponsor.tier] || []), sponsor]
-    }
+    accumulator[sponsor.tier] = [...(accumulator[sponsor.tier] || []), sponsor]
     return accumulator // group by tier
   }, {})
 
