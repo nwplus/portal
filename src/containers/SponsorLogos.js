@@ -14,8 +14,8 @@ export default () => {
   useEffect(() => {
     getSponsors().then(docs => {
       // only keep non-inkind sponsors
-      const filtered = docs.filter(doc => doc.data().tier !== 'inkind').map(doc => doc.data())
-      setSponsors(filtered)
+      const filteredDocs = docs.filter(doc => doc.data().tier !== 'inkind')
+      setSponsors(filteredDocs.map(doc => doc.data()))
     })
   }, [setSponsors])
 
