@@ -10,6 +10,7 @@ export default () => {
   }, [setIsJudgingEnabled])
 
   return (
+    // TODO: Implement this page
     isJudgingEnabled ? <h1>Judging is open</h1> : <h1>Judging is not open</h1>
   )
 }
