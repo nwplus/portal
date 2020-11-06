@@ -1,72 +1,76 @@
 import React from 'react';
 import styled from 'styled-components';
-import Accordion from './Accordion';
-import { H2 } from './Typography';
-import { DetailContainer, DetailColumn, DetailAnswer } from './Common'
 
-const Sponsor = styled.img`
-  // min-width: ${p => p.width * 0.75}px;
-  // max-width: ${p => p.width}px; 
-  width: ${p => p.width}px; 
-`
-
-const TierContainer = styled.div`
+const SponsorListContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1em;
 `
 
 const SponsorContainer = styled.div`
-  margin: 10px;
+  margin: 1em;
 `
 
-const platWidth = 200;
+const SponsorImage = styled.img`
+  max-width: ${p => p.width}px;
+  transition: transform .2s;
+
+  &:hover {
+    transform: scale(1.10);
+  }
+`
+
+const platWidth = 250;
 const tierData = {
   platinum: { rank: 1, width: platWidth },
   gold: { rank: 2, width: platWidth * 0.9 },
   silver: { rank: 3, width: platWidth * 0.8 },
-  bronze: { rank: 4, width: platWidth * 0.7 },
-  inkind: { rank: 5, width: platWidth * 0.6 },
+  bronze: { rank: 4, width: platWidth * 0.7 }
 }
 
 export default ({ sponsors }) => {
   const tiers = sponsors.reduce((accumulator, sponsor) => {
-    accumulator[sponsor.tier] = [...accumulator[sponsor.tier] || [], sponsor];
+    if (sponsor.tier !== 'inkind') { // no inkind logos on livesite
+      accumulator[sponsor.tier] = [...accumulator[sponsor.tier] || [], sponsor];
+    }
     return accumulator; // group by tier
   }, {});
 
-  // sort by rank
+  // sort by rank (plat - bronze)
   const sortedTiers = Object.keys(tiers).sort((t1, t2) => {
-    return tierData[t1].rank > tierData[t2].rank ? 1 : -1;
+    return tierData[t1].rank - tierData[t2].rank;
   })
 
-  const createSponsorList = (tier, entries) => {
-    const imgWidth = tierData[tier].width;
+  const createSponsorList = (entries) => {
     return (
-      <TierContainer>
-        {
-          entries.map((entry, i) =>
-            <SponsorContainer>
-              <Sponsor
-                key={i}
-                src={entry.imgURL}
-                alt={entry.imgName}
-                width={imgWidth}
-              />
-            </SponsorContainer>
-          )
-        }
-      </TierContainer>
+      <SponsorListContainer>
+        {entries.map(singleSponsor)}
+      </SponsorListContainer>
+    );
+  }
+
+  const singleSponsor = (entry, i) => {
+    const imgWidth = tierData[entry.tier].width
+    return (
+      <SponsorContainer key={i}>
+        <a href={entry.link}>
+          <SponsorImage
+            src={entry.imgURL}
+            alt={entry.imgName}
+            width={imgWidth}
+          />
+        </a>
+      </SponsorContainer>
     );
   }
 
   return sortedTiers.map((tier, i) => {
     return (
       <div key={i}>
-        {createSponsorList(tier, tiers[tier])}
+        {createSponsorList(tiers[tier])}
       </div>
     );
   })

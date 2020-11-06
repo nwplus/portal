@@ -6,6 +6,7 @@ import Sponsors from '../components/Sponsors';
 
 const CenteredH1 = styled.h2`
   text-align: center;
+  margin-bottom: 1em;
 `
 
 
