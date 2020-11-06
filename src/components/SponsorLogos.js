@@ -23,7 +23,7 @@ const SponsorImage = styled.img`
   }
 `
 
-const platWidth = 250
+const maxSponsorWidth = 250
 const tierRanks = {
   platinum: 0,
   gold: 1,
@@ -47,7 +47,7 @@ export default ({ sponsors }) => {
   }
 
   const singleSponsor = (entry, i) => {
-    const imgWidth = platWidth * (1 - 0.1 * tierRanks[entry.tier])
+    const imgWidth = maxSponsorWidth * (1 - 0.1 * tierRanks[entry.tier])
     return (
       <SponsorContainer key={i}>
         <a href={entry.link}>
