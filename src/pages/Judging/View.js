@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { isJudgingOpen } from '../../utility/firebase'
+import { getJudgingStatus } from '../../utility/firebase'
 
 export default ({ id }) => {
-  const [isJudgingEnabled, setIsJudgingEnabled] = useState(false)
+  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = isJudgingOpen(setIsJudgingEnabled)
+    const unsubscribe = getJudgingStatus(setIsJudgingOpen)
     return unsubscribe
-  }, [setIsJudgingEnabled])
+  }, [setIsJudgingOpen])
 
   return (
     // TODO: Implement this page
-    isJudgingEnabled ? <h1>Viewing project {id}</h1> : <h1>Judging is not open</h1>
+    isJudgingOpen ? <h1>Viewing project {id}</h1> : <h1>Judging is not open</h1>
   )
 }

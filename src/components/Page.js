@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import MobileMenuBar from './MobileMenuBar'
-import { isJudgingOpen } from '../utility/firebase'
+import { getJudgingStatus } from '../utility/firebase'
 
 const Container = styled.div`
   display: flex;
@@ -23,16 +23,16 @@ const Content = styled.div`
 
 const Page = ({ children }) => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false)
-  const [isJudgingEnabled, setIsJudgingEnabled] = useState(false)
+  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = isJudgingOpen(setIsJudgingEnabled)
+    const unsubscribe = getJudgingStatus(setIsJudgingOpen)
     return unsubscribe
-  }, [setIsJudgingEnabled])
+  }, [setIsJudgingOpen])
 
   return (
     <Container>
-      <Sidebar isJudgingEnabled={isJudgingEnabled} showMobileSidebar={showMobileSidebar} />
+      <Sidebar isJudgingOpen={isJudgingOpen} showMobileSidebar={showMobileSidebar} />
       <RightContentContainer>
         <MobileMenuBar
           showMobileSidebar={showMobileSidebar}
