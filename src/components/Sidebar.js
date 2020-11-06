@@ -12,7 +12,7 @@ const SidebarContainer = styled.div`
   transition: opacity 1s ease-out;
   ${maxWidthMediaQueries('mobile')} {
     ${props =>
-      props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
+    props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
   }
 `
 
@@ -64,7 +64,7 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
-export default ({ showMobileSidebar }) => {
+export default ({ showMobileSidebar, isJudgingEnabled }) => {
   const [location] = useLocation()
 
   const links = [
@@ -74,6 +74,10 @@ export default ({ showMobileSidebar }) => {
     { location: '/faq', text: 'FAQ' },
     { location: '/sponsors', text: 'SPONSORS' },
   ]
+
+  if (isJudgingEnabled) {
+    links.push({ location: '/judging', text: 'JUDGING' })
+  }
 
   if (process.env.NODE_ENV !== 'production') {
     links.push({ location: '/charcuterie', text: 'CHARCUTERIE' })

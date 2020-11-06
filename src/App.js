@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { Route } from 'wouter'
+import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import { Charcuterie, Home, Faq, Sponsors, Quicklinks, Schedule } from './pages'
+import { Charcuterie, Home, Faq, Sponsors, Quicklinks, Schedule, Judging, JudgingDone, JudgingView } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
@@ -40,24 +40,36 @@ function App() {
       <ThemeProvider>
         <GlobalStyle />
         <Page>
-          <Route path="/">
-            <Home />
-          </Route>
-          <Route path="/charcuterie">
-            <Charcuterie />
-          </Route>
-          <Route path="/faq">
-            <Faq />
-          </Route>
-          <Route path="/schedule">
-            <Schedule />
-          </Route>
-          <Route path="/sponsors">
-            <Sponsors />
-          </Route>
-          <Route path="/quicklinks">
-            <Quicklinks />
-          </Route>
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+            <Route path="/charcuterie">
+              <Charcuterie />
+            </Route>
+            <Route path="/faq">
+              <Faq />
+            </Route>
+            <Route path="/schedule">
+              <Schedule />
+            </Route>
+            <Route path="/sponsors">
+              <Sponsors />
+            </Route>
+            <Route path="/quicklinks">
+              <Quicklinks />
+            </Route>
+            <Route path="/judging">
+              <Judging />
+            </Route>
+            <Route path="/judging/view/:id">
+              {params => <JudgingView id={params.id} />}
+            </Route>
+            <Route path="/judging/done">
+              <JudgingDone />
+            </Route>
+            <Route>Page Not Found!</Route>
+          </Switch>
         </Page>
       </ThemeProvider>
     </>
