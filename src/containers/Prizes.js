@@ -59,72 +59,21 @@ export default () => {
   useEffect(() => {
     getPrizes()
       .then(docs => {
-        // let prizes;
-        // prizes.main = Object.values(docs.reduce((result, doc) => {
-        //   const data = doc.data()
-        //   typeof data.place === "number" && result.push(data)
-        //   return result
-        // }, []));
-        // prizes.sponsor = Object.values(docs.reduce((result, doc) => {
-        //   const data = doc.data()
-        //   !data.place && result.push(data)
-        //   return result
-        // }, []));
-        return {
-          main: [
-            {
-              place: '1',
-              title: '1st Place',
-              content: "hello|hi|what's up",
-            },
-            {
-              place: '2',
-              title: '2nd Place',
-              content: "hello|hi|what's up",
-            },
-            {
-              place: '3',
-              title: '3rd Place',
-              content: "hello|hi|what's up",
-            },
-          ],
-          sponsor: [
-            {
-              place: false,
-              title: 'sponsor prize 1',
-              content: "hello|hi|what's up",
-              sponsor: 'hi',
-            },
-            {
-              place: false,
-              title: 'sponsor prize 2',
-              content: "hello|hi|what's up",
-              sponsor: 'hi',
-            },
-            {
-              place: false,
-              title: 'sponsor prize 3',
-              content: "hello|hi|what's up",
-              sponsor: 'hi',
-            },
-            {
-              place: false,
-              title: 'sponsor prize 4',
-              content: "hello|hi|what's up",
-              sponsor: 'hi',
-            },
-            {
-              place: false,
-              title: 'sponsor prize 5',
-              content: "hello|hi|what's up",
-            },
-            {
-              place: false,
-              title: 'sponsor prize 6',
-              content: "hello|hi|what's up",
-            },
-          ],
-        }
+        let prizes
+        prizes.main = Object.values(
+          docs.reduce((result, doc) => {
+            const data = doc.data()
+            typeof data.place === 'number' && result.push(data)
+            return result
+          }, [])
+        )
+        prizes.sponsor = Object.values(
+          docs.reduce((result, doc) => {
+            const data = doc.data()
+            !data.place && result.push(data)
+            return result
+          }, [])
+        )
       })
       .then(prizes => {
         setMainPrizes(prizes.main)
