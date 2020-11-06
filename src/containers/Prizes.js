@@ -52,7 +52,7 @@ const singlePrize = prize => {
   )
 }
 
-export const AllPrizes = () => {
+export default () => {
   const [mainPrizes, setMainPrizes] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState([])
 
@@ -150,12 +150,4 @@ export const AllPrizes = () => {
     )
   }
   return res
-}
-
-export default () => {
-  return (
-    <>
-      <AllPrizes />
-    </>
-  )
 }
