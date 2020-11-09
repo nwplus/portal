@@ -70,22 +70,20 @@ export default () => {
       })
   }, [setMainPrizes, setSponsorPrizes])
 
-  let res = []
-  if (mainPrizes.length > 0) {
-    res.push(
-      <>
-        <CenteredH1>Overall Prizes</CenteredH1>
-        {createPrizeList(mainPrizes)}
-      </>
-    )
-  }
-  if (sponsorPrizes.length > 0) {
-    res.push(
-      <>
-        <CenteredH1>Sponsored Categories</CenteredH1>
-        {createPrizeList(sponsorPrizes)}
-      </>
-    )
-  }
-  return res
+  return (
+    <>
+      {mainPrizes.length > 0 && (
+        <>
+          <CenteredH1>Overall Prizes</CenteredH1>
+          {createPrizeList(mainPrizes)}
+        </>
+      )}
+      {sponsorPrizes.length > 0 && (
+        <>
+          <CenteredH1>Sponsored Categories</CenteredH1>
+          {createPrizeList(sponsorPrizes)}
+        </>
+      )}
+    </>
+  )
 }
