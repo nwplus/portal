@@ -37,9 +37,9 @@ const TextInputBox = styled.input.attrs({
     opacity: ${p => p.theme.opacity.disabled};
   }
   ${p => (p.invalid) &&
-    `border: 2px solid ${p.theme.colors.warning};
+    `border: 2px solid ${p.theme.colors.secondaryWarning};
     ::placeholder {
-      color: ${p.theme.colors.warning};
+      color: ${p.theme.colors.secondaryWarning};
     }
     :hover {
       border: 2px solid ${p => p.theme.colors.primary};
