@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const size = {
+const inputSize = {
   default: '300px',
   medium: '400px',
   large: '600px',
@@ -15,7 +15,7 @@ const TextInputBox = styled.input.attrs({
   type: 'text',
 })`
   background-color: transparent;
-  width: ${p => (p.size ? size[p.size] : size['default'])};
+  width: ${p => (p.size ? inputSize[p.size] : inputSize['default'])};
   padding: 10px;
   border: 2px solid ${p => p.theme.colors.highlight};
   border-radius: 7px;
@@ -37,13 +37,16 @@ const TextInputBox = styled.input.attrs({
     opacity: ${p => p.theme.opacity.disabled};
   }
   ${p =>
-    p.invalid && // TODO: THIS HOVER DOESN"T WORK -AC
+    p.invalid &&
     `border: 2px solid ${p.theme.colors.secondaryWarning};
     ::placeholder {
       color: ${p.theme.colors.secondaryWarning};
     }
     :hover {
-      border: 2px solid ${p => p.theme.colors.secondaryWarning};
+      border: 2px solid ${p.theme.colors.secondaryWarning};
+    }
+    :focus {
+      border: 2px solid ${p.theme.colors.warning};
     }`}
 `
 const ErrorMsg = styled.p`
@@ -51,17 +54,10 @@ const ErrorMsg = styled.p`
   margin: 7px 0px;
 `
 
-export const TextInput = ({ value, onChange, placeholder, disabled, size, invalid, errorMsg }) => {
+export const TextInput = ({ invalid, errorMsg, ...rest }) => {
   return (
     <TextInputContainer>
-      <TextInputBox
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        disabled={disabled}
-        size={size}
-        invalid={invalid}
-      />
+      <TextInputBox invalid={invalid} {...rest} />
       {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
     </TextInputContainer>
   )
