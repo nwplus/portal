@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import './fonts/style.css';
+import { createGlobalStyle } from 'styled-components'
+import './fonts/style.css'
 
 export default createGlobalStyle`
   body {
@@ -8,4 +8,4 @@ export default createGlobalStyle`
     background: ${p => p.theme.colors.background};
     color: ${p => p.theme.colors.text};
   }
-`;
+`

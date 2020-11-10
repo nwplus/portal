@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { Card } from '../components/Common.js'
 import { H2 } from '../components/Typography'
@@ -58,14 +58,16 @@ const Livestream = () => {
           src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=live.nwplus.io&parent=nw-livesite.web.app"
           frameborder="0"
           scrolling="no"
-          allowfullscreen="true">
-        </TwitchFrame>
+          allowfullscreen="true"
+        ></TwitchFrame>
       </TwitchContainer>
       <LeftAlign>
-        <H2><LiveDot /> nwPlus - Live</H2>
+        <H2>
+          <LiveDot /> nwPlus - Live
+        </H2>
       </LeftAlign>
     </Container>
-  );
+  )
 }
 
 export default Livestream

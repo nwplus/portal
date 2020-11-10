@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route } from 'wouter'
+import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import {
@@ -8,7 +8,10 @@ import {
   Faq,
   Sponsors,
   Quicklinks,
-  Schedule
+  Schedule,
+  Judging,
+  JudgingDone,
+  JudgingView,
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
@@ -16,10 +19,10 @@ import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
 
 // only notify user if announcement was created within last 5 secs
-const notifyUser = (announcement) => {
+const notifyUser = announcement => {
   const isRecent = new Date() - new Date(announcement.timestamp) < 5000
   if (isRecent && notifications.areEnabled()) {
-    notifications.trigger("New Announcement", announcement.content)
+    notifications.trigger('New Announcement', announcement.content)
   }
 }
 
@@ -47,16 +50,38 @@ function App() {
       <ThemeProvider>
         <GlobalStyle />
         <Page>
-          <Route path='/'><Home /></Route>
-          <Route path='/charcuterie'><Charcuterie /></Route>
-          <Route path='/faq'><Faq /></Route>
-          <Route path='/schedule'><Schedule /></Route>
-          <Route path='/sponsors'><Sponsors /></Route>
-          <Route path='/quicklinks'><Quicklinks /></Route>
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+            <Route path="/charcuterie">
+              <Charcuterie />
+            </Route>
+            <Route path="/faq">
+              <Faq />
+            </Route>
+            <Route path="/schedule">
+              <Schedule />
+            </Route>
+            <Route path="/sponsors">
+              <Sponsors />
+            </Route>
+            <Route path="/quicklinks">
+              <Quicklinks />
+            </Route>
+            <Route path="/judging">
+              <Judging />
+            </Route>
+            <Route path="/judging/view/:id">{params => <JudgingView id={params.id} />}</Route>
+            <Route path="/judging/done">
+              <JudgingDone />
+            </Route>
+            <Route>Page Not Found!</Route>
+          </Switch>
         </Page>
       </ThemeProvider>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

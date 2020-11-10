@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React from 'react'
+import styled, { css } from 'styled-components'
 
 const ToggleSwitchContainer = styled.div`
   display: inline-block;
@@ -27,7 +27,7 @@ const ToggleSwitchGraphic = styled.div`
     bottom: 4px;
     height: 22px;
     width: 22px;
-    background: #DFDCE5;
+    background: #dfdce5;
     border-radius: 50%;
     transition: all 400ms;
   }
@@ -54,7 +54,7 @@ const Input = styled.input`
   }
 
   &:checked + ${ToggleSwitchGraphic}:after {
-    left:52px;
+    left: 52px;
   }
 
   &:checked + ${ToggleSwitchGraphic}:before {
@@ -69,19 +69,11 @@ const ToggleSwitch = ({ checked, disabled, disabledTooltip, onChange }) => {
   return (
     <ToggleSwitchContainer>
       <label>
-        <Input
-          type="checkbox"
-          checked={checked}
-          disabled={disabled}
-          onChange={onChange}
-        />
-        <ToggleSwitchGraphic
-          disabled={disabled}
-          title={disabled ? disabledTooltip : ''}
-        />
+        <Input type="checkbox" checked={checked} disabled={disabled} onChange={onChange} />
+        <ToggleSwitchGraphic disabled={disabled} title={disabled ? disabledTooltip : ''} />
       </label>
     </ToggleSwitchContainer>
-  );
-};
+  )
+}
 
-export default ToggleSwitch;
+export default ToggleSwitch

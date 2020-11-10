@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 import { EVENT_TYPES } from './Constants'
 
 export const TagLegendContainer = styled.div`
@@ -31,7 +31,11 @@ export const TagLegend = () => {
     <TagLegendContainer>
       {Object.entries(EVENT_TYPES).map((entry, i) => {
         const event_type = entry[1]
-        return <Tag key={i} colour={event_type.colour}>{event_type.label}</Tag>
+        return (
+          <Tag key={i} colour={event_type.colour}>
+            {event_type.label}
+          </Tag>
+        )
       })}
     </TagLegendContainer>
   )

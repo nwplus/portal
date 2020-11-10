@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { text } from './Typography'
-import { P } from './Typography';
+import { P } from './Typography'
 
 const screenBreakpoints = {
   xs: 576,
@@ -9,9 +9,9 @@ const screenBreakpoints = {
   desktop: 1200,
 }
 
-export const maxWidthMediaQueries = ((size) => {
+export const maxWidthMediaQueries = size => {
   return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
-})
+}
 
 export const CardLike = css`
   padding: 2em;
