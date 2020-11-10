@@ -45,20 +45,16 @@ const CheckboxContainer = styled.div`
   padding: 8px;
 `
 
-const Checkbox = ({ className, checked, text, ...props }) => (
-  <div>
-    <label>
-      <CheckboxContainer className={className}>
-        <HiddenCheckbox checked={checked} {...props} />
-        <StyledCheckbox checked={checked}>
-          <Icon viewBox="0 0 24 24">
-            <polyline points="20 6 9 17 4 12" />
-          </Icon>
-        </StyledCheckbox>
-      </CheckboxContainer>
-      <span>{text}</span>
-    </label>
-  </div>
+export default ({ className, checked, label, ...props }) => (
+  <label>
+    <CheckboxContainer className={className}>
+      <HiddenCheckbox checked={checked} {...props} />
+      <StyledCheckbox checked={checked}>
+        <Icon viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </Icon>
+      </StyledCheckbox>
+    </CheckboxContainer>
+    <span>{label}</span>
+  </label>
 )
-
-export default Checkbox

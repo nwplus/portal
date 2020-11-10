@@ -52,8 +52,8 @@ export default () => {
         description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
       />
       <H2>Checkbox</H2>
-      <Checkbox text="Default state" checked={checked} onChange={() => setChecked(!checked)} />
-      <Checkbox text="Selected" checked onChange={() => void 0} />
+      <Checkbox label="Default state" checked={checked} onChange={() => setChecked(!checked)} />
+      <Checkbox label="Selected state" checked onChange={() => void 0} />
     </>
   )
 }
