@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
 import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
+import Checkbox from '../components/Checkbox'
 
 export default () => (
   <>
@@ -47,5 +48,8 @@ export default () => (
       teamName="H4ckH0use"
       description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
     />
+    <H2>Checkbox</H2>
+    <Checkbox text="Default state" />
+    <Checkbox text="Selected" checked onChange={() => void 0} />
   </>
 )

@@ -7,7 +7,8 @@ const theme = {
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
     warning: '#E03131',
-    primary: '#31E0E0',
+    primary: '#31E0E0', // #06C1C0 for hacker app but these look visually close
+    default: '#BEBEBE', // default-state border color for most components used in the hacker app
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',
