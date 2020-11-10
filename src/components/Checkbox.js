@@ -46,7 +46,7 @@ const CheckboxContainer = styled.div`
 `
 
 export default ({ className, checked, label, ...props }) => (
-  <label>
+  <label style={{ cursor: 'pointer' }}>
     <CheckboxContainer className={className}>
       <HiddenCheckbox checked={checked} {...props} />
       <StyledCheckbox checked={checked}>
