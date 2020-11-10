@@ -4,6 +4,7 @@ import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
+import JudgingCard from '../components/JudgingCard'
 
 export default () => (
   <>
@@ -40,5 +41,11 @@ export default () => (
     </Accordion>
     <H2>Livestream Component</H2>
     <Livestream />
+    <JudgingCard
+      title="Imposter"
+      imgUrl="https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg"
+      teamName="H4ckH0use"
+      description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
+    />
   </>
 )
