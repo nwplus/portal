@@ -53,7 +53,7 @@ export default () => {
       />
       <H2>Checkbox</H2>
       <Checkbox label="Default state" checked={checked} onChange={() => setChecked(!checked)} />
-      <Checkbox label="Selected state" checked onChange={() => void 0} />
+      <Checkbox label="Selected state" checked readOnly />
     </>
   )
 }
