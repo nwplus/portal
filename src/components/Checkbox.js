@@ -29,6 +29,10 @@ const StyledCheckbox = styled.div`
   border: 2px solid ${p => (p.checked ? p.theme.colors.primary : p.theme.colors.default)};
   transition: all 150ms;
 
+  ${HiddenCheckbox}:focus + & {
+    box-shadow: 0 0 0 2px ${p => p.theme.colors.default};
+  }
+
   :hover {
     border: 2px solid ${p => p.theme.colors.primary};
   }
