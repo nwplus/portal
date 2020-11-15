@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
 import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
@@ -6,9 +6,10 @@ import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
+import Select from '../components/Select'
 
 export default () => {
-  const [checked, setChecked] = useState(false)
+  const [states, setStates] = useState({ checkbox: false, radio: 'selected' })
 
   return (
     <>
@@ -52,8 +53,32 @@ export default () => {
         description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
       />
       <H2>Checkbox</H2>
-      <Checkbox label="Default state" checked={checked} onChange={() => setChecked(!checked)} />
+      <Checkbox
+        label="Default state"
+        checked={states.checkbox}
+        onChange={() => setStates({ ...states, checkbox: !states.checkbox })}
+      />
       <Checkbox label="Selected state" checked readOnly />
+      <H2>Selects</H2>
+      <H3>Radio</H3>
+      <Select
+        type="radio"
+        name="selects"
+        label="Default state"
+        checked={states.radio === 'default'}
+        onChange={e => setStates({ ...states, radio: e.target.value })}
+        value="default"
+      />
+      <Select
+        type="radio"
+        name="selects"
+        label="Selected state"
+        checked={states.radio === 'selected'}
+        onChange={e => setStates({ ...states, radio: e.target.value })}
+        value="selected"
+      />
+      <Select type="radio" name="selects" label="Disabled state" readOnly disabled />
+      <H3> Multiselects</H3>
     </>
   )
 }

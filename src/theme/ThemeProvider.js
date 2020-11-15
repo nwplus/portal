@@ -7,12 +7,18 @@ const theme = {
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
     warning: '#E03131',
-    primary: '#31E0E0', // #06C1C0 for hacker app but these look visually close
+    primary: '#31E0E0',
     default: '#BEBEBE', // default-state border color for most components used in the hacker app
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
+    textInput: {
+      default: '#06C1C0',
+      selectHover: 'rgba(77, 232, 194, 0.2)',
+      selectClick: 'rgba(77, 232, 194, 0.5)',
+    },
+    buttonText: '#150F3B',
   },
   typography: {
     h1: {
@@ -29,6 +35,9 @@ const theme = {
       size: '1em',
       opacity: 0.5,
     },
+  },
+  opacity: {
+    disabled: 0.5,
   },
 }
 
