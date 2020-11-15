@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
@@ -26,7 +26,7 @@ const Logo = styled.img.attrs(p => ({
 
   ${p =>
     p.theme.custom_imgs === 'hc' &&
-    css`
+    `
       width: 120px;
       margin: 30px 0 0px 60px;
     `}
