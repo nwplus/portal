@@ -1,9 +1,12 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-const theme = {
+// eslint-disable-next-line
+const default_theme = {
+  custom_imgs: 'none',
   colors: {
     background: '#2D2937',
+    secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
     warning: '#E03131',
@@ -32,4 +35,37 @@ const theme = {
   },
 }
 
-export default ({ children }) => <ThemeProvider theme={theme}>{children}</ThemeProvider>
+const hackcamp_theme = {
+  custom_imgs: 'hc',
+  colors: {
+    background: '#2A3C4A',
+    secondaryBackground: '#577079',
+    secondaryBackgroundTransparent: '#1D1B24bb',
+    foreground: '#FFBC96',
+    warning: '#E03131',
+    primary: '#FFBC96',
+    default: '#BEBEBE',
+    highlight: 'rgba(255, 255, 255, 0.6)',
+    text: '#fff',
+    link: '#fff',
+    linkHover: '#FFBC96',
+  },
+  typography: {
+    h1: {
+      weight: 700,
+      size: '2em',
+    },
+    h2: {
+      weight: 600,
+      size: '1.4em',
+      opacity: 0.9,
+    },
+    h3: {
+      weight: 600,
+      size: '1em',
+      opacity: 0.7,
+    },
+  },
+}
+
+export default ({ children }) => <ThemeProvider theme={hackcamp_theme}>{children}</ThemeProvider>
