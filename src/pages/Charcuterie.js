@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
 import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
