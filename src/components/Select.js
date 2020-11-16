@@ -76,8 +76,7 @@ const Label = styled.label`
   :hover {
     ${p =>
       p.disabled
-        ? `cursor: not-allowed;
-    color: ${p.theme.colors.default};`
+        ? `cursor: not-allowed;`
         : `
     color: ${p.theme.colors.primary}; 
     cursor: pointer;`}
