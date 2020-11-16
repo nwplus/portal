@@ -1,10 +1,11 @@
 import React from 'react'
 import CreatableSelect from 'react-select/creatable'
-import styled, { withTheme } from 'styled-components'
+import ReactSelect from 'react-select'
+import styled, { withTheme, css } from 'styled-components'
 import { components } from 'react-select'
 import customCursor from '../assets/custom-cursor.png'
 
-const StyledDropdown = styled(CreatableSelect)`
+const sharedStyle = css`
   .react-select__control {
     background-color: transparent;
     margin: 2em 0;
@@ -72,6 +73,14 @@ const StyledDropdown = styled(CreatableSelect)`
     padding: 0px 0px;
     text-align: left;
   }
+`
+
+const StyledCreatableDropdown = styled(CreatableSelect)`
+  ${sharedStyle}
+`
+
+const StyledNormalDropdown = styled(ReactSelect)`
+  ${sharedStyle}
 `
 
 const StyledUserMessage = styled.div`
@@ -151,15 +160,15 @@ const DropdownIndicator = props => {
 
 const NoOptionsMessage = props => {
   const {
-    selectProps: { inputValue, value },
+    selectProps: { inputValue, value, canCreateNewOption },
     children,
   } = props
   return (
     <components.NoOptionsMessage {...props}>
-      {inputValue.toLowerCase() === value.label.toLowerCase() ? (
+      {canCreateNewOption && inputValue.toLowerCase() === value.label.toLowerCase() ? (
         <StyledUserMessage>Your input is the same as the previous value!</StyledUserMessage>
       ) : (
-        children
+        <StyledUserMessage>{props.children}</StyledUserMessage>
       )}
     </components.NoOptionsMessage>
   )
@@ -174,6 +183,7 @@ const Dropdown = ({
   emptySearchDefaultOption,
   noOptionsMessage,
   theme,
+  canCreateNewOption,
 }) => {
   const userProps = {
     options,
@@ -181,13 +191,12 @@ const Dropdown = ({
     isSearchable,
     onChange,
     formatCreateLabel,
-    emptySearchDefaultOption,
     noOptionsMessage,
     theme,
   }
 
-  return (
-    <StyledDropdown
+  return canCreateNewOption ? (
+    <StyledCreatableDropdown
       classNamePrefix="react-select"
       components={{
         DropdownIndicator,
@@ -196,6 +205,21 @@ const Dropdown = ({
         NoOptionsMessage,
       }}
       maxMenuHeight={200}
+      emptySearchDefaultOption={emptySearchDefaultOption}
+      canCreateNewOption
+      {...userProps}
+    />
+  ) : (
+    <StyledNormalDropdown
+      classNamePrefix="react-select"
+      components={{
+        DropdownIndicator,
+        MenuList,
+        IndicatorSeparator: () => null,
+        NoOptionsMessage,
+      }}
+      maxMenuHeight={200}
+      emptySearchDefaultOption={emptySearchDefaultOption}
       {...userProps}
     />
   )

@@ -67,7 +67,18 @@ export default () => (
       formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
       onChange={inputValue => console.log(inputValue)}
       emptySearchDefaultOption={'Start typing to search'}
-      noOptionsMessage={inputValue => 'u messed up'}
+      noOptionsMessage={() => 'u messed up'}
+      canCreateNewOption
+    />
+    <Dropdown
+      options={options}
+      placeholder={'im tired'}
+      isSearchable={true}
+      formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+      onChange={inputValue => console.log(inputValue)}
+      emptySearchDefaultOption={'Start typing to search'}
+      noOptionsMessage={() => 'u messed up'}
+      canCreateNewOption={false}
     />
     <Card>
       <H2>Card Element</H2>
