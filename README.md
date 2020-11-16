@@ -17,12 +17,12 @@ We hope for the Live Site to
 ## 💯 epic features
 
 - [x] Web notifications/announcements
-  - [ ] Ability to filter what types of announcements one may wish to receive (e.g. only notify me about workshops)
 - [x] Countdown
 - [x] Event schedule
 - [x] Live FAQ
-- [ ] Sponsor List
+- [x] Sponsor List
 - [ ] Judging
+- [ ] Application Portal
 
 ## dev
 
