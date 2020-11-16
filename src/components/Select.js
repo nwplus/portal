@@ -61,6 +61,13 @@ const Selector = styled.span`
         ? `cursor: not-allowed;`
         : `border: 2px solid ${p.checked ? p.theme.colors.buttonText : p.theme.colors.primary};`}
   }
+
+  ${SelectWrapper}:focus & {
+    border: 2px solid ${p => p.theme.colors.primary};
+  }
+  ${SelectWrapper}:focus-within & {
+    border: 2px solid ${p => p.theme.colors.primary};
+  }
 `
 
 const Input = styled.input`
@@ -80,6 +87,9 @@ const Label = styled.label`
         : `
     color: ${p.theme.colors.primary}; 
     cursor: pointer;`}
+  }
+  :focus-within {
+    color: ${p => p.theme.colors.primary};
   }
 `
 
