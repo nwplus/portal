@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import MobileMenuBar from './MobileMenuBar'
-import { getJudgingStatus } from '../utility/firebase'
+import { getLivesiteDoc } from '../utility/firebase'
 
 const Container = styled.div`
   display: flex;
@@ -23,16 +23,22 @@ const Content = styled.div`
 
 const Page = ({ children }) => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false)
-  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
+  const [livesiteDoc, setLivesiteDoc] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = getJudgingStatus(setIsJudgingOpen)
+    const unsubscribe = getLivesiteDoc(setLivesiteDoc)
     return unsubscribe
-  }, [setIsJudgingOpen])
+  }, [setLivesiteDoc])
+
+  console.log(livesiteDoc)
 
   return (
     <Container>
-      <Sidebar isJudgingOpen={isJudgingOpen} showMobileSidebar={showMobileSidebar} />
+      <Sidebar
+        isJudgingOpen={livesiteDoc.judgingOpen}
+        isSubmissionsOpen={livesiteDoc.submissionsOpen}
+        showMobileSidebar={showMobileSidebar}
+      />
       <RightContentContainer>
         <MobileMenuBar
           showMobileSidebar={showMobileSidebar}

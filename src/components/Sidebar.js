@@ -74,7 +74,7 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
-export default ({ showMobileSidebar, isJudgingEnabled, theme }) => {
+export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) => {
   const [location] = useLocation()
 
   const links = [
@@ -85,8 +85,12 @@ export default ({ showMobileSidebar, isJudgingEnabled, theme }) => {
     { location: '/sponsors', text: 'SPONSORS' },
   ]
 
-  if (isJudgingEnabled) {
+  if (isJudgingOpen) {
     links.push({ location: '/judging', text: 'JUDGING' })
+  }
+
+  if (isSubmissionsOpen) {
+    links.push({ location: '/submissions', text: 'SUBMISSION' })
   }
 
   if (process.env.NODE_ENV !== 'production') {
