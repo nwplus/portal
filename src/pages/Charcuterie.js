@@ -22,8 +22,12 @@ export default () => {
 
   return (
     <>
-      <SecondaryButton onClick={toggleTheme}>Toggle Theme</SecondaryButton>
-      <P>This switches the theme for you locally</P>
+      <SecondaryButton href={`javascript:(${toggleTheme})()`}>Toggle Theme</SecondaryButton>
+      <P>
+        Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
+        should appear on the toolbar
+      </P>
+
       <H1>Charcuturie</H1>
       <>
         <H1>This is an h1.</H1>
