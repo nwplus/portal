@@ -13,10 +13,9 @@ const theme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
-    textInput: {
-      default: '#06C1C0',
-      selectHover: 'rgba(77, 232, 194, 0.2)',
-      selectClick: 'rgba(77, 232, 194, 0.5)',
+    selects: {
+      hover: 'rgba(77, 232, 194, 0.2)',
+      focus: 'rgba(77, 232, 194, 0.5)',
     },
     buttonText: '#150F3B',
   },

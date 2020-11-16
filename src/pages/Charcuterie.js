@@ -9,7 +9,11 @@ import Checkbox from '../components/Checkbox'
 import Select from '../components/Select'
 
 export default () => {
-  const [states, setStates] = useState({ checkbox: false, radio: 'selected' })
+  const [states, setStates] = useState({
+    checkbox: false,
+    radio: 'selected',
+    multiselect: { option1: false, option2: false, selected: false, disabled: false },
+  })
 
   return (
     <>
@@ -63,7 +67,7 @@ export default () => {
       <H3>Radio</H3>
       <Select
         type="radio"
-        name="selects"
+        name="radioSelect"
         label="Default state"
         checked={states.radio === 'default'}
         onChange={e => setStates({ ...states, radio: e.target.value })}
@@ -71,14 +75,38 @@ export default () => {
       />
       <Select
         type="radio"
-        name="selects"
+        name="radioSelect"
         label="Selected state"
         checked={states.radio === 'selected'}
         onChange={e => setStates({ ...states, radio: e.target.value })}
         value="selected"
       />
-      <Select type="radio" name="selects" label="Disabled state" readOnly disabled />
-      <H3> Multiselects</H3>
+      <Select type="radio" name="selects" label="Disabled state" disabled />
+      <H3>Multiselects (Select all that apply)</H3>
+      <Select
+        type="checkbox"
+        label="Option 1"
+        checked={states.multiselect.option1}
+        onChange={() =>
+          setStates({
+            ...states,
+            multiselect: { ...states.multiselect, option1: !states.multiselect.option1 },
+          })
+        }
+      />
+      <Select
+        type="checkbox"
+        label="Option 2"
+        checked={states.multiselect.option2}
+        onChange={() =>
+          setStates({
+            ...states,
+            multiselect: { ...states.multiselect, option2: !states.multiselect.option2 },
+          })
+        }
+      />
+      <Select type="checkbox" label="Selected state" checked readOnly />
+      <Select type="checkbox" label="Disabled state" disabled />
     </>
   )
 }
