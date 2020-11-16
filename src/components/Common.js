@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { text } from './Typography'
 import { P } from './Typography'
 import buttonBG from '../assets/hc_button.svg'
@@ -15,7 +15,7 @@ export const maxWidthMediaQueries = size => {
   return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
 }
 
-export const CardLike = `
+export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.secondaryBackground};
