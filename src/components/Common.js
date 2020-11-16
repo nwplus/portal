@@ -1,3 +1,4 @@
+import React from 'react'
 import styled, { css } from 'styled-components'
 import { text } from './Typography'
 import { P } from './Typography'
@@ -25,7 +26,7 @@ export const Card = styled.div`
   ${CardLike};
 `
 
-export const Button = styled.a`
+const StyledButton = styled.a`
   ${text};
   display: block;
   text-decoration: none;
@@ -41,12 +42,18 @@ export const Button = styled.a`
 
   ${p =>
     p.theme.custom_imgs === 'hc' &&
-    css`
+    `
       background: url(${buttonBG});
       background-size: contain;
       background-repeat: no-repeat;
     `}
 `
+
+export const Button = props => (
+  <StyledButton href={props.href || '#!'} {...props}>
+    {props.children}
+  </StyledButton>
+)
 
 export const SecondaryButton = styled(Button)`
   background: ${p => p.theme.colors.background};
