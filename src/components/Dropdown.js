@@ -53,7 +53,6 @@ const StyledDropdown = styled(CreatableSelect)`
   }
 
   .react-select__option:hover,
-  .react-select__option--is-focused,
   .react-select__option--is-selected {
     background-color: ${p => p.theme.colors.dropdownHover};
     border-radius: 5px;
