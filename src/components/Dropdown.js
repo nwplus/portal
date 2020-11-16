@@ -127,7 +127,8 @@ const DropdownIcon = ({ isSearchable, color, transform }) =>
 
 const MenuList = props => {
   const {
-    selectProps: { isSearchable, inputValue, emptySearchDefaultOption },
+    selectProps: { isSearchable, inputValue, emptySearchDefaultOption, canCreateNewOption, value },
+    hasValue,
     children,
   } = props
   return (
@@ -135,7 +136,14 @@ const MenuList = props => {
       {isSearchable && inputValue === '' ? (
         <StyledUserMessage>{emptySearchDefaultOption}</StyledUserMessage>
       ) : (
-        children
+        <>
+          {canCreateNewOption &&
+            hasValue &&
+            inputValue.toLowerCase() === value.label.toLowerCase() && (
+              <StyledUserMessage>Your input is the same as the previous value!</StyledUserMessage>
+            )}
+          {children}
+        </>
       )}
     </components.MenuList>
   )
@@ -160,16 +168,12 @@ const DropdownIndicator = props => {
 
 const NoOptionsMessage = props => {
   const {
-    selectProps: { inputValue, value, canCreateNewOption },
+    selectProps: { canCreateNewOption },
     children,
   } = props
   return (
     <components.NoOptionsMessage {...props}>
-      {canCreateNewOption && inputValue.toLowerCase() === value.label.toLowerCase() ? (
-        <StyledUserMessage>Your input is the same as the previous value!</StyledUserMessage>
-      ) : (
-        <StyledUserMessage>{props.children}</StyledUserMessage>
-      )}
+      {!canCreateNewOption && <StyledUserMessage>{children}</StyledUserMessage>}
     </components.NoOptionsMessage>
   )
 }
