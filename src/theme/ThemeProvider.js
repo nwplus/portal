@@ -2,7 +2,7 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 // eslint-disable-next-line
-const default_theme = {
+const nwTheme = {
   custom_imgs: 'none',
   colors: {
     background: '#2D2937',
@@ -35,12 +35,12 @@ const default_theme = {
   },
 }
 
-const hackcamp_theme = {
+const hackcampTheme = {
   custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
     secondaryBackground: '#577079',
-    secondaryBackgroundTransparent: '#1D1B24bb',
+    secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
     warning: '#E03131',
     primary: '#FFBC96',
@@ -68,4 +68,13 @@ const hackcamp_theme = {
   },
 }
 
-export default ({ children }) => <ThemeProvider theme={hackcamp_theme}>{children}</ThemeProvider>
+const THEMES = { nwTheme, hackcampTheme }
+
+let selectedTheme = hackcampTheme
+
+if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
+  const localTheme = window.localStorage.getItem('localTheme')
+  selectedTheme = localTheme ? THEMES[localTheme] : selectedTheme
+}
+
+export default ({ children }) => <ThemeProvider theme={selectedTheme}>{children}</ThemeProvider>

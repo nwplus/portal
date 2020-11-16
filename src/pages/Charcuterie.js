@@ -7,11 +7,23 @@ import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
 
+const toggleTheme = () => {
+  const oldTheme = window.localStorage.getItem('localTheme')
+  if (oldTheme === 'nwTheme') {
+    window.localStorage.setItem('localTheme', 'hackcampTheme')
+  } else {
+    window.localStorage.setItem('localTheme', 'nwTheme')
+  }
+  window.location.reload()
+}
+
 export default () => {
   const [checked, setChecked] = useState(false)
 
   return (
     <>
+      <SecondaryButton onClick={toggleTheme}>Toggle Theme</SecondaryButton>
+      <P>This switches the theme for you locally</P>
       <H1>Charcuturie</H1>
       <>
         <H1>This is an h1.</H1>
