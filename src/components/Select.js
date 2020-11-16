@@ -7,7 +7,6 @@ const SelectWrapper = styled.span`
   border-radius: 8px;
   padding: 8px 24px 8px 16px;
   margin: 8px;
-
   ${p =>
     p.disabled
       ? `
@@ -19,7 +18,6 @@ const SelectWrapper = styled.span`
   border: 2px solid ${p.theme.colors.primary};
   cursor: pointer;
 }`}
-
   ${p =>
     p.checked &&
     `
@@ -29,7 +27,6 @@ const SelectWrapper = styled.span`
   :hover {
     background: ${p.theme.colors.selects.focus};
   `}
-
   ${p => `:focus-within {
     background: ${p.theme.colors.selects.focus};
     border: 2px solid ${p.theme.colors.primary};
@@ -54,19 +51,17 @@ const Selector = styled.span`
       ? `background-color: ${p.theme.colors.buttonText};
         border: 2px solid ${p.theme.colors.buttonText};`
       : `border: 2px solid ${p.theme.colors.default};`}
-
   ${SelectWrapper}:hover & {
     ${p =>
       p.disabled
         ? `cursor: not-allowed;`
         : `border: 2px solid ${p.checked ? p.theme.colors.buttonText : p.theme.colors.primary};`}
   }
-
   ${SelectWrapper}:focus & {
-    border: 2px solid ${p => p.theme.colors.primary};
+    border: 2px solid ${p => !p.checked && p.theme.colors.primary};
   }
   ${SelectWrapper}:focus-within & {
-    border: 2px solid ${p => p.theme.colors.primary};
+    border: 2px solid ${p => !p.checked && p.theme.colors.primary};
   }
 `
 
@@ -79,8 +74,7 @@ const Input = styled.input`
 const Label = styled.label`
   align-items: center;
   color: ${p => p.checked && p.theme.colors.buttonText};
-
-  :hover {
+  ${SelectWrapper}:hover {
     ${p =>
       p.disabled
         ? `cursor: not-allowed;`
@@ -89,7 +83,7 @@ const Label = styled.label`
     cursor: pointer;`}
   }
   :focus-within {
-    color: ${p => p.theme.colors.primary};
+    color: ${p => !p.checked && p.theme.colors.primary};
   }
 `
 
