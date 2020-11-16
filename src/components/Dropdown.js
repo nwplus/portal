@@ -67,9 +67,14 @@ const StyledDropdown = styled(CreatableSelect)`
   .react-select__input {
     color: ${p => p.theme.colors.dropdown};
   }
+
+  .react-select__menu-notice--no-options {
+    padding: 0px 0px;
+    text-align: left;
+  }
 `
 
-const StyledEmptySearchDefaultOption = styled.div`
+const StyledUserMessage = styled.div`
   color: ${p => p.theme.colors.background};
   font-weight: bold;
   padding: 8px 12px;
@@ -119,7 +124,7 @@ const MenuList = props => {
   return (
     <components.MenuList {...props}>
       {isSearchable && inputValue === '' ? (
-        <StyledEmptySearchDefaultOption>{emptySearchDefaultOption}</StyledEmptySearchDefaultOption>
+        <StyledUserMessage>{emptySearchDefaultOption}</StyledUserMessage>
       ) : (
         children
       )}
@@ -144,6 +149,22 @@ const DropdownIndicator = props => {
   )
 }
 
+const NoOptionsMessage = props => {
+  const {
+    selectProps: { inputValue, value },
+    children,
+  } = props
+  return (
+    <components.NoOptionsMessage {...props}>
+      {inputValue.toLowerCase() === value.label.toLowerCase() ? (
+        <StyledUserMessage>Your input is the same as the previous value!</StyledUserMessage>
+      ) : (
+        children
+      )}
+    </components.NoOptionsMessage>
+  )
+}
+
 const Dropdown = ({
   options,
   placeholder,
@@ -151,6 +172,7 @@ const Dropdown = ({
   onChange,
   formatCreateLabel,
   emptySearchDefaultOption,
+  noOptionsMessage,
   theme,
 }) => {
   const userProps = {
@@ -160,6 +182,7 @@ const Dropdown = ({
     onChange,
     formatCreateLabel,
     emptySearchDefaultOption,
+    noOptionsMessage,
     theme,
   }
 
@@ -170,6 +193,7 @@ const Dropdown = ({
         DropdownIndicator,
         MenuList,
         IndicatorSeparator: () => null,
+        NoOptionsMessage,
       }}
       maxMenuHeight={200}
       {...userProps}

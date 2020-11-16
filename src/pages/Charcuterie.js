@@ -67,6 +67,7 @@ export default () => (
       formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
       onChange={inputValue => console.log(inputValue)}
       emptySearchDefaultOption={'Start typing to search'}
+      noOptionsMessage={inputValue => 'u messed up'}
     />
     <Card>
       <H2>Card Element</H2>
