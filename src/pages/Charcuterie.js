@@ -17,6 +17,18 @@ const options = [
   { value: '4', label: 'hi' },
   { value: '5', label: 'Banilla' },
   { value: '6', label: 'Van' },
+  { value: '1', label: 'Vanilla' },
+  { value: '2', label: 'NwPlus' },
+  { value: '3', label: 'UBC' },
+  { value: '4', label: 'hi' },
+  { value: '5', label: 'Banilla' },
+  { value: '6', label: 'Van' },
+  { value: '1', label: 'High school' },
+  { value: '2', label: 'Undergraduate' },
+  { value: '3', label: 'Graduate' },
+  { value: '4', label: 'Other' },
+  { value: '5', label: 'Banilla' },
+  { value: '6', label: 'Van' },
 ]
 
 export default () => (
@@ -54,6 +66,7 @@ export default () => (
       isSearchable={true}
       formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
       onChange={inputValue => console.log(inputValue)}
+      emptySearchDefaultOption={'Start typing to search'}
     />
     <Card>
       <H2>Card Element</H2>

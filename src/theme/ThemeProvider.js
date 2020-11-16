@@ -10,6 +10,7 @@ const theme = {
     primary: '#31E0E0',
     dropdown: '#06C1C0',
     dropdownHover: '#D9FFF9',
+    dropdownNeutral: '#BEBEBE',
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',
