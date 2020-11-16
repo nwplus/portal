@@ -5,7 +5,21 @@ import Sponsors from './Sponsors'
 import Quicklinks from './Quicklinks'
 import Schedule from './Schedule'
 import Judging from './Judging'
-import JudgingDone from './Judging/Done'
 import JudgingView from './Judging/View'
+import Submission from './Submission'
+import SubmissionCreate from './Submission/Create'
+import SubmissionEdit from './Submission/Edit'
 
-export { Charcuterie, Home, Faq, Sponsors, Quicklinks, Schedule, Judging, JudgingDone, JudgingView }
+export {
+  Charcuterie,
+  Home,
+  Faq,
+  Sponsors,
+  Quicklinks,
+  Schedule,
+  Judging,
+  JudgingView,
+  Submission,
+  SubmissionCreate,
+  SubmissionEdit,
+}

@@ -10,8 +10,10 @@ import {
   Quicklinks,
   Schedule,
   Judging,
-  JudgingDone,
   JudgingView,
+  Submission,
+  SubmissionCreate,
+  SubmissionEdit,
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
@@ -73,8 +75,14 @@ function App() {
               <Judging />
             </Route>
             <Route path="/judging/view/:id">{params => <JudgingView id={params.id} />}</Route>
-            <Route path="/judging/done">
-              <JudgingDone />
+            <Route path="/submission">
+              <Submission />
+            </Route>
+            <Route path="/submission/create">
+              <SubmissionCreate />
+            </Route>
+            <Route path="/submission/edit">
+              <SubmissionEdit />
             </Route>
             <Route>Page Not Found!</Route>
           </Switch>

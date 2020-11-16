@@ -90,7 +90,7 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
   }
 
   if (isSubmissionsOpen) {
-    links.push({ location: '/submissions', text: 'SUBMISSION' })
+    links.push({ location: '/submission', text: 'SUBMISSION' })
   }
 
   if (process.env.NODE_ENV !== 'production') {
