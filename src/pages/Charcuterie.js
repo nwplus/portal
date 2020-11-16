@@ -5,6 +5,19 @@ import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
+import Dropdown from '../components/Dropdown'
+
+const options = [
+  { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+  { value: '1', label: 'Vanilla' },
+  { value: '2', label: 'NwPlus' },
+  { value: '3', label: 'UBC' },
+  { value: '4', label: 'hi' },
+  { value: '5', label: 'Banilla' },
+  { value: '6', label: 'Van' },
+]
 
 export default () => (
   <>
@@ -29,6 +42,19 @@ export default () => (
         eventName="Hacking ends in..."
       />
     </>
+    <Dropdown
+      options={options}
+      placeholder={'I am a placeholder'}
+      isSearchable={false}
+      onChange={inputValue => console.log(inputValue)}
+    />
+    <Dropdown
+      options={options}
+      placeholder={'Hi I am a placeholder'}
+      isSearchable={true}
+      formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+      onChange={inputValue => console.log(inputValue)}
+    />
     <Card>
       <H2>Card Element</H2>
       <P>It can contain content. And even buttons!</P>
