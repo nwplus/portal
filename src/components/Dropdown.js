@@ -164,7 +164,6 @@ const DropdownIndicator = props => {
   const {
     selectProps: { isSearchable, menuIsOpen },
     hasValue,
-    theme,
   } = props
   return (
     <components.DropdownIndicator {...props}>
