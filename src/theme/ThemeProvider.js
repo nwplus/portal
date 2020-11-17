@@ -20,6 +20,7 @@ const nwTheme = {
       background: '#06C1C0',
       hover: '#D9FFF9',
       neutral: '#BEBEBE',
+      scrollbar: '#615b82',
     },
   },
   typography: {
@@ -58,6 +59,7 @@ const hackcampTheme = {
       background: '#06C1C0',
       hover: '#D9FFF9',
       neutral: '#BEBEBE',
+      scrollbar: '#615b82',
     },
   },
   typography: {

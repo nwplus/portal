@@ -41,12 +41,14 @@ const sharedStyle = css`
 
   .react-select__menu-list::-webkit-scrollbar {
     width: 24px;
+    background: transparent;
   }
 
   .react-select__menu-list::-webkit-scrollbar-thumb {
-    border-radius: 15px;
-    box-shadow: inset 0 0 14px 14px #615b82;
     border: solid 8px transparent;
+    background-clip: padding-box;
+    border-radius: 15px;
+    box-shadow: inset 0 0 14px 14px ${p => p.theme.colors.dropdown.scrollbar};
   }
 
   .react-select__option {
