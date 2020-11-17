@@ -8,7 +8,7 @@ const ToggleSwitchContainer = styled.div`
 const ToggleSwitchGraphic = styled.div`
   width: 35px;
   height: 30px;
-  background: ${p => p.theme.colors.foreground};
+  background: ${p => p.theme.colors.background};
   z-index: 0;
   cursor: pointer;
   position: relative;
@@ -43,6 +43,12 @@ const ToggleSwitchGraphic = styled.div`
       cursor: not-allowed;
       opacity: 0.3;
     `};
+
+  ${p =>
+    p.checked &&
+    css`
+      background: ${p => p.theme.colors.foreground};
+    `};
 `
 
 const Input = styled.input`
@@ -70,7 +76,11 @@ const ToggleSwitch = ({ checked, disabled, disabledTooltip, onChange }) => {
     <ToggleSwitchContainer>
       <label>
         <Input type="checkbox" checked={checked} disabled={disabled} onChange={onChange} />
-        <ToggleSwitchGraphic disabled={disabled} title={disabled ? disabledTooltip : ''} />
+        <ToggleSwitchGraphic
+          checked={checked}
+          disabled={disabled}
+          title={disabled ? disabledTooltip : ''}
+        />
       </label>
     </ToggleSwitchContainer>
   )
