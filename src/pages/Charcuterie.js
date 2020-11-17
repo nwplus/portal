@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
 import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
+import TextInput from '../components/TextInput'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
@@ -54,6 +55,13 @@ export default () => {
         <P>It can contain content. And even buttons!</P>
         <Button>Primary</Button>
         <SecondaryButton>Secondary</SecondaryButton>
+        <TextInput placeholder="Default" />
+        <TextInput value="With Value" />
+        <TextInput value="With Value Disabled" disabled={true} />
+        <TextInput placeholder="Disabled" disabled={true} />
+        <TextInput placeholder="Invalid" invalid={true} errorMsg={'Pls try again lol'} />
+        <TextInput placeholder="Medium" size="medium" />
+        <TextInput placeholder="Large" size="large" />
       </Card>
       <Accordion heading="Accordion Component">
         Some hidden content. This can get pretty long too, and even contain other stuff like headers
