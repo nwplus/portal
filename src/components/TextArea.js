@@ -19,7 +19,7 @@ const TextAreaBox = styled.textarea.attrs({
   ::-webkit-scrollbar-thumb {
     background-color: transparent;
     border-radius: 10px;
-    border: 2px solid ${p => p.theme.colors.highlight};
+    border: 1px solid ${p => p.theme.colors.highlight};
   }
   ::-webkit-scrollbar-track {
     background-color: transparent;
