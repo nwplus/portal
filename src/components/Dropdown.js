@@ -14,7 +14,8 @@ const sharedStyle = css`
     box-shadow: none;
     max-width: ${p => (p.isSearchable ? `387px` : `287px`)};
     height: 48px;
-    border-color: ${p => p.theme.colors.dropdown.neutral};
+    border-color: ${p =>
+      p.isValid ? p.theme.colors.dropdown.neutral : p.theme.colors.dropdown.error};
     padding-right: 17px;
     padding-left: 7px;
     flex-direction: ${p => p.isSearchable && `row-reverse`};
@@ -91,6 +92,15 @@ const StyledUserMessage = styled.div`
   padding: 8px 12px;
 `
 
+const StyledErrorMsg = styled.div`
+  color: ${p => p.theme.colors.dropdown.error};
+  font-weight: 400;
+  font-size: 16px;
+  padding: 8px 0px;
+  margin-top: -30px;
+  text-align: left;
+`
+
 const DropdownIcon = ({ className, isSearchable }) =>
   isSearchable ? (
     <svg
@@ -135,6 +145,18 @@ const StyledDropdown = styled(DropdownIcon)`
       ? p.theme.colors.dropdown.background
       : p.theme.colors.dropdown.neutral};
 `
+
+const Control = props => {
+  const {
+    selectProps: { menuIsOpen, isValid, errorMessage },
+  } = props
+  return (
+    <>
+      <components.Control {...props}>{props.children}</components.Control>
+      {!isValid && !menuIsOpen && <StyledErrorMsg>{errorMessage}</StyledErrorMsg>}
+    </>
+  )
+}
 
 const MenuList = props => {
   const {
@@ -192,6 +214,8 @@ const Dropdown = ({
   formatCreateLabel,
   emptySearchDefaultOption,
   noOptionsMessage,
+  isValid,
+  errorMessage,
   theme,
   canCreateNewOption,
 }) => {
@@ -210,6 +234,7 @@ const Dropdown = ({
     <StyledCreatableDropdown
       classNamePrefix="react-select"
       components={{
+        Control,
         DropdownIndicator,
         MenuList,
         IndicatorSeparator: () => null,
@@ -217,13 +242,16 @@ const Dropdown = ({
       }}
       maxMenuHeight={200}
       emptySearchDefaultOption={emptySearchDefaultOption}
+      errorMessage={errorMessage}
       canCreateNewOption
+      isValid={isValid}
       {...userProps}
     />
   ) : (
     <StyledNormalDropdown
       classNamePrefix="react-select"
       components={{
+        Control,
         DropdownIndicator,
         MenuList,
         IndicatorSeparator: () => null,
@@ -231,6 +259,8 @@ const Dropdown = ({
       }}
       maxMenuHeight={200}
       emptySearchDefaultOption={emptySearchDefaultOption}
+      errorMessage={errorMessage}
+      isValid={isValid}
       {...userProps}
     />
   )

@@ -100,6 +100,7 @@ export default () => {
         placeholder={'I am a placeholder'}
         isSearchable={false}
         onChange={inputValue => console.log(inputValue)}
+        isValid={true}
       />
       <Dropdown
         options={options}
@@ -110,6 +111,7 @@ export default () => {
         emptySearchDefaultOption={'Start typing to search'}
         noOptionsMessage={() => 'u messed up'}
         canCreateNewOption
+        isValid={true}
       />
       <Dropdown
         options={options}
@@ -120,6 +122,19 @@ export default () => {
         emptySearchDefaultOption={'Start typing to search'}
         noOptionsMessage={() => 'u messed up'}
         canCreateNewOption={false}
+        isValid={true}
+      />
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable={true}
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption={false}
+        isValid={false}
+        errorMessage={'Please select something!'}
       />
     </>
   )
