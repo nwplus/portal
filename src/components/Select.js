@@ -40,8 +40,8 @@ const SelectWrapper = styled.span`
 const Selector = styled.span`
   display: inline-block;
   position: relative;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   margin: auto 24px auto auto;
   align-items: center;
   border-radius: ${p => (p.type === 'radio' ? '50%' : '4px')};
