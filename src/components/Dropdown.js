@@ -14,7 +14,7 @@ const sharedStyle = css`
     box-shadow: none;
     max-width: ${p => (p.isSearchable ? `387px` : `287px`)};
     height: 48px;
-    border-color: ${p => p.theme.colors.dropdownNeutral};
+    border-color: ${p => p.theme.colors.dropdown.neutral};
     padding-right: 17px;
     padding-left: 7px;
     flex-direction: ${p => p.isSearchable && `row-reverse`};
@@ -23,7 +23,7 @@ const sharedStyle = css`
 
   .react-select__control:hover,
   .react-select__control--is-focused {
-    border-color: ${p => p.theme.colors.dropdown};
+    border-color: ${p => p.theme.colors.dropdown.background};
   }
 
   .react-select__option {
@@ -32,7 +32,7 @@ const sharedStyle = css`
   }
 
   .react-select__menu {
-    background-color: ${p => p.theme.colors.dropdown};
+    background-color: ${p => p.theme.colors.dropdown.background};
     border-radius: 7px;
     margin-top: 0px;
     max-width: ${p => (p.isSearchable ? `387px` : `287px`)};
@@ -55,18 +55,18 @@ const sharedStyle = css`
 
   .react-select__option:hover,
   .react-select__option--is-selected {
-    background-color: ${p => p.theme.colors.dropdownHover};
+    background-color: ${p => p.theme.colors.dropdown.hover};
     border-radius: 5px;
     font-weight: bold;
   }
 
   .react-select__placeholder {
-    color: ${p => p.theme.colors.dropdownNeutral};
+    color: ${p => p.theme.colors.dropdown.neutral};
   }
 
   .react-select__single-value,
   .react-select__input {
-    color: ${p => p.theme.colors.dropdown};
+    color: ${p => p.theme.colors.dropdown.background};
   }
 
   .react-select__menu-notice--no-options {
@@ -159,7 +159,9 @@ const DropdownIndicator = props => {
     <components.DropdownIndicator {...props}>
       <DropdownIcon
         isSearchable={isSearchable}
-        color={menuIsOpen || hasValue ? theme.colors.dropdown : theme.colors.dropdownNeutral}
+        color={
+          menuIsOpen || hasValue ? theme.colors.dropdown.background : theme.colors.dropdown.neutral
+        }
         transform={menuIsOpen && 'rotate(90)'}
       />
     </components.DropdownIndicator>
@@ -189,6 +191,7 @@ const Dropdown = ({
   theme,
   canCreateNewOption,
 }) => {
+  // These props are used by react-select directly, the rest are custom props
   const userProps = {
     options,
     placeholder,
@@ -229,4 +232,5 @@ const Dropdown = ({
   )
 }
 
+// withTheme is used to access the themeProvider to replace the default theme in react-select
 export default withTheme(Dropdown)
