@@ -18,8 +18,10 @@ const Time = styled(P)`
   margin-bottom: 0.75em;
 `
 
-const Announcement = styled.div`
+const Announcement = styled(Card)`
   margin: 1em 0;
+  padding: 1em;
+  background-color: ${p => p.theme.colors.background};
 `
 
 const AnnouncementHeader = styled.div`

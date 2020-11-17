@@ -38,15 +38,15 @@ const TextInputBox = styled.input.attrs({
   }
   ${p =>
     p.invalid &&
-    `border: 2px solid ${p.theme.colors.secondaryWarning};
+    `border: 2px solid ${p.theme.colors.warning};
     ::placeholder {
-      color: ${p.theme.colors.secondaryWarning};
+      color: ${p.theme.colors.warning};
     }
     :hover {
       border: 2px solid ${p.theme.colors.secondaryWarning};
     }
     :focus {
-      border: 2px solid ${p.theme.colors.warning};
+      border: 2px solid ${p.theme.colors.secondaryWarning};
     }`}
 `
 const ErrorMsg = styled.p`

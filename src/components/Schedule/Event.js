@@ -16,10 +16,10 @@ const EventCard = styled(Card)`
   ${p => props =>
     props.delayed
       ? `
-      background: linear-gradient(${p.theme.colors.warning}, ${p.theme.colors.foreground});
+      background: linear-gradient(${p.theme.colors.warning}, ${p.theme.colors.background});
     `
       : `
-      background-color: ${p.theme.colors.foreground};
+      background-color: ${p.theme.colors.background};
     `}
 
   margin: 5px;
@@ -32,6 +32,10 @@ const EventCard = styled(Card)`
   & > h3 {
     opacity: 1;
   }
+`
+
+const TimeStamp = styled(P)`
+  color: ${p => p.theme.colors.linkHover};
 `
 
 const formatTime = timeString => {
@@ -56,9 +60,9 @@ export default ({ event }) => {
       <PositionedTag colour={EVENT_TYPES[event.type].colour}>
         {EVENT_TYPES[event.type].label}
       </PositionedTag>
-      <P>
+      <TimeStamp>
         {formatTime(event.startTime)} - {formatTime(event.endTime)}
-      </P>
+      </TimeStamp>
       <EventDescription>{event.description}</EventDescription>
     </EventCard>
   )

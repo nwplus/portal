@@ -2,6 +2,9 @@ import React from 'react'
 import Accordion from '../components/Accordion'
 import { H2 } from './Typography'
 import { DetailContainer, DetailColumn, DetailAnswer } from './Common'
+import { chunkify } from '../utility/utilities'
+
+const COLUMNS_OF_FAQ = 2
 
 export default ({ faq }) => {
   const categories = faq.reduce((accumulator, question) => {
@@ -9,15 +12,10 @@ export default ({ faq }) => {
     return accumulator // group by category
   }, {})
 
-  const splitHalf = arr => {
-    const half = Math.ceil(arr.length / 2)
-    return [arr.splice(0, half), arr.splice(-half)]
-  }
-
   const createFAQList = entries => {
     return (
       <DetailContainer>
-        {splitHalf(entries).map((half, i) => (
+        {chunkify(entries, COLUMNS_OF_FAQ, true).map((half, i) => (
           <DetailColumn key={i}>{half.map(singleEntry)}</DetailColumn>
         ))}
       </DetailContainer>
