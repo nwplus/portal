@@ -91,13 +91,13 @@ const StyledUserMessage = styled.div`
   padding: 8px 12px;
 `
 
-const DropdownIcon = ({ isSearchable, color, transform }) =>
+const DropdownIcon = ({ className, isSearchable }) =>
   isSearchable ? (
     <svg
+      className={className}
       width="21"
       height="21"
       viewBox="0 0 21 21"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xlink="http://www.w3.org/1999/xlink"
     >
@@ -116,16 +116,25 @@ const DropdownIcon = ({ isSearchable, color, transform }) =>
     </svg>
   ) : (
     <svg
+      className={className}
       width="10"
       height="8"
-      fill={color}
       viewBox="0 0 10 8"
-      transform={transform}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="M4.53582 6.89842C4.93534 7.44394 5.74984 7.44394 6.14936 6.89842L9.67032 2.09087C10.1541 1.43027 9.68237 0.5 8.86355 0.5H1.82163C1.00282 0.5 0.531054 1.43027 1.01486 2.09086L4.53582 6.89842Z" />
     </svg>
   )
+
+const StyledDropdown = styled(DropdownIcon)`
+  transform: ${p => !p.isSearchable && p.menuIsOpen && `rotate(90deg)`};
+  fill: ${p =>
+    p.isSearchable
+      ? `none`
+      : p.menuIsOpen || p.hasValue
+      ? p.theme.colors.dropdown.background
+      : p.theme.colors.dropdown.neutral};
+`
 
 const MenuList = props => {
   const {
@@ -159,13 +168,7 @@ const DropdownIndicator = props => {
   } = props
   return (
     <components.DropdownIndicator {...props}>
-      <DropdownIcon
-        isSearchable={isSearchable}
-        color={
-          menuIsOpen || hasValue ? theme.colors.dropdown.background : theme.colors.dropdown.neutral
-        }
-        transform={menuIsOpen && 'rotate(90)'}
-      />
+      <StyledDropdown isSearchable={isSearchable} menuIsOpen={menuIsOpen} hasValue={hasValue} />
     </components.DropdownIndicator>
   )
 }
