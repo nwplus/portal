@@ -1,6 +1,8 @@
+import React from 'react'
 import styled, { css } from 'styled-components'
 import { text } from './Typography'
 import { P } from './Typography'
+import buttonBG from '../assets/hc_button.svg'
 
 const screenBreakpoints = {
   xs: 576,
@@ -24,7 +26,7 @@ export const Card = styled.div`
   ${CardLike};
 `
 
-export const Button = styled.a`
+const StyledButton = styled.a`
   ${text};
   display: block;
   text-decoration: none;
@@ -37,7 +39,21 @@ export const Button = styled.a`
   padding: 0.75em 2.5em;
   border-radius: 3px;
   margin: 1em;
+
+  ${p =>
+    p.theme.custom_imgs === 'hc' &&
+    `
+      background: url(${buttonBG});
+      background-size: contain;
+      background-repeat: no-repeat;
+    `}
 `
+
+export const Button = props => (
+  <StyledButton href={props.href || '#!'} {...props}>
+    {props.children}
+  </StyledButton>
+)
 
 export const SecondaryButton = styled(Button)`
   background: ${p => p.theme.colors.background};
