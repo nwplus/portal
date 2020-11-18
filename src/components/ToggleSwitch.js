@@ -46,7 +46,7 @@ const ToggleSwitchGraphic = styled.div`
 
   ${p =>
     p.checked &&
-    css`
+    `
       background: ${p => p.theme.colors.foreground};
     `};
 `
