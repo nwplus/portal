@@ -64,13 +64,13 @@ export default () => {
         <TextInput placeholder="Invalid" invalid={true} errorMsg={'Pls try again lol'} />
         <TextInput placeholder="Medium" size="medium" />
         <TextInput placeholder="Large" size="large" />
-        <TextArea
-          placeholder="TextArea with placeholder."
-          maxLength="10"
-          value={textAreaValue}
-          onChangeValue={setTextAreaValue}
-        />
       </Card>
+      <TextArea
+        placeholder="TextArea with placeholder."
+        maxLength="10"
+        value={textAreaValue}
+        onChangeValue={setTextAreaValue}
+      />
       <Accordion heading="Accordion Component">
         Some hidden content. This can get pretty long too, and even contain other stuff like headers
         or images.
