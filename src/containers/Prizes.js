@@ -44,7 +44,7 @@ const singlePrize = prize => {
       <H2>{prize.title}</H2>
       {prize.sponsor == null ? null : <I>{`Sponsored by ${prize.sponsor}`}</I>}
       <UL>
-        {prize.content.split('|').map(item => (
+        {prize.content.map(item => (
           <LI key={prize.title + item}>{item}</LI>
         ))}
       </UL>
