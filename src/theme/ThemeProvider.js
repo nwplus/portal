@@ -57,7 +57,7 @@ const hackcampTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#FFBC96',
-    tertiaryHover: '#DB693B', // button hover
+    tertiaryHover: '#AD795E', // button hover
   },
   typography: {
     h1: {
