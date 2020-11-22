@@ -81,10 +81,6 @@ const StyledButton = styled.button`
     }`}
 `
 
-export const Button = props => (
-  <StyledButton href={props.href || '#!'} {...props}>
-    {props.children}
-  </StyledButton>
-)
+export const Button = props => <StyledButton {...props}>{props.children}</StyledButton>
 
 export default Button
