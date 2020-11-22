@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
-import { Card, Button, SecondaryButton } from '../components/Common.js'
+import { Card } from '../components/Common.js'
+import { Button } from '../components/Button'
 import Accordion from '../components/Accordion'
 import TextInput from '../components/TextInput'
 import Countdown from '../containers/Countdown'
@@ -23,7 +24,9 @@ export default () => {
 
   return (
     <>
-      <SecondaryButton href={`javascript:(${toggleTheme})()`}>Toggle Theme</SecondaryButton>
+      <Button color="secondary" onClick={toggleTheme}>
+        Toggle Theme
+      </Button>
       <P>
         Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
         should appear on the toolbar
@@ -53,8 +56,18 @@ export default () => {
       <Card>
         <H2>Card Element</H2>
         <P>It can contain content. And even buttons!</P>
-        <Button>Primary</Button>
-        <SecondaryButton>Secondary</SecondaryButton>
+        <Button color="primary">Primary</Button>
+        <Button color="primary" disabled={true}>
+          Primary
+        </Button>
+        <Button color="secondary">Secondary</Button>
+        <Button color="secondary" disabled={true}>
+          Secondary
+        </Button>
+        <Button color="tertiary">Tertiary</Button>
+        <Button color="tertiary" disabled={true}>
+          Tertiary
+        </Button>
         <TextInput placeholder="Default" />
         <TextInput value="With Value" />
         <TextInput value="With Value Disabled" disabled={true} />
