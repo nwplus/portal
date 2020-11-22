@@ -38,7 +38,7 @@ const ErrorMsg = styled.p`
 
 export const TextArea = ({
   value,
-  onChangeValue,
+  onChange,
   maxLength,
   placeholder,
   invalid,
@@ -61,9 +61,7 @@ export const TextArea = ({
     <TextAreaContainer>
       <TextAreaBox
         value={value}
-        onChange={val => {
-          onChangeValue(val.target.value)
-        }}
+        onChange={val => onChange(val.target.value)}
         invalid={invalid || isLengthExceeded}
         placeholder={`${placeholder} ${maxLength && `Maximum of ${maxLength} characters`}`}
         {...rest}

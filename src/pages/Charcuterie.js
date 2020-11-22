@@ -69,7 +69,7 @@ export default () => {
         placeholder="TextArea with placeholder."
         maxLength="10"
         value={textAreaValue}
-        onChangeValue={setTextAreaValue}
+        onChange={setTextAreaValue}
       />
       <Accordion heading="Accordion Component">
         Some hidden content. This can get pretty long too, and even contain other stuff like headers
