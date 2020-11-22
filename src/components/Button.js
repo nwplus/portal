@@ -30,6 +30,7 @@ const StyledButton = styled.button`
     outline: 0;
   }
   :disabled {
+    cursor: not-allowed;
     opacity: ${p => p.theme.opacity.disabled};
   }
   ${p =>
