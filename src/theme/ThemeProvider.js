@@ -17,6 +17,9 @@ const nwTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
+    primaryGradient: 'linear-gradient(180deg, #4DE8C2 0%, #18CDCD 100%, #19CBCB 100%)', // button
+    primaryGradientHover: 'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
+    tertiaryHover: '#1EEDC8', // button hover
   },
   typography: {
     h1: {
@@ -54,6 +57,7 @@ const hackcampTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#FFBC96',
+    tertiaryHover: '#DB693B', // button hover
   },
   typography: {
     h1: {
