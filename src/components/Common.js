@@ -139,3 +139,8 @@ export const TextInputLike = css`
       border: 2px solid ${p.theme.colors.secondaryWarning};
     }`}
 `
+
+export const TextInputLikeErrorMsg = styled.p`
+  color: ${p => p.theme.colors.warning};
+  margin: 0.5em 0em;
+`

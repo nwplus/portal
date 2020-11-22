@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { TextInputLike } from '../components/Common.js'
+import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../components/Common.js'
 
 const TextAreaContainer = styled.div`
   margin: 1em;
@@ -30,10 +30,6 @@ const TextAreaBox = styled.textarea.attrs({
   ::-webkit-resizer {
     background-color: transparent;
   }
-`
-const ErrorMsg = styled.p`
-  color: ${p => p.theme.colors.warning};
-  margin: 7px 0px;
 `
 
 export const TextArea = ({

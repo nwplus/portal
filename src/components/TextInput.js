@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TextInputLike } from '../components/Common.js'
+import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../components/Common.js'
 
 const inputSize = {
   default: '300px',
@@ -17,10 +17,6 @@ const TextInputBox = styled.input.attrs({
 })`
   width: ${p => (p.size ? inputSize[p.size] : inputSize['default'])};
   ${TextInputLike};
-`
-const ErrorMsg = styled.p`
-  color: ${p => p.theme.colors.warning};
-  margin: 7px 0px;
 `
 
 export const TextInput = ({ invalid, errorMsg, ...rest }) => {
