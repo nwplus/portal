@@ -17,9 +17,10 @@ const nwTheme = {
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
-    warning: '#E03131',
     primary: '#31E0E0', // #06C1C0 for hacker app but these look visually close
     default: '#BEBEBE', // default-state border color for most components used in the hacker app
+    warning: '#F18383',
+    secondaryWarning: '#EF6C6C',
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',
@@ -42,6 +43,9 @@ const nwTheme = {
       opacity: 0.5,
     },
   },
+  opacity: {
+    disabled: 0.5,
+  },
 }
 
 const hackcampTheme = {
@@ -51,7 +55,8 @@ const hackcampTheme = {
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
-    warning: '#E03131',
+    warning: '#FF8989',
+    secondaryWarning: '#EF6C6C',
     primary: '#FFBC96',
     default: '#BEBEBE',
     highlight: 'rgba(255, 255, 255, 0.6)',
@@ -75,6 +80,9 @@ const hackcampTheme = {
       size: '1em',
       opacity: 0.7,
     },
+  },
+  opacity: {
+    disabled: 0.5,
   },
 }
 

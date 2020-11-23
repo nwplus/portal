@@ -20,10 +20,9 @@ export const db = firebase.firestore()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
 
-export const getJudgingStatus = callback => {
+export const getLivesiteDoc = callback => {
   return livesiteDocRef.onSnapshot(doc => {
-    const d = doc.data()
-    callback(d.judgingOpen)
+    callback(doc.data())
   })
 }
 
