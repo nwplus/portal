@@ -1,9 +1,16 @@
 import React from 'react'
-import CreatableSelect from 'react-select/creatable'
 import ReactSelect from 'react-select'
+import CreatableSelect from 'react-select/creatable'
+import AsyncSelect from 'react-select/async'
+import AsyncCreatableSelect from 'react-select/async-creatable'
 import styled, { withTheme, css } from 'styled-components'
 import { components } from 'react-select'
 import customCursor from '../assets/custom-cursor.png'
+
+const dropdownWidth = {
+  normal: '300px',
+  searchable: '400px',
+}
 
 const sharedStyle = css`
   .react-select__control {
@@ -12,10 +19,9 @@ const sharedStyle = css`
     border: 2px solid;
     border-radius: 7px;
     box-shadow: none;
-    max-width: ${p => (p.isSearchable ? `387px` : `287px`)};
+    max-width: ${p => (p.isSearchable ? dropdownWidth.searchable : dropdownWidth.normal)};
     height: 48px;
-    border-color: ${p =>
-      p.isValid ? p.theme.colors.dropdown.neutral : p.theme.colors.dropdown.error};
+    border-color: ${p => (p.isValid ? p.theme.colors.default : p.theme.colors.warning)};
     padding-right: 17px;
     padding-left: 7px;
     flex-direction: ${p => p.isSearchable && `row-reverse`};
@@ -24,7 +30,7 @@ const sharedStyle = css`
 
   .react-select__control:hover,
   .react-select__control--is-focused {
-    border-color: ${p => p.theme.colors.dropdown.background};
+    border-color: ${p => (p.isValid ? p.theme.colors.primary : p.theme.colors.secondaryWarning)};
   }
 
   .react-select__option {
@@ -33,10 +39,10 @@ const sharedStyle = css`
   }
 
   .react-select__menu {
-    background-color: ${p => p.theme.colors.dropdown.background};
+    background-color: ${p => p.theme.colors.primary};
     border-radius: 7px;
     margin-top: 0px;
-    max-width: ${p => (p.isSearchable ? `387px` : `287px`)};
+    max-width: ${p => (p.isSearchable ? dropdownWidth.searchable : dropdownWidth.normal)};
     cursor: url(${customCursor}), auto;
   }
 
@@ -49,7 +55,7 @@ const sharedStyle = css`
     border: solid 8px transparent;
     background-clip: padding-box;
     border-radius: 15px;
-    box-shadow: inset 0 0 14px 14px ${p => p.theme.colors.dropdown.scrollbar};
+    box-shadow: inset 0 0 14px 14px ${p => p.theme.colors.scrollbar};
   }
 
   .react-select__option {
@@ -58,22 +64,22 @@ const sharedStyle = css`
 
   .react-select__option:hover,
   .react-select__option--is-selected {
-    background-color: ${p => p.theme.colors.dropdown.hover};
+    background-color: ${p => p.theme.colors.hover};
     border-radius: 5px;
     font-weight: bold;
   }
 
   .react-select__placeholder {
-    color: ${p => p.theme.colors.dropdown.neutral};
+    color: ${p => p.theme.colors.default};
   }
 
   .react-select__single-value,
   .react-select__input {
-    color: ${p => p.theme.colors.dropdown.background};
+    color: ${p => p.theme.colors.primary};
   }
 
   .react-select__menu-notice--no-options {
-    padding: 0px 0px;
+    padding: 0;
     text-align: left;
   }
 `
@@ -86,6 +92,14 @@ const StyledNormalDropdown = styled(ReactSelect)`
   ${sharedStyle}
 `
 
+const StyledAsyncDropdown = styled(AsyncSelect)`
+  ${sharedStyle}
+`
+
+const StyledAsyncCreatableDropdown = styled(AsyncCreatableSelect)`
+  ${sharedStyle}
+`
+
 const StyledUserMessage = styled.div`
   color: ${p => p.theme.colors.background};
   font-weight: bold;
@@ -93,7 +107,7 @@ const StyledUserMessage = styled.div`
 `
 
 const StyledErrorMsg = styled.div`
-  color: ${p => p.theme.colors.dropdown.error};
+  color: ${p => p.theme.colors.warning};
   font-weight: 400;
   font-size: 16px;
   padding: 8px 0px;
@@ -136,14 +150,14 @@ const DropdownIcon = ({ className, isSearchable }) =>
     </svg>
   )
 
-const StyledDropdown = styled(DropdownIcon)`
+const StyledDropdownIcon = styled(DropdownIcon)`
   transform: ${p => !p.isSearchable && p.menuIsOpen && `rotate(90deg)`};
   fill: ${p =>
     p.isSearchable
       ? `none`
       : p.menuIsOpen || p.hasValue
-      ? p.theme.colors.dropdown.background
-      : p.theme.colors.dropdown.neutral};
+      ? p.theme.colors.primary
+      : p.theme.colors.default};
 `
 
 const Control = props => {
@@ -160,7 +174,14 @@ const Control = props => {
 
 const MenuList = props => {
   const {
-    selectProps: { isSearchable, inputValue, emptySearchDefaultOption, canCreateNewOption, value },
+    selectProps: {
+      isSearchable,
+      inputValue,
+      emptySearchDefaultOption,
+      canCreateNewOption,
+      value,
+      isLoading,
+    },
     hasValue,
     children,
   } = props
@@ -175,6 +196,7 @@ const MenuList = props => {
             inputValue.toLowerCase() === value.label.toLowerCase() && (
               <StyledUserMessage>Your input is the same as the previous value!</StyledUserMessage>
             )}
+          {isLoading && <StyledUserMessage>Loading...</StyledUserMessage>}
           {children}
         </>
       )}
@@ -189,7 +211,7 @@ const DropdownIndicator = props => {
   } = props
   return (
     <components.DropdownIndicator {...props}>
-      <StyledDropdown isSearchable={isSearchable} menuIsOpen={menuIsOpen} hasValue={hasValue} />
+      <StyledDropdownIcon isSearchable={isSearchable} menuIsOpen={menuIsOpen} hasValue={hasValue} />
     </components.DropdownIndicator>
   )
 }
@@ -218,6 +240,8 @@ const Dropdown = ({
   errorMessage,
   theme,
   canCreateNewOption,
+  debounceEnabled,
+  throttleTime,
 }) => {
   // These props are used by react-select directly, the rest are custom props
   const userProps = {
@@ -230,8 +254,26 @@ const Dropdown = ({
     theme,
   }
 
-  return canCreateNewOption ? (
-    <StyledCreatableDropdown
+  const DropdownVariant = debounceEnabled
+    ? canCreateNewOption
+      ? StyledAsyncCreatableDropdown
+      : StyledAsyncDropdown
+    : canCreateNewOption
+    ? StyledCreatableDropdown
+    : StyledNormalDropdown
+
+  const debounceFilter = inputValue => {
+    return options.filter(o => o.label.toLowerCase().includes(inputValue.toLowerCase()))
+  }
+
+  const loadOptions = (inputValue, callback) => {
+    setTimeout(() => {
+      callback(debounceFilter(inputValue))
+    }, throttleTime)
+  }
+
+  return (
+    <DropdownVariant
       classNamePrefix="react-select"
       components={{
         Control,
@@ -239,28 +281,16 @@ const Dropdown = ({
         MenuList,
         IndicatorSeparator: () => null,
         NoOptionsMessage,
+        LoadingIndicator: () => null,
+        LoadingMessage: () => null,
       }}
       maxMenuHeight={200}
       emptySearchDefaultOption={emptySearchDefaultOption}
       errorMessage={errorMessage}
-      canCreateNewOption
+      canCreateNewOption={canCreateNewOption}
       isValid={isValid}
-      {...userProps}
-    />
-  ) : (
-    <StyledNormalDropdown
-      classNamePrefix="react-select"
-      components={{
-        Control,
-        DropdownIndicator,
-        MenuList,
-        IndicatorSeparator: () => null,
-        NoOptionsMessage,
-      }}
-      maxMenuHeight={200}
-      emptySearchDefaultOption={emptySearchDefaultOption}
-      errorMessage={errorMessage}
-      isValid={isValid}
+      cacheOptions
+      loadOptions={debounceEnabled && loadOptions}
       {...userProps}
     />
   )

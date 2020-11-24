@@ -1,14 +1,6 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-const dropdown = {
-  background: '#06C1C0',
-  hover: '#D9FFF9',
-  neutral: '#BEBEBE',
-  scrollbar: '#615b82',
-  error: '#F18383',
-}
-
 // eslint-disable-next-line
 const nwTheme = {
   custom_imgs: 'none',
@@ -25,7 +17,8 @@ const nwTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
-    dropdown,
+    hover: '#D9FFF9',
+    scrollbar: '#4F4A59',
   },
   typography: {
     h1: {
@@ -63,7 +56,8 @@ const hackcampTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#FFBC96',
-    dropdown,
+    hover: '#D9FFF9', // TODO: pending design
+    scrollbar: '#4F4A59', // TODO: pending design
   },
   typography: {
     h1: {
