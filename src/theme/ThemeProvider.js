@@ -56,8 +56,8 @@ const hackcampTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#FFBC96',
-    hover: '#A0B9C0', // TODO: pending design
-    scrollbar: '#80959B', // TODO: pending design
+    hover: '#A0B9C0',
+    scrollbar: '#80959B',
   },
   typography: {
     h1: {
