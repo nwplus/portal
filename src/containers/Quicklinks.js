@@ -42,12 +42,7 @@ export const CommonLinks = () => {
   return (
     <ButtonContainer>
       {links.map(link => (
-        <Button
-          key={link.href}
-          onClick={() => window.open(link.href, '_blank')}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
+        <Button key={link.href} href={link.href} rel="noopener noreferrer" target="_blank">
           {link.label}
         </Button>
       ))}

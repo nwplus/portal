@@ -24,7 +24,7 @@ export default () => {
 
   return (
     <>
-      <Button color="secondary" onClick={toggleTheme}>
+      <Button color="secondary" href={`javascript:(${toggleTheme})()`}>
         Toggle Theme
       </Button>
       <P>

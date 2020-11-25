@@ -55,7 +55,7 @@ export default ({ imgUrl, title, teamName, description, href = '#!' }) => {
         <Title>{title}</Title>
         <TeamName>by {teamName}</TeamName>
         <P>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
-        <StyledButton color="tertiary" onClick={() => window.open(href, '_blank')}>
+        <StyledButton color="tertiary" href={href}>
           Judge this submission
         </StyledButton>
       </CardContent>
