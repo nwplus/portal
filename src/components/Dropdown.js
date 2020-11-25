@@ -15,7 +15,7 @@ const dropdownWidth = {
 const sharedStyle = css`
   .react-select__control {
     background-color: transparent;
-    margin: 2em 0;
+    margin: 1em 0 2.5em 0;
     border: 2px solid;
     border-radius: 7px;
     box-shadow: none;
@@ -110,8 +110,8 @@ const StyledErrorMsg = styled.div`
   color: ${p => p.theme.colors.warning};
   font-weight: 400;
   font-size: 16px;
-  padding: 8px 0px;
-  margin-top: -30px;
+  position: absolute;
+  top: 56px;
   text-align: left;
 `
 
