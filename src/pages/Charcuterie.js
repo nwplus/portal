@@ -58,27 +58,33 @@ export default () => {
       <Card>
         <H2>Card Element</H2>
         <P>It can contain content. And even buttons!</P>
+        <P>Colors</P>
         <Button color="primary">Primary</Button>
         <Button color="primary" disabled={true}>
           Primary
         </Button>
-        <Button color="secondary">Secondary</Button>
-        <Button color="secondary" disabled={true}>
+        <Button color="secondary" width="flex">
+          Secondary
+        </Button>
+        <Button color="secondary" width="flex" disabled={true}>
           Secondary
         </Button>
         <Button color="tertiary">Tertiary</Button>
         <Button color="tertiary" disabled={true}>
           Tertiary
         </Button>
+        <P>Widths</P>
         <Button width="small" color="secondary">
           Small
         </Button>
+        <Button color="secondary">Default</Button>
         <Button width="flex" color="secondary">
           Flex (ie. as wide as the label)
         </Button>
         <Button width="large" color="secondary">
           Large
         </Button>
+        <P>Heights</P>
         <Button height="short" color="secondary">
           Short
         </Button>

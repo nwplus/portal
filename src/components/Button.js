@@ -4,14 +4,15 @@ import buttonBG from '../assets/hc_button.svg'
 import { hexToRgba } from '../utility/utilities'
 
 const buttonWidth = {
-  small: '60px',
-  default: '80px',
+  small: '40px',
+  default: '60px',
   large: '300px',
   flex: '',
 }
 
 const buttonHeightPadding = {
-  short: '0.4em',
+  short: '0.25em',
+  default: '0.5em',
   tall: '1em',
 }
 
@@ -24,7 +25,8 @@ const StyledButton = styled.a`
   transition: all 250ms;
   width: ${p => (p.width ? buttonWidth[p.width] : buttonWidth['default'])};
   text-align: center;
-  padding: ${p => (p.height ? buttonHeightPadding[p.height] : '')} 0.75em;
+  padding: ${p => (p.height ? buttonHeightPadding[p.height] : buttonHeightPadding['default'])}
+    0.75em;
   border-radius: 3px;
   margin: 1em;
   :hover {
