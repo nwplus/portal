@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { H1, H2, P } from './Typography'
-import { HR, Button } from './Common'
+import { Card, HR, Button } from './Common'
 import JudgingCard from './JudgingCard'
 
 const Columns = styled.div`
@@ -13,11 +13,31 @@ const Columns = styled.div`
   }
 `
 
+const FeedbackItem = styled.div`
+  background: ${p => p.theme.colors.background};
+  box-sizing: border-box;
+  padding: 1em;
+  width: 100%;
+  margin: 1em 0;
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+`
+
 const FeedbackCard = ({ feedback }) => {
-  return <p>hi</p>
+  return (
+    <Card>
+      {feedback.map(item => (
+        <FeedbackItem key={item}>{item}</FeedbackItem>
+      ))}
+    </Card>
+  )
 }
 
-export default ({ project, feedback }) => {
+export default ({ project, feedback = [] }) => {
   return (
     <>
       <H1>Submit Your Project</H1>
@@ -37,7 +57,7 @@ export default ({ project, feedback }) => {
         </div>
         <div style={{ flex: 2 }}>
           <H2>Feedback</H2>
-          {project ? (
+          {feedback.length > 0 ? (
             <FeedbackCard feedback={feedback} />
           ) : (
             <P>Check back here when judging ends to review your project feedback.</P>
