@@ -53,9 +53,7 @@ const Selector = styled.span`
     p.checked
       ? `background-color: ${p.theme.colors.background};
         border: 2px solid ${p.theme.colors.background};`
-      : `
-      border: 2px solid ${p.theme.colors.default};
-      `}
+      : `border: 2px solid ${p.theme.colors.default};`}
   ${SelectWrapper}:hover & {
     ${p =>
       p.disabled
@@ -83,9 +81,8 @@ const Label = styled.label`
     ${p =>
       p.disabled
         ? `cursor: not-allowed;`
-        : `
-    color: ${p.theme.colors.primary}; 
-    cursor: pointer;`}
+        : `color: ${p.theme.colors.primary}; 
+          cursor: pointer;`}
   }
   :focus-within {
     color: ${p => !p.checked && p.theme.colors.primary};
