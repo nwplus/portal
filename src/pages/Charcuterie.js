@@ -106,6 +106,7 @@ export default () => {
         title="Imposter"
         imgUrl="https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg"
         teamName="H4ckH0use"
+        buttonLabel="Judge this submission"
         description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
       />
       <H2>Checkbox</H2>

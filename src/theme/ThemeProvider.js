@@ -6,6 +6,7 @@ const nwTheme = {
   custom_imgs: 'none',
   colors: {
     background: '#2D2937',
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
@@ -45,6 +46,7 @@ const hackcampTheme = {
   custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',

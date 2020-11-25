@@ -44,7 +44,7 @@ const cutString = (string, maxLength) => {
   return `${string.substring(0, cut)}...`
 }
 
-export default ({ imgUrl, title, teamName, description, href = '#!' }) => {
+export default ({ imgUrl, title, teamName, description, buttonLabel, href = '#!' }) => {
   return (
     <StyledCard>
       <a href={href}>
@@ -54,7 +54,13 @@ export default ({ imgUrl, title, teamName, description, href = '#!' }) => {
         <Title>{title}</Title>
         <TeamName>by {teamName}</TeamName>
         <P>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
-        <StyledButton href={href}>Judge this submission</StyledButton>
+        <StyledButton
+          href={href}
+          target={href.includes('http') && '_blank'}
+          rel="noreferrer noopener"
+        >
+          {buttonLabel}
+        </StyledButton>
       </CardContent>
     </StyledCard>
   )
