@@ -20,7 +20,7 @@ const TextInputBox = styled.input.attrs({
   border: 2px solid ${p => p.theme.colors.highlight};
   border-radius: 7px;
   color: ${p => p.theme.colors.primary};
-  font-family: 'HK Grotesk';
+  font-family: ${p => p.theme.font};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {
     color: ${p => p.theme.colors.highlight};
