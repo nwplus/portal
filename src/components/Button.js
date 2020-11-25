@@ -65,7 +65,7 @@ const StyledButton = styled.a`
       background: url(${buttonBG});
       background-size: contain;
       background-repeat: no-repeat;
-      width: 140px;
+      width: 100px;
       `
     }
     `}
