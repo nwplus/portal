@@ -7,6 +7,7 @@ const nwTheme = {
   custom_imgs: 'none',
   colors: {
     background: '#2D2937',
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
@@ -21,6 +22,8 @@ const nwTheme = {
     primaryGradient: 'linear-gradient(180deg, #4DE8C2 0%, #18CDCD 100%, #19CBCB 100%)', // button
     primaryGradientHover: 'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
     tertiaryHover: '#1EEDC8', // button hover
+    hover: '#D9FFF9',
+    scrollbar: '#4F4A59',
   },
   typography: {
     h1: {
@@ -48,6 +51,7 @@ const hackcampTheme = {
   custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
@@ -60,6 +64,8 @@ const hackcampTheme = {
     link: '#fff',
     linkHover: '#FFBC96',
     tertiaryHover: '#AD795E', // button hover
+    hover: '#A0B9C0',
+    scrollbar: '#80959B',
   },
   typography: {
     h1: {

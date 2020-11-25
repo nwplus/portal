@@ -66,6 +66,11 @@ export const DetailAnswer = styled(P)`
   margin-bottom: 0.85em;
 `
 
+export const HR = styled.hr`
+  border: 1px solid ${p => p.theme.colors.border};
+  margin: 3em 0;
+`
+
 export const TextInputLike = css`
   background-color: transparent;
   padding: 10px;
