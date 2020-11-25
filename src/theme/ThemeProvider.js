@@ -17,6 +17,8 @@ const nwTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
+    hover: '#D9FFF9',
+    scrollbar: '#4F4A59',
   },
   typography: {
     h1: {
@@ -54,6 +56,8 @@ const hackcampTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#FFBC96',
+    hover: '#A0B9C0',
+    scrollbar: '#80959B',
   },
   typography: {
     h1: {

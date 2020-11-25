@@ -8,6 +8,31 @@ import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
+import Dropdown from '../components/Dropdown'
+
+const options = [
+  { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+  { value: '1', label: 'Vanilla' },
+  { value: '2', label: 'NwPlus' },
+  { value: '3', label: 'UBC' },
+  { value: '4', label: 'hi' },
+  { value: '5', label: 'Banilla' },
+  { value: '6', label: 'Van' },
+  { value: '1', label: 'Vanilla' },
+  { value: '2', label: 'NwPlus' },
+  { value: '3', label: 'UBC' },
+  { value: '4', label: 'hi' },
+  { value: '5', label: 'Banilla' },
+  { value: '6', label: 'Van' },
+  { value: '1', label: 'High school' },
+  { value: '2', label: 'Undergraduate' },
+  { value: '3', label: 'Graduate' },
+  { value: '4', label: 'Other' },
+  { value: '5', label: 'Banilla' },
+  { value: '6', label: 'Van' },
+]
 
 const toggleTheme = () => {
   const oldTheme = window.localStorage.getItem('localTheme')
@@ -86,6 +111,82 @@ export default () => {
       <H2>Checkbox</H2>
       <Checkbox label="Default state" checked={checked} onChange={() => setChecked(!checked)} />
       <Checkbox label="Selected state" checked readOnly />
+      <H2>Dropdowns</H2>
+      <H3>Normal dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'I am a placeholder'}
+        isSearchable={false}
+        onChange={inputValue => console.log(inputValue)}
+        isValid
+      />
+      <H3>Searchable dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption={false}
+        isValid
+      />
+      <H3>Searchable and creatable dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'Hi I am a placeholder'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption
+        isValid
+      />
+      <H3>Invalid dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption={false}
+        isValid={false}
+        errorMessage={'Please select something!'}
+      />
+      <H3>Debounced dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption={false}
+        isValid
+        errorMessage={'Please select something!'}
+        debounceEnabled
+        throttleTime={1000}
+      />
+      <H3>Debounced creatable dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable={true}
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption
+        isValid
+        errorMessage={'Please select something!'}
+        debounceEnabled
+        throttleTime={1000}
+      />
     </>
   )
 }
