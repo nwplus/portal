@@ -27,6 +27,10 @@ const FeedbackItem = styled.div`
   }
 `
 
+const Column = styled.div`
+  flex: ${p => p.width || 1};
+`
+
 const FeedbackCard = ({ feedback }) => {
   return (
     <Card>
@@ -47,22 +51,22 @@ export default ({ project, feedback = [] }) => {
       <H1>Project Submission</H1>
       <P>Copy goes here once logs is done</P>
       <Columns>
-        <div style={{ flex: 1 }}>
+        <Column>
           <H2>Details</H2>
           {project ? (
             <JudgingCard {...project} href={project.devpost} buttonLabel="View on Devpost" />
           ) : (
             <P>You have not submitted a project.</P>
           )}
-        </div>
-        <div style={{ flex: 2 }}>
+        </Column>
+        <Column width="2">
           <H2>Feedback</H2>
           {feedback.length > 0 ? (
             <FeedbackCard feedback={feedback} />
           ) : (
             <P>Check back here when judging ends to review your project feedback.</P>
           )}
-        </div>
+        </Column>
       </Columns>
     </>
   )

@@ -44,7 +44,7 @@ const cutString = (string, maxLength) => {
   return `${string.substring(0, cut)}...`
 }
 
-export default ({ imgUrl, title, teamName, description, href = '#!', buttonLabel }) => {
+export default ({ imgUrl, title, teamName, description, buttonLabel, href = '#!' }) => {
   return (
     <StyledCard>
       <a href={href}>

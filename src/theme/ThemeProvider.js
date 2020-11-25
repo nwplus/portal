@@ -44,6 +44,7 @@ const hackcampTheme = {
   custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
