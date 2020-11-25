@@ -3,24 +3,28 @@ import styled from 'styled-components'
 import buttonBG from '../assets/hc_button.svg'
 import { hexToRgba } from '../utility/utilities'
 
-const buttonSize = {
+const buttonWidth = {
   small: '60px',
   default: '80px',
   large: '300px',
+  flex: '',
 }
 
-const buttonColors = ['primary', 'secondary', 'tertiary']
+const buttonHeightPadding = {
+  short: '0.4em',
+  tall: '1em',
+}
 
 const StyledButton = styled.a`
-  display: block;
+  display: inline-block;
   text-decoration: none;
-  font-family: 'HK Grotesk';
+  font-family: ${p => p.theme};
   font-weight: ${p => p.theme.typography.h2.weight};
   border: transparent;
   transition: all 250ms;
-  width: ${p => (p.size ? buttonSize[p.size] : buttonSize['default'])};
+  width: ${p => (p.width ? buttonWidth[p.width] : buttonWidth['default'])};
   text-align: center;
-  padding: 0.75em;
+  padding: ${p => (p.height ? buttonHeightPadding[p.height] : '')} 0.75em;
   border-radius: 3px;
   margin: 1em;
   :hover {
@@ -36,7 +40,7 @@ const StyledButton = styled.a`
     opacity: ${p.theme.opacity.disabled};
     `}
   ${p =>
-    (p.color === buttonColors[0] || !buttonColors.includes(p.color)) && // primary color (gradient button) or not specified color
+    (p.color === 'primary' || !p.color) && // primary color (gradient button) or not specified color
     `color: ${p.theme.colors.background};
     background: ${p.theme.colors.primaryGradient};
     :hover {
@@ -64,7 +68,7 @@ const StyledButton = styled.a`
     }
     `}
   ${p =>
-    p.color === buttonColors[1] && // secondary color (outline button)
+    p.color === 'secondary' && // secondary color (outline button)
     `color: ${p.theme.colors.primary};
     background: ${hexToRgba(p.theme.colors.primary, 0)};
     border: 1px solid ${p.theme.colors.primary};
@@ -83,7 +87,7 @@ const StyledButton = styled.a`
       background: ${hexToRgba(p.theme.colors.primary, 0.5)};
     }`}
   ${p =>
-    p.color === buttonColors[2] && // tertiary color (solid button)
+    p.color === 'tertiary' && // tertiary color (solid button)
     `color: ${p.theme.colors.background};
     background: ${p.theme.colors.primary};
     :hover {

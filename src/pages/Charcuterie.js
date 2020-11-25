@@ -24,7 +24,7 @@ export default () => {
 
   return (
     <>
-      <Button color="secondary" href={`javascript:(${toggleTheme})()`}>
+      <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
         Toggle Theme
       </Button>
       <P>
@@ -67,6 +67,21 @@ export default () => {
         <Button color="tertiary">Tertiary</Button>
         <Button color="tertiary" disabled={true}>
           Tertiary
+        </Button>
+        <Button width="small" color="secondary">
+          Small
+        </Button>
+        <Button width="flex" color="secondary">
+          Flex (ie. as wide as the label)
+        </Button>
+        <Button width="large" color="secondary">
+          Large
+        </Button>
+        <Button height="short" color="secondary">
+          Short
+        </Button>
+        <Button height="tall" color="secondary">
+          Tall
         </Button>
         <TextInput placeholder="Default" />
         <TextInput value="With Value" />

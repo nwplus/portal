@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components'
 
 // eslint-disable-next-line
 const nwTheme = {
+  font: 'HK Grotesk',
   custom_imgs: 'none',
   colors: {
     background: '#2D2937',
@@ -43,6 +44,7 @@ const nwTheme = {
 }
 
 const hackcampTheme = {
+  font: 'HK Grotesk',
   custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
