@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import buttonBG from '../assets/hc_button.svg'
+import buttonBGHover from '../assets/hc_button_hover.svg'
 import { hexToRgba } from '../utility/utilities'
 
 const buttonWidth = {
@@ -66,6 +67,11 @@ const StyledButton = styled.a`
       background-size: contain;
       background-repeat: no-repeat;
       width: 100px;
+      :hover {
+        background: url(${buttonBGHover}); 
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
       `
     }
     `}
