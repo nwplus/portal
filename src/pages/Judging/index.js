@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { getJudgingStatus } from '../../utility/firebase'
+import { getLivesiteDoc } from '../../utility/firebase'
 
 export default () => {
   const [isJudgingOpen, setIsJudgingOpen] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = getJudgingStatus(setIsJudgingOpen)
+    const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
     return unsubscribe
   }, [setIsJudgingOpen])
 

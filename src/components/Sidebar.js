@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
+import hc_logo from '../assets/hc_logo.svg'
 import { maxWidthMediaQueries } from './Common'
 
 const SidebarContainer = styled.div`
@@ -16,10 +17,19 @@ const SidebarContainer = styled.div`
   }
 `
 
-const Logo = styled.img`
+const Logo = styled.img.attrs(p => ({
+  src: p.theme.custom_imgs === 'hc' ? hc_logo : logo,
+}))`
   width: 80px;
   height: 85px;
   margin: 30px 0 0px 50px;
+
+  ${p =>
+    p.theme.custom_imgs === 'hc' &&
+    `
+      width: 120px;
+      margin: 30px 0 0px 60px;
+    `}
 `
 
 const ItemsContainer = styled.div`
@@ -32,8 +42,8 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 60px;
   border-bottom: none;
-  color: ${p => (p.selected ? p.theme.colors.linkHover : p.theme.colors.highlight)};
-  ${p => p.selected && `background: ${p.theme.colors.secondaryBackground};`}
+  color: ${p => (p.selected ? p.theme.colors.link : p.theme.colors.highlight)};
+  ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
   &:hover {
     background: ${p => p.theme.colors.secondaryBackground};
     border-bottom: none;
@@ -64,7 +74,7 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
-export default ({ showMobileSidebar, isJudgingEnabled }) => {
+export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) => {
   const [location] = useLocation()
 
   const links = [
@@ -75,8 +85,12 @@ export default ({ showMobileSidebar, isJudgingEnabled }) => {
     { location: '/sponsors', text: 'SPONSORS' },
   ]
 
-  if (isJudgingEnabled) {
+  if (isJudgingOpen) {
     links.push({ location: '/judging', text: 'JUDGING' })
+  }
+
+  if (isSubmissionsOpen) {
+    links.push({ location: '/submission', text: 'SUBMISSION' })
   }
 
   if (process.env.NODE_ENV !== 'production') {
@@ -85,7 +99,7 @@ export default ({ showMobileSidebar, isJudgingEnabled }) => {
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
-      <Logo src={logo} alt="logo" />
+      <Logo alt="logo" />
       <LiveLabel>
         <LiveDot />
         LIVE

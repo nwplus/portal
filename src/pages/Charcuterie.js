@@ -2,11 +2,23 @@ import React, { useState } from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
 import { Card, Button, SecondaryButton } from '../components/Common.js'
 import Accordion from '../components/Accordion'
+import TextInput from '../components/TextInput'
+import TextArea from '../components/TextArea'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
 import Select from '../components/Select'
+
+const toggleTheme = () => {
+  const oldTheme = window.localStorage.getItem('localTheme')
+  if (oldTheme === 'nwTheme') {
+    window.localStorage.setItem('localTheme', 'hackcampTheme')
+  } else {
+    window.localStorage.setItem('localTheme', 'nwTheme')
+  }
+  window.location.reload()
+}
 
 export default () => {
   const [states, setStates] = useState({
@@ -14,9 +26,16 @@ export default () => {
     radio: 'selected',
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
+  const [textAreaValue, setTextAreaValue] = useState('')
 
   return (
     <>
+      <SecondaryButton href={`javascript:(${toggleTheme})()`}>Toggle Theme</SecondaryButton>
+      <P>
+        Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
+        should appear on the toolbar
+      </P>
+
       <H1>Charcuturie</H1>
       <>
         <H1>This is an h1.</H1>
@@ -43,7 +62,20 @@ export default () => {
         <P>It can contain content. And even buttons!</P>
         <Button>Primary</Button>
         <SecondaryButton>Secondary</SecondaryButton>
+        <TextInput placeholder="Default" />
+        <TextInput value="With Value" />
+        <TextInput value="With Value Disabled" disabled={true} />
+        <TextInput placeholder="Disabled" disabled={true} />
+        <TextInput placeholder="Invalid" invalid={true} errorMsg={'Pls try again lol'} />
+        <TextInput placeholder="Medium" size="medium" />
+        <TextInput placeholder="Large" size="large" />
       </Card>
+      <TextArea
+        placeholder="TextArea with placeholder."
+        maxLength="10"
+        value={textAreaValue}
+        onChange={setTextAreaValue}
+      />
       <Accordion heading="Accordion Component">
         Some hidden content. This can get pretty long too, and even contain other stuff like headers
         or images.

@@ -1,5 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+const SelectFocusLike = css`
+  background: ${p => p.theme.colors.selects.focus};
+  border: 2px solid ${p => p.theme.colors.primary};
+`
 
 const SelectWrapper = styled.span`
   display: inline-block;
@@ -27,14 +32,12 @@ const SelectWrapper = styled.span`
   :hover {
     background: ${p.theme.colors.selects.focus};
   `}
-  ${p => `:focus-within {
-    background: ${p.theme.colors.selects.focus};
-    border: 2px solid ${p.theme.colors.primary};
+  :focus-within {
+    ${SelectFocusLike}
   }
   :focus {
-    background: ${p.theme.colors.selects.focus};
-    border: 2px solid ${p.theme.colors.primary};
-  }`}
+    ${SelectFocusLike}
+  }
 `
 
 const Selector = styled.span`
@@ -48,14 +51,16 @@ const Selector = styled.span`
   vertical-align: middle;
   ${p =>
     p.checked
-      ? `background-color: ${p.theme.colors.buttonText};
-        border: 2px solid ${p.theme.colors.buttonText};`
-      : `border: 2px solid ${p.theme.colors.default};`}
+      ? `background-color: ${p.theme.colors.background};
+        border: 2px solid ${p.theme.colors.background};`
+      : `
+      border: 2px solid ${p.theme.colors.default};
+      `}
   ${SelectWrapper}:hover & {
     ${p =>
       p.disabled
         ? `cursor: not-allowed;`
-        : `border: 2px solid ${p.checked ? p.theme.colors.buttonText : p.theme.colors.primary};`}
+        : `border: 2px solid ${p.checked ? p.theme.colors.background : p.theme.colors.primary};`}
   }
   ${SelectWrapper}:focus & {
     border: 2px solid ${p => !p.checked && p.theme.colors.primary};
@@ -73,7 +78,7 @@ const Input = styled.input`
 
 const Label = styled.label`
   align-items: center;
-  color: ${p => p.checked && p.theme.colors.buttonText};
+  color: ${p => p.checked && p.theme.colors.background};
   ${SelectWrapper}:hover {
     ${p =>
       p.disabled

@@ -18,7 +18,8 @@ const TimelineHR = styled.hr`
   margin-left: 5em;
   margin-top: ${props => props.hourOffset * HOUR_HEIGHT}px;
   border: 0;
-  border-bottom: 1px dashed ${p => p.theme.colors.foreground};
+  border-bottom: 1px dashed ${p => p.theme.colors.text};
+  opacity: 35%;
 `
 
 const TimelineLabel = styled.span`

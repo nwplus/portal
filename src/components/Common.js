@@ -1,6 +1,8 @@
+import React from 'react'
 import styled, { css } from 'styled-components'
 import { text } from './Typography'
 import { P } from './Typography'
+import buttonBG from '../assets/hc_button.svg'
 
 const screenBreakpoints = {
   xs: 576,
@@ -24,7 +26,7 @@ export const Card = styled.div`
   ${CardLike};
 `
 
-export const Button = styled.a`
+const StyledButton = styled.a`
   ${text};
   display: block;
   text-decoration: none;
@@ -37,7 +39,21 @@ export const Button = styled.a`
   padding: 0.75em 2.5em;
   border-radius: 3px;
   margin: 1em;
+
+  ${p =>
+    p.theme.custom_imgs === 'hc' &&
+    `
+      background: url(${buttonBG});
+      background-size: contain;
+      background-repeat: no-repeat;
+    `}
 `
+
+export const Button = props => (
+  <StyledButton href={props.href || '#!'} {...props}>
+    {props.children}
+  </StyledButton>
+)
 
 export const SecondaryButton = styled(Button)`
   background: ${p => p.theme.colors.background};
@@ -86,4 +102,45 @@ export const DetailColumn = styled.ul`
 
 export const DetailAnswer = styled(P)`
   margin-bottom: 0.85em;
+`
+
+export const TextInputLike = css`
+  background-color: transparent;
+  padding: 10px;
+  border: 2px solid ${p => p.theme.colors.highlight};
+  border-radius: 7px;
+  color: ${p => p.theme.colors.primary};
+  font-family: 'HK Grotesk';
+  font-size: ${p => p.theme.typography.h3.size};
+  ::placeholder {
+    color: ${p => p.theme.colors.highlight};
+  }
+  :hover {
+    border: 2px solid ${p => p.theme.colors.primary};
+  }
+  :focus {
+    border: 2px solid ${p => p.theme.colors.primary};
+    outline: none;
+  }
+  :disabled {
+    border: 2px solid ${p => p.theme.colors.highlight};
+    opacity: ${p => p.theme.opacity.disabled};
+  }
+  ${p =>
+    p.invalid &&
+    `border: 2px solid ${p.theme.colors.warning};
+    ::placeholder {
+      color: ${p.theme.colors.warning};
+    }
+    :hover {
+      border: 2px solid ${p.theme.colors.secondaryWarning};
+    }
+    :focus {
+      border: 2px solid ${p.theme.colors.secondaryWarning};
+    }`}
+`
+
+export const TextInputLikeErrorMsg = styled.p`
+  color: ${p => p.theme.colors.warning};
+  margin: 0.5em 0em;
 `
