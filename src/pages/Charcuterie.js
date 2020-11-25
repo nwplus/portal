@@ -43,6 +43,15 @@ export default () => {
           contrast and complement each other's taste. It's some really long text. I'm really writing
           this way later than I should be. Is this what it's like to sell your soul to nwPlus?{' '}
         </P>
+        <br></br>
+        <A color={false} weight={false} href="https://nwplus.io">
+          This is a link.
+        </A>
+        <br></br>
+        <br></br>
+        <A color={true} weight={true} href="https://nwplus.io">
+          This is a hacker app link.
+        </A>
       </>
       <>
         <H2>Countdown</H2>
