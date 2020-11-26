@@ -19,8 +19,9 @@ const SelectWrapper = styled.span`
   cursor: not-allowed;
 `
       : `:hover {
-  border: 2px solid ${p.theme.colors.primary};
-  cursor: pointer;
+        background: ${p.theme.colors.selects.hover};
+    border: 2px solid ${p.theme.colors.primary};
+    cursor: pointer;
 }`}
   ${p =>
     p.checked &&

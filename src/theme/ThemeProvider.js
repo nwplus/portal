@@ -19,8 +19,8 @@ const nwTheme = {
     link: '#fff',
     linkHover: '#31E0E0', //TODO
     selects: {
-      hover: 'rgba(77, 232, 194, 0.1)',
-      focus: 'rgba(77, 232, 194, 0.5)',
+      hover: 'rgba(77, 232, 194, 0.2)',
+      focus: 'rgba(77, 232, 194, 0.4)',
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
