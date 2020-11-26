@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'wouter'
+import { Route, Router, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import {
+  Login,
   Charcuterie,
   Home,
   Faq,
@@ -14,6 +15,10 @@ import {
   Submission,
   SubmissionCreate,
   SubmissionEdit,
+  ApplicationForm,
+  ApplicationReview,
+  ApplicationConfirmation,
+  Dashboard,
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
@@ -55,10 +60,21 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/application/:part">{params => <ApplicationForm id={params.part} />}</Route>
+          <Route path="/application/review">
+            <ApplicationReview />
+          </Route>
+          <Route path="/application/confirmation">
+            <ApplicationConfirmation />
+          </Route>
+          <Route path="/application/:part">
+            {params => <ApplicationForm part={params.part} />}
+          </Route>
           <Page>
             <Route path="/">
               <Home />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
             </Route>
             <Route path="/charcuterie">
               <Charcuterie />
