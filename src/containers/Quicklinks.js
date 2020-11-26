@@ -10,10 +10,6 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
 `
-const StyledButton = styled(Button)`
-  margin: 1em;
-`
-
 const getLinks = () => {
   return db
     .collection(DB_COLLECTION)
@@ -46,9 +42,9 @@ export const CommonLinks = () => {
   return (
     <ButtonContainer>
       {links.map(link => (
-        <StyledButton key={link.href} href={link.href} rel="noopener noreferrer" target="_blank">
+        <Button key={link.href} href={link.href} rel="noopener noreferrer" target="_blank">
           {link.label}
-        </StyledButton>
+        </Button>
       ))}
     </ButtonContainer>
   )
