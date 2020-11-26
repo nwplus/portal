@@ -51,8 +51,12 @@ function App() {
     <>
       <ThemeProvider>
         <GlobalStyle />
-        <Page>
-          <Switch>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/application/:part">{params => <ApplicationForm id={params.part} />}</Route>
+          <Page>
             <Route path="/">
               <Home />
             </Route>
@@ -85,8 +89,8 @@ function App() {
               <SubmissionEdit />
             </Route>
             <Route>Page Not Found!</Route>
-          </Switch>
-        </Page>
+          </Page>
+        </Switch>
       </ThemeProvider>
     </>
   )
