@@ -18,7 +18,7 @@ import {
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
-  Dashboard,
+  Application,
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
@@ -73,8 +73,8 @@ function App() {
             <Route path="/">
               <Home />
             </Route>
-            <Route path="/dashboard">
-              <Dashboard />
+            <Route path="/application">
+              <Application />
             </Route>
             <Route path="/charcuterie">
               <Charcuterie />

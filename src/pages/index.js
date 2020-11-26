@@ -10,10 +10,10 @@ import JudgingView from './Judging/View'
 import Submission from './Submission'
 import SubmissionCreate from './Submission/Create'
 import SubmissionEdit from './Submission/Edit'
+import Application from './Application'
 import ApplicationForm from './Application/Form'
 import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
-import Dashboard from './Dashboard'
 
 export {
   Login,
@@ -28,8 +28,8 @@ export {
   Submission,
   SubmissionCreate,
   SubmissionEdit,
+  Application,
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
-  Dashboard,
 }
