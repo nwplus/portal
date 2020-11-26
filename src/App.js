@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Router, Switch } from 'wouter'
+import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import {
