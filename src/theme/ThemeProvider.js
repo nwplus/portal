@@ -6,11 +6,12 @@ const nwTheme = {
   custom_imgs: 'none',
   colors: {
     background: '#2D2937',
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
     foreground: '#4F4A59',
-    primary: '#31E0E0', // #06C1C0 for hacker app but these look visually close
-    default: '#BEBEBE', // default-state border color for most components used in the hacker app
+    primary: '#06C1C0',
+    default: '#BEBEBE',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
     highlight: 'rgba(255, 255, 255, 0.6)',
@@ -18,9 +19,11 @@ const nwTheme = {
     link: '#fff',
     linkHover: '#31E0E0', //TODO
     selects: {
-      hover: 'rgba(77, 232, 194, 0.2)',
+      hover: 'rgba(77, 232, 194, 0.1)',
       focus: 'rgba(77, 232, 194, 0.5)',
     },
+    hover: '#D9FFF9',
+    scrollbar: '#4F4A59',
   },
   typography: {
     h1: {
@@ -47,6 +50,7 @@ const hackcampTheme = {
   custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
@@ -62,6 +66,8 @@ const hackcampTheme = {
       hover: 'rgba(201, 149, 119, 0.2)',
       focus: 'rgba(201, 149, 119, 0.5)',
     },
+    hover: '#A0B9C0',
+    scrollbar: '#80959B',
   },
   typography: {
     h1: {

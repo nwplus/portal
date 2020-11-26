@@ -19,7 +19,6 @@ const SelectWrapper = styled.span`
   cursor: not-allowed;
 `
       : `:hover {
-  background: ${p.theme.colors.selects.hover};
   border: 2px solid ${p.theme.colors.primary};
   cursor: pointer;
 }`}
@@ -89,12 +88,14 @@ const Label = styled.label`
   }
 `
 
-export default ({ type, label, checked, onChange, disabled, ...rest }) => (
-  <Label checked={checked} disabled={disabled}>
-    <SelectWrapper checked={checked} disabled={disabled}>
-      <Input type={type} checked={checked} onChange={onChange} disabled={disabled} {...rest} />
-      <Selector type={type} checked={checked} disabled={disabled} />
-      {label}
-    </SelectWrapper>
-  </Label>
-)
+export default ({ label, ...rest }) => {
+  return (
+    <Label {...rest}>
+      <SelectWrapper {...rest}>
+        <Input {...rest} />
+        <Selector {...rest} />
+        {label}
+      </SelectWrapper>
+    </Label>
+  )
+}
