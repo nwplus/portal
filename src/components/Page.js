@@ -30,8 +30,6 @@ const Page = ({ children }) => {
     return unsubscribe
   }, [setLivesiteDoc])
 
-  console.log(livesiteDoc)
-
   return (
     <Container>
       <Sidebar

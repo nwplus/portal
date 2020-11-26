@@ -9,7 +9,7 @@ import { maxWidthMediaQueries } from './Common'
 const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
   ${maxWidthMediaQueries('mobile')} {
     ${props =>
