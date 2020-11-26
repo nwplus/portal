@@ -13,6 +13,6 @@ export default () => {
 
   return (
     // TODO: Implement this page
-    isSubmissionsOpen ? <h1>Create - You cannot submit yet</h1> : <h1>TODO: Submission form</h1>
+    isSubmissionsOpen ? <h1>TODO: Submission form</h1> : <h1>Create - You cannot submit yet</h1>
   )
 }
