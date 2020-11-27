@@ -74,7 +74,7 @@ export default () => {
           this way later than I should be. Is this what it's like to sell your soul to nwPlus?{' '}
         </P>
         <br></br>
-        <A color={false} weight={false} href="https://nwplus.io">
+        <A href="https://nwplus.io">
           This is a link.
         </A>
         <br></br>
