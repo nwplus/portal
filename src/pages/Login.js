@@ -4,8 +4,9 @@ import Landing from '../containers/Landing'
 // login screen
 export default () => {
   return (
-    <Landing>
-      <h1>Welcome to nwHacks 2021!!</h1>
-    </Landing>
+    <Landing
+      heading="Welcome to nwHacks 2021!"
+      description="Please continue with one of the following:"
+    ></Landing>
   )
 }

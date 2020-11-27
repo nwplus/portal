@@ -4,7 +4,7 @@ import Banner from '../../components/Banner'
 import logo_lockup from '../../assets/logo_lockup.svg'
 import holo from '../../assets/holo.svg'
 import Footer from './Footer'
-import { H1, P } from '../../components/Typography'
+import { H1, H2, P } from '../../components/Typography'
 
 const LandingContainer = styled.div`
   overflow-x: hidden;
@@ -17,7 +17,7 @@ const HoloBackground = styled.img`
   overflow-x: hidden;
   display: block;
   opacity: 0.8;
-  width: 125%;
+  width: 100%;
   top: 18em;
   margin: 0 50%;
   transform: translateX(-50%);
@@ -36,7 +36,7 @@ const StyledBanner = styled(Banner)`
   && {
     position: absolute;
     top: 18em;
-    padding: 64px 24px 24px;
+    padding: 64px 24px 48px;
     text-align: center;
     z-index: 0;
   }

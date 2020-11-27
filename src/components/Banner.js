@@ -11,7 +11,7 @@ const StyledContainer = styled.div`
   background: rgba(75, 65, 130, 0.2);
   backdrop-filter: blur(15px);
   border-radius: 4px;
-  padding: 24px 24px;
+  padding: 48px;
   margin: 0 50%;
   transform: translateX(-50%);
   width: ${p => (p.width ? bannerWidth[p.width] : bannerWidth.default)};
