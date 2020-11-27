@@ -13,11 +13,11 @@ const StyledContainer = styled.div`
   border-radius: 4px;
   padding: 48px;
   ${CenterHorizontally}
-  width: ${p => (p.width ? bannerWidth[p.width] : bannerWidth.default)};
+  width: ${p => (p.wide ? bannerWidth.wide : bannerWidth.default)};
 `
 
-export default ({ className, width, children }) => (
-  <StyledContainer className={className} width={width}>
+export default ({ className, wide, children }) => (
+  <StyledContainer className={className} wide={wide}>
     {children}
   </StyledContainer>
 )
