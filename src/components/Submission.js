@@ -47,7 +47,9 @@ export default ({ project, feedback = [] }) => {
     <>
       <H1>Submit Your Project</H1>
       <P>Copy goes here once logs is done</P>
-      <Button href="/submission/create">Create Submission</Button>
+      <Button color="tertiary" width="flex" href="/submission/create">
+        Create Submission
+      </Button>
       <HR />
       <H1>Project Submission</H1>
       <P>Copy goes here once logs is done</P>
