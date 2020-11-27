@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { H1, H2, H3, P, A } from '../components/Typography'
-import { Card, Button, SecondaryButton } from '../components/Common.js'
+import { Card } from '../components/Common.js'
+import { Button } from '../components/Button'
 import Accordion from '../components/Accordion'
 import TextInput from '../components/TextInput'
 import TextArea from '../components/TextArea'
@@ -55,7 +56,9 @@ export default () => {
 
   return (
     <>
-      <SecondaryButton href={`javascript:(${toggleTheme})()`}>Toggle Theme</SecondaryButton>
+      <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
+        Toggle Theme
+      </Button>
       <P>
         Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
         should appear on the toolbar
@@ -85,13 +88,44 @@ export default () => {
       <Card>
         <H2>Card Element</H2>
         <P>It can contain content. And even buttons!</P>
-        <Button>Primary</Button>
-        <SecondaryButton>Secondary</SecondaryButton>
+        <P>Colors</P>
+        <Button color="primary">Primary</Button>
+        <Button color="primary" disabled>
+          Primary
+        </Button>
+        <Button color="secondary" width="flex">
+          Secondary
+        </Button>
+        <Button color="secondary" width="flex" disabled>
+          Secondary
+        </Button>
+        <Button color="tertiary">Tertiary</Button>
+        <Button color="tertiary" disabled>
+          Tertiary
+        </Button>
+        <P>Widths</P>
+        <Button width="small" color="secondary">
+          Small
+        </Button>
+        <Button color="secondary">Default</Button>
+        <Button width="flex" color="secondary">
+          Flex (ie. as wide as the label)
+        </Button>
+        <Button width="large" color="secondary">
+          Large
+        </Button>
+        <P>Heights</P>
+        <Button height="short" color="secondary">
+          Short
+        </Button>
+        <Button height="tall" color="secondary">
+          Tall
+        </Button>
         <TextInput placeholder="Default" />
         <TextInput value="With Value" />
-        <TextInput value="With Value Disabled" disabled={true} />
-        <TextInput placeholder="Disabled" disabled={true} />
-        <TextInput placeholder="Invalid" invalid={true} errorMsg={'Pls try again lol'} />
+        <TextInput value="With Value Disabled" disabled />
+        <TextInput placeholder="Disabled" disabled />
+        <TextInput placeholder="Invalid" invalid errorMsg={'Pls try again lol'} />
         <TextInput placeholder="Medium" size="medium" />
         <TextInput placeholder="Large" size="large" />
       </Card>
