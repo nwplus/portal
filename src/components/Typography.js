@@ -41,7 +41,7 @@ export const I = styled.i`
 export const A = styled.a`
   cursor: pointer;
   text-decoration: none;
-  font-weight: ${p => (p.weight ? 600 : 400)};
+  font-weight: ${p => (p.bolded ? 600 : 400)};
   border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
   color: ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
