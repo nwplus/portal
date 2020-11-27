@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ThemeContext } from 'styled-components'
 import styled from 'styled-components'
 import Landing from '../containers/Landing'
 import Button from '../components/Button'
@@ -25,17 +26,23 @@ export const ButtonContainer = styled.div`
 
 // TODO: authentication
 export default () => {
+  const theme = useContext(ThemeContext)
   return (
     <Landing
       heading="Welcome to nwHacks 2021!"
       description="Please continue with one of the following:"
     >
       <ButtonContainer>
-        <StyledButton width="flex" color="white" hover="#e0ffff">
+        <StyledButton width="flex" color={theme.colors.text} hover={theme.colors.login.googleHover}>
           <BoundingBox src={google} />
           Continue with Google
         </StyledButton>
-        <StyledButton width="flex" labelColor="white" color="#4F4A59" hover="#545159">
+        <StyledButton
+          width="flex"
+          labelColor={theme.colors.text}
+          color={theme.colors.foreground}
+          hover={theme.colors.login.githubHover}
+        >
           <BoundingBox src={github} />
           Continue with GitHub
         </StyledButton>

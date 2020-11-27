@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import Landing from '../../containers/Landing'
 import Button from '../../components/Button'
 import { ButtonContainer } from '../Login'

@@ -6,6 +6,7 @@ import holo from '../../assets/holo.svg'
 import holo_end from '../../assets/holo2.svg'
 import Footer from './Footer'
 import { H1, P } from '../../components/Typography'
+import { CenterHorizontally } from '../../components/Common'
 
 const LandingContainer = styled.div`
   overflow-x: hidden;
@@ -20,8 +21,7 @@ const HoloBackground = styled.img`
   opacity: 0.8;
   width: 100%;
   top: 18em;
-  margin: 0 50%;
-  transform: translateX(-50%);
+  ${CenterHorizontally}
   z-index: -1;
 `
 

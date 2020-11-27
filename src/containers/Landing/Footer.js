@@ -5,6 +5,7 @@ import instagram from '../../assets/icons/instagram.svg'
 import medium from '../../assets/icons/medium.svg'
 import twitter from '../../assets/icons/twitter.svg'
 import { P, A } from '../../components/Typography'
+import { SOCIAL_LINKS } from '../../utility/Constants'
 
 const StyledFooterContainer = styled.div`
   position: absolute;
@@ -36,21 +37,21 @@ const CopyrightBlurb = styled(P)`
 export default () => (
   <>
     <StyledFooterContainer>
-      <a href="https://www.facebook.com/nwplusubc/">
+      <a href={SOCIAL_LINKS.FB}>
         <BoundingBox src={facebook} alt="nwPlus Facebook" />
       </a>
-      <a href="https://www.instagram.com/nwplusubc">
+      <a href={SOCIAL_LINKS.IG}>
         <BoundingBox src={instagram} alt="nwPlus Instagram" />
       </a>
-      <a href="https://www.medium.com/nwplusubc">
+      <a href={SOCIAL_LINKS.MEDIUM}>
         <BoundingBox src={medium} alt="nwPlus Medium" />
       </a>
-      <a href="https://www.twitter.com/nwplusubc">
+      <a href={SOCIAL_LINKS.TW}>
         <BoundingBox src={twitter} alt="nwPlus Twitter" />
       </a>
     </StyledFooterContainer>
     <CopyrightBlurb>
-      Copyright &copy; 2020 <A href="https://www.nwplus.io">nwPlus</A>
+      Copyright &copy; 2020 <A href={SOCIAL_LINKS.WEBSITE}>nwPlus</A>
     </CopyrightBlurb>
   </>
 )

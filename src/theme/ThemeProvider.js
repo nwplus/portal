@@ -28,6 +28,11 @@ const nwTheme = {
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
+    banner: 'rgba(75, 65, 130, 0.2)',
+    login: {
+      googleHover: '#fafafa',
+      githubHover: '#545159',
+    },
   },
   typography: {
     h1: {
@@ -74,6 +79,7 @@ const hackcampTheme = {
     },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
+    banner: 'rgba(75, 65, 130, 0.2)',
   },
   typography: {
     h1: {
