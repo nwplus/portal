@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import Banner from '../../components/Banner'
 import logo_lockup from '../../assets/logo_lockup.svg'
 import holo from '../../assets/holo.svg'
+import holo_end from '../../assets/holo2.svg'
 import Footer from './Footer'
-import { H1, H2, P } from '../../components/Typography'
+import { H1, P } from '../../components/Typography'
 
 const LandingContainer = styled.div`
   overflow-x: hidden;
@@ -27,7 +28,7 @@ const HoloBackground = styled.img`
 const StyledLogoLockup = styled.img`
   position: absolute;
   top: 7em;
-  margin: 0 50%;
+  margin: 0 50.5%;
   transform: translateX(-50%);
   z-index: 200;
 `
@@ -36,23 +37,27 @@ const StyledBanner = styled(Banner)`
   && {
     position: absolute;
     top: 18em;
-    padding: 64px 24px 48px;
+    padding: 56px 24px 24px;
     text-align: center;
     z-index: 0;
   }
 `
 
-export default ({ heading, description, showFooter, children }) => {
-  return (
-    <LandingContainer>
-      <StyledLogoLockup src={logo_lockup} />
-      <StyledBanner>
-        <H1>{heading}</H1>
-        <P>{description}</P>
-        {children}
-      </StyledBanner>
-      {showFooter && <Footer />}
+// TODO: add sponsors if footer is shown
+export default ({ heading, description, showFooter, children }) => (
+  <LandingContainer>
+    <StyledLogoLockup src={logo_lockup} />
+    <StyledBanner>
+      <H1 size="1.5em">{heading}</H1>
+      <P>{description}</P>
+      {children}
+    </StyledBanner>
+    {showFooter ? (
+      <>
+        <Footer /> <HoloBackground src={holo_end} />
+      </>
+    ) : (
       <HoloBackground src={holo} />
-    </LandingContainer>
-  )
-}
+    )}
+  </LandingContainer>
+)

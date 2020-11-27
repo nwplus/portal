@@ -57,6 +57,9 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/application/confirmation">
+            <ApplicationConfirmation />
+          </Route>
           <Page>
             <Route path="/">
               <Home />

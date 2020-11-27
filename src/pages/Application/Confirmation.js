@@ -1,11 +1,24 @@
 import React from 'react'
+import styled from 'styled-components'
 import Landing from '../../containers/Landing'
+import Button from '../../components/Button'
 
-// login screen
+const ButtonContainer = styled.div`
+  margin: 0.5em 0;
+`
+
 export default () => {
   return (
-    <Landing>
-      <h1>thank u for appying</h1>
+    <Landing
+      heading="Thanks for Applying!"
+      description="Stay tuned as your application gets assessed. Expect to hear from us by end of December."
+      showFooter
+    >
+      <ButtonContainer>
+        <Button color="primary" width="flex">
+          Back to Home
+        </Button>
+      </ButtonContainer>
     </Landing>
   )
 }
