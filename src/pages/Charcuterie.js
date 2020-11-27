@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { H1, H2, H3, P, A } from '../components/Typography'
+import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography'
 import { Card } from '../components/Common.js'
 import { Button } from '../components/Button'
 import Accordion from '../components/Accordion'
@@ -76,6 +76,10 @@ export default () => {
           contrast and complement each other's taste. It's some really long text. I'm really writing
           this way later than I should be. Is this what it's like to sell your soul to nwPlus?{' '}
         </P>
+        <br></br>
+        <QuestionHeading>this is a question heading</QuestionHeading>
+        <QuestionHeading>question 14</QuestionHeading>
+        <H1>How did you hear about nwHacks?</H1>
       </>
       <>
         <H2>Countdown</H2>
