@@ -79,7 +79,7 @@ export default () => {
         </A>
         <br></br>
         <br></br>
-        <A color={true} weight={true} href="https://nwplus.io">
+        <A color="primary" bolded href="https://nwplus.io">
           This is a hacker app link.
         </A>
       </>
