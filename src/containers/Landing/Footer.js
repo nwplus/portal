@@ -6,11 +6,11 @@ import medium from '../../assets/icons/medium.svg'
 import twitter from '../../assets/icons/twitter.svg'
 import { P, A } from '../../components/Typography'
 import { SOCIAL_LINKS } from '../../utility/Constants'
+import { CenterHorizontally } from '../../components/Common'
 
 const StyledFooterContainer = styled.div`
   position: absolute;
-  margin-left: 50%;
-  transform: translateX(-50%);
+  ${CenterHorizontally}
   z-index: 100;
   bottom: 8em;
   display: flex;
