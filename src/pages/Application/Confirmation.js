@@ -2,11 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Landing from '../../containers/Landing'
 import Button from '../../components/Button'
+import { ButtonContainer } from '../Login'
 
-const ButtonContainer = styled.div`
-  margin: 0.5em 0;
-`
-
+// TODO: add redirect to the button
 export default () => {
   return (
     <Landing

@@ -19,10 +19,11 @@ const StyledButton = styled(Button)`
   }
 `
 
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   margin: 0.5em 0;
 `
 
+// TODO: authentication
 export default () => {
   return (
     <Landing
