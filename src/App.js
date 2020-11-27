@@ -3,6 +3,7 @@ import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import {
+  Login,
   Charcuterie,
   Home,
   Faq,
@@ -14,6 +15,10 @@ import {
   Submission,
   SubmissionCreate,
   SubmissionEdit,
+  ApplicationForm,
+  ApplicationReview,
+  ApplicationConfirmation,
+  Application,
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
@@ -51,10 +56,25 @@ function App() {
     <>
       <ThemeProvider>
         <GlobalStyle />
-        <Page>
-          <Switch>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/application/review">
+            <ApplicationReview />
+          </Route>
+          <Route path="/application/confirmation">
+            <ApplicationConfirmation />
+          </Route>
+          <Route path="/application/:part">
+            {params => <ApplicationForm part={params.part} />}
+          </Route>
+          <Page>
             <Route path="/">
               <Home />
+            </Route>
+            <Route path="/application">
+              <Application />
             </Route>
             <Route path="/charcuterie">
               <Charcuterie />
@@ -85,8 +105,8 @@ function App() {
               <SubmissionEdit />
             </Route>
             <Route>Page Not Found!</Route>
-          </Switch>
-        </Page>
+          </Page>
+        </Switch>
       </ThemeProvider>
     </>
   )
