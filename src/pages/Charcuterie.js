@@ -85,17 +85,17 @@ export default () => {
         <P>It can contain content. And even buttons!</P>
         <P>Colors</P>
         <Button color="primary">Primary</Button>
-        <Button color="primary" disabled={true}>
+        <Button color="primary" disabled>
           Primary
         </Button>
         <Button color="secondary" width="flex">
           Secondary
         </Button>
-        <Button color="secondary" width="flex" disabled={true}>
+        <Button color="secondary" width="flex" disabled>
           Secondary
         </Button>
         <Button color="tertiary">Tertiary</Button>
-        <Button color="tertiary" disabled={true}>
+        <Button color="tertiary" disabled>
           Tertiary
         </Button>
         <P>Widths</P>
@@ -118,9 +118,9 @@ export default () => {
         </Button>
         <TextInput placeholder="Default" />
         <TextInput value="With Value" />
-        <TextInput value="With Value Disabled" disabled={true} />
-        <TextInput placeholder="Disabled" disabled={true} />
-        <TextInput placeholder="Invalid" invalid={true} errorMsg={'Pls try again lol'} />
+        <TextInput value="With Value Disabled" disabled />
+        <TextInput placeholder="Disabled" disabled />
+        <TextInput placeholder="Invalid" invalid errorMsg={'Pls try again lol'} />
         <TextInput placeholder="Medium" size="medium" />
         <TextInput placeholder="Large" size="large" />
       </Card>
