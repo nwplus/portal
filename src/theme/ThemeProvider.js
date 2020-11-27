@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components'
 
 // eslint-disable-next-line
 const nwTheme = {
+  font: 'HK Grotesk',
   custom_imgs: 'none',
   colors: {
     background: '#2D2937',
@@ -18,6 +19,9 @@ const nwTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
+    primaryGradient: 'linear-gradient(180deg, #4DE8C2 0%, #18CDCD 100%, #19CBCB 100%)', // button
+    primaryGradientHover: 'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
+    tertiaryHover: '#1EEDC8', // button hover
     selects: {
       hover: 'rgba(77, 232, 194, 0.2)',
       focus: 'rgba(77, 232, 194, 0.4)',
@@ -47,6 +51,7 @@ const nwTheme = {
 }
 
 const hackcampTheme = {
+  font: 'HK Grotesk',
   custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
@@ -62,6 +67,7 @@ const hackcampTheme = {
     text: '#fff',
     link: '#fff',
     linkHover: '#FFBC96',
+    tertiaryHover: '#AD795E', // button hover
     selects: {
       hover: 'rgba(201, 149, 119, 0.2)',
       focus: 'rgba(201, 149, 119, 0.5)',

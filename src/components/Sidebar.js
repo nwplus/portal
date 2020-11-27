@@ -97,6 +97,9 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
     links.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 
+  // List the application as the last item on the menu
+  links.push({ location: '/application', text: 'APPLICATION' })
+
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
       <Logo alt="logo" />
