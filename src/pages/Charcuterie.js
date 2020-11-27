@@ -11,6 +11,7 @@ import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
 import Select from '../components/Select'
 import Dropdown from '../components/Dropdown'
+import NavigationButtons from '../components/NavigationButtons'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
@@ -278,6 +279,13 @@ export default () => {
         errorMessage={'Please select something!'}
         debounceEnabled
         throttleTime={1000}
+      />
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonHref="https://www.linkedin.com/in/kevin-zou/"
+        secondButtonText="Next"
+        secondButtonHref="https://www.linkedin.com/in/kevin-zou/"
+        autosaveTime="4:20 pm"
       />
     </>
   )

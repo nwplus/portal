@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { P } from './Typography'
 
-const screenBreakpoints = {
+export const screenBreakpoints = {
   xs: 576,
   mobile: 768,
   tablet: 992,
