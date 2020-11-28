@@ -46,10 +46,12 @@ export default ({
     <NavigationButtonsContainer>
       {autosaveTime && <I>Answers have been autosaved at {autosaveTime}</I>}
       <ButtonContainer>
-        <StyledButton color="secondary" href={firstButtonHref}>
+        <StyledButton color="secondary" width="flex" href={firstButtonHref}>
           {firstButtonText}
         </StyledButton>
-        <StyledButton href={secondButtonHref}>{secondButtonText}</StyledButton>
+        <StyledButton width="flex" href={secondButtonHref}>
+          {secondButtonText}
+        </StyledButton>
       </ButtonContainer>
     </NavigationButtonsContainer>
   )
