@@ -77,13 +77,16 @@ export default () => {
           this way later than I should be. Is this what it's like to sell your soul to nwPlus?{' '}
         </P>
         <br></br>
-        <A href="https://nwplus.io">
-          This is a link.
-        </A>
+        <A href="https://nwplus.io">This is a link.</A>
         <br></br>
         <br></br>
         <A color="primary" bolded href="https://nwplus.io">
           This is a hacker app link.
+        </A>
+        <br></br>
+        <br></br>
+        <A color="primary" href="https://nwplus.io">
+          This is an unbolded primary color link.
         </A>
 
         <QuestionHeading>this is a question heading</QuestionHeading>
