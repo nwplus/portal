@@ -28,12 +28,7 @@ const StyledButton = styled(Button)`
 
 const Title = styled(H2)`
   margin: 0;
-`
-
-const TeamName = styled(P)`
-  font-weight: bold;
-  font-style: italic;
-  padding-bottom: 1em;
+  margin-bottom: 0.5em;
 `
 
 const cutString = (string, maxLength) => {
@@ -44,7 +39,7 @@ const cutString = (string, maxLength) => {
   return `${string.substring(0, cut)}...`
 }
 
-export default ({ imgUrl, title, teamName, description, buttonLabel, href = '#!' }) => {
+export default ({ imgUrl, title, description, buttonLabel, href = '#!' }) => {
   return (
     <StyledCard>
       <a href={href}>
@@ -52,7 +47,6 @@ export default ({ imgUrl, title, teamName, description, buttonLabel, href = '#!'
       </a>
       <CardContent>
         <Title>{title}</Title>
-        <TeamName>by {teamName}</TeamName>
         <P>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
         <StyledButton
           href={href}
