@@ -1,19 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Button, SecondaryButton, screenBreakpoints } from './Common'
+import { Button } from './Button'
+import { screenBreakpoints } from './Common'
 import { I } from './Typography'
 
 const StyledButton = styled(Button)`
   margin: 0;
 
   @media (max-width: ${screenBreakpoints.xs}px) {
-    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
-`
-
-const StyledSecondaryButton = styled(SecondaryButton)`
-  margin: 0;
 `
 
 const ButtonContainer = styled.div`
@@ -47,9 +44,11 @@ export default ({
 }) => {
   return (
     <NavigationButtonsContainer>
-      <I>Answers have been autosaved at {autosaveTime}</I>
+      {autosaveTime && <I>Answers have been autosaved at {autosaveTime}</I>}
       <ButtonContainer>
-        <StyledSecondaryButton href={firstButtonHref}>{firstButtonText}</StyledSecondaryButton>
+        <StyledButton color="secondary" href={firstButtonHref}>
+          {firstButtonText}
+        </StyledButton>
         <StyledButton href={secondButtonHref}>{secondButtonText}</StyledButton>
       </ButtonContainer>
     </NavigationButtonsContainer>

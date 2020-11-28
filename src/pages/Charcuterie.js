@@ -280,12 +280,20 @@ export default () => {
         debounceEnabled
         throttleTime={1000}
       />
+      <H3>Navigation button group (with autosave time)</H3>
       <NavigationButtons
         firstButtonText="Back"
         firstButtonHref="https://www.linkedin.com/in/kevin-zou/"
         secondButtonText="Next"
         secondButtonHref="https://www.linkedin.com/in/kevin-zou/"
         autosaveTime="4:20 pm"
+      />
+      <H3>Navigation button group (without autosave time)</H3>
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonHref="https://www.linkedin.com/in/kevin-zou/"
+        secondButtonText="Next"
+        secondButtonHref="https://www.linkedin.com/in/kevin-zou/"
       />
     </>
   )
