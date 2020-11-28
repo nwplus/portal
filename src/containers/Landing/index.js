@@ -9,6 +9,7 @@ import { H1, P } from '../../components/Typography'
 import { CenterHorizontally } from '../../components/Common'
 
 const LandingContainer = styled.div`
+  position: relative;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
