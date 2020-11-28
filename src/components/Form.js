@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { maxWidthMediaQueries } from './Common'
 
 const Container = styled.div`
-  padding: 20px 325px 120px 115px;
+  padding: 1.25em 20em 7.5em 7em;
   ${maxWidthMediaQueries('mobile')} {
-    padding: 20px 230px 30px 20px;
+    padding: 1.25em 14em 2em 1.25em;
   }
 `
 
