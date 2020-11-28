@@ -9,14 +9,19 @@ import { H1, P } from '../../components/Typography'
 import { CenterHorizontally } from '../../components/Common'
 
 const LandingContainer = styled.div`
+  position: fixed;
+  display: block;
   overflow-x: hidden;
-  padding: 0 auto;
+  margin: 0 auto;
+  // padding: 0 auto;
+  // z-index: -1;
+  color: white;
+  ${p => !p.showFooter && 'overflow-y: hidden;'}
 `
 
 const HoloBackground = styled.img`
   position: absolute;
   float: left;
-  overflow-x: hidden;
   display: block;
   opacity: 0.8;
   width: 100%;
@@ -39,25 +44,27 @@ const StyledBanner = styled(Banner)`
     top: 18em;
     padding: 56px 24px 24px;
     text-align: center;
-    z-index: 0;
+    z-index: 1;
   }
 `
 
 // TODO: add sponsors if footer is shown
 export default ({ heading, description, showFooter, children }) => (
-  <LandingContainer>
+  <>
     <StyledLogoLockup src={logo_lockup} />
     <StyledBanner>
       <H1 size="1.5em">{heading}</H1>
       <P>{description}</P>
       {children}
     </StyledBanner>
-    {showFooter ? (
-      <>
-        <Footer /> <HoloBackground src={holo_end} />
-      </>
-    ) : (
-      <HoloBackground src={holo} />
-    )}
-  </LandingContainer>
+    <LandingContainer showFooter={showFooter}>
+      {showFooter ? (
+        <>
+          <Footer /> <HoloBackground src={holo_end} />
+        </>
+      ) : (
+        <HoloBackground src={holo} />
+      )}
+    </LandingContainer>
+  </>
 )

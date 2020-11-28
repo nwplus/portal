@@ -117,7 +117,7 @@ const StyledButton = styled.a`
     p.color !== 'primary' &&
     p.color !== 'secondary' &&
     p.color !== 'tertiary' && // some color other than the variants
-    `color: ${p.labelColor ?? p.theme.colors.background};
+    `color: ${p.labelColor || p.theme.colors.background};
       background: ${p.color};
       :hover {
         ${
@@ -126,7 +126,7 @@ const StyledButton = styled.a`
         cursor: not-allowed;
         `
             : `
-        background: ${p.hover ?? p.theme.colors.tertiaryHover};
+        background: ${p.hover || p.theme.colors.tertiaryHover};
         `
         }
       }
