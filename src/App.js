@@ -33,6 +33,14 @@ const notifyUser = announcement => {
   }
 }
 
+const PageRoute = ({ path, children }) => {
+  return (
+    <Route path={path}>
+      <Page>{children}</Page>
+    </Route>
+  )
+}
+
 function App() {
   useEffect(() => {
     const unsubscribe = db
@@ -69,43 +77,43 @@ function App() {
           <Route path="/application/:part">
             {params => <ApplicationForm part={params.part} />}
           </Route>
-          <Page>
-            <Route path="/">
-              <Home />
-            </Route>
-            <Route path="/application">
-              <Application />
-            </Route>
-            <Route path="/charcuterie">
-              <Charcuterie />
-            </Route>
-            <Route path="/faq">
-              <Faq />
-            </Route>
-            <Route path="/schedule">
-              <Schedule />
-            </Route>
-            <Route path="/sponsors">
-              <Sponsors />
-            </Route>
-            <Route path="/quicklinks">
-              <Quicklinks />
-            </Route>
-            <Route path="/judging">
-              <Judging />
-            </Route>
-            <Route path="/judging/view/:id">{params => <JudgingView id={params.id} />}</Route>
-            <Route path="/submission">
-              <Submission />
-            </Route>
-            <Route path="/submission/create">
-              <SubmissionCreate />
-            </Route>
-            <Route path="/submission/edit">
-              <SubmissionEdit />
-            </Route>
-            <Route>Page Not Found!</Route>
-          </Page>
+          <PageRoute path="/">
+            <Home />
+          </PageRoute>
+          <PageRoute path="/application">
+            <Application />
+          </PageRoute>
+          <PageRoute path="/charcuterie">
+            <Charcuterie />
+          </PageRoute>
+          <PageRoute path="/faq">
+            <Faq />
+          </PageRoute>
+          <PageRoute path="/schedule">
+            <Schedule />
+          </PageRoute>
+          <PageRoute path="/sponsors">
+            <Sponsors />
+          </PageRoute>
+          <PageRoute path="/quicklinks">
+            <Quicklinks />
+          </PageRoute>
+          <PageRoute path="/judging">
+            <Judging />
+          </PageRoute>
+          <PageRoute path="/judging/view/:id">{params => <JudgingView id={params.id} />}</PageRoute>
+          <PageRoute path="/submission">
+            <Submission />
+          </PageRoute>
+          <PageRoute path="/submission/create">
+            <SubmissionCreate />
+          </PageRoute>
+          <PageRoute path="/submission/edit">
+            <SubmissionEdit />
+          </PageRoute>
+          <Route>
+            <Page>Page Not Found!</Page>
+          </Route>
         </Switch>
       </ThemeProvider>
     </>
