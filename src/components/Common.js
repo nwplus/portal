@@ -1,8 +1,5 @@
-import React from 'react'
 import styled, { css } from 'styled-components'
-import { text } from './Typography'
 import { P } from './Typography'
-import buttonBG from '../assets/hc_button.svg'
 
 const screenBreakpoints = {
   xs: 576,
@@ -24,52 +21,6 @@ export const CardLike = css`
 
 export const Card = styled.div`
   ${CardLike};
-`
-
-const StyledButton = styled.a`
-  ${text};
-  display: block;
-  text-decoration: none;
-  font-family: 'HK Grotesk';
-  font-weight: ${p => p.theme.typography.h2.weight};
-  background: ${p => p.theme.colors.primary};
-  color: ${p => p.theme.colors.background};
-  text-align: center;
-  width: 75px;
-  padding: 0.75em 2.5em;
-  border-radius: 3px;
-  margin: 1em;
-
-  ${p =>
-    p.theme.custom_imgs === 'hc' &&
-    `
-      background: url(${buttonBG});
-      background-size: contain;
-      background-repeat: no-repeat;
-    `}
-`
-
-export const Button = props => (
-  <StyledButton href={props.href || '#!'} {...props}>
-    {props.children}
-  </StyledButton>
-)
-
-export const SecondaryButton = styled(Button)`
-  background: ${p => p.theme.colors.background};
-  color: ${p => p.theme.colors.primary};
-  border: 1px solid ${p => p.theme.colors.primary};
-`
-
-export const SearchBar = styled.input.attrs({
-  type: 'text',
-})`
-  ${CardLike};
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  border: none;
-  color: ${p => p.theme.colors.text};
 `
 
 export const DetailContainer = styled.div`
@@ -115,7 +66,7 @@ export const TextInputLike = css`
   border: 2px solid ${p => p.theme.colors.highlight};
   border-radius: 7px;
   color: ${p => p.theme.colors.primary};
-  font-family: 'HK Grotesk';
+  font-family: ${p => p.theme.font};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {
     color: ${p => p.theme.colors.highlight};

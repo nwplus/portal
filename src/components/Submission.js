@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { H1, H2, P } from './Typography'
-import { Card, HR, Button } from './Common'
+import { Card, HR } from './Common'
+import { Button } from './Button'
 import JudgingCard from './JudgingCard'
 
 const Label = styled(P)`
@@ -53,11 +54,11 @@ export default ({ project, feedback = [] }) => {
 
       {project ? (
         <>
-          <Button href="/submission/create">Project Submitted</Button>
+          <Button disabled>Project Submitted</Button>
           <Label>Congratulations! Your project was successfully submitted.</Label>
         </>
       ) : (
-        <Button disabled>Create Submission</Button>
+        <Button href="/submission/create">Create Submission</Button>
       )}
       <HR />
       <H1>Project Submission</H1>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { H1, H2, H3, P, A } from '../components/Typography'
-import { Card, Button, SecondaryButton } from '../components/Common.js'
+import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography'
+import { Card } from '../components/Common.js'
+import { Button } from '../components/Button'
 import Accordion from '../components/Accordion'
 import TextInput from '../components/TextInput'
 import TextArea from '../components/TextArea'
@@ -8,6 +9,7 @@ import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
+import Select from '../components/Select'
 import Dropdown from '../components/Dropdown'
 
 const options = [
@@ -45,12 +47,18 @@ const toggleTheme = () => {
 }
 
 export default () => {
-  const [checked, setChecked] = useState(false)
+  const [states, setStates] = useState({
+    checkbox: false,
+    radio: 'selected',
+    multiselect: { option1: false, option2: false, selected: false, disabled: false },
+  })
   const [textAreaValue, setTextAreaValue] = useState('')
 
   return (
     <>
-      <SecondaryButton href={`javascript:(${toggleTheme})()`}>Toggle Theme</SecondaryButton>
+      <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
+        Toggle Theme
+      </Button>
       <P>
         Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
         should appear on the toolbar
@@ -68,6 +76,22 @@ export default () => {
           contrast and complement each other's taste. It's some really long text. I'm really writing
           this way later than I should be. Is this what it's like to sell your soul to nwPlus?{' '}
         </P>
+        <br></br>
+        <A href="https://nwplus.io">This is a link.</A>
+        <br></br>
+        <br></br>
+        <A color="primary" bolded href="https://nwplus.io">
+          This is a hacker app link.
+        </A>
+        <br></br>
+        <br></br>
+        <A color="primary" href="https://nwplus.io">
+          This is an unbolded primary color link.
+        </A>
+
+        <QuestionHeading>this is a question heading</QuestionHeading>
+        <QuestionHeading>question 14</QuestionHeading>
+        <H1>How did you hear about nwHacks?</H1>
       </>
       <>
         <H2>Countdown</H2>
@@ -80,13 +104,44 @@ export default () => {
       <Card>
         <H2>Card Element</H2>
         <P>It can contain content. And even buttons!</P>
-        <Button>Primary</Button>
-        <SecondaryButton>Secondary</SecondaryButton>
+        <P>Colors</P>
+        <Button color="primary">Primary</Button>
+        <Button color="primary" disabled>
+          Primary
+        </Button>
+        <Button color="secondary" width="flex">
+          Secondary
+        </Button>
+        <Button color="secondary" width="flex" disabled>
+          Secondary
+        </Button>
+        <Button color="tertiary">Tertiary</Button>
+        <Button color="tertiary" disabled>
+          Tertiary
+        </Button>
+        <P>Widths</P>
+        <Button width="small" color="secondary">
+          Small
+        </Button>
+        <Button color="secondary">Default</Button>
+        <Button width="flex" color="secondary">
+          Flex (ie. as wide as the label)
+        </Button>
+        <Button width="large" color="secondary">
+          Large
+        </Button>
+        <P>Heights</P>
+        <Button height="short" color="secondary">
+          Short
+        </Button>
+        <Button height="tall" color="secondary">
+          Tall
+        </Button>
         <TextInput placeholder="Default" />
         <TextInput value="With Value" />
-        <TextInput value="With Value Disabled" disabled={true} />
-        <TextInput placeholder="Disabled" disabled={true} />
-        <TextInput placeholder="Invalid" invalid={true} errorMsg={'Pls try again lol'} />
+        <TextInput value="With Value Disabled" disabled />
+        <TextInput placeholder="Disabled" disabled />
+        <TextInput placeholder="Invalid" invalid errorMsg={'Pls try again lol'} />
         <TextInput placeholder="Medium" size="medium" />
         <TextInput placeholder="Large" size="large" />
       </Card>
@@ -110,8 +165,56 @@ export default () => {
         description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
       />
       <H2>Checkbox</H2>
-      <Checkbox label="Default state" checked={checked} onChange={() => setChecked(!checked)} />
+      <Checkbox
+        label="Default state"
+        checked={states.checkbox}
+        onChange={() => setStates({ ...states, checkbox: !states.checkbox })}
+      />
       <Checkbox label="Selected state" checked readOnly />
+      <H2>Selects</H2>
+      <H3>Radio</H3>
+      <Select
+        type="radio"
+        name="radioSelect"
+        label="Default state"
+        checked={states.radio === 'default'}
+        onChange={e => setStates({ ...states, radio: e.target.value })}
+        value="default"
+      />
+      <Select
+        type="radio"
+        name="radioSelect"
+        label="Selected state"
+        checked={states.radio === 'selected'}
+        onChange={e => setStates({ ...states, radio: e.target.value })}
+        value="selected"
+      />
+      <Select type="radio" name="selects" label="Disabled state" disabled />
+      <H3>Multiselects (Select all that apply)</H3>
+      <Select
+        type="checkbox"
+        label="Option 1"
+        checked={states.multiselect.option1}
+        onChange={() =>
+          setStates({
+            ...states,
+            multiselect: { ...states.multiselect, option1: !states.multiselect.option1 },
+          })
+        }
+      />
+      <Select
+        type="checkbox"
+        label="Option 2"
+        checked={states.multiselect.option2}
+        onChange={() =>
+          setStates({
+            ...states,
+            multiselect: { ...states.multiselect, option2: !states.multiselect.option2 },
+          })
+        }
+      />
+      <Select type="checkbox" label="Selected state" checked readOnly />
+      <Select type="checkbox" label="Disabled state" disabled />
       <H2>Dropdowns</H2>
       <H3>Normal dropdown</H3>
       <Dropdown

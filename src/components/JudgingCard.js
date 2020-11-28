@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { H2, P } from './Typography'
-import { Button, CardLike } from '../components/Common.js'
+import { CardLike } from '../components/Common.js'
+import { Button } from '../components/Button'
 
 const MAX_CHARACTERS_IN_DESCRIPTION = 100
 
@@ -49,6 +50,7 @@ export default ({ imgUrl, title, description, buttonLabel, href = '#!' }) => {
         <Title>{title}</Title>
         <P>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
         <StyledButton
+          color="tertiary"
           href={href}
           target={href.includes('http') && '_blank'}
           rel="noreferrer noopener"
