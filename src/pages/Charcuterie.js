@@ -11,6 +11,7 @@ import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
 import Select from '../components/Select'
 import Dropdown from '../components/Dropdown'
+import ResumeUploadBtn from '../components/ResumeUploadBtn'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
@@ -279,6 +280,11 @@ export default () => {
         debounceEnabled
         throttleTime={1000}
       />
+      <QuestionHeading>question 12</QuestionHeading>
+      <div>
+        <ResumeUploadBtn />
+      </div>
+
     </>
   )
 }
