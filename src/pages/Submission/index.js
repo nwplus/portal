@@ -21,7 +21,7 @@ export default () => {
         .project.get()
         .then(doc => {
           const projectData = doc.data()
-          projectData.imgUrl = getYoutubeThumbnail(projectData.youtubeUrl).searchParams.get('v')
+          projectData.imgUrl = getYoutubeThumbnail(projectData.youtubeUrl)
           projectData.href = projectData.devpostUrl
           setProject(projectData)
         })
