@@ -12,6 +12,7 @@ export default () => {
   const [feedback, setFeedback] = useState([])
 
   useEffect(() => {
+    // https://stackoverflow.com/questions/17978883/what-is-the-purpose-of-a-semicolon-before-an-iife
     ;(async () => {
       const application = await applicantsRef.doc(USER_ID).get()
       const team = await application.data().team.get()
