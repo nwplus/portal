@@ -54,7 +54,7 @@ export default ({ project, feedback = [] }) => {
 
       {project ? (
         <>
-          <Button disabled>Project Submitted</Button>
+          <Button href="/submission/edit">Edit Submission</Button>
           <Label>Congratulations! Your project was successfully submitted.</Label>
         </>
       ) : (
