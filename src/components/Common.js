@@ -100,3 +100,8 @@ export const TextInputLikeErrorMsg = styled.p`
   color: ${p => p.theme.colors.warning};
   margin: 0.5em 0em;
 `
+
+export const CenterHorizontally = css`
+  margin: 0 50%;
+  transform: translateX(-50%);
+`

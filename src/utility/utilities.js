@@ -47,3 +47,9 @@ export const hexToRgba = (hex, a = 1) => {
       )}, ${a})`
     : `rgba(0, 0, 0, ${a})`
 }
+
+// given youtube video URL, convert to thumnail URL
+export const getYoutubeThumbnail = videoLink => {
+  const youtubeID = new URL(videoLink).searchParams.get('v')
+  return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
+}
