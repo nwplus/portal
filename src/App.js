@@ -11,7 +11,6 @@ import {
   Quicklinks,
   Schedule,
   Judging,
-  JudgingView,
   Submission,
   SubmissionCreate,
   SubmissionEdit,
@@ -101,7 +100,6 @@ function App() {
           <PageRoute path="/judging">
             <Judging />
           </PageRoute>
-          <PageRoute path="/judging/view/:id">{params => <JudgingView id={params.id} />}</PageRoute>
           <PageRoute path="/submission">
             <Submission />
           </PageRoute>
