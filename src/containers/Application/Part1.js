@@ -48,7 +48,7 @@ export default ({ children }) => {
         </span>
       </H1>
       <QuestionHeading>question 01</QuestionHeading>
-      <H1>What is your preferred name?</H1>
+      <H1 size="1.5em">What is your preferred name?</H1>
       <TextInput
         placeholder="First Name"
         onChange={e =>
@@ -69,7 +69,7 @@ export default ({ children }) => {
       ></TextInput>
 
       <QuestionHeading>question 02</QuestionHeading>
-      <H1>Which gender do you identify as?</H1>
+      <H1 size="1.5em">Which gender do you identify as?</H1>
       <Dropdown
         options={genderOptions}
         placeholder={'Gender'}
@@ -86,7 +86,7 @@ export default ({ children }) => {
       </Dropdown>
 
       <QuestionHeading>question 03</QuestionHeading>
-      <H1>What is your race/ethnicity? (Select all that apply)</H1>
+      <H1 size="1.5em">What is your race/ethnicity? (Select all that apply)</H1>
       <Select
         type="checkbox"
         label="Asian"
@@ -188,7 +188,7 @@ export default ({ children }) => {
       ></Select>
 
       <QuestionHeading>question 04</QuestionHeading>
-      <H1>Will you be 19 years or older by January 9th, 2021?</H1>
+      <H1 size="1.5em">Will you be 19 years or older by January 9th, 2021?</H1>
       <Select
         type="radio"
         label="Yes"
@@ -203,36 +203,36 @@ export default ({ children }) => {
       ></Select>
 
       <QuestionHeading>question 05</QuestionHeading>
-      <H1>What is your phone number?</H1>
+      <H1 size="1.5em">What is your phone number?</H1>
       <TextInput placeholder="XXX-XXX-XXXX"></TextInput>
       {/* validation check is num */}
 
       <QuestionHeading>question 06</QuestionHeading>
-      <H1>What school do you go to?</H1>
+      <H1 size="1.5em">What school do you go to?</H1>
       <Dropdown placeholder={'Enter your school'} isSearchable canCreateNewOption isValid>
         {' '}
       </Dropdown>
 
       <QuestionHeading>question 07</QuestionHeading>
-      <H1>What is your current or intended major?</H1>
+      <H1 size="1.5em">What is your current or intended major?</H1>
 
       <QuestionHeading>question 08</QuestionHeading>
-      <H1>What is your current level of education?</H1>
+      <H1 size="1.5em">What is your current level of education?</H1>
 
       <QuestionHeading>question 09</QuestionHeading>
-      <H1>What is your graduation year?</H1>
+      <H1 size="1.5em">What is your graduation year?</H1>
 
       <QuestionHeading>question 10</QuestionHeading>
-      <H1>How many hackathons have you attended (both online and in-person)?</H1>
+      <H1 size="1.5em">How many hackathons have you attended (both online and in-person)?</H1>
 
       <QuestionHeading>question 11</QuestionHeading>
-      <H1>
+      <H1 size="1.5em">
         How do you want to contribute at nwHacks? Please select the category that you're strongest
         in.
       </H1>
 
       <QuestionHeading>question 12</QuestionHeading>
-      <H1>Where are you currently located?</H1>
+      <H1 size="1.5em">Where are you currently located?</H1>
     </>
   )
 }
