@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Faq from '../components/Faq'
 import { H1, H2 } from '../components/Typography'
-import TextInput from '../components/TextInput'
+import { TextInput } from '../components/Form'
 import { db } from '../utility/firebase'
 import { FAQ_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 

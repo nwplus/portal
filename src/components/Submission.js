@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1, H2, P } from './Typography'
 import { Card, HR } from './Common'
-import { Button } from './Button'
+import { Button } from './Form'
 import JudgingCard from './JudgingCard'
 
 const Label = styled(P)`

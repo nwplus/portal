@@ -9,8 +9,6 @@ const Container = styled.div`
   }
 `
 
-const Form = ({ children }) => {
+export default ({ children }) => {
   return <Container>{children}</Container>
 }
-
-export default Form

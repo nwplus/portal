@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H2, P } from './Typography'
 import { CardLike } from '../components/Common.js'
-import { Button } from '../components/Button'
+import { Button } from '../components/Form/Button'
 
 const MAX_CHARACTERS_IN_DESCRIPTION = 100
 

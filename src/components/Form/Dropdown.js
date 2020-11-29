@@ -5,7 +5,7 @@ import AsyncSelect from 'react-select/async'
 import AsyncCreatableSelect from 'react-select/async-creatable'
 import styled, { withTheme, css } from 'styled-components'
 import { components } from 'react-select'
-import customCursor from '../assets/custom-cursor.png'
+import customCursor from '../../assets/custom-cursor.png'
 
 const dropdownWidth = {
   normal: '300px',

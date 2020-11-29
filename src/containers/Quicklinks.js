@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Button } from '../components/Button'
+import { Button } from '../components/Form'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 import Quicklinks from '../components/Quicklinks'

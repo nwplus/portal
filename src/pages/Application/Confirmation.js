@@ -1,6 +1,6 @@
 import React from 'react'
 import Landing from '../../containers/Landing'
-import Button from '../../components/Button'
+import { Button } from '../../components/Form'
 import { ButtonContainer } from '../Login'
 
 // TODO: add redirect to the button

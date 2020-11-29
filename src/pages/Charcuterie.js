@@ -1,17 +1,12 @@
 import React, { useState } from 'react'
 import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography'
 import { Card } from '../components/Common.js'
-import { Button } from '../components/Button'
+import { Button, TextInput, TextArea, Checkbox, Select, Dropdown } from '../components/Form'
 import Accordion from '../components/Accordion'
-import TextInput from '../components/TextInput'
-import TextArea from '../components/TextArea'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
-import Checkbox from '../components/Checkbox'
-import Select from '../components/Select'
-import Dropdown from '../components/Dropdown'
-import FormContainer from '../components/Form'
+import FormContainer from '../components/ApplicationForm'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
