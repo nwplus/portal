@@ -10,8 +10,10 @@ export default () => {
   const [project, setProject] = useState()
   const [feedback, setFeedback] = useState([])
 
-  useEffect(async () => {
-    await getProject(USER_ID, setProject, setFeedback)
+  useEffect(() => {
+    ;(async () => {
+      await getProject(USER_ID, setProject, setFeedback)
+    })()
   }, [setProject, setFeedback])
 
   useEffect(() => {
