@@ -110,3 +110,24 @@ export const TextInputLikeErrorMsg = styled.p`
   color: ${p => p.theme.colors.warning};
   margin: 0.5em 0em;
 `
+
+export const ScrollbarLike = css`
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid ${p => p.theme.colors.highlight};
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  ::-webkit-resizer {
+    background-color: transparent;
+  }
+`

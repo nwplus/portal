@@ -4,6 +4,7 @@ import {
   InputContainerLike,
   TextInputLike,
   TextInputLikeErrorMsg as ErrorMsg,
+  ScrollbarLike,
 } from '../components/Common.js'
 
 const TextAreaContainer = styled.div`
@@ -16,24 +17,7 @@ const TextAreaBox = styled.textarea.attrs({
   height: 200px;
   width: 600px;
   ${TextInputLike};
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 10px;
-    border: 1px solid ${p => p.theme.colors.highlight};
-  }
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  ::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
-  ::-webkit-resizer {
-    background-color: transparent;
-  }
+  ${ScrollbarLike};
 `
 
 export const TextArea = ({
