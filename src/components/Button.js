@@ -24,6 +24,7 @@ const StyledButton = styled.a`
   font-weight: ${p => p.theme.typography.h2.weight};
   border: transparent;
   transition: all 250ms;
+  max-width: 100%;
   width: ${p => (p.width ? buttonWidth[p.width] : buttonWidth['default'])};
   text-align: center;
   padding: ${p => (p.height ? buttonHeightPadding[p.height] : buttonHeightPadding['default'])}
