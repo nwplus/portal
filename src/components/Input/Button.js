@@ -116,7 +116,8 @@ const StyledButton = styled.a`
     ${p =>
     p.color !== 'primary' &&
     p.color !== 'secondary' &&
-    p.color !== 'tertiary' && // some color other than the variants
+    p.color !== 'tertiary' &&
+    p.color && // some color other than the variants
     `color: ${p.labelColor || p.theme.colors.background};
       background: ${p.color};
       :hover {
