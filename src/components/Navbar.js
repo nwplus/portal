@@ -25,13 +25,11 @@ const Greeting = styled(P)`
 export default ({ name, handleLogout }) => (
   <NavContainer>
     <Icon src={icon} alt="nwHacks icon" />
-    {name && handleLogout && (
-      <>
-        <Greeting>Hi, {name} &#128540;</Greeting>
-        <Button onClick={handleLogout} color="primary">
-          Logout
-        </Button>
-      </>
+    {name && <Greeting>Hi, {name} &#128540;</Greeting>}
+    {handleLogout && (
+      <Button onClick={handleLogout} color="primary">
+        Logout
+      </Button>
     )}
   </NavContainer>
 )

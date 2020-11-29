@@ -47,7 +47,7 @@ const NavbarRoute = ({ path, children }) => {
   // TODO: pass in name and handleLogout function into NavBar component
   return (
     <Route path={path}>
-      <Navbar></Navbar>
+      <Navbar />
       {children}
     </Route>
   )
