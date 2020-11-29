@@ -104,46 +104,6 @@ export default () => {
       <Card>
         <H2>Card Element</H2>
         <P>It can contain content. And even buttons!</P>
-        <P>Colors</P>
-        <Button color="primary">Primary</Button>
-        <Button color="primary" disabled>
-          Primary
-        </Button>
-        <Button color="secondary" width="flex">
-          Secondary
-        </Button>
-        <Button color="secondary" width="flex" disabled>
-          Secondary
-        </Button>
-        <Button color="tertiary">Tertiary</Button>
-        <Button color="tertiary" disabled>
-          Tertiary
-        </Button>
-        <P>Widths</P>
-        <Button width="small" color="secondary">
-          Small
-        </Button>
-        <Button color="secondary">Default</Button>
-        <Button width="flex" color="secondary">
-          Flex (ie. as wide as the label)
-        </Button>
-        <Button width="large" color="secondary">
-          Large
-        </Button>
-        <P>Heights</P>
-        <Button height="short" color="secondary">
-          Short
-        </Button>
-        <Button height="tall" color="secondary">
-          Tall
-        </Button>
-        <TextInput placeholder="Default" />
-        <TextInput value="With Value" />
-        <TextInput value="With Value Disabled" disabled />
-        <TextInput placeholder="Disabled" disabled />
-        <TextInput placeholder="Invalid" invalid errorMsg={'Pls try again lol'} />
-        <TextInput placeholder="Medium" size="medium" />
-        <TextInput placeholder="Large" size="large" />
       </Card>
       <TextArea
         placeholder="TextArea with placeholder."
@@ -164,6 +124,46 @@ export default () => {
         buttonLabel="Judge this submission"
         description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
       />
+      <P>Colors</P>
+      <Button color="primary">Primary</Button>
+      <Button color="primary" disabled>
+        Primary
+      </Button>
+      <Button color="secondary" width="flex">
+        Secondary
+      </Button>
+      <Button color="secondary" width="flex" disabled>
+        Secondary
+      </Button>
+      <Button color="tertiary">Tertiary</Button>
+      <Button color="tertiary" disabled>
+        Tertiary
+      </Button>
+      <P>Widths</P>
+      <Button width="small" color="secondary">
+        Small
+      </Button>
+      <Button color="secondary">Default</Button>
+      <Button width="flex" color="secondary">
+        Flex (ie. as wide as the label)
+      </Button>
+      <Button width="large" color="secondary">
+        Large
+      </Button>
+      <P>Heights</P>
+      <Button height="short" color="secondary">
+        Short
+      </Button>
+      <Button height="tall" color="secondary">
+        Tall
+      </Button>
+      <TextInput placeholder="Default" />
+      <TextInput value="With Value" />
+      <TextInput value="With Value Disabled" disabled />
+      <TextInput placeholder="Disabled" disabled />
+      <TextInput placeholder="Invalid" invalid errorMsg={'Pls try again lol'} />
+      <TextInput placeholder="Medium" size="medium" />
+      <TextInput placeholder="Large" size="large" />
       <H2>Checkbox</H2>
       <Checkbox
         label="Default state"
