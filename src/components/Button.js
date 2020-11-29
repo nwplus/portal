@@ -66,6 +66,7 @@ const StyledButton = styled.a`
       background: url(${buttonBG});
       background-size: contain;
       background-repeat: no-repeat;
+      min-width: 100px;
       width: 100px;
       :hover {
         background: url(${buttonBGHover}); 
