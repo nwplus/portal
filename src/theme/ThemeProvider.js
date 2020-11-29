@@ -98,7 +98,7 @@ const hackcampTheme = {
 
 const THEMES = { nwTheme, hackcampTheme }
 
-let selectedTheme = hackcampTheme
+let selectedTheme = nwTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')

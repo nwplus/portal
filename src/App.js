@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
+import NavBar from './components/Navbar'
+
 import {
   Login,
   Charcuterie,
@@ -60,15 +62,17 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/application/review">
-            <ApplicationReview />
-          </Route>
-          <Route path="/application/confirmation">
-            <ApplicationConfirmation />
-          </Route>
-          <Route path="/application/:part">
-            {params => <ApplicationForm part={params.part} />}
-          </Route>
+          <NavBar>
+            <Route path="/application/review">
+              <ApplicationReview />
+            </Route>
+            <Route path="/application/confirmation">
+              <ApplicationConfirmation />
+            </Route>
+            <Route path="/application/:part">
+              {params => <ApplicationForm part={params.part} />}
+            </Route>
+          </NavBar>
           <Page>
             <Route path="/">
               <Home />
