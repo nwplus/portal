@@ -23,8 +23,9 @@ export default () => {
     return unsubscribe
   }, [setIsSubmissionsOpen])
 
-  const submit = e => {
-    console.log(e)
+  const submit = project => {
+    alert('TODO: handle form submit')
+    console.log(project)
   }
 
   return (
