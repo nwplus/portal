@@ -8,7 +8,7 @@ export const text = css`
 export const H1 = styled.h1`
   ${text};
   font-weight: ${p => p.theme.typography.h1.weight};
-  font-size: ${p => p.theme.typography.h1.size};
+  font-size: ${p => p.size || p.theme.typography.h1.size};
 `
 
 export const H2 = styled.h2`
@@ -70,6 +70,12 @@ export const LI = styled.li`
 `
 
 export const QuestionHeading = styled.p`
+  color: ${p => p.theme.colors.primary};
+  font-weight: 600;
+  text-transform: uppercase;
+`
+
+export const Label = styled.label`
   color: ${p => p.theme.colors.primary};
   font-weight: 600;
   text-transform: uppercase;

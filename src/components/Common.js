@@ -135,3 +135,8 @@ export const ScrollbarLike = css`
     background-color: transparent;
   }
 `
+
+export const CenterHorizontally = css`
+  margin: 0 50%;
+  transform: translateX(-50%);
+`

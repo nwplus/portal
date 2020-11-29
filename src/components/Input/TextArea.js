@@ -5,7 +5,7 @@ import {
   TextInputLike,
   TextInputLikeErrorMsg as ErrorMsg,
   ScrollbarLike,
-} from '../components/Common.js'
+} from '../Common.js'
 
 const TextAreaContainer = styled.div`
   ${InputContainerLike};
