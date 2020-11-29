@@ -8,6 +8,8 @@ const USER_ID = 'aIwA36q0kOw7rDDlCkB2'
 export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
   const [project, setProject] = useState()
+
+  // eslint-disable-next-line
   const [feedback, setFeedback] = useState([])
 
   useEffect(() => {
