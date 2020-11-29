@@ -17,6 +17,10 @@ export const CardLike = css`
   border-radius: 3px;
   background-color: ${p => p.theme.colors.secondaryBackground};
   margin: 2em 0;
+  ${maxWidthMediaQueries('mobile')} {
+    padding: 1em;
+    margin: 0.75em 0;
+  }
 `
 
 export const Card = styled.div`

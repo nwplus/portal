@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import MobileMenuBar from './MobileMenuBar'
 import { getLivesiteDoc } from '../utility/firebase'
+import { maxWidthMediaQueries } from '../components/Common'
 
 const Container = styled.div`
   display: flex;
@@ -19,6 +20,9 @@ const Content = styled.div`
   padding: 24px 60px;
   box-sizing: border-box;
   width: 100%;
+  ${maxWidthMediaQueries('mobile')} {
+    padding: 8px 20px;
+  }
 `
 
 const Page = ({ children }) => {
