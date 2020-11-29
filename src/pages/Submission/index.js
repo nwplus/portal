@@ -14,18 +14,28 @@ export default () => {
     ;(async () => {
       const application = await applicantsRef.doc(USER_ID).get()
       const team = await application.data().team.get()
-      const project = await team.data().project.get()
-      const projectData = project.data()
-      const youtubeID = new URL(projectData.youtubeUrl).searchParams.get('v')
-      projectData.imgUrl = `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
-      projectData.href = projectData.devpostUrl
-      const grades = await team.data().project.collection('Grades').get()
-      const feedback = grades.docs.map(doc => {
-        const docData = doc.data()
-        return docData.notes
-      })
-      setProject(projectData)
-      setFeedback(feedback)
+      team
+        .data()
+        .project.get()
+        .then(doc => {
+          const projectData = doc.data()
+          const youtubeID = new URL(projectData.youtubeUrl).searchParams.get('v')
+          projectData.imgUrl = `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
+          projectData.href = projectData.devpostUrl
+          setProject(projectData)
+        })
+      team
+        .data()
+        .project.collection('Grades')
+        .orderBy('notes')
+        .get()
+        .then(doc => {
+          const feedback = doc.docs.map(doc => {
+            const docData = doc.data()
+            return docData.notes
+          })
+          setFeedback(feedback)
+        })
     })()
   }, [setProject])
 
