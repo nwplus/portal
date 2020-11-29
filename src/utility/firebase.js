@@ -51,16 +51,18 @@ export const getProject = async (user_id, setProjectCallback, setFeedbackCallbac
       projectData.href = projectData.devpostUrl
       setProjectCallback(projectData)
     })
-  team
-    .data()
-    .project.collection('Grades')
-    .orderBy('notes')
-    .get()
-    .then(doc => {
-      const feedback = doc.docs.map(doc => {
-        const docData = doc.data()
-        return docData.notes
+  if (!!setFeedbackCallback) {
+    team
+      .data()
+      .project.collection('Grades')
+      .orderBy('notes')
+      .get()
+      .then(doc => {
+        const feedback = doc.docs.map(doc => {
+          const docData = doc.data()
+          return docData.notes
+        })
+        setFeedbackCallback(feedback)
       })
-      setFeedbackCallback(feedback)
-    })
+  }
 }

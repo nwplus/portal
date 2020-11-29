@@ -9,14 +9,11 @@ export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
   const [project, setProject] = useState()
 
-  // eslint-disable-next-line
-  const [feedback, setFeedback] = useState([])
-
   useEffect(() => {
     ;(async () => {
-      await getProject(USER_ID, setProject, setFeedback)
+      await getProject(USER_ID, setProject, null)
     })()
-  }, [setProject, setFeedback])
+  }, [setProject])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc =>
@@ -33,9 +30,9 @@ export default () => {
   return (
     // TODO: Implement this page
     isSubmissionsOpen ? (
-      <Form project={project} submitCallback={submit} onChange={setProject} />
+      <Form project={project} onSubmit={submit} onChange={setProject} />
     ) : (
-      <h1>Edit - You cannot submit yet</h1>
+      <h2>Submissions are not open yet. Please check back later.</h2>
     )
   )
 }

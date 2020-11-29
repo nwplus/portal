@@ -24,16 +24,11 @@ const RightButton = styled(Button)`
   float: right;
 `
 
-const SubmitRow = ({ project, submitCallback }) => {
+const SubmitRow = ({ project, onSubmit }) => {
   return (
     <div>
       <div></div>
-      <RightButton
-        onClick={e => submitCallback(project)}
-        type="submit"
-        width="flex"
-        color="primary"
-      >
+      <RightButton onClick={e => onSubmit(project)} type="submit" width="flex" color="primary">
         Update Submission
       </RightButton>
     </div>
@@ -47,7 +42,7 @@ const FormRow = ({ id, label, children }) => (
   </div>
 )
 
-export default ({ project, submitCallback, onChange }) => {
+export default ({ project, onSubmit, onChange }) => {
   return project ? (
     <div>
       <H1>Edit "{project.title}"</H1>
@@ -81,7 +76,7 @@ export default ({ project, submitCallback, onChange }) => {
             onChange={val => onChange({ ...project, description: val })}
           />
         </FormRow>
-        <SubmitRow project={project} submitCallback={submitCallback} />
+        <SubmitRow project={project} onSubmit={onSubmit} />
       </TableForm>
     </div>
   ) : (
