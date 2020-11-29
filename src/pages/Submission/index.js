@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getLivesiteDoc, applicantsRef } from '../../utility/firebase'
 import Submission from '../../components/Submission'
+import { getYoutubeThumbnail } from '../../utility/utilities'
 
 // TODO: Get from firebase auth
 const USER_ID = 'aIwA36q0kOw7rDDlCkB2'
@@ -19,8 +20,7 @@ export default () => {
         .project.get()
         .then(doc => {
           const projectData = doc.data()
-          const youtubeID = new URL(projectData.youtubeUrl).searchParams.get('v')
-          projectData.imgUrl = `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
+          projectData.imgUrl = getYoutubeThumbnail(projectData.youtubeUrl).searchParams.get('v')
           projectData.href = projectData.devpostUrl
           setProject(projectData)
         })
