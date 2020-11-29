@@ -23,17 +23,6 @@ export const Card = styled.div`
   ${CardLike};
 `
 
-export const SearchBar = styled.input.attrs({
-  type: 'text',
-})`
-  ${CardLike};
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  border: none;
-  color: ${p => p.theme.colors.text};
-`
-
 export const DetailContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -110,4 +99,9 @@ export const TextInputLike = css`
 export const TextInputLikeErrorMsg = styled.p`
   color: ${p => p.theme.colors.warning};
   margin: 0.5em 0em;
+`
+
+export const CenterHorizontally = css`
+  margin: 0 50%;
+  transform: translateX(-50%);
 `

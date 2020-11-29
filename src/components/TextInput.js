@@ -19,9 +19,9 @@ const TextInputBox = styled.input.attrs({
   ${TextInputLike};
 `
 
-export const TextInput = ({ invalid, errorMsg, ...rest }) => {
+export const TextInput = ({ className, invalid, errorMsg, ...rest }) => {
   return (
-    <TextInputContainer>
+    <TextInputContainer className={className}>
       <TextInputBox invalid={invalid} {...rest} />
       {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
     </TextInputContainer>

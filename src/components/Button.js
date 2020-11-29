@@ -18,6 +18,7 @@ const buttonHeightPadding = {
 }
 
 const StyledButton = styled.a`
+  vertical-align: middle;
   display: inline-block;
   text-decoration: none;
   font-family: ${p => p.theme};
@@ -112,6 +113,26 @@ const StyledButton = styled.a`
     :focus {
       box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};
     }`}
+    ${p =>
+    p.color !== 'primary' &&
+    p.color !== 'secondary' &&
+    p.color !== 'tertiary' && // some color other than the variants
+    `color: ${p.labelColor || p.theme.colors.background};
+      background: ${p.color};
+      :hover {
+        ${
+          p.disabled
+            ? `
+        cursor: not-allowed;
+        `
+            : `
+        background: ${p.hover || p.theme.colors.tertiaryHover};
+        `
+        }
+      }
+      :focus {
+        box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};
+      }`}
 `
 
 export const Button = props => (
