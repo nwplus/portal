@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../components/Common.js'
+import {
+  InputContainerLike,
+  TextInputLike,
+  TextInputLikeErrorMsg as ErrorMsg,
+} from '../components/Common.js'
 
 const inputSize = {
   default: '300px',
@@ -9,7 +13,7 @@ const inputSize = {
 }
 
 const TextInputContainer = styled.div`
-  margin: 1em;
+  ${InputContainerLike};
 `
 
 const TextInputBox = styled.input.attrs({
