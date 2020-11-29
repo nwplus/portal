@@ -19,6 +19,7 @@ if (!firebase.apps.length) {
 export const db = firebase.firestore()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
+export const applicantsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Applicants')
 
 export const getLivesiteDoc = callback => {
   return livesiteDocRef.onSnapshot(doc => {
