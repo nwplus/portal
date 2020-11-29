@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import Faq from '../components/Faq'
 import { H1, H2 } from '../components/Typography'
 import TextInput from '../components/TextInput'
 import { db } from '../utility/firebase'
 import { FAQ_COLLECTION, DB_HACKATHON } from '../utility/Constants'
-
-const StyledTextInput = styled(TextInput)`
-  margin: 0;
-`
 
 export default () => {
   const [faqs, setFaqs] = useState([])
@@ -53,7 +48,7 @@ export default () => {
   return (
     <>
       <H1>Frequently Asked Questions</H1>
-      <StyledTextInput
+      <TextInput
         size="large"
         placeholder="Search FAQ..."
         value={search}
