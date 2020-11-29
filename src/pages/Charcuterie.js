@@ -7,6 +7,7 @@ import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import FormContainer from '../components/ApplicationForm'
+import VerticalProgressBar from '../components/VerticalProgressBar'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
