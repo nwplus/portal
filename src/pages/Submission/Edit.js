@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc } from '../../utility/firebase'
-import { Button, TextInput, TextArea, Checkbox, Select, Dropdown } from '../../components/Input'
+import { getLivesiteDoc, getProject } from '../../utility/firebase'
 import Form from '../../components/ProjectForm'
+
+// TODO: Get from firebase auth
+const USER_ID = 'aIwA36q0kOw7rDDlCkB2'
 
 export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
+  const [project, setProject] = useState()
+  const [feedback, setFeedback] = useState([])
 
-  // TODO: use firebasse
-  const [submission, setSubmission] = useState({
-    name: 'Test Submission',
-  })
+  useEffect(() => {
+    ;(async () => {
+      await getProject(USER_ID, setProject, setFeedback)
+    })()
+  }, [setProject, setFeedback])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc =>
@@ -24,6 +29,10 @@ export default () => {
 
   return (
     // TODO: Implement this page
-    isSubmissionsOpen ? <Form name={submission.name} /> : <h1>Edit - You cannot submit yet</h1>
+    isSubmissionsOpen ? (
+      <Form project={project} submitCallback={submit} onChange={setProject} />
+    ) : (
+      <h1>Edit - You cannot submit yet</h1>
+    )
   )
 }

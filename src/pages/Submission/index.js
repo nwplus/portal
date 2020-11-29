@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc, applicantsRef, getProject } from '../../utility/firebase'
+import { getLivesiteDoc, getProject } from '../../utility/firebase'
 import Submission from '../../components/Submission'
 
 // TODO: Get from firebase auth
