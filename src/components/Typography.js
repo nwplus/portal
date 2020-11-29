@@ -8,7 +8,7 @@ export const text = css`
 export const H1 = styled.h1`
   ${text};
   font-weight: ${p => p.theme.typography.h1.weight};
-  font-size: ${p => p.theme.typography.h1.size};
+  font-size: ${p => p.size || p.theme.typography.h1.size};
 `
 
 export const H2 = styled.h2`
