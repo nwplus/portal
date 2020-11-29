@@ -49,6 +49,7 @@ export default () => {
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
   const [textAreaValue, setTextAreaValue] = useState('')
+  const [progress, setProgress] = useState(0)
 
   return (
     <>
@@ -73,18 +74,6 @@ export default () => {
           this way later than I should be. Is this what it's like to sell your soul to nwPlus?{' '}
         </P>
         <br></br>
-        <A href="https://nwplus.io">This is a link.</A>
-        <br></br>
-        <br></br>
-        <A color="primary" bolded href="https://nwplus.io">
-          This is a hacker app link.
-        </A>
-        <br></br>
-        <br></br>
-        <A color="primary" href="https://nwplus.io">
-          This is an unbolded primary color link.
-        </A>
-
         <QuestionHeading>this is a question heading</QuestionHeading>
         <QuestionHeading>question 14</QuestionHeading>
         <H1>How did you hear about nwHacks?</H1>
@@ -290,6 +279,14 @@ export default () => {
           throttleTime={1000}
         />
       </FormContainer>
+      <H2>Change Progress Bar</H2>
+      <Button width="flex" onClick={() => progress < 100 && setProgress(progress + 10)}>
+        Increase!
+      </Button>
+      <Button width="flex" onClick={() => progress >= 10 && setProgress(progress - 10)}>
+        Decrease!
+      </Button>
+      <VerticalProgressBar percent={progress} />
     </>
   )
 }
