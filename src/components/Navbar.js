@@ -13,13 +13,10 @@ const NavContainer = styled.div`
 `
 
 const Icon = styled.img`
-  display: flex;
   width: 30px;
   height: 42px;
 `
 const Greeting = styled(P)`
-  justify-self: flex-end;
-  display: flex;
   margin-left: auto;
   font-weight: 700;
   font-size: 18px;
@@ -32,7 +29,6 @@ export default ({ name, handleLogout }) => (
       <>
         <Greeting>Hi, {name} &#128540;</Greeting>
         <Button onClick={handleLogout} color="primary">
-          {' '}
           Logout
         </Button>
       </>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import NavBar from './components/Navbar'
+import Navbar from './components/Navbar'
 
 import {
   Login,
@@ -43,11 +43,11 @@ const PageRoute = ({ path, children }) => {
   )
 }
 
-const NavBarRoute = ({ path, children }) => {
+const NavbarRoute = ({ path, children }) => {
   // TODO: pass in name and handleLogout function into NavBar component
   return (
     <Route path={path}>
-      <NavBar>{children}</NavBar>
+      <Navbar>{children}</Navbar>
     </Route>
   )
 }
@@ -77,19 +77,19 @@ function App() {
         <GlobalStyle />
         <Switch>
           <Route path="/login">
-            <NavBar>
+            <Navbar>
               <Login />
-            </NavBar>
+            </Navbar>
           </Route>
-          <NavBarRoute path="/application/review">
+          <NavbarRoute path="/application/review">
             <ApplicationReview />
-          </NavBarRoute>
-          <NavBarRoute path="/application/confirmation">
+          </NavbarRoute>
+          <NavbarRoute path="/application/confirmation">
             <ApplicationConfirmation />
-          </NavBarRoute>
-          <NavBarRoute path="/application/:part">
+          </NavbarRoute>
+          <NavbarRoute path="/application/:part">
             {params => <ApplicationForm part={params.part} />}
-          </NavBarRoute>
+          </NavbarRoute>
           <PageRoute path="/">
             <Home />
           </PageRoute>
