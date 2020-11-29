@@ -47,7 +47,8 @@ const NavbarRoute = ({ path, children }) => {
   // TODO: pass in name and handleLogout function into NavBar component
   return (
     <Route path={path}>
-      <Navbar>{children}</Navbar>
+      <Navbar></Navbar>
+      {children}
     </Route>
   )
 }
@@ -77,9 +78,8 @@ function App() {
         <GlobalStyle />
         <Switch>
           <Route path="/login">
-            <Navbar>
-              <Login />
-            </Navbar>
+            <Navbar></Navbar>
+            <Login />
           </Route>
           <NavbarRoute path="/application/review">
             <ApplicationReview />
