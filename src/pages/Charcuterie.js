@@ -11,6 +11,7 @@ import JudgingCard from '../components/JudgingCard'
 import Checkbox from '../components/Checkbox'
 import Select from '../components/Select'
 import Dropdown from '../components/Dropdown'
+import Testing from '../components/Testing'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
@@ -59,6 +60,18 @@ export default () => {
       <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
         Toggle Theme
       </Button>
+      <Testing name="Kevo" />
+      <Testing name="Daniel" />
+      <Testing />
+      <Testing />
+      <Testing />
+      <Testing />
+      <Testing />
+      <Testing />
+      <Testing />
+      <Testing />
+      <Testing />
+      <Testing />
       <P>
         Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
         should appear on the toolbar

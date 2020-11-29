@@ -5,6 +5,7 @@ import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import { maxWidthMediaQueries } from './Common'
+import { Button } from './Button'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
@@ -116,6 +117,7 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
           )
         })}
       </ItemsContainer>
+      <Button color="secondary">Logout</Button>
     </SidebarContainer>
   )
 }
