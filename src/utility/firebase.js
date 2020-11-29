@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import { getYoutubeThumbnail } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -35,5 +36,31 @@ export const getSponsors = () => {
     .get()
     .then(querySnapshot => {
       return querySnapshot.docs
+    })
+}
+
+export const getProject = async (user_id, setProjectCallback, setFeedbackCallback) => {
+  const application = await applicantsRef.doc(user_id).get()
+  const team = await application.data().team.get()
+  team
+    .data()
+    .project.get()
+    .then(doc => {
+      const projectData = doc.data()
+      projectData.imgUrl = getYoutubeThumbnail(projectData.youtubeUrl)
+      projectData.href = projectData.devpostUrl
+      setProjectCallback(projectData)
+    })
+  team
+    .data()
+    .project.collection('Grades')
+    .orderBy('notes')
+    .get()
+    .then(doc => {
+      const feedback = doc.docs.map(doc => {
+        const docData = doc.data()
+        return docData.notes
+      })
+      setFeedbackCallback(feedback)
     })
 }
