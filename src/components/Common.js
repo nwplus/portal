@@ -46,6 +46,10 @@ export const DetailColumn = styled.ul`
   margin-right: 1em;
   padding: 0;
 
+  ${maxWidthMediaQueries('mobile')} {
+    margin-right: 0em;
+  }
+
   & > li {
     ${CardLike};
     margin: 0;
