@@ -8,3 +8,10 @@ export const NOTIFICATION_PERMISSIONS = Object.freeze({
   DENIED: 'denied',
 })
 export const DAYOF_COLLECTION = 'DayOf'
+export const SOCIAL_LINKS = Object.freeze({
+  FB: 'https://www.facebook.com/nwplusubc',
+  IG: 'https://www.instagram.com/nwplusubc',
+  MEDIUM: 'https://www.medium.com/nwplusubc',
+  TW: 'https://www.twitter.com/nwplusubc',
+  WEBSITE: 'https://www.nwplus.io',
+})

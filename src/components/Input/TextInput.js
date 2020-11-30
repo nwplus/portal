@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../components/Common.js'
+import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../Common.js'
 
 const inputSize = {
   default: '300px',
@@ -19,9 +19,9 @@ const TextInputBox = styled.input.attrs({
   ${TextInputLike};
 `
 
-export const TextInput = ({ invalid, errorMsg, ...rest }) => {
+export const TextInput = ({ className, invalid, errorMsg, ...rest }) => {
   return (
-    <TextInputContainer>
+    <TextInputContainer className={className}>
       <TextInputBox invalid={invalid} {...rest} />
       {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
     </TextInputContainer>

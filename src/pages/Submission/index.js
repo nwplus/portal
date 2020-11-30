@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc } from '../../utility/firebase'
+import { getLivesiteDoc, getProject } from '../../utility/firebase'
 import Submission from '../../components/Submission'
+
+// TODO: Get from firebase auth
+const USER_ID = 'aIwA36q0kOw7rDDlCkB2'
 
 export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
+  const [project, setProject] = useState()
+  const [feedback, setFeedback] = useState([])
 
-  // TODO: use firebase data
-  // eslint-disable-next-line no-unused-vars
-  const [project, setProject] = useState({
-    description: 'This project is a project that is very cool!',
-    imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-    devpost: 'https://devpost.com/software/impostor',
-    title: 'Imposter',
-    teamName: 'H4ckHouse',
-  })
-
-  // TODO: use firebase data
-  // eslint-disable-next-line no-unused-vars
-  const [feedback, setFeedback] = useState([
-    'Very good!',
-    'Wow this project changed my life like how is this real omg i would give my life for this.',
-  ])
+  useEffect(() => {
+    ;(async () => {
+      await getProject(USER_ID, setProject, setFeedback)
+    })()
+  }, [setProject, setFeedback])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc =>

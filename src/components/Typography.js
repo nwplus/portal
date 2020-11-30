@@ -8,7 +8,7 @@ export const text = css`
 export const H1 = styled.h1`
   ${text};
   font-weight: ${p => p.theme.typography.h1.weight};
-  font-size: ${p => p.theme.typography.h1.size};
+  font-size: ${p => p.size || p.theme.typography.h1.size};
 `
 
 export const H2 = styled.h2`
@@ -41,8 +41,10 @@ export const I = styled.i`
 export const A = styled.a`
   cursor: pointer;
   text-decoration: none;
-  border-bottom: 1px solid ${p => p.theme.colors.link};
-  color: ${p => p.theme.colors.link};
+  font-weight: ${p => (p.bolded ? 600 : 400)};
+  border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
+  color: ${p =>
+    p.color ? (p.color === 'primary' && p.theme.colors.primary) || p.color : p.theme.colors.link};
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
     color: ${p => p.theme.colors.linkHover};
@@ -53,6 +55,7 @@ export const A = styled.a`
     border-bottom: 1px solid ${p => p.theme.colors.linkHover};
   }
 `
+
 export const UL = styled.ul`
   list-style: none;
   padding-inline-start: 10px;
@@ -67,6 +70,12 @@ export const LI = styled.li`
 `
 
 export const QuestionHeading = styled.p`
+  color: ${p => p.theme.colors.primary};
+  font-weight: 600;
+  text-transform: uppercase;
+`
+
+export const Label = styled.label`
   color: ${p => p.theme.colors.primary};
   font-weight: 600;
   text-transform: uppercase;
