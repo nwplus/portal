@@ -101,7 +101,13 @@ function App() {
           <PageRoute path="/judging">
             <Judging />
           </PageRoute>
-          <PageRoute path="/judging/view/:id">{params => <JudgingView id={params.id} />}</PageRoute>
+          <Route path="/judging/view/:id">
+            {params => (
+              <Page>
+                <JudgingView id={params.id} />
+              </Page>
+            )}
+          </Route>
           <PageRoute path="/submission">
             <Submission />
           </PageRoute>
