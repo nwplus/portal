@@ -1,41 +1,38 @@
 import React, { useRef, useState } from 'react'
 import { Button } from '../components/Button'
 import { QuestionHeading } from '../components/Typography'
+import styled from 'styled-components'
+import { TextInputLikeErrorMsg } from './Common'
 
-const resumeStyle = {
-  display: 'flex',
-  alignItems: 'center'
-};
+const ResumeContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
 
-const ResumeUploadBtn = () => {
-  const [hint, setHint] = useState(null)
-  const inputFile = useRef(null);
+export default ({ onChange, isValid, hint, errorMsg }) => {
+  const inputFile = useRef()
 
   const handleClick = () => {
-    inputFile.current.click();
+    inputFile.current.click()
   }
 
-  const handleChange = (e) => {
-    if (e.target.value) {
-      setHint(<span>{e.target.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]}</span>)
-    }
-
-    else {
-      setHint(<span style={{ color: '#F18383' }}>Please upload your resume</span>)
-    }
-  }
-
-  var resumeFile = <input ref={inputFile} type='file' hidden='hidden' onChange={handleChange} />
-  var button = <Button style={{ marginLeft: '9em' }} color="secondary" onClick={handleClick}>Upload</Button>
+  const resumeFile = <input ref={inputFile} type="file" hidden onChange={onChange} />
+  const button = (
+    <Button color="tertiary" onClick={handleClick}>
+      Upload
+    </Button>
+  )
 
   return (
-    <div style={resumeStyle}>
+    <ResumeContainer>
       <QuestionHeading>resume</QuestionHeading>
       {resumeFile}
       {button}
-      {hint}
-    </div>
+      {isValid ? (
+        <span>{hint.match(/[/\\]([\w\d\s.\-()]+)$/)[1]}</span>
+      ) : (
+        <TextInputLikeErrorMsg>{errorMsg}</TextInputLikeErrorMsg>
+      )}
+    </ResumeContainer>
   )
 }
-
-export default ResumeUploadBtn

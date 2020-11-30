@@ -54,6 +54,7 @@ export default () => {
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
   const [textAreaValue, setTextAreaValue] = useState('')
+  const [hint, setHint] = useState()
 
   return (
     <>
@@ -282,9 +283,13 @@ export default () => {
       />
       <QuestionHeading>question 12</QuestionHeading>
       <div>
-        <ResumeUploadBtn />
+        <ResumeUploadBtn
+          onChange={e => setHint(e.target.value)}
+          isValid={hint}
+          hint={hint}
+          errorMsg="Please upload your resume"
+        />
       </div>
-
     </>
   )
 }
