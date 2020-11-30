@@ -7,7 +7,7 @@ import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
 import { useLocation } from 'wouter'
-import { ErrorBanner } from '../components/ErorrBanner'
+import { ErrorBanner } from '../components/ErrorBanner'
 
 const ErrorMessage =
   'There was an issue logging you in. If this persists, please contact info@nwplus.io.'
