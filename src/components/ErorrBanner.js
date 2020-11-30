@@ -3,12 +3,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 const ErrorDiv = styled.div`
-  width: 300px;
-  height: 50px;
+  max-width: 400px;
   background-color: ${p => p.theme.colors.error};
   position: fixed;
   bottom: ${p => (p.shown ? '10px' : '-100px')};
-  transition: all 2s ease-in;
+  transition: all 0.5s ease-in;
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -19,6 +18,7 @@ const ErrorDiv = styled.div`
 const ErrorText = styled.p`
   text-align: center;
   color: ${p => p.theme.colors.errorText};
+  margin: 10px 20px;
 `
 
 export function ErrorBanner({ message, shown }) {
