@@ -74,3 +74,9 @@ export const QuestionHeading = styled.p`
   font-weight: 600;
   text-transform: uppercase;
 `
+
+export const Label = styled.label`
+  color: ${p => p.theme.colors.primary};
+  font-weight: 600;
+  text-transform: uppercase;
+`
