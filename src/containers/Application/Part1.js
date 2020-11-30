@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { H1, QuestionHeading } from '../../components/Typography'
-import { TextInput } from '../../components/TextInput'
-import Dropdown from '../../components/Dropdown'
-import Select from '../../components/Select'
-import FormContainer from '../../components/Form'
+import { TextInput } from '../../components/Input/TextInput'
+import Dropdown from '../../components/Input/Dropdown'
+import Select from '../../components/Input/Select'
+import FormContainer from '../../components/ApplicationForm'
 
 const genderOptions = [
   { value: 'female', label: 'Female' },
@@ -65,6 +65,9 @@ export default ({ children }) => {
     contributionRole: '',
     location: '',
   })
+
+  const schools = require('./data/schools.json')
+  const majors = require('./data/majors.json')
 
   return (
     <FormContainer>
@@ -246,8 +249,17 @@ export default ({ children }) => {
         <QuestionHeading>question 06</QuestionHeading>
         <H1 size="1.5em">What school do you go to?</H1>
         <Dropdown
+          options={schools}
           placeholder={'Enter your school'}
           isSearchable
+          formatCreateLabel={inputValue => `My school is not listed, use "${inputValue}"`}
+          onChange={e =>
+            setStates({
+              ...states,
+              school: e.label,
+            })
+          }
+          emptySearchDefaultOption={'Start typing to search'}
           canCreateNewOption
           isValid
         ></Dropdown>
@@ -256,8 +268,17 @@ export default ({ children }) => {
         <QuestionHeading>question 07</QuestionHeading>
         <H1 size="1.5em">What is your current or intended major?</H1>
         <Dropdown
+          options={majors}
           placeholder={'Enter your major'}
           isSearchable
+          formatCreateLabel={inputValue => `My major is not listed, use "${inputValue}"`}
+          onChange={e =>
+            setStates({
+              ...states,
+              major: e.label,
+            })
+          }
+          emptySearchDefaultOption={'Start typing to search'}
           canCreateNewOption
           isValid
         ></Dropdown>
