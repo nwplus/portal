@@ -16,7 +16,6 @@ const Container = styled.div`
 
 const WelcomeHeader = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 1em;
@@ -33,7 +32,6 @@ const StyledHandWave = styled(HandWave)`
 
 const AppLinks = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
