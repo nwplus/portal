@@ -30,7 +30,7 @@ export const ButtonContainer = styled.div`
 export default () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
-  const [location, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
   const signInWithGoogle = () => {
     googleSignIn(setUser, setLocation)
