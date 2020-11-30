@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../components/Common.js'
+import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../Common.js'
 
 const TextAreaContainer = styled.div`
   margin: 1em;

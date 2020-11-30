@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../components/Common.js'
+import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg } from '../Common.js'
 
 const inputSize = {
   default: '300px',
