@@ -32,8 +32,9 @@ export const googleSignIn = async (setUser, setLocation) => {
     const user = firebase.auth().currentUser
     setUser(user)
     setLocation('/application')
+    return null
   } catch (e) {
-    // Not sure what to do here.
+    return e
   }
 }
 
@@ -45,8 +46,9 @@ export const githubSignIn = async (setUser, setLocation) => {
     const user = firebase.auth().currentUser
     setUser(user)
     setLocation('/application')
+    return null
   } catch (e) {
-    console.log(e)
+    return e
   }
 }
 
