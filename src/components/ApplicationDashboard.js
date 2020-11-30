@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { H1 } from './Typography'
-import { Button } from '../components/Button'
+import { Button } from './Button'
 import { SOCIAL_LINKS } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
 import instagram from '../assets/icons/instagram.svg'
