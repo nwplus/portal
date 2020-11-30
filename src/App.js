@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'wouter'
+import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import {
@@ -24,6 +24,7 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
+import { AuthProvider, useAuth } from './utility/Auth'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -39,6 +40,11 @@ const PageRoute = ({ path, children }) => {
       <Page>{children}</Page>
     </Route>
   )
+}
+
+const AuthRoute = ({ path, children }) => {
+  const { isAuthed } = useAuth()
+  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
 }
 
 function App() {
@@ -63,58 +69,62 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <GlobalStyle />
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/application/review">
-            <ApplicationReview />
-          </Route>
-          <Route path="/application/confirmation">
-            <ApplicationConfirmation />
-          </Route>
-          <Route path="/application/:part">
-            {params => <ApplicationForm part={params.part} />}
-          </Route>
-          <PageRoute path="/">
-            <Home />
-          </PageRoute>
-          <PageRoute path="/application">
-            <Application />
-          </PageRoute>
-          <PageRoute path="/charcuterie">
-            <Charcuterie />
-          </PageRoute>
-          <PageRoute path="/faq">
-            <Faq />
-          </PageRoute>
-          <PageRoute path="/schedule">
-            <Schedule />
-          </PageRoute>
-          <PageRoute path="/sponsors">
-            <Sponsors />
-          </PageRoute>
-          <PageRoute path="/quicklinks">
-            <Quicklinks />
-          </PageRoute>
-          <PageRoute path="/judging">
-            <Judging />
-          </PageRoute>
-          <PageRoute path="/judging/view/:id">{params => <JudgingView id={params.id} />}</PageRoute>
-          <PageRoute path="/submission">
-            <Submission />
-          </PageRoute>
-          <PageRoute path="/submission/create">
-            <SubmissionCreate />
-          </PageRoute>
-          <PageRoute path="/submission/edit">
-            <SubmissionEdit />
-          </PageRoute>
-          <Route>
-            <Page>Page Not Found!</Page>
-          </Route>
-        </Switch>
+        <AuthProvider>
+          <GlobalStyle />
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <AuthRoute path="/application/review">
+              <ApplicationReview />
+            </AuthRoute>
+            <AuthRoute path="/application/confirmation">
+              <ApplicationConfirmation />
+            </AuthRoute>
+            <AuthRoute path="/application/:part">
+              {params => <ApplicationForm part={params.part} />}
+            </AuthRoute>
+            <PageRoute path="/">
+              <Home />
+            </PageRoute>
+            <AuthRoute path="/application">
+              <Application />
+            </AuthRoute>
+            <PageRoute path="/charcuterie">
+              <Charcuterie />
+            </PageRoute>
+            <PageRoute path="/faq">
+              <Faq />
+            </PageRoute>
+            <PageRoute path="/schedule">
+              <Schedule />
+            </PageRoute>
+            <PageRoute path="/sponsors">
+              <Sponsors />
+            </PageRoute>
+            <PageRoute path="/quicklinks">
+              <Quicklinks />
+            </PageRoute>
+            <PageRoute path="/judging">
+              <Judging />
+            </PageRoute>
+            <PageRoute path="/judging/view/:id">
+              {params => <JudgingView id={params.id} />}
+            </PageRoute>
+            <PageRoute path="/submission">
+              <Submission />
+            </PageRoute>
+            <PageRoute path="/submission/create">
+              <SubmissionCreate />
+            </PageRoute>
+            <PageRoute path="/submission/edit">
+              <SubmissionEdit />
+            </PageRoute>
+            <Route>
+              <Page>Page Not Found!</Page>
+            </Route>
+          </Switch>
+        </AuthProvider>
       </ThemeProvider>
     </>
   )
