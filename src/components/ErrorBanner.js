@@ -7,6 +7,7 @@ const ErrorDiv = styled.div`
   background-color: ${p => p.theme.colors.error};
   position: fixed;
   bottom: ${p => (p.shown ? '10px' : '-100px')};
+  opacity: ${p => (p.shown ? '100%' : '0%')};
   transition: all 0.5s ease-in;
   margin-left: auto;
   margin-right: auto;
