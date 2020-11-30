@@ -37,18 +37,22 @@ export default () => {
   const [, setLocation] = useLocation()
   const [showError, setShowError] = useState(false)
 
+  const showErrorMessage = error => {
+    if (!error) return
+    setShowError(true)
+    setTimeout(() => {
+      setShowError(false)
+    }, 5000)
+  }
+
   const signInWithGoogle = async () => {
     const error = await googleSignIn(setUser, setLocation)
-    if (error) {
-      setShowError(true)
-    }
+    showErrorMessage(error)
   }
 
   const signInWithGithub = async () => {
     const error = await githubSignIn(setUser, setLocation)
-    if (error) {
-      setShowError(true)
-    }
+    showErrorMessage(error)
   }
 
   return (
