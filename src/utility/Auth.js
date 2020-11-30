@@ -24,3 +24,28 @@ export function AuthProvider({ children }) {
   )
 }
 
+export const googleSignIn = async (setUser, setLocation) => {
+  await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  const provider = new firebase.auth.GoogleAuthProvider()
+  try {
+    await firebase.auth().signInWithPopup(provider)
+    const user = firebase.auth().currentUser
+    setUser(user)
+    setLocation('/application')
+  } catch (e) {
+    // Not sure what to do here.
+  }
+}
+
+export const githubSignIn = async (setUser, setLocation) => {
+  await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  const provider = new firebase.auth.GithubAuthProvider()
+  try {
+    await firebase.auth().signInWithPopup(provider)
+    const user = firebase.auth().currentUser
+    setUser(user)
+    setLocation('/application')
+  } catch (e) {
+    console.log(e)
+  }
+}
