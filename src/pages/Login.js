@@ -5,6 +5,8 @@ import Landing from '../containers/Landing'
 import { Button } from '../components/Input'
 import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
+import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
+import { useLocation } from 'wouter'
 
 const BoundingBox = styled.img`
   margin: 0 0.75em;
@@ -27,13 +29,29 @@ export const ButtonContainer = styled.div`
 // TODO: authentication
 export default () => {
   const theme = useContext(ThemeContext)
+  const { setUser } = useAuth()
+  const [location, setLocation] = useLocation()
+
+  const signInWithGoogle = () => {
+    googleSignIn(setUser, setLocation)
+  }
+
+  const signInWithGithub = () => {
+    githubSignIn(setUser, setLocation)
+  }
+
   return (
     <Landing
       heading="Welcome to nwHacks 2021!"
       description="Please continue with one of the following:"
     >
       <ButtonContainer>
-        <StyledButton width="flex" color={theme.colors.text} hover={theme.colors.login.googleHover}>
+        <StyledButton
+          width="flex"
+          color={theme.colors.text}
+          hover={theme.colors.login.googleHover}
+          onClick={signInWithGoogle}
+        >
           <BoundingBox src={google} />
           Continue with Google
         </StyledButton>
@@ -42,6 +60,7 @@ export default () => {
           labelColor={theme.colors.text}
           color={theme.colors.foreground}
           hover={theme.colors.login.githubHover}
+          onClick={signInWithGithub}
         >
           <BoundingBox src={github} />
           Continue with GitHub
