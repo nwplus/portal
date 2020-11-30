@@ -49,3 +49,7 @@ export const githubSignIn = async (setUser, setLocation) => {
     console.log(e)
   }
 }
+
+export const logout = async () => {
+  return firebase.auth().signOut()
+}
