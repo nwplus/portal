@@ -27,6 +27,10 @@ const StyledLabel = styled(Label)`
   margin: 1em 0 0.25em 0;
 `
 
+const StyledTextArea = styled(TextArea)`
+  margin: 1em 0;
+`
+
 const RightButton = styled(Button)`
   float: right;
 `
@@ -35,12 +39,11 @@ const ScoreInput = ({ id, label, score, onChange }) => {
   return (
     <>
       <StyledLabel htmlFor={id}>{label}</StyledLabel>
-      <div>
+      <div id={id}>
         {[1, 2, 3, 4, 5].map(option => {
           return (
             <Select
               type="radio"
-              name={id}
               label={option}
               checked={score[id] === option}
               onChange={() => onChange({ ...score, [id]: option })}
@@ -72,8 +75,12 @@ export default ({ project, score, onChange, onSubmit }) => {
         <ScoreInput id="functionality" label="Functionality" score={score} onChange={onChange} />
         <ScoreInput id="creativity" label="Creativity" score={score} onChange={onChange} />
         <ScoreInput id="pitch" label="Pitch" score={score} onChange={onChange} />
-        <TextArea
+
+        <StyledLabel htmlFor="notes">Comments</StyledLabel>
+        <StyledTextArea
           maxLength="600"
+          width="100%"
+          id="notes"
           placeholder="Constructive feedback"
           value={score.notes}
           onChange={e => onChange({ ...score, notes: e })}
