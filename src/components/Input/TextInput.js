@@ -10,6 +10,7 @@ const inputSize = {
 
 const TextInputContainer = styled.div`
   margin: 1em;
+  display: inline-block;
 `
 
 const TextInputBox = styled.input.attrs({

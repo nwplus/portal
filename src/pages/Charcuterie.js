@@ -123,6 +123,8 @@ export default () => {
         <Button height="tall" color="secondary">
           Tall
         </Button>
+
+        <P>Text Inputs</P>
         <TextInput placeholder="Default" />
         <TextInput value="With Value" />
         <TextInput value="With Value Disabled" disabled />
