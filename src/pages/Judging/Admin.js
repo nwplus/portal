@@ -138,21 +138,26 @@ export default () => {
     })
   }
 
-  const syncToFirebase = () => {
+  const syncToFirebase = async () => {
     // delete old projects
     console.log('deleting old collection...')
-    deleteCollection()
-
-    // insert new
-    console.log(`insert ${projects.length} new projects...`)
-    const batch = firebase.firestore().batch()
-    projects.forEach(p => {
-      var docRef = projectsRef.doc()
-      p.countAssigned = 0
-      batch.set(docRef, Object.assign({}, p))
+    const batch = db.batch()
+    projectsRef.get().then(snapshot => {
+      snapshot.docs.forEach(doc => {
+        batch.delete(doc.ref)
+      })
+      batch.commit().then(() => {
+        // insert new
+        console.log(`insert ${projects.length} new projects...`)
+        const batch = firebase.firestore().batch()
+        projects.forEach(p => {
+          var docRef = projectsRef.doc()
+          p.countAssigned = 0
+          batch.set(docRef, Object.assign({}, p))
+        })
+        batch.commit().then(() => console.log('insert done!'))
+      })
     })
-    batch.commit()
-    console.log('insert done!')
 
     // get list of users
     // iterate projects, if any emails match
