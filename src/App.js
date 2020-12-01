@@ -80,7 +80,9 @@ const ApplicationFormContainer = ({ params }) => {
   return isAuthed ? (
     <>
       <Navbar name={user.displayName} handleLogout={logout} />
-      <ApplicationForm part={params.part} />
+      <Form>
+        <ApplicationForm part={params.part} />
+      </Form>
     </>
   ) : (
     <Redirect to="/login" />
