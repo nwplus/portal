@@ -13,7 +13,6 @@ const ErrorDiv = styled.div`
   margin-right: auto;
   left: 0;
   right: 0;
-  border: 1px solid grey;
   border-radius: 5px;
 `
 const ErrorText = styled.p`
