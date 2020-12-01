@@ -81,7 +81,11 @@ function App() {
             <Navbar />
             <Login />
           </Route>
-          <NavbarRoute path="/application/review" name="Haku">
+          <NavbarRoute
+            path="/application/review"
+            name="Haku"
+            handleLogout={() => console.log('Logout!')}
+          >
             <ApplicationReview />
           </NavbarRoute>
           <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
