@@ -4,18 +4,20 @@ import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
 import Accordion from '../components/Accordion'
 import { syncToFirebase } from '../utility/firebase'
-import ProjectTable from '../components/ProjectTable'
-import SponsorSubmissions from '../components/SponsorSubmissions'
+import ProjectTable from '../components/Judging/ProjectTable'
+import SponsorSubmissions from '../components/Judging/SponsorSubmissions'
 
 class CSV {
   constructor(data) {
-    // parse column data
-    const cols = data.shift()
-    this.cols = cols.slice(0, -1)
+    const parsed = data.split('\n').map(row => row.split(/,(?=\S)/))
 
-    this.entries = data.map(row => {
+    // parse column data
+    const headings = parsed.shift()
+    this.headings = headings.slice(0, -1)
+
+    this.entries = parsed.map(row => {
       return row.reduce((accumulator, curr, i) => {
-        accumulator[`${this.cols[i]}`] = curr
+        accumulator[`${this.headings[i]}`] = curr
         return accumulator
       }, {})
     })
@@ -68,24 +70,20 @@ export default () => {
       var reader = new FileReader()
       reader.addEventListener('load', e => {
         const csvdata = e.target.result
-        const parsed = csvdata.split('\n').map(row => row.split(/,(?=\S)/))
-
-        const parsedProjects = new CSV(parsed).entries
+        const parsedProjects = new CSV(csvdata).entries
           .map(r => new Project(r))
           .filter(p => p.acknowledged)
         setMessage(`Parsed ${parsedProjects.length} projects from ${csv.name} successfully`)
         setProjects(parsedProjects)
 
-        const seenPrizes = new Set()
         const prizes = {}
         parsedProjects.forEach(project => {
           project.sponsorPrizes.forEach(prize => {
             prize = prize === '' ? 'No prize' : prize
-            if (seenPrizes.has(prize)) {
+            if (prizes[prize]) {
               prizes[prize].push(project.devpostUrl)
             } else {
               prizes[prize] = [project.devpostUrl]
-              seenPrizes.add(prize)
             }
           })
         })

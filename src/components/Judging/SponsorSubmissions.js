@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Accordion from '../components/Accordion'
-import { H1 } from '../components/Typography'
-import { CardLike } from '../components/Common'
+import Accordion from '../Accordion'
+import { H1 } from '../Typography'
+import { CardLike } from '../Common'
 
 const SponsorPrize = styled.div`
   ${CardLike};
@@ -17,8 +17,8 @@ const EntriesList = styled.ul`
 export default ({ sponsorPrizes }) => (
   <div>
     <H1>Sponsor Judging</H1>
-    {Object.keys(sponsorPrizes).map(prize => (
-      <SponsorPrize>
+    {Object.keys(sponsorPrizes).map((prize, i) => (
+      <SponsorPrize key={i}>
         <Accordion heading={prize} key={prize}>
           <EntriesList>
             {sponsorPrizes[prize].map((submission, i) => (

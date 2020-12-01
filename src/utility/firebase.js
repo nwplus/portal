@@ -43,24 +43,26 @@ export const getSponsors = () => {
 export const syncToFirebase = async (projects, setMessageCallback) => {
   // delete old projects
   setMessageCallback(`Snapping old projects...`)
-  const batch = db.batch()
-  projectsRef.get().then(snapshot => {
-    snapshot.docs.forEach(doc => {
-      batch.delete(doc.ref)
-    })
-    batch.commit().then(() => {
-      setMessageCallback(`Snapped!`)
-      // insert new
-      const batch = firebase.firestore().batch()
-      projects.forEach(p => {
-        var docRef = projectsRef.doc()
-        p.countAssigned = 0
-        batch.set(docRef, Object.assign({}, p))
-      })
-      setMessageCallback(`Inserting ${projects.length} new projects...`)
-      batch.commit().then(() => setMessageCallback('Insert done!'))
-    })
+  const snapshot = await projectsRef.get()
+
+  const deleteBatch = db.batch()
+  snapshot.docs.forEach(doc => {
+    deleteBatch.delete(doc.ref)
   })
+  await deleteBatch.commit()
+  setMessageCallback(`Snapped!`)
+
+  // insert new
+  const insertBatch = firebase.firestore().batch()
+  projects.forEach(p => {
+    var docRef = projectsRef.doc()
+    p.countAssigned = 0
+    insertBatch.set(docRef, Object.assign({}, p))
+  })
+
+  setMessageCallback(`Inserting ${projects.length} new projects...`)
+  await insertBatch.commit()
+  setMessageCallback('Insert done!')
 }
 
 export const getProject = async (user_id, setProjectCallback, setFeedbackCallback) => {
