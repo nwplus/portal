@@ -33,7 +33,7 @@ class Project {
     this.devpostUrl = entry['Submission Url']
     this.youtubeUrl = entry['Youtube Link'].trim().replace(/,$/, '')
     this.description = entry['Brief Description']
-    this.sponsorPrizes = entry['Opt-In Prizes'].replace(/['"]+/, '').split(', ')
+    this.sponsorPrizes = entry['Opt-In Prizes'].replace(/['"]+/g, '').split(', ')
 
     for (let i = 0; i < teamsize; i++) {
       const first = entry[`Team Member ${i + 1} First Name`]
