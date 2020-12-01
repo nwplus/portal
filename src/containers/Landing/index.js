@@ -33,7 +33,7 @@ const StyledLogoLockup = styled.img`
   top: 7em;
   margin: 0 50.5%;
   transform: translateX(-50%);
-  z-index: 200;
+  z-index: 1;
 `
 
 const StyledBanner = styled(Banner)`

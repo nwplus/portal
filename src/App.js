@@ -43,11 +43,11 @@ const PageRoute = ({ path, children }) => {
   )
 }
 
-const NavbarRoute = ({ path, children }) => {
+const NavbarRoute = ({ path, children, name, handleLogout }) => {
   // TODO: pass in name and handleLogout function into NavBar component
   return (
     <Route path={path}>
-      <Navbar />
+      <Navbar name={name} handleLogout={handleLogout} />
       {children}
     </Route>
   )
@@ -78,16 +78,20 @@ function App() {
         <GlobalStyle />
         <Switch>
           <Route path="/login">
-            <Navbar></Navbar>
+            <Navbar />
             <Login />
           </Route>
-          <NavbarRoute path="/application/review">
+          <NavbarRoute path="/application/review" name="Haku">
             <ApplicationReview />
           </NavbarRoute>
-          <NavbarRoute path="/application/confirmation">
+          <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
             <ApplicationConfirmation />
           </NavbarRoute>
-          <NavbarRoute path="/application/:part">
+          <NavbarRoute
+            path="/application/:part"
+            name="Haku"
+            handleLogout={() => console.log('Logout!')}
+          >
             {params => <ApplicationForm part={params.part} />}
           </NavbarRoute>
           <PageRoute path="/">
