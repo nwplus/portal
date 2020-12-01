@@ -114,7 +114,6 @@ function App() {
           <Quicklinks />
         </PageRoute>
         <Route>
-          {' '}
           {/* All auth related routes should go here */}
           <AuthProvider>
             <NoAuthRoute path="/login">
