@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { P } from './Typography'
 import icon from '../assets/nwhacks_icon.svg'
-import Button from './Button'
+import { Button } from './Input/Button'
 
 const NavContainer = styled.div`
   direction: rtl;
