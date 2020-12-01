@@ -38,7 +38,14 @@ export default ({ name, handleLogout }) => (
         Logout
       </Button>
     )}
-    {name && <Greeting>&#128540; Hi, {name}</Greeting>}
+    {name && (
+      <Greeting>
+        <span role="img" aria-label="tongue sticking out emoji">
+          &#128540;
+        </span>{' '}
+        Hi, {name}
+      </Greeting>
+    )}
     <Icon src={icon} alt="nwHacks icon" />
   </NavContainer>
 )
