@@ -2,11 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import logo from '../assets/logo.svg'
 import menu from '../assets/menu.svg'
-import { maxWidthMediaQueries } from './Common'
 
 const MobileMenuBarContainer = styled.div`
   display: none;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.maxWidth('mobile')} {
     padding: 15px;
     display: inline-block;
     text-align: center;

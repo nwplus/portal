@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { format } from 'timeago.js'
 import ReactMarkdown from 'react-markdown'
-import { Card, maxWidthMediaQueries } from './Common'
+import { Card } from './Common'
 import { H1, P, A } from './Typography'
 import NotificationToggle from '../containers/NotificationToggle'
 
@@ -29,7 +29,7 @@ const AnnouncementHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 0 1em 0;
-  ${maxWidthMediaQueries('xs')} {
+  ${p => p.theme.mediaQueries.maxWidth('xs')} {
     display: inline-block;
   }
 `

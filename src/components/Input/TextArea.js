@@ -45,7 +45,7 @@ export const TextArea = ({
   }, [maxLength, value])
 
   return (
-    <div className={className}>
+    <TextAreaContainer className={className}>
       <TextAreaBox
         value={value}
         width={width}
@@ -58,7 +58,7 @@ export const TextArea = ({
       {isLengthExceeded && (
         <ErrorMsg> Sorry! It looks like your answer is more than {maxLength} characters. </ErrorMsg>
       )}
-    </div>
+    </TextAreaContainer>
   )
 }
 

@@ -4,13 +4,12 @@ import { Button } from '../components/Input'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 import Quicklinks from '../components/Quicklinks'
-import { maxWidthMediaQueries } from '../components/Common'
 
 const ButtonContainer = styled.div`
   margin: 1em;
   display: flex;
   justify-content: center;
-  ${maxWidthMediaQueries('xs')} {
+  ${p => p.theme.mediaQueries.maxWidth('xs')} {
     display: inline-block;
     text-align: center;
     a {

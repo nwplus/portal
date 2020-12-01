@@ -1,17 +1,12 @@
 import styled, { css } from 'styled-components'
 import { P } from './Typography'
-import { SCREEN_BREAKPOINTS } from '../utility/Constants'
-
-export const maxWidthMediaQueries = size => {
-  return `@media only screen and (max-width: ${SCREEN_BREAKPOINTS[size]}px)`
-}
 
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.secondaryBackground};
   margin: 2em 0;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.maxWidth('mobile')} {
     padding: 1em;
     margin: 0.75em 0;
   }
@@ -27,7 +22,7 @@ export const DetailContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  ${maxWidthMediaQueries('desktop')} {
+  ${p => p.theme.mediaQueries.maxWidth('desktop')} {
     display: block;
   }
 `
@@ -40,7 +35,7 @@ export const DetailColumn = styled.ul`
   margin-right: 1em;
   padding: 0;
 
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.maxWidth('mobile')} {
     margin-right: 0em;
   }
 

@@ -1,5 +1,10 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
+import { SCREEN_BREAKPOINTS } from '../utility/Constants'
+
+const maxWidthMediaQueries = size => {
+  return `@media only screen and (max-width: ${SCREEN_BREAKPOINTS[size]}px)`
+}
 
 // eslint-disable-next-line
 const nwTheme = {
@@ -55,6 +60,9 @@ const nwTheme = {
   opacity: {
     disabled: 0.5,
   },
+  mediaQueries: {
+    maxWidth: maxWidthMediaQueries,
+  },
 }
 
 const hackcampTheme = {
@@ -107,6 +115,9 @@ const hackcampTheme = {
   },
   opacity: {
     disabled: 0.5,
+  },
+  mediaQueries: {
+    maxWidth: maxWidthMediaQueries,
   },
 }
 
