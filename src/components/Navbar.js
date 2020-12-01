@@ -25,8 +25,6 @@ const Icon = styled.img`
 `
 const Greeting = styled(P)`
   padding-right: 0.3em;
-  font-family: HK Grotesk;
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   z-index: 101;
