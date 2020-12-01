@@ -3,6 +3,9 @@ import { Button } from '../../components/Input'
 import { H1, H3, P } from '../../components/Typography'
 import Accordion from '../../components/Accordion'
 import styled from 'styled-components'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import { db, projectsRef } from '../../utility/firebase'
 
 const StyledTable = styled.table`
   width: 100%;
@@ -125,8 +128,35 @@ export default () => {
     }
   }
 
+  const deleteCollection = () => {
+    const batch = db.batch()
+    projectsRef.get().then(snapshot => {
+      snapshot.docs.forEach(doc => {
+        batch.delete(doc.ref)
+      })
+      batch.commit()
+    })
+  }
+
   const syncToFirebase = () => {
-    // TODO
+    // delete old projects
+    console.log('deleting old collection...')
+    deleteCollection()
+
+    // insert new
+    console.log(`insert ${projects.length} new projects...`)
+    const batch = firebase.firestore().batch()
+    projects.forEach(p => {
+      var docRef = projectsRef.doc()
+      p.countAssigned = 0
+      batch.set(docRef, Object.assign({}, p))
+    })
+    batch.commit()
+    console.log('insert done!')
+
+    // get list of users
+    // iterate projects, if any emails match
+    // associate user with project
   }
 
   const genTable = () => {
