@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { getLivesiteDoc } from '../../utility/firebase'
-import JudgingCard from '../../components/JudgingCard'
+import { getLivesiteDoc } from '../utility/firebase'
+import JudgingCard from '../components/JudgingCard'
 
 const Container = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ export default () => {
       description:
         'This project is a project that is very cool haha! This project is a project that is cool! This project is a project that is very cool!',
       imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/impostor',
+      devpost: 'https://devpost.com/software/impostor',
       title: 'Imposter',
       judged: true,
     },
@@ -31,28 +31,28 @@ export default () => {
       id: 'a7xh134',
       description: 'A tagline a A tagline A tagline A tagline',
       imgUrl: 'https://img.youtube.com/vi/nAepxZHybEc/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/readar-twh41m',
+      devpost: 'https://devpost.com/software/readar-twh41m',
       title: 'YEEEEEET',
     },
     {
       id: 'a7xh134',
       description: 'A tagline',
       imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/impostor',
+      devpost: 'https://devpost.com/software/impostor',
       title: 'YEEEEEET',
     },
     {
       id: 'a7xh134',
       description: 'A tagline A taglineA tagline A tagline',
       imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/readar-twh41m',
+      devpost: 'https://devpost.com/software/readar-twh41m',
       title: 'YEEEEEET11',
     },
     {
       id: 'a7xh134',
       description: 'A tagline',
       imgUrl: 'https://img.youtube.com/vi/nAepxZHybEc/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/impostor',
+      devpost: 'https://devpost.com/software/impostor',
       title: 'YEEEEEET3',
     },
   ])
