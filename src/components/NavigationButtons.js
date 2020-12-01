@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button } from './Button'
+import { Button } from './Input'
 import { I } from './Typography'
 import { SCREEN_BREAKPOINTS } from '../utility/Constants'
 
