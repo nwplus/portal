@@ -13,6 +13,7 @@ import {
   Quicklinks,
   Schedule,
   Judging,
+  JudgingAdmin,
   JudgingView,
   Submission,
   SubmissionCreate,
@@ -61,8 +62,8 @@ const NavbarRoute = ({ name, handleLogout, path, children }) => {
       </Navbar>
     </Route>
   ) : (
-    <Redirect to="/login" />
-  )
+      <Redirect to="/login" />
+    )
 }
 
 const AuthNav = ({ children }) => {
@@ -142,6 +143,9 @@ function App() {
           </PageRoute>
           <PageRoute path="/judging">
             <Judging />
+          </PageRoute>
+          <PageRoute path="/judging/admin">
+            <JudgingAdmin />
           </PageRoute>
           <Route path="/judging/view/:id">
             {params => (
