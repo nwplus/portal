@@ -139,7 +139,11 @@ const StyledButton = styled.a`
 `
 
 export const Button = props => (
-  <StyledButton tabIndex={props.disabled ? null : 0} {...props}>
+  <StyledButton
+    {...props}
+    tabIndex={props.disabled ? null : 0}
+    href={props.disabled ? null : props.href}
+  >
     {props.children}
   </StyledButton>
 )
