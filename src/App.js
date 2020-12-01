@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'wouter'
+import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
+import Navbar from './components/Navbar'
+
 import {
   Login,
   Charcuterie,
@@ -11,6 +13,7 @@ import {
   Quicklinks,
   Schedule,
   Judging,
+  JudgingAdmin,
   JudgingView,
   Submission,
   SubmissionCreate,
@@ -24,6 +27,7 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
+import { AuthProvider, logout, useAuth } from './utility/Auth'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -31,6 +35,32 @@ const notifyUser = announcement => {
   if (isRecent && notifications.areEnabled()) {
     notifications.trigger('New Announcement', announcement.content)
   }
+}
+
+const PageRoute = ({ path, children }) => {
+  return (
+    <Route path={path}>
+      <Page>{children}</Page>
+    </Route>
+  )
+}
+
+const AuthPageRoute = ({ path, children }) => {
+  const { isAuthed } = useAuth()
+  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+}
+
+const NavbarRoute = ({ path, children }) => {
+  // TODO: pass in name and handleLogout function into NavBar component
+  const { isAuthed, user } = useAuth()
+  return isAuthed ? (
+    <Route path={path}>
+      <Navbar name={user.displayName} handleLogout={logout} />
+      {children}
+    </Route>
+  ) : (
+    <Redirect to="/login" />
+  )
 }
 
 function App() {
@@ -53,62 +83,72 @@ function App() {
   }, [])
 
   return (
-    <>
+    <AuthProvider>
       <ThemeProvider>
         <GlobalStyle />
         <Switch>
           <Route path="/login">
+            <Navbar />
             <Login />
           </Route>
-          <Route path="/application/review">
+          <NavbarRoute path="/application/review">
             <ApplicationReview />
-          </Route>
-          <Route path="/application/confirmation">
+          </NavbarRoute>
+          <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
             <ApplicationConfirmation />
-          </Route>
-          <Route path="/application/:part">
+          </NavbarRoute>
+          <NavbarRoute path="/application/:part">
             {params => <ApplicationForm part={params.part} />}
+          </NavbarRoute>
+          <PageRoute path="/">
+            <Home />
+          </PageRoute>
+          <AuthPageRoute path="/application">
+            <Application />
+          </AuthPageRoute>
+          <PageRoute path="/charcuterie">
+            <Charcuterie />
+          </PageRoute>
+          <PageRoute path="/faq">
+            <Faq />
+          </PageRoute>
+          <PageRoute path="/schedule">
+            <Schedule />
+          </PageRoute>
+          <PageRoute path="/sponsors">
+            <Sponsors />
+          </PageRoute>
+          <PageRoute path="/quicklinks">
+            <Quicklinks />
+          </PageRoute>
+          <PageRoute path="/judging">
+            <Judging />
+          </PageRoute>
+          <PageRoute path="/judging/admin">
+            <JudgingAdmin />
+          </PageRoute>
+          <Route path="/judging/view/:id">
+            {params => (
+              <Page>
+                <JudgingView id={params.id} />
+              </Page>
+            )}
           </Route>
-          <Page>
-            <Route path="/">
-              <Home />
-            </Route>
-            <Route path="/application">
-              <Application />
-            </Route>
-            <Route path="/charcuterie">
-              <Charcuterie />
-            </Route>
-            <Route path="/faq">
-              <Faq />
-            </Route>
-            <Route path="/schedule">
-              <Schedule />
-            </Route>
-            <Route path="/sponsors">
-              <Sponsors />
-            </Route>
-            <Route path="/quicklinks">
-              <Quicklinks />
-            </Route>
-            <Route path="/judging">
-              <Judging />
-            </Route>
-            <Route path="/judging/view/:id">{params => <JudgingView id={params.id} />}</Route>
-            <Route path="/submission">
-              <Submission />
-            </Route>
-            <Route path="/submission/create">
-              <SubmissionCreate />
-            </Route>
-            <Route path="/submission/edit">
-              <SubmissionEdit />
-            </Route>
-            <Route>Page Not Found!</Route>
-          </Page>
+          <PageRoute path="/submission">
+            <Submission />
+          </PageRoute>
+          <PageRoute path="/submission/create">
+            <SubmissionCreate />
+          </PageRoute>
+          <PageRoute path="/submission/edit">
+            <SubmissionEdit />
+          </PageRoute>
+          <Route>
+            <Page>Page Not Found!</Page>
+          </Route>
         </Switch>
       </ThemeProvider>
-    </>
+    </AuthProvider>
   )
 }
 

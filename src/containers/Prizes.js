@@ -60,8 +60,20 @@ export default () => {
     getPrizes()
       .then(docs => {
         let prizes = {}
-        prizes.main = Object.values(docs.filter(doc => typeof doc.data().place === 'number'))
-        prizes.sponsor = Object.values(docs.filter(doc => !doc.data().place))
+        prizes.main = Object.values(
+          docs.reduce((result, doc) => {
+            const data = doc.data()
+            typeof doc.data().place === 'number' && result.push(data)
+            return result
+          }, [])
+        )
+        prizes.sponsor = Object.values(
+          docs.reduce((result, doc) => {
+            const data = doc.data()
+            !doc.data().place && result.push(data)
+            return result
+          }, [])
+        )
         return prizes
       })
       .then(prizes => {

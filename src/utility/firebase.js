@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import { getYoutubeThumbnail } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -19,6 +20,8 @@ if (!firebase.apps.length) {
 export const db = firebase.firestore()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
+export const applicantsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Applicants')
+export const projectsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Projects')
 
 export const getLivesiteDoc = callback => {
   return livesiteDocRef.onSnapshot(doc => {
@@ -35,4 +38,57 @@ export const getSponsors = () => {
     .then(querySnapshot => {
       return querySnapshot.docs
     })
+}
+
+export const syncToFirebase = async (projects, setMessageCallback) => {
+  // delete old projects
+  setMessageCallback(`Snapping old projects...`)
+  const snapshot = await projectsRef.get()
+
+  const deleteBatch = db.batch()
+  snapshot.docs.forEach(doc => {
+    deleteBatch.delete(doc.ref)
+  })
+  await deleteBatch.commit()
+  setMessageCallback(`Snapped!`)
+
+  // insert new
+  const insertBatch = firebase.firestore().batch()
+  projects.forEach(p => {
+    var docRef = projectsRef.doc()
+    p.countAssigned = 0
+    insertBatch.set(docRef, Object.assign({}, p))
+  })
+
+  setMessageCallback(`Inserting ${projects.length} new projects...`)
+  await insertBatch.commit()
+  setMessageCallback('Insert done!')
+}
+
+export const getProject = async (user_id, setProjectCallback, setFeedbackCallback) => {
+  const application = await applicantsRef.doc(user_id).get()
+  const team = await application.data().team.get()
+  team
+    .data()
+    .project.get()
+    .then(doc => {
+      const projectData = doc.data()
+      projectData.imgUrl = getYoutubeThumbnail(projectData.youtubeUrl)
+      projectData.href = projectData.devpostUrl
+      setProjectCallback(projectData)
+    })
+  if (!!setFeedbackCallback) {
+    team
+      .data()
+      .project.collection('Grades')
+      .orderBy('notes')
+      .get()
+      .then(doc => {
+        const feedback = doc.docs.map(doc => {
+          const docData = doc.data()
+          return docData.notes
+        })
+        setFeedbackCallback(feedback)
+      })
+  }
 }
