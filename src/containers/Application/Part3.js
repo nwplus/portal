@@ -17,6 +17,7 @@ const StyledTextInput = styled(TextInput)`
 
 // form part 3
 export default () => {
+  // eslint-disable-next-line no-unused-vars
   const [selectedOption, setSelectedOption] = useState('')
   const [otherOption, setOtherOption] = useState('')
   const [showOther, setShowOther] = useState('')
