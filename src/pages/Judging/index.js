@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { getLivesiteDoc } from '../../utility/firebase'
+import { getLivesiteDoc, applicantsRef } from '../../utility/firebase'
 import JudgingCard from '../../components/JudgingCard'
+
+//TODO: Get from auth or local storage
+const USER_ID = 'aIwA36q0kOw7rDDlCkB2'
 
 const Container = styled.div`
   display: flex;
@@ -34,28 +37,15 @@ export default () => {
       devpostUrl: 'https://devpost.com/software/readar-twh41m',
       title: 'YEEEEEET',
     },
-    {
-      id: 'a7xh134',
-      description: 'A tagline',
-      imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/impostor',
-      title: 'YEEEEEET',
-    },
-    {
-      id: 'a7xh134',
-      description: 'A tagline A taglineA tagline A tagline',
-      imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/readar-twh41m',
-      title: 'YEEEEEET11',
-    },
-    {
-      id: 'a7xh134',
-      description: 'A tagline',
-      imgUrl: 'https://img.youtube.com/vi/nAepxZHybEc/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/impostor',
-      title: 'YEEEEEET3',
-    },
   ])
+
+  useEffect(() => {
+    ;(async () => {
+      const applicantDoc = await applicantsRef.doc(USER_ID).get()
+      const applicant = applicantDoc.data()
+      console.log(applicant)
+    })()
+  }, [setIsJudgingOpen])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
@@ -72,6 +62,7 @@ export default () => {
         return (
           <StyledJudgingCard
             {...project}
+            key={project.id}
             buttonLabel={project.judged ? 'Already Judged' : 'Judge this Submission'}
             buttonDisabled={project.judged}
             href={`judging/view/${project.id}`}
