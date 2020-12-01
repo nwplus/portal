@@ -40,6 +40,29 @@ export const getSponsors = () => {
     })
 }
 
+export const syncToFirebase = async (projects, setMessageCallback) => {
+  // delete old projects
+  setMessageCallback(`Snapping old projects...`)
+  const batch = db.batch()
+  projectsRef.get().then(snapshot => {
+    snapshot.docs.forEach(doc => {
+      batch.delete(doc.ref)
+    })
+    batch.commit().then(() => {
+      setMessageCallback(`Snapped!`)
+      // insert new
+      const batch = firebase.firestore().batch()
+      projects.forEach(p => {
+        var docRef = projectsRef.doc()
+        p.countAssigned = 0
+        batch.set(docRef, Object.assign({}, p))
+      })
+      setMessageCallback(`Inserting ${projects.length} new projects...`)
+      batch.commit().then(() => setMessageCallback('Insert done!'))
+    })
+  })
+}
+
 export const getProject = async (user_id, setProjectCallback, setFeedbackCallback) => {
   const application = await applicantsRef.doc(user_id).get()
   const team = await application.data().team.get()

@@ -3,10 +3,9 @@ import { Button } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
 import Accordion from '../components/Accordion'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import { db, projectsRef } from '../utility/firebase'
+import { syncToFirebase } from '../utility/firebase'
 import ProjectTable from '../components/ProjectTable'
+import SponsorSubmissions from '../components/SponsorSubmissions'
 
 class CSV {
   constructor(data) {
@@ -34,7 +33,7 @@ class Project {
     this.devpostUrl = entry['Submission Url']
     this.youtubeUrl = entry['Youtube Link'].trim().replace(/,$/, '')
     this.description = entry['Brief Description']
-    this.sponsorPrizes = entry['Opt-In Prizes'].replace(/['"]+/g, '').split(', ')
+    this.sponsorPrizes = entry['Opt-In Prizes'].replace(/['"]+/, '').split(', ')
 
     for (let i = 0; i < teamsize; i++) {
       const first = entry[`Team Member ${i + 1} First Name`]
@@ -97,27 +96,8 @@ export default () => {
     }
   }
 
-  const syncToFirebase = async () => {
-    // delete old projects
-    setMessage(`Snapping old projects...`)
-    const batch = db.batch()
-    projectsRef.get().then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        batch.delete(doc.ref)
-      })
-      batch.commit().then(() => {
-        setMessage(`Snapped!`)
-        // insert new
-        const batch = firebase.firestore().batch()
-        projects.forEach(p => {
-          var docRef = projectsRef.doc()
-          p.countAssigned = 0
-          batch.set(docRef, Object.assign({}, p))
-        })
-        setMessage(`Inserting ${projects.length} new projects...`)
-        batch.commit().then(() => setMessage('Insert done!'))
-      })
-    })
+  const sync = () => {
+    return syncToFirebase(projects, setMessage)
   }
 
   return (
@@ -136,25 +116,14 @@ export default () => {
         <Button no_margin color="tertiary" onClick={uploadClickHandler}>
           Upload
         </Button>
-        <Button width="flex" color="tertiary" onClick={syncToFirebase}>
+        <Button width="flex" color="tertiary" onClick={sync}>
           Sync {projects.length} projects to Firebase
         </Button>
         <Accordion heading="Project List">
           <ProjectTable projects={projects} />
         </Accordion>
       </Card>
-      <div>
-        <H1>Sponsor Judging</H1>
-        {Object.keys(sponsorPrizes).map(prize => (
-          <Accordion heading={prize} key={prize}>
-            <ul>
-              {sponsorPrizes[prize].map((submission, i) => (
-                <li key={i}>{submission}</li>
-              ))}
-            </ul>
-          </Accordion>
-        ))}
-      </div>
+      <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
     </div>
   )
 }
