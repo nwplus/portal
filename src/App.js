@@ -126,10 +126,7 @@ function App() {
             <NavbarAuthRoute path="/application/review">
               <ApplicationReview />
             </NavbarAuthRoute>
-            <NavbarAuthRoute
-              path="/application/confirmation"
-              handleLogout={() => console.log('Logout!')}
-            >
+            <NavbarAuthRoute path="/application/confirmation">
               <ApplicationConfirmation />
             </NavbarAuthRoute>
             <NavbarAuthRoute path="/application/:part">
