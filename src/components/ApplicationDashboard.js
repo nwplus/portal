@@ -73,6 +73,7 @@ const FooterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: -24px;
 `
 
 const SocialMediaIcons = styled.img`
