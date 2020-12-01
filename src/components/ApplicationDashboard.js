@@ -10,7 +10,7 @@ import twitter from '../assets/icons/twitter.svg'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 
 const Container = styled.div`
-  margin: 5em auto 10em;
+  margin: 5em auto;
   width: 70%;
 `
 
@@ -50,7 +50,7 @@ const StatusContainer = styled.div`
   min-height: 350px;
   padding: 2.5em 4.5em 2.5em 3em;
   border-radius: 21px;
-  background-color: rgba(75, 65, 130, 0.2);
+  background-color: ${p => p.theme.colors.applicationCard};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -64,9 +64,8 @@ const AppStatusText = styled.p`
 
 const StatusBlurbText = styled.p`
   color: ${p => p.theme.colors.primary};
-  font-size: 1.5em;
   font-weight: 700;
-  line-height: 1.5em;
+  line-height: 2em;
   margin-top: 0.75em;
 `
 

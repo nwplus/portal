@@ -33,7 +33,7 @@ const nwTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
-    appDashboardCard: 'rgba(75, 65, 130, 0.2)',
+    applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
   typography: {
     h1: {
@@ -85,7 +85,7 @@ const hackcampTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
-    appDashboardCard: 'rgba(75, 65, 130, 0.2)', // TODO
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
   typography: {
     h1: {
