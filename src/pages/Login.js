@@ -8,9 +8,12 @@ import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
 import { useLocation } from 'wouter'
 import { ErrorBanner } from '../components/ErrorBanner'
+import { A } from '../components/Typography'
 
-const ErrorMessage =
-  'There was an issue logging you in. If this persists, please contact info@nwplus.io.'
+const ErrorMessage = <>
+  There was an issue logging you in. If this persists, please contact" 
+  <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
+</>
 
 const BoundingBox = styled.img`
   margin: 0 0.75em;
