@@ -45,7 +45,7 @@ export default () => {
     setShowError(true)
     setTimeout(() => {
       setShowError(false)
-    }, 5000)
+    }, 10000)
   }
 
   const signInWithGoogle = async () => {
