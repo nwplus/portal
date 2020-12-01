@@ -77,7 +77,6 @@ const NoAuthRoute = ({ path, children }) => {
 
 const ApplicationFormContainer = ({ params }) => {
   const { isAuthed, user } = useAuth()
-  console.log('part: ' + params.part)
   return isAuthed ? (
     <>
       <Navbar name={user.displayName} handleLogout={logout} />
