@@ -68,9 +68,7 @@ export default ({ project, score, onChange, onSubmit }) => {
       </Column>
       <Column>
         <H2>How do I judge a project?</H2>
-        <P>
-          Please judge the project on the left. Hover over the ? icons to see the scoring criteria.
-        </P>
+        <P>Please judge the project on the left</P>
         <ScoreInput id="tech" label="Technology" score={score} onChange={onChange} />
         <ScoreInput id="design" label="Design" score={score} onChange={onChange} />
         <ScoreInput id="functionality" label="Functionality" score={score} onChange={onChange} />
