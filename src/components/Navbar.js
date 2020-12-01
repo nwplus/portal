@@ -15,7 +15,6 @@ const NavContainer = styled.div`
   margin-right: auto;
   align-items: center;
   background: transparent;
-  backdrop-filter: blur(5px);
   z-index: 100;
 `
 
@@ -25,10 +24,15 @@ const Icon = styled.img`
   height: 42px;
 `
 const Greeting = styled(P)`
-  padding-right: 1vw;
+  padding-right: 0.3em;
+  font-family: HK Grotesk;
+  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   z-index: 101;
+  text-shadow: -1px 0 ${p => p.theme.colors.greetingBorder},
+    0 1px ${p => p.theme.colors.greetingBorder}, 1px 0 ${p => p.theme.colors.greetingBorder},
+    0 -1px ${p => p.theme.colors.greetingBorder};
 `
 
 export default ({ name, handleLogout }) => (
@@ -39,12 +43,12 @@ export default ({ name, handleLogout }) => (
       </Button>
     )}
     {name && (
-      <Greeting>
+      <>
         <span role="img" aria-label="tongue sticking out emoji">
           &#128540;
-        </span>{' '}
-        Hi, {name}
-      </Greeting>
+        </span>
+        <Greeting>Hi, {name}</Greeting>
+      </>
     )}
     <Icon src={icon} alt="nwHacks icon" />
   </NavContainer>

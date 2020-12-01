@@ -33,6 +33,7 @@ const nwTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
   },
   typography: {
     h1: {
@@ -84,6 +85,7 @@ const hackcampTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
   },
   typography: {
     h1: {
