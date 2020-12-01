@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'wouter'
+import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import Navbar from './components/Navbar'
@@ -26,6 +26,7 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
+import { AuthProvider, logout, useAuth } from './utility/Auth'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -43,13 +44,21 @@ const PageRoute = ({ path, children }) => {
   )
 }
 
-const NavbarRoute = ({ path, children, name, handleLogout }) => {
+const AuthPageRoute = ({ path, children }) => {
+  const { isAuthed } = useAuth()
+  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+}
+
+const NavbarRoute = ({ path, children }) => {
   // TODO: pass in name and handleLogout function into NavBar component
-  return (
+  const { isAuthed, user } = useAuth()
+  return isAuthed ? (
     <Route path={path}>
-      <Navbar name={name} handleLogout={handleLogout} />
+      <Navbar name={user.displayName} handleLogout={logout} />
       {children}
     </Route>
+  ) : (
+    <Redirect to="/login" />
   )
 }
 
@@ -73,7 +82,7 @@ function App() {
   }, [])
 
   return (
-    <>
+    <AuthProvider>
       <ThemeProvider>
         <GlobalStyle />
         <Switch>
@@ -81,29 +90,21 @@ function App() {
             <Navbar />
             <Login />
           </Route>
-          <NavbarRoute
-            path="/application/review"
-            name="Haku"
-            handleLogout={() => console.log('Logout!')}
-          >
+          <NavbarRoute path="/application/review">
             <ApplicationReview />
           </NavbarRoute>
           <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
             <ApplicationConfirmation />
           </NavbarRoute>
-          <NavbarRoute
-            path="/application/:part"
-            name="Haku"
-            handleLogout={() => console.log('Logout!')}
-          >
+          <NavbarRoute path="/application/:part">
             {params => <ApplicationForm part={params.part} />}
           </NavbarRoute>
           <PageRoute path="/">
             <Home />
           </PageRoute>
-          <PageRoute path="/application">
+          <AuthPageRoute path="/application">
             <Application />
-          </PageRoute>
+          </AuthPageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
           </PageRoute>
@@ -143,7 +144,7 @@ function App() {
           </Route>
         </Switch>
       </ThemeProvider>
-    </>
+    </AuthProvider>
   )
 }
 
