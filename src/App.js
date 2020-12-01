@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
+import Navbar from './components/Navbar'
+
 import {
   Login,
   Charcuterie,
@@ -45,6 +47,14 @@ const PageRoute = ({ path, children }) => {
 const AuthRoute = ({ path, children }) => {
   const { isAuthed } = useAuth()
   return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+const NavbarRoute = ({ path, children, name, handleLogout }) => {
+  // TODO: pass in name and handleLogout function into NavBar component
+  return (
+    <Route path={path}>
+      <Navbar name={name} handleLogout={handleLogout} />
+      {children}
+    </Route>
+  )
 }
 
 function App() {
@@ -69,62 +79,67 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <AuthProvider>
-          <GlobalStyle />
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <AuthRoute path="/application/review">
-              <ApplicationReview />
-            </AuthRoute>
-            <AuthRoute path="/application/confirmation">
-              <ApplicationConfirmation />
-            </AuthRoute>
-            <AuthRoute path="/application/:part">
-              {params => <ApplicationForm part={params.part} />}
-            </AuthRoute>
-            <PageRoute path="/">
-              <Home />
-            </PageRoute>
-            <AuthRoute path="/application">
-              <Application />
-            </AuthRoute>
-            <PageRoute path="/charcuterie">
-              <Charcuterie />
-            </PageRoute>
-            <PageRoute path="/faq">
-              <Faq />
-            </PageRoute>
-            <PageRoute path="/schedule">
-              <Schedule />
-            </PageRoute>
-            <PageRoute path="/sponsors">
-              <Sponsors />
-            </PageRoute>
-            <PageRoute path="/quicklinks">
-              <Quicklinks />
-            </PageRoute>
-            <PageRoute path="/judging">
-              <Judging />
-            </PageRoute>
-            <PageRoute path="/judging/view/:id">
-              {params => <JudgingView id={params.id} />}
-            </PageRoute>
-            <PageRoute path="/submission">
-              <Submission />
-            </PageRoute>
-            <PageRoute path="/submission/create">
-              <SubmissionCreate />
-            </PageRoute>
-            <PageRoute path="/submission/edit">
-              <SubmissionEdit />
-            </PageRoute>
-            <Route>
-              <Page>Page Not Found!</Page>
-            </Route>
-          </Switch>
-        </AuthProvider>
+        <GlobalStyle />
+        <Switch>
+          <Route path="/login">
+            <Navbar />
+            <Login />
+          </Route>
+          <NavbarRoute
+            path="/application/review"
+            name="Haku"
+            handleLogout={() => console.log('Logout!')}
+          >
+            <ApplicationReview />
+          </NavbarRoute>
+          <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
+            <ApplicationConfirmation />
+          </NavbarRoute>
+          <NavbarRoute
+            path="/application/:part"
+            name="Haku"
+            handleLogout={() => console.log('Logout!')}
+          >
+            {params => <ApplicationForm part={params.part} />}
+          </NavbarRoute>
+          <PageRoute path="/">
+            <Home />
+          </PageRoute>
+          <PageRoute path="/application">
+            <Application />
+          </PageRoute>
+          <PageRoute path="/charcuterie">
+            <Charcuterie />
+          </PageRoute>
+          <PageRoute path="/faq">
+            <Faq />
+          </PageRoute>
+          <PageRoute path="/schedule">
+            <Schedule />
+          </PageRoute>
+          <PageRoute path="/sponsors">
+            <Sponsors />
+          </PageRoute>
+          <PageRoute path="/quicklinks">
+            <Quicklinks />
+          </PageRoute>
+          <PageRoute path="/judging">
+            <Judging />
+          </PageRoute>
+          <PageRoute path="/judging/view/:id">{params => <JudgingView id={params.id} />}</PageRoute>
+          <PageRoute path="/submission">
+            <Submission />
+          </PageRoute>
+          <PageRoute path="/submission/create">
+            <SubmissionCreate />
+          </PageRoute>
+          <PageRoute path="/submission/edit">
+            <SubmissionEdit />
+          </PageRoute>
+          <Route>
+            <Page>Page Not Found!</Page>
+          </Route>
+        </Switch>
       </ThemeProvider>
     </>
   )
