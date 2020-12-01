@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import Navbar from './components/Navbar'
-
 import {
   Login,
   Charcuterie,
@@ -43,16 +41,6 @@ const PageRoute = ({ path, children }) => {
   )
 }
 
-const NavbarRoute = ({ path, children, name, handleLogout }) => {
-  // TODO: pass in name and handleLogout function into NavBar component
-  return (
-    <Route path={path}>
-      <Navbar name={name} handleLogout={handleLogout} />
-      {children}
-    </Route>
-  )
-}
-
 function App() {
   useEffect(() => {
     const unsubscribe = db
@@ -78,26 +66,17 @@ function App() {
         <GlobalStyle />
         <Switch>
           <Route path="/login">
-            <Navbar />
             <Login />
           </Route>
-          <NavbarRoute
-            path="/application/review"
-            name="Haku"
-            handleLogout={() => console.log('Logout!')}
-          >
+          <Route path="/application/review">
             <ApplicationReview />
-          </NavbarRoute>
-          <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
+          </Route>
+          <Route path="/application/confirmation">
             <ApplicationConfirmation />
-          </NavbarRoute>
-          <NavbarRoute
-            path="/application/:part"
-            name="Haku"
-            handleLogout={() => console.log('Logout!')}
-          >
+          </Route>
+          <Route path="/application/:part">
             {params => <ApplicationForm part={params.part} />}
-          </NavbarRoute>
+          </Route>
           <PageRoute path="/">
             <Home />
           </PageRoute>
