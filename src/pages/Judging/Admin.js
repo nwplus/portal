@@ -2,43 +2,10 @@ import React, { useRef, useState } from 'react'
 import { Button } from '../../components/Input'
 import { H1, H3, P } from '../../components/Typography'
 import Accordion from '../../components/Accordion'
-import styled from 'styled-components'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { db, projectsRef } from '../../utility/firebase'
-
-const StyledTable = styled.table`
-  width: 100%;
-  border: none;
-  border-collapse: collapse;
-`
-
-const StyledRow = styled.tr`
-  &:nth-child(even) {
-    background-color: ${p => p.theme.colors.secondaryBackground};
-  }
-
-  &:hover {
-    background-color: ${p => p.theme.colors.background};
-  }
-
-  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-`
-
-const StyledTd = styled.td`
-  padding: 0.2em 0.5em;
-
-  & > a {
-    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-    color: ${p => p.theme.colors.link};
-    &:hover {
-      color: ${p => p.theme.colors.linkHover};
-    }
-    &:focus {
-      color: ${p => p.theme.colors.linkHover};
-    }
-  }
-`
+import ProjectTable from '../../components/ProjectTable'
 
 class CSV {
   constructor(data) {
@@ -128,16 +95,6 @@ export default () => {
     }
   }
 
-  const deleteCollection = () => {
-    const batch = db.batch()
-    projectsRef.get().then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        batch.delete(doc.ref)
-      })
-      batch.commit()
-    })
-  }
-
   const syncToFirebase = async () => {
     // delete old projects
     console.log('deleting old collection...')
@@ -164,32 +121,6 @@ export default () => {
     // associate user with project
   }
 
-  const genTable = () => {
-    return (
-      <StyledTable>
-        <tbody>
-          <StyledRow>
-            <th>Title</th>
-            <th>Team Members</th>
-            <th>Team Member Emails</th>
-            <th>Devpost</th>
-          </StyledRow>
-          {projects &&
-            projects.map((p, i) => (
-              <StyledRow key={i}>
-                <StyledTd>{p.title}</StyledTd>
-                <StyledTd>{p.teamMembers.join(', ')}</StyledTd>
-                <StyledTd>{p.teamMembersEmails.join(', ')}</StyledTd>
-                <StyledTd>
-                  <a href={p.devpostUrl}>Devpost</a>
-                </StyledTd>
-              </StyledRow>
-            ))}
-        </tbody>
-      </StyledTable>
-    )
-  }
-
   return (
     <div>
       <H1>Submissions</H1>
@@ -199,7 +130,7 @@ export default () => {
       <Button color="tertiary" onClick={uploadClickHandler}>
         Upload
       </Button>
-      {genTable()}
+      <ProjectTable projects={projects} />
       <Button width="flex" color="tertiary" onClick={syncToFirebase}>
         Sync {projects.length} projects to Firebase
       </Button>
