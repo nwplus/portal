@@ -20,6 +20,7 @@ export const applicantStatus = Object.freeze({
   attending: 'attending',
   new: 'new',
   applied: 'applied',
+  accepted: 'accepted',
   inProgress: 'inProgress',
 })
 
