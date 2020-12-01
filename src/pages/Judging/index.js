@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { getLivesiteDoc, applicantsRef } from '../../utility/firebase'
+import { firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
+import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/JudgingCard'
 
 //TODO: Get from auth or local storage
@@ -15,35 +16,44 @@ const StyledJudgingCard = styled(JudgingCard)`
   margin: 0 2em 2em 0;
 `
 
+const getProjectIdsToAssign = async () => {
+  const projectDocs = await projectsRef.orderBy('countAssigned').limit(3).get()
+  return projectDocs.docs.map(project => project.id)
+}
+
+const assignProjects = async projectIds => {
+  projectIds.forEach(projectId => {
+    projectsRef.doc(projectId).update({ countAssigned: firestore.FieldValue.increment(1) })
+  })
+  applicantsRef.doc(USER_ID).update({ projectsAssigned: projectIds })
+}
+
+const getProjectsData = async projectIds => {
+  const projectsDocs = await projectsRef
+    .where(firestore.FieldPath.documentId(), 'in', projectIds)
+    .get()
+  return projectsDocs.docs.map(project => {
+    return formatProject({ ...project.data(), id: project.id })
+  })
+}
+
 export default () => {
   const [isJudgingOpen, setIsJudgingOpen] = useState(false)
 
   // TODO: Get from firebase
   // eslint-disable-next-line no-unused-vars
-  const [projects, setProjects] = useState([
-    {
-      id: '42069',
-      description:
-        'This project is a project that is very cool haha! This project is a project that is cool! This project is a project that is very cool!',
-      imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/impostor',
-      title: 'Imposter',
-      judged: true,
-    },
-    {
-      id: 'a7xh134',
-      description: 'A tagline a A tagline A tagline A tagline',
-      imgUrl: 'https://img.youtube.com/vi/nAepxZHybEc/maxresdefault.jpg',
-      devpostUrl: 'https://devpost.com/software/readar-twh41m',
-      title: 'YEEEEEET',
-    },
-  ])
+  const [projects, setProjects] = useState([])
 
   useEffect(() => {
     ;(async () => {
       const applicantDoc = await applicantsRef.doc(USER_ID).get()
-      const applicant = applicantDoc.data()
-      console.log(applicant)
+      let { projectsAssigned } = applicantDoc.data()
+      if (!projectsAssigned) {
+        projectsAssigned = await getProjectIdsToAssign()
+        assignProjects(projectsAssigned)
+      }
+      const projectData = await getProjectsData(projectsAssigned)
+      setProjects(projectData)
     })()
   }, [setIsJudgingOpen])
 
