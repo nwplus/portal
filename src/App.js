@@ -3,7 +3,7 @@ import { Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import Navbar from './components/Navbar'
-
+import Form from './components/ApplicationForm'
 import {
   Login,
   Charcuterie,
@@ -44,11 +44,11 @@ const PageRoute = ({ path, children }) => {
 }
 
 const NavbarRoute = ({ path, children, name, handleLogout }) => {
-  // TODO: pass in name and handleLogout function into NavBar component
   return (
     <Route path={path}>
-      <Navbar name={name} handleLogout={handleLogout} />
-      {children}
+      <Navbar name={name} handleLogout={handleLogout}>
+        <Form>{children}</Form>
+      </Navbar>
     </Route>
   )
 }
@@ -77,27 +77,26 @@ function App() {
       <ThemeProvider>
         <GlobalStyle />
         <Switch>
-          <Route path="/login">
-            <Navbar />
+          <NavbarRoute path="/login">
             <Login />
-          </Route>
+          </NavbarRoute>
           <NavbarRoute
-            path="/application/review"
             name="Haku"
-            handleLogout={() => console.log('Logout!')}
+            handleLogout={() => console.log('Logout')}
+            path="/application/review"
           >
             <ApplicationReview />
           </NavbarRoute>
-          <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
+          <NavbarRoute handleLogout={() => console.log('Logout')} path="/application/confirmation">
             <ApplicationConfirmation />
           </NavbarRoute>
-          <NavbarRoute
-            path="/application/:part"
-            name="Haku"
-            handleLogout={() => console.log('Logout!')}
-          >
-            {params => <ApplicationForm part={params.part} />}
-          </NavbarRoute>
+          <Route path="/application/:part">
+            {params => (
+              <Navbar name="Haku" handleLogout={() => console.log('Logout')}>
+                <ApplicationForm part={params.part} />
+              </Navbar>
+            )}
+          </Route>
           <PageRoute path="/">
             <Home />
           </PageRoute>
