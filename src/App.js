@@ -116,44 +116,46 @@ function App() {
         <Route>
           {/* All auth related routes should go here */}
           <AuthProvider>
-            <NoAuthRoute path="/login">
-              <Navbar />
-              <Login />
-            </NoAuthRoute>
-            <AuthPageRoute path="/application">
-              <Application />
-            </AuthPageRoute>
-            <NavbarAuthRoute path="/application/review">
-              <ApplicationReview />
-            </NavbarAuthRoute>
-            <NavbarAuthRoute path="/application/confirmation">
-              <ApplicationConfirmation />
-            </NavbarAuthRoute>
-            <NavbarAuthRoute path="/application/:part">
-              {params => <ApplicationForm part={params.part} />}
-            </NavbarAuthRoute>
-            <AuthPageRoute path="/judging">
-              <Judging />
-            </AuthPageRoute>
-            <PageRoute path="/judging/admin">
-              <JudgingAdmin />
-            </PageRoute>
-            <AuthPageRoute path="/judging/view/:id">
-              {params => <JudgingView id={params.id} />}
-            </AuthPageRoute>
-            <AuthPageRoute path="/submission">
-              <Submission />
-            </AuthPageRoute>
-            <AuthPageRoute path="/submission/create">
-              <SubmissionCreate />
-            </AuthPageRoute>
-            <AuthPageRoute path="/submission/edit">
-              <SubmissionEdit />
-            </AuthPageRoute>
+            <Switch>
+              <NoAuthRoute path="/login">
+                <Navbar />
+                <Login />
+              </NoAuthRoute>
+              <AuthPageRoute path="/application">
+                <Application />
+              </AuthPageRoute>
+              <NavbarAuthRoute path="/application/review">
+                <ApplicationReview />
+              </NavbarAuthRoute>
+              <NavbarAuthRoute path="/application/confirmation">
+                <ApplicationConfirmation />
+              </NavbarAuthRoute>
+              <NavbarAuthRoute path="/application/:part">
+                {params => <ApplicationForm part={params.part} />}
+              </NavbarAuthRoute>
+              <AuthPageRoute path="/judging">
+                <Judging />
+              </AuthPageRoute>
+              <PageRoute path="/judging/admin">
+                <JudgingAdmin />
+              </PageRoute>
+              <AuthPageRoute path="/judging/view/:id">
+                {params => <JudgingView id={params.id} />}
+              </AuthPageRoute>
+              <AuthPageRoute path="/submission">
+                <Submission />
+              </AuthPageRoute>
+              <AuthPageRoute path="/submission/create">
+                <SubmissionCreate />
+              </AuthPageRoute>
+              <AuthPageRoute path="/submission/edit">
+                <SubmissionEdit />
+              </AuthPageRoute>
+              <Route path="/:rest*">
+                <Page>Page Not Found!</Page>
+              </Route>
+            </Switch>
           </AuthProvider>
-          <Route path="/:rest">
-            <Page>Page Not Found!</Page>
-          </Route>
         </Route>
       </Switch>
     </ThemeProvider>
