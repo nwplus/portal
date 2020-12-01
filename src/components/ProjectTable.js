@@ -8,8 +8,8 @@ const StyledTable = styled.table`
 `
 
 const StyledRow = styled.tr`
-  &:nth-child(even) {
-    background-color: ${p => p.theme.colors.secondaryBackground};
+  &:nth-child(odd) {
+    background-color: ${p => p.theme.colors.background};
   }
 
   &:hover {
@@ -17,6 +17,11 @@ const StyledRow = styled.tr`
   }
 
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+`
+
+const StyledHeader = styled.th`
+  padding: 0.5em 0.25em;
+  background-color: ${p => p.theme.colors.background};
 `
 
 const StyledTd = styled.td`
@@ -38,10 +43,10 @@ export default ({ projects }) => (
   <StyledTable>
     <tbody>
       <StyledRow>
-        <th>Title</th>
-        <th>Team Members</th>
-        <th>Team Member Emails</th>
-        <th>Devpost</th>
+        <StyledHeader>Title</StyledHeader>
+        <StyledHeader>Team Members</StyledHeader>
+        <StyledHeader>Team Member Emails</StyledHeader>
+        <StyledHeader>Devpost</StyledHeader>
       </StyledRow>
       {projects &&
         projects.map((p, i) => (

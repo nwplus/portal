@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Button } from '../components/Input'
-import { H1, H3, P } from '../components/Typography'
+import { H1, H3, P, A } from '../components/Typography'
+import { Card } from '../components/Common'
 import Accordion from '../components/Accordion'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -46,7 +47,7 @@ class Project {
 
 export default () => {
   const inputFile = useRef()
-  const [message, setMessage] = useState('waiting for csv upload...')
+  const [message, setMessage] = useState('Waiting for .csv upload...')
   const [projects, setProjects] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState({})
 
@@ -122,25 +123,38 @@ export default () => {
   return (
     <div>
       <H1>Submissions</H1>
-      <input ref={inputFile} type="file" hidden onChange={onChange} />
-      <Button color="tertiary" onClick={uploadClickHandler}>
-        Upload
-      </Button>
-      <H3>{message}</H3>
-      <ProjectTable projects={projects} />
-      <Button width="flex" color="tertiary" onClick={syncToFirebase}>
-        Sync {projects.length} projects to Firebase
-      </Button>
-      <H1>Sponsor Judging</H1>
-      {Object.keys(sponsorPrizes).map(prize => (
-        <Accordion heading={prize} key={prize}>
-          <ul>
-            {sponsorPrizes[prize].map((submission, i) => (
-              <li key={i}>{submission}</li>
-            ))}
-          </ul>
+      <Card>
+        <P>
+          Export the project submissions list from Devpost and upload it here to sync the data with
+          Firebase. You can find more info{' '}
+          <A href="https://help.devpost.com/hc/en-us/articles/360022016811-Exporting-your-submission-data">
+            on this Devpost article.
+          </A>
+        </P>
+        <H3>Status: {message}</H3>
+        <input ref={inputFile} type="file" hidden onChange={onChange} />
+        <Button no_margin color="tertiary" onClick={uploadClickHandler}>
+          Upload
+        </Button>
+        <Button width="flex" color="tertiary" onClick={syncToFirebase}>
+          Sync {projects.length} projects to Firebase
+        </Button>
+        <Accordion heading="Project List">
+          <ProjectTable projects={projects} />
         </Accordion>
-      ))}
+      </Card>
+      <div>
+        <H1>Sponsor Judging</H1>
+        {Object.keys(sponsorPrizes).map(prize => (
+          <Accordion heading={prize} key={prize}>
+            <ul>
+              {sponsorPrizes[prize].map((submission, i) => (
+                <li key={i}>{submission}</li>
+              ))}
+            </ul>
+          </Accordion>
+        ))}
+      </div>
     </div>
   )
 }
