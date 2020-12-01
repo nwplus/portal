@@ -9,6 +9,7 @@ import JudgingCard from '../components/JudgingCard'
 import FormContainer from '../components/ApplicationForm'
 import VerticalProgressBar from '../components/VerticalProgressBar'
 import ResumeUploadBtn from '../components/ResumeUploadBtn'
+import styled from 'styled-components'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
@@ -53,7 +54,13 @@ export default () => {
   const [textAreaValue, setTextAreaValue] = useState('')
   const [hint, setHint] = useState()
   const [progress, setProgress] = useState(0)
-
+  const ResumeContainer = styled.div`
+    display: flex;
+    align-items: center;
+  `
+  const StyledQuestionHeading = styled(QuestionHeading)`
+    margin-right: 9em;
+  `
   return (
     <>
       <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
@@ -291,14 +298,14 @@ export default () => {
       </Button>
       <VerticalProgressBar percent={progress} />
       <QuestionHeading>question 12</QuestionHeading>
-      <div>
+      <ResumeContainer>
+        <StyledQuestionHeading>resume</StyledQuestionHeading>
         <ResumeUploadBtn
           onChange={e => setHint(e.target.value)}
-          isValid={hint}
           hint={hint}
           errorMsg="Please upload your resume"
         />
-      </div>
+      </ResumeContainer>
     </>
   )
 }
