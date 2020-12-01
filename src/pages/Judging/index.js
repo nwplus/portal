@@ -4,6 +4,7 @@ import { firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../uti
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/JudgingCard'
 
+const PROJECTS_TO_JUDGE_COUNT = 5
 //TODO: Get from auth or local storage
 const USER_ID = 'aIwA36q0kOw7rDDlCkB2'
 
@@ -16,46 +17,53 @@ const StyledJudgingCard = styled(JudgingCard)`
   margin: 0 2em 2em 0;
 `
 
-const getProjectIdsToAssign = async () => {
-  const projectDocs = await projectsRef.orderBy('countAssigned').limit(3).get()
-  return projectDocs.docs.map(project => project.id)
-}
+const getAndAssignProjects = async () => {
+  const projectDocs = await projectsRef
+    .orderBy('countAssigned')
+    .limit(PROJECTS_TO_JUDGE_COUNT)
+    .get()
+  const projectIds = projectDocs.docs.map(project => project.id)
 
-const assignProjects = async projectIds => {
+  // increment assigned counters
   projectIds.forEach(projectId => {
     projectsRef.doc(projectId).update({ countAssigned: firestore.FieldValue.increment(1) })
   })
+
+  // add projects to user
   applicantsRef.doc(USER_ID).update({ projectsAssigned: projectIds })
+  return projectIds
 }
 
+const queryProjects = async projectIds =>
+  await projectsRef.where(firestore.FieldPath.documentId(), 'in', projectIds).get()
+
 const getProjectsData = async projectIds => {
-  const projectsDocs = await projectsRef
-    .where(firestore.FieldPath.documentId(), 'in', projectIds)
-    .get()
-  return projectsDocs.docs.map(project => {
+  let projectDocs = await queryProjects(projectIds)
+  if (projectDocs.docs.length < 1) {
+    // projects are missing
+    const newProjectIds = await getAndAssignProjects()
+    projectDocs = await queryProjects(newProjectIds)
+  }
+
+  return projectDocs.docs.map(project => {
     return formatProject({ ...project.data(), id: project.id })
   })
 }
 
+const getProjects = async () => {
+  const applicantDoc = await applicantsRef.doc(USER_ID).get()
+  const projectData = applicantDoc.data()
+  const projectsAssigned = projectData.projectsAssigned || (await getAndAssignProjects())
+  return await getProjectsData(projectsAssigned)
+}
+
 export default () => {
   const [isJudgingOpen, setIsJudgingOpen] = useState(false)
-
-  // TODO: Get from firebase
-  // eslint-disable-next-line no-unused-vars
   const [projects, setProjects] = useState([])
 
   useEffect(() => {
-    ;(async () => {
-      const applicantDoc = await applicantsRef.doc(USER_ID).get()
-      let { projectsAssigned } = applicantDoc.data()
-      if (!projectsAssigned) {
-        projectsAssigned = await getProjectIdsToAssign()
-        assignProjects(projectsAssigned)
-      }
-      const projectData = await getProjectsData(projectsAssigned)
-      setProjects(projectData)
-    })()
-  }, [setIsJudgingOpen])
+    ;(async () => setProjects(await getProjects()))()
+  }, [setProjects])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
