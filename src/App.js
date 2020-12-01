@@ -47,7 +47,7 @@ const NavbarRoute = ({ path, children, name, handleLogout }) => {
   return (
     <Route path={path}>
       <Navbar name={name} handleLogout={handleLogout}>
-        <Form>{children}</Form>
+        {name && handleLogout ? <Form>{children}</Form> : children}
       </Navbar>
     </Route>
   )
@@ -93,7 +93,9 @@ function App() {
           <Route path="/application/:part">
             {params => (
               <Navbar name="Haku" handleLogout={() => console.log('Logout')}>
-                <ApplicationForm part={params.part} />
+                <Form>
+                  <ApplicationForm part={params.part} />
+                </Form>
               </Navbar>
             )}
           </Route>
