@@ -15,3 +15,51 @@ export const SOCIAL_LINKS = Object.freeze({
   TW: 'https://www.twitter.com/nwplusubc',
   WEBSITE: 'https://www.nwplus.io',
 })
+
+export const applicantStatus = Object.freeze({
+  attending: 'attending',
+  new: 'new',
+  applied: 'applied',
+  accepted: 'accepted',
+  inProgress: 'inProgress',
+})
+
+export const hackerApplicationTemplate = Object.freeze({
+  _id: '',
+  basicInfo: {
+    email: '',
+    firstName: '',
+    lastName: '',
+    gender: '',
+    ethnicity: '',
+    isOfLegalAge: false,
+    school: '',
+    major: '',
+    educationLevel: '',
+    graduation: 0,
+    hackathonsAttended: 0,
+    contributionRole: '',
+    location: '',
+  },
+  skills: {
+    resume: '',
+    portfolio: '',
+    linkedin: '',
+    github: '',
+    longAnswers: {},
+  },
+  questionnaire: {
+    engagementSource: '',
+    eventsAttended: [],
+  },
+  submission: {
+    lastUpdated: '',
+    submitted: false,
+  },
+  status: {
+    applicationStatus: 'inProgress',
+    responded: false, // using responded and attending to check if they un-RSVPed or if they didn't RSVP at all (no RSVP)
+    attending: false, // false for no-rsvp by default
+  },
+  team: '',
+})

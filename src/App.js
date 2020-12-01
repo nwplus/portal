@@ -27,7 +27,7 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
-import { AuthProvider, logout, useAuth } from './utility/Auth'
+import { AuthProvider, getRedirectUrl, logout, useAuth } from './utility/Auth'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -50,7 +50,7 @@ const AuthPageRoute = ({ path, children }) => {
   return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
 }
 
-const NavbarRoute = ({ name, handleLogout, path, children }) => {
+const NavbarAuthRoute = ({ name, handleLogout, path, children }) => {
   const { isAuthed, user } = useAuth()
   return isAuthed ? (
     <Route path={path}>
@@ -62,16 +62,27 @@ const NavbarRoute = ({ name, handleLogout, path, children }) => {
       </Navbar>
     </Route>
   ) : (
-      <Redirect to="/login" />
-    )
+    <Redirect to="/login" />
+  )
 }
 
-const AuthNav = ({ children }) => {
+const NoAuthRoute = ({ path, children }) => {
   const { isAuthed, user } = useAuth()
+  return (
+    <Route path={path}>
+      {!isAuthed ? <>{children}</> : <Redirect to={getRedirectUrl(user.status)} />}
+    </Route>
+  )
+}
+
+const ApplicationFormContainer = ({ params }) => {
+  const { isAuthed, user } = useAuth()
+  console.log('part: ' + params.part)
   return isAuthed ? (
-    <Navbar name={user.displayName} handleLogout={logout}>
-      <Form>{children}</Form>
-    </Navbar>
+    <>
+      <Navbar name={user.displayName} handleLogout={logout} />
+      <ApplicationForm part={params.part} />
+    </>
   ) : (
     <Redirect to="/login" />
   )
@@ -97,78 +108,72 @@ function App() {
   }, [])
 
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <GlobalStyle />
-        <Switch>
-          <NavbarRoute path="/login">
-            <Login />
-          </NavbarRoute>
-          <NavbarRoute name handleLogout path="/application/review">
-            <ApplicationReview />
-          </NavbarRoute>
-          <NavbarRoute handleLogout path="/application/confirmation">
-            <ApplicationConfirmation />
-          </NavbarRoute>
-          <NavbarRoute handleLogout path="/application/confirmation">
-            <ApplicationConfirmation />
-          </NavbarRoute>
-          <Route path="/application/:part">
-            {params => (
-              <AuthNav>
-                <ApplicationForm part={params.part} />
-              </AuthNav>
-            )}
-          </Route>
-          <PageRoute path="/">
-            <Home />
-          </PageRoute>
-          <AuthPageRoute path="/application">
-            <Application />
-          </AuthPageRoute>
-          <PageRoute path="/charcuterie">
-            <Charcuterie />
-          </PageRoute>
-          <PageRoute path="/faq">
-            <Faq />
-          </PageRoute>
-          <PageRoute path="/schedule">
-            <Schedule />
-          </PageRoute>
-          <PageRoute path="/sponsors">
-            <Sponsors />
-          </PageRoute>
-          <PageRoute path="/quicklinks">
-            <Quicklinks />
-          </PageRoute>
-          <PageRoute path="/judging">
-            <Judging />
-          </PageRoute>
-          <PageRoute path="/judging/admin">
-            <JudgingAdmin />
-          </PageRoute>
-          <Route path="/judging/view/:id">
-            {params => (
-              <Page>
-                <JudgingView id={params.id} />
-              </Page>
-            )}
-          </Route>
-          <PageRoute path="/submission">
-            <Submission />
-          </PageRoute>
-          <PageRoute path="/submission/create">
-            <SubmissionCreate />
-          </PageRoute>
-          <PageRoute path="/submission/edit">
-            <SubmissionEdit />
-          </PageRoute>
-          <Route>
-            <Page>Page Not Found!</Page>
-          </Route>
-        </Switch>
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <GlobalStyle />
+      <Switch>
+        <PageRoute path="/">
+          <Home />
+        </PageRoute>
+        <PageRoute path="/charcuterie">
+          <Charcuterie />
+        </PageRoute>
+        <PageRoute path="/faq">
+          <Faq />
+        </PageRoute>
+        <PageRoute path="/schedule">
+          <Schedule />
+        </PageRoute>
+        <PageRoute path="/sponsors">
+          <Sponsors />
+        </PageRoute>
+        <PageRoute path="/quicklinks">
+          <Quicklinks />
+        </PageRoute>
+        <Route>
+          {/* All auth related routes should go here */}
+          <AuthProvider>
+            <Switch>
+              <NoAuthRoute path="/login">
+                <Navbar>
+                  <Login />
+                </Navbar>
+              </NoAuthRoute>
+              <AuthPageRoute path="/application">
+                <Application />
+              </AuthPageRoute>
+              <NavbarAuthRoute path="/application/review">
+                <ApplicationReview />
+              </NavbarAuthRoute>
+              <NavbarAuthRoute path="/application/confirmation">
+                <ApplicationConfirmation />
+              </NavbarAuthRoute>
+              <Route path="/application/:part" component={ApplicationFormContainer} />
+              <AuthPageRoute path="/judging">
+                <Judging />
+              </AuthPageRoute>
+              <PageRoute path="/judging/admin">
+                <JudgingAdmin />
+              </PageRoute>
+              <AuthPageRoute path="/judging/view/:id">
+                {params => <JudgingView id={params.id} />}
+              </AuthPageRoute>
+              <AuthPageRoute path="/submission">
+                <Submission />
+              </AuthPageRoute>
+              <AuthPageRoute path="/submission/create">
+                <SubmissionCreate />
+              </AuthPageRoute>
+              <AuthPageRoute path="/submission/edit">
+                <SubmissionEdit />
+              </AuthPageRoute>
+              <Route path="/:rest*">
+                <Page>Page Not Found!</Page>
+              </Route>
+            </Switch>
+          </AuthProvider>
+        </Route>
+      </Switch>
+    </ThemeProvider>
   )
 }
 
