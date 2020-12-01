@@ -85,7 +85,7 @@ const createNewApplication = async user => {
   }
   const submission = {
     submission: {
-      lastUpdated: '',
+      lastUpdated: firebase.firestore.Timestamp.now(),
       submitted: false,
     },
   }
