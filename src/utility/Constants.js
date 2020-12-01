@@ -33,6 +33,7 @@ export const hackerApplicationTemplate = Object.freeze({
     gender: '',
     ethnicity: '',
     isOfLegalAge: false,
+    phoneNumber: '',
     school: '',
     major: '',
     educationLevel: '',
