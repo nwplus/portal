@@ -59,8 +59,8 @@ const NavbarRoute = ({ path, children }) => {
       {children}
     </Route>
   ) : (
-      <Redirect to="/login" />
-    )
+    <Redirect to="/login" />
+  )
 }
 
 function App() {
