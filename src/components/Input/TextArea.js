@@ -15,7 +15,8 @@ const TextAreaBox = styled.textarea.attrs({
   type: 'text',
 })`
   height: 200px;
-  width: 600px;
+  width: ${p => p.width || '600px'};
+  box-sizing: border-box;
   ${TextInputLike};
   ${ScrollbarLike};
 `
@@ -27,6 +28,8 @@ export const TextArea = ({
   placeholder,
   invalid,
   errorMsg,
+  className,
+  width,
   ...rest
 }) => {
   const [isLengthExceeded, setIsLengthExceeded] = useState(false)
@@ -42,19 +45,20 @@ export const TextArea = ({
   }, [maxLength, value])
 
   return (
-    <TextAreaContainer>
+    <div className={className}>
       <TextAreaBox
         value={value}
+        width={width}
         onChange={val => onChange(val.target.value)}
         invalid={invalid || isLengthExceeded}
-        placeholder={`${placeholder} ${maxLength && `Maximum of ${maxLength} characters`}`}
+        placeholder={`${placeholder}. ${maxLength && `Maximum of ${maxLength} characters`}`}
         {...rest}
       />
       {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
       {isLengthExceeded && (
         <ErrorMsg> Sorry! It looks like your answer is more than {maxLength} characters. </ErrorMsg>
       )}
-    </TextAreaContainer>
+    </div>
   )
 }
 

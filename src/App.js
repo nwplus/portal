@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'wouter'
+import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
+import Navbar from './components/Navbar'
+
 import {
   Login,
   Charcuterie,
@@ -11,6 +13,7 @@ import {
   Quicklinks,
   Schedule,
   Judging,
+  JudgingAdmin,
   JudgingView,
   Submission,
   SubmissionCreate,
@@ -24,6 +27,7 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
+import { AuthProvider, logout, useAuth } from './utility/Auth'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -38,6 +42,24 @@ const PageRoute = ({ path, children }) => {
     <Route path={path}>
       <Page>{children}</Page>
     </Route>
+  )
+}
+
+const AuthPageRoute = ({ path, children }) => {
+  const { isAuthed } = useAuth()
+  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+}
+
+const NavbarRoute = ({ path, children }) => {
+  // TODO: pass in name and handleLogout function into NavBar component
+  const { isAuthed, user } = useAuth()
+  return isAuthed ? (
+    <Route path={path}>
+      <Navbar name={user.displayName} handleLogout={logout} />
+      {children}
+    </Route>
+  ) : (
+    <Redirect to="/login" />
   )
 }
 
@@ -61,28 +83,29 @@ function App() {
   }, [])
 
   return (
-    <>
+    <AuthProvider>
       <ThemeProvider>
         <GlobalStyle />
         <Switch>
           <Route path="/login">
+            <Navbar />
             <Login />
           </Route>
-          <Route path="/application/review">
+          <NavbarRoute path="/application/review">
             <ApplicationReview />
-          </Route>
-          <Route path="/application/confirmation">
+          </NavbarRoute>
+          <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
             <ApplicationConfirmation />
-          </Route>
-          <Route path="/application/:part">
+          </NavbarRoute>
+          <NavbarRoute path="/application/:part">
             {params => <ApplicationForm part={params.part} />}
-          </Route>
+          </NavbarRoute>
           <PageRoute path="/">
             <Home />
           </PageRoute>
-          <PageRoute path="/application">
+          <AuthPageRoute path="/application">
             <Application />
-          </PageRoute>
+          </AuthPageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
           </PageRoute>
@@ -101,7 +124,16 @@ function App() {
           <PageRoute path="/judging">
             <Judging />
           </PageRoute>
-          <PageRoute path="/judging/view/:id">{params => <JudgingView id={params.id} />}</PageRoute>
+          <PageRoute path="/judging/admin">
+            <JudgingAdmin />
+          </PageRoute>
+          <Route path="/judging/view/:id">
+            {params => (
+              <Page>
+                <JudgingView id={params.id} />
+              </Page>
+            )}
+          </Route>
           <PageRoute path="/submission">
             <Submission />
           </PageRoute>
@@ -116,7 +148,7 @@ function App() {
           </Route>
         </Switch>
       </ThemeProvider>
-    </>
+    </AuthProvider>
   )
 }
 
