@@ -223,7 +223,7 @@ export default () => {
         <H3>Normal dropdown</H3>
         <Dropdown
           options={options}
-          placeholder={'I am a placeholder'}
+          placeholder="I am a placeholder"
           isSearchable={false}
           onChange={inputValue => console.log(inputValue)}
           isValid
@@ -231,23 +231,22 @@ export default () => {
         <H3>Searchable dropdown</H3>
         <Dropdown
           options={options}
-          placeholder={'im tired'}
+          placeholder="im tired"
           isSearchable
           formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
           onChange={inputValue => console.log(inputValue)}
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           noOptionsMessage={() => 'u messed up'}
-          canCreateNewOption={false}
           isValid
         />
         <H3>Searchable and creatable dropdown</H3>
         <Dropdown
           options={options}
-          placeholder={'Hi I am a placeholder'}
+          placeholder="Hi I am a placeholder"
           isSearchable
           formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
           onChange={inputValue => console.log(inputValue)}
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           noOptionsMessage={() => 'u messed up'}
           canCreateNewOption
           isValid
@@ -255,11 +254,11 @@ export default () => {
         <H3>Custom styled dropdown</H3>
         <CustomStyledDropdown
           options={options}
-          placeholder={'Hi I am a placeholder'}
+          placeholder="Hi I am a placeholder"
           isSearchable
           formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
           onChange={inputValue => console.log(inputValue)}
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           noOptionsMessage={() => 'u messed up'}
           canCreateNewOption
           isValid
@@ -267,45 +266,42 @@ export default () => {
         <H3>Debounced dropdown</H3>
         <Dropdown
           options={options}
-          placeholder={'im tired'}
+          placeholder="im tired"
           isSearchable
           formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
           onChange={inputValue => console.log(inputValue)}
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           noOptionsMessage={() => 'u messed up'}
-          canCreateNewOption={false}
           isValid
-          errorMessage={'Please select something!'}
+          errorMessage="Please select something!"
           debounceEnabled
           throttleTime={1000}
         />
         <H3>Debounced creatable dropdown</H3>
         <Dropdown
           options={options}
-          placeholder={'im tired'}
-          isSearchable={true}
+          placeholder="im tired"
+          isSearchable
           formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
           onChange={inputValue => console.log(inputValue)}
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           noOptionsMessage={() => 'u messed up'}
           canCreateNewOption
           isValid
-          errorMessage={'Please select something!'}
+          errorMessage="Please select something!"
           debounceEnabled
           throttleTime={1000}
         />
         <H3>Invalid dropdown</H3>
         <Dropdown
           options={options}
-          placeholder={'im tired'}
+          placeholder="im tired"
           isSearchable
           formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
           onChange={inputValue => console.log(inputValue)}
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           noOptionsMessage={() => 'u messed up'}
-          canCreateNewOption={false}
-          isValid={false}
-          errorMessage={'Please select something!'}
+          errorMessage="Please select something!"
         />
       </FormContainer>
       <H2>Change Progress Bar</H2>
