@@ -59,7 +59,7 @@ export const TextArea = ({
         width={width}
         onChange={val => onChange(val.target.value)}
         invalid={invalid || isLengthExceeded}
-        placeholder={`${placeholder}. ${maxLength && `Maximum of ${maxLength} characters`}`}
+        placeholder={`${placeholder} ${maxLength && `Maximum of ${maxLength} characters`}`}
         {...rest}
       />
       {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
