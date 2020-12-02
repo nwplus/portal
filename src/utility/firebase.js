@@ -92,3 +92,11 @@ export const getProject = async (user_id, setProjectCallback, setFeedbackCallbac
       })
   }
 }
+
+export const getUserApplication = async uuid => {
+  return (await applicantsRef.doc(uuid).get()).data()
+}
+
+export const updateUserApplication = async (uuid, newApp) => {
+  return applicantsRef.doc(uuid).set(newApp)
+}
