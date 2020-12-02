@@ -3,7 +3,7 @@ import { Redirect } from 'wouter'
 import Part1 from '../../containers/Application/Part1'
 import Part2 from '../../containers/Application/Part2'
 import Part3 from '../../containers/Application/Part3'
-import FormContainer from '../../components/ApplicationForm'
+import FormContainer from '../../components/ApplicationForm/index'
 
 export default ({ part }) => {
   switch (part) {
