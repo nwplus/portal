@@ -8,6 +8,8 @@ import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import FormContainer from '../components/ApplicationForm'
 import VerticalProgressBar from '../components/VerticalProgressBar'
+import ResumeUploadBtn from '../components/ResumeUploadBtn'
+import styled from 'styled-components'
 import NavigationButtons from '../components/NavigationButtons'
 
 const options = [
@@ -51,8 +53,15 @@ export default () => {
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
   const [textAreaValue, setTextAreaValue] = useState('')
+  const [hint, setHint] = useState()
   const [progress, setProgress] = useState(0)
-
+  const ResumeContainer = styled.div`
+    display: flex;
+    align-items: center;
+  `
+  const StyledQuestionHeading = styled(QuestionHeading)`
+    margin-right: 9em;
+  `
   return (
     <>
       <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
@@ -289,6 +298,15 @@ export default () => {
         Decrease!
       </Button>
       <VerticalProgressBar percent={progress} />
+      <QuestionHeading>question 12</QuestionHeading>
+      <ResumeContainer>
+        <StyledQuestionHeading>resume</StyledQuestionHeading>
+        <ResumeUploadBtn
+          onChange={e => setHint(e.target.value)}
+          hint={hint}
+          errorMsg="Please upload your resume"
+        />
+      </ResumeContainer>
       <H3>Navigation button group (with autosave time)</H3>
       <NavigationButtons
         firstButtonText="Back"
