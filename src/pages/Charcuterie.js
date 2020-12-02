@@ -10,6 +10,7 @@ import FormContainer from '../components/ApplicationForm'
 import VerticalProgressBar from '../components/VerticalProgressBar'
 import ResumeUploadBtn from '../components/ResumeUploadBtn'
 import styled from 'styled-components'
+import NavigationButtons from '../components/NavigationButtons'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
@@ -306,6 +307,21 @@ export default () => {
           errorMsg="Please upload your resume"
         />
       </ResumeContainer>
+      <H3>Navigation button group (with autosave time)</H3>
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonHref="https://www.linkedin.com/in/kevin-zou/"
+        secondButtonText="Next"
+        secondButtonHref="https://www.linkedin.com/in/kevin-zou/"
+        autosaveTime="4:20 pm"
+      />
+      <H3>Navigation button group (without autosave time)</H3>
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonHref="https://www.linkedin.com/in/kevin-zou/"
+        secondButtonText="Next"
+        secondButtonHref="https://www.linkedin.com/in/kevin-zou/"
+      />
     </>
   )
 }

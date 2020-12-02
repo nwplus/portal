@@ -7,6 +7,7 @@ import Quicklinks from './Quicklinks'
 import Schedule from './Schedule'
 import Judging from './Judging'
 import JudgingView from './Judging/View'
+import JudgingAdmin from './Judging/Admin'
 import Submission from './Submission'
 import SubmissionCreate from './Submission/Create'
 import SubmissionEdit from './Submission/Edit'
@@ -24,6 +25,7 @@ export {
   Quicklinks,
   Schedule,
   Judging,
+  JudgingAdmin,
   JudgingView,
   Submission,
   SubmissionCreate,
