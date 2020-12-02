@@ -242,6 +242,7 @@ const Dropdown = ({
   canCreateNewOption,
   debounceEnabled,
   throttleTime,
+  className,
 }) => {
   // These props are used by react-select directly, the rest are custom props
   const userProps = {
@@ -274,6 +275,7 @@ const Dropdown = ({
 
   return (
     <DropdownVariant
+      className={className}
       classNamePrefix="react-select"
       components={{
         Control,

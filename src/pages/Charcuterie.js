@@ -12,6 +12,12 @@ import ResumeUploadBtn from '../components/ResumeUploadBtn'
 import styled from 'styled-components'
 import NavigationButtons from '../components/NavigationButtons'
 
+const CustomStyledDropdown = styled(Dropdown)`
+  .react-select__control {
+    margin: 1em 0;
+  }
+`
+
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
   { value: 'strawberry', label: 'Strawberry' },
@@ -246,18 +252,17 @@ export default () => {
           canCreateNewOption
           isValid
         />
-        <H3>Invalid dropdown</H3>
-        <Dropdown
+        <H3>Custom styled dropdown</H3>
+        <CustomStyledDropdown
           options={options}
-          placeholder={'im tired'}
+          placeholder={'Hi I am a placeholder'}
           isSearchable
           formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
           onChange={inputValue => console.log(inputValue)}
           emptySearchDefaultOption={'Start typing to search'}
           noOptionsMessage={() => 'u messed up'}
-          canCreateNewOption={false}
-          isValid={false}
-          errorMessage={'Please select something!'}
+          canCreateNewOption
+          isValid
         />
         <H3>Debounced dropdown</H3>
         <Dropdown
@@ -288,6 +293,19 @@ export default () => {
           errorMessage={'Please select something!'}
           debounceEnabled
           throttleTime={1000}
+        />
+        <H3>Invalid dropdown</H3>
+        <Dropdown
+          options={options}
+          placeholder={'im tired'}
+          isSearchable
+          formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+          onChange={inputValue => console.log(inputValue)}
+          emptySearchDefaultOption={'Start typing to search'}
+          noOptionsMessage={() => 'u messed up'}
+          canCreateNewOption={false}
+          isValid={false}
+          errorMessage={'Please select something!'}
         />
       </FormContainer>
       <H2>Change Progress Bar</H2>
