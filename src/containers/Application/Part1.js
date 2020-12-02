@@ -4,6 +4,8 @@ import { TextInput } from '../../components/Input/TextInput'
 import Dropdown from '../../components/Input/Dropdown'
 import Select from '../../components/Input/Select'
 import { FormSpacing } from '../../components/ApplicationForm'
+import schools from './data/schools.json'
+import majors from './data/majors.json'
 
 const genderOptions = [
   { value: 'female', label: 'Female' },
@@ -37,17 +39,11 @@ const hackathonOptions = [
   { value: 1, label: '1' },
   { value: 2, label: '2' },
   { value: 3, label: '3' },
-  { value: 4, label: '4' },
-  { value: 5, label: '5' },
-  { value: 6, label: '6' },
-  { value: 7, label: '7' },
-  { value: 8, label: '8' },
-  { value: 9, label: '9' },
-  { value: 10, label: '10+' },
+  { value: 4, label: '4+' },
 ]
 
 // form part 1
-export default ({ children }) => {
+export default () => {
   const [states, setStates] = useState({
     firstName: '',
     lastName: '',
@@ -73,9 +69,6 @@ export default ({ children }) => {
     contributionRole: '',
     location: '',
   })
-
-  const schools = require('./data/schools.json')
-  const majors = require('./data/majors.json')
 
   return (
     <>
@@ -116,7 +109,7 @@ export default ({ children }) => {
         <H1 size="1.5em">Which gender do you identify as?</H1>
         <Dropdown
           options={genderOptions}
-          placeholder={'Gender'}
+          placeholder="Gender"
           isSearchable={false}
           onChange={e =>
             setStates({
@@ -269,7 +262,7 @@ export default ({ children }) => {
         <H1 size="1.5em">What school do you go to?</H1>
         <Dropdown
           options={schools}
-          placeholder={'Enter your school'}
+          placeholder="Enter your school"
           isSearchable
           formatCreateLabel={inputValue => `My school is not listed, use "${inputValue}"`}
           onChange={e =>
@@ -278,7 +271,7 @@ export default ({ children }) => {
               school: e.label,
             })
           }
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           canCreateNewOption
           isValid
         ></Dropdown>
@@ -289,7 +282,7 @@ export default ({ children }) => {
         <H1 size="1.5em">What is your current or intended major?</H1>
         <Dropdown
           options={majors}
-          placeholder={'Enter your major'}
+          placeholder="Enter your major"
           isSearchable
           formatCreateLabel={inputValue => `My major is not listed, use "${inputValue}"`}
           onChange={e =>
@@ -298,7 +291,7 @@ export default ({ children }) => {
               major: e.label,
             })
           }
-          emptySearchDefaultOption={'Start typing to search'}
+          emptySearchDefaultOption="Start typing to search"
           canCreateNewOption
           isValid
         ></Dropdown>
@@ -309,7 +302,7 @@ export default ({ children }) => {
         <H1 size="1.5em">What is your current level of education?</H1>
         <Dropdown
           options={educationOptions}
-          placeholder={'Level of Education'}
+          placeholder="Level of Education"
           isSearchable={false}
           onChange={inputValue =>
             setStates({
@@ -326,7 +319,7 @@ export default ({ children }) => {
         <H1 size="1.5em">What is your graduation year?</H1>
         <Dropdown
           options={graduationOptions}
-          placeholder={'Graduation Year'}
+          placeholder="Graduation Year"
           isSearchable={false}
           onChange={inputValue =>
             setStates({
@@ -343,7 +336,7 @@ export default ({ children }) => {
         <H1 size="1.5em">How many hackathons have you attended (both online and in-person)?</H1>
         <Dropdown
           options={hackathonOptions}
-          placeholder={'Number of Hackathons'}
+          placeholder="Number of Hackathons"
           isSearchable={false}
           onChange={inputValue =>
             setStates({
