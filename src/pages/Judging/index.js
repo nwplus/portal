@@ -23,7 +23,6 @@ const getAndAssignProjects = async () => {
     .limit(PROJECTS_TO_JUDGE_COUNT)
     .get()
   const projectIds = projectDocs.docs.map(project => project.id)
-  console.log(projectIds)
   const batch = db.batch()
 
   // increment assigned counters
