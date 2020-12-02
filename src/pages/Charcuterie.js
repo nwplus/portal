@@ -11,6 +11,7 @@ import VerticalProgressBar from '../components/VerticalProgressBar'
 import ResumeUploadBtn from '../components/ResumeUploadBtn'
 import styled from 'styled-components'
 import NavigationButtons from '../components/NavigationButtons'
+import Loading from '../components/Loading'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
@@ -55,6 +56,7 @@ export default () => {
   const [textAreaValue, setTextAreaValue] = useState('')
   const [hint, setHint] = useState()
   const [progress, setProgress] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
   const ResumeContainer = styled.div`
     display: flex;
     align-items: center;
@@ -67,11 +69,14 @@ export default () => {
       <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
         Toggle Theme
       </Button>
+      <Button color="secondary" width="flex" onClick={() => setIsLoading(!isLoading)}>
+        {!isLoading ? `Show Spinner` : `Hide Spinner`}
+      </Button>
+      <Loading loading={isLoading} />
       <P>
         Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
         should appear on the toolbar
       </P>
-
       <H1>Charcuturie</H1>
       <>
         <H1>This is an h1.</H1>
