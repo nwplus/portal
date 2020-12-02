@@ -8,10 +8,15 @@ import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
 import twitter from '../assets/icons/twitter.svg'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
+import { maxWidthMediaQueries } from './Common'
 
 const Container = styled.div`
   margin: 5em auto;
   width: 70%;
+  ${maxWidthMediaQueries('mobile')} {
+    width: 100%;
+    margin: 0;
+  }
 `
 
 const WelcomeHeader = styled.div`
@@ -23,6 +28,9 @@ const WelcomeHeader = styled.div`
 
 const WelcomeMessage = styled(H1)`
   text-align: center;
+  ${maxWidthMediaQueries('mobile')} {
+    font-size: 1.5em;
+  }
 `
 
 const StyledHandWave = styled(HandWave)`
@@ -49,6 +57,9 @@ const EditAppButton = styled(Button)`
 const StatusContainer = styled.div`
   min-height: 350px;
   padding: 2.5em 4.5em 2.5em 3em;
+  ${maxWidthMediaQueries('mobile')} {
+    padding: 2em;
+  }
   border-radius: 21px;
   background-color: ${p => p.theme.colors.applicationCard};
   display: flex;
@@ -74,15 +85,29 @@ const FooterContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-left: -24px;
+  ${maxWidthMediaQueries('mobile')} {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `
 
 const SocialMediaIcons = styled.img`
   margin: 24px;
+  ${maxWidthMediaQueries('mobile')} {
+    width: 24px;
+    height: 24px;
+    margin: 16px;
+  }
 `
 
 const RSVPButton = styled(Button)`
   width = 100px;
   margin-right: 0;
+  ${maxWidthMediaQueries('mobile')} {
+    margin: 1em;
+  }
 `
 
 const SocialMediaLinks = () => {
