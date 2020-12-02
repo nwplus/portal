@@ -19,6 +19,12 @@ const TextInputBox = styled.input.attrs({
   ${TextInputLike};
 `
 
+export const PleaseSpecify = styled(TextInputBox)`
+  width: ${p => (p.size ? inputSize[p.size] : inputSize['default'])};
+  ${TextInputLike};
+  border: transparent;
+`
+
 export const TextInput = ({ className, invalid, errorMsg, ...rest }) => {
   return (
     <TextInputContainer className={className}>
