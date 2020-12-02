@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
+import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/JudgingCard'
 
@@ -23,28 +23,38 @@ const getAndAssignProjects = async () => {
     .limit(PROJECTS_TO_JUDGE_COUNT)
     .get()
   const projectIds = projectDocs.docs.map(project => project.id)
+  console.log(projectIds)
+  const batch = db.batch()
 
   // increment assigned counters
   projectIds.forEach(projectId => {
-    projectsRef.doc(projectId).update({ countAssigned: firestore.FieldValue.increment(1) })
+    batch.update(projectsRef.doc(projectId), { countAssigned: firestore.FieldValue.increment(1) })
   })
 
   // add projects to user
-  applicantsRef.doc(USER_ID).update({ projectsAssigned: projectIds })
+  batch.update(applicantsRef.doc(USER_ID), { projectsAssigned: projectIds })
+  await batch.commit()
   return projectIds
 }
 
-const queryProjects = async projectIds =>
-  await projectsRef.where(firestore.FieldPath.documentId(), 'in', projectIds).get()
-
-const getProjectsData = async projectIds => {
-  let projectDocs = await queryProjects(projectIds)
+const queryProjects = async projectIds => {
+  if (projectIds.length < 1) {
+    // no projects in the db
+    return { docs: [] }
+  }
+  const projectDocs = await projectsRef
+    .where(firestore.FieldPath.documentId(), 'in', projectIds)
+    .get()
   if (projectDocs.docs.length < 1) {
     // projects are missing
     const newProjectIds = await getAndAssignProjects()
-    projectDocs = await queryProjects(newProjectIds)
+    return await queryProjects(newProjectIds)
   }
+  return projectDocs
+}
 
+const getProjectsData = async projectIds => {
+  let projectDocs = await queryProjects(projectIds)
   return projectDocs.docs.map(project => {
     return formatProject({ ...project.data(), id: project.id })
   })
@@ -52,8 +62,10 @@ const getProjectsData = async projectIds => {
 
 const getProjects = async () => {
   const applicantDoc = await applicantsRef.doc(USER_ID).get()
-  const projectData = applicantDoc.data()
-  const projectsAssigned = projectData.projectsAssigned || (await getAndAssignProjects())
+  const applicantData = applicantDoc.data()
+  const projectsAssigned = applicantData.projectsAssigned
+    ? applicantData.projectsAssigned
+    : await getAndAssignProjects()
   return await getProjectsData(projectsAssigned)
 }
 
@@ -87,6 +99,7 @@ export default () => {
           />
         )
       })}
+      {projects.length < 1 && <h2>Loading projects...</h2>}
     </Container>
   )
 }
