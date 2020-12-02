@@ -38,10 +38,6 @@ const getAndAssignProjects = async () => {
 }
 
 const queryProjects = async projectIds => {
-  if (projectIds.length < 1) {
-    // no projects in the db
-    return { docs: [] }
-  }
   const projectDocs = await projectsRef
     .where(firestore.FieldPath.documentId(), 'in', projectIds)
     .get()
@@ -63,9 +59,10 @@ const getProjectsData = async projectIds => {
 const getProjects = async () => {
   const applicantDoc = await applicantsRef.doc(USER_ID).get()
   const applicantData = applicantDoc.data()
-  const projectsAssigned = applicantData.projectsAssigned
-    ? applicantData.projectsAssigned
-    : await getAndAssignProjects()
+  const projectsAssigned =
+    applicantData.projectsAssigned && applicantData.projectsAssigned.length > 0
+      ? applicantData.projectsAssigned
+      : await getAndAssignProjects()
   return await getProjectsData(projectsAssigned)
 }
 
