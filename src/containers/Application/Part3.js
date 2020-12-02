@@ -4,11 +4,13 @@ import { Dropdown, Select, TextInput } from '../../components/Input'
 import { H1, QuestionHeading } from '../../components/Typography'
 
 const StyledDropdown = styled(Dropdown)`
-  margin: 1em 0;
+  .react-select__control {
+    margin: 0;
+  }
 `
 
 const QuestionContainer = styled.div`
-  margin-bottom: 4em;
+  margin-bottom: 6em;
 `
 
 const StyledTextInput = styled(TextInput)`
@@ -58,7 +60,7 @@ export default () => {
     <>
       <QuestionContainer>
         <QuestionHeading>Question 14</QuestionHeading>
-        <H1>How did you hear about nwHacks?</H1>
+        <H1 size="1.5em">How did you hear about nwHacks?</H1>
         <StyledDropdown
           options={options}
           placeholder={'Select an option'}
@@ -76,7 +78,7 @@ export default () => {
 
       <QuestionContainer>
         <QuestionHeading>Question 15</QuestionHeading>
-        <H1>Which nwPlus events have you been to? (Select all that apply)</H1>
+        <H1 size="1.5em">Which nwPlus events have you been to? (Select all that apply)</H1>
         <Select
           type="checkbox"
           label="Local Hack Day / Hack Camp"
