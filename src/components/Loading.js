@@ -7,6 +7,7 @@ const override = css`
   top: 50%;
   left: 50%;
   background-size: 100%;
+  z-index: 900;
 `
 
 export default ({ loading }) => (
