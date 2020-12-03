@@ -36,6 +36,7 @@ const nwTheme = {
       githubHover: '#545159',
     },
     greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
   typography: {
     h1: {
@@ -90,6 +91,7 @@ const hackcampTheme = {
       githubHover: '#545159',
     },
     greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
   typography: {
     h1: {

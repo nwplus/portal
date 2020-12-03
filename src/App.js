@@ -142,10 +142,10 @@ function App() {
               <AuthPageRoute path="/application">
                 <Application />
               </AuthPageRoute>
-              <NavbarAuthRoute path="/application/review">
+              <NavbarAuthRoute path="/application/review" name handleLogout>
                 <ApplicationReview />
               </NavbarAuthRoute>
-              <NavbarAuthRoute path="/application/confirmation">
+              <NavbarAuthRoute path="/application/confirmation" handleLogout>
                 <ApplicationConfirmation />
               </NavbarAuthRoute>
               <Route path="/application/:part" component={ApplicationFormContainer} />
