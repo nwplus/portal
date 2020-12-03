@@ -22,7 +22,6 @@ const educationOptions = [
   { value: 'other', label: 'Other' },
 ]
 
-// check w logs
 const graduationOptions = [
   { value: 2019, label: '2019' },
   { value: 2020, label: '2020' },
@@ -33,7 +32,6 @@ const graduationOptions = [
   { value: 2025, label: '2025+' },
 ]
 
-// check w logs
 const hackathonOptions = [
   { value: 0, label: '0' },
   { value: 1, label: '1' },
@@ -357,37 +355,6 @@ export default ({ formInputs, onChange }) => (
         checked={formInputs.contributionRole === 'Designer'}
         onChange={() => onChange({ ...formInputs, contributionRole: 'Designer' })}
       ></Select>
-      <Select
-        type="radio"
-        label="Hardware/Robotics"
-        checked={formInputs.contributionRole === 'Hardware/Robotics'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'Hardware/Robotics' })}
-      ></Select>
-      <Select
-        type="radio"
-        label="Product Manager"
-        checked={formInputs.contributionRole === 'Product Manager'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'Product Manager' })}
-      ></Select>
-      <Select
-        type="radio"
-        label="Data Scientist"
-        checked={formInputs.contributionRole === 'Data Scientist'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'Data Scientist' })}
-      ></Select>
-      <Select
-        type="radio"
-        label="Business Strategist"
-        checked={formInputs.contributionRole === 'Business Strategist'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'Business Strategist' })}
-      ></Select>
-      <Select
-        type="radio"
-        label="Other"
-        checked={formInputs.contributionRole === 'Other'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'Other' })}
-      ></Select>
-      {/* insert new input component for 'Please Specify' */}
     </FormSpacing>
 
     <FormSpacing>
