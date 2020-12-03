@@ -3,7 +3,6 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus } from './firebase'
 import { applicantStatus } from './Constants'
-import { Redirect } from 'wouter'
 import Spinner from '../components/Loading'
 
 const AuthContext = createContext()
