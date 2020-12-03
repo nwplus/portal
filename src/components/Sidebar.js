@@ -74,7 +74,7 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
-export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) => {
+export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
   const [location] = useLocation()
 
   const links = [
@@ -83,9 +83,6 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
     { location: '/quicklinks', text: 'QUICKLINKS' },
     { location: '/faq', text: 'FAQ' },
     { location: '/sponsors', text: 'SPONSORS' },
-
-    // TODO: only show show judging admin portal to those with @nwplus.io emails
-    { location: '/judging/admin', text: 'JUDGING ADMIN' },
   ]
 
   if (isJudgingOpen) {
@@ -97,11 +94,14 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
   }
 
   if (process.env.NODE_ENV !== 'production') {
+    links.push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
     links.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 
-  // List the application as the last item on the menu
-  links.push({ location: '/application', text: 'APPLICATION' })
+  if (isApplicationOpen) {
+    // List the application as the last item on the menu
+    links.push({ location: '/application', text: 'APPLICATION' })
+  }
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
