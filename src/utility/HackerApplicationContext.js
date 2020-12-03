@@ -63,14 +63,18 @@ export function HackerApplicationProvider({ children }) {
 
   /**Check if the application is open */
   useEffect(() => {
-    getLivesiteDoc(data => {
+    return getLivesiteDoc(data => {
       setApplicationOpen(data.applicationsOpen)
     })
   })
 
+  /**applicationOpen hasn't loaded ? show a spinner
+   * Applications are closed ? show message
+   * Applications are open ? Show application
+   */
   return applicationOpen === null ? (
     <Spinner />
-  ) : applicationOpen === true ? (
+  ) : !applicationOpen ? (
     <Page>Applications are closed.</Page>
   ) : (
     <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
