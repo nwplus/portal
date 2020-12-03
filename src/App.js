@@ -97,9 +97,9 @@ function App() {
           <NavbarRoute path="/application/confirmation" handleLogout={() => console.log('Logout!')}>
             <ApplicationConfirmation />
           </NavbarRoute>
-          <NavbarRoute path="/application/:part">
+          <Route path="/application/:part">
             {params => <ApplicationForm part={params.part} />}
-          </NavbarRoute>
+          </Route>
           <PageRoute path="/">
             <Home />
           </PageRoute>

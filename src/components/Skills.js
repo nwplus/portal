@@ -1,148 +1,239 @@
 import React from 'react'
-import { H1, H2, QuestionHeading } from '../components/Typography'
+import { CenteredH1, H1, H2, QuestionHeading } from '../components/Typography'
 import { TextInput, TextArea } from '../components/Input'
 import ResumeUploadBtn from '../components/ResumeUploadBtn'
+import { FormSpacing } from '../components/ApplicationForm'
 import styled from 'styled-components'
 
-const StyledQuestionHeading = styled(QuestionHeading)`
-  margin-right: 9em;
+const QuestionForm = styled.form`
+  display: table;
+  position: relative;
+  & > div {
+    display: table-row;
+
+    & > * {
+      display: table-cell;
+    }
+  }
 `
 
-const QuestionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+// #todo: remove the following after part-1 is merged
+const QuestionRow = styled(QuestionHeading)`
+  padding-right: 4em;
 `
-const AnswerContainer = styled.div`
-  display: flex;
-  align-items: center;
-`
+
+const FormRow = ({ id, children }) => (
+  <div>
+    <QuestionRow>{id}</QuestionRow>
+    <div>{children}</div>
+  </div>
+)
 
 export default ({ formInputs, onChange }) => {
   return (
     <>
-      <H1>
+      <CenteredH1>
         Flex your skills!{' '}
         <span role="img" aria-label="muscle">
           &#128170;
         </span>
-      </H1>
-      <QuestionHeading>question 12</QuestionHeading>
-      <H1>
-        {' '}
-        Don't be shy! Show off your wonderful skills{' '}
-        <span role="img" aria-label="smiling face">
-          &#128513;
-        </span>
-        (Please ensure the links are publicly accessible by opening them in an incognito browser)
-      </H1>
+      </CenteredH1>
 
-      <QuestionHeading>resume</QuestionHeading>
-      <ResumeUploadBtn
-        onChange={e =>
-          onChange({
-            ...formInputs,
-            resume: e.target.value,
-          })
-        }
-      />
+      <FormSpacing>
+        <QuestionHeading>question 12</QuestionHeading>
+        <H1 size="1.5em">
+          {' '}
+          Don't be shy! Show off your wonderful skills{' '}
+          <span role="img" aria-label="smiling face">
+            &#128513;
+          </span>
+        </H1>
+        <H2>
+          (Please ensure the links are publicly accessible by opening them in an incognito browser)
+        </H2>
 
-      <QuestionHeading>github</QuestionHeading>
-      <TextInput
-        placeholder="Required"
-        value={formInputs.github}
-        onChange={e =>
-          onChange({
-            ...formInputs,
-            github: e.target.value,
-          })
-        }
-      ></TextInput>
+        <QuestionForm>
+          <FormRow id="resume">
+            <ResumeUploadBtn
+              onChange={e => {
+                if (e.target.files[0]) {
+                  onChange({
+                    ...formInputs,
+                    resume: e.target.files[0],
+                  })
+                }
+              }}
+            />
+          </FormRow>
 
-      <QuestionHeading>linkedin</QuestionHeading>
-      <TextInput
-        placeholder="Optional"
-        value={formInputs.linkedin}
-        onChange={e =>
-          onChange({
-            ...formInputs,
-            linkedin: e.target.value,
-          })
-        }
-      ></TextInput>
+          <FormRow id="github">
+            <TextInput
+              placeholder="Required"
+              size="large"
+              value={formInputs.github}
+              onChange={e =>
+                onChange({
+                  ...formInputs,
+                  github: e.target.value,
+                })
+              }
+            ></TextInput>
+          </FormRow>
 
-      <QuestionHeading>portfolio</QuestionHeading>
-      <TextInput
-        placeholder="Optional"
-        value={formInputs.portfolio}
-        onChange={e =>
-          onChange({
-            ...formInputs,
-            portfolio: e.target.value,
-          })
-        }
-      ></TextInput>
+          <FormRow id="linkedin">
+            <TextInput
+              placeholder="Optional"
+              size="large"
+              value={formInputs.linkedin}
+              onChange={e =>
+                onChange({
+                  ...formInputs,
+                  linkedin: e.target.value,
+                })
+              }
+            ></TextInput>
+          </FormRow>
 
-      <QuestionHeading>question 13</QuestionHeading>
-      <H1> Answer one of the two questions: </H1>
-      <H2>
-        {' '}
-        1. Describe how you became interested in the world of technology and here you hope to go
-        from here on out!
-      </H2>
-      <H2> 2. How would you like to challenge yourself during this hackathon? </H2>
-      <TextArea
-        placeholder=""
-        maxLength="650"
-        value={formInputs.longAnswer}
-        onChange={val =>
-          onChange({
-            ...formInputs,
-            longAnswer: val,
-          })
-        }
-      ></TextArea>
+          <FormRow id="portfolio">
+            <TextInput
+              placeholder="Optional"
+              size="large"
+              value={formInputs.portfolio}
+              onChange={e =>
+                onChange({
+                  ...formInputs,
+                  portfolio: e.target.value,
+                })
+              }
+            ></TextInput>
+          </FormRow>
+        </QuestionForm>
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 13</QuestionHeading>
+        <H1 color="" size="1.5em">
+          {' '}
+          Answer one of the two questions:{' '}
+        </H1>
+        <H1 size="1.5em">
+          1. Describe how you became interested in the world of technology and here you hope to go
+          from here on out!
+        </H1>
+        <H1 size="1.5em">2. How would you like to challenge yourself during this hackathon?</H1>
+        <TextArea
+          placeholder=""
+          maxLength="650"
+          value={formInputs.longAnswer}
+          onChange={val =>
+            onChange({
+              ...formInputs,
+              longAnswer: val,
+            })
+          }
+        ></TextArea>
+      </FormSpacing>
+
+      <FormSpacing>
+        <CenteredH1>
+          Flex your skills!{' '}
+          <span role="img" aria-label="muscle">
+            &#128170;
+          </span>
+        </CenteredH1>
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 12</QuestionHeading>
+        <H1 size="1.5em">
+          {' '}
+          Don't be shy! Show off your wonderful skills{' '}
+          <span role="img" aria-label="smiling face">
+            &#128513;
+          </span>
+        </H1>
+        <H2>
+          (Please ensure the links are publicly accessible by opening them in an incognito browser)
+        </H2>
+
+        <QuestionForm>
+          <FormRow id="resume">
+            <ResumeUploadBtn
+              onChange={e => {
+                if (e.target.files[0]) {
+                  onChange({
+                    ...formInputs,
+                    resume: e.target.files[0],
+                  })
+                }
+              }}
+            />
+          </FormRow>
+
+          <FormRow id="portfolio">
+            <TextInput
+              placeholder="Required"
+              size="large"
+              value={formInputs.portfolio}
+              onChange={e =>
+                onChange({
+                  ...formInputs,
+                  portfolio: e.target.value,
+                })
+              }
+            ></TextInput>
+          </FormRow>
+
+          <FormRow id="linkedin">
+            <TextInput
+              placeholder="Optional"
+              size="large"
+              value={formInputs.linkedin}
+              onChange={e =>
+                onChange({
+                  ...formInputs,
+                  linkedin: e.target.value,
+                })
+              }
+            ></TextInput>
+          </FormRow>
+
+          <FormRow id="github">
+            <TextInput
+              placeholder="Optional"
+              size="large"
+              value={formInputs.github}
+              onChange={e =>
+                onChange({
+                  ...formInputs,
+                  github: e.target.value,
+                })
+              }
+            ></TextInput>
+          </FormRow>
+        </QuestionForm>
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 13</QuestionHeading>
+        <H1 size="1.5em"> Answer one of the two questions: </H1>
+        <H1 size="1.5em">
+          1. Describe how you became interested in the world of technology and here you hope to go
+          from here on out!
+        </H1>
+        <H1 size="1.5em">2. How would you like to challenge yourself during this hackathon?</H1>
+        <TextArea
+          placeholder=""
+          maxLength="650"
+          value={formInputs.longAnswer}
+          onChange={val =>
+            onChange({
+              ...formInputs,
+              longAnswer: val,
+            })
+          }
+        ></TextArea>
+      </FormSpacing>
     </>
   )
-}
-
-{
-  /* <QuestionContainer>
-<ColumnContainer>
-  <QuestionHeading>resume</QuestionHeading>
-  <QuestionHeading>github</QuestionHeading>
-  <QuestionHeading>linkedin</QuestionHeading>
-  <QuestionHeading>portfolio</QuestionHeading>
-</ColumnContainer>
-
-<ColumnContainer>
-  <ResumeUploadBtn
-    onChange={e => onChange({
-      ...formInputs,
-      resume: e.target.value
-    })}
-    />
-  <TextInput 
-  placeholder='Required' 
-  value={formInputs.github}
-  onChange={e => onChange({
-    ...formInputs,
-    github: e.target.value
-  })}></TextInput>
-  <TextInput 
-  placeholder='Optional'  
-  value={formInputs.linkedin}
-  onChange={e => onChange({
-    ...formInputs,
-    linkedin: e.target.value
-  })}></TextInput>
-  <TextInput 
-  placeholder='Optional' 
-  value={formInputs.portfolio}
-  onChange={e => onChange({
-    ...formInputs,
-    portfolio: e.target.value
-  })}></TextInput>
-</ColumnContainer>
-</QuestionContainer> */
 }

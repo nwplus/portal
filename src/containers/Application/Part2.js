@@ -4,7 +4,7 @@ import Skills from '../../components/Skills'
 
 export default () => {
   const [states, setStates] = useState({
-    resume: '',
+    resume: null,
     github: '',
     linkedin: '',
     portfolio: '',

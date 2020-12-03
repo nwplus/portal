@@ -8,6 +8,9 @@ const Container = styled.div`
     padding: 3vh 6vw;
   }
 `
+export const FormSpacing = styled.div`
+  margin-bottom: 6em;
+`
 
 export default ({ children }) => {
   return <Container>{children}</Container>
