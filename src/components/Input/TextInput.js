@@ -11,6 +11,7 @@ const inputSize = {
 
 const TextInputContainer = styled.div`
   margin: 1em;
+  ${p => p.inline && `display: inline-block;`}
 `
 
 const TextInputBox = styled.input.attrs({
@@ -23,6 +24,7 @@ const TextInputBox = styled.input.attrs({
     `
     ${TextInputNoOutline};
     border-bottom-color: ${p.theme.colors.default};
+    height: 2em;
     :hover {
       ${TextInputNoOutline}
       border-bottom-color: ${p => p.theme.colors.primary};
@@ -31,16 +33,12 @@ const TextInputBox = styled.input.attrs({
       ${TextInputNoOutline}
       border-bottom-color: ${p => p.theme.colors.primary};
     }
-    :disabled {
-      ${TextInputNoOutline}
-      border-bottom-color: ${p => p.theme.colors.highlight};
-    }
     `}
 `
 
-export const TextInput = ({ className, invalid, errorMsg, noOutline, ...rest }) => {
+export const TextInput = ({ className, invalid, errorMsg, noOutline, inline, ...rest }) => {
   return (
-    <TextInputContainer className={className}>
+    <TextInputContainer className={className} inline={inline}>
       <TextInputBox invalid={invalid} noOutline={noOutline} {...rest} />
       {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
     </TextInputContainer>

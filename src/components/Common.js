@@ -91,6 +91,7 @@ export const TextInputLike = css`
 `
 
 export const TextInputNoOutline = css`
+  box-sizing: border-box;
   border-radius: 0;
   border-style: none;
   border-bottom-style: solid;
