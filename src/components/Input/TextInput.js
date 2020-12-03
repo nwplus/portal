@@ -11,7 +11,10 @@ const inputSize = {
 
 const TextInputContainer = styled.div`
   margin: 1em;
-  ${p => p.inline && `display: inline-block;`}
+  ${p =>
+    p.inline &&
+    `display: inline-block;
+  margin-left: 0;`}
   ${p => p.noOutline && `margin: 0;`}
 `
 
