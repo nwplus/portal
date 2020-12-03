@@ -27,7 +27,7 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
-import { AuthProvider, getRedirectUrl, logout, useAuth } from './utility/Auth'
+import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -51,7 +51,7 @@ const AuthPageRoute = ({ path, children }) => {
 }
 
 const NavbarAuthRoute = ({ name, handleLogout, path, children }) => {
-  const { isAuthed, user } = useAuth()
+  const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
     <Route path={path}>
       <Navbar
@@ -76,7 +76,7 @@ const NoAuthRoute = ({ path, children }) => {
 }
 
 const ApplicationFormContainer = ({ params }) => {
-  const { isAuthed, user } = useAuth()
+  const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
     <>
       <Navbar name={user.displayName} handleLogout={logout} />

@@ -4,6 +4,7 @@ import 'firebase/auth'
 import { getUserStatus } from './firebase'
 import { applicantStatus } from './Constants'
 import Spinner from '../components/Loading'
+import { useLocation } from 'wouter'
 
 const AuthContext = createContext()
 
@@ -14,6 +15,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [, setLocation] = useLocation()
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(async currUser => {
@@ -28,10 +30,15 @@ export function AuthProvider({ children }) {
     })
   })
 
+  const logout = async () => {
+    await firebase.auth().signOut()
+    setLocation('/login')
+  }
+
   return loading ? (
     <Spinner loading />
   ) : (
-    <AuthContext.Provider value={{ isAuthed: !!user, user, setUser }}>
+    <AuthContext.Provider value={{ isAuthed: !!user, user, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   )
@@ -78,8 +85,4 @@ export const githubSignIn = async (setUser, setLocation) => {
   } catch (e) {
     return e
   }
-}
-
-export const logout = async () => {
-  return firebase.auth().signOut()
 }
