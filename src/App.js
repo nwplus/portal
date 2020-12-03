@@ -28,6 +28,7 @@ import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
+import { HackerApplicationProvider } from './utility/HackerApplicationContext'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -139,16 +140,20 @@ function App() {
                   <Login />
                 </Navbar>
               </NoAuthRoute>
-              <AuthPageRoute path="/application">
-                <Application />
-              </AuthPageRoute>
-              <NavbarAuthRoute path="/application/review" name handleLogout>
-                <ApplicationReview />
-              </NavbarAuthRoute>
-              <NavbarAuthRoute path="/application/confirmation" handleLogout>
-                <ApplicationConfirmation />
-              </NavbarAuthRoute>
-              <Route path="/application/:part" component={ApplicationFormContainer} />
+              <HackerApplicationProvider>
+                <Switch>
+                  <AuthPageRoute path="/application">
+                    <Application />
+                  </AuthPageRoute>
+                  <NavbarAuthRoute path="/application/review" name handleLogout>
+                    <ApplicationReview />
+                  </NavbarAuthRoute>
+                  <NavbarAuthRoute path="/application/confirmation" handleLogout>
+                    <ApplicationConfirmation />
+                  </NavbarAuthRoute>
+                  <Route path="/application/:part" component={ApplicationFormContainer} />
+                </Switch>
+              </HackerApplicationProvider>
               <AuthPageRoute path="/judging">
                 <Judging />
               </AuthPageRoute>
