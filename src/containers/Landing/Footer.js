@@ -4,15 +4,25 @@ import facebook from '../../assets/icons/facebook.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import medium from '../../assets/icons/medium.svg'
 import twitter from '../../assets/icons/twitter.svg'
-import { P, A } from '../../components/Typography'
+import { H1, P, A } from '../../components/Typography'
 import { SOCIAL_LINKS } from '../../utility/Constants'
 import { CenterHorizontally } from '../../components/Common'
+
+const SponsorsContainer = styled.div`
+  position: absolute;
+  width: 80vw;
+  top: 40em;
+  ${CenterHorizontally}
+  display: block;
+  text-align: center;
+  justify-content: center;
+`
 
 const StyledFooterContainer = styled.div`
   position: absolute;
   ${CenterHorizontally}
   z-index: 100;
-  bottom: 8em;
+  top: 60em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,12 +40,16 @@ const CopyrightBlurb = styled(P)`
     display: block;
     width: 100%;
     text-align: center;
-    bottom: 5em;
+    top: 66em;
+    padding-bottom: 2.5em;
   }
 `
 
 export default () => (
   <>
+    <SponsorsContainer>
+      <H1 size="1.5em">Sponsored by</H1>
+    </SponsorsContainer>
     <StyledFooterContainer>
       <a href={SOCIAL_LINKS.FB}>
         <BoundingBox src={facebook} alt="nwPlus Facebook" />
