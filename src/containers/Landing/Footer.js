@@ -1,5 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import kabam from '../../assets/sponsor_kabam.png'
+import groundswell from '../../assets/sponsor_groundswell.svg'
+import deloitte from '../../assets/sponsor_deloitte.svg'
+import kpmg from '../../assets/sponsor_kpmg.svg'
 import facebook from '../../assets/icons/facebook.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import medium from '../../assets/icons/medium.svg'
@@ -11,18 +15,36 @@ import { CenterHorizontally } from '../../components/Common'
 const SponsorsContainer = styled.div`
   position: absolute;
   width: 80vw;
-  top: 40em;
+  top: 37em;
   ${CenterHorizontally}
   display: block;
   text-align: center;
   justify-content: center;
 `
 
+const LogoContainer = styled.div`
+  position: absolute;
+  ${CenterHorizontally}
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const SponsorLogo = styled.img`
+  max-width: 230px;
+  max-height: 45px;
+  width: auto;
+  height: auto;
+  float: left;
+  margin: 32px;
+`
+
 const StyledFooterContainer = styled.div`
   position: absolute;
   ${CenterHorizontally}
   z-index: 100;
-  top: 60em;
+  top: 55em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +62,7 @@ const CopyrightBlurb = styled(P)`
     display: block;
     width: 100%;
     text-align: center;
-    top: 66em;
+    top: 61em;
     padding-bottom: 2.5em;
   }
 `
@@ -49,6 +71,12 @@ export default () => (
   <>
     <SponsorsContainer>
       <H1 size="1.5em">Sponsored by</H1>
+      <LogoContainer>
+        <SponsorLogo src={kabam} />
+        <SponsorLogo src={groundswell} />
+        <SponsorLogo src={deloitte} />
+        <SponsorLogo src={kpmg} />
+      </LogoContainer>
     </SponsorsContainer>
     <StyledFooterContainer>
       <a href={SOCIAL_LINKS.FB}>
