@@ -1,6 +1,11 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { hackerApplicationTemplate, applicantStatus, DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import {
+  hackerApplicationTemplate,
+  applicantStatus,
+  DB_COLLECTION,
+  DB_HACKATHON,
+} from '../utility/Constants'
 import { formatProject } from './utilities'
 
 if (!firebase.apps.length) {
