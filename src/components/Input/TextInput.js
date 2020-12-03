@@ -24,6 +24,7 @@ const TextInputBox = styled.input.attrs({
     p.noOutline &&
     `
     ${TextInputNoOutline};
+    padding-left: 0;
     border-bottom-color: ${p.theme.colors.default};
     height: 2em;
     :hover {

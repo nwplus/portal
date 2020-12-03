@@ -195,6 +195,7 @@ export default () => {
         />
         <Select type="radio" name="selects" label="Disabled state" disabled />
         <Select type="radio" name="selects" label="Can't select this" disabled />
+        <Select type="radio" name="selects" label="Other" readOnly />
         <TextInput placeholder="Please Specify" size="small" noOutline inline />
         <H3>Multiselects (Select all that apply)</H3>
         <Select
