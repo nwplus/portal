@@ -12,6 +12,11 @@ export function useAuth() {
   return useContext(AuthContext)
 }
 
+export const checkAdminClaim = async user => {
+  const token = await user.getIdTokenResult()
+  return Object.prototype.hasOwnProperty.call(token.claims, 'admin')
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -25,6 +30,8 @@ export function AuthProvider({ children }) {
       }
       const status = await getUserStatus(currUser)
       currUser.status = status
+      const admin = await checkAdminClaim(currUser)
+      currUser.admin = admin
       setUser(currUser)
       setLoading(false)
     })
@@ -49,6 +56,8 @@ const handleUser = async (setUser, setLocation) => {
   const user = firebase.auth().currentUser
   const status = await getUserStatus(user)
   user.status = status
+  const admin = await checkAdminClaim(user)
+  user.admin = admin
   setUser(user)
   setLocation(getRedirectUrl(status))
 }
