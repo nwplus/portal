@@ -9,7 +9,7 @@ const SelectFocusLike = css`
 const SelectWrapper = styled.span`
   display: inline-block;
   border: 2px solid ${p => p.theme.colors.default};
-  border-radius: 8px;
+  border-radius: 7px;
   padding: 8px 24px 8px 16px;
   margin: 8px 12px 12px 0;
   ${p =>

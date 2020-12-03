@@ -90,6 +90,14 @@ export const TextInputLike = css`
     }`}
 `
 
+export const TextInputNoOutline = css`
+  box-sizing: border-box;
+  border-radius: 0;
+  border-style: none;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+`
+
 export const TextInputLikeErrorMsg = styled.p`
   color: ${p => p.theme.colors.warning};
   margin: 0.5em 0em;

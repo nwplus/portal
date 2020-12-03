@@ -53,7 +53,6 @@ export default () => {
     radio: 'selected',
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
-
   const [textArea1Value, setTextArea1Value] = useState('')
   const [textArea2Value, setTextArea2Value] = useState('')
   const [hint, setHint] = useState()
@@ -200,6 +199,9 @@ export default () => {
           value="selected"
         />
         <Select type="radio" name="selects" label="Disabled state" disabled />
+        <Select type="radio" name="selects" label="Can't select this" disabled />
+        <Select type="radio" name="selects" label="Other" readOnly />
+        <TextInput placeholder="Please Specify" size="small" noOutline inline />
         <H3>Multiselects (Select all that apply)</H3>
         <Select
           type="checkbox"
