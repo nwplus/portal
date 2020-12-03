@@ -19,15 +19,17 @@ export function HackerApplicationProvider({ children }) {
   /**Initialize retrieval of hacker application */
   useEffect(() => {
     const retrieveApplication = async () => {
-      const app = await getUserApplication(user.uuid)
+      if (!user) return
+      const app = await getUserApplication(user.uid)
       setApplication(app)
       setUpdated(false)
     }
     retrieveApplication()
-  }, [user.uuid])
+  }, [user])
 
   /**Saves the users application, can be called manually or through interval */
   const forceSave = useCallback(async () => {
+    if (!user) return
     const updatedApp = {
       ...application,
       submission: {
@@ -35,10 +37,10 @@ export function HackerApplicationProvider({ children }) {
         submitted: false,
       },
     }
-    await updateUserApplication(user.uuid, updatedApp)
+    await updateUserApplication(user.uid, updatedApp)
     setApplication(updatedApp)
     setUpdated(false)
-  }, [application, user.uuid])
+  }, [application, user])
 
   /**Checks whether the app has been updated and force saves it if it has */
   const syncAppToFirebase = useCallback(async () => {
