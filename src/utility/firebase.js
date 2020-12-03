@@ -144,3 +144,7 @@ export const getUserStatus = async user => {
   }
   return applicantStatus.inProgress
 }
+
+export const updateUserApplication = async (uuid, newApp) => {
+  return applicantsRef.doc(uuid).set(newApp)
+}
