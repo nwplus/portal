@@ -53,7 +53,9 @@ export default () => {
     radio: 'selected',
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
-  const [textAreaValue, setTextAreaValue] = useState('')
+  
+  const [textArea1Value, setTextArea1Value] = useState('')
+  const [textArea2Value, setTextArea2Value] = useState('')
   const [hint, setHint] = useState()
   const [progress, setProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
@@ -149,8 +151,13 @@ export default () => {
       <TextArea
         placeholder="TextArea with placeholder."
         maxLength="10"
-        value={textAreaValue}
-        onChange={setTextAreaValue}
+        value={textArea1Value}
+        onChange={setTextArea1Value}
+      />
+      <TextArea
+        placeholder="TextArea with placeholder but no maxLength."
+        value={textArea2Value}
+        onChange={setTextArea2Value}
       />
       <Accordion heading="Accordion Component">
         Some hidden content. This can get pretty long too, and even contain other stuff like headers
