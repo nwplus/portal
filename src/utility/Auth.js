@@ -82,6 +82,5 @@ export const githubSignIn = async (setUser, setLocation) => {
 }
 
 export const logout = async () => {
-  await firebase.auth().signOut()
-  return <Redirect to="/login" />
+  return firebase.auth().signOut()
 }
