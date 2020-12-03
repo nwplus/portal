@@ -4,6 +4,7 @@ import 'firebase/auth'
 import { getUserStatus } from './firebase'
 import { applicantStatus } from './Constants'
 import { Redirect } from 'wouter'
+import Spinner from '../components/Loading'
 
 const AuthContext = createContext()
 
@@ -29,7 +30,7 @@ export function AuthProvider({ children }) {
   })
 
   return loading ? (
-    <>Loading...</>
+    <Spinner loading />
   ) : (
     <AuthContext.Provider value={{ isAuthed: !!user, user, setUser }}>
       {children}
