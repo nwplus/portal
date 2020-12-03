@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
-import { getYoutubeThumbnail } from './utilities'
+import { formatProject } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -17,6 +17,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config)
 }
 
+export const firestore = firebase.firestore
 export const db = firebase.firestore()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
@@ -72,9 +73,7 @@ export const getProject = async (user_id, setProjectCallback, setFeedbackCallbac
     .data()
     .project.get()
     .then(doc => {
-      const projectData = doc.data()
-      projectData.imgUrl = getYoutubeThumbnail(projectData.youtubeUrl)
-      projectData.href = projectData.devpostUrl
+      const projectData = formatProject(doc.data())
       setProjectCallback(projectData)
     })
   if (!!setFeedbackCallback) {
