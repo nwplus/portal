@@ -71,7 +71,7 @@ const NoAuthRoute = ({ path, children }) => {
   const { isAuthed, user } = useAuth()
   return (
     <Route path={path}>
-      {!isAuthed ? <>{children}</> : <Redirect to={getRedirectUrl(user.status)} />}
+      {!isAuthed ? <>{children}</> : <Redirect to={getRedirectUrl(user.redirect)} />}
     </Route>
   )
 }
