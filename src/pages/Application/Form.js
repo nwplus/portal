@@ -3,28 +3,15 @@ import { Redirect } from 'wouter'
 import Part1 from '../../containers/Application/Part1'
 import Part2 from '../../containers/Application/Part2'
 import Part3 from '../../containers/Application/Part3'
-import FormContainer from '../../components/ApplicationForm/index'
 
 export default ({ part }) => {
   switch (part) {
     case 'part-1':
-      return (
-        <FormContainer>
-          <Part1 />
-        </FormContainer>
-      )
+      return <Part1 />
     case 'part-2':
-      return (
-        <FormContainer>
-          <Part2 />
-        </FormContainer>
-      )
+      return <Part2 />
     case 'part-3':
-      return (
-        <FormContainer>
-          <Part3 />
-        </FormContainer>
-      )
+      return <Part3 />
     default:
       return <Redirect to="/login" />
   }

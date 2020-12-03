@@ -10,6 +10,8 @@ const nwTheme = {
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
+    error: '#ff0033',
+    errorText: '#fff',
     foreground: '#4F4A59',
     primary: '#06C1C0',
     default: '#BEBEBE',
@@ -33,6 +35,8 @@ const nwTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
   typography: {
     h1: {
@@ -64,6 +68,8 @@ const hackcampTheme = {
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
+    error: '#ff0033',
+    errorText: '#fff',
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
     primary: '#FFBC96',
@@ -84,6 +90,8 @@ const hackcampTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
   typography: {
     h1: {

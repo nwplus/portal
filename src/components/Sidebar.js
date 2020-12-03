@@ -83,6 +83,9 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
     { location: '/quicklinks', text: 'QUICKLINKS' },
     { location: '/faq', text: 'FAQ' },
     { location: '/sponsors', text: 'SPONSORS' },
+
+    // TODO: only show show judging admin portal to those with @nwplus.io emails
+    { location: '/judging/admin', text: 'JUDGING ADMIN' },
   ]
 
   if (isJudgingOpen) {

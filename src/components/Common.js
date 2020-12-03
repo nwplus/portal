@@ -1,15 +1,9 @@
 import styled, { css } from 'styled-components'
 import { P } from './Typography'
-
-const screenBreakpoints = {
-  xs: 576,
-  mobile: 768,
-  tablet: 992,
-  desktop: 1200,
-}
+import { SCREEN_BREAKPOINTS } from '../utility/Constants'
 
 export const maxWidthMediaQueries = size => {
-  return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
+  return `@media only screen and (max-width: ${SCREEN_BREAKPOINTS[size]}px)`
 }
 
 export const CardLike = css`
@@ -98,6 +92,11 @@ export const TextInputLike = css`
 
 export const TextInputLikeErrorMsg = styled.p`
   color: ${p => p.theme.colors.warning};
+  margin: 0.5em 0em;
+`
+
+export const TextInputLikeMsg = styled.p`
+  color: ${p => p.theme.colors.highlight};
   margin: 0.5em 0em;
 `
 
