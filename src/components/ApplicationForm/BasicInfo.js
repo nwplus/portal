@@ -214,13 +214,13 @@ export default ({ formInputs, onChange }) => (
       <Select
         type="radio"
         label="Yes"
-        checked={formInputs.isOfLegalAge === true}
+        checked={formInputs.isOfLegalAge}
         onChange={() => onChange({ ...formInputs, isOfLegalAge: true })}
       ></Select>
       <Select
         type="radio"
         label="No"
-        checked={formInputs.isOfLegalAge === false}
+        checked={!formInputs.isOfLegalAge}
         onChange={() => onChange({ ...formInputs, isOfLegalAge: false })}
       ></Select>
     </FormSpacing>
@@ -346,14 +346,14 @@ export default ({ formInputs, onChange }) => (
       <Select
         type="radio"
         label="Developer"
-        checked={formInputs.contributionRole === 'Developer'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'Developer' })}
+        checked={formInputs.contributionRole === 'developer'}
+        onChange={() => onChange({ ...formInputs, contributionRole: 'developer' })}
       ></Select>
       <Select
         type="radio"
         label="Designer"
-        checked={formInputs.contributionRole === 'Designer'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'Designer' })}
+        checked={formInputs.contributionRole === 'designer'}
+        onChange={() => onChange({ ...formInputs, contributionRole: 'designer' })}
       ></Select>
     </FormSpacing>
 
