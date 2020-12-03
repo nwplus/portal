@@ -3,11 +3,13 @@ import { css } from '@emotion/core'
 import MoonLoader from 'react-spinners/MoonLoader'
 
 const override = css`
+  display: block;
   position: fixed;
   top: 50%;
-  left: 50%;
-  background-size: 100%;
-  z-index: 900;
+  right: 50%;
+  margin-top: -40px;
+  margin-right: -40px;
+  z-index: 1031;
 `
 
 export default ({ loading }) => (
