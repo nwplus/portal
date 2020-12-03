@@ -55,7 +55,7 @@ export function HackerApplicationProvider({ children }) {
     return () => {
       clearInterval(interval)
     }
-  }, [syncAppToFirebase, user.uuid])
+  }, [syncAppToFirebase, user])
 
   /**Update the updated variable when making changes to the new app */
   const updateApplication = newApp => {
