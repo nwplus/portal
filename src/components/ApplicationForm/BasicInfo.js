@@ -57,6 +57,7 @@ export default ({ formInputs, onChange }) => (
       <H1 size="1.5em">What is your preferred name?</H1>
       <TextInput
         placeholder="First Name"
+        inline
         value={formInputs.firstName}
         onChange={e =>
           onChange({
@@ -67,6 +68,7 @@ export default ({ formInputs, onChange }) => (
       ></TextInput>
       <TextInput
         placeholder="Last Name"
+        inline
         value={formInputs.lastName}
         onChange={e =>
           onChange({
