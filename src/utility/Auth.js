@@ -3,7 +3,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus } from './firebase'
 import { applicantStatus } from './Constants'
-
+import LoadingSpinner from '../components/Loading'
 const AuthContext = createContext()
 
 export function useAuth() {
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
   })
 
   return loading ? (
-    <>Loading...</>
+    <LoadingSpinner />
   ) : (
     <AuthContext.Provider value={{ isAuthed: !!user, user, setUser }}>
       {children}
