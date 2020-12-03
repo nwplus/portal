@@ -220,7 +220,7 @@ export default ({ formInputs, onChange }) => (
       <Select
         type="radio"
         label="No"
-        checked={!formInputs.isOfLegalAge}
+        checked={formInputs.isOfLegalAge === false}
         onChange={() => onChange({ ...formInputs, isOfLegalAge: false })}
       ></Select>
     </FormSpacing>
