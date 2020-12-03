@@ -29,6 +29,7 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  top: 2.5em;
 `
 
 const SponsorLogo = styled.img`
