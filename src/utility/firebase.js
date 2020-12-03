@@ -144,3 +144,11 @@ export const getUserStatus = async user => {
   }
   return applicantStatus.inProgress
 }
+
+export const getUserApplication = async uuid => {
+  return (await applicantsRef.doc(uuid).get()).data()
+}
+
+export const updateUserApplication = async (uuid, newApp) => {
+  return applicantsRef.doc(uuid).set(newApp)
+}
