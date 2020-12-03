@@ -2,8 +2,9 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import {
   hackerApplicationTemplate,
-  applicantStatus,
+  RedirectStatus,
   DB_COLLECTION,
+  ApplicationStatus,
   DB_HACKATHON,
 } from '../utility/Constants'
 import { formatProject } from './utilities'
@@ -125,24 +126,25 @@ const createNewApplication = async user => {
   await applicantsRef.doc(user.uid).set(newApplication)
 }
 
+/**Extracts user status and redirect information for the user */
 export const getUserStatus = async user => {
-  const applicant = await applicantsRef.doc(user.uid).get()
+  let applicant = await applicantsRef.doc(user.uid).get()
   if (!applicant.exists) {
     await createNewApplication(user)
-    return applicantStatus.new
-  }
-  if (applicant.data().status.attending) {
-    return applicantStatus.attending
+    applicant = await applicantsRef.doc(user.uid).get()
   }
 
   const status = applicant.data().status.applicationStatus
-  if (status === applicantStatus.applied) {
-    return applicantStatus.applied
+
+  if (applicant.data().status.attending) {
+    return { redirect: RedirectStatus.AttendingEvent, status }
   }
-  if (status === applicantStatus.accepted) {
-    return applicantStatus.accepted
+
+  if (status === ApplicationStatus.inProgress) {
+    return { redirect: RedirectStatus.ApplicationNotSubmitted, status }
   }
-  return applicantStatus.inProgress
+  /**All other status' go here. */
+  return { redirect: RedirectStatus.ApplicationSubmitted, status }
 }
 
 export const getUserApplication = async uuid => {
