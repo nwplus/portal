@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg, TextInputNoOutline } from '../Common.js'
 
 const inputSize = {
-  small: '160px',
+  small: '200px',
   default: '300px',
   medium: '400px',
   large: '600px',
@@ -12,6 +12,7 @@ const inputSize = {
 const TextInputContainer = styled.div`
   margin: 1em;
   ${p => p.inline && `display: inline-block;`}
+  ${p => p.noOutline && `margin: 0;`}
 `
 
 const TextInputBox = styled.input.attrs({
@@ -38,7 +39,7 @@ const TextInputBox = styled.input.attrs({
 
 export const TextInput = ({ className, invalid, errorMsg, noOutline, inline, ...rest }) => {
   return (
-    <TextInputContainer className={className} inline={inline}>
+    <TextInputContainer className={className} inline={inline} noOutline={noOutline}>
       <TextInputBox invalid={invalid} noOutline={noOutline} {...rest} />
       {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
     </TextInputContainer>
