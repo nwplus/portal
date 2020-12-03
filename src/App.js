@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import Navbar from './components/Navbar'
-
+import Form from './components/ApplicationForm'
 import {
   Login,
   Charcuterie,
@@ -27,7 +27,7 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
-import { AuthProvider, getRedirectUrl, logout, useAuth } from './utility/Auth'
+import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -50,13 +50,16 @@ const AuthPageRoute = ({ path, children }) => {
   return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
 }
 
-const NavbarAuthRoute = ({ path, children }) => {
-  // TODO: pass in name and handleLogout function into NavBar component
-  const { isAuthed, user } = useAuth()
+const NavbarAuthRoute = ({ name, handleLogout, path, children }) => {
+  const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
     <Route path={path}>
-      <Navbar name={user.displayName} handleLogout={logout} />
-      {children}
+      <Navbar
+        name={name ? user.displayName : undefined}
+        handleLogout={handleLogout ? logout : undefined}
+      >
+        {name && handleLogout ? <Form>{children}</Form> : children}
+      </Navbar>
     </Route>
   ) : (
     <Redirect to="/login" />
@@ -69,6 +72,20 @@ const NoAuthRoute = ({ path, children }) => {
     <Route path={path}>
       {!isAuthed ? <>{children}</> : <Redirect to={getRedirectUrl(user.status)} />}
     </Route>
+  )
+}
+
+const ApplicationFormContainer = ({ params }) => {
+  const { isAuthed, user, logout } = useAuth()
+  return isAuthed ? (
+    <>
+      <Navbar name={user.displayName} handleLogout={logout} />
+      <Form>
+        <ApplicationForm part={params.part} />
+      </Form>
+    </>
+  ) : (
+    <Redirect to="/login" />
   )
 }
 
@@ -118,21 +135,20 @@ function App() {
           <AuthProvider>
             <Switch>
               <NoAuthRoute path="/login">
-                <Navbar />
-                <Login />
+                <Navbar>
+                  <Login />
+                </Navbar>
               </NoAuthRoute>
               <AuthPageRoute path="/application">
                 <Application />
               </AuthPageRoute>
-              <NavbarAuthRoute path="/application/review">
+              <NavbarAuthRoute path="/application/review" name handleLogout>
                 <ApplicationReview />
               </NavbarAuthRoute>
-              <NavbarAuthRoute path="/application/confirmation">
+              <NavbarAuthRoute path="/application/confirmation" handleLogout>
                 <ApplicationConfirmation />
               </NavbarAuthRoute>
-              <NavbarAuthRoute path="/application/:part">
-                {params => <ApplicationForm part={params.part} />}
-              </NavbarAuthRoute>
+              <Route path="/application/:part" component={ApplicationFormContainer} />
               <AuthPageRoute path="/judging">
                 <Judging />
               </AuthPageRoute>

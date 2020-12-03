@@ -53,7 +53,7 @@ export default () => {
     radio: 'selected',
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
-  
+
   const [textArea1Value, setTextArea1Value] = useState('')
   const [textArea2Value, setTextArea2Value] = useState('')
   const [hint, setHint] = useState()
