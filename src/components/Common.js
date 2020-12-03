@@ -95,6 +95,7 @@ export const TextInputNoOutline = css`
   border-radius: 0;
   border-style: none;
   border-bottom-style: solid;
+  border-bottom-width: thin;
 `
 
 export const TextInputLikeErrorMsg = styled.p`
