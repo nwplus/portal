@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
-import { CardLike, DetailContainer, DetailColumn } from '../components/Common'
+import { Card, DetailContainer, DetailColumn } from '../components/Common'
 import { H2, UL, LI, I } from '../components/Typography'
 import { chunkify } from '../utility/utilities'
 
@@ -10,10 +10,6 @@ const CenteredH1 = styled.h1`
   text-align: center;
 `
 const COLUMNS_OF_PRIZES = 3
-
-const PrizeCard = styled.div`
-  ${CardLike};
-`
 
 const StyledH2 = styled(H2)`
   margin-top: 0.1em;
@@ -43,7 +39,7 @@ const createPrizeList = prizes => {
 
 const singlePrize = prize => {
   return (
-    <PrizeCard>
+    <Card>
       <StyledH2>{prize.title}</StyledH2>
       {prize.sponsor == null ? null : <I>{`Sponsored by ${prize.sponsor}`}</I>}
       <UL>
@@ -51,7 +47,7 @@ const singlePrize = prize => {
           <LI key={prize.title + item}>{item}</LI>
         ))}
       </UL>
-    </PrizeCard>
+    </Card>
   )
 }
 
