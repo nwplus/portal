@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { analytics, getUserStatus } from './firebase'
-import { applicantStatus, AnalyticsEvents } from './Constants'
+import { getUserStatus, analytics } from './firebase'
+import { RedirectStatus, AnalyticsEvents } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -29,8 +29,9 @@ export function AuthProvider({ children }) {
         analytics.setUserId(null)
         return
       }
-      const status = await getUserStatus(currUser)
+      const { redirect, status } = await getUserStatus(currUser)
       currUser.status = status
+      currUser.redirect = redirect
       const admin = await checkAdminClaim(currUser)
       currUser.admin = admin
       setUser(currUser)
@@ -43,7 +44,7 @@ export function AuthProvider({ children }) {
     analytics.logEvent(AnalyticsEvents.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/login')
+    setLocation('/')
   }
 
   return loading ? (
@@ -57,22 +58,24 @@ export function AuthProvider({ children }) {
 
 const handleUser = async (setUser, setLocation) => {
   const user = firebase.auth().currentUser
-  const status = await getUserStatus(user)
+  const { redirect, status } = await getUserStatus(user)
   user.status = status
+  user.redirect = redirect
   const admin = await checkAdminClaim(user)
   user.admin = admin
   setUser(user)
-  setLocation(getRedirectUrl(status))
-  analytics.setUserId(user.uuid)
+  analytics.setUserId(user.uid)
   analytics.logEvent(AnalyticsEvents.Login, { userId: user.uid })
+  setLocation(getRedirectUrl(redirect))
 }
 
-export const getRedirectUrl = status => {
-  switch (status) {
-    case applicantStatus.attending:
+export const getRedirectUrl = redirect => {
+  switch (redirect) {
+    case RedirectStatus.AttendingEvent:
       return '/judging'
-    case applicantStatus.applied || applicantStatus.accepted:
-    case applicantStatus.inProgress || applicantStatus.new:
+    case RedirectStatus.ApplicationNotSubmitted:
+      return '/application/part-1'
+    case RedirectStatus.ApplicationSubmitted:
     default:
       return '/application'
   }

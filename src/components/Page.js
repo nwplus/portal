@@ -19,6 +19,9 @@ const Content = styled.div`
   padding: 24px 50px;
   box-sizing: border-box;
   width: 100%;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 8px 20px;
+  }
 `
 
 const Page = ({ children }) => {
@@ -35,6 +38,7 @@ const Page = ({ children }) => {
       <Sidebar
         isJudgingOpen={livesiteDoc.judgingOpen}
         isSubmissionsOpen={livesiteDoc.submissionsOpen}
+        isApplicationOpen={livesiteDoc.applicationsOpen}
         showMobileSidebar={showMobileSidebar}
       />
       <RightContentContainer>

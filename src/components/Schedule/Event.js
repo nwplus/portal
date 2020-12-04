@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { P, H3 } from '../Typography'
-import { Card } from '../Common'
+import { Card, ScrollbarLike } from '../Common'
 import { HOUR_HEIGHT, EVENT_GAP, EVENT_WIDTH, EVENT_TYPES } from './Constants'
 import { PositionedTag } from './Tag'
 
@@ -28,6 +28,8 @@ const EventCard = styled(Card)`
   margin-top: ${props => props.timeStart * HOUR_HEIGHT}px;
   height: ${props => props.duration * HOUR_HEIGHT - EVENT_GAP * 4}px;
   overflow-y: scroll;
+
+  ${ScrollbarLike};
 
   & > h3 {
     opacity: 1;

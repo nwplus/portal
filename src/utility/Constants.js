@@ -1,19 +1,22 @@
 export const DB_COLLECTION = 'Hackathons'
+
+// CHANGE: firebase collection name for this hackathon
 export const DB_HACKATHON = 'LHD2021'
+
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
+export const copyText = Object.freeze({
+  // CHANGE: name of hackathon to be displayed on login splash
+  hackathonName: 'HackCamp 2020',
+})
+
 export const NOTIFICATION_PERMISSIONS = Object.freeze({
   GRANTED: 'granted',
   DEFAULT: 'default',
   DENIED: 'denied',
 })
 export const DAYOF_COLLECTION = 'DayOf'
-export const SCREEN_BREAKPOINTS = {
-  xs: 576,
-  mobile: 768,
-  tablet: 992,
-  desktop: 1200,
-}
+
 export const SOCIAL_LINKS = Object.freeze({
   FB: 'https://www.facebook.com/nwplusubc',
   IG: 'https://www.instagram.com/nwplusubc',
@@ -22,11 +25,17 @@ export const SOCIAL_LINKS = Object.freeze({
   WEBSITE: 'https://www.nwplus.io',
 })
 
-export const applicantStatus = Object.freeze({
-  attending: 'attending',
-  new: 'new',
+export const RedirectStatus = Object.freeze({
+  ApplicationNotSubmitted: 'ApplicationNotSubmitted',
+  ApplicationSubmitted: 'ApplicationSubmitted',
+  AttendingEvent: 'AttendingEvent',
+})
+
+export const ApplicationStatus = Object.freeze({
   applied: 'applied',
   accepted: 'accepted',
+  rejected: 'rejected',
+  waitlisted: 'waitlisted',
   inProgress: 'inProgress',
 })
 

@@ -1,10 +1,16 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-// eslint-disable-next-line
+const SCREEN_BREAKPOINTS = {
+  xs: 576,
+  mobile: 768,
+  tablet: 992,
+  desktop: 1200,
+}
+
 const nwTheme = {
+  name: 'nwHacks',
   font: 'HK Grotesk',
-  custom_imgs: 'none',
   colors: {
     background: '#2D2937',
     border: 'rgba(255, 255, 255, 0.3)',
@@ -57,11 +63,17 @@ const nwTheme = {
   opacity: {
     disabled: 0.5,
   },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
 }
 
 const hackcampTheme = {
+  name: 'hackCamp',
   font: 'HK Grotesk',
-  custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
     border: 'rgba(255, 255, 255, 0.3)',
@@ -85,7 +97,7 @@ const hackcampTheme = {
     },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
-    banner: 'rgba(75, 65, 130, 0.2)',
+    banner: '#2A3C4A',
     login: {
       googleHover: '#fafafa',
       githubHover: '#545159',
@@ -112,10 +124,15 @@ const hackcampTheme = {
   opacity: {
     disabled: 0.5,
   },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
 }
 
 const THEMES = { nwTheme, hackcampTheme }
-
 let selectedTheme = hackcampTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
