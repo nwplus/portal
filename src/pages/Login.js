@@ -89,7 +89,7 @@ export default () => {
             Continue with GitHub
           </StyledButton>
         </ButtonContainer>
-        <A href="/">Skip For Now</A>
+        <A href="/">Return to Portal</A>
       </Landing>
       <ErrorBanner shown={showError} message={ErrorMessage} />
     </>
