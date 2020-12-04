@@ -148,20 +148,6 @@ function App() {
                   <Login />
                 </Navbar>
               </NoAuthRoute>
-              <HackerApplicationProvider>
-                <Switch>
-                  <AuthPageRoute path="/application">
-                    <Application />
-                  </AuthPageRoute>
-                  <NavbarAuthRoute path="/application/review" name handleLogout>
-                    <ApplicationReview />
-                  </NavbarAuthRoute>
-                  <NavbarAuthRoute path="/application/confirmation" handleLogout>
-                    <ApplicationConfirmation />
-                  </NavbarAuthRoute>
-                  <Route path="/application/:part" component={ApplicationFormContainer} />
-                </Switch>
-              </HackerApplicationProvider>
               <AuthPageRoute path="/judging">
                 <Judging />
               </AuthPageRoute>
@@ -180,6 +166,18 @@ function App() {
               <AuthPageRoute path="/submission/edit">
                 <SubmissionEdit />
               </AuthPageRoute>
+              <HackerApplicationProvider>
+                <AuthPageRoute path="/application">
+                  <Application />
+                </AuthPageRoute>
+                <NavbarAuthRoute path="/application/review" name handleLogout>
+                  <ApplicationReview />
+                </NavbarAuthRoute>
+                <NavbarAuthRoute path="/application/confirmation" handleLogout>
+                  <ApplicationConfirmation />
+                </NavbarAuthRoute>
+                <Route path="/application/:part" component={ApplicationFormContainer} />
+              </HackerApplicationProvider>
               <Route path="/:rest*">
                 <Page>Page Not Found!</Page>
               </Route>

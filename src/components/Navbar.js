@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { P } from './Typography'
 import icon from '../assets/nwhacks_icon.svg'
 import { Button } from './Input'
-import { maxWidthMediaQueries } from './Common'
 
 const NavContainer = styled.div`
   direction: rtl;
@@ -17,7 +16,7 @@ const NavContainer = styled.div`
   align-items: center;
   background: transparent;
   z-index: 100;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     height: 3em;
   }
 `
@@ -26,7 +25,7 @@ const Icon = styled.img`
   margin-inline-start: auto;
   width: 30px;
   height: 42px;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     width: 15px;
     height: 21px;
   }
@@ -39,7 +38,7 @@ const Greeting = styled(P)`
   text-shadow: -1px 0 ${p => p.theme.colors.greetingBorder},
     0 1px ${p => p.theme.colors.greetingBorder}, 1px 0 ${p => p.theme.colors.greetingBorder},
     0 -1px ${p => p.theme.colors.greetingBorder};
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     padding-right: 0.1em;
     font-weight: 700;
     font-size: 14px;

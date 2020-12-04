@@ -4,16 +4,14 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
-import { maxWidthMediaQueries } from './Common'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
   border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
-  ${maxWidthMediaQueries('mobile')} {
-    ${props =>
-      props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
+  ${p => p.theme.mediaQueries.mobile} {
+    ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
 `
 
