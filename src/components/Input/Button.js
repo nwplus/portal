@@ -62,7 +62,7 @@ const StyledButton = styled.a`
       box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};
     }
     ${
-      p.theme.custom_imgs === 'hc' &&
+      p.theme.name === 'hackCamp' &&
       `
       background: url(${buttonBG});
       background-size: contain;

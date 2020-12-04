@@ -37,7 +37,7 @@ const StyledLogoLockup = styled.img`
   z-index: 1;
 
   ${p =>
-    p.theme.custom_imgs === 'hc' &&
+    p.theme.name === 'hackCamp' &&
     `
       top: 14em;
     `}

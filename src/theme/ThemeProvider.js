@@ -4,7 +4,6 @@ import { ThemeProvider } from 'styled-components'
 const nwTheme = {
   name: 'nwHacks',
   font: 'HK Grotesk',
-  custom_imgs: 'none',
   colors: {
     background: '#2D2937',
     border: 'rgba(255, 255, 255, 0.3)',
@@ -62,7 +61,6 @@ const nwTheme = {
 const hackcampTheme = {
   name: 'hackCamp',
   font: 'HK Grotesk',
-  custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
     border: 'rgba(255, 255, 255, 0.3)',

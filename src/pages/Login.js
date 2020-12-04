@@ -64,7 +64,7 @@ export default () => {
   return (
     <>
       <Landing
-        heading={`Welcome to ${copyText.landing.hackathonName}!`}
+        heading={`Welcome to ${copyText.hackathonName}!`}
         description="Please continue with one of the following:"
         hackathon={theme.name}
       >
