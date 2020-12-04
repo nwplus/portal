@@ -50,6 +50,10 @@ const LiveDot = styled.span`
   animation: ${Pulse} 1.5s ease infinite;
 `
 
+const StyledH2 = styled(H2)`
+  margin-bottom: 0;
+`
+
 const Livestream = () => {
   return (
     <Container>
@@ -62,9 +66,9 @@ const Livestream = () => {
         ></TwitchFrame>
       </TwitchContainer>
       <LeftAlign>
-        <H2>
+        <StyledH2>
           <LiveDot /> nwPlus - Live
-        </H2>
+        </StyledH2>
       </LeftAlign>
     </Container>
   )
