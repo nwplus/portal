@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { maxWidthMediaQueries } from '../Common'
 
 const Container = styled.div`
-  padding: 10vw 16vw;
-  ${maxWidthMediaQueries('mobile')} {
-    padding: 9vh 10vw;
+  padding: 8vh 16vw;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 3vh 6vw;
   }
 `
 

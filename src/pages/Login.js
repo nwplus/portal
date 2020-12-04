@@ -9,6 +9,7 @@ import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
 import { useLocation } from 'wouter'
 import { ErrorBanner } from '../components/ErrorBanner'
 import { A } from '../components/Typography'
+import { copyText } from '../utility/Constants'
 
 const ErrorMessage = (
   <>
@@ -63,8 +64,9 @@ export default () => {
   return (
     <>
       <Landing
-        heading="Welcome to nwHacks 2021!"
+        heading={`Welcome to ${copyText.hackathonName}!`}
         description="Please continue with one of the following:"
+        hackathon={theme.name}
       >
         <ButtonContainer>
           <StyledButton
@@ -79,7 +81,7 @@ export default () => {
           <StyledButton
             width="flex"
             labelColor={theme.colors.text}
-            color={theme.colors.foreground}
+            color={theme.colors.secondaryBackground}
             hover={theme.colors.login.githubHover}
             onClick={signInWithGithub}
           >
@@ -87,6 +89,7 @@ export default () => {
             Continue with GitHub
           </StyledButton>
         </ButtonContainer>
+        <A href="/">Skip For Now</A>
       </Landing>
       <ErrorBanner shown={showError} message={ErrorMessage} />
     </>

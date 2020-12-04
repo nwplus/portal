@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus } from './firebase'
-import { applicantStatus } from './Constants'
+import { RedirectStatus } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -10,6 +10,11 @@ const AuthContext = createContext()
 
 export function useAuth() {
   return useContext(AuthContext)
+}
+
+export const checkAdminClaim = async user => {
+  const token = await user.getIdTokenResult()
+  return Object.prototype.hasOwnProperty.call(token.claims, 'admin')
 }
 
 export function AuthProvider({ children }) {
@@ -23,8 +28,11 @@ export function AuthProvider({ children }) {
         setLoading(false)
         return
       }
-      const status = await getUserStatus(currUser)
+      const { redirect, status } = await getUserStatus(currUser)
       currUser.status = status
+      currUser.redirect = redirect
+      const admin = await checkAdminClaim(currUser)
+      currUser.admin = admin
       setUser(currUser)
       setLoading(false)
     })
@@ -33,7 +41,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/login')
+    setLocation('/')
   }
 
   return loading ? (
@@ -47,18 +55,22 @@ export function AuthProvider({ children }) {
 
 const handleUser = async (setUser, setLocation) => {
   const user = firebase.auth().currentUser
-  const status = await getUserStatus(user)
+  const { redirect, status } = await getUserStatus(user)
   user.status = status
+  user.redirect = redirect
+  const admin = await checkAdminClaim(user)
+  user.admin = admin
   setUser(user)
-  setLocation(getRedirectUrl(status))
+  setLocation(getRedirectUrl(redirect))
 }
 
-export const getRedirectUrl = status => {
-  switch (status) {
-    case applicantStatus.attending:
+export const getRedirectUrl = redirect => {
+  switch (redirect) {
+    case RedirectStatus.AttendingEvent:
       return '/judging'
-    case applicantStatus.applied || applicantStatus.accepted:
-    case applicantStatus.inProgress || applicantStatus.new:
+    case RedirectStatus.ApplicationNotSubmitted:
+      return '/application/part-1'
+    case RedirectStatus.ApplicationSubmitted:
     default:
       return '/application'
   }
