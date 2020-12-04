@@ -15,6 +15,18 @@ const genderOptions = [
   { value: 'prefer not to say', label: 'Prefer not to say' },
 ]
 
+const ethnicityOptions = {
+  asian: 'Asian',
+  black: 'Black or African American',
+  caucasian: 'Caucasian or European',
+  hispanic: 'Hispanic or Latinx',
+  middleEastern: 'Middle Eastern',
+  nativeHawaiian: 'Native Hawaiian or Pacific Islander',
+  northAmerica: 'North American Indigenous',
+  other: 'Other',
+  preferNot: 'Prefer not to say',
+}
+
 const educationOptions = [
   { value: 'high school', label: 'High school' },
   { value: 'undergraduate', label: 'Undergraduate' },
@@ -100,114 +112,19 @@ export default ({ formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <H1 size="1.5em">What is your race/ethnicity? (Select all that apply)</H1>
-      <Select
-        type="checkbox"
-        label="Asian"
-        checked={formInputs.ethnicity.asian}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: { ...formInputs.ethnicity, asian: !formInputs.ethnicity.asian },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="Black or African American"
-        checked={formInputs.ethnicity.black}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: { ...formInputs.ethnicity, black: !formInputs.ethnicity.black },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="Caucasian or European"
-        checked={formInputs.ethnicity.caucasian}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: { ...formInputs.ethnicity, caucasian: !formInputs.ethnicity.caucasian },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="Hispanic or Latinx"
-        checked={formInputs.ethnicity.hispanic}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: { ...formInputs.ethnicity, hispanic: !formInputs.ethnicity.hispanic },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="Middle Eastern"
-        checked={formInputs.ethnicity.middleEastern}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: {
-              ...formInputs.ethnicity,
-              middleEastern: !formInputs.ethnicity.middleEastern,
-            },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="Native Hawaiian or Pacific Islander"
-        checked={formInputs.ethnicity.nativeHawaiian}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: {
-              ...formInputs.ethnicity,
-              nativeHawaiian: !formInputs.ethnicity.nativeHawaiian,
-            },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="North American Indigenous"
-        checked={formInputs.ethnicity.northAmerica}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: {
-              ...formInputs.ethnicity,
-              northAmerica: !formInputs.ethnicity.northAmerica,
-            },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="Other"
-        checked={formInputs.ethnicity.other}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: { ...formInputs.ethnicity, other: !formInputs.ethnicity.other },
-          })
-        }
-      ></Select>
-      <Select
-        type="checkbox"
-        label="Prefer not to say"
-        checked={formInputs.ethnicity.preferNot}
-        onChange={() =>
-          onChange({
-            ...formInputs,
-            ethnicity: { ...formInputs.ethnicity, preferNot: !formInputs.ethnicity.preferNot },
-          })
-        }
-      ></Select>
+      {Object.entries(formInputs.ethnicity).map(([key, val]) => (
+        <Select
+          type="checkbox"
+          label={ethnicityOptions[key]}
+          checked={val}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              ethnicity: { ...formInputs.ethnicity, [key]: !val },
+            })
+          }
+        />
+      ))}
     </FormSpacing>
 
     <FormSpacing>
