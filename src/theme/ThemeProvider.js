@@ -1,6 +1,13 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
+const SCREEN_BREAKPOINTS = {
+  xs: 576,
+  mobile: 768,
+  tablet: 992,
+  desktop: 1200,
+}
+
 // eslint-disable-next-line
 const nwTheme = {
   font: 'HK Grotesk',
@@ -10,6 +17,8 @@ const nwTheme = {
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
+    error: '#ff0033',
+    errorText: '#fff',
     foreground: '#4F4A59',
     primary: '#06C1C0',
     default: '#BEBEBE',
@@ -33,6 +42,8 @@ const nwTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
   typography: {
     h1: {
@@ -53,6 +64,12 @@ const nwTheme = {
   opacity: {
     disabled: 0.5,
   },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
 }
 
 const hackcampTheme = {
@@ -64,6 +81,8 @@ const hackcampTheme = {
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
+    error: '#ff0033',
+    errorText: '#fff',
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
     primary: '#FFBC96',
@@ -84,6 +103,8 @@ const hackcampTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
   typography: {
     h1: {
@@ -103,6 +124,12 @@ const hackcampTheme = {
   },
   opacity: {
     disabled: 0.5,
+  },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
   },
 }
 

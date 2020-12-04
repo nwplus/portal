@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Button } from '../components/Button'
+import { Button } from '../components/Input'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
 import Quicklinks from '../components/Quicklinks'
@@ -9,6 +9,13 @@ const ButtonContainer = styled.div`
   margin: 1em;
   display: flex;
   justify-content: center;
+  ${p => p.theme.mediaQueries.mobile} {
+    display: inline-block;
+    text-align: center;
+    a {
+      margin-bottom: 0em;
+    }
+  }
 `
 const getLinks = () => {
   return db

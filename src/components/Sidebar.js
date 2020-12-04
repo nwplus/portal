@@ -4,7 +4,6 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
-import { maxWidthMediaQueries } from './Common'
 import { Button } from './Button'
 
 const SidebarContainer = styled.div`
@@ -12,9 +11,8 @@ const SidebarContainer = styled.div`
   min-height: 100%;
   border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
-  ${maxWidthMediaQueries('mobile')} {
-    ${props =>
-      props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
+  ${p => p.theme.mediaQueries.mobile} {
+    ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
 `
 
@@ -75,7 +73,7 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
-export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) => {
+export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
   const [location] = useLocation()
 
   const links = [
@@ -95,11 +93,14 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
   }
 
   if (process.env.NODE_ENV !== 'production') {
+    links.push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
     links.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 
-  // List the application as the last item on the menu
-  links.push({ location: '/application', text: 'APPLICATION' })
+  if (isApplicationOpen) {
+    // List the application as the last item on the menu
+    links.push({ location: '/application', text: 'APPLICATION' })
+  }
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>

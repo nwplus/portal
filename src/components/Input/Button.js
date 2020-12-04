@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import buttonBG from '../assets/hc_button.svg'
-import buttonBGHover from '../assets/hc_button_hover.svg'
-import { hexToRgba } from '../utility/utilities'
+import buttonBG from '../../assets/hc_button.svg'
+import buttonBGHover from '../../assets/hc_button_hover.svg'
+import { hexToRgba } from '../../utility/utilities'
 
 const buttonWidth = {
   small: '40px',
@@ -25,12 +25,13 @@ const StyledButton = styled.a`
   font-weight: ${p => p.theme.typography.h2.weight};
   border: transparent;
   transition: all 250ms;
+  max-width: 100%;
   width: ${p => (p.width ? buttonWidth[p.width] : buttonWidth['default'])};
   text-align: center;
   padding: ${p => (p.height ? buttonHeightPadding[p.height] : buttonHeightPadding['default'])}
     0.75em;
   border-radius: 3px;
-  margin: 1em;
+  margin: 1em ${p => (!!p.no_margin ? '0px' : '0.75em')};
   :hover {
     cursor: pointer;
   }
@@ -67,6 +68,7 @@ const StyledButton = styled.a`
       background: url(${buttonBG});
       background-size: contain;
       background-repeat: no-repeat;
+      min-width: 100px;
       width: 100px;
       :hover {
         background: url(${buttonBGHover}); 
@@ -116,7 +118,8 @@ const StyledButton = styled.a`
     ${p =>
     p.color !== 'primary' &&
     p.color !== 'secondary' &&
-    p.color !== 'tertiary' && // some color other than the variants
+    p.color !== 'tertiary' &&
+    p.color && // some color other than the variants
     `color: ${p.labelColor || p.theme.colors.background};
       background: ${p.color};
       :hover {
@@ -136,7 +139,11 @@ const StyledButton = styled.a`
 `
 
 export const Button = props => (
-  <StyledButton tabIndex={props.disabled ? null : 0} {...props}>
+  <StyledButton
+    {...props}
+    tabIndex={props.disabled ? null : 0}
+    href={props.disabled ? null : props.href}
+  >
     {props.children}
   </StyledButton>
 )

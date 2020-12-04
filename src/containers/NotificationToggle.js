@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { H2 } from '../components/Typography'
-import ToggleSwitch from '../components/ToggleSwitch'
+import { ToggleSwitch } from '../components/Input'
 import notifications from '../utility/notifications'
 import {
   NOTIFICATION_PERMISSIONS as N_PERMISSIONS,

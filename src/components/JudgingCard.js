@@ -2,19 +2,22 @@ import React from 'react'
 import styled from 'styled-components'
 import { H2, P } from './Typography'
 import { CardLike } from '../components/Common.js'
-import { Button } from '../components/Button'
+import { Button } from './Input/Button'
 
 const MAX_CHARACTERS_IN_DESCRIPTION = 100
 
 const StyledCard = styled.div`
   ${CardLike};
   padding: 0;
-  max-width: 400px;
-  margin: 0.5em 0;
+  max-width: 320px;
 `
 
 const CardContent = styled.div`
   padding: 1em 2em 2em 2em;
+  height: 220px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 `
 
 const StyledImg = styled.img`
@@ -23,7 +26,7 @@ const StyledImg = styled.img`
 
 const StyledButton = styled(Button)`
   width: 100%;
-  margin: 1em 0 0 0;
+  margin: auto 0 0 0;
   box-sizing: border-box;
 `
 
@@ -40,9 +43,17 @@ const cutString = (string, maxLength) => {
   return `${string.substring(0, cut)}...`
 }
 
-export default ({ imgUrl, title, description, buttonLabel, href = '#!' }) => {
+export default ({
+  imgUrl,
+  title,
+  description,
+  buttonLabel,
+  buttonDisabled,
+  className,
+  href = '#!',
+}) => {
   return (
-    <StyledCard>
+    <StyledCard className={className}>
       <a href={href}>
         <StyledImg alt={title} src={imgUrl} />
       </a>
@@ -52,7 +63,8 @@ export default ({ imgUrl, title, description, buttonLabel, href = '#!' }) => {
         <StyledButton
           color="tertiary"
           href={href}
-          target={href.includes('http') && '_blank'}
+          disabled={buttonDisabled}
+          target={href.includes('http') ? '_blank' : undefined}
           rel="noreferrer noopener"
         >
           {buttonLabel}

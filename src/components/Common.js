@@ -1,22 +1,15 @@
 import styled, { css } from 'styled-components'
 import { P } from './Typography'
 
-const screenBreakpoints = {
-  xs: 576,
-  mobile: 768,
-  tablet: 992,
-  desktop: 1200,
-}
-
-export const maxWidthMediaQueries = size => {
-  return `@media only screen and (max-width: ${screenBreakpoints[size]}px)`
-}
-
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.secondaryBackground};
   margin: 2em 0;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 1em;
+    margin: 0.75em 0;
+  }
 `
 
 export const Card = styled.div`
@@ -29,7 +22,7 @@ export const DetailContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  ${maxWidthMediaQueries('desktop')} {
+  ${p => p.theme.mediaQueries.mobile} {
     display: block;
   }
 `
@@ -41,6 +34,10 @@ export const DetailColumn = styled.ul`
   margin: 0;
   margin-right: 1em;
   padding: 0;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    margin-right: 0em;
+  }
 
   & > li {
     ${CardLike};
@@ -61,6 +58,7 @@ export const HR = styled.hr`
 `
 
 export const TextInputLike = css`
+  max-width: 100%;
   background-color: transparent;
   padding: 10px;
   border: 2px solid ${p => p.theme.colors.highlight};
@@ -96,9 +94,43 @@ export const TextInputLike = css`
     }`}
 `
 
+export const TextInputNoOutline = css`
+  box-sizing: border-box;
+  border-radius: 0;
+  border-style: none;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+`
+
 export const TextInputLikeErrorMsg = styled.p`
   color: ${p => p.theme.colors.warning};
   margin: 0.5em 0em;
+`
+
+export const TextInputLikeMsg = styled.p`
+  color: ${p => p.theme.colors.highlight};
+  margin: 0.5em 0em;
+`
+
+export const ScrollbarLike = css`
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid ${p => p.theme.colors.highlight};
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  ::-webkit-resizer {
+    background-color: transparent;
+  }
 `
 
 export const CenterHorizontally = css`
