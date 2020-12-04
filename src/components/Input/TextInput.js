@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TextInputLike, TextInputLikeErrorMsg as ErrorMsg, TextInputNoOutline } from '../Common.js'
+import { TextInputLike, TextInputNoOutline } from '../Common.js'
+import { ErrorMessage } from '../Typography'
 
 const inputSize = {
   small: '200px',
@@ -45,7 +46,7 @@ export const TextInput = ({ className, invalid, errorMsg, noOutline, inline, ...
   return (
     <TextInputContainer className={className} inline={inline} noOutline={noOutline}>
       <TextInputBox invalid={invalid} noOutline={noOutline} {...rest} />
-      {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
+      {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
     </TextInputContainer>
   )
 }

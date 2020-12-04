@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { H2 } from '../../components/Typography'
 import ViewProject from '../../components/ViewProject'
-import { getLivesiteDoc } from '../../utility/firebase'
+import { getLivesiteDoc, projectsRef } from '../../utility/firebase'
+import { useAuth } from '../../utility/Auth'
 
 export default ({ id }) => {
   const [isJudgingOpen, setIsJudgingOpen] = useState(false)
+  const { user } = useAuth()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState(false)
   const [score, setScore] = useState({
     tech: 0,
     design: 0,
     functionality: 0,
     creativity: 0,
     pitch: 0,
+    notes: '',
   })
 
   // TODO: Get from firebase
@@ -26,23 +31,40 @@ export default ({ id }) => {
   })
 
   useEffect(() => {
-    // TODO: Get project from firebase
-    console.log(id)
-  }, [id, setProject])
+    ;(async () => {
+      const projectDoc = await projectsRef.doc(id).get()
+      const data = projectDoc.data()
+      setProject(data)
+    })()
+  }, [id])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
     return unsubscribe
   }, [setIsJudgingOpen])
 
-  const submit = () => {
-    // TODO: Submit to firebase
-    console.log(score)
+  const submit = async () => {
+    if (!score.tech || !score.design || !score.functionality || !score.creativity || !score.pitch) {
+      setError(true)
+    } else if (!isSubmitting) {
+      setIsSubmitting(true)
+      await projectsRef.doc(id).collection('Grades').doc().set(score)
+      setIsSubmitting(false)
+    }
+    console.log(user.uid)
   }
 
   if (!isJudgingOpen) {
     return <H2>Judging is not open yet. Please check back later.</H2>
   }
 
-  return <ViewProject project={project} score={score} onChange={setScore} onSubmit={submit} />
+  return (
+    <ViewProject
+      project={project}
+      score={score}
+      onChange={setScore}
+      onSubmit={submit}
+      error={error}
+    />
+  )
 }

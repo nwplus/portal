@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { Button } from '../components/Input'
 import styled from 'styled-components'
-import { TextInputLikeErrorMsg } from './Common'
+import { ErrorMessage } from './Typography'
 
 const ResumeContainer = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ export default ({ onChange, hint, errorMsg }) => {
         (hint ? (
           <span>{hint.match(/[/\\]([\w\d\s.\-()]+)$/)[1]}</span>
         ) : (
-          <TextInputLikeErrorMsg>{errorMsg}</TextInputLikeErrorMsg>
+          <ErrorMessage>{errorMsg}</ErrorMessage>
         ))}
     </ResumeContainer>
   )

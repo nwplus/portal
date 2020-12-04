@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import {
-  TextInputLike,
-  TextInputLikeErrorMsg as ErrorMsg,
-  TextInputLikeMsg as Msg,
-} from '../Common.js'
+import { TextInputLike } from '../Common.js'
+import { ErrorMessage, Message } from '../Typography'
 
 const TextAreaBox = styled.textarea.attrs({
   type: 'text',
@@ -68,11 +65,14 @@ export const TextArea = ({
         }`}
         {...rest}
       />
-      {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
+      {invalid && <ErrorMessage> {ErrorMessage} </ErrorMessage>}
       {isLengthExceeded ? (
-        <ErrorMsg> Sorry! It looks like your answer is more than {maxLength} characters. </ErrorMsg>
+        <ErrorMessage>
+          {' '}
+          Sorry! It looks like your answer is more than {maxLength} characters.{' '}
+        </ErrorMessage>
       ) : (
-        maxLength != null && <Msg> {value.length} characters. </Msg>
+        maxLength != null && <Message> {value.length} characters. </Message>
       )}
     </div>
   )

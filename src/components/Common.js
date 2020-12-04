@@ -98,16 +98,6 @@ export const TextInputNoOutline = css`
   border-bottom-width: thin;
 `
 
-export const TextInputLikeErrorMsg = styled.p`
-  color: ${p => p.theme.colors.warning};
-  margin: 0.5em 0em;
-`
-
-export const TextInputLikeMsg = styled.p`
-  color: ${p => p.theme.colors.highlight};
-  margin: 0.5em 0em;
-`
-
 export const CenterHorizontally = css`
   margin: 0 50%;
   transform: translateX(-50%);

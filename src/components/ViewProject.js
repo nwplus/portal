@@ -44,6 +44,7 @@ const ScoreInput = ({ id, label, score, onChange }) => {
         {[1, 2, 3, 4, 5].map(option => {
           return (
             <Select
+              key={option}
               type="radio"
               label={option}
               checked={score[id] === option}
