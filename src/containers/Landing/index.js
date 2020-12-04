@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Banner from '../../components/Banner'
 import logo_lockup from '../../assets/logo_lockup.svg'
+import hc_logo from '../../assets/hc_logo.svg'
 import holo from '../../assets/holo.svg'
 import holo_end from '../../assets/holo2.svg'
 import Footer from './Footer'
@@ -34,6 +35,12 @@ const StyledLogoLockup = styled.img`
   margin: 0 50.5%;
   transform: translateX(-50%);
   z-index: 1;
+
+  ${p =>
+    p.theme.name === 'hackCamp' &&
+    `
+      top: 14em;
+    `}
 `
 
 const StyledBanner = styled(Banner)`
@@ -47,20 +54,37 @@ const StyledBanner = styled(Banner)`
 `
 
 // TODO: add sponsors if footer is shown
-export default ({ heading, description, showFooter, children }) => (
-  <LandingContainer showFooter={showFooter}>
-    <StyledLogoLockup src={logo_lockup} />
-    <StyledBanner>
-      <H1 size="1.5em">{heading}</H1>
-      <P>{description}</P>
-      {children}
-    </StyledBanner>
-    {showFooter ? (
-      <>
-        <Footer /> <HoloBackground src={holo_end} />
-      </>
-    ) : (
-      <HoloBackground src={holo} />
-    )}
-  </LandingContainer>
-)
+export default ({ heading, description, showFooter, hackathon, children }) => {
+  switch (hackathon) {
+    case 'hackCamp':
+      return (
+        <LandingContainer showFooter={showFooter}>
+          <StyledLogoLockup src={hc_logo} />
+          <StyledBanner>
+            <H1 size="1.5em">{heading}</H1>
+            <P>{description}</P>
+            {children}
+          </StyledBanner>
+        </LandingContainer>
+      )
+    default:
+    case 'nwHacks':
+      return (
+        <LandingContainer showFooter={showFooter}>
+          <StyledLogoLockup src={logo_lockup} />
+          <StyledBanner blur>
+            <H1 size="1.5em">{heading}</H1>
+            <P>{description}</P>
+            {children}
+          </StyledBanner>
+          {showFooter ? (
+            <>
+              <Footer /> <HoloBackground src={holo_end} />
+            </>
+          ) : (
+            <HoloBackground src={holo} />
+          )}
+        </LandingContainer>
+      )
+  }
+}

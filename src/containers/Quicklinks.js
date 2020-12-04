@@ -9,6 +9,13 @@ const ButtonContainer = styled.div`
   margin: 1em;
   display: flex;
   justify-content: center;
+  ${p => p.theme.mediaQueries.mobile} {
+    display: inline-block;
+    text-align: center;
+    a {
+      margin-bottom: 0em;
+    }
+  }
 `
 const getLinks = () => {
   return db

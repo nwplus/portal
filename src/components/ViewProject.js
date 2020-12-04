@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { H2, P, A, Label } from '../components/Typography'
+import { H2, P, A, Label, ErrorMessage, Message } from '../components/Typography'
 import { Select, Button, TextArea } from '../components/Input'
 import Youtube from '../components/Youtube'
 
@@ -36,6 +36,10 @@ const RightButton = styled(Button)`
   float: right;
 `
 
+const StyledMessage = styled(Message)`
+  text-align: right;
+`
+
 const ScoreInput = ({ id, label, score, onChange }) => {
   return (
     <>
@@ -44,6 +48,7 @@ const ScoreInput = ({ id, label, score, onChange }) => {
         {[1, 2, 3, 4, 5].map(option => {
           return (
             <Select
+              key={option}
               type="radio"
               label={option}
               checked={score[id] === option}
@@ -57,18 +62,19 @@ const ScoreInput = ({ id, label, score, onChange }) => {
   )
 }
 
-export default ({ project, score, onChange, onSubmit }) => {
+export default ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
   return (
     <Container>
       <Column>
         <H2>Judging "{project.title}"</H2>
         <StyledYoutube src={project.youtubeUrl} />
         <StyledP>{project.description}</StyledP>
-        <A src={project.devpostUrl}>View on Devpost</A>
+        <A target="_blank" rel="noreferrer noopener" href={project.devpostUrl}>
+          View on Devpost
+        </A>
       </Column>
       <Column>
-        <H2>How do I judge a project?</H2>
-        <P>Please judge the project on the left</P>
+        <H2>Scorecard</H2>
         <ScoreInput id="tech" label="Technology" score={score} onChange={onChange} />
         <ScoreInput id="design" label="Design" score={score} onChange={onChange} />
         <ScoreInput id="functionality" label="Functionality" score={score} onChange={onChange} />
@@ -84,7 +90,13 @@ export default ({ project, score, onChange, onSubmit }) => {
           value={score.notes}
           onChange={e => onChange({ ...score, notes: e })}
         />
-        <RightButton onClick={onSubmit}>Submit Score</RightButton>
+        {error && <ErrorMessage>Please fill all fields</ErrorMessage>}
+        {success && (
+          <StyledMessage>Successfully submitted! You will be redirected soon.</StyledMessage>
+        )}
+        <RightButton disabled={isSubmitting} onClick={onSubmit}>
+          Submit Score
+        </RightButton>
       </Column>
     </Container>
   )

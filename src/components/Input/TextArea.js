@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import {
-  TextInputLike,
-  TextInputLikeErrorMsg as ErrorMsg,
-  TextInputLikeMsg as Msg,
-} from '../Common.js'
+import { ScrollbarLike, TextInputLike } from '../Common.js'
+import { ErrorMessage, Message } from '../Typography'
 
 const TextAreaBox = styled.textarea.attrs({
   type: 'text',
@@ -13,24 +10,7 @@ const TextAreaBox = styled.textarea.attrs({
   width: ${p => p.width || '600px'};
   box-sizing: border-box;
   ${TextInputLike};
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 10px;
-    border: 1px solid ${p => p.theme.colors.highlight};
-  }
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  ::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
-  ::-webkit-resizer {
-    background-color: transparent;
-  }
+  ${ScrollbarLike};
 `
 
 export const TextArea = ({
@@ -68,11 +48,14 @@ export const TextArea = ({
         }`}
         {...rest}
       />
-      {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
+      {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
       {isLengthExceeded ? (
-        <ErrorMsg> Sorry! It looks like your answer is more than {maxLength} characters. </ErrorMsg>
+        <ErrorMessage>
+          {' '}
+          Sorry! It looks like your answer is more than {maxLength} characters.{' '}
+        </ErrorMessage>
       ) : (
-        maxLength != null && <Msg> {value.length} characters. </Msg>
+        maxLength != null && <Message> {value.length} characters. </Message>
       )}
     </div>
   )

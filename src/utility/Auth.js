@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus } from './firebase'
-import { applicantStatus } from './Constants'
+import { RedirectStatus } from './Constants'
+import Spinner from '../components/Loading'
+import { useLocation } from 'wouter'
 
 const AuthContext = createContext()
 
@@ -10,9 +12,15 @@ export function useAuth() {
   return useContext(AuthContext)
 }
 
+export const checkAdminClaim = async user => {
+  const token = await user.getIdTokenResult()
+  return Object.prototype.hasOwnProperty.call(token.claims, 'admin')
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [, setLocation] = useLocation()
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(async currUser => {
@@ -20,17 +28,26 @@ export function AuthProvider({ children }) {
         setLoading(false)
         return
       }
-      const status = await getUserStatus(currUser)
+      const { redirect, status } = await getUserStatus(currUser)
       currUser.status = status
+      currUser.redirect = redirect
+      const admin = await checkAdminClaim(currUser)
+      currUser.admin = admin
       setUser(currUser)
       setLoading(false)
     })
   })
 
+  const logout = async () => {
+    await firebase.auth().signOut()
+    setUser(null)
+    setLocation('/')
+  }
+
   return loading ? (
-    <>Loading...</>
+    <Spinner loading />
   ) : (
-    <AuthContext.Provider value={{ isAuthed: !!user, user, setUser }}>
+    <AuthContext.Provider value={{ isAuthed: !!user, user, setUser, logout }}>
       {children}
     </AuthContext.Provider>
   )
@@ -38,18 +55,22 @@ export function AuthProvider({ children }) {
 
 const handleUser = async (setUser, setLocation) => {
   const user = firebase.auth().currentUser
-  const status = await getUserStatus(user)
+  const { redirect, status } = await getUserStatus(user)
   user.status = status
+  user.redirect = redirect
+  const admin = await checkAdminClaim(user)
+  user.admin = admin
   setUser(user)
-  setLocation(getRedirectUrl(status))
+  setLocation(getRedirectUrl(redirect))
 }
 
-export const getRedirectUrl = status => {
-  switch (status) {
-    case applicantStatus.attending:
+export const getRedirectUrl = redirect => {
+  switch (redirect) {
+    case RedirectStatus.AttendingEvent:
       return '/judging'
-    case applicantStatus.applied || applicantStatus.accepted:
-    case applicantStatus.inProgress || applicantStatus.new:
+    case RedirectStatus.ApplicationNotSubmitted:
+      return '/application/part-1'
+    case RedirectStatus.ApplicationSubmitted:
     default:
       return '/application'
   }
@@ -77,8 +98,4 @@ export const githubSignIn = async (setUser, setLocation) => {
   } catch (e) {
     return e
   }
-}
-
-export const logout = async () => {
-  return firebase.auth().signOut()
 }
