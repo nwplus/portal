@@ -5,6 +5,7 @@ import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import { Button } from './Input/index'
+import { useAuth } from '../utility/Auth'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
@@ -79,7 +80,7 @@ const StyledButton = styled(Button)`
 
 export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
   const [location] = useLocation()
-
+  const { logout } = useAuth()
   const links = [
     { location: '/', text: 'DASHBOARD' },
     { location: '/schedule', text: 'SCHEDULE' },
@@ -122,7 +123,9 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplica
           )
         })}
       </ItemsContainer>
-      <StyledButton color="secondary">Logout</StyledButton>
+      <StyledButton color="secondary" onClick={logout}>
+        Logout
+      </StyledButton>
     </SidebarContainer>
   )
 }
