@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'wouter'
 import styled from 'styled-components'
+import { A } from './Typography'
 
 const HeroContent = styled.div`
   height: 60vh;
@@ -10,4 +12,18 @@ const HeroContent = styled.div`
   align-items: center;
 `
 
-export default ({ children }) => <HeroContent>{children}</HeroContent>
+export const HeroPage = ({ children }) => <HeroContent>{children}</HeroContent>
+
+export const JudgingNotOpen = () => (
+  <HeroPage>
+    <div>
+      <h1>Judging is not open</h1>
+      Please check back later. Return to{' '}
+      <Link href="/">
+        <A>home</A>
+      </Link>
+    </div>
+  </HeroPage>
+)
+
+export default HeroPage

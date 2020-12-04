@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
-import { H2 } from '../../components/Typography'
+import { JudgingNotOpen } from '../../components/HeroPage'
 import ViewProject from '../../components/ViewProject'
 import { getLivesiteDoc, projectsRef } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
@@ -60,7 +60,7 @@ export default ({ id }) => {
   }
 
   if (!isJudgingOpen) {
-    return <H2>Judging is not open yet. Please check back later.</H2>
+    return <JudgingNotOpen />
   }
 
   return (
