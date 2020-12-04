@@ -62,7 +62,7 @@ const ScoreInput = ({ id, label, score, onChange }) => {
   )
 }
 
-export default ({ project, score, error, success, onChange, onSubmit }) => {
+export default ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
   return (
     <Container>
       <Column>
@@ -91,8 +91,12 @@ export default ({ project, score, error, success, onChange, onSubmit }) => {
           onChange={e => onChange({ ...score, notes: e })}
         />
         {error && <ErrorMessage>Please fill all fields</ErrorMessage>}
-        {success && <StyledMessage>Successfully submitted!</StyledMessage>}
-        <RightButton onClick={onSubmit}>Submit Score</RightButton>
+        {success && (
+          <StyledMessage>Successfully submitted! You will be redirected soon.</StyledMessage>
+        )}
+        <RightButton disabled={isSubmitting} onClick={onSubmit}>
+          Submit Score
+        </RightButton>
       </Column>
     </Container>
   )

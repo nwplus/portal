@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'wouter'
 import { H2 } from '../../components/Typography'
 import ViewProject from '../../components/ViewProject'
 import { getLivesiteDoc, projectsRef } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 
+const REDIRECT_TIMEOUT = 3000
+
 export default ({ id }) => {
-  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
+  const [, setLocation] = useLocation()
   const { user } = useAuth()
+  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -19,8 +23,6 @@ export default ({ id }) => {
     notes: '',
   })
 
-  // TODO: Get from firebase
-  // eslint-disable-next-line no-unused-vars
   const [project, setProject] = useState({
     id: 'a7xh134',
     description:
@@ -48,10 +50,12 @@ export default ({ id }) => {
     if (!score.tech || !score.design || !score.functionality || !score.creativity || !score.pitch) {
       setError(true)
     } else if (!isSubmitting) {
+      setError(false)
       setIsSubmitting(true)
       await projectsRef.doc(id).collection('Grades').doc(user.uid).set(score)
       setIsSubmitting(false)
       setSuccess(true)
+      setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)
     }
   }
 
@@ -65,6 +69,7 @@ export default ({ id }) => {
       score={score}
       onChange={setScore}
       onSubmit={submit}
+      isSubmitting={isSubmitting}
       error={error}
       success={success}
     />
