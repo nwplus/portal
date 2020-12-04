@@ -60,7 +60,7 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
       return (
         <LandingContainer showFooter={showFooter}>
           <StyledLogoLockup src={hc_logo} />
-          <StyledBanner blur={false}>
+          <StyledBanner>
             <H1 size="1.5em">{heading}</H1>
             <P>{description}</P>
             {children}
@@ -72,7 +72,7 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
       return (
         <LandingContainer showFooter={showFooter}>
           <StyledLogoLockup src={logo_lockup} />
-          <StyledBanner>
+          <StyledBanner blur>
             <H1 size="1.5em">{heading}</H1>
             <P>{description}</P>
             {children}
