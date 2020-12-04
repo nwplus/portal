@@ -1,8 +1,8 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-// eslint-disable-next-line
 const nwTheme = {
+  name: 'nwHacks',
   font: 'HK Grotesk',
   custom_imgs: 'none',
   colors: {
@@ -60,6 +60,7 @@ const nwTheme = {
 }
 
 const hackcampTheme = {
+  name: 'hackCamp',
   font: 'HK Grotesk',
   custom_imgs: 'hc',
   colors: {
@@ -85,7 +86,7 @@ const hackcampTheme = {
     },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
-    banner: 'rgba(75, 65, 130, 0.2)',
+    banner: '#2A3C4A',
     login: {
       googleHover: '#fafafa',
       githubHover: '#545159',
@@ -115,7 +116,6 @@ const hackcampTheme = {
 }
 
 const THEMES = { nwTheme, hackcampTheme }
-
 let selectedTheme = hackcampTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
