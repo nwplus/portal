@@ -13,22 +13,21 @@ import { SOCIAL_LINKS } from '../../utility/Constants'
 import { CenterHorizontally } from '../../components/Common'
 
 const SponsorsContainer = styled.div`
-  position: absolute;
-  width: 80vw;
-  top: 37em;
-  ${CenterHorizontally}
+  width: 100%;
+  margin-top: 38em;
   display: block;
   text-align: center;
   justify-content: center;
+  align-items: center;
 `
 
 const LogoContainer = styled.div`
-  position: absolute;
-  ${CenterHorizontally}
   z-index: 100;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin: 24px 0;
   top: 2.5em;
 `
 
@@ -38,7 +37,7 @@ const SponsorLogo = styled.img`
   width: auto;
   height: auto;
   float: left;
-  margin: 32px;
+  margin: 16px 32px;
 `
 
 const StyledFooterContainer = styled.div`
