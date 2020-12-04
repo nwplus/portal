@@ -4,7 +4,7 @@ import { getUserApplication, updateUserApplication, getLivesiteDoc, analytics } 
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
 import Page from '../components/Page'
-import { AnalyticsEvents } from './Constants'
+import { ANALYTICS_EVENTS } from './Constants'
 const HackerApplicationContext = createContext()
 
 export function useHackerApplication() {
@@ -24,7 +24,7 @@ export function HackerApplicationProvider({ children }) {
       const app = await getUserApplication(user.uid)
       setApplication(app)
       setUpdated(false)
-      analytics.logEvent(AnalyticsEvents.AccessApplication, { userId: user.uid })
+      analytics.logEvent(ANALYTICS_EVENTS.AccessApplication, { userId: user.uid })
     }
     retrieveApplication()
   }, [user])

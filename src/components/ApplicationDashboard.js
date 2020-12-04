@@ -2,13 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1 } from './Typography'
 import { Button } from './Input/Button'
-import { AnalyticsEvents, SOCIAL_LINKS } from '../utility/Constants'
+import { ANALYTICS_EVENTS, SOCIAL_LINKS } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
 import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
 import twitter from '../assets/icons/twitter.svg'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
-import { maxWidthMediaQueries } from './Common'
 import { analytics } from '../utility/firebase'
 
 const Container = styled.div`
@@ -114,7 +113,7 @@ const RSVPButton = styled(Button)`
 const SocialMediaLinks = () => {
   // TODO: Color of icons for HackCamp TBD
   const UpdateAnalytics = socialName => {
-    analytics.logEvent(AnalyticsEvents.SocialMediaConversion, { socialMedia: socialName })
+    analytics.logEvent(ANALYTICS_EVENTS.SocialMediaConversion, { socialMedia: socialName })
   }
   return (
     <div>

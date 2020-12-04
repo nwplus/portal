@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus, analytics } from './firebase'
-import { RedirectStatus, AnalyticsEvents } from './Constants'
+import { REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
   })
 
   const logout = async () => {
-    analytics.logEvent(AnalyticsEvents.Logout, { userId: user.uid })
+    analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
     setLocation('/')
@@ -65,17 +65,17 @@ const handleUser = async (setUser, setLocation) => {
   user.admin = admin
   setUser(user)
   analytics.setUserId(user.uid)
-  analytics.logEvent(AnalyticsEvents.Login, { userId: user.uid })
+  analytics.logEvent(ANALYTICS_EVENTS.Login, { userId: user.uid })
   setLocation(getRedirectUrl(redirect))
 }
 
 export const getRedirectUrl = redirect => {
   switch (redirect) {
-    case RedirectStatus.AttendingEvent:
+    case REDIRECT_STATUS.AttendingEvent:
       return '/judging'
-    case RedirectStatus.ApplicationNotSubmitted:
+    case REDIRECT_STATUS.ApplicationNotSubmitted:
       return '/application/part-1'
-    case RedirectStatus.ApplicationSubmitted:
+    case REDIRECT_STATUS.ApplicationSubmitted:
     default:
       return '/application'
   }

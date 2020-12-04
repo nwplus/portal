@@ -2,12 +2,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/analytics'
 import {
-  hackerApplicationTemplate,
-  RedirectStatus,
+  HACKER_APPLICATION_TEMPLATE,
+  REDIRECT_STATUS,
   DB_COLLECTION,
-  ApplicationStatus,
+  APPLICATION_STATUS,
   DB_HACKATHON,
-  AnalyticsEvents,
+  ANALYTICS_EVENTS,
 } from '../utility/Constants'
 import { formatProject } from './utilities'
 
@@ -103,7 +103,7 @@ export const getProject = async (user_id, setProjectCallback, setFeedbackCallbac
 }
 
 const createNewApplication = async user => {
-  analytics.logEvent(AnalyticsEvents.signup, { userId: user.uid })
+  analytics.logEvent(ANALYTICS_EVENTS.signup, { userId: user.uid })
   const userId = {
     _id: user.uid,
   }
@@ -122,7 +122,7 @@ const createNewApplication = async user => {
   }
 
   const newApplication = {
-    ...hackerApplicationTemplate,
+    ...HACKER_APPLICATION_TEMPLATE,
     ...basicInfo,
     ...submission,
     ...userId,
@@ -142,14 +142,14 @@ export const getUserStatus = async user => {
   const status = applicant.data().status.applicationStatus
 
   if (applicant.data().status.attending) {
-    return { redirect: RedirectStatus.AttendingEvent, status }
+    return { redirect: REDIRECT_STATUS.AttendingEvent, status }
   }
 
-  if (status === ApplicationStatus.inProgress) {
-    return { redirect: RedirectStatus.ApplicationNotSubmitted, status }
+  if (status === APPLICATION_STATUS.inProgress) {
+    return { redirect: REDIRECT_STATUS.ApplicationNotSubmitted, status }
   }
   /**All other status' go here. */
-  return { redirect: RedirectStatus.ApplicationSubmitted, status }
+  return { redirect: REDIRECT_STATUS.ApplicationSubmitted, status }
 }
 
 export const getUserApplication = async uuid => {

@@ -4,7 +4,7 @@ import { H2 } from '../components/Typography'
 import { ToggleSwitch } from '../components/Input'
 import notifications from '../utility/notifications'
 import {
-  AnalyticsEvents,
+  ANALYTICS_EVENTS,
   NOTIFICATION_PERMISSIONS as N_PERMISSIONS,
   NOTIFICATION_SETTINGS_CACHE_KEY as N_SETTINGS_CACHE_KEY,
 } from '../utility/Constants'
@@ -42,7 +42,7 @@ export default () => {
   // toggle switch UI and cache notifications settings
   const toggleNotifications = notificationsEnabled => {
     setToggled(notificationsEnabled)
-    analytics.logEvent(AnalyticsEvents.NotificationToggled, { enabled: notificationsEnabled })
+    analytics.logEvent(ANALYTICS_EVENTS.NotificationToggled, { enabled: notificationsEnabled })
     const nSettingsJSON = JSON.stringify({ notificationsEnabled })
     localStorage.setItem(N_SETTINGS_CACHE_KEY, nSettingsJSON)
   }
