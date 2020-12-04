@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'wouter'
 import { H2, P } from './Typography'
 import { CardLike } from '../components/Common.js'
 import { Button } from './Input/Button'
@@ -60,15 +61,23 @@ export default ({
       <CardContent>
         <Title>{title}</Title>
         <P>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
-        <StyledButton
-          color="tertiary"
-          href={href}
-          disabled={buttonDisabled}
-          target={href.includes('http') ? '_blank' : undefined}
-          rel="noreferrer noopener"
-        >
-          {buttonLabel}
-        </StyledButton>
+        {href.includes('http') ? (
+          <StyledButton
+            color="tertiary"
+            href={href}
+            disabled={buttonDisabled}
+            target="blank"
+            rel="noreferrer noopener"
+          >
+            {buttonLabel}
+          </StyledButton>
+        ) : (
+          <Link href={href}>
+            <StyledButton color="tertiary" disabled={buttonDisabled}>
+              {buttonLabel}
+            </StyledButton>
+          </Link>
+        )}
       </CardContent>
     </StyledCard>
   )

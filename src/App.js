@@ -5,6 +5,7 @@ import ThemeProvider from './theme/ThemeProvider'
 import Navbar from './components/Navbar'
 import Form from './components/ApplicationForm'
 import {
+  NotFound,
   Login,
   Charcuterie,
   Home,
@@ -184,10 +185,10 @@ function App() {
               <ApplicationConfirmation />
             </NavbarAuthRoute>
             <Route path="/application/:part" component={ApplicationFormContainer} />
+            <Route path="/:rest*">
+              <NotFound />
+            </Route>
           </HackerApplicationProvider>
-          <Route path="/:rest*">
-            <Page>Page Not Found!</Page>
-          </Route>
         </Switch>
       </AuthProvider>
     </ThemeProvider>
