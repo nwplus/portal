@@ -35,6 +35,7 @@ const Page = ({ children }) => {
       <Sidebar
         isJudgingOpen={livesiteDoc.judgingOpen}
         isSubmissionsOpen={livesiteDoc.submissionsOpen}
+        isApplicationOpen={livesiteDoc.applicationsOpen}
         showMobileSidebar={showMobileSidebar}
       />
       <RightContentContainer>
