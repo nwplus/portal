@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { TextInputLike } from '../Common.js'
+import { ScrollbarLike, TextInputLike } from '../Common.js'
 import { ErrorMessage, Message } from '../Typography'
 
 const TextAreaBox = styled.textarea.attrs({
@@ -10,24 +10,7 @@ const TextAreaBox = styled.textarea.attrs({
   width: ${p => p.width || '600px'};
   box-sizing: border-box;
   ${TextInputLike};
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 10px;
-    border: 1px solid ${p => p.theme.colors.highlight};
-  }
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  ::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
-  ::-webkit-resizer {
-    background-color: transparent;
-  }
+  ${ScrollbarLike};
 `
 
 export const TextArea = ({

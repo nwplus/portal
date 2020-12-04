@@ -8,12 +8,11 @@ import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
 import twitter from '../assets/icons/twitter.svg'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
-import { maxWidthMediaQueries } from './Common'
 
 const Container = styled.div`
   margin: 5em auto;
   width: 70%;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     width: 100%;
     margin: 0;
   }
@@ -28,7 +27,7 @@ const WelcomeHeader = styled.div`
 
 const WelcomeMessage = styled(H1)`
   text-align: center;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     font-size: 1.5em;
   }
 `
@@ -57,7 +56,7 @@ const EditAppButton = styled(Button)`
 const StatusContainer = styled.div`
   min-height: 350px;
   padding: 2.5em 4.5em 2.5em 3em;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     padding: 2em;
   }
   border-radius: 21px;
@@ -85,7 +84,7 @@ const FooterContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-left: -24px;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     display: block;
     text-align: center;
     margin-left: auto;
@@ -95,7 +94,7 @@ const FooterContainer = styled.div`
 
 const SocialMediaIcons = styled.img`
   margin: 24px;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     width: 24px;
     height: 24px;
     margin: 16px;
@@ -105,7 +104,7 @@ const SocialMediaIcons = styled.img`
 const RSVPButton = styled(Button)`
   width = 100px;
   margin-right: 0;
-  ${maxWidthMediaQueries('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     margin: 1em;
   }
 `
