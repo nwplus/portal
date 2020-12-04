@@ -80,7 +80,7 @@ const StyledButton = styled(Button)`
 
 export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
   const [location] = useLocation()
-  const { logout } = useAuth()
+  const { isAuthed, logout } = useAuth()
   const links = [
     { location: '/', text: 'DASHBOARD' },
     { location: '/schedule', text: 'SCHEDULE' },
@@ -123,9 +123,11 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplica
           )
         })}
       </ItemsContainer>
-      <StyledButton color="secondary" onClick={logout}>
-        Logout
-      </StyledButton>
+      {isAuthed && (
+        <StyledButton color="secondary" onClick={logout}>
+          Logout
+        </StyledButton>
+      )}
     </SidebarContainer>
   )
 }
