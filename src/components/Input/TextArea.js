@@ -7,8 +7,6 @@ import {
   TextInputLikeMsg as Msg,
 } from '../Common.js'
 
-const TextAreaContainer = styled.div``
-
 const TextAreaBox = styled.textarea.attrs({
   type: 'text',
 })`
@@ -43,7 +41,7 @@ export const TextArea = ({
   }, [maxLength, value])
 
   return (
-    <TextAreaContainer className={className}>
+    <div className={className}>
       <TextAreaBox
         value={value}
         width={width}
@@ -60,7 +58,7 @@ export const TextArea = ({
       ) : (
         maxLength != null && <Msg> {value.length} characters. </Msg>
       )}
-    </TextAreaContainer>
+    </div>
   )
 }
 

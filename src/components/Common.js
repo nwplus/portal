@@ -57,11 +57,6 @@ export const HR = styled.hr`
   margin: 3em 0;
 `
 
-export const InputContainerLike = css`
-  margin: 1em;
-  margin-left: 0em;
-`
-
 export const TextInputLike = css`
   max-width: 100%;
   background-color: transparent;
