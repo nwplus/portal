@@ -1,8 +1,8 @@
 import React from 'react'
-import { CenteredH1, H1, H2, QuestionHeading } from '../components/Typography'
-import { TextInput, TextArea } from '../components/Input'
-import ResumeUploadBtn from '../components/ResumeUploadBtn'
-import { FormSpacing } from '../components/ApplicationForm'
+import { CenteredH1, H1, H2, QuestionHeading } from '../Typography'
+import { TextInput, TextArea } from '../Input'
+import ResumeUploadBtn from '../ResumeUploadBtn'
+import { FormSpacing } from './index'
 import styled from 'styled-components'
 
 const QuestionForm = styled.form`
