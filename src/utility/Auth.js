@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { getUserStatus } from './firebase'
-import { applicantStatus } from './Constants'
+import { analytics, getUserStatus } from './firebase'
+import { applicantStatus, AnalyticsEvents } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
     return firebase.auth().onAuthStateChanged(async currUser => {
       if (!currUser) {
         setLoading(false)
+        analytics.setUserId(null)
         return
       }
       const status = await getUserStatus(currUser)
@@ -34,6 +35,8 @@ export function AuthProvider({ children }) {
       currUser.admin = admin
       setUser(currUser)
       setLoading(false)
+      analytics.setUserId(currUser.uid)
+      analytics.logEvent(AnalyticsEvents.Login, { userId: currUser.uid })
     })
   })
 
@@ -60,6 +63,8 @@ const handleUser = async (setUser, setLocation) => {
   user.admin = admin
   setUser(user)
   setLocation(getRedirectUrl(status))
+  analytics.setUserId(user.uuid)
+  analytics.logEvent(AnalyticsEvents.Login, { userId: user.uid })
 }
 
 export const getRedirectUrl = status => {
