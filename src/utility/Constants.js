@@ -17,11 +17,17 @@ export const SOCIAL_LINKS = Object.freeze({
   WEBSITE: 'https://www.nwplus.io',
 })
 
-export const applicantStatus = Object.freeze({
-  attending: 'attending',
-  new: 'new',
+export const RedirectStatus = Object.freeze({
+  ApplicationNotSubmitted: 'ApplicationNotSubmitted',
+  ApplicationSubmitted: 'ApplicationSubmitted',
+  AttendingEvent: 'AttendingEvent',
+})
+
+export const ApplicationStatus = Object.freeze({
   applied: 'applied',
   accepted: 'accepted',
+  rejected: 'rejected',
+  waitlisted: 'waitlisted',
   inProgress: 'inProgress',
 })
 
