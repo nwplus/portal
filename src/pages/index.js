@@ -1,3 +1,4 @@
+import NotFound from './NotFound'
 import Login from './Login'
 import Charcuterie from './Charcuterie'
 import Home from './Home'
@@ -17,6 +18,7 @@ import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
 
 export {
+  NotFound,
   Login,
   Charcuterie,
   Home,
