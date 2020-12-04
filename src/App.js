@@ -119,72 +119,67 @@ function App() {
 
   return (
     <ThemeProvider>
-      <GlobalStyle />
-      <Switch>
-        <PageRoute path="/">
-          <Home />
-        </PageRoute>
-        <PageRoute path="/charcuterie">
-          <Charcuterie />
-        </PageRoute>
-        <PageRoute path="/faq">
-          <Faq />
-        </PageRoute>
-        <PageRoute path="/schedule">
-          <Schedule />
-        </PageRoute>
-        <PageRoute path="/sponsors">
-          <Sponsors />
-        </PageRoute>
-        <PageRoute path="/quicklinks">
-          <Quicklinks />
-        </PageRoute>
-        <Route>
-          {/* All auth related routes should go here */}
-          <AuthProvider>
-            <Switch>
-              <NoAuthRoute path="/login">
-                <Navbar>
-                  <Login />
-                </Navbar>
-              </NoAuthRoute>
-              <AuthPageRoute path="/judging">
-                <Judging />
-              </AuthPageRoute>
-              <AdminAuthPageRoute path="/judging/admin">
-                <JudgingAdmin />
-              </AdminAuthPageRoute>
-              <AuthPageRoute path="/judging/view/:id">
-                {params => <JudgingView id={params.id} />}
-              </AuthPageRoute>
-              <AuthPageRoute path="/submission">
-                <Submission />
-              </AuthPageRoute>
-              <AuthPageRoute path="/submission/create">
-                <SubmissionCreate />
-              </AuthPageRoute>
-              <AuthPageRoute path="/submission/edit">
-                <SubmissionEdit />
-              </AuthPageRoute>
-              <HackerApplicationProvider>
-                <AuthPageRoute path="/application">
-                  <Application />
-                </AuthPageRoute>
-                <NavbarAuthRoute path="/application/review" name handleLogout>
-                  <ApplicationReview />
-                </NavbarAuthRoute>
-                <NavbarAuthRoute path="/application/confirmation" handleLogout>
-                  <ApplicationConfirmation />
-                </NavbarAuthRoute>
-                <Route path="/application/:part" component={ApplicationFormContainer} />
-              </HackerApplicationProvider>
-              <Route path="/:rest*">
-                <Page>Page Not Found!</Page>
-              </Route>
-            </Switch>
-          </AuthProvider>
-        </Route>
-      </Switch>
+      <AuthProvider>
+        <GlobalStyle />
+        <Switch>
+          <PageRoute path="/">
+            <Home />
+          </PageRoute>
+          <PageRoute path="/charcuterie">
+            <Charcuterie />
+          </PageRoute>
+          <PageRoute path="/faq">
+            <Faq />
+          </PageRoute>
+          <PageRoute path="/schedule">
+            <Schedule />
+          </PageRoute>
+          <PageRoute path="/sponsors">
+            <Sponsors />
+          </PageRoute>
+          <PageRoute path="/quicklinks">
+            <Quicklinks />
+          </PageRoute>
+          <NoAuthRoute path="/login">
+            <Navbar>
+              <Login />
+            </Navbar>
+          </NoAuthRoute>
+          <AuthPageRoute path="/judging">
+            <Judging />
+          </AuthPageRoute>
+          <AdminAuthPageRoute path="/judging/admin">
+            <JudgingAdmin />
+          </AdminAuthPageRoute>
+          <AuthPageRoute path="/judging/view/:id">
+            {params => <JudgingView id={params.id} />}
+          </AuthPageRoute>
+          <AuthPageRoute path="/submission">
+            <Submission />
+          </AuthPageRoute>
+          <AuthPageRoute path="/submission/create">
+            <SubmissionCreate />
+          </AuthPageRoute>
+          <AuthPageRoute path="/submission/edit">
+            <SubmissionEdit />
+          </AuthPageRoute>
+          <HackerApplicationProvider>
+            <AuthPageRoute path="/application">
+              <Application />
+            </AuthPageRoute>
+            <NavbarAuthRoute path="/application/review" name handleLogout>
+              <ApplicationReview />
+            </NavbarAuthRoute>
+            <NavbarAuthRoute path="/application/confirmation" handleLogout>
+              <ApplicationConfirmation />
+            </NavbarAuthRoute>
+            <Route path="/application/:part" component={ApplicationFormContainer} />
+          </HackerApplicationProvider>
+          <Route path="/:rest*">
+            <Page>Page Not Found!</Page>
+          </Route>
+        </Switch>
+      </AuthProvider>
     </ThemeProvider>
   )
 }
