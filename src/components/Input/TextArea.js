@@ -48,7 +48,7 @@ export const TextArea = ({
         }`}
         {...rest}
       />
-      {invalid && <ErrorMessage> {ErrorMessage} </ErrorMessage>}
+      {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
       {isLengthExceeded ? (
         <ErrorMessage>
           {' '}
