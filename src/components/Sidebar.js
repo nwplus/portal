@@ -4,7 +4,7 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
-import { Button } from './Button'
+import { Button } from './Input/index'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
@@ -73,6 +73,10 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
+const StyledButton = styled(Button)`
+  margin: 1em 0 2em 60px;
+`
+
 export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
   const [location] = useLocation()
 
@@ -118,7 +122,7 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplica
           )
         })}
       </ItemsContainer>
-      <Button color="secondary">Logout</Button>
+      <StyledButton color="secondary">Logout</StyledButton>
     </SidebarContainer>
   )
 }
