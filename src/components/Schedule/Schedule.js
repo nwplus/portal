@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Card } from '../Common'
+import { Card, ScrollbarLike } from '../Common'
 import { EVENT_WIDTH } from './Constants'
 import { TimelineColumn } from './Timeline'
 import { TagLegend } from './Tag'
@@ -18,6 +18,7 @@ const FlexColumn = styled.div`
 const OverflowContainer = styled(Card)`
   overflow-x: scroll;
   position: relative;
+  ${ScrollbarLike};
 `
 
 const msToHours = ms => ms / 1000 / 60 / 60
