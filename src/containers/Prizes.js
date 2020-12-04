@@ -13,7 +13,10 @@ const COLUMNS_OF_PRIZES = 3
 
 const PrizeCard = styled.div`
   ${CardLike};
-  margin: 0.5em 0;
+`
+
+const StyledH2 = styled(H2)`
+  margin-top: 0.1em;
 `
 
 const getPrizes = () => {
@@ -41,7 +44,7 @@ const createPrizeList = prizes => {
 const singlePrize = prize => {
   return (
     <PrizeCard>
-      <H2>{prize.title}</H2>
+      <StyledH2>{prize.title}</StyledH2>
       {prize.sponsor == null ? null : <I>{`Sponsored by ${prize.sponsor}`}</I>}
       <UL>
         {prize.content.map(item => (
