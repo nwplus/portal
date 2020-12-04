@@ -9,7 +9,7 @@ const ButtonContainer = styled.div`
   margin: 1em;
   display: flex;
   justify-content: center;
-  ${p => p.theme.mediaQueries.maxWidth('xs')} {
+  ${p => p.theme.mediaQueries.mobile} {
     display: inline-block;
     text-align: center;
     a {

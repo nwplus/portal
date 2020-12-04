@@ -5,7 +5,7 @@ import menu from '../assets/menu.svg'
 
 const MobileMenuBarContainer = styled.div`
   display: none;
-  ${p => p.theme.mediaQueries.maxWidth('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     padding: 15px;
     display: inline-block;
     text-align: center;

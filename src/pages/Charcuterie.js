@@ -8,7 +8,10 @@ import Livestream from '../components/Livestream'
 import JudgingCard from '../components/JudgingCard'
 import FormContainer from '../components/ApplicationForm'
 import VerticalProgressBar from '../components/VerticalProgressBar'
+import ResumeUploadBtn from '../components/ResumeUploadBtn'
+import styled from 'styled-components'
 import NavigationButtons from '../components/NavigationButtons'
+import Loading from '../components/Loading'
 
 const options = [
   { value: 'chocolate', label: 'Chocolatewerwerwheirwheifuhwieufhwieuhfiu' },
@@ -50,19 +53,31 @@ export default () => {
     radio: 'selected',
     multiselect: { option1: false, option2: false, selected: false, disabled: false },
   })
-  const [textAreaValue, setTextAreaValue] = useState('')
+  const [textArea1Value, setTextArea1Value] = useState('')
+  const [textArea2Value, setTextArea2Value] = useState('')
+  const [hint, setHint] = useState()
   const [progress, setProgress] = useState(0)
-
+  const [isLoading, setIsLoading] = useState(false)
+  const ResumeContainer = styled.div`
+    display: flex;
+    align-items: center;
+  `
+  const StyledQuestionHeading = styled(QuestionHeading)`
+    margin-right: 9em;
+  `
   return (
     <>
       <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
         Toggle Theme
       </Button>
+      <Button color="secondary" width="flex" onClick={() => setIsLoading(!isLoading)}>
+        {!isLoading ? `Show Spinner` : `Hide Spinner`}
+      </Button>
+      <Loading loading={isLoading} />
       <P>
         Theme switcher. Drag the bookmarklet button from the page to your Bookmarks Toolbar. It
         should appear on the toolbar
       </P>
-
       <H1>Charcuturie</H1>
       <>
         <H1>This is an h1.</H1>
@@ -95,8 +110,13 @@ export default () => {
       <TextArea
         placeholder="TextArea with placeholder."
         maxLength="10"
-        value={textAreaValue}
-        onChange={setTextAreaValue}
+        value={textArea1Value}
+        onChange={setTextArea1Value}
+      />
+      <TextArea
+        placeholder="TextArea with placeholder but no maxLength."
+        value={textArea2Value}
+        onChange={setTextArea2Value}
       />
       <Accordion heading="Accordion Component">
         Some hidden content. This can get pretty long too, and even contain other stuff like headers
@@ -307,6 +327,9 @@ export default () => {
           value="selected"
         />
         <Select type="radio" name="selects" label="Disabled state" disabled />
+        <Select type="radio" name="selects" label="Can't select this" disabled />
+        <Select type="radio" name="selects" label="Other" readOnly />
+        <TextInput placeholder="Please Specify" size="small" noOutline inline />
         <H3>Multiselects (Select all that apply)</H3>
         <Select
           type="checkbox"
@@ -417,6 +440,15 @@ export default () => {
         Decrease!
       </Button>
       <VerticalProgressBar percent={progress} />
+      <QuestionHeading>question 12</QuestionHeading>
+      <ResumeContainer>
+        <StyledQuestionHeading>resume</StyledQuestionHeading>
+        <ResumeUploadBtn
+          onChange={e => setHint(e.target.value)}
+          hint={hint}
+          errorMsg="Please upload your resume"
+        />
+      </ResumeContainer>
       <H3>Navigation button group (with autosave time)</H3>
       <NavigationButtons
         firstButtonText="Back"

@@ -64,7 +64,7 @@ export default ({
           color="tertiary"
           href={href}
           disabled={buttonDisabled}
-          target={href.includes('http') && '_blank'}
+          target={href.includes('http') ? '_blank' : undefined}
           rel="noreferrer noopener"
         >
           {buttonLabel}

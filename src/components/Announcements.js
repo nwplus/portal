@@ -29,7 +29,7 @@ const AnnouncementHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 0 1em 0;
-  ${p => p.theme.mediaQueries.maxWidth('xs')} {
+  ${p => p.theme.mediaQueries.xs} {
     display: inline-block;
   }
 `

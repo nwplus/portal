@@ -1,9 +1,11 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import { SCREEN_BREAKPOINTS } from '../utility/Constants'
 
-const maxWidthMediaQueries = size => {
-  return `@media only screen and (max-width: ${SCREEN_BREAKPOINTS[size]}px)`
+const SCREEN_BREAKPOINTS = {
+  xs: 576,
+  mobile: 768,
+  tablet: 992,
+  desktop: 1200,
 }
 
 // eslint-disable-next-line
@@ -40,6 +42,8 @@ const nwTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
   typography: {
     h1: {
@@ -61,7 +65,10 @@ const nwTheme = {
     disabled: 0.5,
   },
   mediaQueries: {
-    maxWidth: maxWidthMediaQueries,
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
   },
 }
 
@@ -96,6 +103,8 @@ const hackcampTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
   typography: {
     h1: {
@@ -117,7 +126,10 @@ const hackcampTheme = {
     disabled: 0.5,
   },
   mediaQueries: {
-    maxWidth: maxWidthMediaQueries,
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
   },
 }
 

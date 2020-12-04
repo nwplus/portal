@@ -1,7 +1,12 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
-import { getYoutubeThumbnail } from './utilities'
+import {
+  hackerApplicationTemplate,
+  applicantStatus,
+  DB_COLLECTION,
+  DB_HACKATHON,
+} from '../utility/Constants'
+import { formatProject } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -17,6 +22,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config)
 }
 
+export const firestore = firebase.firestore
 export const db = firebase.firestore()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
@@ -72,9 +78,7 @@ export const getProject = async (user_id, setProjectCallback, setFeedbackCallbac
     .data()
     .project.get()
     .then(doc => {
-      const projectData = doc.data()
-      projectData.imgUrl = getYoutubeThumbnail(projectData.youtubeUrl)
-      projectData.href = projectData.devpostUrl
+      const projectData = formatProject(doc.data())
       setProjectCallback(projectData)
     })
   if (!!setFeedbackCallback) {
@@ -91,4 +95,60 @@ export const getProject = async (user_id, setProjectCallback, setFeedbackCallbac
         setFeedbackCallback(feedback)
       })
   }
+}
+
+const createNewApplication = async user => {
+  const userId = {
+    _id: user.uid,
+  }
+  const basicInfo = {
+    basicInfo: {
+      email: user.email,
+      firstName: user.displayName.split(' ')[0],
+      lastName: user.displayName.split(' ')[1],
+    },
+  }
+  const submission = {
+    submission: {
+      lastUpdated: firebase.firestore.Timestamp.now(),
+      submitted: false,
+    },
+  }
+
+  const newApplication = {
+    ...hackerApplicationTemplate,
+    ...basicInfo,
+    ...submission,
+    ...userId,
+  }
+
+  await applicantsRef.doc(user.uid).set(newApplication)
+}
+
+export const getUserStatus = async user => {
+  const applicant = await applicantsRef.doc(user.uid).get()
+  if (!applicant.exists) {
+    await createNewApplication(user)
+    return applicantStatus.new
+  }
+  if (applicant.data().status.attending) {
+    return applicantStatus.attending
+  }
+
+  const status = applicant.data().status.applicationStatus
+  if (status === applicantStatus.applied) {
+    return applicantStatus.applied
+  }
+  if (status === applicantStatus.accepted) {
+    return applicantStatus.accepted
+  }
+  return applicantStatus.inProgress
+}
+
+export const getUserApplication = async uuid => {
+  return (await applicantsRef.doc(uuid).get()).data()
+}
+
+export const updateUserApplication = async (uuid, newApp) => {
+  return applicantsRef.doc(uuid).set(newApp)
 }

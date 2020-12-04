@@ -6,7 +6,7 @@ export const CardLike = css`
   border-radius: 3px;
   background-color: ${p => p.theme.colors.secondaryBackground};
   margin: 2em 0;
-  ${p => p.theme.mediaQueries.maxWidth('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
     margin: 0.75em 0;
   }
@@ -22,7 +22,7 @@ export const DetailContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 
-  ${p => p.theme.mediaQueries.maxWidth('desktop')} {
+  ${p => p.theme.mediaQueries.mobile} {
     display: block;
   }
 `
@@ -35,7 +35,7 @@ export const DetailColumn = styled.ul`
   margin-right: 1em;
   padding: 0;
 
-  ${p => p.theme.mediaQueries.maxWidth('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     margin-right: 0em;
   }
 
@@ -99,8 +99,21 @@ export const TextInputLike = css`
     }`}
 `
 
+export const TextInputNoOutline = css`
+  box-sizing: border-box;
+  border-radius: 0;
+  border-style: none;
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+`
+
 export const TextInputLikeErrorMsg = styled.p`
   color: ${p => p.theme.colors.warning};
+  margin: 0.5em 0em;
+`
+
+export const TextInputLikeMsg = styled.p`
+  color: ${p => p.theme.colors.highlight};
   margin: 0.5em 0em;
 `
 

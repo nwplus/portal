@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   padding: 8vh 16vw;
-  ${p => p.theme.mediaQueries.maxWidth('mobile')} {
+  ${p => p.theme.mediaQueries.mobile} {
     padding: 3vh 6vw;
   }
 `
