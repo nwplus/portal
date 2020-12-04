@@ -9,6 +9,7 @@ export default ({ id }) => {
   const { user } = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [score, setScore] = useState({
     tech: 0,
     design: 0,
@@ -48,10 +49,10 @@ export default ({ id }) => {
       setError(true)
     } else if (!isSubmitting) {
       setIsSubmitting(true)
-      await projectsRef.doc(id).collection('Grades').doc().set(score)
+      await projectsRef.doc(id).collection('Grades').doc(user.uid).set(score)
       setIsSubmitting(false)
+      setSuccess(true)
     }
-    console.log(user.uid)
   }
 
   if (!isJudgingOpen) {
@@ -65,6 +66,7 @@ export default ({ id }) => {
       onChange={setScore}
       onSubmit={submit}
       error={error}
+      success={success}
     />
   )
 }
