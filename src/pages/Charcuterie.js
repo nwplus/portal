@@ -106,46 +106,6 @@ export default () => {
       <Card>
         <H2>Card Element</H2>
         <P>It can contain content. And even buttons!</P>
-        <P>Colors</P>
-        <Button color="primary">Primary</Button>
-        <Button color="primary" disabled>
-          Primary
-        </Button>
-        <Button color="secondary" width="flex">
-          Secondary
-        </Button>
-        <Button color="secondary" width="flex" disabled>
-          Secondary
-        </Button>
-        <Button color="tertiary">Tertiary</Button>
-        <Button color="tertiary" disabled>
-          Tertiary
-        </Button>
-        <P>Widths</P>
-        <Button width="small" color="secondary">
-          Small
-        </Button>
-        <Button color="secondary">Default</Button>
-        <Button width="flex" color="secondary">
-          Flex (ie. as wide as the label)
-        </Button>
-        <Button width="large" color="secondary">
-          Large
-        </Button>
-        <P>Heights</P>
-        <Button height="short" color="secondary">
-          Short
-        </Button>
-        <Button height="tall" color="secondary">
-          Tall
-        </Button>
-        <TextInput placeholder="Default" />
-        <TextInput value="With Value" />
-        <TextInput value="With Value Disabled" disabled />
-        <TextInput placeholder="Disabled" disabled />
-        <TextInput placeholder="Invalid" invalid errorMsg={'Pls try again lol'} />
-        <TextInput placeholder="Medium" size="medium" />
-        <TextInput placeholder="Large" size="large" />
       </Card>
       <TextArea
         placeholder="TextArea with placeholder."
@@ -170,6 +130,174 @@ export default () => {
         teamName="H4ckH0use"
         buttonLabel="Judge this submission"
         description="Imposter is a productivity timer designed to keep friends on task together even when working remotely. It aims to create a productive and social environment for all of us working from home."
+      />
+
+      <P>Colors</P>
+      <Button color="primary">Primary</Button>
+      <Button color="primary" disabled>
+        Primary
+      </Button>
+      <Button color="secondary" width="flex">
+        Secondary
+      </Button>
+      <Button color="secondary" width="flex" disabled>
+        Secondary
+      </Button>
+      <Button color="tertiary">Tertiary</Button>
+      <Button color="tertiary" disabled>
+        Tertiary
+      </Button>
+      <P>Widths</P>
+      <Button width="small" color="secondary">
+        Small
+      </Button>
+      <Button color="secondary">Default</Button>
+      <Button width="flex" color="secondary">
+        Flex (ie. as wide as the label)
+      </Button>
+      <Button width="large" color="secondary">
+        Large
+      </Button>
+      <P>Heights</P>
+      <Button height="short" color="secondary">
+        Short
+      </Button>
+      <Button height="tall" color="secondary">
+        Tall
+      </Button>
+      <TextInput placeholder="Default" />
+      <TextInput value="With Value" />
+      <TextInput value="With Value Disabled" disabled />
+      <TextInput placeholder="Disabled" disabled />
+      <TextInput placeholder="Invalid" invalid errorMsg={'Pls try again lol'} />
+      <TextInput placeholder="Medium" size="medium" />
+      <TextInput placeholder="Large" size="large" />
+      <H2>Checkbox</H2>
+      <Checkbox
+        label="Default state"
+        checked={states.checkbox}
+        onChange={() => setStates({ ...states, checkbox: !states.checkbox })}
+      />
+      <Checkbox label="Selected state" checked readOnly />
+      <H2>Selects</H2>
+      <H3>Radio</H3>
+      <Select
+        type="radio"
+        name="radioSelect"
+        label="Default state"
+        checked={states.radio === 'default'}
+        onChange={e => setStates({ ...states, radio: e.target.value })}
+        value="default"
+      />
+      <Select
+        type="radio"
+        name="radioSelect"
+        label="Selected state"
+        checked={states.radio === 'selected'}
+        onChange={e => setStates({ ...states, radio: e.target.value })}
+        value="selected"
+      />
+      <Select type="radio" name="selects" label="Disabled state" disabled />
+      <H3>Multiselects (Select all that apply)</H3>
+      <Select
+        type="checkbox"
+        label="Option 1"
+        checked={states.multiselect.option1}
+        onChange={() =>
+          setStates({
+            ...states,
+            multiselect: { ...states.multiselect, option1: !states.multiselect.option1 },
+          })
+        }
+      />
+      <Select
+        type="checkbox"
+        label="Option 2"
+        checked={states.multiselect.option2}
+        onChange={() =>
+          setStates({
+            ...states,
+            multiselect: { ...states.multiselect, option2: !states.multiselect.option2 },
+          })
+        }
+      />
+      <Select type="checkbox" label="Selected state" checked readOnly />
+      <Select type="checkbox" label="Disabled state" disabled />
+      <H2>Dropdowns</H2>
+      <H3>Normal dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'I am a placeholder'}
+        isSearchable={false}
+        onChange={inputValue => console.log(inputValue)}
+        isValid
+      />
+      <H3>Searchable dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption={false}
+        isValid
+      />
+      <H3>Searchable and creatable dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'Hi I am a placeholder'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption
+        isValid
+      />
+      <H3>Invalid dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption={false}
+        isValid={false}
+        errorMessage={'Please select something!'}
+      />
+      <H3>Debounced dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption={false}
+        isValid
+        errorMessage={'Please select something!'}
+        debounceEnabled
+        throttleTime={1000}
+      />
+      <H3>Debounced creatable dropdown</H3>
+      <Dropdown
+        options={options}
+        placeholder={'im tired'}
+        isSearchable={true}
+        formatCreateLabel={inputValue => `Cant find this!!! Use "${inputValue}" instead`}
+        onChange={inputValue => console.log(inputValue)}
+        emptySearchDefaultOption={'Start typing to search'}
+        noOptionsMessage={() => 'u messed up'}
+        canCreateNewOption
+        isValid
+        errorMessage={'Please select something!'}
+        debounceEnabled
+        throttleTime={1000}
       />
       <H1>Form Wrapper</H1>
       <FormContainer>

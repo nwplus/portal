@@ -1,6 +1,13 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
+const SCREEN_BREAKPOINTS = {
+  xs: 576,
+  mobile: 768,
+  tablet: 992,
+  desktop: 1200,
+}
+
 // eslint-disable-next-line
 const nwTheme = {
   font: 'HK Grotesk',
@@ -57,6 +64,12 @@ const nwTheme = {
   opacity: {
     disabled: 0.5,
   },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
 }
 
 const hackcampTheme = {
@@ -111,6 +124,12 @@ const hackcampTheme = {
   },
   opacity: {
     disabled: 0.5,
+  },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
   },
 }
 

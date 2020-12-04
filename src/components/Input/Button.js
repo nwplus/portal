@@ -25,6 +25,7 @@ const StyledButton = styled.a`
   font-weight: ${p => p.theme.typography.h2.weight};
   border: transparent;
   transition: all 250ms;
+  max-width: 100%;
   width: ${p => (p.width ? buttonWidth[p.width] : buttonWidth['default'])};
   text-align: center;
   padding: ${p => (p.height ? buttonHeightPadding[p.height] : buttonHeightPadding['default'])}
@@ -67,6 +68,7 @@ const StyledButton = styled.a`
       background: url(${buttonBG});
       background-size: contain;
       background-repeat: no-repeat;
+      min-width: 100px;
       width: 100px;
       :hover {
         background: url(${buttonBGHover}); 
@@ -137,7 +139,11 @@ const StyledButton = styled.a`
 `
 
 export const Button = props => (
-  <StyledButton tabIndex={props.disabled ? null : 0} {...props}>
+  <StyledButton
+    {...props}
+    tabIndex={props.disabled ? null : 0}
+    href={props.disabled ? null : props.href}
+  >
     {props.children}
   </StyledButton>
 )
