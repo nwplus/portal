@@ -11,8 +11,8 @@ export default ({ className, src }) => {
       type="text/html"
       className={className}
       src={embedUrl}
-      frameborder="0"
-      allowfullscreen
+      frameBorder="0"
+      allowFullScreen
     />
   )
 }

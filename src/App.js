@@ -84,6 +84,7 @@ const AdminAuthPageRoute = ({ path, children }) => {
     </Route>
   )
 }
+
 const ApplicationFormContainer = ({ params }) => {
   const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
@@ -93,6 +94,17 @@ const ApplicationFormContainer = ({ params }) => {
         <ApplicationForm part={params.part} />
       </Form>
     </>
+  ) : (
+    <Redirect to="/login" />
+  )
+}
+
+const JudgingViewContainer = ({ params }) => {
+  const { isAuthed } = useAuth()
+  return isAuthed ? (
+    <Page>
+      <JudgingView id={params.id} />
+    </Page>
   ) : (
     <Redirect to="/login" />
   )
@@ -151,9 +163,7 @@ function App() {
           <AdminAuthPageRoute path="/judging/admin">
             <JudgingAdmin />
           </AdminAuthPageRoute>
-          <AuthPageRoute path="/judging/view/:id">
-            {params => <JudgingView id={params.id} />}
-          </AuthPageRoute>
+          <Route path="/judging/view/:id" component={JudgingViewContainer} />
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>

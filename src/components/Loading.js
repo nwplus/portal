@@ -12,6 +12,6 @@ const override = css`
   z-index: 1031;
 `
 
-export default ({ loading }) => (
-  <MoonLoader css={override} color="#fff" size={80} loading={loading} />
+export default ({ loading, size = 80 }) => (
+  <MoonLoader css={override} color="#fff" size={size} loading={loading} />
 )
