@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { useAuth } from './Auth'
-import { getUserApplication, updateUserApplication, getLivesiteDoc } from './firebase'
+import { getUserApplication, updateUserApplication, getLivesiteDoc, analytics } from './firebase'
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
 import Page from '../components/Page'
+import { AnalyticsEvents } from './Constants'
 const HackerApplicationContext = createContext()
 
 export function useHackerApplication() {
@@ -23,6 +24,7 @@ export function HackerApplicationProvider({ children }) {
       const app = await getUserApplication(user.uid)
       setApplication(app)
       setUpdated(false)
+      analytics.logEvent(AnalyticsEvents.AccessApplication, { userId: user.uid })
     }
     retrieveApplication()
   }, [user])
