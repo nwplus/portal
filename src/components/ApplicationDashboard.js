@@ -2,13 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1 } from './Typography'
 import { Button } from './Input/Button'
-import { SOCIAL_LINKS } from '../utility/Constants'
+import { AnalyticsEvents, SOCIAL_LINKS } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
 import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
 import twitter from '../assets/icons/twitter.svg'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { maxWidthMediaQueries } from './Common'
+import { analytics } from '../utility/firebase'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -112,18 +113,21 @@ const RSVPButton = styled(Button)`
 
 const SocialMediaLinks = () => {
   // TODO: Color of icons for HackCamp TBD
+  const UpdateAnalytics = socialName => {
+    analytics.logEvent(AnalyticsEvents.SocialMediaConversion, { socialMedia: socialName })
+  }
   return (
     <div>
-      <a href={SOCIAL_LINKS.FB}>
+      <a href={SOCIAL_LINKS.FB} onClick={() => UpdateAnalytics('facebook')}>
         <SocialMediaIcons src={facebook} alt="nwPlus Facebook" />
       </a>
-      <a href={SOCIAL_LINKS.IG}>
+      <a href={SOCIAL_LINKS.IG} onClick={() => UpdateAnalytics('instagram')}>
         <SocialMediaIcons src={instagram} alt="nwPlus Instagram" />
       </a>
-      <a href={SOCIAL_LINKS.MEDIUM}>
+      <a href={SOCIAL_LINKS.MEDIUM} onClick={() => UpdateAnalytics('medium')}>
         <SocialMediaIcons src={medium} alt="nwPlus Medium" />
       </a>
-      <a href={SOCIAL_LINKS.TW}>
+      <a href={SOCIAL_LINKS.TW} onClick={() => UpdateAnalytics('twitter')}>
         <SocialMediaIcons src={twitter} alt="nwPlus Twitter" />
       </a>
     </div>
