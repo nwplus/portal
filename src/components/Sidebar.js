@@ -16,14 +16,14 @@ const SidebarContainer = styled.div`
 `
 
 const Logo = styled.img.attrs(p => ({
-  src: p.theme.custom_imgs === 'hc' ? hc_logo : logo,
+  src: p.theme.name === 'hackCamp' ? hc_logo : logo,
 }))`
   width: 80px;
   height: 85px;
   margin: 30px 0 0px 50px;
 
   ${p =>
-    p.theme.custom_imgs === 'hc' &&
+    p.theme.name === 'hackCamp' &&
     `
       width: 120px;
       margin: 30px 0 0px 60px;

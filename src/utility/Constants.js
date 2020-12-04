@@ -1,7 +1,15 @@
 export const DB_COLLECTION = 'Hackathons'
+
+// CHANGE: firebase collection name for this hackathon
 export const DB_HACKATHON = 'LHD2021'
+
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
+export const copyText = Object.freeze({
+  // CHANGE: name of hackathon to be displayed on login splash
+  hackathonName: 'HackCamp 2020',
+})
+
 export const NOTIFICATION_PERMISSIONS = Object.freeze({
   GRANTED: 'granted',
   DEFAULT: 'default',

@@ -8,10 +8,9 @@ const SCREEN_BREAKPOINTS = {
   desktop: 1200,
 }
 
-// eslint-disable-next-line
 const nwTheme = {
+  name: 'nwHacks',
   font: 'HK Grotesk',
-  custom_imgs: 'none',
   colors: {
     background: '#2D2937',
     border: 'rgba(255, 255, 255, 0.3)',
@@ -73,8 +72,8 @@ const nwTheme = {
 }
 
 const hackcampTheme = {
+  name: 'hackCamp',
   font: 'HK Grotesk',
-  custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
     border: 'rgba(255, 255, 255, 0.3)',
@@ -98,7 +97,7 @@ const hackcampTheme = {
     },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
-    banner: 'rgba(75, 65, 130, 0.2)',
+    banner: '#2A3C4A',
     login: {
       googleHover: '#fafafa',
       githubHover: '#545159',
@@ -134,7 +133,6 @@ const hackcampTheme = {
 }
 
 const THEMES = { nwTheme, hackcampTheme }
-
 let selectedTheme = hackcampTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
