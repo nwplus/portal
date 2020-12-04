@@ -70,3 +70,11 @@ export const hackerApplicationTemplate = Object.freeze({
   },
   team: '',
 })
+
+export const AnalyticsEvents = Object.freeze({
+  Login: 'Login',
+  AccessApplication: 'AccessApplication',
+  EditApplication: 'EditApplication',
+  Signup: 'Signup',
+  SocialMediaConversion: 'SocialMediaConversion',
+})
