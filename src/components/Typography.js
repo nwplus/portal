@@ -80,3 +80,7 @@ export const Label = styled.label`
   font-weight: 600;
   text-transform: uppercase;
 `
+
+export const CenteredH1 = styled(H1)`
+  text-align: center;
+`
