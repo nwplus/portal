@@ -17,7 +17,6 @@ const StyledContainer = styled.div`
 `
 
 export default ({ className, wide, blur, children }) => {
-  console.log(blur)
   return (
     <StyledContainer className={className} wide={wide} blur={blur}>
       {children}
