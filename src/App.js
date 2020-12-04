@@ -89,12 +89,12 @@ const AdminAuthPageRoute = ({ path, children }) => {
 const ApplicationFormContainer = ({ params }) => {
   const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
-    <>
+    <HackerApplicationProvider>
       <Navbar name={user.displayName} handleLogout={logout} />
       <Form>
         <ApplicationForm part={params.part} />
       </Form>
-    </>
+    </HackerApplicationProvider>
   ) : (
     <Redirect to="/login" />
   )
@@ -174,21 +174,25 @@ function App() {
           <AuthPageRoute path="/submission/edit">
             <SubmissionEdit />
           </AuthPageRoute>
-          <HackerApplicationProvider>
-            <AuthPageRoute path="/application">
+          <AuthPageRoute path="/application">
+            <HackerApplicationProvider>
               <Application />
-            </AuthPageRoute>
-            <NavbarAuthRoute path="/application/review" name handleLogout>
+            </HackerApplicationProvider>
+          </AuthPageRoute>
+          <NavbarAuthRoute path="/application/review" name handleLogout>
+            <HackerApplicationProvider>
               <ApplicationReview />
-            </NavbarAuthRoute>
-            <NavbarAuthRoute path="/application/confirmation" handleLogout>
+            </HackerApplicationProvider>
+          </NavbarAuthRoute>
+          <NavbarAuthRoute path="/application/confirmation" handleLogout>
+            <HackerApplicationProvider>
               <ApplicationConfirmation />
-            </NavbarAuthRoute>
-            <Route path="/application/:part" component={ApplicationFormContainer} />
-            <Route path="/:rest*">
-              <NotFound />
-            </Route>
-          </HackerApplicationProvider>
+            </HackerApplicationProvider>
+          </NavbarAuthRoute>
+          <Route path="/application/:part" component={ApplicationFormContainer} />
+          <Route path="/:rest*">
+            <NotFound />
+          </Route>
         </Switch>
       </AuthProvider>
     </ThemeProvider>
