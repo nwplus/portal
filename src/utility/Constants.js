@@ -77,4 +77,6 @@ export const AnalyticsEvents = Object.freeze({
   EditApplication: 'EditApplication',
   Signup: 'Signup',
   SocialMediaConversion: 'SocialMediaConversion',
+  Logout: 'Logout',
+  NotificationToggled: 'NotificationToggled',
 })

@@ -36,11 +36,11 @@ export function AuthProvider({ children }) {
       setUser(currUser)
       setLoading(false)
       analytics.setUserId(currUser.uid)
-      analytics.logEvent(AnalyticsEvents.Login, { userId: currUser.uid })
     })
   })
 
   const logout = async () => {
+    analytics.logEvent(AnalyticsEvents.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
     setLocation('/login')
