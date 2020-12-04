@@ -4,6 +4,8 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
+import { Button } from './Input/index'
+import { useAuth } from '../utility/Auth'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
@@ -72,9 +74,13 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
+const StyledButton = styled(Button)`
+  margin: 1em 0 2em 60px;
+`
+
 export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
   const [location] = useLocation()
-
+  const { isAuthed, logout } = useAuth()
   const links = [
     { location: '/', text: 'DASHBOARD' },
     { location: '/schedule', text: 'SCHEDULE' },
@@ -117,6 +123,11 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplica
           )
         })}
       </ItemsContainer>
+      {isAuthed && (
+        <StyledButton color="secondary" onClick={logout}>
+          Logout
+        </StyledButton>
+      )}
     </SidebarContainer>
   )
 }

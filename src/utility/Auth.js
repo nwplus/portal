@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/login')
+    setLocation('/')
   }
 
   return loading ? (
