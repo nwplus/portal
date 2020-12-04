@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'wouter'
 import { H2 } from '../../components/Typography'
 import ViewProject from '../../components/ViewProject'
-import { getLivesiteDoc } from '../../utility/firebase'
+import { getLivesiteDoc, projectsRef } from '../../utility/firebase'
+import { useAuth } from '../../utility/Auth'
+
+const REDIRECT_TIMEOUT = 3000
 
 export default ({ id }) => {
+  const [, setLocation] = useLocation()
+  const { user } = useAuth()
   const [isJudgingOpen, setIsJudgingOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [score, setScore] = useState({
     tech: 0,
     design: 0,
     functionality: 0,
     creativity: 0,
     pitch: 0,
+    notes: '',
   })
 
-  // TODO: Get from firebase
-  // eslint-disable-next-line no-unused-vars
   const [project, setProject] = useState({
     id: 'a7xh134',
     description:
@@ -26,23 +34,44 @@ export default ({ id }) => {
   })
 
   useEffect(() => {
-    // TODO: Get project from firebase
-    console.log(id)
-  }, [id, setProject])
+    ;(async () => {
+      const projectDoc = await projectsRef.doc(id).get()
+      const data = projectDoc.data()
+      setProject(data)
+    })()
+  }, [id])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
     return unsubscribe
   }, [setIsJudgingOpen])
 
-  const submit = () => {
-    // TODO: Submit to firebase
-    console.log(score)
+  const submit = async () => {
+    if (!score.tech || !score.design || !score.functionality || !score.creativity || !score.pitch) {
+      setError(true)
+    } else if (!isSubmitting) {
+      setError(false)
+      setIsSubmitting(true)
+      await projectsRef.doc(id).collection('Grades').doc(user.uid).set(score)
+      setIsSubmitting(false)
+      setSuccess(true)
+      setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)
+    }
   }
 
   if (!isJudgingOpen) {
     return <H2>Judging is not open yet. Please check back later.</H2>
   }
 
-  return <ViewProject project={project} score={score} onChange={setScore} onSubmit={submit} />
+  return (
+    <ViewProject
+      project={project}
+      score={score}
+      onChange={setScore}
+      onSubmit={submit}
+      isSubmitting={isSubmitting}
+      error={error}
+      success={success}
+    />
+  )
 }
