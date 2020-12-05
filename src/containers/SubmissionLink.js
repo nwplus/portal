@@ -29,13 +29,13 @@ export default userRef => {
       setMessage(`Syncing Devpost...`)
 
       // try to find a submission which contains this email
-      const project_ref = await getProjectByEmail(email)
-      if (project_ref === NO_PROJECT) {
+      const projectRef = await getProjectByEmail(email)
+      if (projectRef === NO_PROJECT) {
         setMessage(`Not found. Message an organizer in #ask-organizers.`)
         return
       }
 
-      const projectId = project_ref.docs[0].id
+      const projectId = projectRef.docs[0].id
       setMessage(`Found! Syncing submission...`)
 
       // if found, set firebase doc ref
