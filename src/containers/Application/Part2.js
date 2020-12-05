@@ -3,8 +3,10 @@ import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
 export default () => {
+  const { application } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [states, setStates] = useState({
     resume: null,
@@ -23,7 +25,11 @@ export default () => {
 
   return (
     <>
-      <Skills formInputs={states} onChange={setStates} />
+      <Skills
+        formInputs={states}
+        onChange={setStates}
+        role={application.basicInfo.contributionRole}
+      />
       <VerticalProgressBar percent={50} />
       <NavigationButtons
         firstButtonText="Back"
