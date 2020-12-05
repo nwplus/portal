@@ -15,7 +15,6 @@ export default () => {
   return (
     <>
       <Questionnaire />
-      {/* Progress bar should be capped at 75% and should increase with each filled input */}
       <VerticalProgressBar percent={50} />
       <NavigationButtons
         firstButtonText="Back"

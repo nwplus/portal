@@ -43,7 +43,6 @@ export default () => {
   return (
     <>
       <BasicInfo formInputs={states} onChange={setStates} />
-      {/* Progress bar should be capped at 25% and should increase with each filled input */}
       <VerticalProgressBar percent={0} />
       {/* Navigation TODO: add force save  */}
       <NavigationButtons

@@ -14,7 +14,6 @@ export default () => {
 
   return (
     <>
-      {/* Progress bar should increase with each filled input */}
       <VerticalProgressBar percent={100} />
       <NavigationButtons
         firstButtonText="Back"
