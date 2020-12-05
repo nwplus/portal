@@ -29,7 +29,7 @@ export default () => {
       <VerticalProgressBar percent={25} />
       <NavigationButtons
         firstButtonText="Back"
-        firstButtonOnClick={() => handleNavigation('/application/part-2')}
+        firstButtonOnClick={() => handleNavigation('/application/part-1')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-3')}
         autosaveTime={lastUpdated}
