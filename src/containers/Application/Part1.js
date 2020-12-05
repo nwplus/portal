@@ -34,7 +34,8 @@ export default () => {
   return (
     <>
       <BasicInfo formInputs={states} onChange={setStates} />
-      <VerticalProgressBar percent={10} />
+      {/* Progress bar should be capped at 25% and should increase with each filled input */}
+      <VerticalProgressBar percent={0} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonHref="/login"
