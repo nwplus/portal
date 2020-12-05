@@ -72,15 +72,7 @@ const getGradedProjects = async () => {
     }
     return project
   })
-  projectData.sort((a, b) => {
-    if (a.grade > b.grade) {
-      return -1
-    }
-    if (a.grade < b.grade) {
-      return 1
-    }
-    return 0
-  })
+  projectData.sort((a, b) => b.grade - a.grade)
   return projectData
 }
 
