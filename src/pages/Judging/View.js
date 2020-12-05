@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import { JudgingNotOpen } from '../../components/HeroPage'
 import ViewProject from '../../components/ViewProject'
-import { getLivesiteDoc, projectsRef } from '../../utility/firebase'
+import { getLivesiteDoc, projectsRef, db } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 
 const REDIRECT_TIMEOUT = 3000
@@ -52,7 +52,17 @@ export default ({ id }) => {
     } else if (!isSubmitting) {
       setError(false)
       setIsSubmitting(true)
-      await projectsRef.doc(id).collection('Grades').doc(user.uid).set(score)
+      await db.runTransaction(async transaction => {
+        const projectDoc = await transaction.get(projectsRef.doc(id))
+        if (!projectDoc.exists) {
+          setIsSubmitting(false)
+          alert('Error, project not found')
+          return
+        }
+        const oldGrades = projectDoc.data().grades
+        const grades = { ...oldGrades, [user.uid]: score }
+        transaction.update(projectsRef.doc(id), { grades })
+      })
       setIsSubmitting(false)
       setSuccess(true)
       setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)
