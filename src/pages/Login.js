@@ -11,12 +11,13 @@ import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
 import { copyText } from '../utility/Constants'
 
-const ErrorMessage = message => (
+const ErrorMessage = ({ message }) => (
   <>
     There was an issue logging you in. If this persists, please contact"
     <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
     <br />
-    {message}
+    <br />
+    Error: {message}
   </>
 )
 

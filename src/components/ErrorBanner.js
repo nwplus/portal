@@ -21,7 +21,7 @@ const ErrorText = styled.p`
   margin: 10px 20px;
 `
 
-export function ErrorBanner({ children }) {
+export default function ErrorBanner({ children }) {
   const [showError, setShowError] = useState(false)
 
   useEffect(() => {
