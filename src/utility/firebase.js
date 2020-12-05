@@ -99,7 +99,6 @@ export const getProject = async (user_id, setProjectCallback, setFeedbackCallbac
 }
 
 const createNewApplication = async user => {
-  console.log(user)
   const userId = {
     _id: user.uid,
   }
