@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { H1, H2, H3, P } from './Typography'
-import { Card, HR } from './Common'
+import { Card } from './Common'
 import JudgingCard from './JudgingCard'
 
 const ItemList = styled.ul`

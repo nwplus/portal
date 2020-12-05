@@ -7,7 +7,6 @@ import {
   ApplicationStatus,
   DB_HACKATHON,
 } from '../utility/Constants'
-import { formatProject } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {

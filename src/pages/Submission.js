@@ -21,8 +21,10 @@ export default () => {
     ;(async () => {
       const d = await getUserApplication(user.uid)
       const submittedProjectRef = d.submittedProject
-      const submission = await getSubmission(submittedProjectRef)
-      setSubmission(submission)
+      if (!!submittedProjectRef) {
+        const submission = await getSubmission(submittedProjectRef)
+        setSubmission(submission)
+      }
     })()
   }, [user])
 
@@ -35,6 +37,7 @@ export default () => {
     )
   }
 
+  console.log(submission, !!submission)
   return !!submission ? (
     <ViewSubmission project={formatProject(submission)} user={user} />
   ) : (
