@@ -9,6 +9,7 @@ export default () => {
   const handleNavigation = href => {
     // await forceSave()  ** add async when forceSave() is used **
     setLocation(href)
+    window.scrollTo(0, 0)
   }
 
   return (
