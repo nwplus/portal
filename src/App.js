@@ -29,7 +29,7 @@ import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
-import { HackerApplicationProvider } from './utility/HackerApplicationContext'
+import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -86,11 +86,21 @@ const AdminAuthPageRoute = ({ path, children }) => {
   )
 }
 
+/**Saves the application on logout */
+const NavbarSaveOnLogout = ({ name, handleLogout }) => {
+  const { forceSave } = useHackerApplication()
+  const logout = async () => {
+    await forceSave()
+    handleLogout()
+  }
+  return <Navbar name={name} handleLogout={logout} />
+}
+
 const ApplicationFormContainer = ({ params }) => {
   const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
     <HackerApplicationProvider>
-      <Navbar name={user.displayName} handleLogout={logout} />
+      <NavbarSaveOnLogout name={user.displayName} handleLogout={logout} />
       <Form>
         <ApplicationForm part={params.part} />
       </Form>
