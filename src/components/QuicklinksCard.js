@@ -1,18 +1,16 @@
 import React from 'react'
 import { A, UL, LI, H2 } from './Typography'
-
 import styled from 'styled-components'
-import { CardLike } from '../components/Common.js'
+import { Card } from '../components/Common'
 
-const QuicklinksCard = styled.div`
-  ${CardLike};
-  margin: 0.5em 0;
+const StyledH2 = styled(H2)`
+  margin-top: 0.1em;
 `
 
 export default ({ title, links }) => {
   return (
-    <QuicklinksCard>
-      <H2>{title}</H2>
+    <Card>
+      <StyledH2>{title}</StyledH2>
       <UL>
         {links.map(link => (
           <LI key={link.label}>
@@ -20,6 +18,6 @@ export default ({ title, links }) => {
           </LI>
         ))}
       </UL>
-    </QuicklinksCard>
+    </Card>
   )
 }

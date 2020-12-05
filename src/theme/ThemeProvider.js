@@ -1,15 +1,23 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-// eslint-disable-next-line
+const SCREEN_BREAKPOINTS = {
+  xs: 576,
+  mobile: 768,
+  tablet: 992,
+  desktop: 1200,
+}
+
 const nwTheme = {
+  name: 'nwHacks',
   font: 'HK Grotesk',
-  custom_imgs: 'none',
   colors: {
     background: '#2D2937',
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
+    error: '#ff0033',
+    errorText: '#fff',
     foreground: '#4F4A59',
     primary: '#06C1C0',
     default: '#BEBEBE',
@@ -33,6 +41,8 @@ const nwTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
   typography: {
     h1: {
@@ -53,17 +63,25 @@ const nwTheme = {
   opacity: {
     disabled: 0.5,
   },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
 }
 
 const hackcampTheme = {
+  name: 'hackCamp',
   font: 'HK Grotesk',
-  custom_imgs: 'hc',
   colors: {
     background: '#2A3C4A',
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
     foreground: '#FFBC96',
+    error: '#ff0033',
+    errorText: '#fff',
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
     primary: '#FFBC96',
@@ -79,11 +97,13 @@ const hackcampTheme = {
     },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
-    banner: 'rgba(75, 65, 130, 0.2)',
+    banner: '#2A3C4A',
     login: {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
   typography: {
     h1: {
@@ -104,10 +124,15 @@ const hackcampTheme = {
   opacity: {
     disabled: 0.5,
   },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
 }
 
 const THEMES = { nwTheme, hackcampTheme }
-
 let selectedTheme = hackcampTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {

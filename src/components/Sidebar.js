@@ -4,28 +4,28 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
-import { maxWidthMediaQueries } from './Common'
+import { Button } from './Input/index'
+import { useAuth } from '../utility/Auth'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
   border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
-  ${maxWidthMediaQueries('mobile')} {
-    ${props =>
-      props.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none'};
+  ${p => p.theme.mediaQueries.mobile} {
+    ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
 `
 
 const Logo = styled.img.attrs(p => ({
-  src: p.theme.custom_imgs === 'hc' ? hc_logo : logo,
+  src: p.theme.name === 'hackCamp' ? hc_logo : logo,
 }))`
   width: 80px;
   height: 85px;
   margin: 30px 0 0px 50px;
 
   ${p =>
-    p.theme.custom_imgs === 'hc' &&
+    p.theme.name === 'hackCamp' &&
     `
       width: 120px;
       margin: 30px 0 0px 60px;
@@ -74,9 +74,13 @@ const LiveLabel = styled.p`
   padding: 5px;
 `
 
-export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) => {
-  const [location] = useLocation()
+const StyledButton = styled(Button)`
+  margin: 1em 0 2em 60px;
+`
 
+export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
+  const [location] = useLocation()
+  const { isAuthed, logout } = useAuth()
   const links = [
     { location: '/', text: 'DASHBOARD' },
     { location: '/schedule', text: 'SCHEDULE' },
@@ -94,11 +98,14 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
   }
 
   if (process.env.NODE_ENV !== 'production') {
+    links.push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
     links.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 
-  // List the application as the last item on the menu
-  links.push({ location: '/application', text: 'APPLICATION' })
+  if (isApplicationOpen) {
+    // List the application as the last item on the menu
+    links.push({ location: '/application', text: 'APPLICATION' })
+  }
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
@@ -116,6 +123,11 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, theme }) 
           )
         })}
       </ItemsContainer>
+      {isAuthed && (
+        <StyledButton color="secondary" onClick={logout}>
+          Logout
+        </StyledButton>
+      )}
     </SidebarContainer>
   )
 }

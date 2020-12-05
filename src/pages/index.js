@@ -1,3 +1,4 @@
+import NotFound from './NotFound'
 import Login from './Login'
 import Charcuterie from './Charcuterie'
 import Home from './Home'
@@ -7,6 +8,7 @@ import Quicklinks from './Quicklinks'
 import Schedule from './Schedule'
 import Judging from './Judging'
 import JudgingView from './Judging/View'
+import JudgingAdmin from './Judging/Admin'
 import Submission from './Submission'
 import SubmissionCreate from './Submission/Create'
 import SubmissionEdit from './Submission/Edit'
@@ -16,6 +18,7 @@ import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
 
 export {
+  NotFound,
   Login,
   Charcuterie,
   Home,
@@ -24,6 +27,7 @@ export {
   Quicklinks,
   Schedule,
   Judging,
+  JudgingAdmin,
   JudgingView,
   Submission,
   SubmissionCreate,

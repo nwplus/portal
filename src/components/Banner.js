@@ -9,15 +9,17 @@ const bannerWidth = {
 
 const StyledContainer = styled.div`
   background: ${p => p.theme.colors.banner};
-  backdrop-filter: blur(15px);
+  backdrop-filter: ${p => (!!p.blur ? 'blur(15px)' : 'none')};
   border-radius: 4px;
   padding: 48px;
   ${CenterHorizontally}
   width: ${p => (p.wide ? bannerWidth.wide : bannerWidth.default)};
 `
 
-export default ({ className, wide, children }) => (
-  <StyledContainer className={className} wide={wide}>
-    {children}
-  </StyledContainer>
-)
+export default ({ className, wide, blur, children }) => {
+  return (
+    <StyledContainer className={className} wide={wide} blur={blur}>
+      {children}
+    </StyledContainer>
+  )
+}

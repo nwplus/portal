@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Schedule from '../components/Schedule/'
-import { H1 } from '../components/Typography'
+import { H1, H3 } from '../components/Typography'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON, DAYOF_COLLECTION } from '../utility/Constants'
 import { livesiteDocRef } from '../utility/firebase'
@@ -36,6 +36,7 @@ export default () => {
   return (
     <>
       <H1>Day-Of-Events Schedule</H1>
+      <H3>Times displayed are adjusted to your local computer time.</H3>
       <Schedule events={events} hackathonStart={start} hackathonEnd={end} />
     </>
   )

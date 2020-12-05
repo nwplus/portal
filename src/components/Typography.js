@@ -37,6 +37,16 @@ export const I = styled.i`
   margin: 0;
 `
 
+export const ErrorMessage = styled.p`
+  color: ${p => p.theme.colors.warning};
+  margin: 0.5em 0em;
+`
+
+export const Message = styled.p`
+  color: ${p => p.theme.colors.highlight};
+  margin: 0.5em 0em;
+`
+
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
 export const A = styled.a`
   cursor: pointer;
@@ -79,4 +89,8 @@ export const Label = styled.label`
   color: ${p => p.theme.colors.primary};
   font-weight: 600;
   text-transform: uppercase;
+`
+
+export const CenteredH1 = styled(H1)`
+  text-align: center;
 `

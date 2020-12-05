@@ -1,10 +1,7 @@
 import React from 'react'
+import Dashboard from '../../components/ApplicationDashboard'
 
 // applicant dashboard
 export default () => {
-  return (
-    <div>
-      <h1>Welcome back, hacker!</h1>
-    </div>
-  )
+  return <Dashboard />
 }

@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'wouter'
+import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
+import Navbar from './components/Navbar'
+import Form from './components/ApplicationForm'
 import {
+  NotFound,
   Login,
   Charcuterie,
   Home,
@@ -11,6 +14,7 @@ import {
   Quicklinks,
   Schedule,
   Judging,
+  JudgingAdmin,
   JudgingView,
   Submission,
   SubmissionCreate,
@@ -24,6 +28,8 @@ import Page from './components/Page'
 import { db } from './utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
 import notifications from './utility/notifications'
+import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
+import { HackerApplicationProvider } from './utility/HackerApplicationContext'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -38,6 +44,70 @@ const PageRoute = ({ path, children }) => {
     <Route path={path}>
       <Page>{children}</Page>
     </Route>
+  )
+}
+
+const AuthPageRoute = ({ path, children }) => {
+  const { isAuthed } = useAuth()
+  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+}
+
+const NavbarAuthRoute = ({ name, handleLogout, path, children }) => {
+  const { isAuthed, user, logout } = useAuth()
+  return isAuthed ? (
+    <Route path={path}>
+      <Navbar
+        name={name ? user.displayName : undefined}
+        handleLogout={handleLogout ? logout : undefined}
+      >
+        {name && handleLogout ? <Form>{children}</Form> : children}
+      </Navbar>
+    </Route>
+  ) : (
+    <Redirect to="/login" />
+  )
+}
+
+const NoAuthRoute = ({ path, children }) => {
+  const { isAuthed, user } = useAuth()
+  return (
+    <Route path={path}>
+      {!isAuthed ? <>{children}</> : <Redirect to={getRedirectUrl(user.redirect)} />}
+    </Route>
+  )
+}
+
+const AdminAuthPageRoute = ({ path, children }) => {
+  const { isAuthed, user } = useAuth()
+  return (
+    <Route path={path}>
+      {isAuthed && user.admin ? <Page>{children}</Page> : <Redirect to="/login" />}
+    </Route>
+  )
+}
+
+const ApplicationFormContainer = ({ params }) => {
+  const { isAuthed, user, logout } = useAuth()
+  return isAuthed ? (
+    <HackerApplicationProvider>
+      <Navbar name={user.displayName} handleLogout={logout} />
+      <Form>
+        <ApplicationForm part={params.part} />
+      </Form>
+    </HackerApplicationProvider>
+  ) : (
+    <Redirect to="/login" />
+  )
+}
+
+const JudgingViewContainer = ({ params }) => {
+  const { isAuthed } = useAuth()
+  return isAuthed ? (
+    <Page>
+      <JudgingView id={params.id} />
+    </Page>
+  ) : (
+    <Redirect to="/login" />
   )
 }
 
@@ -61,27 +131,12 @@ function App() {
   }, [])
 
   return (
-    <>
-      <ThemeProvider>
+    <ThemeProvider>
+      <AuthProvider>
         <GlobalStyle />
         <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/application/review">
-            <ApplicationReview />
-          </Route>
-          <Route path="/application/confirmation">
-            <ApplicationConfirmation />
-          </Route>
-          <Route path="/application/:part">
-            {params => <ApplicationForm part={params.part} />}
-          </Route>
           <PageRoute path="/">
             <Home />
-          </PageRoute>
-          <PageRoute path="/application">
-            <Application />
           </PageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
@@ -98,25 +153,49 @@ function App() {
           <PageRoute path="/quicklinks">
             <Quicklinks />
           </PageRoute>
-          <PageRoute path="/judging">
+          <NoAuthRoute path="/login">
+            <Navbar>
+              <Login />
+            </Navbar>
+          </NoAuthRoute>
+          <AuthPageRoute path="/judging">
             <Judging />
-          </PageRoute>
-          <PageRoute path="/judging/view/:id">{params => <JudgingView id={params.id} />}</PageRoute>
-          <PageRoute path="/submission">
+          </AuthPageRoute>
+          <AdminAuthPageRoute path="/judging/admin">
+            <JudgingAdmin />
+          </AdminAuthPageRoute>
+          <Route path="/judging/view/:id" component={JudgingViewContainer} />
+          <AuthPageRoute path="/submission">
             <Submission />
-          </PageRoute>
-          <PageRoute path="/submission/create">
+          </AuthPageRoute>
+          <AuthPageRoute path="/submission/create">
             <SubmissionCreate />
-          </PageRoute>
-          <PageRoute path="/submission/edit">
+          </AuthPageRoute>
+          <AuthPageRoute path="/submission/edit">
             <SubmissionEdit />
-          </PageRoute>
-          <Route>
-            <Page>Page Not Found!</Page>
+          </AuthPageRoute>
+          <AuthPageRoute path="/application">
+            <HackerApplicationProvider>
+              <Application />
+            </HackerApplicationProvider>
+          </AuthPageRoute>
+          <NavbarAuthRoute path="/application/review" name handleLogout>
+            <HackerApplicationProvider>
+              <ApplicationReview />
+            </HackerApplicationProvider>
+          </NavbarAuthRoute>
+          <NavbarAuthRoute path="/application/confirmation" handleLogout>
+            <HackerApplicationProvider>
+              <ApplicationConfirmation />
+            </HackerApplicationProvider>
+          </NavbarAuthRoute>
+          <Route path="/application/:part" component={ApplicationFormContainer} />
+          <Route path="/:rest*">
+            <NotFound />
           </Route>
         </Switch>
-      </ThemeProvider>
-    </>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 
