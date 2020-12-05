@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc } from '../utility/firebase'
+import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
 import ViewSubmission from '../containers/Submission'
 import { useAuth } from '../utility/Auth'
 import LinkSubmission from '../containers/SubmissionLink'
@@ -7,6 +7,7 @@ import LinkSubmission from '../containers/SubmissionLink'
 export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
   const { user } = useAuth()
+  const [submission, setSubmission] = useState()
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc =>
@@ -14,6 +15,15 @@ export default () => {
     )
     return unsubscribe
   }, [setIsSubmissionsOpen])
+
+  useEffect(() => {
+    ;(async () => {
+      const d = await getUserApplication(user.uid)
+      const submittedProjectRef = d.submittedProject
+      const submission = await getSubmission(submittedProjectRef)
+      setSubmission(submission)
+    })()
+  }, [user])
 
   if (!isSubmissionsOpen) {
     return (
@@ -24,5 +34,5 @@ export default () => {
     )
   }
 
-  return !!user.submitted_project ? <ViewSubmission user={user} /> : <LinkSubmission />
+  return !!submission ? <ViewSubmission user={user} /> : <LinkSubmission user={user} />
 }

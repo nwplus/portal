@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button, TextInput, TextArea } from '../components/Input'
-import { H1, P, Label } from './Typography'
+import { H1, P, Label, Message } from './Typography'
 
 export const TableForm = styled.form`
   display: table;
@@ -24,10 +24,17 @@ export const RightButton = styled(Button)`
   float: right;
 `
 
-export const SubmitRow = ({ data, text, onSubmit }) => {
+const SubmitMessage = styled(Message)`
+  text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
+  max-width: 200px;
+`
+
+export const SubmitRow = ({ data, text, msg, onSubmit }) => {
   return (
     <div>
-      <div></div>
+      <SubmitMessage>{msg}</SubmitMessage>
       <RightButton onClick={e => onSubmit(data)} type="submit" width="flex" color="primary">
         {text}
       </RightButton>
