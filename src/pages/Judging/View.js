@@ -43,7 +43,7 @@ export default ({ id }) => {
       }
       setProject(data)
     })()
-  }, [id, user.uid, setPageBlocked])
+  }, [id, user.uid])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
@@ -56,17 +56,21 @@ export default ({ id }) => {
     } else if (!isSubmitting) {
       setError(false)
       setIsSubmitting(true)
-      await db.runTransaction(async transaction => {
-        const projectDoc = await transaction.get(projectsRef.doc(id))
-        if (!projectDoc.exists) {
-          setIsSubmitting(false)
-          alert('Error, project not found')
-          return
-        }
-        const oldGrades = projectDoc.data().grades
-        const grades = { ...oldGrades, [user.uid]: score }
-        transaction.update(projectsRef.doc(id), { grades })
-      })
+      try {
+        await db.runTransaction(async transaction => {
+          const projectDoc = await transaction.get(projectsRef.doc(id))
+          if (!projectDoc.exists) {
+            setIsSubmitting(false)
+            alert('Error, project not found')
+            return
+          }
+          const oldGrades = projectDoc.data().grades
+          const grades = { ...oldGrades, [user.uid]: score }
+          transaction.update(projectsRef.doc(id), { grades })
+        })
+      } catch (e) {
+        console.err(e)
+      }
       setIsSubmitting(false)
       setSuccess(true)
       setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)
