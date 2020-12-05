@@ -24,7 +24,7 @@ export default () => {
   return (
     <>
       <Skills formInputs={states} onChange={setStates} />
-      <VerticalProgressBar percent={25} />
+      <VerticalProgressBar percent={50} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-1')}

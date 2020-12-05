@@ -15,7 +15,7 @@ export default () => {
   return (
     <>
       <Questionnaire />
-      <VerticalProgressBar percent={50} />
+      <VerticalProgressBar percent={75} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-2')}

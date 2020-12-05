@@ -43,7 +43,7 @@ export default () => {
   return (
     <>
       <BasicInfo formInputs={states} onChange={setStates} />
-      <VerticalProgressBar percent={0} />
+      <VerticalProgressBar percent={25} />
       {/* Navigation TODO: add force save  */}
       <NavigationButtons
         firstButtonText="Back"
