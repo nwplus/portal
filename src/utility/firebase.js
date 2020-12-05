@@ -47,6 +47,12 @@ export const getSponsors = () => {
     })
 }
 
+export const associateToUser = (project_id, uid) => {
+  applicantsRef.doc(uid).set({
+    submitted_project: project_id,
+  })
+}
+
 export const syncToFirebase = async (projects, setMessageCallback) => {
   // delete old projects
   setMessageCallback(`Snapping old projects...`)
@@ -116,11 +122,18 @@ const createNewApplication = async user => {
     },
   }
 
+  // default values for p2p judging on portal
+  const judging = {
+    projectsAssigned: [],
+    submitted_project: '',
+  }
+
   const newApplication = {
     ...hackerApplicationTemplate,
     ...basicInfo,
     ...submission,
     ...userId,
+    ...judging,
   }
 
   await applicantsRef.doc(user.uid).set(newApplication)

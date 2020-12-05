@@ -2,12 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1, H2, P } from './Typography'
 import { Card, HR } from './Common'
-import { Button } from './Input'
 import JudgingCard from './JudgingCard'
-
-const Label = styled(P)`
-  color: ${p => p.theme.colors.primary};
-`
 
 const Columns = styled.div`
   display: flex;
@@ -52,18 +47,6 @@ export default ({ project, feedback = [] }) => {
       <H1>Submit Your Project</H1>
       <P>Copy goes here once logs is done</P>
 
-      {project ? (
-        <>
-          <Button width="flex" href="/submission/edit">
-            Edit Submission
-          </Button>
-          <Label>Congratulations! Your project was successfully submitted.</Label>
-        </>
-      ) : (
-        <Button width="flex" href="/submission/create">
-          Create Submission
-        </Button>
-      )}
       <HR />
       <H1>Project Submission</H1>
       <P>Copy goes here once logs is done</P>

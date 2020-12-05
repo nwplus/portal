@@ -17,8 +17,6 @@ import {
   JudgingAdmin,
   JudgingView,
   Submission,
-  SubmissionCreate,
-  SubmissionEdit,
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
@@ -167,12 +165,6 @@ function App() {
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
           <AuthPageRoute path="/submission">
             <Submission />
-          </AuthPageRoute>
-          <AuthPageRoute path="/submission/create">
-            <SubmissionCreate />
-          </AuthPageRoute>
-          <AuthPageRoute path="/submission/edit">
-            <SubmissionEdit />
           </AuthPageRoute>
           <AuthPageRoute path="/application">
             <HackerApplicationProvider>
