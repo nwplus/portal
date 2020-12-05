@@ -72,32 +72,6 @@ export const syncToFirebase = async (projects, setMessageCallback) => {
   setMessageCallback('Insert done!')
 }
 
-export const getProject = async (user_id, setProjectCallback, setFeedbackCallback) => {
-  const application = await applicantsRef.doc(user_id).get()
-  const team = await application.data().team.get()
-  team
-    .data()
-    .project.get()
-    .then(doc => {
-      const projectData = formatProject(doc.data())
-      setProjectCallback(projectData)
-    })
-  if (!!setFeedbackCallback) {
-    team
-      .data()
-      .project.collection('Grades')
-      .orderBy('notes')
-      .get()
-      .then(doc => {
-        const feedback = doc.docs.map(doc => {
-          const docData = doc.data()
-          return docData.notes
-        })
-        setFeedbackCallback(feedback)
-      })
-  }
-}
-
 const createNewApplication = async user => {
   const userId = {
     _id: user.uid,

@@ -3,6 +3,7 @@ import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/fi
 import ViewSubmission from '../components/Submission'
 import { useAuth } from '../utility/Auth'
 import LinkSubmission from '../containers/SubmissionLink'
+import { formatProject } from '../utility/utilities'
 
 export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
@@ -34,5 +35,9 @@ export default () => {
     )
   }
 
-  return !!submission ? <ViewSubmission project={submission} /> : <LinkSubmission user={user} />
+  return !!submission ? (
+    <ViewSubmission project={formatProject(submission)} user={user} />
+  ) : (
+    <LinkSubmission user={user} />
+  )
 }

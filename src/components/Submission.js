@@ -41,7 +41,7 @@ const FeedbackCard = ({ feedback }) => {
   )
 }
 
-export default ({ project, feedback = [] }) => {
+export default ({ project, user, feedback = [] }) => {
   return (
     <>
       <H1>Submit Your Project</H1>
@@ -53,11 +53,7 @@ export default ({ project, feedback = [] }) => {
       <Columns>
         <Column>
           <H2>Details</H2>
-          {project ? (
-            <JudgingCard {...project} buttonLabel="View on Devpost" />
-          ) : (
-            <P>You have not submitted a project.</P>
-          )}
+          <JudgingCard {...project} buttonLabel="View on Devpost" />
         </Column>
         <Column width="2">
           <H2>Feedback</H2>
