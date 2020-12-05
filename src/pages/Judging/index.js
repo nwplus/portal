@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Loading, JudgingNotOpen } from '../../components/HeroPage'
+import { Link } from 'wouter'
+import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/JudgingCard'
+import { A } from '../../components/Typography'
 import { useAuth } from '../../utility/Auth'
 
 const PROJECTS_TO_JUDGE_COUNT = 5
@@ -69,6 +71,7 @@ const getProjects = async userId => {
 
 export default () => {
   const [isJudgingOpen, setIsJudgingOpen] = useState()
+  const [isBlocked, setIsBlocked] = useState()
   const { user } = useAuth()
   const [projects, setProjects] = useState([])
 
@@ -77,12 +80,32 @@ export default () => {
   }, [setProjects, user.uid])
 
   useEffect(() => {
+    ;(async () => {
+      const applicantData = (await applicantsRef.doc(user.uid).get()).data()
+      setIsBlocked(!applicantData.submittedProject)
+    })()
+  }, [user.uid])
+
+  useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
     return unsubscribe
   }, [setIsJudgingOpen])
 
   if (!projects || isJudgingOpen === undefined) {
     return <Loading />
+  }
+
+  if (isBlocked) {
+    return (
+      <HeroPage>
+        <h2>Error, permission denied</h2>
+        Please{' '}
+        <Link href="/submission">
+          <A>link your Devpost</A>
+        </Link>{' '}
+        account to access judging
+      </HeroPage>
+    )
   }
 
   if (!isJudgingOpen) {
