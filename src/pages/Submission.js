@@ -48,7 +48,7 @@ export default () => {
     return (
       <HeroPage>
         <h2>Submissions are not open</h2>
-        <p>Check back here later</p>
+        Check back here later
       </HeroPage>
     )
   }

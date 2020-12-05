@@ -82,7 +82,7 @@ export default () => {
   useEffect(() => {
     ;(async () => {
       const applicantData = (await applicantsRef.doc(user.uid).get()).data()
-      setIsBlocked(!!!applicantData.submittedProject)
+      setIsBlocked(!applicantData.submittedProject)
     })()
   }, [user.uid])
 
