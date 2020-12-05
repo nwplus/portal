@@ -99,6 +99,7 @@ export const githubSignIn = async (setUser, setLocation) => {
     await handleUser(setUser, setLocation)
     return null
   } catch (e) {
+    console.log(e)
     return e
   }
 }
