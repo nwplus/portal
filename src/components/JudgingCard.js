@@ -71,11 +71,13 @@ export default ({
           >
             {buttonLabel}
           </StyledButton>
+        ) : buttonDisabled ? (
+          <StyledButton color="tertiary" disabled>
+            {buttonLabel}
+          </StyledButton>
         ) : (
           <Link href={href}>
-            <StyledButton color="tertiary" disabled={buttonDisabled}>
-              {buttonLabel}
-            </StyledButton>
+            <StyledButton color="tertiary">{buttonLabel}</StyledButton>
           </Link>
         )}
       </CardContent>

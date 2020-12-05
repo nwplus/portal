@@ -7,7 +7,7 @@ import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
 import { useLocation } from 'wouter'
-import { ErrorBanner } from '../components/ErrorBanner'
+import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
 import { copyText } from '../utility/Constants'
 
@@ -38,7 +38,6 @@ export const ButtonContainer = styled.div`
   margin: 0.5em 0;
 `
 
-// TODO: authentication
 export default () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
@@ -85,7 +84,7 @@ export default () => {
         </ButtonContainer>
         <A href="/">Return to Portal</A>
       </Landing>
-      <ErrorBanner message={<ErrorMessage message={error.message} />} />
+      <ErrorBanner>{error ? <ErrorMessage message={error.message} /> : null}</ErrorBanner>
     </>
   )
 }

@@ -138,14 +138,16 @@ const StyledButton = styled.a`
       }`}
 `
 
-export const Button = props => (
-  <StyledButton
-    {...props}
-    tabIndex={props.disabled ? null : 0}
-    href={props.disabled ? null : props.href}
-  >
-    {props.children}
-  </StyledButton>
-)
+export const Button = props => {
+  return (
+    <StyledButton
+      {...props}
+      tabIndex={props.disabled ? null : 0}
+      href={props.disabled ? null : props.href}
+    >
+      {props.children}
+    </StyledButton>
+  )
+}
 
 export default Button

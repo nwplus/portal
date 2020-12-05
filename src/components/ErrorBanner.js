@@ -21,11 +21,11 @@ const ErrorText = styled.p`
   margin: 10px 20px;
 `
 
-export function ErrorBanner({ message }) {
+export function ErrorBanner({ children }) {
   const [showError, setShowError] = useState(false)
 
   useEffect(() => {
-    if (message) {
+    if (children) {
       setShowError(true)
     } else {
       setShowError(false)
@@ -36,12 +36,12 @@ export function ErrorBanner({ message }) {
     return () => {
       clearTimeout(errorTimeOut)
     }
-  }, [message])
+  }, [children])
 
   return (
     <>
       <ErrorDiv shown={showError}>
-        <ErrorText>{message}</ErrorText>
+        <ErrorText>{children}</ErrorText>
       </ErrorDiv>
     </>
   )
