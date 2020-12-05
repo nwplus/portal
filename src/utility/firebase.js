@@ -103,11 +103,9 @@ const createNewApplication = async user => {
     _id: user.uid,
   }
   const basicInfo = {
-    basicInfo: {
-      email: user.email,
-      firstName: user.displayName.split(' ')[0] ?? '',
-      lastName: user.displayName.split(' ')[1] ?? '',
-    },
+    email: user.email,
+    firstName: user.displayName.split(' ')[0] ?? '',
+    lastName: user.displayName.split(' ')[1] ?? '',
   }
   const submission = {
     submission: {
@@ -118,7 +116,10 @@ const createNewApplication = async user => {
 
   const newApplication = {
     ...hackerApplicationTemplate,
-    ...basicInfo,
+    basicInfo: {
+      ...hackerApplicationTemplate.basicInfo,
+      ...basicInfo,
+    },
     ...submission,
     ...userId,
   }

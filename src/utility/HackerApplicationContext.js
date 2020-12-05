@@ -107,7 +107,7 @@ export function HackerApplicationProvider({ children }) {
    * Applications are closed ? show message
    * Applications are open ? Show application
    */
-  return applicationOpen === null ? (
+  return applicationOpen === null || application === undefined ? (
     <Spinner />
   ) : !applicationOpen ? (
     <Page>Applications are closed.</Page>
