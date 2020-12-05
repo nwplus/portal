@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
+import NavigationButtons from '../../components/NavigationButtons'
+import VerticalProgressBar from '../../components/VerticalProgressBar'
 
 // form part 1
 export default () => {
@@ -32,6 +34,14 @@ export default () => {
   return (
     <>
       <BasicInfo formInputs={states} onChange={setStates} />
+      <VerticalProgressBar percent={10} />
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonHref="/login"
+        secondButtonText="Next"
+        secondButtonHref="/application/part-2"
+        autosaveTime="4:20pm"
+      />
     </>
   )
 }

@@ -9,6 +9,7 @@ const ProgressBarContainer = styled.div`
   position: fixed;
   top: 50%;
   margin-top: ${p => (p.vHeight ? -p.vHeight / 2 : -25)}vh;
+  margin-left: -8em;
 `
 
 const ProgressBarFill = styled.div`
