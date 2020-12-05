@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
 import ViewSubmission from '../components/Submission'
+import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
 import LinkSubmission from '../containers/SubmissionLink'
 import { formatProject } from '../utility/utilities'
 
 export default () => {
-  const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
+  const [isSubmissionsOpen, setIsSubmissionsOpen] = useState()
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
 
@@ -33,16 +34,22 @@ export default () => {
       if (!!submittedProjectRef) {
         const submission = await getSubmission(submittedProjectRef)
         setSubmission(submission)
+      } else {
+        setSubmission(false)
       }
     })()
   }, [user])
 
+  if (isSubmissionsOpen === undefined || submission === undefined) {
+    return <Loading />
+  }
+
   if (!isSubmissionsOpen) {
     return (
-      <>
+      <HeroPage>
         <h2>Submissions are not open.</h2>
         <h2>Check back here later to submit your project!</h2>
-      </>
+      </HeroPage>
     )
   }
 
