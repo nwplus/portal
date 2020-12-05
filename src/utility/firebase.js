@@ -7,7 +7,6 @@ import {
   ApplicationStatus,
   DB_HACKATHON,
 } from '../utility/Constants'
-import { formatProject } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -72,32 +71,6 @@ export const syncToFirebase = async (projects, setMessageCallback) => {
   setMessageCallback('Insert done!')
 }
 
-export const getProject = async (user_id, setProjectCallback, setFeedbackCallback) => {
-  const application = await applicantsRef.doc(user_id).get()
-  const team = await application.data().team.get()
-  team
-    .data()
-    .project.get()
-    .then(doc => {
-      const projectData = formatProject(doc.data())
-      setProjectCallback(projectData)
-    })
-  if (!!setFeedbackCallback) {
-    team
-      .data()
-      .project.collection('Grades')
-      .orderBy('notes')
-      .get()
-      .then(doc => {
-        const feedback = doc.docs.map(doc => {
-          const docData = doc.data()
-          return docData.notes
-        })
-        setFeedbackCallback(feedback)
-      })
-  }
-}
-
 const createNewApplication = async user => {
   const userId = {
     _id: user.uid,
@@ -116,11 +89,18 @@ const createNewApplication = async user => {
     },
   }
 
+  // default values for p2p judging on portal
+  const judging = {
+    projectsAssigned: [],
+    submittedProject: '',
+  }
+
   const newApplication = {
     ...hackerApplicationTemplate,
     ...basicInfo,
     ...submission,
     ...userId,
+    ...judging,
   }
 
   await applicantsRef.doc(user.uid).set(newApplication)
@@ -149,6 +129,10 @@ export const getUserStatus = async user => {
 
 export const getUserApplication = async uuid => {
   return (await applicantsRef.doc(uuid).get()).data()
+}
+
+export const getSubmission = async uid => {
+  return (await projectsRef.doc(uid).get()).data()
 }
 
 export const updateUserApplication = async (uuid, newApp) => {
