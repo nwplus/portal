@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
-import ViewSubmission from '../containers/Submission'
+import ViewSubmission from '../components/Submission'
 import { useAuth } from '../utility/Auth'
 import LinkSubmission from '../containers/SubmissionLink'
 
@@ -34,5 +34,5 @@ export default () => {
     )
   }
 
-  return !!submission ? <ViewSubmission user={user} /> : <LinkSubmission user={user} />
+  return !!submission ? <ViewSubmission project={submission} /> : <LinkSubmission user={user} />
 }
