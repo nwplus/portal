@@ -3,10 +3,8 @@ import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
-import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
 export default () => {
-  const { lastUpdated } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [states, setStates] = useState({
     resume: null,
@@ -32,7 +30,7 @@ export default () => {
         firstButtonOnClick={() => handleNavigation('/application/part-1')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-3')}
-        autosaveTime={lastUpdated}
+        autosaveTime="4:20am" // TODO: replace with time from application.submission.lastUpdated
       />
     </>
   )

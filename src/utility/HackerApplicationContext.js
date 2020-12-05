@@ -15,7 +15,6 @@ export function HackerApplicationProvider({ children }) {
   const [application, setApplication] = useState({})
   const [, setUpdated] = useState(false)
   const [applicationOpen, setApplicationOpen] = useState(null)
-  const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString())
   const applicationRef = useRef()
 
   /**Saves the users application, can be called manually or through interval */
@@ -33,7 +32,6 @@ export function HackerApplicationProvider({ children }) {
     setApplication(updatedApp)
     applicationRef.current = updatedApp
     setUpdated(false)
-    setLastUpdated(new Date().toLocaleTimeString())
   }, [user])
 
   /**Initialize retrieval of hacker application */
@@ -96,7 +94,6 @@ export function HackerApplicationProvider({ children }) {
     setApplication(mergedApp)
     applicationRef.current = mergedApp
     setUpdated(true)
-    setLastUpdated(new Date().toLocaleTimeString())
   }
 
   /**Check if the application is open */
@@ -110,14 +107,12 @@ export function HackerApplicationProvider({ children }) {
    * Applications are closed ? show message
    * Applications are open ? Show application
    */
-  return applicationOpen === null ? (
+  return applicationOpen === null || application === undefined ? (
     <Spinner />
   ) : !applicationOpen ? (
     <Page>Applications are closed.</Page>
   ) : (
-    <HackerApplicationContext.Provider
-      value={{ application, updateApplication, forceSave, lastUpdated }}
-    >
+    <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
       {children}
     </HackerApplicationContext.Provider>
   )

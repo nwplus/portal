@@ -2,10 +2,8 @@ import React from 'react'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
-import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
 export default () => {
-  const { lastUpdated } = useHackerApplication()
   const [, setLocation] = useLocation()
   // https://github.com/nwplus/livesite/pull/190/files
   const handleNavigation = href => {
@@ -19,10 +17,10 @@ export default () => {
       <VerticalProgressBar percent={100} />
       <NavigationButtons
         firstButtonText="Back"
-        firstButtonOnClick={() => handleNavigation('/application/review')}
+        firstButtonOnClick={() => handleNavigation('/application/part-3')}
         secondButtonText="Submit"
         secondButtonOnClick={() => handleNavigation('/application/confirmation')}
-        autosaveTime={lastUpdated}
+        autosaveTime="4:20am" // TODO: replace with time from application.submission.lastUpdated
       />
     </>
   )
