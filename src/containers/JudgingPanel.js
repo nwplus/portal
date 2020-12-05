@@ -6,6 +6,7 @@ import Accordion from '../components/Accordion'
 import { syncToFirebase, projectsRef } from '../utility/firebase'
 import ProjectTable from '../components/Judging/ProjectTable'
 import SponsorSubmissions from '../components/Judging/SponsorSubmissions'
+import { MoonLoader } from 'react-spinners'
 
 class CSV {
   constructor(data) {
@@ -89,13 +90,16 @@ export default () => {
   const [projects, setProjects] = useState([])
   const [gradedProjects, setGradedProjects] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState({})
+  const [isLoading, setLoading] = useState(false)
 
   const uploadClickHandler = () => {
     inputFile.current.click()
   }
 
   const handleClick = async () => {
+    setLoading(true)
     setGradedProjects(await getGradedProjects())
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -174,6 +178,7 @@ export default () => {
       <Button color="secondary" width="large" style={{ margin: 0 }} onClick={handleClick}>
         Refresh Grades
       </Button>
+      <MoonLoader color="#fff" loading={isLoading} />
       <ProjectTable projects={gradedProjects} includeGrades />
     </>
   )
