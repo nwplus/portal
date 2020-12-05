@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
-// form part 2
+import { useLocation } from 'wouter'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
 export default () => {
+  const { lastUpdated } = useHackerApplication()
+  const [, setLocation] = useLocation()
   const [states, setStates] = useState({
     resume: null,
     github: '',
@@ -13,6 +16,12 @@ export default () => {
     longAnswer: '',
   })
 
+  // https://github.com/nwplus/livesite/pull/190/files
+  const handleNavigation = href => {
+    // await forceSave()  ** add async when forceSave() is used **
+    setLocation(href)
+  }
+
   return (
     <>
       <Skills formInputs={states} onChange={setStates} />
@@ -20,10 +29,10 @@ export default () => {
       <VerticalProgressBar percent={25} />
       <NavigationButtons
         firstButtonText="Back"
-        firstButtonHref="/application/part-1"
+        firstButtonOnClick={() => handleNavigation('/application/part-2')}
         secondButtonText="Next"
-        secondButtonHref="/application/part-3"
-        autosaveTime="4:20pm"
+        secondButtonOnClick={() => handleNavigation('/application/part-3')}
+        autosaveTime={lastUpdated}
       />
     </>
   )
