@@ -22,18 +22,18 @@ const ErrorText = styled.p`
   margin: 10px 20px;
 `
 
-export default ({ shown, message, callback = () => {} }) => {
+export default ({ children, shown, setErrorCallback = () => {} }) => {
   const [showError, setShowError] = useState()
   useEffect(() => {
     setShowError(shown)
     setTimeout(() => {
-      callback(false)
+      setErrorCallback(false)
     }, ERROR_TIMEOUT)
-  }, [shown, callback])
+  }, [shown, setErrorCallback])
 
   return (
     <ErrorDiv shown={showError}>
-      <ErrorText>{message}</ErrorText>
+      <ErrorText>{children}</ErrorText>
     </ErrorDiv>
   )
 }

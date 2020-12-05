@@ -3,6 +3,7 @@ import { useLocation, Link } from 'wouter'
 import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import ViewProject from '../../components/ViewProject'
 import { A } from '../../components/Typography'
+import ErrorBanner from '../../components/ErrorBanner'
 import { getLivesiteDoc, projectsRef, db, applicantsRef } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 
@@ -12,9 +13,10 @@ export default ({ id }) => {
   const [, setLocation] = useLocation()
   const { user } = useAuth()
   const [pageBlocked, setPageBlocked] = useState()
+  const [showError, setShowError] = useState(false)
   const [isJudgingOpen, setIsJudgingOpen] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState(false)
+  const [formError, setFormError] = useState(false)
   const [success, setSuccess] = useState(false)
   const [score, setScore] = useState({
     tech: 0,
@@ -52,16 +54,17 @@ export default ({ id }) => {
 
   const submit = async () => {
     if (!score.tech || !score.design || !score.functionality || !score.creativity || !score.pitch) {
-      setError(true)
+      setFormError(true)
     } else if (!isSubmitting) {
-      setError(false)
+      setFormError(false)
       setIsSubmitting(true)
       try {
         await db.runTransaction(async transaction => {
           const projectDoc = await transaction.get(projectsRef.doc(id))
           if (!projectDoc.exists) {
             setIsSubmitting(false)
-            alert('Error, project not found')
+            console.err('Project does not exist')
+            setShowError(true)
             return
           }
           const oldGrades = projectDoc.data().grades
@@ -69,6 +72,7 @@ export default ({ id }) => {
           transaction.update(projectsRef.doc(id), { grades })
         })
       } catch (e) {
+        setShowError(true)
         console.err(e)
       }
       setIsSubmitting(false)
@@ -98,14 +102,20 @@ export default ({ id }) => {
   }
 
   return (
-    <ViewProject
-      project={project}
-      score={score}
-      onChange={setScore}
-      onSubmit={submit}
-      isSubmitting={isSubmitting}
-      error={error}
-      success={success}
-    />
+    <>
+      <ViewProject
+        project={project}
+        score={score}
+        onChange={setScore}
+        onSubmit={submit}
+        isSubmitting={isSubmitting}
+        error={formError}
+        success={success}
+      />
+
+      <ErrorBanner shown={showError} setErrorCallback={setShowError}>
+        There was an issue submitting. If this persists, please contact us on discord.
+      </ErrorBanner>
+    </>
   )
 }

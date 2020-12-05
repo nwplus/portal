@@ -11,13 +11,6 @@ import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
 import { copyText } from '../utility/Constants'
 
-const ErrorMessage = (
-  <>
-    There was an issue logging you in. If this persists, please contact"
-    <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
-  </>
-)
-
 const BoundingBox = styled.img`
   margin: 0 0.75em;
 `
@@ -86,7 +79,10 @@ export default () => {
         </ButtonContainer>
         <A href="/">Return to Portal</A>
       </Landing>
-      <ErrorBanner shown={showError} message={ErrorMessage} callback={setShowError} />
+      <ErrorBanner shown={showError} setErrorCallback={setShowError}>
+        There was an issue logging you in. If this persists, please contact"
+        <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
+      </ErrorBanner>
     </>
   )
 }
