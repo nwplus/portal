@@ -66,7 +66,7 @@ export default ({ formInputs, onChange, role }) => {
             />
           </FormRow>
 
-          {role == 'designer' ? (
+          {role === 'designer' ? (
             <FormRow id="portfolio">
               <TextInput
                 placeholder="Required"
@@ -110,7 +110,7 @@ export default ({ formInputs, onChange, role }) => {
             ></TextInput>
           </FormRow>
 
-          {role == 'designer' ? (
+          {role === 'designer' ? (
             <FormRow id="github">
               <TextInput
                 placeholder="Optional"
