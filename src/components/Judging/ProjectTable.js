@@ -39,24 +39,58 @@ const StyledTd = styled.td`
   }
 `
 
-export default ({ projects }) => (
+export default ({ projects, includeGrades }) => (
   <StyledTable>
     <tbody>
       <StyledRow>
-        <StyledHeader>Title</StyledHeader>
-        <StyledHeader>Team Members</StyledHeader>
-        <StyledHeader>Team Member Emails</StyledHeader>
-        <StyledHeader>Devpost</StyledHeader>
+        {includeGrades ? (
+          <>
+            <StyledHeader>Title</StyledHeader>
+            <StyledHeader>Devpost</StyledHeader>
+            <StyledHeader># Graded</StyledHeader>
+            <StyledHeader>Average Total</StyledHeader>
+            <StyledHeader>Tech</StyledHeader>
+            <StyledHeader>Design</StyledHeader>
+            <StyledHeader>Functionality</StyledHeader>
+            <StyledHeader>Creativity</StyledHeader>
+            <StyledHeader>Pitch</StyledHeader>
+          </>
+        ) : (
+          <>
+            <StyledHeader>Title</StyledHeader>
+            <StyledHeader>Team Members</StyledHeader>
+            <StyledHeader>Team Member Emails</StyledHeader>
+            <StyledHeader>Devpost</StyledHeader>
+          </>
+        )}
       </StyledRow>
       {projects &&
         projects.map((p, i) => (
           <StyledRow key={i}>
-            <StyledTd>{p.title}</StyledTd>
-            <StyledTd>{p.teamMembers.join(', ')}</StyledTd>
-            <StyledTd>{p.teamMembersEmails.join(', ')}</StyledTd>
-            <StyledTd>
-              <a href={p.devpostUrl}>Devpost</a>
-            </StyledTd>
+            {includeGrades ? (
+              <>
+                <StyledTd>{p.title}</StyledTd>
+                <StyledTd>
+                  <a href={p.devpostUrl}>Devpost</a>
+                </StyledTd>
+                <StyledTd>{p.countGraded}</StyledTd>
+                <StyledTd>{p.grade}</StyledTd>
+                <StyledTd>{p.tech}</StyledTd>
+                <StyledTd>{p.design}</StyledTd>
+                <StyledTd>{p.functionality}</StyledTd>
+                <StyledTd>{p.creativity}</StyledTd>
+                <StyledTd>{p.pitch}</StyledTd>
+              </>
+            ) : (
+              <>
+                <StyledTd>{p.title}</StyledTd>
+                <StyledTd>{p.teamMembers.join(', ')}</StyledTd>
+                <StyledTd>{p.teamMembersEmails.join(', ')}</StyledTd>
+                <StyledTd>
+                  <a href={p.devpostUrl}>Devpost</a>
+                </StyledTd>
+              </>
+            )}
           </StyledRow>
         ))}
     </tbody>
