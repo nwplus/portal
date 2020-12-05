@@ -3,5 +3,9 @@ import Review from '../../containers/Application/Review'
 
 // application review page
 export default () => {
-  return <Review>Review your application</Review>
+  return (
+    <>
+      <Review></Review>
+    </>
+  )
 }
