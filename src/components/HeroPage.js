@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'wouter'
+import MoonLoader from 'react-spinners/MoonLoader'
 import styled from 'styled-components'
 import { A } from './Typography'
 
 const HeroContent = styled.div`
-  height: 60vh;
+  height: 80vh;
   box-sizing: border-box;
   text-align: center;
   display: flex;
@@ -23,6 +24,12 @@ export const JudgingNotOpen = () => (
         <A>home</A>
       </Link>
     </div>
+  </HeroPage>
+)
+
+export const Loading = () => (
+  <HeroPage>
+    <MoonLoader color="#fff" size={80} />
   </HeroPage>
 )
 

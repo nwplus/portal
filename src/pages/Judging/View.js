@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
-import { JudgingNotOpen } from '../../components/HeroPage'
+import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import ViewProject from '../../components/ViewProject'
-import { getLivesiteDoc, projectsRef, db } from '../../utility/firebase'
+import { getLivesiteDoc, projectsRef, db, applicantsRef } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 
 const REDIRECT_TIMEOUT = 3000
@@ -10,7 +10,8 @@ const REDIRECT_TIMEOUT = 3000
 export default ({ id }) => {
   const [, setLocation] = useLocation()
   const { user } = useAuth()
-  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
+  const [pageBlocked, setPageBlocked] = useState()
+  const [isJudgingOpen, setIsJudgingOpen] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -23,23 +24,25 @@ export default ({ id }) => {
     notes: '',
   })
 
-  const [project, setProject] = useState({
-    id: 'a7xh134',
-    description:
-      'This project is a project that is very cool haha! This project is a project that is cool! This project is a project that is very cool!',
-    youtubeUrl: 'https://www.youtube.com/watch?v=PQgHXPGoKwg',
-    imgUrl: 'https://img.youtube.com/vi/PQgHXPGoKwg/maxresdefault.jpg',
-    devpostUrl: 'https://devpost.com/software/impostor',
-    title: 'Imposter',
-  })
+  const [project, setProject] = useState()
 
   useEffect(() => {
     ;(async () => {
+      const applicantDoc = await applicantsRef.doc(user.uid).get()
+      const { projectsAssigned } = applicantDoc.data()
+      if (!projectsAssigned.includes(id)) {
+        setPageBlocked('Project not found')
+        return
+      }
       const projectDoc = await projectsRef.doc(id).get()
       const data = projectDoc.data()
+      if (data.grades[user.uid]) {
+        setPageBlocked('You already graded this project')
+        return
+      }
       setProject(data)
     })()
-  }, [id])
+  }, [id, user.uid, setPageBlocked])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
@@ -67,6 +70,18 @@ export default ({ id }) => {
       setSuccess(true)
       setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)
     }
+  }
+
+  if (pageBlocked) {
+    return (
+      <HeroPage>
+        <h2>{pageBlocked}</h2>
+      </HeroPage>
+    )
+  }
+
+  if (!project || isJudgingOpen === undefined) {
+    return <Loading />
   }
 
   if (!isJudgingOpen) {
