@@ -104,8 +104,8 @@ const createNewApplication = async user => {
   }
   const basicInfo = {
     email: user.email,
-    firstName: user.displayName.split(' ')[0] ?? '',
-    lastName: user.displayName.split(' ')[1] ?? '',
+    firstName: user?.displayName?.split(' ')[0] ?? '',
+    lastName: user?.displayName?.split(' ')[1] ?? '',
   }
   const submission = {
     submission: {
