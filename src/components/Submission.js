@@ -14,7 +14,7 @@ const Item = styled.li`
   display: inline-block;
   border-style: none;
   font-size: 0.9em;
-  margin-right: 3px;
+  margin-right: 0.4rem;
   padding: 0.4rem;
   border-radius: 2px;
   color: ${p => p.theme.colors.text};
@@ -27,7 +27,6 @@ const Grade = styled(Item)`
 `
 
 const SponsorPrizeHeading = styled(H3)`
-  margin-right: 1em;
   display: inline-block;
 `
 
@@ -90,17 +89,18 @@ const FeedbackCard = ({ feedback }) => {
 }
 
 export default ({ project }) => {
+  console.log(project.sponsorPrizes)
   project.grades = Object.values(project.grades)
   return (
     <>
       <H1>Project Submission</H1>
       <H3>Team Members: {project.teamMembers.join(', ')}</H3>
-      <SponsorPrizeHeading>Sponsor Prizes: </SponsorPrizeHeading>
-      <ItemList>
-        {project.sponsorPrizes.map(prize => (
-          <Item key={prize}>{prize || "Didn't apply for sponsor prizes"}</Item>
-        ))}
-      </ItemList>
+      <SponsorPrizeHeading>
+        Sponsor Prizes:{' '}
+        {project.sponsorPrizes[0]
+          ? project.sponsorPrizes.join(',')
+          : "Didn't apply for sponsor prizes"}
+      </SponsorPrizeHeading>
       <Columns>
         <Column>
           <H2>Details</H2>
@@ -110,7 +110,7 @@ export default ({ project }) => {
           <H2>Feedback</H2>
           {project.grades.length > 0 ? (
             <>
-              <H3>Your project has been judged {project.grades.length} times.</H3>
+              <P>Your project has been judged {project.grades.length} times.</P>
               <FeedbackCard feedback={project.grades} />
             </>
           ) : (

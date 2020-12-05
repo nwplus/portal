@@ -12,7 +12,7 @@ const getProjectByEmail = async email => {
   return projectDoc
 }
 
-export default userRef => {
+export default ({ user, refreshCallback }) => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -39,11 +39,12 @@ export default userRef => {
       setMessage(`Found! Syncing submission...`)
 
       // if found, set firebase doc ref
-      applicantsRef.doc(userRef.user.uid).update({
+      await applicantsRef.doc(user.uid).update({
         submittedProject: projectId,
       })
 
       setMessage(`Successfully synced. Refreshing...`)
+      refreshCallback()
     } else {
       setMessage('Please enter a non-empty email.')
     }
@@ -52,6 +53,6 @@ export default userRef => {
   return isSubmissionsOpen ? (
     <Form email={email} msg={message} onSubmit={submit} onChange={setEmail} />
   ) : (
-    <h2>Submissions are not open yet. Please check back later.</h2>
-  )
+      <h2>Submissions are not open yet. Please check back later.</h2>
+    )
 }
