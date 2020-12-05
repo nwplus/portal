@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { JudgingNotOpen } from '../../components/HeroPage'
+import { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/JudgingCard'
@@ -68,7 +68,7 @@ const getProjects = async userId => {
 }
 
 export default () => {
-  const [isJudgingOpen, setIsJudgingOpen] = useState(false)
+  const [isJudgingOpen, setIsJudgingOpen] = useState()
   const { user } = useAuth()
   const [projects, setProjects] = useState([])
 
@@ -80,6 +80,10 @@ export default () => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
     return unsubscribe
   }, [setIsJudgingOpen])
+
+  if (!projects || isJudgingOpen === undefined) {
+    return <Loading />
+  }
 
   if (!isJudgingOpen) {
     return <JudgingNotOpen />
@@ -98,7 +102,6 @@ export default () => {
           />
         )
       })}
-      {projects.length < 1 && <h2>Loading projects...</h2>}
     </Container>
   )
 }

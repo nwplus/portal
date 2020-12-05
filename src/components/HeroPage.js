@@ -13,17 +13,19 @@ const HeroContent = styled.div`
   align-items: center;
 `
 
-export const HeroPage = ({ children }) => <HeroContent>{children}</HeroContent>
+export const HeroPage = ({ children }) => (
+  <HeroContent>
+    <div>{children}</div>
+  </HeroContent>
+)
 
 export const JudgingNotOpen = () => (
   <HeroPage>
-    <div>
-      <h1>Judging is not open</h1>
-      Please check back later. Return to{' '}
-      <Link href="/">
-        <A>home</A>
-      </Link>
-    </div>
+    <h1>Judging is not open</h1>
+    Please check back later. Return to{' '}
+    <Link href="/">
+      <A>home</A>
+    </Link>
   </HeroPage>
 )
 

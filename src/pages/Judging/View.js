@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'wouter'
+import { useLocation, Link } from 'wouter'
 import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import ViewProject from '../../components/ViewProject'
+import { A } from '../../components/Typography'
 import { getLivesiteDoc, projectsRef, db, applicantsRef } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 
@@ -36,7 +37,7 @@ export default ({ id }) => {
       }
       const projectDoc = await projectsRef.doc(id).get()
       const data = projectDoc.data()
-      if (data.grades[user.uid]) {
+      if (data.grades && data.grades[user.uid]) {
         setPageBlocked('You already graded this project')
         return
       }
@@ -76,6 +77,10 @@ export default ({ id }) => {
     return (
       <HeroPage>
         <h2>{pageBlocked}</h2>
+        Back to{' '}
+        <Link href="/judging">
+          <A>judging</A>
+        </Link>
       </HeroPage>
     )
   }
