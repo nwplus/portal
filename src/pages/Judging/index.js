@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { JudgingNotOpen } from '../../components/HeroPage'
 import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/JudgingCard'
@@ -79,7 +80,7 @@ export default () => {
   }, [setIsJudgingOpen])
 
   if (!isJudgingOpen) {
-    return <h2>Judging is not open yet. Please check back later.</h2>
+    return <JudgingNotOpen />
   }
 
   return (
