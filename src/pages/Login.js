@@ -41,24 +41,16 @@ export default () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
   const [, setLocation] = useLocation()
-  const [showError, setShowError] = useState(false)
-
-  const showErrorMessage = error => {
-    if (!error) return
-    setShowError(true)
-    setTimeout(() => {
-      setShowError(false)
-    }, 10000)
-  }
+  const [error, setError] = useState(null)
 
   const signInWithGoogle = async () => {
     const error = await googleSignIn(setUser, setLocation)
-    showErrorMessage(error)
+    setError(error)
   }
 
   const signInWithGithub = async () => {
     const error = await githubSignIn(setUser, setLocation)
-    showErrorMessage(error)
+    setError(error)
   }
 
   return (
@@ -91,7 +83,7 @@ export default () => {
         </ButtonContainer>
         <A href="/">Return to Portal</A>
       </Landing>
-      <ErrorBanner shown={showError} message={ErrorMessage} />
+      <ErrorBanner message={error.message} />
     </>
   )
 }
