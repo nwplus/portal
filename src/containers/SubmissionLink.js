@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Form from '../components/SubmissionForm'
-import { getLivesiteDoc, applicantsRef, projectsRef } from '../utility/firebase'
+import { applicantsRef, projectsRef } from '../utility/firebase'
 
 const NO_PROJECT = 'no project found'
 
@@ -13,16 +13,8 @@ const getProjectByEmail = async email => {
 }
 
 export default ({ user, refreshCallback }) => {
-  const [isSubmissionsOpen, setIsSubmissionsOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-
-  useEffect(() => {
-    const unsubscribe = getLivesiteDoc(livesiteDoc =>
-      setIsSubmissionsOpen(livesiteDoc.submissionsOpen)
-    )
-    return unsubscribe
-  }, [setIsSubmissionsOpen])
 
   const submit = async email => {
     if (!!email) {
@@ -50,9 +42,5 @@ export default ({ user, refreshCallback }) => {
     }
   }
 
-  return isSubmissionsOpen ? (
-    <Form email={email} msg={message} onSubmit={submit} onChange={setEmail} />
-  ) : (
-      <h2>Submissions are not open yet. Please check back later.</h2>
-    )
+  return <Form email={email} msg={message} onSubmit={submit} onChange={setEmail} />
 }

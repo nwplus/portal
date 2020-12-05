@@ -47,8 +47,8 @@ export default () => {
   if (!isSubmissionsOpen) {
     return (
       <HeroPage>
-        <h2>Submissions are not open.</h2>
-        <h2>Check back here later to submit your project!</h2>
+        <h2>Submissions are not open</h2>
+        <p>Check back here later</p>
       </HeroPage>
     )
   }
