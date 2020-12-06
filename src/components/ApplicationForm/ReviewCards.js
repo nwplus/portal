@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import holo from '../../assets/holo_review.svg'
 import { CenterHorizontally } from '../Common'
 import Banner from '../Banner'
-import { H1, H2, H3, P, QuestionHeading } from '../Typography'
+import { H1, H2, H3, P, QuestionHeading, A } from '../Typography'
 import { Button, Checkbox } from '../Input'
 
 const HoloBackground = styled.img`
@@ -23,22 +23,32 @@ const HoloBackground = styled.img`
 const ReviewContainer = styled.div`
   position: relative;
   max-width: 800px;
-  margin: 5em auto;
+  margin: 3em auto;
 `
 
-const StyledGrid = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto auto auto auto auto;
-  grid-gap: 4em;
-  padding: 3em;
+const ContentWrapper = styled.div`
+  ${p =>
+    p.grid &&
+    `display: grid;
+grid-template-columns: auto auto;
+grid-template-rows: auto auto auto auto auto auto;
+grid-gap: 0;`}
+  padding: ${p => (p.textBlock ? (p.small && `0`) || `0.5em 0` : `2em`)};
+`
+
+const InfoGroupWrapper = styled.div`
+  padding: 0.5em;
+`
+
+const StyledH1 = styled(H1)`
+  color: #18cdcd;
 `
 
 const InfoGroup = ({ heading, data }) => (
-  <div>
+  <InfoGroupWrapper>
     <H1 size="1.2em">{heading}</H1>
     <StyledH1 size="1.5em">{data}</StyledH1>
-  </div>
+  </InfoGroupWrapper>
 )
 
 const StyledBanner = styled(Banner)`
@@ -49,10 +59,7 @@ const StyledBanner = styled(Banner)`
     z-index: 0;
   }
 `
-const StyledH1 = styled(H1)`
-  color: #18cdcd;
-  padding-bottom: 2em;
-`
+
 const StyledSkillsH1 = styled(H1)`
   color: #18cdcd;
   padding-bottom: 1em;
@@ -93,7 +100,12 @@ const CenterH1 = styled(H1)`
 const getEthnicities = ({ obj }) => Object.keys(obj).filter(key => obj[key])
 
 export default ({ formInputs }) => {
-  console.log(formInputs)
+  const [termsAndConditions, setTermsAndConditions] = useState({
+    MLHCodeOfConduct: false,
+    MLHPrivacyPolicy: false,
+    shareWithnwPlus: false,
+    shareWithSponsors: false,
+  })
   return (
     <>
       <CenterH1>Review Your Application</CenterH1>
@@ -106,7 +118,7 @@ export default ({ formInputs }) => {
           </Button>
         </JohnDiv>
         <StyledBanner wide={true} blur>
-          <StyledGrid>
+          <ContentWrapper grid>
             {/* {Object.entries(formInputs.basicInfo).map(([key, val]) => {
               if (key === 'ethnicity') {
 
@@ -114,6 +126,7 @@ export default ({ formInputs }) => {
               return (
               // <InfoGroup heading={key} data={val} />
             )})} */}
+            <InfoGroup heading="hellooooooo" data="hi" />
             <InfoGroup heading="hi" data="hi" />
             <InfoGroup heading="hi" data="hi" />
             <InfoGroup heading="hi" data="hi" />
@@ -125,119 +138,140 @@ export default ({ formInputs }) => {
             <InfoGroup heading="hi" data="hi" />
             <InfoGroup heading="hi" data="hi" />
             <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-          </StyledGrid>
-          {/* <StyledDiv>
-          <LeftDiv>
-            <H1 size="1.2em">Full Legal Name:</H1>
-            <StyledH1 size="1.5em">Jisoo</StyledH1>
-
-            <H1 size="1.2em">Race/Ethnicity:</H1>
-            <StyledH1 size="1.5em">Asian</StyledH1>
-
-            <H1 size="1.2em">Phone number:</H1>
-            <StyledH1 size="1.5em">ligma</StyledH1>
-
-            <H1 size="1.2em">Intended Major:</H1>
-            <StyledH1 size="1.5em">Music</StyledH1>
-
-            <H1 size="1.2em">Graduation Year:</H1>
-            <StyledH1 size="1.5em">ligma</StyledH1>
-
-            <H1 size="1.2em">Contribution at nwHacks:</H1>
-            <StyledH1 size="1.5em">DDU-DU DDU-DU</StyledH1>
-          </LeftDiv>
-
-          <RightDiv>
-            <H1 size="1.2em">Gender:</H1>
-            <StyledH1 size="1.5em">Female</StyledH1>
-
-            <H1 size="1.2em">19 Years Old or Older</H1>
-            <StyledH1 size="1.5em">Yes</StyledH1>
-
-            <H1 size="1.2em">School:</H1>
-            <StyledH1 size="1.5em">ligma</StyledH1>
-
-            <H1 size="1.2em">Level of Education:</H1>
-            <StyledH1 size="1.5em">ligma</StyledH1>
-
-            <H1 size="1.2em">Prior Hackathons</H1>
-            <StyledH1 size="1.5em">2</StyledH1>
-
-            <H1 size="1.2em">Currently Located:</H1>
-            <StyledH1 size="1.5em">BLACKPINK IN YOUR AREA</StyledH1>
-          </RightDiv>
-        </StyledDiv> */}
+          </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
 
-      <HeaderDiv>
+      <ReviewContainer>
         <JohnDiv>
-          <StyledP>FLEX YOUR SKILLS</StyledP>
-          <Button color="secondary">Edit</Button>
+          <QuestionHeading>Flex your skills</QuestionHeading>
+          <Button height="short" color="secondary">
+            Edit
+          </Button>
         </JohnDiv>
-      </HeaderDiv>
-      <StyledBanner wide={true} blur>
-        <LeftDiv>
-          <H1 size="1.2em">Resume</H1>
-          <StyledSkillsH1 size="1.5em">Uploaded: Jisoo.pdf</StyledSkillsH1>
+        <StyledBanner wide={true} blur>
+          <ContentWrapper>
+            {/* {Object.entries(formInputs.basicInfo).map(([key, val]) => {
+              if (key === 'ethnicity') {
 
-          <H1 size="1.2em">Portfolio</H1>
-          <StyledSkillsH1 size="1.5em">ligma</StyledSkillsH1>
-
-          <H1 size="1.2em">LinkedIn</H1>
-          <StyledSkillsH1 size="1.5em">ligma</StyledSkillsH1>
-
-          <H1 size="1.2em">Github</H1>
-          <StyledSkillsH1 size="1.5em">ligma</StyledSkillsH1>
-
-          <H1 size="1.2em">Answer one of the two questions:</H1>
-          <H1 size="1.2em">
-            1. Describe how you became interested in the world of technology and where you hope to
-            go from here on out!
-          </H1>
-          <H1 size="1.2em">2. How would you like to challenge yourself during this hackathon?</H1>
-          <StyledSkillsH1 size="1.5em">
-            We are the lovesick girls 네 멋대로 내 사랑을 끝낼 순 없어 We are the lovesick girls 이
+              }
+              return (
+              // <InfoGroup heading={key} data={val} />
+            )})} */}
+            <InfoGroup heading="Resume" data="hi" />
+            <InfoGroup heading="Portfolio" data="hi" />
+            <InfoGroup heading="LinkedIn" data="hi" />
+            <InfoGroup heading="GitHub" data="hi" />
+            <InfoGroup
+              heading="Answer one of two questions: blahblahblah"
+              data="We are the lovesick girls 네 멋대로 내 사랑을 끝낼 순 없어 We are the lovesick girls 이
             아픔 없인 난 아무 의미가 없어 But we were born to be alone Yeah, we were born to be
-            alone Yeah, we were born to be alone But why we still looking for love
-          </StyledSkillsH1>
-        </LeftDiv>
-      </StyledBanner>
+            alone Yeah, we were born to be alone But why we still looking for love"
+            />
+          </ContentWrapper>
+        </StyledBanner>
+      </ReviewContainer>
 
-      <HeaderDiv>
+      <ReviewContainer>
         <JohnDiv>
-          <StyledP>ALMOST THERE</StyledP>
-          <Button color="secondary">Edit</Button>
+          <QuestionHeading>Almost there</QuestionHeading>
+          <Button height="short" color="secondary">
+            Edit
+          </Button>
         </JohnDiv>
-      </HeaderDiv>
-      <StyledBanner wide={true} blur>
-        <LeftDiv>
-          <H1 size="1.2em">You Heard About nwHacks From:</H1>
-          <StyledSkillsH1 size="1.5em">Facebook</StyledSkillsH1>
+        <StyledBanner wide={true} blur>
+          <ContentWrapper>
+            {/* {Object.entries(formInputs.basicInfo).map(([key, val]) => {
+              if (key === 'ethnicity') {
 
-          <H1 size="1.2em">nwPlus Events Attended:</H1>
-          <StyledSkillsH1 size="1.5em">Local Hack Day / HackCamp, nwHacks, cmd-f</StyledSkillsH1>
-        </LeftDiv>
-      </StyledBanner>
+              }
+              return (
+              // <InfoGroup heading={key} data={val} />
+            )})} */}
+            <InfoGroup heading="You Heard about nwHacks From" data="Facebook" />
+            <InfoGroup
+              heading="nwPlus Events Attended:"
+              data="Local Hack Day / HackCamp, nwHacks, cmd-f"
+            />
+          </ContentWrapper>
+        </StyledBanner>
+      </ReviewContainer>
 
-      <StyledP>TERMS & CONDITIONS</StyledP>
-      <P>
-        We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
-        share certain application/registration information for event administration, ranking, MLH
-        administration, and occasional messages about hackathons in line with the MLH Privacy
-        Policy.
-      </P>
-      <P>
-        We also use your (anonymized!) data to help you get the best sponsors and continuously
-        improve nwHacks with each iteration. Our hackathon aims to connect you with industry
-        professionals, recruiters, and career opportunities. In doing so, information about our
-        hackers is needed in order for attending companies to contact you.
-      </P>
-      <Checkbox label="I have read and agree to the MLH Code of Conduct.*" />
-      <Checkbox label="I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy." />
-      <Checkbox label="I agree to allow my anonymized data to be used for nwPlus data reporting." />
-      <Checkbox label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, Github, Personal website) upon request." />
+      <ReviewContainer>
+        <QuestionHeading>Terms &amp; conditions</QuestionHeading>
+        <ContentWrapper textBlock>
+          <P>
+            We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
+            share certain application/registration information for event administration, ranking,
+            MLH administration, and occasional messages about hackathons in line with the{' '}
+            <A bolded color="primary">
+              MLH Privacy Policy.
+            </A>
+          </P>
+        </ContentWrapper>
+        <ContentWrapper textBlock>
+          <P>
+            We also use your (anonymized!) data to help you get the best sponsors and continuously
+            improve nwHacks with each iteration. Our hackathon aims to connect you with industry
+            professionals, recruiters, and career opportunities. In doing so, information about our
+            hackers is needed in order for attending companies to contact you.
+          </P>
+        </ContentWrapper>
+        <ContentWrapper textBlock small>
+          {/* TODO: replace termsAndConditions.MLHCodeOfConduct with formInputs.termsAndConditions.MLHCodeOfConduct for all termsAndConditions */}
+          <Checkbox
+            flex
+            checked={termsAndConditions.MLHCodeOfConduct}
+            onChange={() =>
+              setTermsAndConditions({
+                ...termsAndConditions,
+                MLHCodeOfConduct: !termsAndConditions.MLHCodeOfConduct,
+              })
+            }
+            label="I have read and agree to the MLH Code of Conduct.*"
+            required
+          />
+        </ContentWrapper>
+        <ContentWrapper textBlock small>
+          <Checkbox
+            flex
+            checked={termsAndConditions.MLHPrivacyPolicy}
+            onChange={() =>
+              setTermsAndConditions({
+                ...termsAndConditions,
+                MLHPrivacyPolicy: !termsAndConditions.MLHPrivacyPolicy,
+              })
+            }
+            label="I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy."
+          />
+        </ContentWrapper>
+        <ContentWrapper textBlock small>
+          <Checkbox
+            flex
+            checked={termsAndConditions.shareWithnwPlus}
+            onChange={() =>
+              setTermsAndConditions({
+                ...termsAndConditions,
+                shareWithnwPlus: !termsAndConditions.shareWithnwPlus,
+              })
+            }
+            label="I agree to allow my anonymized data to be used for nwPlus data reporting."
+          />
+        </ContentWrapper>
+        <ContentWrapper textBlock small>
+          <Checkbox
+            flex
+            checked={termsAndConditions.shareWithSponsors}
+            onChange={() =>
+              setTermsAndConditions({
+                ...termsAndConditions,
+                shareWithSponsors: !termsAndConditions.shareWithSponsors,
+              })
+            }
+            label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, Github, Personal website) upon request."
+          />
+        </ContentWrapper>
+      </ReviewContainer>
 
       <HoloBackground src={holo} />
     </>

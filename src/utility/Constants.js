@@ -77,5 +77,11 @@ export const hackerApplicationTemplate = Object.freeze({
     responded: false, // using responded and attending to check if they un-RSVPed or if they didn't RSVP at all (no RSVP)
     attending: false, // false for no-rsvp by default
   },
+  termsAndConditions: {
+    MLHCodeOfConduct: false,
+    MLHPrivacyPolicy: false,
+    shareWithnwPlus: false,
+    shareWithSponsors: false,
+  },
   team: '',
 })
