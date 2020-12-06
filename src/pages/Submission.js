@@ -33,12 +33,12 @@ export default () => {
       const submittedProjectRef = d.submittedProject
       if (!!submittedProjectRef) {
         const submission = await getSubmission(submittedProjectRef)
-        setSubmission(submission)
+        setSubmission( !submission ? false : submission) 
       } else {
         setSubmission(false)
       }
     })()
-  }, [user])
+  }, [user.uid])
 
   if (isSubmissionsOpen === undefined || submission === undefined) {
     return <Loading />

@@ -47,6 +47,7 @@ export default ({ projects, includeGrades }) => (
           <>
             <StyledHeader>Title</StyledHeader>
             <StyledHeader>Devpost</StyledHeader>
+            <StyledHeader># Assigned</StyledHeader>
             <StyledHeader># Graded</StyledHeader>
             <StyledHeader>Average Total</StyledHeader>
             <StyledHeader>Tech</StyledHeader>
@@ -73,6 +74,7 @@ export default ({ projects, includeGrades }) => (
                 <StyledTd>
                   <a href={p.devpostUrl}>Devpost</a>
                 </StyledTd>
+                <StyledTd>{p.countAssigned}</StyledTd>
                 <StyledTd>{p.countGraded}</StyledTd>
                 <StyledTd>{p.grade}</StyledTd>
                 <StyledTd>{p.tech}</StyledTd>
