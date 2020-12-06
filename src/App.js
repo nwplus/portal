@@ -119,6 +119,7 @@ function App() {
         .doc(DB_HACKATHON)
         .collection('Announcements')
         .orderBy('timestamp', 'desc')
+        .limit(6)
         .onSnapshot(querySnapshot => {
           // firebase doc that triggered db change event
           const changedDoc = querySnapshot.docChanges()[0]
