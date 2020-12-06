@@ -1,11 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Button } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
 import Accordion from '../components/Accordion'
-import { syncToFirebase } from '../utility/firebase'
+import { syncToFirebase, projectsRef } from '../utility/firebase'
 import ProjectTable from '../components/Judging/ProjectTable'
 import SponsorSubmissions from '../components/Judging/SponsorSubmissions'
+import { MoonLoader } from 'react-spinners'
 
 class CSV {
   constructor(data) {
@@ -46,15 +47,58 @@ class Project {
   }
 }
 
+const getGradedProjects = async () => {
+  const projectDocs = await projectsRef.get()
+  const projectData = projectDocs.docs.map(projectDoc => {
+    const project = projectDoc.data()
+    if (project.grades) {
+      project.countGraded = Object.values(project.grades).length
+      Object.values(project.grades).forEach(grade => {
+        Object.entries(grade).forEach(([key, value]) => {
+          if (key === 'notes') return
+          project[key] = project[key] ? project[key] + value : value
+          project.total = project.total ? project.total + value : value
+        })
+      })
+      project.grade = project.total / project.countGraded / 5
+      project.tech = project.tech / project.countGraded
+      project.design = project.design / project.countGraded
+      project.functionality = project.functionality / project.countGraded
+      project.creativity = project.creativity / project.countGraded
+      project.pitch = project.pitch / project.countGraded
+    } else {
+      project.countGraded = 0
+      project.grade = 0
+    }
+    return project
+  })
+  projectData.sort((a, b) => b.grade - a.grade)
+  return projectData
+}
+
 export default () => {
   const inputFile = useRef()
   const [message, setMessage] = useState('Waiting for .csv upload...')
   const [projects, setProjects] = useState([])
+  const [gradedProjects, setGradedProjects] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState({})
+  const [isLoading, setLoading] = useState(false)
 
   const uploadClickHandler = () => {
     inputFile.current.click()
   }
+
+  const handleClick = async () => {
+    setLoading(true)
+    setGradedProjects(await getGradedProjects())
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      setGradedProjects(await getGradedProjects())
+    })()
+  }, [])
 
   const onChange = e => {
     const fileInput = e.target
@@ -99,7 +143,7 @@ export default () => {
   }
 
   return (
-    <div>
+    <>
       <H1>Submissions</H1>
       <Card>
         <P>
@@ -122,6 +166,12 @@ export default () => {
         </Accordion>
       </Card>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
-    </div>
+      <H1>Grades</H1>
+      <Button color="secondary" width="large" style={{ margin: 0 }} onClick={handleClick}>
+        Refresh Grades
+      </Button>
+      <MoonLoader color="#fff" loading={isLoading} />
+      <ProjectTable projects={gradedProjects} includeGrades />
+    </>
   )
 }
