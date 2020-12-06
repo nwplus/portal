@@ -11,6 +11,8 @@ export default () => {
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
 
+  console.log(submission)
+
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
     const submittedProjectRef = d.submittedProject
@@ -33,12 +35,16 @@ export default () => {
       const submittedProjectRef = d.submittedProject
       if (!!submittedProjectRef) {
         const submission = await getSubmission(submittedProjectRef)
-        setSubmission(submission)
+        if (!submission) {
+          setSubmission(false)
+        } else {
+          setSubmission(submission)
+        }
       } else {
         setSubmission(false)
       }
     })()
-  }, [user])
+  }, [user.uid])
 
   if (isSubmissionsOpen === undefined || submission === undefined) {
     return <Loading />
