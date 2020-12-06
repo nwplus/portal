@@ -114,7 +114,7 @@ export default ({ id }) => {
       />
 
       <ErrorBanner shown={showError} setErrorCallback={setShowError}>
-        There was an issue submitting. If this persists, please contact us on discord.
+        There was an issue submitting. If this persists, please contact us on Discord.
       </ErrorBanner>
     </>
   )
