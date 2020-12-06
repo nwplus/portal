@@ -44,13 +44,6 @@ const StyledH1 = styled(H1)`
   color: #18cdcd;
 `
 
-const InfoGroup = ({ heading, data }) => (
-  <InfoGroupWrapper>
-    <H1 size="1.2em">{heading}</H1>
-    <StyledH1 size="1.5em">{data}</StyledH1>
-  </InfoGroupWrapper>
-)
-
 const StyledBanner = styled(Banner)`
   && {
     max-width: 800px;
@@ -76,6 +69,14 @@ const CenterH1 = styled(H1)`
 const RequiredAsterisk = styled.span`
   color: ${p => p.theme.colors.warning};
 `
+
+const InfoGroup = ({ heading, data }) => (
+  <InfoGroupWrapper>
+    <H1 size="1.2em">{heading}</H1>
+    <StyledH1 size="1.5em">{data}</StyledH1>
+  </InfoGroupWrapper>
+)
+
 const getEthnicities = ({ obj }) => Object.keys(obj).filter(key => obj[key])
 
 export default ({ formInputs }) => {
