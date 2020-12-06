@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
@@ -110,6 +110,8 @@ const JudgingViewContainer = ({ params }) => {
 }
 
 function App() {
+  const [announcements, setAnnouncements] = useState([])
+
   // TODO create reusable Announcements firebase ref in firebase.js to avoid redundant fb calls in Announcements.js
   useEffect(() => {
     // don't notify users on IOS devices because Notification API incompatible
@@ -121,6 +123,7 @@ function App() {
         .orderBy('timestamp', 'desc')
         .limit(6)
         .onSnapshot(querySnapshot => {
+          setAnnouncements(Object.values(querySnapshot.docs.map(doc => doc.data())))
           // firebase doc that triggered db change event
           const changedDoc = querySnapshot.docChanges()[0]
 
@@ -140,7 +143,7 @@ function App() {
         <GlobalStyle />
         <Switch>
           <PageRoute path="/">
-            <Home />
+            <Home announcements={announcements} />
           </PageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
