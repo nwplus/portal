@@ -88,7 +88,7 @@ const ethnicityOptions = {
   preferNot: 'Prefer not to say',
 }
 
-const getEthnicities = (obj) => Object.keys(obj).filter(key => obj[key])
+const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
 
 export default ({ formInputs, handleEdit }) => {
   const [termsAndConditions, setTermsAndConditions] = useState(formInputs.termsAndConditions)
@@ -105,8 +105,8 @@ export default ({ formInputs, handleEdit }) => {
   }
 
   var attendedVal = ''
-  for (var i = 0; i < formInputs.questionnaire.eventsAttended.length; i++) {
-    attendedVal = attendedVal.concat(formInputs.questionnaire.eventsAttended[i])
+  for (var j = 0; j < formInputs.questionnaire.eventsAttended.length; j++) {
+    attendedVal = attendedVal.concat(formInputs.questionnaire.eventsAttended[j])
 
     if (i < formInputs.questionnaire.eventsAttended.length - 1) {
       attendedVal = attendedVal.concat(', ')
@@ -115,32 +115,49 @@ export default ({ formInputs, handleEdit }) => {
 
   return (
     <>
-      <CenterH1>Review Your Application&nbsp;<span role="img" aria-label="eyes">
-        &#128064;
-          </span>
+      <CenterH1>
+        Review Your Application&nbsp;
+        <span role="img" aria-label="eyes">
+          &#128064;
+        </span>
       </CenterH1>
 
       <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Tell us about yourself</QuestionHeading>
-          <Button onClick={() => handleEdit('/application/part-1')} height="short" color="secondary">
+          <Button
+            onClick={() => handleEdit('/application/part-1')}
+            height="short"
+            color="secondary"
+          >
             Edit
           </Button>
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
             {/* TODO: replace hello/hi with actual values from formInputs */}
-            <InfoGroup heading="Full Legal Name:" data={formInputs.basicInfo.firstName.concat(' ').concat(formInputs.basicInfo.lastName)} />
+            <InfoGroup
+              heading="Full Legal Name:"
+              data={formInputs.basicInfo.firstName
+                .concat(' ')
+                .concat(formInputs.basicInfo.lastName)}
+            />
             <InfoGroup heading="Gender:" data={formInputs.basicInfo.gender} />
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesVal} />
-            <InfoGroup heading="19 Years Old or Older" data={formInputs.basicInfo.isOfLegalAge ? 'Yes' : 'No'} />
+            <InfoGroup
+              heading="19 Years Old or Older"
+              data={formInputs.basicInfo.isOfLegalAge ? 'Yes' : 'No'}
+            />
             <InfoGroup heading="Phone number:" data={formInputs.basicInfo.phoneNumber} />
             <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
             <InfoGroup heading="Intended Major:" data={formInputs.basicInfo.major} />
             <InfoGroup heading="Level of Education" data={formInputs.basicInfo.educationLevel} />
             <InfoGroup heading="Graduation Year:" data={formInputs.basicInfo.graduation} />
             <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
-            <InfoGroup heading="Contribution at nwHacks:" data={formInputs.basicInfo.contributionRole} />
+            <InfoGroup
+              heading="Contribution at nwHacks:"
+              data={formInputs.basicInfo.contributionRole}
+            />
             <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
         </StyledBanner>
@@ -149,7 +166,11 @@ export default ({ formInputs, handleEdit }) => {
       <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Flex your skills</QuestionHeading>
-          <Button onClick={() => handleEdit('/application/part-2')} height="short" color="secondary">
+          <Button
+            onClick={() => handleEdit('/application/part-2')}
+            height="short"
+            color="secondary"
+          >
             Edit
           </Button>
         </JohnDiv>
@@ -173,18 +194,22 @@ export default ({ formInputs, handleEdit }) => {
       <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Almost there</QuestionHeading>
-          <Button onClick={() => handleEdit('/application/part-3')} height="short" color="secondary">
+          <Button
+            onClick={() => handleEdit('/application/part-3')}
+            height="short"
+            color="secondary"
+          >
             Edit
           </Button>
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             {/* TODO: replace with actual values from formInputs */}
-            <InfoGroup heading="You Heard about nwHacks From" data={formInputs.questionnaire.engagementSource} />
             <InfoGroup
-              heading="nwPlus Events Attended:"
-              data={attendedVal}
+              heading="You Heard about nwHacks From"
+              data={formInputs.questionnaire.engagementSource}
             />
+            <InfoGroup heading="nwPlus Events Attended:" data={attendedVal} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
