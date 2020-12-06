@@ -108,10 +108,10 @@ export default () => {
     if (fileInput.files && fileInput.files[0]) {
       const csv = fileInput.files[0]
 
-      // if (fileInput.files[0].type !== 'text/csv') {
-      //   setMessage('err: not csv')
-      //   return
-      // }
+      if (fileInput.files[0].type !== 'text/csv') {
+        setMessage('err: not csv')
+        return
+      }
 
       setMessage(`Loaded ${csv.name} successfully`)
       var reader = new FileReader()
@@ -142,7 +142,13 @@ export default () => {
   }
 
   const sync = () => {
-    return syncToFirebase(projects, setMessage)
+    if (
+      window.confirm(
+        `Are you sure you want to sync ${projects.length} projects? This is a "very" destructive action`
+      )
+    ) {
+      return syncToFirebase(projects, setMessage)
+    }
   }
 
   return (
