@@ -60,12 +60,15 @@ const getGradedProjects = async () => {
           project.total = project.total ? project.total + value : value
         })
       })
-      project.grade = project.total / project.countGraded / 5
-      project.tech = project.tech / project.countGraded
-      project.design = project.design / project.countGraded
-      project.functionality = project.functionality / project.countGraded
-      project.creativity = project.creativity / project.countGraded
-      project.pitch = project.pitch / project.countGraded
+      const avg = total => {
+        return (total / project.countGraded).toFixed(2)
+      }
+      project.grade = avg(project.total)
+      project.tech = avg(project.tech)
+      project.design = avg(project.design)
+      project.functionality = avg(project.functionality)
+      project.creativity = avg(project.creativity)
+      project.pitch = avg(project.pitch)
     } else {
       project.countGraded = 0
       project.grade = 0
@@ -105,10 +108,10 @@ export default () => {
     if (fileInput.files && fileInput.files[0]) {
       const csv = fileInput.files[0]
 
-      if (fileInput.files[0].type !== 'text/csv') {
-        setMessage('err: not csv')
-        return
-      }
+      // if (fileInput.files[0].type !== 'text/csv') {
+      //   setMessage('err: not csv')
+      //   return
+      // }
 
       setMessage(`Loaded ${csv.name} successfully`)
       var reader = new FileReader()

@@ -83,8 +83,11 @@ export default () => {
     ;(async () => {
       const { submittedProject } = (await applicantsRef.doc(user.uid).get()).data()
       const isValidProject = (await projectsRef.doc(submittedProject).get()).exists
-      setIsBlocked(!isValidProject)
-      setProjects(await getProjects(user.uid, submittedProject))
+      if (!isValidProject) {
+        setIsBlocked(true)
+      } else {
+        setProjects(await getProjects(user.uid, submittedProject))
+      }
     })()
   }, [user.uid])
 
