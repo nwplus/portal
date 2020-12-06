@@ -17,11 +17,13 @@ const ButtonContainer = styled.div`
     }
   }
 `
-const getLinks = () => {
+
+const getCommonLinks = () => {
   return db
     .collection(DB_COLLECTION)
     .doc(DB_HACKATHON)
     .collection('QuickLinks')
+    .where('common', '==', true)
     .orderBy('label')
     .get()
     .then(querySnapshot => {
@@ -33,11 +35,11 @@ export const CommonLinks = () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    getLinks().then(docs => {
-      // Only keep the common links
+    getCommonLinks().then(docs => {
       const filtered = Object.values(
         docs.reduce((result, doc) => {
           const data = doc.data()
+          console.log(data)
           data.common && result.push(data)
           return result
         }, [])
@@ -57,11 +59,23 @@ export const CommonLinks = () => {
   )
 }
 
+const getAllLinks = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .collection('QuickLinks')
+    .orderBy('label')
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    })
+}
+
 export const QuickLinks = () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    getLinks()
+    getAllLinks()
       .then(docs => {
         // Only keep the uncommon links
         return Object.values(
