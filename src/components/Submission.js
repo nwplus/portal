@@ -97,7 +97,7 @@ export default ({ project }) => {
       <SponsorPrizeHeading>
         Sponsor Prizes:{' '}
         {project.sponsorPrizes[0]
-          ? project.sponsorPrizes.join(',')
+          ? project.sponsorPrizes.join(', ')
           : "Didn't apply for sponsor prizes"}
       </SponsorPrizeHeading>
       <Columns>
