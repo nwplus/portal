@@ -5,6 +5,7 @@ export const DB_HACKATHON = 'LHD2021'
 
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
+export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
   hackathonName: 'HackCamp 2020',

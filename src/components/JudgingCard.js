@@ -22,7 +22,7 @@ const CardContent = styled.div`
 `
 
 const StyledImg = styled.img`
-  max-width: 100%;
+  width: 100%;
 `
 
 const StyledButton = styled(Button)`
