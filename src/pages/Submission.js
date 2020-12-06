@@ -11,8 +11,6 @@ export default () => {
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
 
-  console.log(submission)
-
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
     const submittedProjectRef = d.submittedProject
