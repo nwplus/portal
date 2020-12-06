@@ -89,8 +89,7 @@ const FeedbackCard = ({ feedback }) => {
 }
 
 export default ({ project }) => {
-  console.log(project.sponsorPrizes)
-  project.grades = Object.values(project.grades)
+  project.grades = Object.values(project.grades ?? {})
   return (
     <>
       <H1>Project Submission</H1>
