@@ -35,18 +35,12 @@ export const CommonLinks = () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    getCommonLinks().then(docs => {
-      const filtered = Object.values(
-        docs.reduce((result, doc) => {
-          const data = doc.data()
-          console.log(data)
-          data.common && result.push(data)
-          return result
-        }, [])
-      )
-      setLinks(filtered)
-    })
-  }, [setLinks])
+    ;(async () => {
+      const commonLinkDocs = await getCommonLinks()
+      const commonLinks = commonLinkDocs.map(doc => doc.data())
+      setLinks(commonLinks)
+    })()
+  }, [])
 
   return (
     <ButtonContainer>
