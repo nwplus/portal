@@ -8,7 +8,7 @@ import JudgingCard from '../../components/JudgingCard'
 import { A } from '../../components/Typography'
 import { useAuth } from '../../utility/Auth'
 
-const PROJECTS_TO_JUDGE_COUNT = 5
+const PROJECTS_TO_JUDGE_COUNT = 4
 
 const Container = styled.div`
   display: flex;
