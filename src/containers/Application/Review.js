@@ -1,6 +1,5 @@
 import React from 'react'
 import ReviewCards from '../../components/ApplicationForm/ReviewCards'
-import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { useLocation } from 'wouter'
 
 const mockFormInputs = {
