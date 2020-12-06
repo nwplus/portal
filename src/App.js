@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
@@ -110,27 +110,29 @@ const JudgingViewContainer = ({ params }) => {
 }
 
 function App() {
-  // TODO create reusable Announcements firebase ref in firebase.js to avoid redundant fb calls in Announcements.js
-  useEffect(() => {
-    // don't notify users on IOS devices because Notification API incompatible
-    if (!IS_DEVICE_IOS) {
-      const unsubscribe = db
-        .collection(DB_COLLECTION)
-        .doc(DB_HACKATHON)
-        .collection('Announcements')
-        .orderBy('timestamp', 'desc')
-        .onSnapshot(querySnapshot => {
-          // firebase doc that triggered db change event
-          const changedDoc = querySnapshot.docChanges()[0]
+  const [announcements, setAnnouncements] = useState([])
 
-          // don't want to notify on 'remove' + 'modified' db events
-          if (changedDoc && changedDoc.type === 'added') {
+  useEffect(() => {
+    const unsubscribe = db
+      .collection(DB_COLLECTION)
+      .doc(DB_HACKATHON)
+      .collection('Announcements')
+      .orderBy('timestamp', 'desc')
+      .limit(6)
+      .onSnapshot(querySnapshot => {
+        setAnnouncements(Object.values(querySnapshot.docs.map(doc => doc.data())))
+        // firebase doc that triggered db change event
+        const changedDoc = querySnapshot.docChanges()[0]
+
+        // don't want to notify on 'remove' + 'modified' db events
+        if (changedDoc && changedDoc.type === 'added') {
+          // don't notify users on IOS devices because Notification API incompatible
+          if (!IS_DEVICE_IOS) {
             notifyUser(changedDoc.doc.data())
           }
-        })
-
-      return unsubscribe
-    }
+        }
+      })
+    return unsubscribe
   }, [])
 
   return (
@@ -139,7 +141,7 @@ function App() {
         <GlobalStyle />
         <Switch>
           <PageRoute path="/">
-            <Home />
+            <Home announcements={announcements} />
           </PageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
