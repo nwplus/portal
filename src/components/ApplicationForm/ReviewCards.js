@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import holo from '../../assets/holo_review.svg'
-import { CenterHorizontally } from '../Common'
 import Banner from '../Banner'
-import { H1, H2, H3, P, QuestionHeading, A } from '../Typography'
+import { H1, P, QuestionHeading, A } from '../Typography'
 import { Button, Checkbox } from '../Input'
-import { useLocation } from 'wouter'
 
 const HoloBackground = styled.img`
   position: absolute;
@@ -92,45 +90,8 @@ const ethnicityOptions = {
 
 const getEthnicities = (obj) => Object.keys(obj).filter(key => obj[key])
 
-const mockFormInputs = {
-  basicInfo: {
-    email: '',
-    firstName: 'BLACKPINK',
-    lastName: 'Jisoo',
-    gender: 'Female',
-    ethnicity: { middleEastern: false, asian: true, other: true },
-    isOfLegalAge: true,
-    phoneNumber: 'DDU-DU DDU-DU',
-    school: 'SARANGHAE University',
-    major: 'Music',
-    educationLevel: 'Undergraduate',
-    graduation: 2022,
-    hackathonsAttended: 2,
-    contributionRole: 'Developer',
-    location: 'BLACKPINK IN YOUR AREA',
-  },
-  skills: {
-    resume: 'jisoo-numba-one.pdf',
-    portfolio: 'jisoo.io',
-    linkedin: 'www.linkedin.com/jisoo',
-    github: 'github.com/jisoo',
-    longAnswers: 'We are the lovesick girls 네 멋대로 내 사랑을 끝낼 순 없어 We are the lovesick girls 이 아픔 없인 난 아무 의미가 없어 But we were born to be alone Yeah, we were born to be alone Yeah, we were born to be alone But why we still looking for love',
-  },
-  questionnaire: {
-    engagementSource: 'Facebook',
-    eventsAttended: ['nwHacks', 'cmd-f'],
-  },
-}
-
-export default ({ formInputs }) => {
-  formInputs = mockFormInputs
-
-  const [termsAndConditions, setTermsAndConditions] = useState({
-    MLHCodeOfConduct: false,
-    MLHPrivacyPolicy: false,
-    shareWithnwPlus: false,
-    shareWithSponsors: false,
-  })
+export default ({ formInputs, handleEdit }) => {
+  const [termsAndConditions, setTermsAndConditions] = useState(formInputs.termsAndConditions)
 
   const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ethnicityOptions[e])
   var ethnicitiesVal = ''
@@ -150,13 +111,6 @@ export default ({ formInputs }) => {
     if (i < formInputs.questionnaire.eventsAttended.length - 1) {
       attendedVal = attendedVal.concat(', ')
     }
-  }
-
-  const [, setLocation] = useLocation()
-
-  const handleEdit = href => {
-    setLocation(href)
-    window.scrollTo(0, 0)
   }
 
   return (
@@ -186,7 +140,7 @@ export default ({ formInputs }) => {
             <InfoGroup heading="Level of Education" data={formInputs.basicInfo.educationLevel} />
             <InfoGroup heading="Graduation Year:" data={formInputs.basicInfo.graduation} />
             <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
-            <InfoGroup heading="Contribution at nwHacks" data={formInputs.basicInfo.contributionRole} />
+            <InfoGroup heading="Contribution at nwHacks:" data={formInputs.basicInfo.contributionRole} />
             <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
         </StyledBanner>
