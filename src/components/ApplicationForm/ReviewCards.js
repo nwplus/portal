@@ -5,6 +5,7 @@ import { CenterHorizontally } from '../Common'
 import Banner from '../Banner'
 import { H1, H2, H3, P, QuestionHeading, A } from '../Typography'
 import { Button, Checkbox } from '../Input'
+import { useLocation } from 'wouter'
 
 const HoloBackground = styled.img`
   position: absolute;
@@ -77,41 +78,116 @@ const InfoGroup = ({ heading, data }) => (
   </InfoGroupWrapper>
 )
 
-const getEthnicities = ({ obj }) => Object.keys(obj).filter(key => obj[key])
+const ethnicityOptions = {
+  asian: 'Asian',
+  black: 'Black or African American',
+  caucasian: 'Caucasian or European',
+  hispanic: 'Hispanic or Latinx',
+  middleEastern: 'Middle Eastern',
+  nativeHawaiian: 'Native Hawaiian or Pacific Islander',
+  northAmerica: 'North American Indigenous',
+  other: 'Other',
+  preferNot: 'Prefer not to say',
+}
+
+const getEthnicities = (obj) => Object.keys(obj).filter(key => obj[key])
+
+const mockFormInputs = {
+  basicInfo: {
+    email: '',
+    firstName: 'BLACKPINK',
+    lastName: 'Jisoo',
+    gender: 'Female',
+    ethnicity: { middleEastern: false, asian: true, other: true },
+    isOfLegalAge: true,
+    phoneNumber: 'DDU-DU DDU-DU',
+    school: 'SARANGHAE University',
+    major: 'Music',
+    educationLevel: 'Undergraduate',
+    graduation: 2022,
+    hackathonsAttended: 2,
+    contributionRole: 'Developer',
+    location: 'BLACKPINK IN YOUR AREA',
+  },
+  skills: {
+    resume: 'jisoo-numba-one.pdf',
+    portfolio: 'jisoo.io',
+    linkedin: 'www.linkedin.com/jisoo',
+    github: 'github.com/jisoo',
+    longAnswers: 'We are the lovesick girls 네 멋대로 내 사랑을 끝낼 순 없어 We are the lovesick girls 이 아픔 없인 난 아무 의미가 없어 But we were born to be alone Yeah, we were born to be alone Yeah, we were born to be alone But why we still looking for love',
+  },
+  questionnaire: {
+    engagementSource: 'Facebook',
+    eventsAttended: ['nwHacks', 'cmd-f'],
+  },
+}
 
 export default ({ formInputs }) => {
+  formInputs = mockFormInputs
+
   const [termsAndConditions, setTermsAndConditions] = useState({
     MLHCodeOfConduct: false,
     MLHPrivacyPolicy: false,
     shareWithnwPlus: false,
     shareWithSponsors: false,
   })
+
+  const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ethnicityOptions[e])
+  var ethnicitiesVal = ''
+
+  for (var i = 0; i < ethnicities.length; i++) {
+    ethnicitiesVal = ethnicitiesVal.concat(ethnicities[i])
+
+    if (i < ethnicities.length - 1) {
+      ethnicitiesVal = ethnicitiesVal.concat(', ')
+    }
+  }
+
+  var attendedVal = ''
+  for (var i = 0; i < formInputs.questionnaire.eventsAttended.length; i++) {
+    attendedVal = attendedVal.concat(formInputs.questionnaire.eventsAttended[i])
+
+    if (i < formInputs.questionnaire.eventsAttended.length - 1) {
+      attendedVal = attendedVal.concat(', ')
+    }
+  }
+
+  const [, setLocation] = useLocation()
+
+  const handleEdit = href => {
+    setLocation(href)
+    window.scrollTo(0, 0)
+  }
+
   return (
     <>
-      <CenterH1>Review Your Application</CenterH1>
+      <CenterH1>Review Your Application&nbsp;<span role="img" aria-label="eyes">
+        &#128064;
+          </span>
+      </CenterH1>
 
       <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Tell us about yourself</QuestionHeading>
-          <Button height="short" color="secondary">
+          <Button onClick={() => handleEdit('/application/part-1')} height="short" color="secondary">
             Edit
           </Button>
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
             {/* TODO: replace hello/hi with actual values from formInputs */}
-            <InfoGroup heading="hellooooooo" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
-            <InfoGroup heading="hi" data="hi" />
+            <InfoGroup heading="Full Legal Name:" data={formInputs.basicInfo.firstName.concat(' ').concat(formInputs.basicInfo.lastName)} />
+            <InfoGroup heading="Gender:" data={formInputs.basicInfo.gender} />
+            <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesVal} />
+            <InfoGroup heading="19 Years Old or Older" data={formInputs.basicInfo.isOfLegalAge ? 'Yes' : 'No'} />
+            <InfoGroup heading="Phone number:" data={formInputs.basicInfo.phoneNumber} />
+            <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
+            <InfoGroup heading="Intended Major:" data={formInputs.basicInfo.major} />
+            <InfoGroup heading="Level of Education" data={formInputs.basicInfo.educationLevel} />
+            <InfoGroup heading="Graduation Year:" data={formInputs.basicInfo.graduation} />
+            <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
+            <InfoGroup heading="Contribution at nwHacks" data={formInputs.basicInfo.contributionRole} />
+            <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -119,22 +195,22 @@ export default ({ formInputs }) => {
       <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Flex your skills</QuestionHeading>
-          <Button height="short" color="secondary">
+          <Button onClick={() => handleEdit('/application/part-2')} height="short" color="secondary">
             Edit
           </Button>
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             {/* TODO: replace with actual values from formInputs */}
-            <InfoGroup heading="Resume" data="hi" />
-            <InfoGroup heading="Portfolio" data="hi" />
-            <InfoGroup heading="LinkedIn" data="hi" />
-            <InfoGroup heading="GitHub" data="hi" />
+            <InfoGroup heading="Resume" data={formInputs.skills.resume} />
+            <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
+            <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
+            <InfoGroup heading="GitHub" data={formInputs.skills.github} />
+            <InfoGroup heading="Answer one of the two questions:" />
+            <InfoGroup heading="1. Describe how you became interested in the world of technology and where you hope to go from here on out!" />
             <InfoGroup
-              heading="Answer one of two questions: blahblahblah"
-              data="We are the lovesick girls 네 멋대로 내 사랑을 끝낼 순 없어 We are the lovesick girls 이
-            아픔 없인 난 아무 의미가 없어 But we were born to be alone Yeah, we were born to be
-            alone Yeah, we were born to be alone But why we still looking for love"
+              heading="2. How would you like to challenge yourself during this hackathon?"
+              data={formInputs.skills.longAnswers}
             />
           </ContentWrapper>
         </StyledBanner>
@@ -143,17 +219,17 @@ export default ({ formInputs }) => {
       <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Almost there</QuestionHeading>
-          <Button height="short" color="secondary">
+          <Button onClick={() => handleEdit('/application/part-3')} height="short" color="secondary">
             Edit
           </Button>
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             {/* TODO: replace with actual values from formInputs */}
-            <InfoGroup heading="You Heard about nwHacks From" data="Facebook" />
+            <InfoGroup heading="You Heard about nwHacks From" data={formInputs.questionnaire.engagementSource} />
             <InfoGroup
               heading="nwPlus Events Attended:"
-              data="Local Hack Day / HackCamp, nwHacks, cmd-f"
+              data={attendedVal}
             />
           </ContentWrapper>
         </StyledBanner>
