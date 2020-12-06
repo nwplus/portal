@@ -19,13 +19,17 @@ const StyledJudgingCard = styled(JudgingCard)`
   margin: 0 2em 2em 0;
 `
 
-const getProjects = async userId => {
+const getProjects = async (userId, projectId) => {
   const getAndAssignProjects = async () => {
     const projectDocs = await projectsRef
       .orderBy('countAssigned')
-      .limit(PROJECTS_TO_JUDGE_COUNT)
+      .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
       .get()
-    const projectIds = projectDocs.docs.map(project => project.id)
+    let projectIds = projectDocs.docs.map(project => project.id)
+    projectIds = projectIds.filter(id => id !== projectId)
+    if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
+      projectIds.pop()
+    }
     const batch = db.batch()
 
     // increment assigned counters
@@ -76,13 +80,10 @@ export default () => {
   const [projects, setProjects] = useState([])
 
   useEffect(() => {
-    ;(async () => setProjects(await getProjects(user.uid)))()
-  }, [setProjects, user.uid])
-
-  useEffect(() => {
     ;(async () => {
       const applicantData = (await applicantsRef.doc(user.uid).get()).data()
       setIsBlocked(!applicantData.submittedProject)
+      setProjects(await getProjects(user.uid, applicantData.submittedProject))
     })()
   }, [user.uid])
 
