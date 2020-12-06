@@ -24,7 +24,7 @@ import {
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
-import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
+import { DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider } from './utility/HackerApplicationContext'
@@ -110,22 +110,27 @@ const JudgingViewContainer = ({ params }) => {
 }
 
 function App() {
+  // TODO create reusable Announcements firebase ref in firebase.js to avoid redundant fb calls in Announcements.js
   useEffect(() => {
-    const unsubscribe = db
-      .collection(DB_COLLECTION)
-      .doc(DB_HACKATHON)
-      .collection('Announcements')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot(querySnapshot => {
-        // firebase doc that triggered db change event
-        const changedDoc = querySnapshot.docChanges()[0]
+    // don't notify users on IOS devices because Notification API incompatible
+    if (!IS_DEVICE_IOS) {
+      const unsubscribe = db
+        .collection(DB_COLLECTION)
+        .doc(DB_HACKATHON)
+        .collection('Announcements')
+        .orderBy('timestamp', 'desc')
+        .onSnapshot(querySnapshot => {
+          // firebase doc that triggered db change event
+          const changedDoc = querySnapshot.docChanges()[0]
 
-        // don't want to notify on 'remove' + 'modified' db events
-        if (changedDoc && changedDoc.type === 'added') {
-          notifyUser(changedDoc.doc.data())
-        }
-      })
-    return unsubscribe
+          // don't want to notify on 'remove' + 'modified' db events
+          if (changedDoc && changedDoc.type === 'added') {
+            notifyUser(changedDoc.doc.data())
+          }
+        })
+
+      return unsubscribe
+    }
   }, [])
 
   return (
