@@ -1,8 +1,12 @@
 import React from 'react'
-import Review from '../../components/ApplicationForm/Review'
+import ReviewCards from '../../components/ApplicationForm/ReviewCards'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
-export default () => (
-  <>
-    <Review />
-  </>
-)
+export default () => {
+  const { application } = useHackerApplication()
+  return (
+    <>
+      <ReviewCards formInputs={application} />
+    </>
+  )
+}

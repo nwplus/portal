@@ -5,7 +5,7 @@ import Review from '../../containers/Application/Review'
 export default () => {
   return (
     <>
-      <Review></Review>
+      <Review />
     </>
   )
 }
