@@ -81,9 +81,10 @@ export default () => {
 
   useEffect(() => {
     ;(async () => {
-      const applicantData = (await applicantsRef.doc(user.uid).get()).data()
-      setIsBlocked(!applicantData.submittedProject)
-      setProjects(await getProjects(user.uid, applicantData.submittedProject))
+      const { submittedProject } = (await applicantsRef.doc(user.uid).get()).data()
+      const isValidProject = (await projectsRef.doc(submittedProject).get()).exists
+      setIsBlocked(!isValidProject)
+      setProjects(await getProjects(user.uid, submittedProject))
     })()
   }, [user.uid])
 
