@@ -58,7 +58,7 @@ export const getYoutubeThumbnail = link => {
     const youtubeID = new URL(link).pathname
     return `https://img.youtube.com/vi${youtubeID}/maxresdefault.jpg`
   }
-  return ''
+  return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'
 }
 
 export const formatProject = project => {
