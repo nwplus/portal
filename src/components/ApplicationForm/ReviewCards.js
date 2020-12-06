@@ -33,7 +33,7 @@ const ContentWrapper = styled.div`
 grid-template-columns: auto auto;
 grid-template-rows: auto auto auto auto auto auto;
 grid-gap: 0;`}
-  padding: ${p => (p.textBlock ? (p.small && `0`) || `0.5em 0` : `2em`)};
+  padding: ${p => (p.textBlock ? `0.5em 0` : `2em`)};
 `
 
 const InfoGroupWrapper = styled.div`
@@ -60,31 +60,6 @@ const StyledBanner = styled(Banner)`
   }
 `
 
-const StyledSkillsH1 = styled(H1)`
-  color: #18cdcd;
-  padding-bottom: 1em;
-`
-
-const StyledP = styled(P)`
-  color: #06c1c0;
-`
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-const HeaderDiv = styled.div`
-  justify-content: space-between;
-  padding: 56px 24px 24px;
-`
-const LeftDiv = styled.div`
-  padding-left: 5em;
-`
-
-const RightDiv = styled.div`
-  margin-left: 9em;
-`
 const JohnDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -96,6 +71,10 @@ const CenterH1 = styled(H1)`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+const RequiredAsterisk = styled.span`
+  color: ${p => p.theme.colors.warning};
 `
 const getEthnicities = ({ obj }) => Object.keys(obj).filter(key => obj[key])
 
@@ -119,13 +98,7 @@ export default ({ formInputs }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
-            {/* {Object.entries(formInputs.basicInfo).map(([key, val]) => {
-              if (key === 'ethnicity') {
-
-              }
-              return (
-              // <InfoGroup heading={key} data={val} />
-            )})} */}
+            {/* TODO: replace hello/hi with actual values from formInputs */}
             <InfoGroup heading="hellooooooo" data="hi" />
             <InfoGroup heading="hi" data="hi" />
             <InfoGroup heading="hi" data="hi" />
@@ -151,13 +124,7 @@ export default ({ formInputs }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            {/* {Object.entries(formInputs.basicInfo).map(([key, val]) => {
-              if (key === 'ethnicity') {
-
-              }
-              return (
-              // <InfoGroup heading={key} data={val} />
-            )})} */}
+            {/* TODO: replace with actual values from formInputs */}
             <InfoGroup heading="Resume" data="hi" />
             <InfoGroup heading="Portfolio" data="hi" />
             <InfoGroup heading="LinkedIn" data="hi" />
@@ -181,13 +148,7 @@ export default ({ formInputs }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            {/* {Object.entries(formInputs.basicInfo).map(([key, val]) => {
-              if (key === 'ethnicity') {
-
-              }
-              return (
-              // <InfoGroup heading={key} data={val} />
-            )})} */}
+            {/* TODO: replace with actual values from formInputs */}
             <InfoGroup heading="You Heard about nwHacks From" data="Facebook" />
             <InfoGroup
               heading="nwPlus Events Attended:"
@@ -203,10 +164,12 @@ export default ({ formInputs }) => {
           <P>
             We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
             share certain application/registration information for event administration, ranking,
-            MLH administration, and occasional messages about hackathons in line with the{' '}
-            <A bolded color="primary">
-              MLH Privacy Policy.
+            MLH administration, and occasional messages about hackathons in line with the
+            <A bolded color="primary" src="https://mlh.io/privacy">
+              {' '}
+              MLH Privacy Policy
             </A>
+            .
           </P>
         </ContentWrapper>
         <ContentWrapper textBlock>
@@ -217,10 +180,9 @@ export default ({ formInputs }) => {
             hackers is needed in order for attending companies to contact you.
           </P>
         </ContentWrapper>
-        <ContentWrapper textBlock small>
+        <ContentWrapper textBlock>
           {/* TODO: replace termsAndConditions.MLHCodeOfConduct with formInputs.termsAndConditions.MLHCodeOfConduct for all termsAndConditions */}
           <Checkbox
-            flex
             checked={termsAndConditions.MLHCodeOfConduct}
             onChange={() =>
               setTermsAndConditions({
@@ -228,11 +190,15 @@ export default ({ formInputs }) => {
                 MLHCodeOfConduct: !termsAndConditions.MLHCodeOfConduct,
               })
             }
-            label="I have read and agree to the MLH Code of Conduct.*"
             required
-          />
-        </ContentWrapper>
-        <ContentWrapper textBlock small>
+          >
+            I have read and agree to the{' '}
+            <A bolded color="primary" src="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">
+              {' '}
+              MLH Code of Conduct
+            </A>
+            .<RequiredAsterisk>*</RequiredAsterisk>
+          </Checkbox>
           <Checkbox
             flex
             checked={termsAndConditions.MLHPrivacyPolicy}
@@ -244,8 +210,6 @@ export default ({ formInputs }) => {
             }
             label="I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy."
           />
-        </ContentWrapper>
-        <ContentWrapper textBlock small>
           <Checkbox
             flex
             checked={termsAndConditions.shareWithnwPlus}
@@ -257,8 +221,6 @@ export default ({ formInputs }) => {
             }
             label="I agree to allow my anonymized data to be used for nwPlus data reporting."
           />
-        </ContentWrapper>
-        <ContentWrapper textBlock small>
           <Checkbox
             flex
             checked={termsAndConditions.shareWithSponsors}
@@ -268,7 +230,7 @@ export default ({ formInputs }) => {
                 shareWithSponsors: !termsAndConditions.shareWithSponsors,
               })
             }
-            label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, Github, Personal website) upon request."
+            label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, GitHub, Personal website) upon request."
           />
         </ContentWrapper>
       </ReviewContainer>

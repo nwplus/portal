@@ -63,7 +63,7 @@ const LabelText = styled.span`
   justify-content: center;
 `
 
-export default ({ className, checked, label, flex, ...props }) => (
+export default ({ className, checked, label, children, flex, ...props }) => (
   <StyledLabel flex={flex}>
     <CheckboxContainer className={className}>
       <HiddenCheckbox checked={checked} {...props} />
@@ -73,6 +73,6 @@ export default ({ className, checked, label, flex, ...props }) => (
         </Icon>
       </StyledCheckbox>
     </CheckboxContainer>
-    {flex ? <LabelText>{label}</LabelText> : <span>{label}</span>}
+    {flex ? <LabelText>{children || label}</LabelText> : <span>{children || label}</span>}
   </StyledLabel>
 )
