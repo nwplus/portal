@@ -33,11 +33,7 @@ export default () => {
       const submittedProjectRef = d.submittedProject
       if (!!submittedProjectRef) {
         const submission = await getSubmission(submittedProjectRef)
-        if (!submission) {
-          setSubmission(false)
-        } else {
-          setSubmission(submission)
-        }
+        setSubmission( !submission ? false : submission) 
       } else {
         setSubmission(false)
       }
