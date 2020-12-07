@@ -66,11 +66,11 @@ const handleUser = async (setUser, setLocation) => {
 
 export const getRedirectUrl = redirect => {
   if (process.env.NODE_ENV === 'production' || process.env.REACT_APP_ENV === 'STAGING') {
-    if (DB_HACKATHON === 'LHD2021') return '/judging'
+    if (DB_HACKATHON === 'LHD2021') return '/submission'
   }
   switch (redirect) {
     case RedirectStatus.AttendingEvent:
-      return '/judging'
+      return '/submission'
     case RedirectStatus.ApplicationNotSubmitted:
       return '/application/part-1'
     case RedirectStatus.ApplicationSubmitted:

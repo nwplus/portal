@@ -40,9 +40,11 @@ class Project {
 
     for (let i = 0; i < teamsize; i++) {
       const first = entry[`Team Member ${i + 1} First Name`]
-      const last = entry[`Team Member ${i + 1} Last Name`]
-      this.teamMembers.push(`${first} ${last}`)
-      this.teamMembersEmails.push(entry[`Team Member ${i + 1} Email`])
+      const last = entry[`Team Member ${i + 1} Last Name`] ?? ''
+      if (!(first === undefined)) {
+        this.teamMembers.push(`${first} ${last}`)
+        this.teamMembersEmails.push(entry[`Team Member ${i + 1} Email`])
+      }
     }
   }
 }
@@ -118,6 +120,7 @@ export default () => {
       reader.addEventListener('load', e => {
         const csvdata = e.target.result
         const parsedProjects = new CSV(csvdata).entries
+          .filter(r => r['Project Status'] === 'Submitted (Gallery/Visible)')
           .map(r => new Project(r))
           .filter(p => p.acknowledged)
         setMessage(`Parsed ${parsedProjects.length} projects from ${csv.name} successfully`)
