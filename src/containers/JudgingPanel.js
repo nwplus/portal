@@ -40,8 +40,8 @@ class Project {
 
     for (let i = 0; i < teamsize; i++) {
       const first = entry[`Team Member ${i + 1} First Name`]
-      const last = entry[`Team Member ${i + 1} Last Name`]
-      if (!(first === undefined || last === undefined)) {
+      const last = entry[`Team Member ${i + 1} Last Name`] ?? ''
+      if (!(first === undefined)) {
         this.teamMembers.push(`${first} ${last}`)
         this.teamMembersEmails.push(entry[`Team Member ${i + 1} Email`])
       }
