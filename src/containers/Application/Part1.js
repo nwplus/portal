@@ -4,7 +4,6 @@ import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
-import { formatDate } from '../../utility/utilities'
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
