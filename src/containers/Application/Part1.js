@@ -1,37 +1,29 @@
-import React, { useState } from 'react'
-import BasicInfo from '../../components/ApplicationForm/BasicInfo'
-import NavigationButtons from '../../components/NavigationButtons'
-import VerticalProgressBar from '../../components/VerticalProgressBar'
+import React from 'react'
 import { useLocation } from 'wouter'
-
+import BasicInfo from '../../components/ApplicationForm/BasicInfo'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
 // form part 1
 export default () => {
+  const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
-  const [states, setStates] = useState({
-    firstName: '',
-    lastName: '',
-    gender: '',
-    ethnicity: {
-      asian: false,
-      black: false,
-      caucasian: false,
-      hispanic: false,
-      middleEastern: false,
-      nativeHawaiian: false,
-      northAmerica: false,
-      other: false,
-      preferNot: false,
-    },
-    isOfLegalAge: null,
-    phoneNumber: '',
-    school: '',
-    major: '',
-    educationLevel: '',
-    graduation: 0,
-    hackathonsAttended: 0,
-    contributionRole: '',
-    location: '',
-  })
+  const updateBasicInfo = change => {
+    updateApplication({
+      basicInfo: {
+        ...change,
+      },
+    })
+  }
+
+  /**
+   * Saves and moves to next page
+   * TODO I need a button !
+   * TODO remove this eslint thing once this is used
+   */
+  // eslint-disable-next-line no-unused-vars
+  const nextPage = async () => {
+    await forceSave()
+    setLocation('/application/part-2')
+  }
 
   // https://github.com/nwplus/livesite/pull/190/files
   const handleNavigation = href => {
@@ -42,16 +34,7 @@ export default () => {
 
   return (
     <>
-      <BasicInfo formInputs={states} onChange={setStates} />
-      <VerticalProgressBar percent={25} />
-      {/* Navigation TODO: add force save  */}
-      <NavigationButtons
-        firstButtonText="Back"
-        firstButtonOnClick={() => handleNavigation('/login')}
-        secondButtonText="Next"
-        secondButtonOnClick={() => handleNavigation('/application/part-2')}
-        autosaveTime="4:20am" // TODO: replace with time from application.submission.lastUpdated
-      />
+      <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
     </>
   )
 }
