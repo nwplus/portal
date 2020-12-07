@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button, TextInput, TextArea } from '../components/Input'
-import { H1, P, Label } from './Typography'
+import { H1, P, Label, Message } from './Typography'
 
-const TableForm = styled.form`
+export const TableForm = styled.form`
   display: table;
   position: relative;
 
@@ -20,28 +20,36 @@ const TableForm = styled.form`
   }
 `
 
-const RightButton = styled(Button)`
+export const RightButton = styled(Button)`
   float: right;
 `
 
-const SubmitRow = ({ project, onSubmit }) => {
+const SubmitMessage = styled(Message)`
+  text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
+  max-width: 200px;
+`
+
+export const SubmitRow = ({ data, text, msg, onSubmit }) => {
   return (
     <div>
-      <div></div>
-      <RightButton onClick={e => onSubmit(project)} type="submit" width="flex" color="primary">
-        Update Submission
+      <SubmitMessage>{msg}</SubmitMessage>
+      <RightButton onClick={e => onSubmit(data)} type="submit" width="flex" color="primary">
+        {text}
       </RightButton>
     </div>
   )
 }
 
-const FormRow = ({ id, label, children }) => (
+export const FormRow = ({ id, label, children }) => (
   <div>
     <Label htmlFor={id}>{label}</Label>
     <div id={id}>{children}</div>
   </div>
 )
 
+// example table form
 export default ({ project, onSubmit, onChange }) => {
   return project ? (
     <div>
@@ -76,7 +84,7 @@ export default ({ project, onSubmit, onChange }) => {
             onChange={val => onChange({ ...project, description: val })}
           />
         </FormRow>
-        <SubmitRow project={project} onSubmit={onSubmit} />
+        <SubmitRow data={project} onSubmit={onSubmit} text="Update Submission" />
       </TableForm>
     </div>
   ) : (

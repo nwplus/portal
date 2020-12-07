@@ -10,8 +10,6 @@ import Judging from './Judging'
 import JudgingView from './Judging/View'
 import JudgingAdmin from './Judging/Admin'
 import Submission from './Submission'
-import SubmissionCreate from './Submission/Create'
-import SubmissionEdit from './Submission/Edit'
 import Application from './Application'
 import ApplicationForm from './Application/Form'
 import ApplicationReview from './Application/Review'
@@ -30,8 +28,6 @@ export {
   JudgingAdmin,
   JudgingView,
   Submission,
-  SubmissionCreate,
-  SubmissionEdit,
   Application,
   ApplicationForm,
   ApplicationReview,

@@ -1,56 +1,42 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
-import { useLocation } from 'wouter'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import { formatDate } from '../../utility/utilities'
 
-// form part 1
 export default () => {
+  const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
-  const [states, setStates] = useState({
-    firstName: '',
-    lastName: '',
-    gender: '',
-    ethnicity: {
-      asian: false,
-      black: false,
-      caucasian: false,
-      hispanic: false,
-      middleEastern: false,
-      nativeHawaiian: false,
-      northAmerica: false,
-      other: false,
-      preferNot: false,
-    },
-    isOfLegalAge: null,
-    phoneNumber: '',
-    school: '',
-    major: '',
-    educationLevel: '',
-    graduation: 0,
-    hackathonsAttended: 0,
-    contributionRole: '',
-    location: '',
-  })
+  const updateBasicInfo = change => {
+    updateApplication({
+      basicInfo: {
+        ...change,
+      },
+    })
+  }
 
-  // https://github.com/nwplus/livesite/pull/190/files
-  const handleNavigation = href => {
-    // await forceSave()  ** add async when forceSave() is used **
+  /**
+   * Saves and moves to next page
+   */
+  const handleNavigation = async href => {
+    await forceSave()
     setLocation(href)
     window.scrollTo(0, 0)
   }
+  console.log(application.submission.lastUpdated.toDate())
 
   return (
     <>
-      <BasicInfo formInputs={states} onChange={setStates} />
+      <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
       <VerticalProgressBar percent={25} />
-      {/* Navigation TODO: add force save  */}
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/login')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-2')}
-        autosaveTime="4:20am" // TODO: replace with time from application.submission.lastUpdated
+        autosaveTime={application.submission.lastUpdated.toDate().toString()}
       />
     </>
   )

@@ -21,7 +21,7 @@ We hope for the Live Site to
 - [x] Event schedule
 - [x] Live FAQ
 - [x] Sponsor List
-- [ ] Judging
+- [x] Judging
 - [ ] Application Portal
 
 ## dev
