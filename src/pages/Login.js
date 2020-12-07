@@ -11,6 +11,16 @@ import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
 import { copyText } from '../utility/Constants'
 
+const ErrorMessage = ({ message }) => (
+  <>
+    There was an issue logging you in. If this persists, please contact"
+    <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
+    <br />
+    <br />
+    Error: {message}
+  </>
+)
+
 const BoundingBox = styled.img`
   margin: 0 0.75em;
 `
@@ -33,20 +43,16 @@ export default () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
   const [, setLocation] = useLocation()
-  const [showError, setShowError] = useState(false)
+  const [error, setError] = useState(null)
 
   const signInWithGoogle = async () => {
     const error = await googleSignIn(setUser, setLocation)
-    if (error) {
-      setShowError(true)
-    }
+    setError(error)
   }
 
   const signInWithGithub = async () => {
     const error = await githubSignIn(setUser, setLocation)
-    if (error) {
-      setShowError(true)
-    }
+    setError(error)
   }
 
   return (
@@ -79,10 +85,7 @@ export default () => {
         </ButtonContainer>
         <A href="/">Return to Portal</A>
       </Landing>
-      <ErrorBanner shown={showError} setErrorCallback={setShowError}>
-        There was an issue logging you in. If this persists, please contact"
-        <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
-      </ErrorBanner>
+      <ErrorBanner>{error ? <ErrorMessage message={error.message} /> : null}</ErrorBanner>
     </>
   )
 }

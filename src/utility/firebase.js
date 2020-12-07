@@ -75,13 +75,16 @@ const createNewApplication = async user => {
   const userId = {
     _id: user.uid,
   }
-  const basicInfo = {
-    basicInfo: {
-      email: user.email,
-      firstName: user.displayName.split(' ')[0] ?? '',
-      lastName: user.displayName.split(' ')[1] ?? '',
-    },
-  }
+  const basicInfo = user.displayName.contains(' ')
+    ? {
+        email: user.email,
+        firstName: user?.displayName?.split(' ')[0] ?? '',
+        lastName: user?.displayName?.split(' ')[1] ?? '',
+      }
+    : {
+        email: user.email,
+        firstName: user.displayName,
+      }
   const submission = {
     submission: {
       lastUpdated: firebase.firestore.Timestamp.now(),
@@ -97,7 +100,10 @@ const createNewApplication = async user => {
 
   const newApplication = {
     ...hackerApplicationTemplate,
-    ...basicInfo,
+    basicInfo: {
+      ...hackerApplicationTemplate.basicInfo,
+      ...basicInfo,
+    },
     ...submission,
     ...userId,
     ...judging,

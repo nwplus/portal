@@ -113,8 +113,10 @@ export default ({ id }) => {
         success={success}
       />
 
-      <ErrorBanner shown={showError} setErrorCallback={setShowError}>
-        There was an issue submitting. If this persists, please contact us on Discord.
+      <ErrorBanner>
+        {showError
+          ? 'There was an issue submitting. If this persists, please contact us on discord.'
+          : null}
       </ErrorBanner>
     </>
   )
