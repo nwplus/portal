@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/storage'
 import {
   hackerApplicationTemplate,
   RedirectStatus,
@@ -153,6 +154,10 @@ export const getUserStatus = async user => {
 
 export const getUserApplication = async uuid => {
   return (await applicantsRef.doc(uuid).get()).data()
+}
+
+export const getSubmission = async uid => {
+  return (await projectsRef.doc(uid).get()).data()
 }
 
 export const updateUserApplication = async (uuid, newApp) => {
