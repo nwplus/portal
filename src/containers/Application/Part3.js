@@ -6,7 +6,6 @@ export default () => {
   // eslint-disable-next-line no-unused-vars
   const [states, setStates] = useState({
     engagementSource: '',
-    otherEngagementSource: '',
     eventsAttended: {
       option1: false, // LHD / Hack Camp
       option2: false, // nwHacks
@@ -15,6 +14,7 @@ export default () => {
       option5: false, // nwPlus Workshop Series
       option6: false, // nwPlus Boothing
     },
+    otherEngagementSource: '',
   })
 
   return <Questionnaire formInputs={states} onChange={setStates} />
