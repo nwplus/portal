@@ -75,7 +75,9 @@ const createNewApplication = async user => {
   const userId = {
     _id: user.uid,
   }
-  const basicInfo = user.displayName.contains(' ')
+  const hello = ''
+  hello.includes()
+  const basicInfo = user.displayName.includes(' ')
     ? {
         email: user.email,
         firstName: user?.displayName?.split(' ')[0] ?? '',
