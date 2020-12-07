@@ -69,7 +69,7 @@ export default ({ formInputs, onChange }) => {
           onChange={() =>
             onChange({
               ...formInputs,
-              multiselect: {
+              eventsAttended: {
                 ...formInputs.eventsAttended,
                 option1: !formInputs.eventsAttended.option1,
               },
@@ -83,7 +83,7 @@ export default ({ formInputs, onChange }) => {
           onChange={() =>
             onChange({
               ...formInputs,
-              multiselect: {
+              eventsAttended: {
                 ...formInputs.eventsAttended,
                 option2: !formInputs.eventsAttended.option2,
               },
@@ -97,7 +97,7 @@ export default ({ formInputs, onChange }) => {
           onChange={() =>
             onChange({
               ...formInputs,
-              multiselect: {
+              eventsAttended: {
                 ...formInputs.eventsAttended,
                 option3: !formInputs.eventsAttended.option3,
               },
@@ -111,7 +111,7 @@ export default ({ formInputs, onChange }) => {
           onChange={() =>
             onChange({
               ...formInputs,
-              multiselect: {
+              eventsAttended: {
                 ...formInputs.eventsAttended,
                 option4: !formInputs.eventsAttended.option4,
               },
@@ -125,7 +125,7 @@ export default ({ formInputs, onChange }) => {
           onChange={() =>
             onChange({
               ...formInputs,
-              multiselect: {
+              eventsAttended: {
                 ...formInputs.eventsAttended,
                 option5: !formInputs.eventsAttended.option5,
               },
@@ -139,7 +139,7 @@ export default ({ formInputs, onChange }) => {
           onChange={() =>
             onChange({
               ...formInputs,
-              multiselect: {
+              eventsAttended: {
                 ...formInputs.eventsAttended,
                 option6: !formInputs.eventsAttended.option6,
               },
