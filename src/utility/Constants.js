@@ -58,11 +58,11 @@ export const hackerApplicationTemplate = Object.freeze({
     location: '',
   },
   skills: {
-    resume: '',
+    resume: {},
     portfolio: '',
     linkedin: '',
     github: '',
-    longAnswers: {},
+    longAnswers: '',
   },
   questionnaire: {
     engagementSource: '',

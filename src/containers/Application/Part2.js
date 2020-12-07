@@ -6,15 +6,20 @@ import { useLocation } from 'wouter'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
 export default () => {
-  const { application } = useHackerApplication()
+  const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
-  const [states, setStates] = useState({
-    resume: null,
-    github: '',
-    linkedin: '',
-    portfolio: '',
-    longAnswer: '',
-  })
+  const updateSkillsInfo = change => {
+    updateApplication({
+      skills: {
+        ...change,
+      },
+    })
+  }
+
+  const nextPage = async () => {
+    await forceSave()
+    setLocation('/application/part-3')
+  }
 
   // https://github.com/nwplus/livesite/pull/190/files
   const handleNavigation = href => {
@@ -26,8 +31,8 @@ export default () => {
   return (
     <>
       <Skills
-        formInputs={states}
-        onChange={setStates}
+        formInputs={application.skills}
+        onChange={updateSkillsInfo}
         role={application.basicInfo.contributionRole}
       />
       <VerticalProgressBar percent={50} />

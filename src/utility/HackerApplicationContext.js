@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
 import { useAuth } from './Auth'
-import { getUserApplication, updateUserApplication, getLivesiteDoc } from './firebase'
+import { storage, getUserApplication, updateUserApplication, getLivesiteDoc } from './firebase'
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
 import Page from '../components/Page'
@@ -8,6 +8,17 @@ const HackerApplicationContext = createContext()
 
 export function useHackerApplication() {
   return useContext(HackerApplicationContext)
+}
+
+export const uploadResumeToStorage = async (userId, file) => {
+  try {
+    const ref = storage.ref(`applicantResumes/${userId}`)
+    const uploadData = await ref.put(file)
+    return uploadData.ref.getDownloadURL()
+  } catch (e) {
+    alert(e)
+    return null
+  }
 }
 
 export function HackerApplicationProvider({ children }) {

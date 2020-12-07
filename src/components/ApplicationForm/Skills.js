@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CenteredH1, H1, H2, QuestionHeading } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
@@ -30,6 +30,8 @@ const FormRow = ({ id, children }) => (
 )
 
 export default ({ formInputs, onChange, role }) => {
+  const [hint, setHint] = useState()
+
   return (
     <>
       <CenteredH1>
@@ -58,11 +60,12 @@ export default ({ formInputs, onChange, role }) => {
               onChange={e => {
                 if (e.target.files[0]) {
                   onChange({
-                    ...formInputs,
                     resume: e.target.files[0],
                   })
                 }
+                setHint(e.target.value)
               }}
+              hint={hint}
             />
           </FormRow>
 
@@ -74,7 +77,6 @@ export default ({ formInputs, onChange, role }) => {
                 value={formInputs.portfolio}
                 onChange={e =>
                   onChange({
-                    ...formInputs,
                     portfolio: e.target.value,
                   })
                 }
@@ -88,7 +90,6 @@ export default ({ formInputs, onChange, role }) => {
                 value={formInputs.github}
                 onChange={e =>
                   onChange({
-                    ...formInputs,
                     github: e.target.value,
                   })
                 }
@@ -103,7 +104,6 @@ export default ({ formInputs, onChange, role }) => {
               value={formInputs.linkedin}
               onChange={e =>
                 onChange({
-                  ...formInputs,
                   linkedin: e.target.value,
                 })
               }
@@ -118,7 +118,6 @@ export default ({ formInputs, onChange, role }) => {
                 value={formInputs.github}
                 onChange={e =>
                   onChange({
-                    ...formInputs,
                     github: e.target.value,
                   })
                 }
@@ -132,7 +131,6 @@ export default ({ formInputs, onChange, role }) => {
                 value={formInputs.portfolio}
                 onChange={e =>
                   onChange({
-                    ...formInputs,
                     portfolio: e.target.value,
                   })
                 }
@@ -154,12 +152,10 @@ export default ({ formInputs, onChange, role }) => {
         </H1>
         <H1 size="1.5em">2. How would you like to challenge yourself during this hackathon?</H1>
         <TextArea
-          placeholder=""
           maxLength="650"
           value={formInputs.longAnswer}
           onChange={val =>
             onChange({
-              ...formInputs,
               longAnswer: val,
             })
           }

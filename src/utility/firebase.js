@@ -25,6 +25,7 @@ if (!firebase.apps.length) {
 
 export const firestore = firebase.firestore
 export const db = firebase.firestore()
+export const storage = firebase.storage()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
 export const applicantsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Applicants')
