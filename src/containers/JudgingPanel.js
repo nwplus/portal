@@ -118,6 +118,7 @@ export default () => {
       reader.addEventListener('load', e => {
         const csvdata = e.target.result
         const parsedProjects = new CSV(csvdata).entries
+          .filter(r => r['Project Status'] === 'Submitted (Gallery/Visible)')
           .map(r => new Project(r))
           .filter(p => p.acknowledged)
         setMessage(`Parsed ${parsedProjects.length} projects from ${csv.name} successfully`)
