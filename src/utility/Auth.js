@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus } from './firebase'
-import { RedirectStatus } from './Constants'
+import { DB_HACKATHON, RedirectStatus } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -65,9 +65,12 @@ const handleUser = async (setUser, setLocation) => {
 }
 
 export const getRedirectUrl = redirect => {
+  if (process.env.NODE_ENV === 'production' || process.env.REACT_APP_ENV === 'STAGING') {
+    if (DB_HACKATHON === 'LHD2021') return '/submission'
+  }
   switch (redirect) {
     case RedirectStatus.AttendingEvent:
-      return '/judging'
+      return '/submission'
     case RedirectStatus.ApplicationNotSubmitted:
       return '/application/part-1'
     case RedirectStatus.ApplicationSubmitted:

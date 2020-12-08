@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Redirect, Route, Switch } from 'wouter'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import Navbar from './components/Navbar'
 import Form from './components/ApplicationForm'
 import {
+  NotFound,
   Login,
   Charcuterie,
   Home,
@@ -16,8 +17,6 @@ import {
   JudgingAdmin,
   JudgingView,
   Submission,
-  SubmissionCreate,
-  SubmissionEdit,
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
@@ -25,10 +24,10 @@ import {
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
-import { DB_COLLECTION, DB_HACKATHON } from './utility/Constants'
+import { DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
-import { HackerApplicationProvider } from './utility/HackerApplicationContext'
+import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -85,15 +84,25 @@ const AdminAuthPageRoute = ({ path, children }) => {
   )
 }
 
+/**Saves the application on logout */
+const NavbarSaveOnLogout = ({ name, handleLogout }) => {
+  const { forceSave } = useHackerApplication()
+  const logout = async () => {
+    await forceSave()
+    handleLogout()
+  }
+  return <Navbar name={name} handleLogout={logout} />
+}
+
 const ApplicationFormContainer = ({ params }) => {
   const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
-    <>
-      <Navbar name={user.displayName} handleLogout={logout} />
+    <HackerApplicationProvider>
+      <NavbarSaveOnLogout name={user.displayName} handleLogout={logout} />
       <Form>
         <ApplicationForm part={params.part} />
       </Form>
-    </>
+    </HackerApplicationProvider>
   ) : (
     <Redirect to="/login" />
   )
@@ -111,19 +120,26 @@ const JudgingViewContainer = ({ params }) => {
 }
 
 function App() {
+  const [announcements, setAnnouncements] = useState([])
+
   useEffect(() => {
     const unsubscribe = db
       .collection(DB_COLLECTION)
       .doc(DB_HACKATHON)
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
+      .limit(6)
       .onSnapshot(querySnapshot => {
+        setAnnouncements(Object.values(querySnapshot.docs.map(doc => doc.data())))
         // firebase doc that triggered db change event
         const changedDoc = querySnapshot.docChanges()[0]
 
         // don't want to notify on 'remove' + 'modified' db events
         if (changedDoc && changedDoc.type === 'added') {
-          notifyUser(changedDoc.doc.data())
+          // don't notify users on IOS devices because Notification API incompatible
+          if (!IS_DEVICE_IOS) {
+            notifyUser(changedDoc.doc.data())
+          }
         }
       })
     return unsubscribe
@@ -135,7 +151,7 @@ function App() {
         <GlobalStyle />
         <Switch>
           <PageRoute path="/">
-            <Home />
+            <Home announcements={announcements} />
           </PageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
@@ -167,26 +183,24 @@ function App() {
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
-          <AuthPageRoute path="/submission/create">
-            <SubmissionCreate />
-          </AuthPageRoute>
-          <AuthPageRoute path="/submission/edit">
-            <SubmissionEdit />
-          </AuthPageRoute>
-          <HackerApplicationProvider>
-            <AuthPageRoute path="/application">
+          <AuthPageRoute path="/application">
+            <HackerApplicationProvider>
               <Application />
-            </AuthPageRoute>
-            <NavbarAuthRoute path="/application/review" name handleLogout>
+            </HackerApplicationProvider>
+          </AuthPageRoute>
+          <NavbarAuthRoute path="/application/review" name handleLogout>
+            <HackerApplicationProvider>
               <ApplicationReview />
-            </NavbarAuthRoute>
-            <NavbarAuthRoute path="/application/confirmation" handleLogout>
+            </HackerApplicationProvider>
+          </NavbarAuthRoute>
+          <NavbarAuthRoute path="/application/confirmation" handleLogout>
+            <HackerApplicationProvider>
               <ApplicationConfirmation />
-            </NavbarAuthRoute>
-            <Route path="/application/:part" component={ApplicationFormContainer} />
-          </HackerApplicationProvider>
+            </HackerApplicationProvider>
+          </NavbarAuthRoute>
+          <Route path="/application/:part" component={ApplicationFormContainer} />
           <Route path="/:rest*">
-            <Page>Page Not Found!</Page>
+            <NotFound />
           </Route>
         </Switch>
       </AuthProvider>

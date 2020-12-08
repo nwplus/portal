@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import { Card } from './Common'
 import { H1, P, A } from './Typography'
 import NotificationToggle from '../containers/NotificationToggle'
+import { IS_DEVICE_IOS } from '../utility/Constants'
 
 const StyledH1 = styled(H1)`
   margin: 0 0 0 0;
@@ -34,11 +35,12 @@ const AnnouncementHeader = styled.div`
   }
 `
 
+// hide notification toggle on IOS devices because Notification API incompatible
 export default ({ announcements }) => (
   <Card>
     <AnnouncementHeader>
       <StyledH1>Announcements</StyledH1>
-      <NotificationToggle />
+      {!IS_DEVICE_IOS ? <NotificationToggle /> : null}
     </AnnouncementHeader>
     {announcements.map(announcement => {
       const timeAgo = format(announcement.timestamp)
