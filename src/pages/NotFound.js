@@ -7,13 +7,11 @@ import { A } from '../components/Typography'
 export default () => (
   <Page>
     <HeroPage>
-      <div>
-        <h1>Oh no, page not found!</h1>
-        Return to{' '}
-        <Link href="/">
-          <A>home</A>
-        </Link>
-      </div>
+      <h1>Oh no, page not found!</h1>
+      Return to{' '}
+      <Link href="/">
+        <A>home</A>
+      </Link>
     </HeroPage>
   </Page>
 )

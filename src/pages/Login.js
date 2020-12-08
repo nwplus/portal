@@ -7,14 +7,17 @@ import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
 import { useLocation } from 'wouter'
-import { ErrorBanner } from '../components/ErrorBanner'
+import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
 import { copyText } from '../utility/Constants'
 
-const ErrorMessage = (
+const ErrorMessage = ({ message }) => (
   <>
     There was an issue logging you in. If this persists, please contact"
     <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
+    <br />
+    <br />
+    Error: {message}
   </>
 )
 
@@ -36,29 +39,20 @@ export const ButtonContainer = styled.div`
   margin: 0.5em 0;
 `
 
-// TODO: authentication
 export default () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
   const [, setLocation] = useLocation()
-  const [showError, setShowError] = useState(false)
-
-  const showErrorMessage = error => {
-    if (!error) return
-    setShowError(true)
-    setTimeout(() => {
-      setShowError(false)
-    }, 10000)
-  }
+  const [error, setError] = useState(null)
 
   const signInWithGoogle = async () => {
     const error = await googleSignIn(setUser, setLocation)
-    showErrorMessage(error)
+    setError(error)
   }
 
   const signInWithGithub = async () => {
     const error = await githubSignIn(setUser, setLocation)
-    showErrorMessage(error)
+    setError(error)
   }
 
   return (
@@ -91,7 +85,7 @@ export default () => {
         </ButtonContainer>
         <A href="/">Return to Portal</A>
       </Landing>
-      <ErrorBanner shown={showError} message={ErrorMessage} />
+      <ErrorBanner>{error ? <ErrorMessage message={error.message} /> : null}</ErrorBanner>
     </>
   )
 }

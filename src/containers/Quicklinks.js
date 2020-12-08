@@ -17,11 +17,13 @@ const ButtonContainer = styled.div`
     }
   }
 `
-const getLinks = () => {
+
+const getCommonLinks = () => {
   return db
     .collection(DB_COLLECTION)
     .doc(DB_HACKATHON)
     .collection('QuickLinks')
+    .where('common', '==', true)
     .orderBy('label')
     .get()
     .then(querySnapshot => {
@@ -33,18 +35,12 @@ export const CommonLinks = () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    getLinks().then(docs => {
-      // Only keep the common links
-      const filtered = Object.values(
-        docs.reduce((result, doc) => {
-          const data = doc.data()
-          data.common && result.push(data)
-          return result
-        }, [])
-      )
-      setLinks(filtered)
-    })
-  }, [setLinks])
+    ;(async () => {
+      const commonLinkDocs = await getCommonLinks()
+      const commonLinks = commonLinkDocs.map(doc => doc.data())
+      setLinks(commonLinks)
+    })()
+  }, [])
 
   return (
     <ButtonContainer>
@@ -57,11 +53,23 @@ export const CommonLinks = () => {
   )
 }
 
+const getAllLinks = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .collection('QuickLinks')
+    .orderBy('label')
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    })
+}
+
 export const QuickLinks = () => {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
-    getLinks()
+    getAllLinks()
       .then(docs => {
         // Only keep the uncommon links
         return Object.values(

@@ -73,7 +73,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.firstName}
         onChange={e =>
           onChange({
-            ...formInputs,
             firstName: e.target.value,
           })
         }
@@ -84,7 +83,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.lastName}
         onChange={e =>
           onChange({
-            ...formInputs,
             lastName: e.target.value,
           })
         }
@@ -101,7 +99,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.gender}
         onChange={e =>
           onChange({
-            ...formInputs,
             gender: e.value,
           })
         }
@@ -119,7 +116,6 @@ export default ({ formInputs, onChange }) => (
           checked={val}
           onChange={() =>
             onChange({
-              ...formInputs,
               ethnicity: { ...formInputs.ethnicity, [key]: !val },
             })
           }
@@ -134,13 +130,13 @@ export default ({ formInputs, onChange }) => (
         type="radio"
         label="Yes"
         checked={formInputs.isOfLegalAge}
-        onChange={() => onChange({ ...formInputs, isOfLegalAge: true })}
+        onChange={() => onChange({ isOfLegalAge: true })}
       ></Select>
       <Select
         type="radio"
         label="No"
         checked={formInputs.isOfLegalAge === false}
-        onChange={() => onChange({ ...formInputs, isOfLegalAge: false })}
+        onChange={() => onChange({ isOfLegalAge: false })}
       ></Select>
     </FormSpacing>
 
@@ -152,7 +148,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.phoneNumber}
         onChange={e =>
           onChange({
-            ...formInputs,
             phoneNumber: e.target.value,
           })
         }
@@ -171,7 +166,6 @@ export default ({ formInputs, onChange }) => (
         label={formInputs.school}
         onChange={e =>
           onChange({
-            ...formInputs,
             school: e.label,
           })
         }
@@ -192,7 +186,6 @@ export default ({ formInputs, onChange }) => (
         label={formInputs.major}
         onChange={e =>
           onChange({
-            ...formInputs,
             major: e.label,
           })
         }
@@ -212,7 +205,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.educationLevel}
         onChange={inputValue =>
           onChange({
-            ...formInputs,
             educationLevel: inputValue.value,
           })
         }
@@ -230,7 +222,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.graduation}
         onChange={inputValue =>
           onChange({
-            ...formInputs,
             graduation: inputValue.value,
           })
         }
@@ -248,7 +239,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.hackathonsAttended}
         onChange={inputValue =>
           onChange({
-            ...formInputs,
             hackathonsAttended: inputValue.value,
           })
         }
@@ -266,13 +256,13 @@ export default ({ formInputs, onChange }) => (
         type="radio"
         label="Developer"
         checked={formInputs.contributionRole === 'developer'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'developer' })}
+        onChange={() => onChange({ contributionRole: 'developer' })}
       ></Select>
       <Select
         type="radio"
         label="Designer"
         checked={formInputs.contributionRole === 'designer'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'designer' })}
+        onChange={() => onChange({ contributionRole: 'designer' })}
       ></Select>
     </FormSpacing>
 
@@ -284,7 +274,6 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.location}
         onChange={e =>
           onChange({
-            ...formInputs,
             location: e.target.value,
           })
         }
