@@ -24,7 +24,6 @@ export default () => {
     setLocation(href)
     window.scrollTo(0, 0)
   }
-  console.log(application.submission.lastUpdated.toDate())
 
   return (
     <>

@@ -52,6 +52,21 @@ const hackathonOptions = [
   { value: 4, label: '4+' },
 ]
 
+// find object from array of objects by value of property
+const findElement = (arr, key, val) => arr.find(o => o[key] === val)
+
+// creates a label-value pair (for schools and majors)
+const createObj = val => ({ label: val, value: val })
+
+const creatableDropdownValue = (arr, key, val) => {
+  const obj = findElement(arr, key, val) ?? {}
+  if (Object.keys(obj).length > 0) {
+    return createObj(obj.label)
+  } else {
+    return createObj(val)
+  }
+}
+
 // form part 1
 export default ({ formInputs, onChange }) => (
   <>
@@ -76,7 +91,7 @@ export default ({ formInputs, onChange }) => (
             firstName: e.target.value,
           })
         }
-      ></TextInput>
+      />
       <TextInput
         placeholder="Last Name"
         inline
@@ -86,7 +101,7 @@ export default ({ formInputs, onChange }) => (
             lastName: e.target.value,
           })
         }
-      ></TextInput>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -96,14 +111,14 @@ export default ({ formInputs, onChange }) => (
         options={genderOptions}
         placeholder="Gender"
         isSearchable={false}
-        value={formInputs.gender}
+        value={findElement(genderOptions, 'value', formInputs.gender)}
         onChange={e =>
           onChange({
             gender: e.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -137,7 +152,7 @@ export default ({ formInputs, onChange }) => (
         label="No"
         checked={formInputs.isOfLegalAge === false}
         onChange={() => onChange({ isOfLegalAge: false })}
-      ></Select>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -151,7 +166,7 @@ export default ({ formInputs, onChange }) => (
             phoneNumber: e.target.value,
           })
         }
-      ></TextInput>
+      />
       {/* validation check is num */}
     </FormSpacing>
 
@@ -164,6 +179,7 @@ export default ({ formInputs, onChange }) => (
         isSearchable
         formatCreateLabel={inputValue => `My school is not listed, use "${inputValue}"`}
         label={formInputs.school}
+        value={creatableDropdownValue(schools, 'label', formInputs.school)}
         onChange={e =>
           onChange({
             school: e.label,
@@ -172,7 +188,7 @@ export default ({ formInputs, onChange }) => (
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -184,6 +200,7 @@ export default ({ formInputs, onChange }) => (
         isSearchable
         formatCreateLabel={inputValue => `My major is not listed, use "${inputValue}"`}
         label={formInputs.major}
+        value={creatableDropdownValue(majors, 'label', formInputs.major)}
         onChange={e =>
           onChange({
             major: e.label,
@@ -192,7 +209,7 @@ export default ({ formInputs, onChange }) => (
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -202,14 +219,14 @@ export default ({ formInputs, onChange }) => (
         options={educationOptions}
         placeholder="Level of Education"
         isSearchable={false}
-        value={formInputs.educationLevel}
+        value={findElement(educationOptions, 'value', formInputs.educationLevel)}
         onChange={inputValue =>
           onChange({
             educationLevel: inputValue.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -219,14 +236,14 @@ export default ({ formInputs, onChange }) => (
         options={graduationOptions}
         placeholder="Graduation Year"
         isSearchable={false}
-        value={formInputs.graduation}
+        value={findElement(graduationOptions, 'value', formInputs.graduation)}
         onChange={inputValue =>
           onChange({
             graduation: inputValue.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -236,14 +253,14 @@ export default ({ formInputs, onChange }) => (
         options={hackathonOptions}
         placeholder="Number of Hackathons"
         isSearchable={false}
-        value={formInputs.hackathonsAttended}
+        value={findElement(hackathonOptions, 'value', formInputs.hackathonsAttended)}
         onChange={inputValue =>
           onChange({
             hackathonsAttended: inputValue.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -257,13 +274,13 @@ export default ({ formInputs, onChange }) => (
         label="Developer"
         checked={formInputs.contributionRole === 'developer'}
         onChange={() => onChange({ contributionRole: 'developer' })}
-      ></Select>
+      />
       <Select
         type="radio"
         label="Designer"
         checked={formInputs.contributionRole === 'designer'}
         onChange={() => onChange({ contributionRole: 'designer' })}
-      ></Select>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -277,7 +294,7 @@ export default ({ formInputs, onChange }) => (
             location: e.target.value,
           })
         }
-      ></TextInput>
+      />
     </FormSpacing>
   </>
 )
