@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { H1, QuestionHeading } from '../../components/Typography'
+import { FormSpacing } from './index'
 
 const StyledDropdown = styled(Dropdown)`
   .react-select__control {
@@ -9,26 +10,22 @@ const StyledDropdown = styled(Dropdown)`
   }
 `
 
-const QuestionContainer = styled.div`
-  margin-bottom: 6em;
-`
+export const options = [
+  { value: '1', label: 'MLH' },
+  { value: '2', label: 'Social media' },
+  { value: '3', label: 'Website' },
+  { value: '4', label: 'Word of mouth' },
+  { value: '5', label: 'Club newsletter' },
+  { value: '6', label: 'Faculty newsletter' },
+  { value: '7', label: 'Professor/in class' },
+  { value: '8', label: 'Other' },
+]
 
 // form part 3
 export default ({ formInputs, onChange }) => {
-  const options = [
-    { value: '1', label: 'MLH' },
-    { value: '2', label: 'Social media' },
-    { value: '3', label: 'Website' },
-    { value: '4', label: 'Word of mouth' },
-    { value: '5', label: 'Club newsletter' },
-    { value: '6', label: 'Faculty newsletter' },
-    { value: '7', label: 'Professor/in class' },
-    { value: '8', label: 'Other' },
-  ]
-
   return (
     <>
-      <QuestionContainer>
+      <FormSpacing>
         <QuestionHeading>Question 14</QuestionHeading>
         <H1 size="1.5em">How did you hear about nwHacks?</H1>
         <StyledDropdown
@@ -57,9 +54,9 @@ export default ({ formInputs, onChange }) => {
             }
           />
         )}
-      </QuestionContainer>
+      </FormSpacing>
 
-      <QuestionContainer>
+      <FormSpacing>
         <QuestionHeading>Question 15</QuestionHeading>
         <H1 size="1.5em">Which nwPlus events have you been to? (Select all that apply)</H1>
         <Select
@@ -146,7 +143,7 @@ export default ({ formInputs, onChange }) => {
             })
           }
         />
-      </QuestionContainer>
+      </FormSpacing>
     </>
   )
 }
