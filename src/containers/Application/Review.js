@@ -59,6 +59,7 @@ export default () => {
   return (
     <>
       <VerticalProgressBar percent={100} />
+      <ReviewCards formInputs={mockFormInputs} handleEdit={handleEdit} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-3')}
@@ -66,7 +67,6 @@ export default () => {
         secondButtonOnClick={() => handleNavigation('/application/confirmation')}
         autosaveTime="4:20am" // TODO: replace with application.submission.lastUpdated.toDate().toString()
       />
-      <ReviewCards formInputs={mockFormInputs} handleEdit={handleEdit} />
     </>
   )
 }
