@@ -21,7 +21,7 @@ export default () => {
         firstButtonOnClick={() => handleNavigation('/application/part-2')}
         secondButtonText="Review Your Application"
         secondButtonOnClick={() => handleNavigation('/application/review')}
-        autosaveTime="4:20am" // TODO: replace with time from application.submission.lastUpdated
+        autosaveTime="4:20am" // TODO: replace with application.submission.lastUpdated.toDate().toString()
       />
     </>
   )

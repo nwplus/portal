@@ -1,10 +1,10 @@
 import React from 'react'
 import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
-import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import NavigationButtons from '../../components/NavigationButtons'
+import VerticalProgressBar from '../../components/VerticalProgressBar'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
-// form part 1
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
@@ -16,7 +16,9 @@ export default () => {
     })
   }
 
-  // https://github.com/nwplus/livesite/pull/190/files
+  /**
+   * Saves and moves to next page
+   */
   const handleNavigation = async href => {
     await forceSave()
     setLocation(href)
@@ -26,10 +28,11 @@ export default () => {
   return (
     <>
       <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
+      <VerticalProgressBar percent={25} />
       <NavigationButtons
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-2')}
-        autosaveTime="4:20am" // TODO: replace with time from application.submission.lastUpdated
+        autosaveTime={application.submission.lastUpdated.toDate().toString()}
       />
     </>
   )

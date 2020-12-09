@@ -68,3 +68,18 @@ export const formatProject = project => {
     href: project.devpostUrl,
   }
 }
+
+// find object from array of objects by value of property
+export const findElement = (arr, key, val) => arr.find(o => o[key] === val)
+
+// creates a label-value pair (for schools and majors)
+const createObj = val => ({ label: val, value: val })
+
+export const creatableDropdownValue = (arr, key, val) => {
+  const obj = findElement(arr, key, val) ?? {}
+  if (Object.keys(obj).length > 0) {
+    return createObj(obj.label)
+  } else {
+    return createObj(val)
+  }
+}
