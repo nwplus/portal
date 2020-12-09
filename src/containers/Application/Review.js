@@ -3,7 +3,6 @@ import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
 import ReviewCards from '../../components/ApplicationForm/ReviewCards'
-import { useLocation } from 'wouter'
 
 const mockFormInputs = {
   basicInfo: {
