@@ -49,8 +49,22 @@ const CheckboxContainer = styled.div`
   padding: 8px;
 `
 
-export default ({ className, checked, label, ...props }) => (
-  <label style={{ cursor: 'pointer' }}>
+const StyledLabel = styled.label`
+  ${p =>
+    p.flex &&
+    `display: flex;
+padding: 8px 0;`}
+  cursor: pointer;
+`
+
+const LabelText = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export default ({ className, checked, label, children, flex, ...props }) => (
+  <StyledLabel flex={flex}>
     <CheckboxContainer className={className}>
       <HiddenCheckbox checked={checked} {...props} />
       <StyledCheckbox checked={checked}>
@@ -59,6 +73,6 @@ export default ({ className, checked, label, ...props }) => (
         </Icon>
       </StyledCheckbox>
     </CheckboxContainer>
-    <span>{label}</span>
-  </label>
+    {flex ? <LabelText>{children || label}</LabelText> : <span>{children || label}</span>}
+  </StyledLabel>
 )
