@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { CenteredH1, H1, H2, QuestionHeading } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'

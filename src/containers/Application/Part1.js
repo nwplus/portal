@@ -25,12 +25,13 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
-  // TODO: remove the empty back button that appears on page 1
   return (
     <>
       <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
       <VerticalProgressBar percent={25} />
       <NavigationButtons
+        firstButtonText="Back"
+        firstButtonOnClick={() => handleNavigation('/login')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-2')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
