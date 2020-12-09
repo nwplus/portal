@@ -2,6 +2,8 @@ import React from 'react'
 import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import NavigationButtons from '../../components/NavigationButtons'
+
 // form part 1
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -14,20 +16,9 @@ export default () => {
     })
   }
 
-  /**
-   * Saves and moves to next page
-   * TODO I need a button !
-   * TODO remove this eslint thing once this is used
-   */
-  // eslint-disable-next-line no-unused-vars
-  const nextPage = async () => {
-    await forceSave()
-    setLocation('/application/part-2')
-  }
-
   // https://github.com/nwplus/livesite/pull/190/files
-  const handleNavigation = href => {
-    // await forceSave()  ** add async when forceSave() is used **
+  const handleNavigation = async href => {
+    await forceSave()
     setLocation(href)
     window.scrollTo(0, 0)
   }
@@ -35,6 +26,11 @@ export default () => {
   return (
     <>
       <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
+      <NavigationButtons
+        secondButtonText="Next"
+        secondButtonOnClick={() => handleNavigation('/application/part-2')}
+        autosaveTime="4:20am" // TODO: replace with time from application.submission.lastUpdated
+      />
     </>
   )
 }

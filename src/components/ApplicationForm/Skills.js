@@ -29,8 +29,12 @@ const FormRow = ({ id, children }) => (
   </div>
 )
 
-export default ({ formInputs, onChange, role }) => {
-  const [hint, setHint] = useState()
+export default ({ formInputs, onChange, role, resumeUpload }) => {
+  const [states, setStates] = useState({
+    hint: '',
+    fileObject: {},
+    file: null,
+  })
 
   return (
     <>
@@ -60,12 +64,16 @@ export default ({ formInputs, onChange, role }) => {
               onChange={e => {
                 if (e.target.files[0]) {
                   onChange({
-                    resume: e.target.files[0],
+                    resume: e.target.value,
+                  })
+                  setStates({
+                    fileObject: URL.createObjectURL(e.target.files[0]),
+                    file: e.target.files[0],
+                    hint: e.target.value,
                   })
                 }
-                setHint(e.target.value)
               }}
-              hint={hint}
+              hint={states.hint}
             />
           </FormRow>
 
@@ -153,10 +161,10 @@ export default ({ formInputs, onChange, role }) => {
         <H1 size="1.5em">2. How would you like to challenge yourself during this hackathon?</H1>
         <TextArea
           maxLength="650"
-          value={formInputs.longAnswer}
+          value={formInputs.longAnswers}
           onChange={val =>
             onChange({
-              longAnswer: val,
+              longAnswers: val,
             })
           }
         ></TextArea>

@@ -3,7 +3,7 @@ import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
-import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import { useHackerApplication, uploadResumeToStorage } from '../../utility/HackerApplicationContext'
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -15,15 +15,16 @@ export default () => {
       },
     })
   }
+  let file
 
-  const nextPage = async () => {
+  // TODO
+  // add the resume var in this file, pass down to skills
+  // once a force save happens, the file should also be uploaded
+  // not sure how to address the async in Skills to be passed upwards
+
+  const handleNavigation = async href => {
     await forceSave()
-    setLocation('/application/part-3')
-  }
-
-  // https://github.com/nwplus/livesite/pull/190/files
-  const handleNavigation = href => {
-    // await forceSave()  ** add async when forceSave() is used **
+    await uploadResumeToStorage(application._id)
     setLocation(href)
     window.scrollTo(0, 0)
   }
@@ -34,6 +35,7 @@ export default () => {
         formInputs={application.skills}
         onChange={updateSkillsInfo}
         role={application.basicInfo.contributionRole}
+        resume={file}
       />
       <VerticalProgressBar percent={50} />
       <NavigationButtons

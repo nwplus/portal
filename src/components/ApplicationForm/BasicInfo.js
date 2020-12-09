@@ -109,7 +109,7 @@ export default ({ formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <H1 size="1.5em">What is your race/ethnicity? (Select all that apply)</H1>
-      {Object.entries(formInputs.ethnicity).map(([key, val]) => (
+      {/* {Object.entries(formInputs.ethnicity).map(([key, val]) => (
         <Select
           type="checkbox"
           label={ethnicityOptions[key]}
@@ -120,7 +120,7 @@ export default ({ formInputs, onChange }) => (
             })
           }
         />
-      ))}
+      ))} */}
     </FormSpacing>
 
     <FormSpacing>
