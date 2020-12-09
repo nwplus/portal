@@ -6,6 +6,7 @@ import Select from '../Input/Select'
 import { FormSpacing } from '../ApplicationForm/index'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
+import { findElement, creatableDropdownValue } from '../../utility/utilities'
 
 const genderOptions = [
   { value: 'female', label: 'Female' },
@@ -51,21 +52,6 @@ const hackathonOptions = [
   { value: 3, label: '3' },
   { value: 4, label: '4+' },
 ]
-
-// find object from array of objects by value of property
-const findElement = (arr, key, val) => arr.find(o => o[key] === val)
-
-// creates a label-value pair (for schools and majors)
-const createObj = val => ({ label: val, value: val })
-
-const creatableDropdownValue = (arr, key, val) => {
-  const obj = findElement(arr, key, val) ?? {}
-  if (Object.keys(obj).length > 0) {
-    return createObj(obj.label)
-  } else {
-    return createObj(val)
-  }
-}
 
 // form part 1
 export default ({ formInputs, onChange }) => (
