@@ -17,7 +17,6 @@ const QuestionForm = styled.form`
   }
 `
 
-// #todo: remove the following after part-1 is merged
 const QuestionRow = styled(QuestionHeading)`
   padding-right: 4em;
 `
@@ -29,13 +28,7 @@ const FormRow = ({ id, children }) => (
   </div>
 )
 
-export default ({ formInputs, onChange, role, resumeUpload }) => {
-  const [states, setStates] = useState({
-    hint: '',
-    fileObject: {},
-    file: null,
-  })
-
+export default ({ formInputs, onChange, role, handleResume }) => {
   return (
     <>
       <CenteredH1>
@@ -66,14 +59,10 @@ export default ({ formInputs, onChange, role, resumeUpload }) => {
                   onChange({
                     resume: e.target.value,
                   })
-                  setStates({
-                    fileObject: URL.createObjectURL(e.target.files[0]),
-                    file: e.target.files[0],
-                    hint: e.target.value,
-                  })
+                  handleResume(e.target.files[0])
                 }
               }}
-              hint={states.hint}
+              hint={formInputs.resume}
             />
           </FormRow>
 

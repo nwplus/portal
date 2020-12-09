@@ -7,6 +7,7 @@ import { useHackerApplication, uploadResumeToStorage } from '../../utility/Hacke
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
+  const [resume, setResume] = useState()
   const [, setLocation] = useLocation()
   const updateSkillsInfo = change => {
     updateApplication({
@@ -15,16 +16,14 @@ export default () => {
       },
     })
   }
-  let file
 
-  // TODO
-  // add the resume var in this file, pass down to skills
-  // once a force save happens, the file should also be uploaded
-  // not sure how to address the async in Skills to be passed upwards
+  const handleResume = resume => {
+    setResume(resume)
+  }
 
   const handleNavigation = async href => {
     await forceSave()
-    await uploadResumeToStorage(application._id)
+    await uploadResumeToStorage(application._id, resume)
     setLocation(href)
     window.scrollTo(0, 0)
   }
@@ -35,7 +34,7 @@ export default () => {
         formInputs={application.skills}
         onChange={updateSkillsInfo}
         role={application.basicInfo.contributionRole}
-        resume={file}
+        handleResume={handleResume}
       />
       <VerticalProgressBar percent={50} />
       <NavigationButtons
@@ -43,7 +42,7 @@ export default () => {
         firstButtonOnClick={() => handleNavigation('/application/part-1')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-3')}
-        autosaveTime="4:20am" // TODO: replace with application.submission.lastUpdated.toDate().toString()
+        autosaveTime={application.submission.lastUpdated.toDate().toString()}
       />
     </>
   )

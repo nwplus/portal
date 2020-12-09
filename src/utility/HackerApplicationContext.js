@@ -16,7 +16,6 @@ export const uploadResumeToStorage = async (userId, file) => {
     const uploadData = await ref.put(file)
     return uploadData.ref.getDownloadURL()
   } catch (e) {
-    alert(e)
     return null
   }
 }

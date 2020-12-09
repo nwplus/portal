@@ -25,6 +25,7 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
+  // TODO: remove the empty back button that appears on page 1
   return (
     <>
       <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
