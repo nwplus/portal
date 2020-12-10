@@ -5,6 +5,7 @@ export const DB_HACKATHON = 'LHD2021'
 
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
+export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
   hackathonName: 'HackCamp 2020',
@@ -46,7 +47,17 @@ export const hackerApplicationTemplate = Object.freeze({
     firstName: '',
     lastName: '',
     gender: '',
-    ethnicity: '',
+    ethnicity: {
+      asian: false,
+      black: false,
+      caucasian: false,
+      hispanic: false,
+      middleEastern: false,
+      nativeHawaiian: false,
+      northAmerica: false,
+      other: false,
+      preferNot: false,
+    },
     isOfLegalAge: false,
     phoneNumber: '',
     school: '',
@@ -77,6 +88,12 @@ export const hackerApplicationTemplate = Object.freeze({
     applicationStatus: 'inProgress',
     responded: false, // using responded and attending to check if they un-RSVPed or if they didn't RSVP at all (no RSVP)
     attending: false, // false for no-rsvp by default
+  },
+  termsAndConditions: {
+    MLHCodeOfConduct: false,
+    MLHPrivacyPolicy: false,
+    shareWithnwPlus: false,
+    shareWithSponsors: false,
   },
   team: '',
 })

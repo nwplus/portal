@@ -70,7 +70,14 @@ export function HackerApplicationProvider({ children }) {
   /**Update the updated variable when making changes to the new app
      Keep the ref up to date with the latest application
      Handles merging of the current app with the new one */
-  const updateApplication = ({ basicInfo, skills, questionnaire, status, team }) => {
+  const updateApplication = ({
+    basicInfo,
+    skills,
+    questionnaire,
+    status,
+    termsAndConditions,
+    team,
+  }) => {
     const mergedApp = {
       ...application,
       basicInfo: {
@@ -88,6 +95,10 @@ export function HackerApplicationProvider({ children }) {
       status: {
         ...application.status,
         ...status,
+      },
+      termsAndConditions: {
+        ...application.termsAndConditions,
+        ...termsAndConditions,
       },
       team: team ? team : application.team,
     }
@@ -107,7 +118,7 @@ export function HackerApplicationProvider({ children }) {
    * Applications are closed ? show message
    * Applications are open ? Show application
    */
-  return applicationOpen === null ? (
+  return applicationOpen === null || application === undefined ? (
     <Spinner />
   ) : !applicationOpen ? (
     <Page>Applications are closed.</Page>

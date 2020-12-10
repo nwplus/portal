@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
 
-const ERROR_TIMEOUT = 10000
+import styled from 'styled-components'
 
 const ErrorDiv = styled.div`
   max-width: 400px;
@@ -22,18 +21,28 @@ const ErrorText = styled.p`
   margin: 10px 20px;
 `
 
-export default ({ children, shown, setErrorCallback = () => {} }) => {
-  const [showError, setShowError] = useState()
+export default function ErrorBanner({ children }) {
+  const [showError, setShowError] = useState(false)
+
   useEffect(() => {
-    setShowError(shown)
-    setTimeout(() => {
-      setErrorCallback(false)
-    }, ERROR_TIMEOUT)
-  }, [shown, setErrorCallback])
+    if (children) {
+      setShowError(true)
+    } else {
+      setShowError(false)
+    }
+    const errorTimeOut = setTimeout(() => {
+      setShowError(false)
+    }, 10000)
+    return () => {
+      clearTimeout(errorTimeOut)
+    }
+  }, [children])
 
   return (
-    <ErrorDiv shown={showError}>
-      <ErrorText>{children}</ErrorText>
-    </ErrorDiv>
+    <>
+      <ErrorDiv shown={showError}>
+        <ErrorText>{children}</ErrorText>
+      </ErrorDiv>
+    </>
   )
 }

@@ -6,6 +6,7 @@ import Select from '../Input/Select'
 import { FormSpacing } from '../ApplicationForm/index'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
+import { findElement, creatableDropdownValue } from '../../utility/utilities'
 
 const genderOptions = [
   { value: 'female', label: 'Female' },
@@ -73,22 +74,20 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.firstName}
         onChange={e =>
           onChange({
-            ...formInputs,
             firstName: e.target.value,
           })
         }
-      ></TextInput>
+      />
       <TextInput
         placeholder="Last Name"
         inline
         value={formInputs.lastName}
         onChange={e =>
           onChange({
-            ...formInputs,
             lastName: e.target.value,
           })
         }
-      ></TextInput>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -98,15 +97,14 @@ export default ({ formInputs, onChange }) => (
         options={genderOptions}
         placeholder="Gender"
         isSearchable={false}
-        value={formInputs.gender}
+        value={findElement(genderOptions, 'value', formInputs.gender)}
         onChange={e =>
           onChange({
-            ...formInputs,
             gender: e.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -119,7 +117,6 @@ export default ({ formInputs, onChange }) => (
           checked={val}
           onChange={() =>
             onChange({
-              ...formInputs,
               ethnicity: { ...formInputs.ethnicity, [key]: !val },
             })
           }
@@ -134,14 +131,14 @@ export default ({ formInputs, onChange }) => (
         type="radio"
         label="Yes"
         checked={formInputs.isOfLegalAge}
-        onChange={() => onChange({ ...formInputs, isOfLegalAge: true })}
+        onChange={() => onChange({ isOfLegalAge: true })}
       ></Select>
       <Select
         type="radio"
         label="No"
         checked={formInputs.isOfLegalAge === false}
-        onChange={() => onChange({ ...formInputs, isOfLegalAge: false })}
-      ></Select>
+        onChange={() => onChange({ isOfLegalAge: false })}
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -152,11 +149,10 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.phoneNumber}
         onChange={e =>
           onChange({
-            ...formInputs,
             phoneNumber: e.target.value,
           })
         }
-      ></TextInput>
+      />
       {/* validation check is num */}
     </FormSpacing>
 
@@ -169,16 +165,16 @@ export default ({ formInputs, onChange }) => (
         isSearchable
         formatCreateLabel={inputValue => `My school is not listed, use "${inputValue}"`}
         label={formInputs.school}
+        value={creatableDropdownValue(schools, 'label', formInputs.school)}
         onChange={e =>
           onChange({
-            ...formInputs,
             school: e.label,
           })
         }
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -190,16 +186,16 @@ export default ({ formInputs, onChange }) => (
         isSearchable
         formatCreateLabel={inputValue => `My major is not listed, use "${inputValue}"`}
         label={formInputs.major}
+        value={creatableDropdownValue(majors, 'label', formInputs.major)}
         onChange={e =>
           onChange({
-            ...formInputs,
             major: e.label,
           })
         }
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -209,15 +205,14 @@ export default ({ formInputs, onChange }) => (
         options={educationOptions}
         placeholder="Level of Education"
         isSearchable={false}
-        value={formInputs.educationLevel}
+        value={findElement(educationOptions, 'value', formInputs.educationLevel)}
         onChange={inputValue =>
           onChange({
-            ...formInputs,
             educationLevel: inputValue.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -227,15 +222,14 @@ export default ({ formInputs, onChange }) => (
         options={graduationOptions}
         placeholder="Graduation Year"
         isSearchable={false}
-        value={formInputs.graduation}
+        value={findElement(graduationOptions, 'value', formInputs.graduation)}
         onChange={inputValue =>
           onChange({
-            ...formInputs,
             graduation: inputValue.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -245,15 +239,14 @@ export default ({ formInputs, onChange }) => (
         options={hackathonOptions}
         placeholder="Number of Hackathons"
         isSearchable={false}
-        value={formInputs.hackathonsAttended}
+        value={findElement(hackathonOptions, 'value', formInputs.hackathonsAttended)}
         onChange={inputValue =>
           onChange({
-            ...formInputs,
             hackathonsAttended: inputValue.value,
           })
         }
         isValid
-      ></Dropdown>
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -266,14 +259,14 @@ export default ({ formInputs, onChange }) => (
         type="radio"
         label="Developer"
         checked={formInputs.contributionRole === 'developer'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'developer' })}
-      ></Select>
+        onChange={() => onChange({ contributionRole: 'developer' })}
+      />
       <Select
         type="radio"
         label="Designer"
         checked={formInputs.contributionRole === 'designer'}
-        onChange={() => onChange({ ...formInputs, contributionRole: 'designer' })}
-      ></Select>
+        onChange={() => onChange({ contributionRole: 'designer' })}
+      />
     </FormSpacing>
 
     <FormSpacing>
@@ -284,11 +277,10 @@ export default ({ formInputs, onChange }) => (
         value={formInputs.location}
         onChange={e =>
           onChange({
-            ...formInputs,
             location: e.target.value,
           })
         }
-      ></TextInput>
+      />
     </FormSpacing>
   </>
 )

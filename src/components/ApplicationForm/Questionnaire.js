@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { H1, QuestionHeading } from '../../components/Typography'
 import { FormSpacing } from './index'
+import { CenteredH1 } from '../Typography'
 
 const StyledDropdown = styled(Dropdown)`
   .react-select__control {
@@ -25,6 +26,7 @@ export const options = [
 export default ({ formInputs, onChange }) => {
   return (
     <>
+      <CenteredH1>Almost there</CenteredH1>
       <FormSpacing>
         <QuestionHeading>Question 14</QuestionHeading>
         <H1 size="1.5em">How did you hear about nwHacks?</H1>

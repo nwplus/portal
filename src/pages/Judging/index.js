@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Loading, JudgingNotOpen } from '../../components/HeroPage'
+import { Link } from 'wouter'
+import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/JudgingCard'
+import { A } from '../../components/Typography'
 import { useAuth } from '../../utility/Auth'
 
-const PROJECTS_TO_JUDGE_COUNT = 5
+const PROJECTS_TO_JUDGE_COUNT = 4
 
 const Container = styled.div`
   display: flex;
@@ -17,13 +19,17 @@ const StyledJudgingCard = styled(JudgingCard)`
   margin: 0 2em 2em 0;
 `
 
-const getProjects = async userId => {
+const getProjects = async (userId, projectId) => {
   const getAndAssignProjects = async () => {
     const projectDocs = await projectsRef
       .orderBy('countAssigned')
-      .limit(PROJECTS_TO_JUDGE_COUNT)
+      .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
       .get()
-    const projectIds = projectDocs.docs.map(project => project.id)
+    let projectIds = projectDocs.docs.map(project => project.id)
+    projectIds = projectIds.filter(id => id !== projectId)
+    if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
+      projectIds.pop()
+    }
     const batch = db.batch()
 
     // increment assigned counters
@@ -69,12 +75,23 @@ const getProjects = async userId => {
 
 export default () => {
   const [isJudgingOpen, setIsJudgingOpen] = useState()
+  const [isBlocked, setIsBlocked] = useState()
   const { user } = useAuth()
   const [projects, setProjects] = useState([])
 
   useEffect(() => {
-    ;(async () => setProjects(await getProjects(user.uid)))()
-  }, [setProjects, user.uid])
+    ;(async () => {
+      const { submittedProject } = (await applicantsRef.doc(user.uid).get()).data()
+      const isValidProject = submittedProject
+        ? (await projectsRef.doc(submittedProject).get()).exists
+        : false
+      if (!isValidProject) {
+        setIsBlocked(true)
+      } else {
+        setProjects(await getProjects(user.uid, submittedProject))
+      }
+    })()
+  }, [user.uid])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
@@ -83,6 +100,19 @@ export default () => {
 
   if (!projects || isJudgingOpen === undefined) {
     return <Loading />
+  }
+
+  if (isBlocked) {
+    return (
+      <HeroPage>
+        <h2>Error, permission denied</h2>
+        Please{' '}
+        <Link href="/submission">
+          <A>link your Devpost</A>
+        </Link>{' '}
+        account to access judging
+      </HeroPage>
+    )
   }
 
   if (!isJudgingOpen) {
