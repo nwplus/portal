@@ -108,7 +108,6 @@ const SocialMediaIcons = styled.img`
 `
 
 const RSVPButton = styled(Button)`
-  width = 100px;
   margin-right: 0;
   ${p => p.theme.mediaQueries.mobile} {
     margin: 1em;
@@ -184,11 +183,12 @@ const Dashboard = ({ hackerStatus }) => {
         <FooterContainer>
           <SocialMediaLinks />
           <RSVPButton
+            width="flex"
             onClick={() => setRSVP(canRSVP)}
             shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
             color={canRSVP ? 'primary' : 'secondary'}
           >
-            RSVP
+            {canRSVP ? 'RSVP' : 'un-RSVP'}
           </RSVPButton>
         </FooterContainer>
       </StatusContainer>
