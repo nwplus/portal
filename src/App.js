@@ -194,11 +194,6 @@ function App() {
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
-          {/* <Route path="/application">
-            <HackerApplicationProvider>
-              <ApplicationDashboardContainer />
-            </HackerApplicationProvider>
-          </Route> */}
           <Route path="/application" component={ApplicationDashboardRoutingContainer} />
           <NavbarAuthRoute path="/application/review" name handleLogout>
             <HackerApplicationProvider>

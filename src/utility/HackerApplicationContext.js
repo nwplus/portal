@@ -121,6 +121,7 @@ export function HackerApplicationProvider({ children }) {
   return applicationOpen === null || application === undefined ? (
     <Spinner />
   ) : (
+    // Commented out temporarily, will determine behaviour when application isn't open later
     // ) : !applicationOpen ? (
     //   <Page>Applications are closed.</Page>
     <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
