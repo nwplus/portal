@@ -119,23 +119,12 @@ const JudgingViewContainer = ({ params }) => {
   )
 }
 
-const ApplicationDashboardContainer = () => {
+const ApplicationDashboardRoutingContainer = () => {
   const { isAuthed } = useAuth()
-  const { application } = useHackerApplication()
-  const hackerStatusObject = application.status
-  const hackerStatus =
-    hackerStatusObject !== undefined &&
-    (hackerStatusObject.applicationStatus === 'accepted'
-      ? hackerStatusObject.responded
-        ? hackerStatusObject.attending
-          ? 'acceptedAndAttending'
-          : 'acceptedNotAttending'
-        : 'acceptedNoResponseYet'
-      : hackerStatusObject.applicationStatus)
   return isAuthed ? (
-    <Page hackerStatus={hackerStatus}>
-      <Application hackerStatus={hackerStatus} />
-    </Page>
+    <HackerApplicationProvider>
+      <Application />
+    </HackerApplicationProvider>
   ) : (
     <Redirect to="/login" />
   )
@@ -205,11 +194,12 @@ function App() {
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
-          <Route path="/application">
+          {/* <Route path="/application">
             <HackerApplicationProvider>
               <ApplicationDashboardContainer />
             </HackerApplicationProvider>
-          </Route>
+          </Route> */}
+          <Route path="/application" component={ApplicationDashboardRoutingContainer} />
           <NavbarAuthRoute path="/application/review" name handleLogout>
             <HackerApplicationProvider>
               <ApplicationReview />
