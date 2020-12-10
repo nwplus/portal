@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import Questionnaire from '../../components/ApplicationForm/Questionnaire'
+import NavigationButtons from '../../components/NavigationButtons'
+import VerticalProgressBar from '../../components/VerticalProgressBar'
+import { useLocation } from 'wouter'
 
 // form part 3
 export default () => {
-  // eslint-disable-next-line no-unused-vars
   const [states, setStates] = useState({
     engagementSource: '',
     eventsAttended: {
@@ -18,6 +20,7 @@ export default () => {
   })
 
   const [, setLocation] = useLocation()
+
   // https://github.com/nwplus/livesite/pull/190/files
   const handleNavigation = href => {
     // await forceSave()  ** add async when forceSave() is used **
@@ -27,7 +30,7 @@ export default () => {
 
   return (
     <>
-      <Questionnaire />
+      <Questionnaire formInputs={states} onChange={setStates} />
       <VerticalProgressBar percent={75} />
       <NavigationButtons
         firstButtonText="Back"
