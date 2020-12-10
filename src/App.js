@@ -86,7 +86,8 @@ const AdminAuthPageRoute = ({ path, children }) => {
 
 /**Saves the application on logout */
 const NavbarSaveOnLogout = ({ name, handleLogout }) => {
-  const { forceSave } = useHackerApplication()
+  const { application, forceSave } = useHackerApplication()
+  // console.log(application)
   const logout = async () => {
     await forceSave()
     handleLogout()
@@ -113,6 +114,29 @@ const JudgingViewContainer = ({ params }) => {
   return isAuthed ? (
     <Page>
       <JudgingView id={params.id} />
+    </Page>
+  ) : (
+    <Redirect to="/login" />
+  )
+}
+
+const ApplicationDashboardContainer = () => {
+  const { isAuthed } = useAuth()
+  const { application } = useHackerApplication()
+
+  const hackerStatusObject = application.status
+  console.log(hackerStatusObject)
+  const hackerStatus =
+    hackerStatusObject.applicationStatus == 'accepted'
+      ? hackerStatusObject.responded
+        ? hackerStatusObject.attending
+          ? 'acceptedAndAttending'
+          : 'acceptedNotAttending'
+        : 'acceptedNoResponseYet'
+      : hackerStatusObject.applicationStatus
+  return isAuthed ? (
+    <Page hackerStatus={hackerStatus}>
+      <Application />
     </Page>
   ) : (
     <Redirect to="/login" />
@@ -183,11 +207,14 @@ function App() {
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
-          <AuthPageRoute path="/application">
+          {/* <AuthPageRoute path="/application">
             <HackerApplicationProvider>
               <Application />
             </HackerApplicationProvider>
-          </AuthPageRoute>
+          </AuthPageRoute> */}
+          <HackerApplicationProvider>
+            <Route path="/application" component={ApplicationDashboardContainer} />
+          </HackerApplicationProvider>
           <NavbarAuthRoute path="/application/review" name handleLogout>
             <HackerApplicationProvider>
               <ApplicationReview />
