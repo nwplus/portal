@@ -86,8 +86,7 @@ const AdminAuthPageRoute = ({ path, children }) => {
 
 /**Saves the application on logout */
 const NavbarSaveOnLogout = ({ name, handleLogout }) => {
-  const { application, forceSave } = useHackerApplication()
-  // console.log(application)
+  const { forceSave } = useHackerApplication()
   const logout = async () => {
     await forceSave()
     handleLogout()
@@ -125,9 +124,8 @@ const ApplicationDashboardContainer = () => {
   const { application } = useHackerApplication()
 
   const hackerStatusObject = application.status
-  console.log(hackerStatusObject)
   const hackerStatus =
-    hackerStatusObject.applicationStatus == 'accepted'
+    hackerStatusObject.applicationStatus === 'accepted'
       ? hackerStatusObject.responded
         ? hackerStatusObject.attending
           ? 'acceptedAndAttending'
@@ -207,11 +205,6 @@ function App() {
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
-          {/* <AuthPageRoute path="/application">
-            <HackerApplicationProvider>
-              <Application />
-            </HackerApplicationProvider>
-          </AuthPageRoute> */}
           <HackerApplicationProvider>
             <Route path="/application" component={ApplicationDashboardContainer} />
           </HackerApplicationProvider>

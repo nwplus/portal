@@ -96,3 +96,29 @@ export const hackerApplicationTemplate = Object.freeze({
   },
   team: '',
 })
+
+export const hackerStatuses = {
+  applied: {
+    sidebarText: 'In Review',
+    cardText: 'Awaiting assessment',
+  },
+  waitlisted: {
+    sidebarText: 'Waitlisted',
+    cardText: 'Waitlisted',
+  },
+  rejected: {
+    sidebarText: 'Rejected',
+    cardText: 'Rejected',
+  },
+  acceptedNoResponseYet: {
+    sidebarText: 'Accepted, Awaiting RSVP',
+    cardText: 'Accepted & Awaiting RSVP',
+  },
+  acceptedAndAttending: {
+    cardText: "Accepted & RSVP'd",
+  },
+  acceptedNotAttending: {
+    sidebarText: "Un-RSVP'd",
+    cardText: "Un-RSVP'd",
+  },
+}
