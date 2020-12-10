@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { H1 } from './Typography'
 import { Button } from './Input/Button'
@@ -11,6 +11,7 @@ import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { useAuth } from '../utility/Auth'
 import { useHackerApplication } from '../utility/HackerApplicationContext'
 import { useLocation } from 'wouter'
+import { getLivesiteDoc } from '../utility/firebase'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -137,8 +138,9 @@ const SocialMediaLinks = () => {
 
 const Dashboard = ({ hackerStatus }) => {
   const { user } = useAuth()
-  const { updateApplication } = useHackerApplication()
+  const { updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
+  const [livesiteDoc, setLivesiteDoc] = useState(false)
   const canRSVP =
     hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNotAttending'
   const setRSVP = canRSVP => {
@@ -148,7 +150,12 @@ const Dashboard = ({ hackerStatus }) => {
         attending: canRSVP,
       },
     })
+    forceSave()
   }
+  useEffect(() => {
+    const unsubscribe = getLivesiteDoc(setLivesiteDoc)
+    return unsubscribe
+  }, [setLivesiteDoc])
   return (
     <Container>
       <WelcomeHeader>
@@ -157,7 +164,11 @@ const Dashboard = ({ hackerStatus }) => {
       </WelcomeHeader>
       <AppLinks>
         <HackerAppText>YOUR HACKER APPLICATION</HackerAppText>
-        <EditAppButton color="secondary" onClick={() => setLocation('/application/part-1')}>
+        <EditAppButton
+          color="secondary"
+          onClick={livesiteDoc.applicationsOpen && (() => setLocation('/application/part-1'))}
+          disabled={!livesiteDoc.applicationsOpen}
+        >
           Edit Your Application
         </EditAppButton>
       </AppLinks>
@@ -184,9 +195,10 @@ const Dashboard = ({ hackerStatus }) => {
           <SocialMediaLinks />
           <RSVPButton
             width="flex"
-            onClick={() => setRSVP(canRSVP)}
+            onClick={livesiteDoc.applicationsOpen && (() => setRSVP(canRSVP))}
             shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
             color={canRSVP ? 'primary' : 'secondary'}
+            disabled={!livesiteDoc.applicationsOpen}
           >
             {canRSVP ? 'RSVP' : 'un-RSVP'}
           </RSVPButton>
