@@ -14,7 +14,7 @@ const SidebarContainer = styled.div`
   border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
   ${p => p.theme.mediaQueries.mobile} {
-    ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
+    ${p => (p.showMobileSidebar ? 'visibility: visible' : 'display: none')};
   }
 `
 
@@ -79,9 +79,12 @@ const StyledButton = styled(Button)`
   margin: 1em 0 2em 60px;
 `
 
+const ApplicationText = styled.div`
+  color: #ffffff;
+`
+
 const StatusText = styled.div`
   font-size: 0.8em;
-  color: ${p => p.theme.colors.primary};
   margin-top: 5px;
 `
 
@@ -140,7 +143,7 @@ export default ({
           // Not sure if I should abstract this case to use links.map
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
-              APPLICATION
+              <ApplicationText>APPLICATION</ApplicationText>
               <StatusText>{hackerStatuses[hackerStatus]['sidebarText']}</StatusText>
             </StyledA>
           </Link>

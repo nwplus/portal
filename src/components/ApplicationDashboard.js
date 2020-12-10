@@ -9,6 +9,7 @@ import medium from '../assets/icons/medium.svg'
 import twitter from '../assets/icons/twitter.svg'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { useAuth } from '../utility/Auth'
+import { useHackerApplication } from '../utility/HackerApplicationContext'
 import { useLocation } from 'wouter'
 
 const Container = styled.div`
@@ -37,6 +38,9 @@ const WelcomeMessage = styled(H1)`
 const StyledHandWave = styled(HandWave)`
   margin-left: 10px;
   margin-top: 20px;
+  ${p => p.theme.mediaQueries.mobile} {
+    margin-top: 10px;
+  }
 `
 
 const AppLinks = styled.div`
@@ -109,6 +113,7 @@ const RSVPButton = styled(Button)`
   ${p => p.theme.mediaQueries.mobile} {
     margin: 1em;
   }
+  ${p => !p.shouldDisplay && 'display: none'}
 `
 
 const SocialMediaLinks = () => {
@@ -133,9 +138,18 @@ const SocialMediaLinks = () => {
 
 const Dashboard = ({ hackerStatus }) => {
   const { user } = useAuth()
+  const { updateApplication } = useHackerApplication()
   const [, setLocation] = useLocation()
-  console.log(hackerStatus)
-  console.log(hackerStatuses)
+  const canRSVP =
+    hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNotAttending'
+  const setRSVP = canRSVP => {
+    updateApplication({
+      status: {
+        responded: true,
+        attending: canRSVP,
+      },
+    })
+  }
   return (
     <Container>
       <WelcomeHeader>
@@ -169,7 +183,13 @@ const Dashboard = ({ hackerStatus }) => {
         </div>
         <FooterContainer>
           <SocialMediaLinks />
-          <RSVPButton color="primary">RSVP</RSVPButton>
+          <RSVPButton
+            onClick={() => setRSVP(canRSVP)}
+            shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+            color={canRSVP ? 'primary' : 'secondary'}
+          >
+            RSVP
+          </RSVPButton>
         </FooterContainer>
       </StatusContainer>
     </Container>
