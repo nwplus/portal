@@ -2,12 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1 } from './Typography'
 import { Button } from './Input/Button'
-import { SOCIAL_LINKS } from '../utility/Constants'
+import { SOCIAL_LINKS, hackerStatuses } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
 import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
 import twitter from '../assets/icons/twitter.svg'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
+import { useAuth } from '../utility/Auth'
+import { useLocation } from 'wouter'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -55,7 +57,7 @@ const EditAppButton = styled(Button)`
 
 const StatusContainer = styled.div`
   min-height: 350px;
-  padding: 2.5em 4.5em 2.5em 3em;
+  padding: 2.5em 4.5em;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 2em;
   }
@@ -129,20 +131,28 @@ const SocialMediaLinks = () => {
   )
 }
 
-const Dashboard = () => {
+const Dashboard = ({ hackerStatus }) => {
+  const { user } = useAuth()
+  const [, setLocation] = useLocation()
+  console.log(hackerStatus)
+  console.log(hackerStatuses)
   return (
     <Container>
       <WelcomeHeader>
-        <WelcomeMessage>Welcome Back, INSERT_NAME!</WelcomeMessage>
+        <WelcomeMessage>Welcome Back, {user.displayName}</WelcomeMessage>
         <StyledHandWave />
       </WelcomeHeader>
       <AppLinks>
         <HackerAppText>YOUR HACKER APPLICATION</HackerAppText>
-        <EditAppButton color="secondary">Edit Your Application</EditAppButton>
+        <EditAppButton color="secondary" onClick={() => setLocation('/application/part-1')}>
+          Edit Your Application
+        </EditAppButton>
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>Application status: APP_STATUS</AppStatusText>
+          <AppStatusText>
+            Application status: {hackerStatuses[hackerStatus]['cardText']}
+          </AppStatusText>
           <StatusBlurbText>
             We will send out all acceptances by XX, XX, XXXX. In the mean time, get connected with
             our community of hackers on Medium, Twitter, and Facebook to stay up to date with the

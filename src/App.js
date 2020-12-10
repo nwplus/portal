@@ -134,7 +134,7 @@ const ApplicationDashboardContainer = () => {
       : hackerStatusObject.applicationStatus
   return isAuthed ? (
     <Page hackerStatus={hackerStatus}>
-      <Application />
+      <Application hackerStatus={hackerStatus} />
     </Page>
   ) : (
     <Redirect to="/login" />
