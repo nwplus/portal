@@ -1,6 +1,7 @@
 import React from 'react'
 import ReviewCards from '../../components/ApplicationForm/ReviewCards'
 import { useLocation } from 'wouter'
+import { useHackerApplication, updateApplication } from '../../utility/HackerApplicationContext'
 
 const mockFormInputs = {
   basicInfo: {
@@ -41,7 +42,7 @@ const mockFormInputs = {
 
 export default () => {
   // TODO: uncomment and replace mockFormInputs
-  // const { application } = useHackerApplication()
+  const { application, updateApplication } = useHackerApplication()
   const [, setLocation] = useLocation()
 
   const handleEdit = href => {
@@ -49,9 +50,17 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
+  const updateTermsAndConditions = change => {
+    updateApplication({
+      termsAndConditions: {
+        ...change,
+      },
+    })
+  }
+
   return (
     <>
-      <ReviewCards formInputs={mockFormInputs} handleEdit={handleEdit} />
+      <ReviewCards formInputs={application} handleEdit={handleEdit} onChange={updateTermsAndConditions} />
     </>
   )
 }

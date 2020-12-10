@@ -90,9 +90,7 @@ const ethnicityOptions = {
 
 const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
 
-export default ({ formInputs, handleEdit }) => {
-  const [termsAndConditions, setTermsAndConditions] = useState(formInputs.termsAndConditions)
-
+export default ({ formInputs, handleEdit, onChange }) => {
   const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ethnicityOptions[e])
   var ethnicitiesVal = ''
 
@@ -135,7 +133,6 @@ export default ({ formInputs, handleEdit }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
-            {/* TODO: replace hello/hi with actual values from formInputs */}
             <InfoGroup
               heading="Full Legal Name:"
               data={formInputs.basicInfo.firstName
@@ -176,7 +173,6 @@ export default ({ formInputs, handleEdit }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            {/* TODO: replace with actual values from formInputs */}
             <InfoGroup heading="Resume" data={formInputs.skills.resume} />
             <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
@@ -204,7 +200,6 @@ export default ({ formInputs, handleEdit }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            {/* TODO: replace with actual values from formInputs */}
             <InfoGroup
               heading="You Heard about nwHacks From"
               data={formInputs.questionnaire.engagementSource}
@@ -237,13 +232,11 @@ export default ({ formInputs, handleEdit }) => {
           </P>
         </ContentWrapper>
         <ContentWrapper textBlock>
-          {/* TODO: replace termsAndConditions.MLHCodeOfConduct with formInputs.termsAndConditions.MLHCodeOfConduct for all termsAndConditions */}
           <Checkbox
-            checked={termsAndConditions.MLHCodeOfConduct}
+            checked={formInputs.termsAndConditions.MLHCodeOfConduct}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                MLHCodeOfConduct: !termsAndConditions.MLHCodeOfConduct,
+              onChange({
+                MLHCodeOfConduct: !formInputs.termsAndConditions.MLHCodeOfConduct,
               })
             }
             required
@@ -257,33 +250,30 @@ export default ({ formInputs, handleEdit }) => {
           </Checkbox>
           <Checkbox
             flex
-            checked={termsAndConditions.MLHPrivacyPolicy}
+            checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                MLHPrivacyPolicy: !termsAndConditions.MLHPrivacyPolicy,
+              onChange({
+                MLHPrivacyPolicy: !formInputs.termsAndConditions.MLHPrivacyPolicy,
               })
             }
             label="I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy."
           />
           <Checkbox
             flex
-            checked={termsAndConditions.shareWithnwPlus}
+            checked={formInputs.termsAndConditions.shareWithnwPlus}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                shareWithnwPlus: !termsAndConditions.shareWithnwPlus,
+              onChange({
+                shareWithnwPlus: !formInputs.termsAndConditions.shareWithnwPlus,
               })
             }
             label="I agree to allow my anonymized data to be used for nwPlus data reporting."
           />
           <Checkbox
             flex
-            checked={termsAndConditions.shareWithSponsors}
+            checked={formInputs.termsAndConditions.shareWithSponsors}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                shareWithSponsors: !termsAndConditions.shareWithSponsors,
+              onChange({
+                shareWithSponsors: !formInputs.termsAndConditions.shareWithSponsors,
               })
             }
             label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, GitHub, Personal website) upon request."
