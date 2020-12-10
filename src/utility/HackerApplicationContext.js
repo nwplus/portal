@@ -3,7 +3,7 @@ import { useAuth } from './Auth'
 import { getUserApplication, updateUserApplication, getLivesiteDoc } from './firebase'
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
-import Page from '../components/Page'
+// import Page from '../components/Page'
 const HackerApplicationContext = createContext()
 
 export function useHackerApplication() {
