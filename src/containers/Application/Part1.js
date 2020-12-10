@@ -1,8 +1,10 @@
 import React from 'react'
 import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
+import NavigationButtons from '../../components/NavigationButtons'
+import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
-// form part 1
+
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
@@ -16,18 +18,24 @@ export default () => {
 
   /**
    * Saves and moves to next page
-   * TODO I need a button !
-   * TODO remove this eslint thing once this is used
    */
-  // eslint-disable-next-line no-unused-vars
-  const nextPage = async () => {
+  const handleNavigation = async href => {
     await forceSave()
-    setLocation('/application/part-2')
+    setLocation(href)
+    window.scrollTo(0, 0)
   }
 
   return (
     <>
       <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
+      <VerticalProgressBar percent={25} />
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonOnClick={() => handleNavigation('/login')}
+        secondButtonText="Next"
+        secondButtonOnClick={() => handleNavigation('/application/part-2')}
+        autosaveTime={application.submission.lastUpdated.toDate().toString()}
+      />
     </>
   )
 }

@@ -1,7 +1,9 @@
 import React from 'react'
-import ReviewCards from '../../components/ApplicationForm/ReviewCards'
+import NavigationButtons from '../../components/NavigationButtons'
+import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
-import { useHackerApplication, updateApplication } from '../../utility/HackerApplicationContext'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import ReviewCards from '../../components/ApplicationForm/ReviewCards'
 
 const mockFormInputs = {
   basicInfo: {
@@ -42,10 +44,16 @@ const mockFormInputs = {
 
 export default () => {
   // TODO: uncomment and replace mockFormInputs
-  const { application, updateApplication } = useHackerApplication()
+  const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
 
   const handleEdit = href => {
+    setLocation(href)
+    window.scrollTo(0, 0)
+  }
+
+  const handleNavigation = async href => {
+    await forceSave()
     setLocation(href)
     window.scrollTo(0, 0)
   }
@@ -60,7 +68,15 @@ export default () => {
 
   return (
     <>
-      <ReviewCards formInputs={application} handleEdit={handleEdit} onChange={updateTermsAndConditions} />
+      <VerticalProgressBar percent={100} />
+      <ReviewCards formInputs={mockFormInputs} handleEdit={handleEdit} onChange={updateTermsAndConditions} />
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonOnClick={() => handleNavigation('/application/part-3')}
+        secondButtonText="Submit"
+        secondButtonOnClick={() => handleNavigation('/application/confirmation')}
+        autosaveTime={application.submission.lastUpdated.toDate().toString()} // TODO: replace with application.submission.lastUpdated.toDate().toString()
+      />
     </>
   )
 }
