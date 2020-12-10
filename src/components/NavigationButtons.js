@@ -35,19 +35,19 @@ const NavigationButtonsContainer = styled.div`
 
 export default ({
   firstButtonText,
-  firstButtonHref,
+  firstButtonOnClick,
   secondButtonText,
-  secondButtonHref,
+  secondButtonOnClick,
   autosaveTime,
 }) => {
   return (
     <NavigationButtonsContainer>
       {autosaveTime && <I>Answers have been autosaved at {autosaveTime}</I>}
       <ButtonContainer>
-        <StyledButton color="secondary" width="flex" href={firstButtonHref}>
+        <StyledButton color="secondary" width="flex" onClick={firstButtonOnClick}>
           {firstButtonText}
         </StyledButton>
-        <StyledButton width="flex" href={secondButtonHref}>
+        <StyledButton width="flex" onClick={secondButtonOnClick}>
           {secondButtonText}
         </StyledButton>
       </ButtonContainer>

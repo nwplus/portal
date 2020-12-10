@@ -29,7 +29,7 @@ const FormRow = ({ id, children }) => (
   </div>
 )
 
-export default ({ formInputs, onChange }) => {
+export default ({ formInputs, onChange, role }) => {
   return (
     <>
       <CenteredH1>
@@ -66,19 +66,35 @@ export default ({ formInputs, onChange }) => {
             />
           </FormRow>
 
-          <FormRow id="github">
-            <TextInput
-              placeholder="Required"
-              size="large"
-              value={formInputs.github}
-              onChange={e =>
-                onChange({
-                  ...formInputs,
-                  github: e.target.value,
-                })
-              }
-            ></TextInput>
-          </FormRow>
+          {role === 'designer' ? (
+            <FormRow id="portfolio">
+              <TextInput
+                placeholder="Required"
+                size="large"
+                value={formInputs.portfolio}
+                onChange={e =>
+                  onChange({
+                    ...formInputs,
+                    portfolio: e.target.value,
+                  })
+                }
+              ></TextInput>
+            </FormRow>
+          ) : (
+            <FormRow id="github">
+              <TextInput
+                placeholder="Required"
+                size="large"
+                value={formInputs.github}
+                onChange={e =>
+                  onChange({
+                    ...formInputs,
+                    github: e.target.value,
+                  })
+                }
+              ></TextInput>
+            </FormRow>
+          )}
 
           <FormRow id="linkedin">
             <TextInput
@@ -94,78 +110,37 @@ export default ({ formInputs, onChange }) => {
             ></TextInput>
           </FormRow>
 
-          <FormRow id="portfolio">
-            <TextInput
-              placeholder="Optional"
-              size="large"
-              value={formInputs.portfolio}
-              onChange={e =>
-                onChange({
-                  ...formInputs,
-                  portfolio: e.target.value,
-                })
-              }
-            ></TextInput>
-          </FormRow>
+          {role === 'designer' ? (
+            <FormRow id="github">
+              <TextInput
+                placeholder="Optional"
+                size="large"
+                value={formInputs.github}
+                onChange={e =>
+                  onChange({
+                    ...formInputs,
+                    github: e.target.value,
+                  })
+                }
+              ></TextInput>
+            </FormRow>
+          ) : (
+            <FormRow id="portfolio">
+              <TextInput
+                placeholder="Optional"
+                size="large"
+                value={formInputs.portfolio}
+                onChange={e =>
+                  onChange({
+                    ...formInputs,
+                    portfolio: e.target.value,
+                  })
+                }
+              ></TextInput>
+            </FormRow>
+          )}
         </QuestionForm>
       </FormSpacing>
-
-      <QuestionForm>
-        <FormRow id="resume">
-          <ResumeUploadBtn
-            onChange={e => {
-              if (e.target.files[0]) {
-                onChange({
-                  ...formInputs,
-                  resume: e.target.files[0],
-                })
-              }
-            }}
-          />
-        </FormRow>
-
-        <FormRow id="portfolio">
-          <TextInput
-            placeholder="Required"
-            size="large"
-            value={formInputs.portfolio}
-            onChange={e =>
-              onChange({
-                ...formInputs,
-                portfolio: e.target.value,
-              })
-            }
-          ></TextInput>
-        </FormRow>
-
-        <FormRow id="linkedin">
-          <TextInput
-            placeholder="Optional"
-            size="large"
-            value={formInputs.linkedin}
-            onChange={e =>
-              onChange({
-                ...formInputs,
-                linkedin: e.target.value,
-              })
-            }
-          ></TextInput>
-        </FormRow>
-
-        <FormRow id="github">
-          <TextInput
-            placeholder="Optional"
-            size="large"
-            value={formInputs.github}
-            onChange={e =>
-              onChange({
-                ...formInputs,
-                github: e.target.value,
-              })
-            }
-          ></TextInput>
-        </FormRow>
-      </QuestionForm>
 
       <FormSpacing>
         <QuestionHeading>question 13</QuestionHeading>

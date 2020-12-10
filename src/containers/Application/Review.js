@@ -1,6 +1,8 @@
 import React from 'react'
-import ReviewCards from '../../components/ApplicationForm/ReviewCards'
+import NavigationButtons from '../../components/NavigationButtons'
+import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
+import ReviewCards from '../../components/ApplicationForm/ReviewCards'
 
 const mockFormInputs = {
   basicInfo: {
@@ -49,9 +51,22 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
+  const handleNavigation = href => {
+    // await forceSave()  ** add async when forceSave() is used **
+    setLocation(href)
+    window.scrollTo(0, 0)
+  }
   return (
     <>
+      <VerticalProgressBar percent={100} />
       <ReviewCards formInputs={mockFormInputs} handleEdit={handleEdit} />
+      <NavigationButtons
+        firstButtonText="Back"
+        firstButtonOnClick={() => handleNavigation('/application/part-3')}
+        secondButtonText="Submit"
+        secondButtonOnClick={() => handleNavigation('/application/confirmation')}
+        autosaveTime="4:20am" // TODO: replace with application.submission.lastUpdated.toDate().toString()
+      />
     </>
   )
 }
