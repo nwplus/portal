@@ -57,8 +57,7 @@ const EditAppButton = styled(Button)`
 `
 
 const StatusContainer = styled.div`
-  min-height: 350px;
-  padding: 2.5em 4.5em;
+  padding: 3em 3em 2em;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 2em;
   }
@@ -150,6 +149,7 @@ const Dashboard = ({
         <HackerAppText>YOUR HACKER APPLICATION</HackerAppText>
         <EditAppButton
           color="secondary"
+          height="short"
           onClick={isApplicationOpen && (() => editApplication())}
           disabled={!isApplicationOpen}
         >

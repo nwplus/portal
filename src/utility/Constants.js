@@ -1,3 +1,4 @@
+import React from 'react'
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
@@ -123,7 +124,14 @@ export const hackerStatuses = {
       "Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at nwHacks 2021 over the weekend of January XX-XX! RSVP before January Xth at 11:59 PM to confirm your spot.",
   },
   acceptedAndAttending: {
-    cardText: "Accepted & RSVP'd",
+    cardText: (
+      <>
+        Accepted & RSVP'd{' '}
+        <span role="img" aria-label="celebrate emoji">
+          🎊
+        </span>
+      </>
+    ),
     blurb:
       "We can't wait to see you at nwHacks! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to nwHacks anymore due to change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!",
   },
