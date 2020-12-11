@@ -89,7 +89,7 @@ const ethnicityOptions = {
 }
 
 const eventOptions = {
-  option1: 'Local Hack Day / Hack Camp',
+  option1: 'Local Hack Day / HackCamp',
   option2: 'nwHacks',
   option3: 'cmd-f',
   option4: 'cmd-f Phases',
