@@ -27,7 +27,12 @@ export const options = [
 export default ({ formInputs, onChange }) => {
   return (
     <>
-      <CenteredH1>Almost there</CenteredH1>
+      <CenteredH1>
+        Almost there...{' '}
+        <span role="img" aria-label="Ghost emoji">
+          👻
+        </span>
+      </CenteredH1>
       <FormSpacing>
         <QuestionHeading>Question 14</QuestionHeading>
         <H1 size="1.5em">How did you hear about nwHacks?</H1>
