@@ -88,26 +88,44 @@ const ethnicityOptions = {
   preferNot: 'Prefer not to say',
 }
 
+const eventOptions = {
+  option1: 'Local Hack Day / Hack Camp',
+  option2: 'nwHacks',
+  option3: 'cmd-f',
+  option4: 'cmd-f Phases',
+  option5: 'nwPlus Workshop Series',
+  option6: 'nwPlus Boothing',
+}
+
 const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
+const getEvents = obj => Object.keys(obj).filter(key => obj[key])
+const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
 export default ({ formInputs, handleEdit, onChange }) => {
+  // since they're lowercase in firebase
+  const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
+  const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
+  const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
+
   const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ethnicityOptions[e])
-  var ethnicitiesVal = ''
+  var ethnicitiesValues = []
 
   for (var i = 0; i < ethnicities.length; i++) {
-    ethnicitiesVal = ethnicitiesVal.concat(ethnicities[i])
+    ethnicitiesValues.push(ethnicities[i])
 
     if (i < ethnicities.length - 1) {
-      ethnicitiesVal = ethnicitiesVal.concat(', ')
+      ethnicitiesValues.push(', ')
     }
   }
 
-  var attendedVal = ''
-  for (var j = 0; j < formInputs.questionnaire.eventsAttended.length; j++) {
-    attendedVal = attendedVal.concat(formInputs.questionnaire.eventsAttended[j])
+  const events = getEvents(formInputs.questionnaire.eventsAttended).map(e => eventOptions[e])
+  var attendedValues = []
 
-    if (i < formInputs.questionnaire.eventsAttended.length - 1) {
-      attendedVal = attendedVal.concat(', ')
+  for (var j = 0; j < events.length; j++) {
+    attendedValues.push(events[j])
+
+    if (j < events.length - 1) {
+      attendedValues.push(', ')
     }
   }
 
@@ -139,8 +157,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
                 .concat(' ')
                 .concat(formInputs.basicInfo.lastName)}
             />
-            <InfoGroup heading="Gender:" data={formInputs.basicInfo.gender} />
-            <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesVal} />
+            <InfoGroup heading="Gender:" data={gender} />
+            <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
             <InfoGroup
               heading="19 Years Old or Older"
               data={formInputs.basicInfo.isOfLegalAge ? 'Yes' : 'No'}
@@ -148,19 +166,16 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="Phone number:" data={formInputs.basicInfo.phoneNumber} />
             <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
             <InfoGroup heading="Intended Major:" data={formInputs.basicInfo.major} />
-            <InfoGroup heading="Level of Education" data={formInputs.basicInfo.educationLevel} />
+            <InfoGroup heading="Level of Education" data={educationLevel} />
             <InfoGroup heading="Graduation Year:" data={formInputs.basicInfo.graduation} />
             <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
-            <InfoGroup
-              heading="Contribution at nwHacks:"
-              data={formInputs.basicInfo.contributionRole}
-            />
+            <InfoGroup heading="Contribution at nwHacks:" data={contributionRole} />
             <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
 
-      <ReviewContainer>
+      {/* <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Flex your skills</QuestionHeading>
           <Button
@@ -204,10 +219,10 @@ export default ({ formInputs, handleEdit, onChange }) => {
               heading="You Heard about nwHacks From"
               data={formInputs.questionnaire.engagementSource}
             />
-            <InfoGroup heading="nwPlus Events Attended:" data={attendedVal} />
+            <InfoGroup heading="nwPlus Events Attended:" data={attendedValues} />
           </ContentWrapper>
         </StyledBanner>
-      </ReviewContainer>
+      </ReviewContainer> */}
 
       <ReviewContainer>
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
@@ -216,7 +231,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
             share certain application/registration information for event administration, ranking,
             MLH administration, and occasional messages about hackathons in line with the
-            <A bolded color="primary" src="https://mlh.io/privacy">
+            <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
               {' '}
               MLH Privacy Policy
             </A>
@@ -242,7 +257,12 @@ export default ({ formInputs, handleEdit, onChange }) => {
             required
           >
             I have read and agree to the{' '}
-            <A bolded color="primary" src="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">
+            <A
+              bolded
+              color="primary"
+              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+              target="_blank"
+            >
               {' '}
               MLH Code of Conduct
             </A>

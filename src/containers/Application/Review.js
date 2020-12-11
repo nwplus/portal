@@ -32,7 +32,14 @@ const mockFormInputs = {
   },
   questionnaire: {
     engagementSource: 'Facebook',
-    eventsAttended: ['nwHacks', 'cmd-f'],
+    eventsAttended: {
+      option1: false, // LHD / Hack Camp
+      option2: true, // nwHacks
+      option3: true, // cmd-f
+      option4: false, // cmd-f Phases
+      option5: false, // nwPlus Workshop Series
+      option6: false, // nwPlus Boothing
+    },
   },
   termsAndConditions: {
     MLHCodeOfConduct: false,
@@ -43,9 +50,9 @@ const mockFormInputs = {
 }
 
 export default () => {
-  // TODO: uncomment and replace mockFormInputs
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
+  console.log(application)
 
   const handleEdit = href => {
     setLocation(href)
@@ -69,7 +76,11 @@ export default () => {
   return (
     <>
       <VerticalProgressBar percent={100} />
-      <ReviewCards formInputs={mockFormInputs} handleEdit={handleEdit} onChange={updateTermsAndConditions} />
+      <ReviewCards
+        formInputs={application}
+        handleEdit={handleEdit}
+        onChange={updateTermsAndConditions}
+      />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-3')}
