@@ -85,6 +85,7 @@ const ApplicationText = styled.div`
 
 const StatusText = styled.div`
   font-size: 0.8em;
+  color: ${p => p.theme.colors.primary};
   margin-top: 5px;
 `
 
