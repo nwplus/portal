@@ -161,19 +161,7 @@ const Dashboard = ({
           <AppStatusText>
             Application status: {hackerStatuses[hackerStatus]['cardText']}
           </AppStatusText>
-          <StatusBlurbText>
-            We will send out all acceptances by XX, XX, XXXX. In the mean time, get connected with
-            our community of hackers on Medium, Twitter, and Facebook to stay up to date with the
-            latest news on sponsors, prizes and workshops. We will send out all acceptances by XX,
-            XX, XXXX. In the mean time, get connected with our community of hackers on Medium,
-            Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and
-            workshops. We will send out all acceptances by XX, XX, XXXX. In the mean time, get
-            connected with our community of hackers on Medium, Twitter, and Facebook to stay up to
-            date with the latest news on sponsors, prizes and workshops. We will send out all
-            acceptances by XX, XX, XXXX. In the mean time, get connected with our community of
-            hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on
-            sponsors, prizes and workshops.
-          </StatusBlurbText>
+          <StatusBlurbText>{hackerStatuses[hackerStatus]['blurb']}</StatusBlurbText>
         </div>
         <FooterContainer>
           <SocialMediaLinks />
