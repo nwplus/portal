@@ -1,43 +1,39 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useLocation } from 'wouter'
 import Questionnaire from '../../components/ApplicationForm/Questionnaire'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
-import { useLocation } from 'wouter'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
 // form part 3
 export default () => {
-  const [states, setStates] = useState({
-    engagementSource: '',
-    eventsAttended: {
-      option1: false, // LHD / Hack Camp
-      option2: false, // nwHacks
-      option3: false, // cmd-f
-      option4: false, // cmd-f Phases
-      option5: false, // nwPlus Workshop Series
-      option6: false, // nwPlus Boothing
-    },
-    otherEngagementSource: '',
-  })
-
+  const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
 
-  // https://github.com/nwplus/livesite/pull/190/files
-  const handleNavigation = href => {
-    // await forceSave()  ** add async when forceSave() is used **
+  const updateQuestionnaire = change => {
+    updateApplication({
+      questionnaire: {
+        ...change,
+      },
+    })
+  }
+
+  const handleNavigation = async href => {
+    await forceSave()
     setLocation(href)
     window.scrollTo(0, 0)
   }
 
   return (
     <>
-      <Questionnaire formInputs={states} onChange={setStates} />
+      <Questionnaire formInputs={application.questionnaire} onChange={updateQuestionnaire} />
       <VerticalProgressBar percent={75} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-2')}
         secondButtonText="Review Your Application"
         secondButtonOnClick={() => handleNavigation('/application/review')}
-        autosaveTime="4:20am" // TODO: replace with application.submission.lastUpdated.toDate().toString()
+        autosaveTime={application.submission.lastUpdated.toDate().toString()}
       />
     </>
   )
