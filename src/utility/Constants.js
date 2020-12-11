@@ -126,7 +126,7 @@ export const hackerStatuses = {
   acceptedAndAttending: {
     cardText: (
       <>
-        Accepted & RSVP'd{' '}
+        Accepted &amp; RSVP'd{' '}
         <span role="img" aria-label="celebrate emoji">
           🎊
         </span>
