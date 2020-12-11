@@ -3,7 +3,7 @@ import { useAuth } from './Auth'
 import { storage, getUserApplication, updateUserApplication, getLivesiteDoc } from './firebase'
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
-import Page from '../components/Page'
+// import Page from '../components/Page'
 const HackerApplicationContext = createContext()
 
 export function useHackerApplication() {
@@ -130,9 +130,10 @@ export function HackerApplicationProvider({ children }) {
    */
   return applicationOpen === null || application === undefined ? (
     <Spinner />
-  ) : !applicationOpen ? (
-    <Page>Applications are closed.</Page>
   ) : (
+    // Commented out temporarily, will determine behaviour when application isn't open later
+    // ) : !applicationOpen ? (
+    //   <Page>Applications are closed.</Page>
     <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
       {children}
     </HackerApplicationContext.Provider>

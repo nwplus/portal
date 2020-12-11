@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1 } from './Typography'
 import { Button } from './Input/Button'
-import { SOCIAL_LINKS } from '../utility/Constants'
+import { SOCIAL_LINKS, hackerStatuses } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
 import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
@@ -35,6 +35,9 @@ const WelcomeMessage = styled(H1)`
 const StyledHandWave = styled(HandWave)`
   margin-left: 10px;
   margin-top: 20px;
+  ${p => p.theme.mediaQueries.mobile} {
+    margin-top: 10px;
+  }
 `
 
 const AppLinks = styled.div`
@@ -54,8 +57,7 @@ const EditAppButton = styled(Button)`
 `
 
 const StatusContainer = styled.div`
-  min-height: 350px;
-  padding: 2.5em 4.5em 2.5em 3em;
+  padding: 3em 3em 2em;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 2em;
   }
@@ -102,11 +104,11 @@ const SocialMediaIcons = styled.img`
 `
 
 const RSVPButton = styled(Button)`
-  width = 100px;
   margin-right: 0;
   ${p => p.theme.mediaQueries.mobile} {
     margin: 1em;
   }
+  ${p => !p.shouldDisplay && 'display: none'}
 `
 
 const SocialMediaLinks = () => {
@@ -129,37 +131,49 @@ const SocialMediaLinks = () => {
   )
 }
 
-const Dashboard = () => {
+const Dashboard = ({
+  hackerStatus,
+  isApplicationOpen,
+  canRSVP,
+  setRSVP,
+  username,
+  editApplication,
+}) => {
   return (
     <Container>
       <WelcomeHeader>
-        <WelcomeMessage>Welcome Back, INSERT_NAME!</WelcomeMessage>
+        <WelcomeMessage>Welcome Back, {username}</WelcomeMessage>
         <StyledHandWave />
       </WelcomeHeader>
       <AppLinks>
         <HackerAppText>YOUR HACKER APPLICATION</HackerAppText>
-        <EditAppButton color="secondary">Edit Your Application</EditAppButton>
+        <EditAppButton
+          color="secondary"
+          height="short"
+          onClick={isApplicationOpen && (() => editApplication())}
+          disabled={!isApplicationOpen}
+        >
+          Edit Your Application
+        </EditAppButton>
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>Application status: APP_STATUS</AppStatusText>
-          <StatusBlurbText>
-            We will send out all acceptances by XX, XX, XXXX. In the mean time, get connected with
-            our community of hackers on Medium, Twitter, and Facebook to stay up to date with the
-            latest news on sponsors, prizes and workshops. We will send out all acceptances by XX,
-            XX, XXXX. In the mean time, get connected with our community of hackers on Medium,
-            Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and
-            workshops. We will send out all acceptances by XX, XX, XXXX. In the mean time, get
-            connected with our community of hackers on Medium, Twitter, and Facebook to stay up to
-            date with the latest news on sponsors, prizes and workshops. We will send out all
-            acceptances by XX, XX, XXXX. In the mean time, get connected with our community of
-            hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on
-            sponsors, prizes and workshops.
-          </StatusBlurbText>
+          <AppStatusText>
+            Application status: {hackerStatuses[hackerStatus]['cardText']}
+          </AppStatusText>
+          <StatusBlurbText>{hackerStatuses[hackerStatus]['blurb']}</StatusBlurbText>
         </div>
         <FooterContainer>
           <SocialMediaLinks />
-          <RSVPButton color="primary">RSVP</RSVPButton>
+          <RSVPButton
+            width="flex"
+            onClick={isApplicationOpen && (() => setRSVP(canRSVP))}
+            shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+            color={canRSVP ? 'primary' : 'secondary'}
+            disabled={!isApplicationOpen}
+          >
+            {canRSVP ? 'RSVP' : 'un-RSVP'}
+          </RSVPButton>
         </FooterContainer>
       </StatusContainer>
     </Container>

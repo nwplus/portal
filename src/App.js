@@ -119,6 +119,17 @@ const JudgingViewContainer = ({ params }) => {
   )
 }
 
+const ApplicationDashboardRoutingContainer = () => {
+  const { isAuthed } = useAuth()
+  return isAuthed ? (
+    <HackerApplicationProvider>
+      <Application />
+    </HackerApplicationProvider>
+  ) : (
+    <Redirect to="/login" />
+  )
+}
+
 function App() {
   const [announcements, setAnnouncements] = useState([])
 
@@ -183,11 +194,7 @@ function App() {
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
-          <AuthPageRoute path="/application">
-            <HackerApplicationProvider>
-              <Application />
-            </HackerApplicationProvider>
-          </AuthPageRoute>
+          <Route path="/application" component={ApplicationDashboardRoutingContainer} />
           <NavbarAuthRoute path="/application/review" name handleLogout>
             <HackerApplicationProvider>
               <ApplicationReview />
