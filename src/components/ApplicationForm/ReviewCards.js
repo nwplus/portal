@@ -175,7 +175,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </StyledBanner>
       </ReviewContainer>
 
-      {/* <ReviewContainer>
+      <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Flex your skills</QuestionHeading>
           <Button
@@ -188,7 +188,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            <InfoGroup heading="Resume" data={formInputs.skills.resume} />
+            <InfoGroup heading="Resume" data={formInputs.skills.resume.match(/[/\\]([\w\d\s.\-()]+)$/)[1]} />
             <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub" data={formInputs.skills.github} />
@@ -222,7 +222,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="nwPlus Events Attended:" data={attendedValues} />
           </ContentWrapper>
         </StyledBanner>
-      </ReviewContainer> */}
+      </ReviewContainer>
 
       <ReviewContainer>
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
