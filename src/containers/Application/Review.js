@@ -52,7 +52,6 @@ const mockFormInputs = {
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
-  console.log(application)
 
   const handleEdit = href => {
     setLocation(href)
