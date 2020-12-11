@@ -107,6 +107,7 @@ export default ({ formInputs, onChange }) => (
       />
     </FormSpacing>
 
+    {/* TODO: the mapping of formInputs.ethnicity is causing errors */}
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <H1 size="1.5em">What is your race/ethnicity? (Select all that apply)</H1>

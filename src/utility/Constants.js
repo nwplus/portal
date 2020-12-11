@@ -73,11 +73,12 @@ export const hackerApplicationTemplate = Object.freeze({
     portfolio: '',
     linkedin: '',
     github: '',
-    longAnswers: {},
+    longAnswers: '',
   },
   questionnaire: {
     engagementSource: '',
     eventsAttended: [],
+    otherEngagementSource: '',
   },
   submission: {
     lastUpdated: '',
