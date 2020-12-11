@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
