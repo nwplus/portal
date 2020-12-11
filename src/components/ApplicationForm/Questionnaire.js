@@ -4,6 +4,7 @@ import { Dropdown, Select, TextInput } from '../../components/Input'
 import { H1, QuestionHeading } from '../../components/Typography'
 import { FormSpacing } from './index'
 import { CenteredH1 } from '../Typography'
+import { findElement } from '../../utility/utilities'
 
 const StyledDropdown = styled(Dropdown)`
   .react-select__control {
@@ -34,6 +35,7 @@ export default ({ formInputs, onChange }) => {
           options={options}
           placeholder={'Select an option'}
           isSearchable={false}
+          value={findElement(options, 'label', formInputs.engagementSource)}
           onChange={inputValue =>
             onChange({
               ...formInputs,
@@ -48,6 +50,7 @@ export default ({ formInputs, onChange }) => {
             size="small"
             noOutline
             inline
+            value={formInputs.otherEngagementSource}
             onChange={e =>
               onChange({
                 ...formInputs,
