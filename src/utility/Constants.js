@@ -100,7 +100,7 @@ export const hackerApplicationTemplate = Object.freeze({
 
 // relevant dates for each status message displayed on the dashboard
 export const relevantDates = Object.freeze({
-  sendAcceptancesBy: 'December 20th, 2020',
+  sendAcceptancesBy: 'December 30th, 2020',
   rsvpBy: 'Janurary 7th at 11:59 PM (Pacific Time)',
   hackathonDate: 'January 9-10th',
 })
