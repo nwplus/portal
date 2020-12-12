@@ -1,4 +1,3 @@
-import React from 'react'
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
