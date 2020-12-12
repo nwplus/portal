@@ -96,7 +96,7 @@ export default ({
   isApplicationOpen,
   hackerStatus,
 }) => {
-  const [location, setLocation] = useLocation()
+  const [location] = useLocation()
   const { isAuthed, logout } = useAuth()
   const links = [
     { location: '/', text: 'DASHBOARD' },
@@ -123,13 +123,6 @@ export default ({
     // List the application as the last item on the menu
     links.push({ location: '/application', text: 'APPLICATION' })
   }
-
-  // const displayHackerStatus = hackerStatus => {
-  //   if (hackerStatus) {
-  //     return hackerStatuses()[hackerStatus]['sidebarText']
-  //   }
-  //   return setLocation()
-  // }
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
