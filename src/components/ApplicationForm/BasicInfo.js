@@ -107,24 +107,24 @@ export default ({ formInputs, onChange }) => (
       />
     </FormSpacing>
 
-    {/* TODO: the mapping of formInputs.ethnicity is causing errors */}
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>What is your race/ethnicity? (Select all that apply)</SubHeading>
-      {Object.entries(formInputs.ethnicity)
-        .sort()
-        .map(([key, val]) => (
-          <Select
-            type="checkbox"
-            label={ethnicityOptions[key]}
-            checked={val}
-            onChange={() =>
-              onChange({
-                ethnicity: { ...formInputs.ethnicity, [key]: !val },
-              })
-            }
-          />
-        ))}
+      {formInputs &&
+        Object.entries(formInputs?.ethnicity)
+          .sort()
+          .map(([key, val]) => (
+            <Select
+              type="checkbox"
+              label={ethnicityOptions[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  ethnicity: { ...formInputs.ethnicity, [key]: !val },
+                })
+              }
+            />
+          ))}
     </FormSpacing>
 
     <FormSpacing>
