@@ -33,6 +33,9 @@ export function AuthProvider({ children }) {
       currUser.redirect = redirect
       const admin = await checkAdminClaim(currUser)
       currUser.admin = admin
+      if (window.location.pathname === '/application') {
+        await handleUser(setUser, setLocation)
+      }
       setUser(currUser)
       setLoading(false)
     })
@@ -69,8 +72,7 @@ export const getRedirectUrl = redirect => {
     if (DB_HACKATHON === 'LHD2021') return '/submission'
   }
   switch (redirect) {
-    case RedirectStatus.AttendingEvent:
-      return '/submission'
+    case RedirectStatus.AttendingEvent && DB_HACKATHON === 'LHD2021':
     case RedirectStatus.ApplicationNotSubmitted:
       return '/application/part-1'
     case RedirectStatus.ApplicationSubmitted:

@@ -115,6 +115,7 @@ export default ({ formInputs, onChange }) => (
           .sort()
           .map(([key, val]) => (
             <Select
+              key={key}
               type="checkbox"
               label={ethnicityOptions[key]}
               checked={val}

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { H1 } from './Typography'
+import { H1, A } from './Typography'
 import { Button } from './Input/Button'
 import { SOCIAL_LINKS, relevantDates, copyText } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
@@ -125,12 +125,24 @@ export const hackerStatuses = (hackerFirstName = null) => ({
   rejected: {
     sidebarText: 'Rejected',
     cardText: 'Rejected',
-    blurb: `Hi ${hackerFirstName}, we are sorry to inform you that we won't be able to give you a spot at ${copyText.hackathonName}. We had a lot of amazing applicants this year, and we are very grateful to have gotten yours, but we can't take everyone. We do hope to see your application next year and that this setback isn't the end of your tech career. Please visit our site nwplus.io to learn about more events and other ways to engage with the technology community.`,
+    blurb: (
+      <>
+        Hi {hackerFirstName}, we are sorry to inform you that we won't be able to give you a spot at{' '}
+        {copyText.hackathonName}. We had a lot of amazing applicants this year, and we are very
+        grateful to have gotten yours, but we can't take everyone. We do hope to see your
+        application next year and that this setback isn't the end of your tech career. Please visit
+        our site{' '}
+        <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
+          nwplus.io
+        </A>{' '}
+        to learn about more events and other ways to engage with the technology community.
+      </>
+    ),
   },
   acceptedNoResponseYet: {
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates.hackathonDate}! RSVP before ${relevantDates.rsvpBy} to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates.hackathonDate}! Please RSVP before ${relevantDates.rsvpBy} to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -141,12 +153,22 @@ export const hackerStatuses = (hackerFirstName = null) => ({
         </span>
       </>
     ),
-    blurb: `We can't wait to see you at ${copyText.hackathonName}! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${copyText.hackathonName} anymore due to change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
+    blurb: `We can't wait to see you at ${copyText.hackathonName}! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${copyText.hackathonName} anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
   },
   acceptedNotAttending: {
     sidebarText: "Un-RSVP'd",
     cardText: "Un-RSVP'd",
-    blurb: `We're sorry you won't be attending ${copyText.hackathonName}. We do hope to see you at our future events, visit our site nwplus.io or follow us on social media to learn about our events and other ways to engage with the technology community!`,
+    blurb: (
+      <>
+        We're sorry you won't be attending {copyText.hackathonName}. We do hope to see you at our
+        future events, visit our site{' '}
+        <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
+          nwplus.io
+        </A>{' '}
+        or follow us on social media to learn about our events and other ways to engage with the
+        technology community!
+      </>
+    ),
   },
 })
 
@@ -198,9 +220,9 @@ const Dashboard = ({
       <StatusContainer>
         <div>
           <AppStatusText>
-            Application status: {hackerStatuses(username)[hackerStatus]['cardText']}
+            Application status: {hackerStatuses(username)[hackerStatus]?.cardText}
           </AppStatusText>
-          <StatusBlurbText>{hackerStatuses(username)[hackerStatus]['blurb']}</StatusBlurbText>
+          <StatusBlurbText>{hackerStatuses(username)[hackerStatus]?.blurb}</StatusBlurbText>
         </div>
         <FooterContainer>
           <SocialMediaLinks />

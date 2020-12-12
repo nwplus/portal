@@ -96,7 +96,7 @@ export default ({
   isApplicationOpen,
   hackerStatus,
 }) => {
-  const [location] = useLocation()
+  const [location, setLocation] = useLocation()
   const { isAuthed, logout } = useAuth()
   const links = [
     { location: '/', text: 'DASHBOARD' },
@@ -124,6 +124,13 @@ export default ({
     links.push({ location: '/application', text: 'APPLICATION' })
   }
 
+  // const displayHackerStatus = hackerStatus => {
+  //   if (hackerStatus) {
+  //     return hackerStatuses()[hackerStatus]['sidebarText']
+  //   }
+  //   return setLocation()
+  // }
+
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
       <Logo alt="logo" />
@@ -145,7 +152,7 @@ export default ({
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
               <ApplicationText>APPLICATION</ApplicationText>
-              <StatusText>{hackerStatuses()[hackerStatus]['sidebarText']}</StatusText>
+              <StatusText>{hackerStatuses()[hackerStatus]?.sidebarText}</StatusText>
             </StyledA>
           </Link>
         )}
