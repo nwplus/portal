@@ -1,8 +1,8 @@
 import React from 'react'
-import { CenteredH1, H1, H2, QuestionHeading } from '../Typography'
+import { CenteredH1, H3, QuestionHeading } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
-import { FormSpacing } from './index'
+import { FormSpacing, SubHeading } from './'
 import styled from 'styled-components'
 
 const QuestionForm = styled.form`
@@ -28,28 +28,34 @@ const FormRow = ({ id, children }) => (
   </div>
 )
 
+const StyledTextArea = styled(TextArea)`
+  margin: 1em 0;
+`
+
 export default ({ formInputs, onChange, role, handleResume }) => {
   return (
     <>
-      <CenteredH1>
-        Flex your skills!{' '}
-        <span role="img" aria-label="muscle">
-          &#128170;
-        </span>
-      </CenteredH1>
+      <FormSpacing>
+        <CenteredH1>
+          Flex your skills!{' '}
+          <span role="img" aria-label="muscle">
+            💪
+          </span>
+        </CenteredH1>
+      </FormSpacing>
 
       <FormSpacing>
         <QuestionHeading>question 12</QuestionHeading>
-        <H1 size="1.5em">
+        <SubHeading>
           {' '}
           Don't be shy! Show off your wonderful skills{' '}
           <span role="img" aria-label="smiling face">
-            &#128513;
+            😁
           </span>
-        </H1>
-        <H2>
+        </SubHeading>
+        <H3>
           (Please ensure the links are publicly accessible by opening them in an incognito browser)
-        </H2>
+        </H3>
 
         <QuestionForm>
           <FormRow id="resume">
@@ -77,7 +83,7 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                     portfolio: e.target.value,
                   })
                 }
-              ></TextInput>
+              />
             </FormRow>
           ) : (
             <FormRow id="github">
@@ -90,7 +96,7 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                     github: e.target.value,
                   })
                 }
-              ></TextInput>
+              />
             </FormRow>
           )}
 
@@ -104,7 +110,7 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                   linkedin: e.target.value,
                 })
               }
-            ></TextInput>
+            />
           </FormRow>
 
           {role === 'designer' ? (
@@ -118,7 +124,7 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                     github: e.target.value,
                   })
                 }
-              ></TextInput>
+              />
             </FormRow>
           ) : (
             <FormRow id="portfolio">
@@ -131,7 +137,7 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                     portfolio: e.target.value,
                   })
                 }
-              ></TextInput>
+              />
             </FormRow>
           )}
         </QuestionForm>
@@ -139,24 +145,24 @@ export default ({ formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <QuestionHeading>question 13</QuestionHeading>
-        <H1 color="" size="1.5em">
-          {' '}
-          Answer one of the two questions:{' '}
-        </H1>
-        <H1 size="1.5em">
+        <SubHeading color="primary">Answer one of the two questions:</SubHeading>
+        <SubHeading size="1.25em">
           1. Describe how you became interested in the world of technology and here you hope to go
           from here on out!
-        </H1>
-        <H1 size="1.5em">2. How would you like to challenge yourself during this hackathon?</H1>
-        <TextArea
+        </SubHeading>
+        <SubHeading size="1.25em">
+          2. How would you like to challenge yourself during this hackathon?
+        </SubHeading>
+        <StyledTextArea
           maxLength="650"
+          width="100%"
           value={formInputs.longAnswers}
           onChange={val =>
             onChange({
               longAnswers: val,
             })
           }
-        ></TextArea>
+        />
       </FormSpacing>
     </>
   )

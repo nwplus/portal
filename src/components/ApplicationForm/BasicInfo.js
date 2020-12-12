@@ -1,9 +1,9 @@
 import React from 'react'
-import { H1, QuestionHeading, CenteredH1 } from '../Typography'
+import { QuestionHeading, CenteredH1 } from '../Typography'
 import { TextInput } from '../Input/TextInput'
 import Dropdown from '../Input/Dropdown'
 import Select from '../Input/Select'
-import { FormSpacing } from '../ApplicationForm/index'
+import { FormSpacing, SubHeading } from './'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
 import { findElement, creatableDropdownValue } from '../../utility/utilities'
@@ -67,7 +67,7 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
-      <H1 size="1.5em">What is your preferred name?</H1>
+      <SubHeading>What is your preferred name?</SubHeading>
       <TextInput
         placeholder="First Name"
         inline
@@ -92,7 +92,7 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
-      <H1 size="1.5em">Which gender do you identify as?</H1>
+      <SubHeading>Which gender do you identify as?</SubHeading>
       <Dropdown
         options={genderOptions}
         placeholder="Gender"
@@ -107,27 +107,29 @@ export default ({ formInputs, onChange }) => (
       />
     </FormSpacing>
 
-    {/* TODO: the mapping of formInputs.ethnicity is causing errors */}
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
-      <H1 size="1.5em">What is your race/ethnicity? (Select all that apply)</H1>
-      {Object.entries(formInputs.ethnicity).map(([key, val]) => (
-        <Select
-          type="checkbox"
-          label={ethnicityOptions[key]}
-          checked={val}
-          onChange={() =>
-            onChange({
-              ethnicity: { ...formInputs.ethnicity, [key]: !val },
-            })
-          }
-        />
-      ))}
+      <SubHeading>What is your race/ethnicity? (Select all that apply)</SubHeading>
+      {formInputs &&
+        Object.entries(formInputs?.ethnicity)
+          .sort()
+          .map(([key, val]) => (
+            <Select
+              type="checkbox"
+              label={ethnicityOptions[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  ethnicity: { ...formInputs.ethnicity, [key]: !val },
+                })
+              }
+            />
+          ))}
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
-      <H1 size="1.5em">Will you be 19 years or older by January 9th, 2021?</H1>
+      <SubHeading>Will you be 19 years or older by January 9th, 2021?</SubHeading>
       <Select
         type="radio"
         label="Yes"
@@ -144,7 +146,7 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 05</QuestionHeading>
-      <H1 size="1.5em">What is your phone number?</H1>
+      <SubHeading>What is your phone number?</SubHeading>
       <TextInput
         placeholder="XXX-XXX-XXXX"
         value={formInputs.phoneNumber}
@@ -153,18 +155,19 @@ export default ({ formInputs, onChange }) => (
             phoneNumber: e.target.value,
           })
         }
+        inline
       />
       {/* validation check is num */}
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
-      <H1 size="1.5em">What school do you go to?</H1>
+      <SubHeading>What school do you go to?</SubHeading>
       <Dropdown
         options={schools}
         placeholder="Enter your school"
         isSearchable
-        formatCreateLabel={inputValue => `My school is not listed, use "${inputValue}"`}
+        formatCreateLabel={inputValue => `${inputValue}`}
         label={formInputs.school}
         value={creatableDropdownValue(schools, 'label', formInputs.school)}
         onChange={e =>
@@ -180,12 +183,12 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 07</QuestionHeading>
-      <H1 size="1.5em">What is your current or intended major?</H1>
+      <SubHeading>What is your current or intended major?</SubHeading>
       <Dropdown
         options={majors}
         placeholder="Enter your major"
         isSearchable
-        formatCreateLabel={inputValue => `My major is not listed, use "${inputValue}"`}
+        formatCreateLabel={inputValue => `${inputValue}`}
         label={formInputs.major}
         value={creatableDropdownValue(majors, 'label', formInputs.major)}
         onChange={e =>
@@ -201,7 +204,7 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 08</QuestionHeading>
-      <H1 size="1.5em">What is your current level of education?</H1>
+      <SubHeading>What is your current level of education?</SubHeading>
       <Dropdown
         options={educationOptions}
         placeholder="Level of Education"
@@ -218,7 +221,7 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 09</QuestionHeading>
-      <H1 size="1.5em">What is your graduation year?</H1>
+      <SubHeading>What is your graduation year?</SubHeading>
       <Dropdown
         options={graduationOptions}
         placeholder="Graduation Year"
@@ -235,7 +238,7 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 10</QuestionHeading>
-      <H1 size="1.5em">How many hackathons have you attended (both online and in-person)?</H1>
+      <SubHeading>How many hackathons have you attended (both online and in-person)?</SubHeading>
       <Dropdown
         options={hackathonOptions}
         placeholder="Number of Hackathons"
@@ -252,10 +255,10 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 11</QuestionHeading>
-      <H1 size="1.5em">
+      <SubHeading>
         How do you want to contribute at nwHacks? Please select the category that you're strongest
         in.
-      </H1>
+      </SubHeading>
       <Select
         type="radio"
         label="Developer"
@@ -272,7 +275,7 @@ export default ({ formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 12</QuestionHeading>
-      <H1 size="1.5em">Where are you currently located?</H1>
+      <SubHeading>Where are you currently located?</SubHeading>
       <TextInput
         placeholder="Enter your city and country"
         value={formInputs.location}
@@ -281,6 +284,7 @@ export default ({ formInputs, onChange }) => (
             location: e.target.value,
           })
         }
+        inline
       />
     </FormSpacing>
   </>
