@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
@@ -88,28 +88,44 @@ const ethnicityOptions = {
   preferNot: 'Prefer not to say',
 }
 
-const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
+const eventOptions = {
+  option1: 'Local Hack Day / HackCamp',
+  option2: 'nwHacks',
+  option3: 'cmd-f',
+  option4: 'cmd-f Phases',
+  option5: 'nwPlus Workshop Series',
+  option6: 'nwPlus Boothing',
+}
 
-export default ({ formInputs, handleEdit }) => {
-  const [termsAndConditions, setTermsAndConditions] = useState(formInputs.termsAndConditions)
+const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
+const getEvents = obj => Object.keys(obj).filter(key => obj[key])
+const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
+
+export default ({ formInputs, handleEdit, onChange }) => {
+  // since they're lowercase in firebase
+  const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
+  const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
+  const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
 
   const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ethnicityOptions[e])
-  var ethnicitiesVal = ''
+  var ethnicitiesValues = []
 
   for (var i = 0; i < ethnicities.length; i++) {
-    ethnicitiesVal = ethnicitiesVal.concat(ethnicities[i])
+    ethnicitiesValues.push(ethnicities[i])
 
     if (i < ethnicities.length - 1) {
-      ethnicitiesVal = ethnicitiesVal.concat(', ')
+      ethnicitiesValues.push(', ')
     }
   }
 
-  var attendedVal = ''
-  for (var j = 0; j < formInputs.questionnaire.eventsAttended.length; j++) {
-    attendedVal = attendedVal.concat(formInputs.questionnaire.eventsAttended[j])
+  const events = getEvents(formInputs.questionnaire.eventsAttended).map(e => eventOptions[e])
+  var attendedValues = []
 
-    if (i < formInputs.questionnaire.eventsAttended.length - 1) {
-      attendedVal = attendedVal.concat(', ')
+  for (var j = 0; j < events.length; j++) {
+    attendedValues.push(events[j])
+
+    if (j < events.length - 1) {
+      attendedValues.push(', ')
     }
   }
 
@@ -135,15 +151,14 @@ export default ({ formInputs, handleEdit }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
-            {/* TODO: replace hello/hi with actual values from formInputs */}
             <InfoGroup
               heading="Full Legal Name:"
               data={formInputs.basicInfo.firstName
                 .concat(' ')
                 .concat(formInputs.basicInfo.lastName)}
             />
-            <InfoGroup heading="Gender:" data={formInputs.basicInfo.gender} />
-            <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesVal} />
+            <InfoGroup heading="Gender:" data={gender} />
+            <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
             <InfoGroup
               heading="19 Years Old or Older"
               data={formInputs.basicInfo.isOfLegalAge ? 'Yes' : 'No'}
@@ -151,13 +166,10 @@ export default ({ formInputs, handleEdit }) => {
             <InfoGroup heading="Phone number:" data={formInputs.basicInfo.phoneNumber} />
             <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
             <InfoGroup heading="Intended Major:" data={formInputs.basicInfo.major} />
-            <InfoGroup heading="Level of Education" data={formInputs.basicInfo.educationLevel} />
+            <InfoGroup heading="Level of Education" data={educationLevel} />
             <InfoGroup heading="Graduation Year:" data={formInputs.basicInfo.graduation} />
             <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
-            <InfoGroup
-              heading="Contribution at nwHacks:"
-              data={formInputs.basicInfo.contributionRole}
-            />
+            <InfoGroup heading="Contribution at nwHacks:" data={contributionRole} />
             <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
         </StyledBanner>
@@ -176,8 +188,7 @@ export default ({ formInputs, handleEdit }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            {/* TODO: replace with actual values from formInputs */}
-            <InfoGroup heading="Resume" data={formInputs.skills.resume} />
+            <InfoGroup heading="Resume" data={formInputs.skills.resume.match(/[/\\]([\w\d\s.\-()]+)$/)[1]} />
             <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub" data={formInputs.skills.github} />
@@ -204,12 +215,11 @@ export default ({ formInputs, handleEdit }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            {/* TODO: replace with actual values from formInputs */}
             <InfoGroup
               heading="You Heard about nwHacks From"
               data={formInputs.questionnaire.engagementSource}
             />
-            <InfoGroup heading="nwPlus Events Attended:" data={attendedVal} />
+            <InfoGroup heading="nwPlus Events Attended:" data={attendedValues} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -221,7 +231,7 @@ export default ({ formInputs, handleEdit }) => {
             We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
             share certain application/registration information for event administration, ranking,
             MLH administration, and occasional messages about hackathons in line with the
-            <A bolded color="primary" src="https://mlh.io/privacy">
+            <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
               {' '}
               MLH Privacy Policy
             </A>
@@ -237,19 +247,22 @@ export default ({ formInputs, handleEdit }) => {
           </P>
         </ContentWrapper>
         <ContentWrapper textBlock>
-          {/* TODO: replace termsAndConditions.MLHCodeOfConduct with formInputs.termsAndConditions.MLHCodeOfConduct for all termsAndConditions */}
           <Checkbox
-            checked={termsAndConditions.MLHCodeOfConduct}
+            checked={formInputs.termsAndConditions.MLHCodeOfConduct}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                MLHCodeOfConduct: !termsAndConditions.MLHCodeOfConduct,
+              onChange({
+                MLHCodeOfConduct: !formInputs.termsAndConditions.MLHCodeOfConduct,
               })
             }
             required
           >
             I have read and agree to the{' '}
-            <A bolded color="primary" src="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">
+            <A
+              bolded
+              color="primary"
+              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+              target="_blank"
+            >
               {' '}
               MLH Code of Conduct
             </A>
@@ -257,33 +270,30 @@ export default ({ formInputs, handleEdit }) => {
           </Checkbox>
           <Checkbox
             flex
-            checked={termsAndConditions.MLHPrivacyPolicy}
+            checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                MLHPrivacyPolicy: !termsAndConditions.MLHPrivacyPolicy,
+              onChange({
+                MLHPrivacyPolicy: !formInputs.termsAndConditions.MLHPrivacyPolicy,
               })
             }
             label="I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy."
           />
           <Checkbox
             flex
-            checked={termsAndConditions.shareWithnwPlus}
+            checked={formInputs.termsAndConditions.shareWithnwPlus}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                shareWithnwPlus: !termsAndConditions.shareWithnwPlus,
+              onChange({
+                shareWithnwPlus: !formInputs.termsAndConditions.shareWithnwPlus,
               })
             }
             label="I agree to allow my anonymized data to be used for nwPlus data reporting."
           />
           <Checkbox
             flex
-            checked={termsAndConditions.shareWithSponsors}
+            checked={formInputs.termsAndConditions.shareWithSponsors}
             onChange={() =>
-              setTermsAndConditions({
-                ...termsAndConditions,
-                shareWithSponsors: !termsAndConditions.shareWithSponsors,
+              onChange({
+                shareWithSponsors: !formInputs.termsAndConditions.shareWithSponsors,
               })
             }
             label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, GitHub, Personal website) upon request."
