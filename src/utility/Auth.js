@@ -73,6 +73,7 @@ export const getRedirectUrl = redirect => {
   }
   switch (redirect) {
     case RedirectStatus.AttendingEvent && DB_HACKATHON === 'LHD2021':
+      return '/submission'
     case RedirectStatus.ApplicationNotSubmitted:
       return '/application/part-1'
     case RedirectStatus.ApplicationSubmitted:
