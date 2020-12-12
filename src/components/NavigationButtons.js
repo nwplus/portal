@@ -42,7 +42,7 @@ export default ({
 }) => {
   return (
     <NavigationButtonsContainer>
-      {autosaveTime && <I>Answers have been autosaved at {autosaveTime}</I>}
+      {autosaveTime && <I>Answers have been autosaved on {autosaveTime}</I>}
       <ButtonContainer>
         <StyledButton color="secondary" width="flex" onClick={firstButtonOnClick}>
           {firstButtonText}

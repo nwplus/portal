@@ -20,7 +20,7 @@ const sharedStyle = css`
     border-radius: 7px;
     box-shadow: none;
     max-width: ${p => (p.isSearchable ? dropdownWidth.searchable : dropdownWidth.normal)};
-    height: 48px;
+    height: 2.5em;
     border-color: ${p => (p.isValid ? p.theme.colors.default : p.theme.colors.warning)};
     padding-right: 17px;
     padding-left: 7px;

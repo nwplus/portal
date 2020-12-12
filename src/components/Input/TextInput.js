@@ -15,7 +15,8 @@ const TextInputContainer = styled.div`
   ${p =>
     p.inline &&
     `display: inline-block;
-  margin-left: 0;`}
+  margin-left: 0;
+  margin-top: 0.5em;`}
   ${p => p.noOutline && `margin: 0;`}
 `
 

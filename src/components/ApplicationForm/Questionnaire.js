@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { H1, QuestionHeading } from '../../components/Typography'
-import { FormSpacing } from './index'
+import { FormSpacing, SubHeading } from './'
 import { CenteredH1 } from '../Typography'
 import { findElement } from '../../utility/utilities'
 
@@ -27,15 +27,17 @@ export const options = [
 export default ({ formInputs, onChange }) => {
   return (
     <>
-      <CenteredH1>
-        Almost there...{' '}
-        <span role="img" aria-label="Ghost emoji">
-          👻
-        </span>
-      </CenteredH1>
+      <FormSpacing>
+        <CenteredH1>
+          Almost there...{' '}
+          <span role="img" aria-label="Ghost emoji">
+            👻
+          </span>
+        </CenteredH1>
+      </FormSpacing>
       <FormSpacing>
         <QuestionHeading>Question 14</QuestionHeading>
-        <H1 size="1.5em">How did you hear about nwHacks?</H1>
+        <SubHeading>How did you hear about nwHacks?</SubHeading>
         <StyledDropdown
           options={options}
           placeholder={'Select an option'}
@@ -68,7 +70,7 @@ export default ({ formInputs, onChange }) => {
 
       <FormSpacing>
         <QuestionHeading>Question 15</QuestionHeading>
-        <H1 size="1.5em">Which nwPlus events have you been to? (Select all that apply)</H1>
+        <SubHeading>Which nwPlus events have you been to? (Select all that apply)</SubHeading>
         <Select
           type="checkbox"
           label="Local Hack Day / Hack Camp"
