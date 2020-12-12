@@ -188,7 +188,14 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            <InfoGroup heading="Resume" data={formInputs.skills.resume.match(/[/\\]([\w\d\s.\-()]+)$/)[1]} />
+            <InfoGroup
+              heading="Resume"
+              data={
+                (formInputs.skills.resume &&
+                  formInputs.skills.resume.match(/[/\\]([\w\d\s.\-()]+)$/)[1]) ||
+                ''
+              }
+            />
             <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub" data={formInputs.skills.github} />
