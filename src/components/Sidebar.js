@@ -6,7 +6,7 @@ import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
-import { hackerStatuses } from '../utility/Constants'
+import { hackerStatuses } from './ApplicationDashboard'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
@@ -145,7 +145,7 @@ export default ({
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
               <ApplicationText>APPLICATION</ApplicationText>
-              <StatusText>{hackerStatuses[hackerStatus]['sidebarText']}</StatusText>
+              <StatusText>{hackerStatuses()[hackerStatus]['sidebarText']}</StatusText>
             </StyledA>
           </Link>
         )}
