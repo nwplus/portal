@@ -167,7 +167,7 @@ export default ({ formInputs, onChange }) => (
         options={schools}
         placeholder="Enter your school"
         isSearchable
-        formatCreateLabel={inputValue => `My school is not listed, use "${inputValue}"`}
+        formatCreateLabel={inputValue => `${inputValue}`}
         label={formInputs.school}
         value={creatableDropdownValue(schools, 'label', formInputs.school)}
         onChange={e =>
@@ -188,7 +188,7 @@ export default ({ formInputs, onChange }) => (
         options={majors}
         placeholder="Enter your major"
         isSearchable
-        formatCreateLabel={inputValue => `My major is not listed, use "${inputValue}"`}
+        formatCreateLabel={inputValue => `${inputValue}`}
         label={formInputs.major}
         value={creatableDropdownValue(majors, 'label', formInputs.major)}
         onChange={e =>
