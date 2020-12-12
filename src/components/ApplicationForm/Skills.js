@@ -39,7 +39,7 @@ export default ({ formInputs, onChange, role, handleResume }) => {
         <CenteredH1>
           Flex your skills!{' '}
           <span role="img" aria-label="muscle">
-            &#128170;
+            💪
           </span>
         </CenteredH1>
       </FormSpacing>
@@ -50,7 +50,7 @@ export default ({ formInputs, onChange, role, handleResume }) => {
           {' '}
           Don't be shy! Show off your wonderful skills{' '}
           <span role="img" aria-label="smiling face">
-            &#128513;
+            😁
           </span>
         </SubHeading>
         <H3>

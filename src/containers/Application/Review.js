@@ -41,7 +41,7 @@ export default () => {
         firstButtonOnClick={() => handleNavigation('/application/part-3')}
         secondButtonText="Submit"
         secondButtonOnClick={() => handleNavigation('/application/confirmation')}
-        autosaveTime={application.submission.lastUpdated.toDate().toString()} // TODO: replace with application.submission.lastUpdated.toDate().toString()
+        autosaveTime={application.submission.lastUpdated.toDate().toString()}
       />
     </>
   )
