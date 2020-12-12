@@ -1,5 +1,5 @@
 import React from 'react'
-import { CenteredH1, H1, H3, QuestionHeading } from '../Typography'
+import { CenteredH1, H3, QuestionHeading } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { FormSpacing, SubHeading } from './'

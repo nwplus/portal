@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
-import { H1, QuestionHeading } from '../../components/Typography'
+import { QuestionHeading } from '../../components/Typography'
 import { FormSpacing, SubHeading } from './'
 import { CenteredH1 } from '../Typography'
 import { findElement } from '../../utility/utilities'
