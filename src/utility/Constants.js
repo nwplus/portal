@@ -9,7 +9,7 @@ export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'HackCamp 2020',
+  hackathonName: 'nwHacks 2021',
 })
 
 export const NOTIFICATION_PERMISSIONS = Object.freeze({
