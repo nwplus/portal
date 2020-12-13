@@ -34,9 +34,6 @@ export function AuthProvider({ children }) {
       const admin = await checkAdminClaim(currUser)
       currUser.admin = admin
       setUser(currUser)
-      if (location === '/application') {
-        await handleUser(setUser, setLocation)
-      }
       setLoading(false)
     })
   })
