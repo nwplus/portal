@@ -4,6 +4,7 @@ import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
 import { H1, P, QuestionHeading, A } from '../Typography'
 import { Button, Checkbox } from '../Input'
+import { CenterHorizontally } from '../Common'
 
 const HoloBackground = styled.img`
   position: absolute;
@@ -17,11 +18,13 @@ const HoloBackground = styled.img`
   z-index: -1;
   top: 0;
   left: 0;
+  height: min-content;
+  ${CenterHorizontally}
 `
 
 const ReviewContainer = styled.div`
   position: relative;
-  max-width: 800px;
+  max-width: 100%;
   margin: 3em auto;
 `
 
@@ -45,10 +48,10 @@ const StyledH1 = styled(H1)`
 
 const StyledBanner = styled(Banner)`
   && {
-    max-width: 800px;
     top: 18em;
     padding: 0;
     z-index: 0;
+    border-radius: 21px;
   }
 `
 
@@ -161,13 +164,22 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
             <InfoGroup
               heading="19 Years Old or Older"
-              data={formInputs.basicInfo.isOfLegalAge ? 'Yes' : 'No'}
+              data={
+                formInputs.basicInfo.isOfLegalAge
+                  ? 'Yes'
+                  : formInputs.basicInfo.isOfLegalAge === null
+                  ? ''
+                  : 'No'
+              }
             />
             <InfoGroup heading="Phone number:" data={formInputs.basicInfo.phoneNumber} />
             <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
             <InfoGroup heading="Intended Major:" data={formInputs.basicInfo.major} />
             <InfoGroup heading="Level of Education" data={educationLevel} />
-            <InfoGroup heading="Graduation Year:" data={formInputs.basicInfo.graduation} />
+            <InfoGroup
+              heading="Graduation Year:"
+              data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
+            />
             <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
             <InfoGroup heading="Contribution at nwHacks:" data={contributionRole} />
             <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
@@ -224,7 +236,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
           <ContentWrapper>
             <InfoGroup
               heading="You Heard about nwHacks From"
-              data={formInputs.questionnaire.engagementSource}
+              data={
+                formInputs.questionnaire.engagementSource !== 'Other'
+                  ? formInputs.questionnaire.engagementSource
+                  : formInputs.questionnaire.otherEngagementSource
+              }
             />
             <InfoGroup heading="nwPlus Events Attended:" data={attendedValues} />
           </ContentWrapper>
@@ -237,9 +253,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
           <P>
             We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
             share certain application/registration information for event administration, ranking,
-            MLH administration, and occasional messages about hackathons in line with the
+            MLH administration, and occasional messages about hackathons in line with the{' '}
             <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
-              {' '}
               MLH Privacy Policy
             </A>
             .
@@ -270,7 +285,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
               href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
               target="_blank"
             >
-              {' '}
               MLH Code of Conduct
             </A>
             .<RequiredAsterisk>*</RequiredAsterisk>
@@ -283,8 +297,26 @@ export default ({ formInputs, handleEdit, onChange }) => {
                 MLHPrivacyPolicy: !formInputs.termsAndConditions.MLHPrivacyPolicy,
               })
             }
-            label="I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy."
-          />
+          >
+            <span>
+              I authorize you to share my application/registration information for event
+              administration, ranking, MLH administration, pre- and post-event informational
+              e-mails, and occasional messages about hackathons in-line with the{' '}
+              <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
+                MLH Privacy Policy
+              </A>
+              . I further agree to the terms of both the{' '}
+              <A
+                bolded
+                color="primary"
+                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                target="_blank"
+              >
+                MLH Contest Terms and Conditions
+              </A>{' '}
+              and the MLH Privacy Policy.<RequiredAsterisk>*</RequiredAsterisk>
+            </span>
+          </Checkbox>
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
@@ -307,7 +339,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
           />
         </ContentWrapper>
       </ReviewContainer>
-
       <HoloBackground src={holo} />
     </>
   )

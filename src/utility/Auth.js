@@ -20,7 +20,7 @@ export const checkAdminClaim = async user => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [, setLocation] = useLocation()
+  const [location, setLocation] = useLocation()
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(async currUser => {
@@ -34,6 +34,9 @@ export function AuthProvider({ children }) {
       const admin = await checkAdminClaim(currUser)
       currUser.admin = admin
       setUser(currUser)
+      if (location === '/application') {
+        await handleUser(setUser, setLocation)
+      }
       setLoading(false)
     })
   })
@@ -41,7 +44,9 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/')
+    /* changed from / to /login for nwHacks application since the rest of the livesite content (schedule, sponsors, etc)
+       hasn't been updated */
+    setLocation('/login')
   }
 
   return loading ? (
@@ -69,7 +74,7 @@ export const getRedirectUrl = redirect => {
     if (DB_HACKATHON === 'LHD2021') return '/submission'
   }
   switch (redirect) {
-    case RedirectStatus.AttendingEvent:
+    case RedirectStatus.AttendingEvent && DB_HACKATHON === 'LHD2021':
       return '/submission'
     case RedirectStatus.ApplicationNotSubmitted:
       return '/application/part-1'

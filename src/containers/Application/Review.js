@@ -4,6 +4,7 @@ import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import ReviewCards from '../../components/ApplicationForm/ReviewCards'
+import { ApplicationStatus } from '../../utility/Constants'
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -16,6 +17,18 @@ export default () => {
 
   const handleNavigation = async href => {
     await forceSave()
+    setLocation(href)
+    window.scrollTo(0, 0)
+  }
+
+  const handleSubmit = async href => {
+    await forceSave()
+    updateApplication({
+      ...application,
+      status: {
+        applicationStatus: ApplicationStatus.applied,
+      },
+    })
     setLocation(href)
     window.scrollTo(0, 0)
   }
@@ -40,7 +53,7 @@ export default () => {
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-3')}
         secondButtonText="Submit"
-        secondButtonOnClick={() => handleNavigation('/application/confirmation')}
+        secondButtonOnClick={() => handleSubmit('/application/confirmation')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
       />
     </>

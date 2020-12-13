@@ -145,7 +145,7 @@ export default ({
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
               <ApplicationText>APPLICATION</ApplicationText>
-              <StatusText>{hackerStatuses()[hackerStatus]['sidebarText']}</StatusText>
+              <StatusText>{hackerStatuses()[hackerStatus]?.sidebarText}</StatusText>
             </StyledA>
           </Link>
         )}
