@@ -20,7 +20,7 @@ export const checkAdminClaim = async user => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [location, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(async currUser => {
