@@ -30,7 +30,6 @@ export default () => {
   }
 
   useEffect(() => {
-    console.log(application)
     if (application.status.applicationStatus === ApplicationStatus.applied) {
       setLocation('/application/confirmation')
       window.scrollTo(0, 0)
