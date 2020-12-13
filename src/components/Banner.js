@@ -4,7 +4,7 @@ import { CenterHorizontally } from './Common'
 
 const bannerWidth = {
   default: '320px',
-  wide: '100%',
+  wide: '800px',
 }
 
 const StyledContainer = styled.div`
