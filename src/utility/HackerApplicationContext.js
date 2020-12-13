@@ -30,7 +30,7 @@ export function HackerApplicationProvider({ children }) {
   /**Saves the users application, can be called manually or through interval */
   /**Uses a reference to the application because I don't want all my useEffects triggering every time someone changes the application. */
   const forceSave = useCallback(async () => {
-    if (!user || !applicationRef) return
+    if (!user || !applicationRef.current) return
     const updatedApp = {
       ...applicationRef.current,
       submission: {
