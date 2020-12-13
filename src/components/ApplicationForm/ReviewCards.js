@@ -21,7 +21,7 @@ const HoloBackground = styled.img`
 
 const ReviewContainer = styled.div`
   position: relative;
-  max-width: 800px;
+  max-width: 100%;
   margin: 3em auto;
 `
 
@@ -45,10 +45,10 @@ const StyledH1 = styled(H1)`
 
 const StyledBanner = styled(Banner)`
   && {
-    max-width: 800px;
     top: 18em;
     padding: 0;
     z-index: 0;
+    border-radius: 21px;
   }
 `
 
@@ -224,7 +224,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
           <ContentWrapper>
             <InfoGroup
               heading="You Heard about nwHacks From"
-              data={formInputs.questionnaire.engagementSource}
+              data={
+                formInputs.questionnaire.engagementSource !== 'Other'
+                  ? formInputs.questionnaire.engagementSource
+                  : formInputs.questionnaire.otherEngagementSource
+              }
             />
             <InfoGroup heading="nwPlus Events Attended:" data={attendedValues} />
           </ContentWrapper>
