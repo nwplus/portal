@@ -111,7 +111,7 @@ const RSVPButton = styled(Button)`
   ${p => !p.shouldDisplay && 'display: none'}
 `
 
-export const hackerStatuses = (relevantDates, hackerFirstName = null) => ({
+export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
@@ -120,14 +120,14 @@ export const hackerStatuses = (relevantDates, hackerFirstName = null) => ({
   waitlisted: {
     sidebarText: 'Waitlisted',
     cardText: 'Waitlisted',
-    blurb: `Hi ${hackerFirstName}, we had a lovely time reading your application, and were very impressed with your commitment to joining the technology community. We would love to see you at ${copyText.hackathonName} this year, however, at the moment, we can not confirm a spot for you. You have been put in our waitlist, and will be notified ${relevantDates?.offWaitlistNotify} if we found a spot for you, so please check your email then!`,
+    blurb: `Hi ${hackerName}, we had a lovely time reading your application, and were very impressed with your commitment to joining the technology community. We would love to see you at ${copyText.hackathonName} this year, however, at the moment, we can not confirm a spot for you. You have been put in our waitlist, and will be notified ${relevantDates?.offWaitlistNotify} if we found a spot for you, so please check your email then!`,
   },
   rejected: {
     sidebarText: 'Rejected',
     cardText: 'Rejected',
     blurb: (
       <>
-        Hi {hackerFirstName}, we are sorry to inform you that we won't be able to give you a spot at{' '}
+        Hi {hackerName}, we are sorry to inform you that we won't be able to give you a spot at{' '}
         {copyText.hackathonName}. We had a lot of amazing applicants this year, and we are very
         grateful to have gotten yours, but we can't take everyone. We do hope to see your
         application next year and that this setback isn't the end of your tech career. Please visit
@@ -172,7 +172,7 @@ export const hackerStatuses = (relevantDates, hackerFirstName = null) => ({
   },
 })
 
-export const SocialMediaLinks = () => {
+const SocialMediaLinks = () => {
   // TODO: Color of icons for HackCamp TBD
   return (
     <div>
