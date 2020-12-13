@@ -33,10 +33,10 @@ export function AuthProvider({ children }) {
       currUser.redirect = redirect
       const admin = await checkAdminClaim(currUser)
       currUser.admin = admin
+      setUser(currUser)
       if (location === '/application') {
         await handleUser(setUser, setLocation)
       }
-      setUser(currUser)
       setLoading(false)
     })
   })

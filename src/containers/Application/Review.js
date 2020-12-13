@@ -24,9 +24,7 @@ export default () => {
   const handleSubmit = async href => {
     await forceSave()
     updateApplication({
-      submission: {
-        submitted: true,
-      },
+      ...application,
       status: {
         applicationStatus: ApplicationStatus.applied,
       },

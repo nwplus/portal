@@ -85,6 +85,7 @@ export function HackerApplicationProvider({ children }) {
     skills,
     questionnaire,
     status,
+    submission,
     termsAndConditions,
     team,
   }) => {
@@ -105,6 +106,10 @@ export function HackerApplicationProvider({ children }) {
       status: {
         ...application.status,
         ...status,
+      },
+      submission: {
+        ...application.submission,
+        ...submission,
       },
       termsAndConditions: {
         ...application.termsAndConditions,

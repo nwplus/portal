@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1, A } from './Typography'
 import { Button } from './Input/Button'
-import { SOCIAL_LINKS, relevantDates, copyText } from '../utility/Constants'
+import { SOCIAL_LINKS, copyText } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
 import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
@@ -111,16 +111,16 @@ const RSVPButton = styled(Button)`
   ${p => !p.shouldDisplay && 'display: none'}
 `
 
-export const hackerStatuses = (hackerFirstName = null) => ({
+export const hackerStatuses = (relevantDates, hackerFirstName = null) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
-    blurb: `We will send out all acceptances by ${relevantDates.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and workshops!`,
+    blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and workshops!`,
   },
   waitlisted: {
     sidebarText: 'Waitlisted',
     cardText: 'Waitlisted',
-    blurb: `Hi ${hackerFirstName}, we had a lovely time reading your application, and were very impressed with your commitment to joining the technology community. We would love to see you at ${copyText.hackathonName} this year, however, at the moment, we can not confirm a spot for you. You have been put in our waitlist, and will be notified ${relevantDates.offWaitlist} if we found a spot for you, so please check your email then!`,
+    blurb: `Hi ${hackerFirstName}, we had a lovely time reading your application, and were very impressed with your commitment to joining the technology community. We would love to see you at ${copyText.hackathonName} this year, however, at the moment, we can not confirm a spot for you. You have been put in our waitlist, and will be notified ${relevantDates?.offWaitlistNotify} if we found a spot for you, so please check your email then!`,
   },
   rejected: {
     sidebarText: 'Rejected',
@@ -142,7 +142,7 @@ export const hackerStatuses = (hackerFirstName = null) => ({
   acceptedNoResponseYet: {
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates.hackathonDate}! Please RSVP before ${relevantDates.rsvpBy} to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -199,6 +199,7 @@ const Dashboard = ({
   setRSVP,
   username,
   editApplication,
+  relevantDates,
 }) => {
   return (
     <Container>
@@ -220,9 +221,11 @@ const Dashboard = ({
       <StatusContainer>
         <div>
           <AppStatusText>
-            Application status: {hackerStatuses(username)[hackerStatus]?.cardText}
+            Application status: {hackerStatuses(relevantDates, username)[hackerStatus]?.cardText}
           </AppStatusText>
-          <StatusBlurbText>{hackerStatuses(username)[hackerStatus]?.blurb}</StatusBlurbText>
+          <StatusBlurbText>
+            {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}
+          </StatusBlurbText>
         </div>
         <FooterContainer>
           <SocialMediaLinks />
