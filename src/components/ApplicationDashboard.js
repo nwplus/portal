@@ -115,7 +115,7 @@ export const hackerStatuses = (hackerFirstName = null) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
-    blurb: `We will send out all acceptances by ${relevantDates.sendAcceptancesBy}. In the mean time, get connected with our community of hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and workshops.`,
+    blurb: `We will send out all acceptances by ${relevantDates.sendAcceptancesBy}. In the mean time, get connected with our community of hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and workshops!`,
   },
   waitlisted: {
     sidebarText: 'Waitlisted',
@@ -172,7 +172,7 @@ export const hackerStatuses = (hackerFirstName = null) => ({
   },
 })
 
-const SocialMediaLinks = () => {
+export const SocialMediaLinks = () => {
   // TODO: Color of icons for HackCamp TBD
   return (
     <div>

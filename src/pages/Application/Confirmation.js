@@ -15,7 +15,7 @@ export default () => {
     >
       <ButtonContainer>
         <Button color="primary" width="flex" onClick={() => setLocation('/application')}>
-          Back to Home
+          Go to Dashboard
         </Button>
       </ButtonContainer>
     </Landing>

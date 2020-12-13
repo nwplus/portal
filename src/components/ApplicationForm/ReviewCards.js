@@ -4,6 +4,7 @@ import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
 import { H1, P, QuestionHeading, A } from '../Typography'
 import { Button, Checkbox } from '../Input'
+import { CenterHorizontally } from '../Common'
 
 const HoloBackground = styled.img`
   position: absolute;
@@ -17,6 +18,8 @@ const HoloBackground = styled.img`
   z-index: -1;
   top: 0;
   left: 0;
+  height: min-content;
+  ${CenterHorizontally}
 `
 
 const ReviewContainer = styled.div`
@@ -161,7 +164,13 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
             <InfoGroup
               heading="19 Years Old or Older"
-              data={formInputs.basicInfo.isOfLegalAge ? 'Yes' : 'No'}
+              data={
+                formInputs.basicInfo.isOfLegalAge
+                  ? 'Yes'
+                  : formInputs.basicInfo.isOfLegalAge === null
+                  ? ''
+                  : 'No'
+              }
             />
             <InfoGroup heading="Phone number:" data={formInputs.basicInfo.phoneNumber} />
             <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
@@ -241,9 +250,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
           <P>
             We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
             share certain application/registration information for event administration, ranking,
-            MLH administration, and occasional messages about hackathons in line with the
+            MLH administration, and occasional messages about hackathons in line with the{' '}
             <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
-              {' '}
               MLH Privacy Policy
             </A>
             .
@@ -274,7 +282,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
               href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
               target="_blank"
             >
-              {' '}
               MLH Code of Conduct
             </A>
             .<RequiredAsterisk>*</RequiredAsterisk>
@@ -287,8 +294,26 @@ export default ({ formInputs, handleEdit, onChange }) => {
                 MLHPrivacyPolicy: !formInputs.termsAndConditions.MLHPrivacyPolicy,
               })
             }
-            label="I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the MLH Privacy Policy. I further agree to the terms of both the MLH Contest Terms and Conditions and the MLH Privacy Policy."
-          />
+          >
+            <span>
+              I authorize you to share my application/registration information for event
+              administration, ranking, MLH administration, pre- and post-event informational
+              e-mails, and occasional messages about hackathons in-line with the{' '}
+              <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
+                MLH Privacy Policy
+              </A>
+              . I further agree to the terms of both the{' '}
+              <A
+                bolded
+                color="primary"
+                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                target="_blank"
+              >
+                MLH Contest Terms and Conditions
+              </A>{' '}
+              and the MLH Privacy Policy.<RequiredAsterisk>*</RequiredAsterisk>
+            </span>
+          </Checkbox>
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
@@ -311,7 +336,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
           />
         </ContentWrapper>
       </ReviewContainer>
-
       <HoloBackground src={holo} />
     </>
   )
