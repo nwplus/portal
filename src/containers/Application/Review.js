@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
@@ -21,16 +21,20 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
-  const handleSubmit = async href => {
+  const handleSubmit = async () => {
     updateApplication({
       status: {
         applicationStatus: ApplicationStatus.applied,
       },
     })
-    await forceSave()
-    setLocation(href)
-    window.scrollTo(0, 0)
   }
+
+  useEffect(() => {
+    if (application.applicationStatus === ApplicationStatus.applied) {
+      setLocation('/application/confirmation')
+      window.scrollTo(0, 0)
+    }
+  }, application)
 
   const updateTermsAndConditions = change => {
     updateApplication({
@@ -52,7 +56,7 @@ export default () => {
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-3')}
         secondButtonText="Submit"
-        secondButtonOnClick={() => handleSubmit('/application/confirmation')}
+        secondButtonOnClick={() => handleSubmit()}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
       />
     </>
