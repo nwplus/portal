@@ -30,11 +30,12 @@ export default () => {
   }
 
   useEffect(() => {
-    if (application.applicationStatus === ApplicationStatus.applied) {
+    console.log(application)
+    if (application.status.applicationStatus === ApplicationStatus.applied) {
       setLocation('/application/confirmation')
       window.scrollTo(0, 0)
     }
-  }, application)
+  })
 
   const updateTermsAndConditions = change => {
     updateApplication({
