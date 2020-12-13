@@ -120,7 +120,7 @@ export const hackerStatuses = (hackerFirstName = null) => ({
   waitlisted: {
     sidebarText: 'Waitlisted',
     cardText: 'Waitlisted',
-    blurb: `Hi ${hackerFirstName}, we had a lovely time reading your application, and were very impressed with your commitment to joining the technology community. We would love to see you at ${copyText.hackathonName} this year, however, at the moment, we can not confirm a spot for you. You have been put in our waitlist, and will be notified by ${relevantDates.rsvpBy} if we found a spot for you, so please check your email then!`,
+    blurb: `Hi ${hackerFirstName}, we had a lovely time reading your application, and were very impressed with your commitment to joining the technology community. We would love to see you at ${copyText.hackathonName} this year, however, at the moment, we can not confirm a spot for you. You have been put in our waitlist, and will be notified ${relevantDates.offWaitlist} if we found a spot for you, so please check your email then!`,
   },
   rejected: {
     sidebarText: 'Rejected',

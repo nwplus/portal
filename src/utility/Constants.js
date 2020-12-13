@@ -102,5 +102,6 @@ export const hackerApplicationTemplate = Object.freeze({
 export const relevantDates = Object.freeze({
   sendAcceptancesBy: 'December 30th, 2020',
   rsvpBy: 'Janurary 3rd at 11:59 PM (Pacific Time)',
+  offWaitlist: 'one week before the event',
   hackathonDate: 'January 9-10th',
 })
