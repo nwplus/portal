@@ -22,13 +22,12 @@ export default () => {
   }
 
   const handleSubmit = async href => {
-    await forceSave()
     updateApplication({
-      ...application,
       status: {
         applicationStatus: ApplicationStatus.applied,
       },
     })
+    await forceSave()
     setLocation(href)
     window.scrollTo(0, 0)
   }
