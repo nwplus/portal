@@ -6,6 +6,7 @@ import { Button } from '../components/Input'
 import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
+import { DB_HACKATHON } from '../utility/Constants'
 import { useLocation } from 'wouter'
 import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
@@ -83,7 +84,7 @@ export default () => {
             Continue with GitHub
           </StyledButton>
         </ButtonContainer>
-        <A href="/">Return to Portal</A>
+        {DB_HACKATHON === 'LHD2021' && <A href="/">Return to Portal</A>}
       </Landing>
       <ErrorBanner>{error ? <ErrorMessage message={error.message} /> : null}</ErrorBanner>
     </>

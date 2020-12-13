@@ -44,7 +44,9 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/')
+    /* changed from / to /login for nwHacks application since the rest of the livesite content (schedule, sponsors, etc)
+       hasn't been updated */
+    setLocation('/login')
   }
 
   return loading ? (
