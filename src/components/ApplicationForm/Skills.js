@@ -32,7 +32,7 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
-export default ({ formInputs, onChange, role, handleResume }) => {
+export default ({ errors, formInputs, onChange, role, handleResume }) => {
   return (
     <>
       <FormSpacing>
@@ -78,6 +78,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                 placeholder="Required"
                 size="large"
                 value={formInputs.portfolio}
+                invalid={!!errors.portfolio}
+                errorMsg={errors.portfolio}
                 onChange={e =>
                   onChange({
                     portfolio: e.target.value,
@@ -91,6 +93,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                 placeholder="Required"
                 size="large"
                 value={formInputs.github}
+                invalid={!!errors.github}
+                errorMsg={errors.github}
                 onChange={e =>
                   onChange({
                     github: e.target.value,
@@ -105,6 +109,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
               placeholder="Optional"
               size="large"
               value={formInputs.linkedin}
+              invalid={!!errors.linkedin}
+              errorMsg={errors.linkedin}
               onChange={e =>
                 onChange({
                   linkedin: e.target.value,
@@ -119,6 +125,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                 placeholder="Optional"
                 size="large"
                 value={formInputs.github}
+                invalid={!!errors.github}
+                errorMsg={errors.github}
                 onChange={e =>
                   onChange({
                     github: e.target.value,
@@ -132,6 +140,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                 placeholder="Optional"
                 size="large"
                 value={formInputs.portfolio}
+                invalid={!!errors.portfolio}
+                errorMsg={errors.portfolio}
                 onChange={e =>
                   onChange({
                     portfolio: e.target.value,
@@ -157,6 +167,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
           maxLength="650"
           width="100%"
           value={formInputs.longAnswers}
+          invalid={!!errors.longAnswers}
+          errorMsg={errors.longAnswers}
           onChange={val =>
             onChange({
               longAnswers: val,

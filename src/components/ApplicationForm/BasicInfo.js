@@ -54,7 +54,7 @@ const hackathonOptions = [
 ]
 
 // form part 1
-export default ({ formInputs, onChange }) => (
+export default ({ errors, formInputs, onChange }) => (
   <>
     <FormSpacing>
       <CenteredH1>
@@ -72,6 +72,8 @@ export default ({ formInputs, onChange }) => (
         placeholder="First Name"
         inline
         value={formInputs.firstName}
+        errorMsg={errors?.firstName}
+        invalid={!!errors?.firstName}
         onChange={e =>
           onChange({
             firstName: e.target.value,
@@ -82,6 +84,8 @@ export default ({ formInputs, onChange }) => (
         placeholder="Last Name"
         inline
         value={formInputs.lastName}
+        errorMsg={errors?.lastName}
+        invalid={!!errors?.lastName}
         onChange={e =>
           onChange({
             lastName: e.target.value,
@@ -151,6 +155,8 @@ export default ({ formInputs, onChange }) => (
       <TextInput
         placeholder="XXX-XXX-XXXX"
         value={formInputs.phoneNumber}
+        errorMsg={errors?.phoneNumber}
+        invalid={!!errors?.phoneNumber}
         onChange={e =>
           onChange({
             phoneNumber: e.target.value,
@@ -280,6 +286,8 @@ export default ({ formInputs, onChange }) => (
       <TextInput
         placeholder="Enter your city and country"
         value={formInputs.location}
+        errorMsg={errors?.location}
+        invalid={!!errors?.location}
         onChange={e =>
           onChange({
             location: e.target.value,
