@@ -47,6 +47,10 @@ export const Message = styled.p`
   margin: 0.5em 0em;
 `
 
+export const ErrorSpan = styled.span`
+  color: ${p => p.theme.colors.warning};
+`
+
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
 export const A = styled.a`
   cursor: pointer;
