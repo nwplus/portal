@@ -1,5 +1,10 @@
 import React from 'react'
-import { QuestionHeading, CenteredH1, ErrorMessage } from '../Typography'
+import {
+  QuestionHeading,
+  CenteredH1,
+  ErrorMessage,
+  ErrorSpan as RequiredAsterisk,
+} from '../Typography'
 import { TextInput } from '../Input/TextInput'
 import Dropdown from '../Input/Dropdown'
 import Select from '../Input/Select'
@@ -67,7 +72,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
-      <SubHeading>What is your preferred name?</SubHeading>
+      <SubHeading>
+        What is your preferred name?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       <TextInput
         placeholder="First Name"
         inline
@@ -96,7 +103,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
-      <SubHeading>Which gender do you identify as?</SubHeading>
+      <SubHeading>
+        Which gender do you identify as?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>}
       <Dropdown
         options={genderOptions}
@@ -114,7 +123,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
-      <SubHeading>What is your race/ethnicity? (Select all that apply)</SubHeading>
+      <SubHeading>
+        What is your race/ethnicity? (Select all that apply)<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
       {formInputs &&
         Object.entries(formInputs?.ethnicity)
@@ -136,7 +147,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
-      <SubHeading>Will you be 19 years or older by January 9th, 2021?</SubHeading>
+      <SubHeading>
+        Will you be 19 years or older by January 9th, 2021?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.isOfLegalAge && <ErrorMessage>{errors?.isOfLegalAge}</ErrorMessage>}
       <Select
         type="radio"
@@ -154,7 +167,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 05</QuestionHeading>
-      <SubHeading>What is your phone number?</SubHeading>
+      <SubHeading>
+        What is your phone number?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       <TextInput
         placeholder="+X XXX-XXX-XXXX"
         value={formInputs.phoneNumber}
@@ -171,7 +186,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
-      <SubHeading>What school do you go to?</SubHeading>
+      <SubHeading>
+        What school do you go to?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
       <Dropdown
         options={schools}
@@ -193,7 +210,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 07</QuestionHeading>
-      <SubHeading>What is your current or intended major?</SubHeading>
+      <SubHeading>
+        What is your current or intended major?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
       <Dropdown
         options={majors}
@@ -215,7 +234,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 08</QuestionHeading>
-      <SubHeading>What is your current level of education?</SubHeading>
+      <SubHeading>
+        What is your current level of education?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
       <Dropdown
         options={educationOptions}
@@ -233,7 +254,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 09</QuestionHeading>
-      <SubHeading>What is your graduation year?</SubHeading>
+      <SubHeading>
+        What is your graduation year?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
       <Dropdown
         options={graduationOptions}
@@ -251,7 +274,10 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 10</QuestionHeading>
-      <SubHeading>How many hackathons have you attended (both online and in-person)?</SubHeading>
+      <SubHeading>
+        How many hackathons have you attended (both online and in-person)?
+        <RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
       <Dropdown
         options={hackathonOptions}
@@ -272,6 +298,7 @@ export default ({ errors, formInputs, onChange }) => (
       <SubHeading>
         How do you want to contribute at nwHacks? Please select the category that you're strongest
         in.
+        <RequiredAsterisk>*</RequiredAsterisk>
       </SubHeading>
       {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
       <Select
@@ -290,7 +317,9 @@ export default ({ errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 12</QuestionHeading>
-      <SubHeading>Where are you currently located?</SubHeading>
+      <SubHeading>
+        Where are you currently located?<RequiredAsterisk>*</RequiredAsterisk>
+      </SubHeading>
       <TextInput
         placeholder="Enter your city and country"
         value={formInputs.location}

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
-import { H1, P, QuestionHeading, A } from '../Typography'
+import { H1, P, QuestionHeading, A, ErrorSpan as RequiredAsterisk } from '../Typography'
 import { Button, Checkbox } from '../Input'
 import { CenterHorizontally } from '../Common'
 
@@ -68,10 +68,6 @@ const CenterH1 = styled(H1)`
   justify-content: center;
 `
 
-const RequiredAsterisk = styled.span`
-  color: ${p => p.theme.colors.warning};
-`
-
 const InfoGroup = ({ heading, data }) => (
   <InfoGroupWrapper>
     <H1 size="1.2em">{heading}</H1>
@@ -104,7 +100,7 @@ const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
 const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
-export default ({ formInputs, handleEdit, onChange }) => {
+export default ({ formInputs, handleEdit, onChange, errors }) => {
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
@@ -318,15 +314,17 @@ export default ({ formInputs, handleEdit, onChange }) => {
             </span>
           </Checkbox>
           <Checkbox
-            flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
             onChange={() =>
               onChange({
                 shareWithnwPlus: !formInputs.termsAndConditions.shareWithnwPlus,
               })
             }
-            label="I agree to allow my anonymized data to be used for nwPlus data reporting."
-          />
+            required
+          >
+            I agree to allow my anonymized data to be used for nwPlus data reporting.
+            <RequiredAsterisk>*</RequiredAsterisk>
+          </Checkbox>
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.shareWithSponsors}
@@ -335,7 +333,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
                 shareWithSponsors: !formInputs.termsAndConditions.shareWithSponsors,
               })
             }
-            label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, GitHub, Personal website) upon request."
+            label="I would like to share my resume and supporting links (Linkedin, GitHub, Portfolio) to event sponsors and recruiters."
           />
         </ContentWrapper>
       </ReviewContainer>

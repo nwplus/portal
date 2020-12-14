@@ -1,5 +1,11 @@
 import React from 'react'
-import { CenteredH1, H3, QuestionHeading, ErrorMessage } from '../Typography'
+import {
+  CenteredH1,
+  H3,
+  QuestionHeading,
+  ErrorMessage,
+  ErrorSpan as RequiredAsterisk,
+} from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { FormSpacing, SubHeading } from './'
@@ -21,18 +27,20 @@ const QuestionRow = styled(QuestionHeading)`
   padding-right: 4em;
 `
 
-const FormRow = ({ id, children }) => (
-  <div>
-    <QuestionRow>{id}</QuestionRow>
-    <div>{children}</div>
-  </div>
-)
-
 const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
 export default ({ errors, formInputs, onChange, role, handleResume }) => {
+  const FormRow = ({ id, children }) => (
+    <div>
+      <QuestionRow>
+        {id}
+        {role === 'developer' && id === 'github' && <RequiredAsterisk>*</RequiredAsterisk>}
+      </QuestionRow>
+      <div>{children}</div>
+    </div>
+  )
   return (
     <>
       <FormSpacing>
@@ -95,7 +103,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           ) : (
             <FormRow id="github">
               <TextInput
-                placeholder="Optional"
+                placeholder="Required"
                 size="large"
                 value={formInputs.github}
                 invalid={!!errors.github}
@@ -160,9 +168,11 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <QuestionHeading>question 13</QuestionHeading>
-        <SubHeading color="primary">Answer one of the two questions:</SubHeading>
+        <SubHeading color="primary">
+          Answer one of the two questions:<RequiredAsterisk>*</RequiredAsterisk>
+        </SubHeading>
         <SubHeading size="1.25em">
-          1. Describe how you became interested in the world of technology and here you hope to go
+          1. Describe how you became interested in the world of technology and where you hope to go
           from here on out!
         </SubHeading>
         <SubHeading size="1.25em">
