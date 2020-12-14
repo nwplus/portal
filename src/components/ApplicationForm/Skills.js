@@ -66,6 +66,9 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                   if (size > 2) {
                     alert('File must be less than 2 MB')
                   }
+                  onChange({
+                    resume: e.target.value,
+                  })
                   handleResume(e.target.files[0])
                 }
               }}
