@@ -15,6 +15,7 @@ export default () => {
   const validate = change => {
     const newErrors = validateFormSection(change, 'termsAndConditions')
     setErrors({ ...errors, ...newErrors })
+    return { ...errors, ...newErrors }
   }
 
   const handleEdit = href => {
