@@ -33,7 +33,12 @@ export default () => {
 
   const handleNavigation = async href => {
     await forceSave()
-    await uploadResumeToStorage(application._id, resume)
+    const resumeURL = await uploadResumeToStorage(application._id, resume)
+    updateApplication({
+      skills: {
+        resume: resumeURL,
+      },
+    })
     if (href === '/application/part-3') {
       const newErrors = validate(application.skills)
       if (checkForError(newErrors)) return
