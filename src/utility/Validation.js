@@ -1,5 +1,6 @@
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
+const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please include a valid phone number including country code, eg. +1 123-456-7890'
 const URL = 'Please include a valid URL.'
@@ -21,7 +22,7 @@ const validateNotNull = thing => {
   return thing !== null
 }
 const validateStringNotEmpty = thing => {
-  return typeof thing === 'string' && thing !== ''
+  return (typeof thing === 'string' || typeof thing === 'number') && thing !== ''
 }
 const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
@@ -31,10 +32,28 @@ const validatePhoneNumber = thing => {
   const phoneno = /^\+((?:9[679]|8[035789]|6[789]|5[90]|42|3[578]|2[1-689])|9[0-58]|8[1246]|6[0-6]|5[1-8]|4[013-9]|3[0-469]|2[70]|7|1)(?:\W*\d){0,13}\d$/
   return thing.match(phoneno)
 }
+const validateNotAllFalse = thing => {
+  const thingValues = Object.values(thing)
+  return !thingValues.reduce((sum, next) => sum || next.status, false)
+}
 
 const noEmptyFunction = thing => {
   return {
     error: !validateStringNotEmpty(thing),
+    message: NOT_EMPTY,
+  }
+}
+
+const noNoneFunction = thing => {
+  return {
+    error: !validateNotAllFalse(thing),
+    message: NOT_NONE,
+  }
+}
+
+const noNeitherFunction = thing => {
+  return {
+    error: !validateNotNull(thing),
     message: NOT_EMPTY,
   }
 }
@@ -94,26 +113,22 @@ const validators = {
     },
     firstName: noEmptyFunction,
     lastName: noEmptyFunction,
+    gender: noEmptyFunction,
+    ethnicity: noNoneFunction,
     location: noEmptyFunction,
+    isOfLegalAge: noNeitherFunction,
+    school: noEmptyFunction,
+    major: noEmptyFunction,
+    educationLevel: noEmptyFunction,
+    graduation: noEmptyFunction,
+    hackathonsAttended: noEmptyFunction,
+    contributionRole: noNeitherFunction,
     phoneNumber: name => {
       return {
         error: !validatePhoneNumber(name),
         message: PHONE_MESSAGE,
       }
     },
-    // Currently these do not show errors on these fields.
-    // NO ERRORS SHOWN FROM HERE
-    gender: noEmptyFunction,
-    school: noEmptyFunction,
-    major: noEmptyFunction,
-    educationLevel: noEmptyFunction,
-    contributionRole: noEmptyFunction,
-    graduation: validateNotNull,
-    hackathonsAttended: validateNotNull,
-    isOfLegalAge: thing => {
-      return { error: !validateNotNull(thing), message: NOT_EMPTY }
-    },
-    // END OF NO ERRORS SHOWN
   },
   skills: {
     resume: '', //not sure how to validate this tbh
