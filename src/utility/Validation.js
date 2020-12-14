@@ -4,6 +4,7 @@ const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please include a valid phone number including country code, eg. +1 123-456-7890'
 const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
+const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the MLH code of conduct and privacy policy.'
 const validateURL = thing => {
   const pattern = new RegExp(
@@ -35,6 +36,10 @@ const validatePhoneNumber = thing => {
 const validateNotAllFalse = thing => {
   const thingValues = Object.values(thing)
   return !thingValues.reduce((sum, next) => sum || next.status, false)
+}
+const validateResume = thing => {
+  const allowedExtensions = /(\.docx|\.doc|\.txt|\.pdf)$/i
+  return allowedExtensions.exec(thing)
 }
 
 const noEmptyFunction = thing => {
@@ -69,6 +74,13 @@ const optionalURLFunction = thing => {
   return {
     error: thing ? !validateURL(thing) : false,
     message: OPTIONAL_URL,
+  }
+}
+
+const noInvalidResumeFunction = thing => {
+  return {
+    error: !validateResume(thing),
+    message: INVALID_FILE_MESSAGE,
   }
 }
 
@@ -131,7 +143,7 @@ const validators = {
     },
   },
   skills: {
-    resume: '', //not sure how to validate this tbh
+    resume: noInvalidResumeFunction,
     portfolio: optionalURLFunction,
     linkedin: optionalURLFunction,
     github: optionalURLFunction,
