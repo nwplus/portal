@@ -46,7 +46,7 @@ export default () => {
   })
 
   const updateTermsAndConditions = change => {
-    validate()
+    validate(change)
     updateApplication({
       termsAndConditions: {
         ...change,
@@ -61,6 +61,7 @@ export default () => {
         formInputs={application}
         handleEdit={handleEdit}
         onChange={updateTermsAndConditions}
+        errors={errors}
       />
       <NavigationButtons
         firstButtonText="Back"
