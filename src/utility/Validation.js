@@ -1,6 +1,7 @@
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
-const PHONE_MESSAGE = 'Please include a valid phone number.'
+const PHONE_MESSAGE =
+  'Please include a valid phone number including country code, eg. +1 123-456-7890'
 const URL = 'Please include a valid URL.'
 const MUST_BE_TRUE = 'You must agree to the MLH code of conduct and privacy policy.'
 const validateURL = thing => {
@@ -26,7 +27,8 @@ const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
 }
 const validatePhoneNumber = thing => {
-  const phoneno = /^(?=.*(?:(?:\d[ -]?){1,12}))\d(?:[0-9 -]*\d)?$/
+  // const phoneno = /^(?=.*(?:(?:\d[ -]?){1,12}))\d(?:[0-9 -]*\d)?$/
+  const phoneno = /^\+((?:9[679]|8[035789]|6[789]|5[90]|42|3[578]|2[1-689])|9[0-58]|8[1246]|6[0-6]|5[1-8]|4[013-9]|3[0-469]|2[70]|7|1)(?:\W*\d){0,13}\d$/
   return thing.match(phoneno)
 }
 
