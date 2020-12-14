@@ -39,7 +39,6 @@ const FormRow = ({ id, children }) => (
 )
 
 export default ({ errors, formInputs, onChange, role, handleResume }) => {
-  console.log(formInputs)
   return (
     <>
       <FormSpacing>
