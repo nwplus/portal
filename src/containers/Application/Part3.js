@@ -15,6 +15,7 @@ export default () => {
   const validate = change => {
     const newErrors = validateFormSection(change, 'questionnaire')
     setErrors({ ...errors, ...newErrors })
+    return { ...errors, ...newErrors }
   }
 
   const updateQuestionnaire = change => {
@@ -29,8 +30,8 @@ export default () => {
   const handleNavigation = async href => {
     await forceSave()
     if (href === '/application/review') {
-      validate(application.questionnaire)
-      if (checkForError(errors)) return
+      const newErrors = validate(application.questionnaire)
+      if (checkForError(newErrors)) return
     }
     setLocation(href)
     window.scrollTo(0, 0)

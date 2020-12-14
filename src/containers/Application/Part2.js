@@ -15,6 +15,7 @@ export default () => {
   const validate = change => {
     const newErrors = validateFormSection(change, 'skills')
     setErrors({ ...errors, ...newErrors })
+    return { ...errors, ...newErrors }
   }
 
   const updateSkillsInfo = change => {
@@ -34,8 +35,8 @@ export default () => {
     await forceSave()
     await uploadResumeToStorage(application._id, resume)
     if (href === '/application/part-3') {
-      validate(application.skills)
-      if (checkForError(errors)) return
+      const newErrors = validate(application.skills)
+      if (checkForError(newErrors)) return
     }
     setLocation(href)
     window.scrollTo(0, 0)
