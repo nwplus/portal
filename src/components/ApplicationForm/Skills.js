@@ -31,16 +31,14 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
+const FormRow = ({ id, children }) => (
+  <div>
+    <QuestionRow>{id}</QuestionRow>
+    <div>{children}</div>
+  </div>
+)
+
 export default ({ errors, formInputs, onChange, role, handleResume }) => {
-  const FormRow = ({ id, children }) => (
-    <div>
-      <QuestionRow>
-        {id}
-        {role === 'developer' && id === 'github' && <RequiredAsterisk>*</RequiredAsterisk>}
-      </QuestionRow>
-      <div>{children}</div>
-    </div>
-  )
   return (
     <>
       <FormSpacing>
