@@ -6,6 +6,7 @@ const PHONE_MESSAGE =
 const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the MLH code of conduct and privacy policy.'
+const LONG_ANSWER_CHAR_LIMIT = 650
 const validateURL = thing => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -147,7 +148,12 @@ const validators = {
     portfolio: optionalURLFunction,
     linkedin: optionalURLFunction,
     github: optionalURLFunction,
-    longAnswers: noEmptyFunction,
+    longAnswers: answer => {
+      return {
+        error: !validateStringNotEmpty(answer) && answer.length > LONG_ANSWER_CHAR_LIMIT,
+        message: NOT_EMPTY,
+      }
+    },
   },
   questionnaire: {
     // no validations, I think they're all optional
