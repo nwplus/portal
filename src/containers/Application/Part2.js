@@ -4,12 +4,21 @@ import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
 import { useHackerApplication, uploadResumeToStorage } from '../../utility/HackerApplicationContext'
+import { checkForError, validateFormSection } from '../../utility/Validation'
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [resume, setResume] = useState()
   const [, setLocation] = useLocation()
+  const [errors, setErrors] = useState({})
+
+  const validate = change => {
+    const newErrors = validateFormSection(change, 'skills')
+    setErrors({ ...errors, ...newErrors })
+  }
+
   const updateSkillsInfo = change => {
+    validate(change)
     updateApplication({
       skills: {
         ...change,
@@ -24,6 +33,10 @@ export default () => {
   const handleNavigation = async href => {
     await forceSave()
     await uploadResumeToStorage(application._id, resume)
+    if (href === '/application/part-3') {
+      validate(application.skills)
+      if (checkForError(errors)) return
+    }
     setLocation(href)
     window.scrollTo(0, 0)
   }
@@ -35,6 +48,7 @@ export default () => {
         onChange={updateSkillsInfo}
         role={application.basicInfo.contributionRole}
         handleResume={handleResume}
+        errors={errors}
       />
       <VerticalProgressBar percent={50} />
       <NavigationButtons

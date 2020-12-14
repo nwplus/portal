@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useAuth } from '../../utility/Auth'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import { checkForError, validateFormSection } from '../../utility/Validation'
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const { logout } = useAuth()
+  const [errors, setErrors] = useState({})
+
+  const validate = change => {
+    const newErrors = validateFormSection(change, 'basicInfo')
+    setErrors({ ...errors, ...newErrors })
+  }
 
   const updateBasicInfo = change => {
+    validate(change)
     updateApplication({
       basicInfo: {
         ...change,
@@ -24,6 +32,10 @@ export default () => {
    */
   const handleNavigation = async href => {
     await forceSave()
+    if (href === '/application/part-2') {
+      validate(application.basicInfo)
+      if (checkForError(errors)) return
+    }
     setLocation(href)
     window.scrollTo(0, 0)
   }
@@ -34,7 +46,7 @@ export default () => {
   }
   return (
     <>
-      <BasicInfo formInputs={application.basicInfo} onChange={updateBasicInfo} />
+      <BasicInfo errors={errors} formInputs={application.basicInfo} onChange={updateBasicInfo} />
       <VerticalProgressBar percent={25} />
       <NavigationButtons
         firstButtonText="Save &amp; Logout"

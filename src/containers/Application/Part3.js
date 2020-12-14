@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'wouter'
 import Questionnaire from '../../components/ApplicationForm/Questionnaire'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import { checkForError, validateFormSection } from '../../utility/Validation'
 
 // form part 3
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
+  const [errors, setErrors] = useState({})
+
+  const validate = change => {
+    const newErrors = validateFormSection(change, 'questionnaire')
+    setErrors({ ...errors, ...newErrors })
+  }
 
   const updateQuestionnaire = change => {
+    validate(change)
     updateApplication({
       questionnaire: {
         ...change,
@@ -20,13 +28,21 @@ export default () => {
 
   const handleNavigation = async href => {
     await forceSave()
+    if (href === '/application/review') {
+      validate(application.questionnaire)
+      if (checkForError(errors)) return
+    }
     setLocation(href)
     window.scrollTo(0, 0)
   }
 
   return (
     <>
-      <Questionnaire formInputs={application.questionnaire} onChange={updateQuestionnaire} />
+      <Questionnaire
+        errors={errors}
+        formInputs={application.questionnaire}
+        onChange={updateQuestionnaire}
+      />
       <VerticalProgressBar percent={75} />
       <NavigationButtons
         firstButtonText="Back"
