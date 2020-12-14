@@ -39,6 +39,7 @@ const FormRow = ({ id, children }) => (
 )
 
 export default ({ errors, formInputs, onChange, role, handleResume }) => {
+  console.log(formInputs)
   return (
     <>
       <FormSpacing>
@@ -82,7 +83,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           {role === 'designer' ? (
             <FormRow id="portfolio">
               <TextInput
-                placeholder="Optional"
+                placeholder="Required"
                 size="large"
                 value={formInputs.portfolio}
                 invalid={!!errors.portfolio}

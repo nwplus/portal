@@ -35,8 +35,14 @@ export default () => {
     const size = (resume.size / 1024 / 1024).toFixed(2)
     if (size > MAX_RESUME_FILE_SIZE_MB) {
       alert(`File must be less than ${MAX_RESUME_FILE_SIZE_MB} MB`)
+      updateApplication({
+        skills: {
+          resume: '',
+        },
+      })
+    } else {
+      setResume(resume)
     }
-    setResume(resume)
   }
 
   const handleNavigation = async href => {
