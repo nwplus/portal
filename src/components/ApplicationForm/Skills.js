@@ -19,6 +19,9 @@ const QuestionForm = styled.form`
 
 const QuestionRow = styled(QuestionHeading)`
   padding-right: 4em;
+  ${p => p.theme.mediaQueries.xs} {
+    padding-right: 1em;
+  }
 `
 
 const FormRow = ({ id, children }) => (

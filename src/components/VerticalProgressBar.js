@@ -11,7 +11,7 @@ const ProgressBarContainer = styled.div`
   margin-top: ${p => (p.vHeight ? -p.vHeight / 2 : -25)}vh;
   margin-left: -12vw;
   ${p => p.theme.mediaQueries.xs} {
-    margin-left: 0;
+    display: none;
   }
 `
 

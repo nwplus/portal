@@ -41,6 +41,9 @@ const StyledLogoLockup = styled.img`
     `
       top: 14em;
     `}
+  ${p => p.theme.mediaQueries.xs} {
+    width: 90%;
+  }
 `
 
 const StyledBanner = styled(Banner)`
@@ -50,6 +53,9 @@ const StyledBanner = styled(Banner)`
     padding: 56px 24px 24px;
     text-align: center;
     z-index: 0;
+    ${p => p.theme.mediaQueries.xs} {
+      padding: 30px 10px 10px;
+    }
   }
 `
 
