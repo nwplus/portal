@@ -4,7 +4,11 @@ import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
 import { useHackerApplication, uploadResumeToStorage } from '../../utility/HackerApplicationContext'
-import { checkForError, validateFormSection } from '../../utility/Validation'
+import {
+  checkForError,
+  validateFormSection,
+  MAX_RESUME_FILE_SIZE_MB,
+} from '../../utility/Validation'
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -28,6 +32,10 @@ export default () => {
   }
 
   const handleResume = resume => {
+    const size = (resume.size / 1024 / 1024).toFixed(2)
+    if (size > MAX_RESUME_FILE_SIZE_MB) {
+      alert(`File must be less than ${MAX_RESUME_FILE_SIZE_MB} MB`)
+    }
     setResume(resume)
   }
 

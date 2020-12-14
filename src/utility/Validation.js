@@ -6,6 +6,7 @@ const PHONE_MESSAGE =
 const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
+export const MAX_RESUME_FILE_SIZE_MB = 2
 const LONG_ANSWER_CHAR_LIMIT = 650
 const validateURL = thing => {
   const pattern = new RegExp(
