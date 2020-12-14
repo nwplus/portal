@@ -3,7 +3,7 @@ const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please include a valid phone number including country code, eg. +1 123-456-7890'
-const URL = 'Please include a valid URL.'
+const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
 const MUST_BE_TRUE = 'You must agree to the MLH code of conduct and privacy policy.'
 const validateURL = thing => {
   const pattern = new RegExp(
@@ -65,10 +65,10 @@ const validateTrueFunction = thing => {
   }
 }
 
-const properURLFunction = thing => {
+const optionalURLFunction = thing => {
   return {
-    error: !validateURL(thing),
-    message: URL,
+    error: thing ? !validateURL(thing) : false,
+    message: OPTIONAL_URL,
   }
 }
 
@@ -123,18 +123,18 @@ const validators = {
     graduation: noEmptyFunction,
     hackathonsAttended: noEmptyFunction,
     contributionRole: noNeitherFunction,
-    phoneNumber: name => {
+    phoneNumber: number => {
       return {
-        error: !validatePhoneNumber(name),
+        error: !validatePhoneNumber(number),
         message: PHONE_MESSAGE,
       }
     },
   },
   skills: {
     resume: '', //not sure how to validate this tbh
-    portfolio: properURLFunction,
-    linkedin: properURLFunction,
-    github: properURLFunction,
+    portfolio: optionalURLFunction,
+    linkedin: optionalURLFunction,
+    github: optionalURLFunction,
     longAnswers: noEmptyFunction,
   },
   questionnaire: {
