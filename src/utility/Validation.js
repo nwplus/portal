@@ -5,7 +5,7 @@ const PHONE_MESSAGE =
   'Please include a valid phone number including country code, eg. +1 123-456-7890'
 const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
-const MUST_BE_TRUE = 'You must agree to the MLH code of conduct and privacy policy.'
+const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 const LONG_ANSWER_CHAR_LIMIT = 650
 const validateURL = thing => {
   const pattern = new RegExp(
@@ -36,10 +36,10 @@ const validatePhoneNumber = thing => {
 }
 const validateNotAllFalse = thing => {
   const thingValues = Object.values(thing)
-  return !thingValues.reduce((sum, next) => sum || next.status, false)
+  return thingValues.reduce((sum, next) => sum || next, false)
 }
 const validateResume = thing => {
-  const allowedExtensions = /(\.docx|\.doc|\.txt|\.pdf)$/i
+  const allowedExtensions = /(\.pdf)$/i
   return allowedExtensions.exec(thing)
 }
 
@@ -135,7 +135,7 @@ const validators = {
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     hackathonsAttended: noEmptyFunction,
-    contributionRole: noNeitherFunction,
+    contributionRole: noEmptyFunction,
     phoneNumber: number => {
       return {
         error: !validatePhoneNumber(number),
@@ -150,7 +150,7 @@ const validators = {
     github: optionalURLFunction,
     longAnswers: answer => {
       return {
-        error: !validateStringNotEmpty(answer) && answer.length > LONG_ANSWER_CHAR_LIMIT,
+        error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
         message: NOT_EMPTY,
       }
     },
@@ -159,9 +159,8 @@ const validators = {
     // no validations, I think they're all optional
   },
   termsAndConditions: {
-    // THESE FIELDS HAVE NO VALIDATION MESSAGE
-    // when trying to submit, nothing will happen if they are not checked.
     MLHCodeOfConduct: validateTrueFunction,
     MLHPrivacyPolicy: validateTrueFunction,
+    shareWithnwPlus: validateTrueFunction,
   },
 }
