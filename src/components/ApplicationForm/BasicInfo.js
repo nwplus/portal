@@ -1,5 +1,5 @@
 import React from 'react'
-import { QuestionHeading, CenteredH1 } from '../Typography'
+import { QuestionHeading, CenteredH1, ErrorMessage } from '../Typography'
 import { TextInput } from '../Input/TextInput'
 import Dropdown from '../Input/Dropdown'
 import Select from '../Input/Select'
@@ -97,6 +97,7 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>Which gender do you identify as?</SubHeading>
+      {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>}
       <Dropdown
         options={genderOptions}
         placeholder="Gender"
@@ -107,13 +108,14 @@ export default ({ errors, formInputs, onChange }) => (
             gender: e.value,
           })
         }
-        isValid
+        isValid={!errors?.gender}
       />
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>What is your race/ethnicity? (Select all that apply)</SubHeading>
+      {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
       {formInputs &&
         Object.entries(formInputs?.ethnicity)
           .sort()
@@ -135,6 +137,7 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>Will you be 19 years or older by January 9th, 2021?</SubHeading>
+      {errors?.isOfLegalAge && <ErrorMessage>{errors?.isOfLegalAge}</ErrorMessage>}
       <Select
         type="radio"
         label="Yes"
@@ -153,7 +156,7 @@ export default ({ errors, formInputs, onChange }) => (
       <QuestionHeading>question 05</QuestionHeading>
       <SubHeading>What is your phone number?</SubHeading>
       <TextInput
-        placeholder="XXX-XXX-XXXX"
+        placeholder="+X XXX-XXX-XXXX"
         value={formInputs.phoneNumber}
         errorMsg={errors?.phoneNumber}
         invalid={!!errors?.phoneNumber}
@@ -164,12 +167,12 @@ export default ({ errors, formInputs, onChange }) => (
         }
         inline
       />
-      {/* validation check is num */}
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>What school do you go to?</SubHeading>
+      {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
       <Dropdown
         options={schools}
         placeholder="Enter your school"
@@ -184,13 +187,14 @@ export default ({ errors, formInputs, onChange }) => (
         }
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
-        isValid
+        isValid={!errors?.school}
       />
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 07</QuestionHeading>
       <SubHeading>What is your current or intended major?</SubHeading>
+      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
       <Dropdown
         options={majors}
         placeholder="Enter your major"
@@ -205,13 +209,14 @@ export default ({ errors, formInputs, onChange }) => (
         }
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
-        isValid
+        isValid={!errors?.major}
       />
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 08</QuestionHeading>
       <SubHeading>What is your current level of education?</SubHeading>
+      {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
       <Dropdown
         options={educationOptions}
         placeholder="Level of Education"
@@ -222,13 +227,14 @@ export default ({ errors, formInputs, onChange }) => (
             educationLevel: inputValue.value,
           })
         }
-        isValid
+        isValid={!errors?.educationLevel}
       />
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>What is your graduation year?</SubHeading>
+      {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
       <Dropdown
         options={graduationOptions}
         placeholder="Graduation Year"
@@ -239,13 +245,14 @@ export default ({ errors, formInputs, onChange }) => (
             graduation: inputValue.value,
           })
         }
-        isValid
+        isValid={!errors?.graduation}
       />
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>How many hackathons have you attended (both online and in-person)?</SubHeading>
+      {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
       <Dropdown
         options={hackathonOptions}
         placeholder="Number of Hackathons"
@@ -256,7 +263,7 @@ export default ({ errors, formInputs, onChange }) => (
             hackathonsAttended: inputValue.value,
           })
         }
-        isValid
+        isValid={!errors?.hackathonsAttended}
       />
     </FormSpacing>
 
@@ -266,6 +273,7 @@ export default ({ errors, formInputs, onChange }) => (
         How do you want to contribute at nwHacks? Please select the category that you're strongest
         in.
       </SubHeading>
+      {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
       <Select
         type="radio"
         label="Developer"
