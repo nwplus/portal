@@ -75,7 +75,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           {role === 'designer' ? (
             <FormRow id="portfolio">
               <TextInput
-                placeholder="Required"
+                placeholder="Optional"
                 size="large"
                 value={formInputs.portfolio}
                 invalid={!!errors.portfolio}
@@ -90,7 +90,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           ) : (
             <FormRow id="github">
               <TextInput
-                placeholder="Required"
+                placeholder="Optional"
                 size="large"
                 value={formInputs.github}
                 invalid={!!errors.github}
