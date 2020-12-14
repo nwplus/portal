@@ -62,9 +62,10 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {
-                  onChange({
-                    resume: e.target.value,
-                  })
+                  const size = (e.target.files[0].size / 1024 / 1024).toFixed(2)
+                  if (size > 0) {
+                    alert('File must be less than 2 MB')
+                  }
                   handleResume(e.target.files[0])
                 }
               }}
