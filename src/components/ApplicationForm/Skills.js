@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  CenteredH1,
-  H3,
-  QuestionHeading,
-  ErrorMessage,
-  ErrorSpan as RequiredAsterisk,
-} from '../Typography'
+import { CenteredH1, H3, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { FormSpacing, SubHeading } from './'
@@ -163,7 +157,8 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
       <FormSpacing>
         <QuestionHeading>question 13</QuestionHeading>
         <SubHeading color="primary">
-          Answer one of the two questions:<RequiredAsterisk>*</RequiredAsterisk>
+          Answer one of the two questions:
+          <Required />
         </SubHeading>
         <SubHeading size="1.25em">
           1. Describe how you became interested in the world of technology and where you hope to go

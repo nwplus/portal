@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
-import { H1, P, QuestionHeading, A, ErrorSpan as RequiredAsterisk } from '../Typography'
+import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
 import { CenterHorizontally } from '../Common'
 
@@ -43,7 +43,8 @@ const InfoGroupWrapper = styled.div`
 `
 
 const StyledH1 = styled(H1)`
-  color: #18cdcd;
+  color: ${p => p.theme.colors.primary};
+  overflow-wrap: break-word;
 `
 
 const StyledBanner = styled(Banner)`
@@ -283,7 +284,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
             >
               MLH Code of Conduct
             </A>
-            .<RequiredAsterisk>*</RequiredAsterisk>
+            .<Required />
           </Checkbox>
           <Checkbox
             flex
@@ -310,7 +311,8 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
               >
                 MLH Contest Terms and Conditions
               </A>{' '}
-              and the MLH Privacy Policy.<RequiredAsterisk>*</RequiredAsterisk>
+              and the MLH Privacy Policy.
+              <Required />
             </span>
           </Checkbox>
           <Checkbox
@@ -323,7 +325,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
             required
           >
             I agree to allow my anonymized data to be used for nwPlus data reporting.
-            <RequiredAsterisk>*</RequiredAsterisk>
+            <Required />
           </Checkbox>
           <Checkbox
             flex

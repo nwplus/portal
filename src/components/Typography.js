@@ -49,6 +49,9 @@ export const Message = styled.p`
 
 export const ErrorSpan = styled.span`
   color: ${p => p.theme.colors.warning};
+  &:after {
+    content '${p => p.content || '*'}';
+  }
 `
 
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison

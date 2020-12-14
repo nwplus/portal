@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  QuestionHeading,
-  CenteredH1,
-  ErrorMessage,
-  ErrorSpan as RequiredAsterisk,
-} from '../Typography'
+import { QuestionHeading, CenteredH1, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput } from '../Input/TextInput'
 import Dropdown from '../Input/Dropdown'
 import Select from '../Input/Select'
@@ -73,7 +68,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
       <SubHeading>
-        What is your preferred name?<RequiredAsterisk>*</RequiredAsterisk>
+        What is your preferred name?
+        <Required />
       </SubHeading>
       <TextInput
         placeholder="First Name"
@@ -104,7 +100,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>
-        Which gender do you identify as?<RequiredAsterisk>*</RequiredAsterisk>
+        Which gender do you identify as?
+        <Required />
       </SubHeading>
       {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>}
       <Dropdown
@@ -124,7 +121,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>
-        What is your race/ethnicity? (Select all that apply)<RequiredAsterisk>*</RequiredAsterisk>
+        What is your race/ethnicity? (Select all that apply)
+        <Required />
       </SubHeading>
       {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
       {formInputs &&
@@ -148,7 +146,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
-        Will you be 19 years or older by January 9th, 2021?<RequiredAsterisk>*</RequiredAsterisk>
+        Will you be 19 years or older by January 9th, 2021?
+        <Required />
       </SubHeading>
       {errors?.isOfLegalAge && <ErrorMessage>{errors?.isOfLegalAge}</ErrorMessage>}
       <Select
@@ -168,7 +167,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 05</QuestionHeading>
       <SubHeading>
-        What is your phone number?<RequiredAsterisk>*</RequiredAsterisk>
+        What is your phone number?
+        <Required />
       </SubHeading>
       <TextInput
         placeholder="+X XXX-XXX-XXXX"
@@ -187,7 +187,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
-        What school do you go to?<RequiredAsterisk>*</RequiredAsterisk>
+        What school do you go to?
+        <Required />
       </SubHeading>
       {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
       <Dropdown
@@ -211,7 +212,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 07</QuestionHeading>
       <SubHeading>
-        What is your current or intended major?<RequiredAsterisk>*</RequiredAsterisk>
+        What is your current or intended major?
+        <Required />
       </SubHeading>
       {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
       <Dropdown
@@ -235,7 +237,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 08</QuestionHeading>
       <SubHeading>
-        What is your current level of education?<RequiredAsterisk>*</RequiredAsterisk>
+        What is your current level of education?
+        <Required />
       </SubHeading>
       {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
       <Dropdown
@@ -255,7 +258,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>
-        What is your graduation year?<RequiredAsterisk>*</RequiredAsterisk>
+        What is your graduation year?
+        <Required />
       </SubHeading>
       {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
       <Dropdown
@@ -276,7 +280,7 @@ export default ({ errors, formInputs, onChange }) => (
       <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
         How many hackathons have you attended (both online and in-person)?
-        <RequiredAsterisk>*</RequiredAsterisk>
+        <Required />
       </SubHeading>
       {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
       <Dropdown
@@ -298,7 +302,7 @@ export default ({ errors, formInputs, onChange }) => (
       <SubHeading>
         How do you want to contribute at nwHacks? Please select the category that you're strongest
         in.
-        <RequiredAsterisk>*</RequiredAsterisk>
+        <Required />
       </SubHeading>
       {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
       <Select
@@ -318,7 +322,8 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 12</QuestionHeading>
       <SubHeading>
-        Where are you currently located?<RequiredAsterisk>*</RequiredAsterisk>
+        Where are you currently located?
+        <Required />
       </SubHeading>
       <TextInput
         placeholder="Enter your city and country"
