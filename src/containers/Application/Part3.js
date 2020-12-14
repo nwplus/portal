@@ -31,7 +31,10 @@ export default () => {
     await forceSave()
     if (href === '/application/review') {
       const newErrors = validate(application.questionnaire)
-      if (checkForError(newErrors)) return
+      if (checkForError(newErrors)) {
+        window.alert('Please complete all required fields.')
+        return
+      }
     }
     setLocation(href)
     window.scrollTo(0, 0)

@@ -36,7 +36,10 @@ export default () => {
     await uploadResumeToStorage(application._id, resume)
     if (href === '/application/part-3') {
       const newErrors = validate(application.skills)
-      if (checkForError(newErrors)) return
+      if (checkForError(newErrors)) {
+        window.alert('Please complete all required fields.')
+        return
+      }
     }
     setLocation(href)
     window.scrollTo(0, 0)

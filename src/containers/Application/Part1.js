@@ -35,7 +35,10 @@ export default () => {
     await forceSave()
     if (href === '/application/part-2') {
       const newErrors = validate(application.basicInfo)
-      if (checkForError(newErrors)) return
+      if (checkForError(newErrors)) {
+        window.alert('Please complete all required fields.')
+        return
+      }
     }
     setLocation(href)
     window.scrollTo(0, 0)

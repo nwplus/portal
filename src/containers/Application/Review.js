@@ -31,7 +31,10 @@ export default () => {
 
   const handleSubmit = async () => {
     const allErrors = validateEntireForm(application)
-    if (checkForError(allErrors)) return
+    if (checkForError(allErrors)) {
+      window.alert('Please agree to the required terms and conditions.')
+      return
+    }
     updateApplication({
       status: {
         applicationStatus: ApplicationStatus.applied,
