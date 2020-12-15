@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1, A } from './Typography'
 import { Button } from './Input/Button'
-import { SOCIAL_LINKS, copyText } from '../utility/Constants'
+import { SOCIAL_LINKS, copyText, ApplicationStatus } from '../utility/Constants'
 import facebook from '../assets/icons/facebook.svg'
 import instagram from '../assets/icons/instagram.svg'
 import medium from '../assets/icons/medium.svg'
@@ -170,6 +170,11 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
       </>
     ),
   },
+  inProgress: {
+    sidebarText: 'Not Submitted',
+    cardText: 'Not Submitted',
+    blurb: `Your application has not been submitted. Please complete your application and submit before the deadline on ${relevantDates?.applicationDeadline} in order to join us at ${copyText.hackathonName}!`,
+  },
 })
 
 const SocialMediaLinks = () => {
@@ -215,7 +220,7 @@ const Dashboard = ({
           onClick={isApplicationOpen && (() => editApplication())}
           disabled={!isApplicationOpen}
         >
-          Edit Your Application
+          {hackerStatus !== ApplicationStatus.inProgress ? 'Edit' : 'Complete'} Your Application
         </EditAppButton>
       </AppLinks>
       <StatusContainer>

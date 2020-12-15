@@ -100,7 +100,8 @@ export const hackerApplicationTemplate = Object.freeze({
 
 // temporarily using constants until we add additional fields in the CMs
 export const relevantDates = Object.freeze({
-  rsvpBy: 'Janurary 3rd at 11:59 PM (Pacific Time)',
+  applicationDeadline: 'December 27th at 11:59PM (Pacific Time)',
+  rsvpBy: 'Janurary 3rd at 11:59PM (Pacific Time)',
   offWaitlistNotify: 'one week before the event',
   sendAcceptancesBy: 'December 30th, 2020',
   hackathonWeekend: 'January 9-10th',
