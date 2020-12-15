@@ -43,11 +43,15 @@ const TextInputBox = styled.input.attrs({
     `}
 `
 
+const TextInputError = styled(ErrorMessage)`
+  position: absolute;
+`
+
 export const TextInput = ({ className, invalid, errorMsg, noOutline, inline, ...rest }) => {
   return (
     <TextInputContainer className={className} inline={inline} noOutline={noOutline}>
       <TextInputBox invalid={invalid} noOutline={noOutline} {...rest} />
-      {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
+      {invalid && <TextInputError> {errorMsg} </TextInputError>}
     </TextInputContainer>
   )
 }
