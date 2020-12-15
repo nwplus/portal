@@ -29,7 +29,7 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const allErrors = validateEntireForm(application)
     if (checkForError(allErrors)) {
       window.alert('Please agree to the required terms and conditions.')
