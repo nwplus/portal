@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus } from './firebase'
-import { ApplicationStatus, DB_HACKATHON, RedirectStatus } from './Constants'
+import { DB_HACKATHON, RedirectStatus } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -20,7 +20,7 @@ export const checkAdminClaim = async user => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [location, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(async currUser => {
