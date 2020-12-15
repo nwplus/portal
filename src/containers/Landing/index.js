@@ -27,6 +27,18 @@ const HoloBackground = styled.img`
   top: 18em;
   ${CenterHorizontally}
   z-index: -1;
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    width: 200%;
+    top: 40%;
+  }
+  ${p => p.theme.mediaQueries.tablet} {
+    width: 200%;
+    top: 40%;
+  }
+  ${p => p.theme.mediaQueries.xs} {
+    width: 300%;
+    top: 50%;
+  }
 `
 
 const StyledLogoLockup = styled.img`
@@ -41,8 +53,17 @@ const StyledLogoLockup = styled.img`
     `
       top: 14em;
     `}
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    top: 18%;
+    width: 80%;
+  }
+  ${p => p.theme.mediaQueries.tablet} {
+    top: 15%;
+    width: 82%;
+  }
   ${p => p.theme.mediaQueries.xs} {
     width: 90%;
+    top: 19%;
   }
 `
 
@@ -53,8 +74,19 @@ const StyledBanner = styled(Banner)`
     padding: 56px 24px 24px;
     text-align: center;
     z-index: 0;
+    ${p => p.theme.mediaQueries.tabletLarge} {
+      top: 37%;
+      width: 45%;
+    }
+    ${p => p.theme.mediaQueries.tablet} {
+      padding: 15% 3% 5%;
+      top: 30%;
+      width: 45%;
+    }
     ${p => p.theme.mediaQueries.xs} {
-      padding: 30px 10px 10px;
+      padding: 12% 3% 5%;
+      width: 85%;
+      top: 31%;
     }
   }
 `
