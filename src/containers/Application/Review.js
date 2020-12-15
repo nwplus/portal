@@ -47,7 +47,7 @@ export default () => {
       setLocation('/application/confirmation')
       window.scrollTo(0, 0)
     }
-  }, [application.status.applicationStatus])
+  }, [application.status.applicationStatus, setLocation])
 
   const updateTermsAndConditions = change => {
     validate(change)
