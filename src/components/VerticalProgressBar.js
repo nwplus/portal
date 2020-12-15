@@ -9,6 +9,10 @@ const ProgressBarContainer = styled.div`
   position: fixed;
   top: 50%;
   margin-top: ${p => (p.vHeight ? -p.vHeight / 2 : -25)}vh;
+  margin-left: -12vw;
+  ${p => p.theme.mediaQueries.xs} {
+    display: none;
+  }
 `
 
 const ProgressBarFill = styled.div`

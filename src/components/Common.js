@@ -102,16 +102,6 @@ export const TextInputNoOutline = css`
   border-bottom-width: thin;
 `
 
-export const TextInputLikeErrorMsg = styled.p`
-  color: ${p => p.theme.colors.warning};
-  margin: 0.5em 0em;
-`
-
-export const TextInputLikeMsg = styled.p`
-  color: ${p => p.theme.colors.highlight};
-  margin: 0.5em 0em;
-`
-
 export const ScrollbarLike = css`
   ::-webkit-scrollbar {
     width: 10px;

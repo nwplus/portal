@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { Button } from '../components/Input'
 import styled from 'styled-components'
-import { TextInputLikeErrorMsg } from './Common'
+import { ErrorMessage } from './Typography'
 
 const ResumeContainer = styled.div`
   display: flex;
@@ -30,12 +30,7 @@ export default ({ onChange, hint, errorMsg }) => {
     <ResumeContainer>
       <ResumeFile inputFile={inputFile} onChange={onChange} />
       <UploadButton handleClick={handleClick} />
-      {hint !== undefined &&
-        (hint ? (
-          <span>{hint.match(/[/\\]([\w\d\s.\-()]+)$/)[1]}</span>
-        ) : (
-          <TextInputLikeErrorMsg>{errorMsg}</TextInputLikeErrorMsg>
-        ))}
+      {hint ? <span>✔ {hint} uploaded!</span> : <ErrorMessage>{errorMsg}</ErrorMessage>}
     </ResumeContainer>
   )
 }

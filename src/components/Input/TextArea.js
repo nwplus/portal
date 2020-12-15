@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import {
-  ScrollbarLike,
-  TextInputLike,
-  TextInputLikeErrorMsg as ErrorMsg,
-  TextInputLikeMsg as Msg,
-} from '../Common.js'
+import { ScrollbarLike, TextInputLike } from '../Common.js'
+import { ErrorMessage, Message } from '../Typography'
 
 const TextAreaBox = styled.textarea.attrs({
   type: 'text',
@@ -47,16 +43,19 @@ export const TextArea = ({
         width={width}
         onChange={val => onChange(val.target.value)}
         invalid={invalid || isLengthExceeded}
-        placeholder={`${placeholder} ${
+        placeholder={`${placeholder !== null || placeholder !== undefined ? '' : placeholder} ${
           maxLength == null ? '' : `Maximum of ${maxLength} characters`
         }`}
         {...rest}
       />
-      {invalid && <ErrorMsg> {errorMsg} </ErrorMsg>}
+      {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
       {isLengthExceeded ? (
-        <ErrorMsg> Sorry! It looks like your answer is more than {maxLength} characters. </ErrorMsg>
+        <ErrorMessage>
+          {' '}
+          Sorry! It looks like your answer is more than {maxLength} characters.{' '}
+        </ErrorMessage>
       ) : (
-        maxLength != null && <Msg> {value.length} characters. </Msg>
+        maxLength != null && <Message> {value.length} characters. </Message>
       )}
     </div>
   )

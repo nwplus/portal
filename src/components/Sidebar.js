@@ -6,6 +6,7 @@ import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
+import { hackerStatuses } from './ApplicationDashboard'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
@@ -78,7 +79,23 @@ const StyledButton = styled(Button)`
   margin: 1em 0 2em 60px;
 `
 
-export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplicationOpen }) => {
+const ApplicationText = styled.div`
+  color: #ffffff;
+`
+
+const StatusText = styled.div`
+  font-size: 0.8em;
+  color: ${p => p.theme.colors.primary};
+  margin-top: 5px;
+`
+
+export default ({
+  showMobileSidebar,
+  isJudgingOpen,
+  isSubmissionsOpen,
+  isApplicationOpen,
+  hackerStatus,
+}) => {
   const [location] = useLocation()
   const { isAuthed, logout } = useAuth()
   const links = [
@@ -115,13 +132,23 @@ export default ({ showMobileSidebar, isJudgingOpen, isSubmissionsOpen, isApplica
         LIVE
       </LiveLabel>
       <ItemsContainer>
-        {links.map((link, i) => {
-          return (
-            <Link key={i} href={link.location}>
-              <StyledA selected={location === link.location}>{link.text}</StyledA>
-            </Link>
-          )
-        })}
+        {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
+          links.map((link, i) => {
+            return (
+              <Link key={i} href={link.location}>
+                <StyledA selected={location === link.location}>{link.text}</StyledA>
+              </Link>
+            )
+          })
+        ) : (
+          // Not sure if I should abstract this case to use links.map
+          <Link href={'/application'}>
+            <StyledA selected={location === '/application'}>
+              <ApplicationText>APPLICATION</ApplicationText>
+              <StatusText>{hackerStatuses()[hackerStatus]?.sidebarText}</StatusText>
+            </StyledA>
+          </Link>
+        )}
       </ItemsContainer>
       {isAuthed && (
         <StyledButton color="secondary" onClick={logout}>

@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/analytics'
+import 'firebase/storage'
 import {
   HACKER_APPLICATION_TEMPLATE,
   REDIRECT_STATUS,
@@ -9,7 +10,6 @@ import {
   DB_HACKATHON,
   ANALYTICS_EVENTS,
 } from '../utility/Constants'
-import { formatProject } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -27,6 +27,7 @@ if (!firebase.apps.length) {
 
 export const firestore = firebase.firestore
 export const db = firebase.firestore()
+export const storage = firebase.storage()
 
 export const analytics = firebase.analytics()
 
@@ -76,44 +77,22 @@ export const syncToFirebase = async (projects, setMessageCallback) => {
   setMessageCallback('Insert done!')
 }
 
-export const getProject = async (user_id, setProjectCallback, setFeedbackCallback) => {
-  const application = await applicantsRef.doc(user_id).get()
-  const team = await application.data().team.get()
-  team
-    .data()
-    .project.get()
-    .then(doc => {
-      const projectData = formatProject(doc.data())
-      setProjectCallback(projectData)
-    })
-  if (!!setFeedbackCallback) {
-    team
-      .data()
-      .project.collection('Grades')
-      .orderBy('notes')
-      .get()
-      .then(doc => {
-        const feedback = doc.docs.map(doc => {
-          const docData = doc.data()
-          return docData.notes
-        })
-        setFeedbackCallback(feedback)
-      })
-  }
-}
-
 const createNewApplication = async user => {
   analytics.logEvent(ANALYTICS_EVENTS.signup, { userId: user.uid })
   const userId = {
     _id: user.uid,
   }
-  const basicInfo = {
-    basicInfo: {
-      email: user.email,
-      firstName: user.displayName.split(' ')[0],
-      lastName: user.displayName.split(' ')[1],
-    },
-  }
+
+  const basicInfo = user?.displayName?.includes(' ')
+    ? {
+        email: user.email,
+        firstName: user?.displayName?.split(' ')[0] ?? '',
+        lastName: user?.displayName?.split(' ')[1] ?? '',
+      }
+    : {
+        email: user.email,
+        firstName: user.displayName ?? '',
+      }
   const submission = {
     submission: {
       lastUpdated: firebase.firestore.Timestamp.now(),
@@ -121,11 +100,18 @@ const createNewApplication = async user => {
     },
   }
 
+  // default values for p2p judging on portal
+  const judging = {
+    projectsAssigned: [],
+    submittedProject: '',
+  }
+
   const newApplication = {
     ...HACKER_APPLICATION_TEMPLATE,
     ...basicInfo,
     ...submission,
     ...userId,
+    ...judging,
   }
 
   await applicantsRef.doc(user.uid).set(newApplication)
@@ -154,6 +140,10 @@ export const getUserStatus = async user => {
 
 export const getUserApplication = async uuid => {
   return (await applicantsRef.doc(uuid).get()).data()
+}
+
+export const getSubmission = async uid => {
+  return (await projectsRef.doc(uid).get()).data()
 }
 
 export const updateUserApplication = async (uuid, newApp) => {

@@ -24,7 +24,7 @@ const Content = styled.div`
   }
 `
 
-const Page = ({ children }) => {
+const Page = ({ hackerStatus, children }) => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false)
   const [livesiteDoc, setLivesiteDoc] = useState(false)
 
@@ -40,6 +40,7 @@ const Page = ({ children }) => {
         isSubmissionsOpen={livesiteDoc.submissionsOpen}
         isApplicationOpen={livesiteDoc.applicationsOpen}
         showMobileSidebar={showMobileSidebar}
+        hackerStatus={hackerStatus}
       />
       <RightContentContainer>
         <MobileMenuBar

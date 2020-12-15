@@ -5,6 +5,7 @@ const SCREEN_BREAKPOINTS = {
   xs: 576,
   mobile: 768,
   tablet: 992,
+  tabletLarge: 1024,
   desktop: 1200,
 }
 
@@ -67,6 +68,7 @@ const nwTheme = {
     xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
     mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
     tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
     desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
   },
 }
@@ -128,12 +130,13 @@ const hackcampTheme = {
     xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
     mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
     tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
     desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
   },
 }
 
 const THEMES = { nwTheme, hackcampTheme }
-let selectedTheme = hackcampTheme
+let selectedTheme = nwTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')

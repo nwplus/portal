@@ -49,9 +49,16 @@ export const hexToRgba = (hex, a = 1) => {
 }
 
 // given youtube video URL, convert to thumnail URL
-export const getYoutubeThumbnail = videoLink => {
-  const youtubeID = new URL(videoLink).searchParams.get('v')
-  return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
+export const getYoutubeThumbnail = link => {
+  if (link.includes('youtube')) {
+    const youtubeID = new URL(link).searchParams.get('v')
+    return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
+  }
+  if (link.includes('youtu.be')) {
+    const youtubeID = new URL(link).pathname
+    return `https://img.youtube.com/vi${youtubeID}/maxresdefault.jpg`
+  }
+  return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'
 }
 
 export const formatProject = project => {
@@ -59,5 +66,20 @@ export const formatProject = project => {
     ...project,
     imgUrl: getYoutubeThumbnail(project.youtubeUrl),
     href: project.devpostUrl,
+  }
+}
+
+// find object from array of objects by value of property
+export const findElement = (arr, key, val) => arr.find(o => o[key] === val)
+
+// creates a label-value pair (for schools and majors)
+const createObj = val => ({ label: val, value: val })
+
+export const creatableDropdownValue = (arr, key, val) => {
+  const obj = findElement(arr, key, val) ?? {}
+  if (Object.keys(obj).length > 0) {
+    return createObj(obj.label)
+  } else {
+    return createObj(val)
   }
 }

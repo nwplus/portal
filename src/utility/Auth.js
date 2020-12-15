@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus, analytics } from './firebase'
-import { REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
+import { DB_HACKATHON, REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -44,7 +44,9 @@ export function AuthProvider({ children }) {
     analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/')
+    /* changed from / to /login for nwHacks application since the rest of the livesite content (schedule, sponsors, etc)
+       hasn't been updated */
+    setLocation('/login')
   }
 
   return loading ? (
@@ -70,8 +72,11 @@ const handleUser = async (setUser, setLocation) => {
 }
 
 export const getRedirectUrl = redirect => {
+  if (process.env.NODE_ENV === 'production' || process.env.REACT_APP_ENV === 'STAGING') {
+    if (DB_HACKATHON === 'LHD2021') return '/submission'
+  }
   switch (redirect) {
-    case REDIRECT_STATUS.AttendingEvent:
+    case REDIRECT_STATUS.AttendingEvent && DB_HACKATHON === 'LHD2021':
       return '/judging'
     case REDIRECT_STATUS.ApplicationNotSubmitted:
       return '/application/part-1'

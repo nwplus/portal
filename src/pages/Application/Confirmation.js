@@ -2,9 +2,11 @@ import React from 'react'
 import Landing from '../../containers/Landing'
 import { Button } from '../../components/Input'
 import { ButtonContainer } from '../Login'
+import { useLocation } from 'wouter'
 
 // TODO: add redirect to the button
 export default () => {
+  const [, setLocation] = useLocation()
   return (
     <Landing
       heading="Thanks for Applying!"
@@ -12,8 +14,8 @@ export default () => {
       showFooter
     >
       <ButtonContainer>
-        <Button color="primary" width="flex">
-          Back to Home
+        <Button color="primary" width="flex" onClick={() => setLocation('/application')}>
+          Go to Dashboard
         </Button>
       </ButtonContainer>
     </Landing>

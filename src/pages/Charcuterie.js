@@ -99,7 +99,7 @@ export default () => {
         <br></br>
         <QuestionHeading>this is a question heading</QuestionHeading>
         <QuestionHeading>question 14</QuestionHeading>
-        <H1>How did you hear about nwHacks?</H1>
+        <H1 size="1.5em">How did you hear about nwHacks?</H1>
       </>
       <>
         <H2>Countdown</H2>
