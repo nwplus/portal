@@ -30,14 +30,7 @@ export default ({ onChange, hint, errorMsg }) => {
     <ResumeContainer>
       <ResumeFile inputFile={inputFile} onChange={onChange} />
       <UploadButton handleClick={handleClick} />
-      {hint !== undefined &&
-        (hint ? (
-          hint.match(/[/\\]([\w\d\s.\-()]+)$/) != null && (
-            <span>{hint.match(/[/\\]([\w\d\s.\-()]+)$/)[1]}</span>
-          )
-        ) : (
-          <ErrorMessage>{errorMsg}</ErrorMessage>
-        ))}
+      {hint ? <span>{hint}</span> : <ErrorMessage>{errorMsg}</ErrorMessage>}
     </ResumeContainer>
   )
 }
