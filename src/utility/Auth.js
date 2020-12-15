@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus } from './firebase'
-import { DB_HACKATHON, RedirectStatus } from './Constants'
+import { ApplicationStatus, DB_HACKATHON, RedirectStatus } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -34,7 +34,11 @@ export function AuthProvider({ children }) {
       const admin = await checkAdminClaim(currUser)
       currUser.admin = admin
       setUser(currUser)
-      if (location === '/application') {
+      if (
+        location === '/application' &&
+        currUser.status === ApplicationStatus.inProgress &&
+        currUser.redirect === RedirectStatus.ApplicationNotSubmitted
+      ) {
         await handleUser(setUser, setLocation)
       }
       setLoading(false)
