@@ -6,7 +6,7 @@ import { Button } from '../components/Input'
 import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
-import { DB_HACKATHON } from '../utility/Constants'
+import { DB_HACKATHON, firebaseAuthError } from '../utility/Constants'
 import { useLocation } from 'wouter'
 import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
@@ -14,13 +14,28 @@ import { copyText } from '../utility/Constants'
 
 const ErrorMessage = ({ message }) => (
   <>
-    There was an issue logging you in. If this persists, please contact"
-    <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
+    There was an issue logging you in{' '}
+    <span role="img" aria-label="dizzy face">
+      😵
+    </span>
     <br />
+    {message}
     <br />
-    Error: {message}
+    If this persists, please contact <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
   </>
 )
+
+// custom handling of errors
+const handleAuthError = (code, message) => {
+  switch (code) {
+    case firebaseAuthError.EXPIRED_POPUP_REQUEST:
+      return null
+    case firebaseAuthError.POPUP_CLOSED_BY_USER:
+      return null
+    default:
+      return <ErrorMessage message={message} />
+  }
+}
 
 const BoundingBox = styled.img`
   margin: 0 0.75em;
@@ -86,7 +101,7 @@ export default () => {
         </ButtonContainer>
         {DB_HACKATHON === 'LHD2021' && <A href="/">Return to Portal</A>}
       </Landing>
-      <ErrorBanner>{error ? <ErrorMessage message={error.message} /> : null}</ErrorBanner>
+      <ErrorBanner>{error ? handleAuthError(error.code, error.message) : null}</ErrorBanner>
     </>
   )
 }
