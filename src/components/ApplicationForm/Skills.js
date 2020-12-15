@@ -65,9 +65,6 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {
-                  onChange({
-                    resume: e.target.value,
-                  })
                   handleResume(e.target.files[0])
                 }
               }}

@@ -12,7 +12,6 @@ import {
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
-  const [resume, setResume] = useState()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
 
@@ -31,23 +30,24 @@ export default () => {
     })
   }
 
-  const handleResume = resume => {
+  const handleResume = async resume => {
+    // check to make sure its a pdf
+    const newErrors = validate({
+      resume: resume.name,
+    })
+    // check to make sure its under 2mb
     const size = (resume.size / 1024 / 1024).toFixed(2)
-    if (size > MAX_RESUME_FILE_SIZE_MB) {
-      alert(`File must be less than ${MAX_RESUME_FILE_SIZE_MB} MB`)
-      updateApplication({
-        skills: {
-          resume: '',
-        },
-      })
-    } else {
-      setResume(resume)
-    }
+    if (size > MAX_RESUME_FILE_SIZE_MB || newErrors.resume) return
+
+    // upload the resume and update the application on success.
+    await uploadResumeToStorage(application._id, resume)
+    updateSkillsInfo({
+      resume: resume.name,
+    })
   }
 
   const handleNavigation = async href => {
     await forceSave()
-    await uploadResumeToStorage(application._id, resume)
     if (href === '/application/part-3') {
       const newErrors = validate(application.skills)
       if (checkForError(newErrors)) {
