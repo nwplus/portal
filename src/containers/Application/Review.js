@@ -11,7 +11,6 @@ export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
-  const [updated, setUpdated] = useState(false)
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'termsAndConditions')
@@ -41,15 +40,9 @@ export default () => {
         applicationStatus: ApplicationStatus.applied,
       },
     })
-    setUpdated(true)
+    setLocation('/application/confirmation')
+    window.scrollTo(0, 0)
   }
-
-  useEffect(() => {
-    if (updated && application.status.applicationStatus === ApplicationStatus.applied) {
-      setLocation('/application/confirmation')
-      window.scrollTo(0, 0)
-    }
-  })
 
   const updateTermsAndConditions = change => {
     validate(change)
