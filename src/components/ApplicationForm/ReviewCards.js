@@ -152,7 +152,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
             <InfoGroup
-              heading="Full Legal Name:"
+              heading="Full Name:"
               data={formInputs.basicInfo.firstName
                 .concat(' ')
                 .concat(formInputs.basicInfo.lastName)}
