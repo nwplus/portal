@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
-import { H1, P, QuestionHeading, A } from '../Typography'
+import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
 import { CenterHorizontally } from '../Common'
 
@@ -43,7 +43,8 @@ const InfoGroupWrapper = styled.div`
 `
 
 const StyledH1 = styled(H1)`
-  color: #18cdcd;
+  color: ${p => p.theme.colors.primary};
+  overflow-wrap: break-word;
 `
 
 const StyledBanner = styled(Banner)`
@@ -66,10 +67,6 @@ const CenterH1 = styled(H1)`
   display: flex;
   align-items: center;
   justify-content: center;
-`
-
-const RequiredAsterisk = styled.span`
-  color: ${p => p.theme.colors.warning};
 `
 
 const InfoGroup = ({ heading, data }) => (
@@ -104,7 +101,7 @@ const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
 const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
-export default ({ formInputs, handleEdit, onChange }) => {
+export default ({ formInputs, handleEdit, onChange, errors }) => {
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
@@ -287,7 +284,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             >
               MLH Code of Conduct
             </A>
-            .<RequiredAsterisk>*</RequiredAsterisk>
+            .<Required />
           </Checkbox>
           <Checkbox
             flex
@@ -314,19 +311,22 @@ export default ({ formInputs, handleEdit, onChange }) => {
               >
                 MLH Contest Terms and Conditions
               </A>{' '}
-              and the MLH Privacy Policy.<RequiredAsterisk>*</RequiredAsterisk>
+              and the MLH Privacy Policy.
+              <Required />
             </span>
           </Checkbox>
           <Checkbox
-            flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
             onChange={() =>
               onChange({
                 shareWithnwPlus: !formInputs.termsAndConditions.shareWithnwPlus,
               })
             }
-            label="I agree to allow my anonymized data to be used for nwPlus data reporting."
-          />
+            required
+          >
+            I agree to allow my anonymized data to be used for nwPlus data reporting.
+            <Required />
+          </Checkbox>
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.shareWithSponsors}
@@ -335,7 +335,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
                 shareWithSponsors: !formInputs.termsAndConditions.shareWithSponsors,
               })
             }
-            label="I agree to allow nwPlus provide event sponsors with my resume and supporting links (Linkedin, GitHub, Personal website) upon request."
+            label="I would like to share my resume and supporting links (Linkedin, GitHub, Portfolio) to event sponsors and recruiters."
           />
         </ContentWrapper>
       </ReviewContainer>

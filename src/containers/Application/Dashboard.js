@@ -21,6 +21,7 @@ const ApplicationDashboardContainer = () => {
   //     const d = doc.data()
   //     if (d) {
   //       setRelevantDates({
+  //         applicationDeadline: d.applicationDeadline,
   //         sendAcceptancesBy: d.sendAcceptancesBy,
   //         rsvpBy: d.rsvpBy,
   //         offWaitlistNotify: d.offWaitlistNotify,

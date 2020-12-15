@@ -1,5 +1,5 @@
 import React from 'react'
-import { CenteredH1, H3, QuestionHeading } from '../Typography'
+import { CenteredH1, H3, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { FormSpacing, SubHeading } from './'
@@ -24,6 +24,10 @@ const QuestionRow = styled(QuestionHeading)`
   }
 `
 
+const StyledTextArea = styled(TextArea)`
+  margin: 1em 0;
+`
+
 const FormRow = ({ id, children }) => (
   <div>
     <QuestionRow>{id}</QuestionRow>
@@ -31,11 +35,7 @@ const FormRow = ({ id, children }) => (
   </div>
 )
 
-const StyledTextArea = styled(TextArea)`
-  margin: 1em 0;
-`
-
-export default ({ formInputs, onChange, role, handleResume }) => {
+export default ({ errors, formInputs, onChange, role, handleResume }) => {
   return (
     <>
       <FormSpacing>
@@ -73,14 +73,17 @@ export default ({ formInputs, onChange, role, handleResume }) => {
               }}
               hint={formInputs.resume}
             />
+            {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
           </FormRow>
 
           {role === 'designer' ? (
             <FormRow id="portfolio">
               <TextInput
-                placeholder="Required"
+                placeholder="Optional"
                 size="large"
                 value={formInputs.portfolio}
+                invalid={!!errors.portfolio}
+                errorMsg={errors.portfolio}
                 onChange={e =>
                   onChange({
                     portfolio: e.target.value,
@@ -91,9 +94,11 @@ export default ({ formInputs, onChange, role, handleResume }) => {
           ) : (
             <FormRow id="github">
               <TextInput
-                placeholder="Required"
+                placeholder="Optional"
                 size="large"
                 value={formInputs.github}
+                invalid={!!errors.github}
+                errorMsg={errors.github}
                 onChange={e =>
                   onChange({
                     github: e.target.value,
@@ -108,6 +113,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
               placeholder="Optional"
               size="large"
               value={formInputs.linkedin}
+              invalid={!!errors.linkedin}
+              errorMsg={errors.linkedin}
               onChange={e =>
                 onChange({
                   linkedin: e.target.value,
@@ -122,6 +129,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                 placeholder="Optional"
                 size="large"
                 value={formInputs.github}
+                invalid={!!errors.github}
+                errorMsg={errors.github}
                 onChange={e =>
                   onChange({
                     github: e.target.value,
@@ -135,6 +144,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
                 placeholder="Optional"
                 size="large"
                 value={formInputs.portfolio}
+                invalid={!!errors.portfolio}
+                errorMsg={errors.portfolio}
                 onChange={e =>
                   onChange({
                     portfolio: e.target.value,
@@ -148,9 +159,12 @@ export default ({ formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <QuestionHeading>question 13</QuestionHeading>
-        <SubHeading color="primary">Answer one of the two questions:</SubHeading>
+        <SubHeading color="primary">
+          Answer one of the two questions:
+          <Required />
+        </SubHeading>
         <SubHeading size="1.25em">
-          1. Describe how you became interested in the world of technology and here you hope to go
+          1. Describe how you became interested in the world of technology and where you hope to go
           from here on out!
         </SubHeading>
         <SubHeading size="1.25em">
@@ -160,6 +174,8 @@ export default ({ formInputs, onChange, role, handleResume }) => {
           maxLength="650"
           width="100%"
           value={formInputs.longAnswers}
+          invalid={!!errors.longAnswers}
+          errorMsg={errors.longAnswers}
           onChange={val =>
             onChange({
               longAnswers: val,

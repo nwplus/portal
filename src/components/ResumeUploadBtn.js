@@ -32,7 +32,9 @@ export default ({ onChange, hint, errorMsg }) => {
       <UploadButton handleClick={handleClick} />
       {hint !== undefined &&
         (hint ? (
-          <span>{hint.match(/[/\\]([\w\d\s.\-()]+)$/)[1]}</span>
+          hint.match(/[/\\]([\w\d\s.\-()]+)$/) != null && (
+            <span>{hint.match(/[/\\]([\w\d\s.\-()]+)$/)[1]}</span>
+          )
         ) : (
           <ErrorMessage>{errorMsg}</ErrorMessage>
         ))}
