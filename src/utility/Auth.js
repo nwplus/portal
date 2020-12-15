@@ -34,13 +34,6 @@ export function AuthProvider({ children }) {
       const admin = await checkAdminClaim(currUser)
       currUser.admin = admin
       setUser(currUser)
-      if (
-        location === '/application' &&
-        currUser.status === ApplicationStatus.inProgress &&
-        currUser.redirect === RedirectStatus.ApplicationNotSubmitted
-      ) {
-        await handleUser(setUser, setLocation)
-      }
       setLoading(false)
     })
   })
