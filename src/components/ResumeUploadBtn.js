@@ -30,7 +30,7 @@ export default ({ onChange, hint, errorMsg }) => {
     <ResumeContainer>
       <ResumeFile inputFile={inputFile} onChange={onChange} />
       <UploadButton handleClick={handleClick} />
-      {hint ? <span>{hint}</span> : <ErrorMessage>{errorMsg}</ErrorMessage>}
+      {hint ? <span>✔ {hint} uploaded!</span> : <ErrorMessage>{errorMsg}</ErrorMessage>}
     </ResumeContainer>
   )
 }
