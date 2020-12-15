@@ -106,3 +106,9 @@ export const relevantDates = Object.freeze({
   sendAcceptancesBy: 'December 30th, 2020',
   hackathonWeekend: 'January 9-10th',
 })
+
+// firebase auth error codes that are currently custom-handled
+export const firebaseAuthError = {
+  EXPIRED_POPUP_REQUEST: 'auth/cancelled-popup-request',
+  POPUP_CLOSED_BY_USER: 'auth/popup-closed-by-user',
+}
