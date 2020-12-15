@@ -19,6 +19,15 @@ const SponsorsContainer = styled.div`
   text-align: center;
   justify-content: center;
   align-items: center;
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    margin-top: 80%;
+  }
+  ${p => p.theme.mediaQueries.tablet} {
+    margin-top: 88%;
+  }
+  ${p => p.theme.mediaQueries.xs} {
+    margin-top: 145%;
+  }
 `
 
 const LogoContainer = styled.div`
@@ -41,7 +50,6 @@ const SponsorLogo = styled.img`
 `
 
 const StyledFooterContainer = styled.div`
-  position: absolute;
   ${CenterHorizontally}
   z-index: 100;
   top: 55em;
@@ -58,11 +66,10 @@ const BoundingBox = styled.img`
 
 const CopyrightBlurb = styled(P)`
   && {
-    position: absolute;
     display: block;
     width: 100%;
     text-align: center;
-    top: 61em;
+    margin-top: 3em;
     padding-bottom: 2.5em;
   }
 `
