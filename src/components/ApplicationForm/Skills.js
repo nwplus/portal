@@ -15,6 +15,15 @@ const QuestionForm = styled.form`
       display: table-cell;
     }
   }
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    & > div {
+      display: block;
+      & > * {
+        display: block;
+        margin: 0.5em 0;
+      }
+    }
+  }
 `
 
 const QuestionRow = styled(QuestionHeading)`
@@ -76,6 +85,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           {role === 'designer' ? (
             <FormRow id="portfolio">
               <TextInput
+                inline
                 placeholder="Optional"
                 size="large"
                 value={formInputs.portfolio}
@@ -91,6 +101,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           ) : (
             <FormRow id="github">
               <TextInput
+                inline
                 placeholder="Optional"
                 size="large"
                 value={formInputs.github}
@@ -107,6 +118,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
 
           <FormRow id="linkedin">
             <TextInput
+              inline
               placeholder="Optional"
               size="large"
               value={formInputs.linkedin}
@@ -123,6 +135,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           {role === 'designer' ? (
             <FormRow id="github">
               <TextInput
+                inline
                 placeholder="Optional"
                 size="large"
                 value={formInputs.github}
@@ -138,6 +151,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           ) : (
             <FormRow id="portfolio">
               <TextInput
+                inline
                 placeholder="Optional"
                 size="large"
                 value={formInputs.portfolio}

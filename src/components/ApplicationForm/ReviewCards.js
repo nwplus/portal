@@ -5,6 +5,7 @@ import Banner from '../Banner'
 import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
 import { CenterHorizontally } from '../Common'
+import { FormSpacing } from './'
 
 const HoloBackground = styled.img`
   position: absolute;
@@ -20,12 +21,18 @@ const HoloBackground = styled.img`
   left: 0;
   height: min-content;
   ${CenterHorizontally}
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    display: none;
+  }
 `
 
 const ReviewContainer = styled.div`
   position: relative;
   max-width: 100%;
   margin: 3em auto;
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    margin: 1em auto;
+  }
 `
 
 const ContentWrapper = styled.div`
@@ -36,6 +43,12 @@ grid-template-columns: auto auto;
 grid-template-rows: auto auto auto auto auto auto;
 grid-gap: 0;`}
   padding: ${p => (p.textBlock ? `0.5em 0` : `2em`)};
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    padding: 1em;
+  }
+  ${p => p.theme.mediaQueries.xs} {
+    padding: 1.5em;
+  }
 `
 
 const InfoGroupWrapper = styled.div`
@@ -43,8 +56,19 @@ const InfoGroupWrapper = styled.div`
 `
 
 const StyledH1 = styled(H1)`
-  color: ${p => p.theme.colors.primary};
+  color: ${p => (p.heading ? p.theme.colors.primary : p.theme.colors.text)};
   overflow-wrap: break-word;
+  font-size: ${p => (p.heading ? `1.2em` : `1.5em`)};
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    font-size: ${p => (p.heading ? `1em` : `1.1em`)};
+    margin-top: 0;
+    margin-bottom: 0.5em;
+  }
+  ${p => p.theme.mediaQueries.xs} {
+    margin-top: 0;
+    font-size: ${p => (p.heading ? `1em` : `1.2em`)};
+    margin-bottom: 0.5em;
+  }
 `
 
 const StyledBanner = styled(Banner)`
@@ -71,8 +95,8 @@ const CenterH1 = styled(H1)`
 
 const InfoGroup = ({ heading, data }) => (
   <InfoGroupWrapper>
-    <H1 size="1.2em">{heading}</H1>
-    <StyledH1 size="1.5em">{data}</StyledH1>
+    <StyledH1 heading>{heading}</StyledH1>
+    <StyledH1>{data}</StyledH1>
   </InfoGroupWrapper>
 )
 
@@ -131,12 +155,14 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
 
   return (
     <>
-      <CenterH1>
-        Review Your Application&nbsp;
-        <span role="img" aria-label="eyes">
-          &#128064;
-        </span>
-      </CenterH1>
+      <FormSpacing>
+        <CenterH1>
+          Review Your Application&nbsp;
+          <span role="img" aria-label="eyes">
+            &#128064;
+          </span>
+        </CenterH1>
+      </FormSpacing>
 
       <ReviewContainer>
         <JohnDiv>
@@ -260,6 +286,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
         </ContentWrapper>
         <ContentWrapper textBlock>
           <Checkbox
+            flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
             onChange={() =>
               onChange({
@@ -268,16 +295,18 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
             }
             required
           >
-            I have read and agree to the{' '}
-            <A
-              bolded
-              color="primary"
-              href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
-              target="_blank"
-            >
-              MLH Code of Conduct
-            </A>
-            .<Required />
+            <span>
+              I have read and agree to the{' '}
+              <A
+                bolded
+                color="primary"
+                href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
+                target="_blank"
+              >
+                MLH Code of Conduct
+              </A>
+              .<Required />
+            </span>
           </Checkbox>
           <Checkbox
             flex
@@ -309,6 +338,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
             </span>
           </Checkbox>
           <Checkbox
+            flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
             onChange={() =>
               onChange({
@@ -317,8 +347,10 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
             }
             required
           >
-            I agree to allow my anonymized data to be used for nwPlus data reporting.
-            <Required />
+            <span>
+              I agree to allow my anonymized data to be used for nwPlus data reporting.
+              <Required />
+            </span>
           </Checkbox>
           <Checkbox
             flex
@@ -328,8 +360,10 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
                 shareWithSponsors: !formInputs.termsAndConditions.shareWithSponsors,
               })
             }
-            label="I would like to share my resume and supporting links (Linkedin, GitHub, Portfolio) to event sponsors and recruiters."
-          />
+          >
+            I would like to share my resume and supporting links (Linkedin, GitHub, Portfolio) to
+            event sponsors and recruiters.
+          </Checkbox>
         </ContentWrapper>
       </ReviewContainer>
       <HoloBackground src={holo} />
