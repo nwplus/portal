@@ -11,11 +11,15 @@ const ResumeFile = ({ inputFile, onChange }) => {
   return <input ref={inputFile} type="file" hidden onChange={onChange} />
 }
 
+const StyledButton = styled(Button)`
+  margin-left: 0;
+`
+
 const UploadButton = ({ handleClick }) => {
   return (
-    <Button color="tertiary" onClick={handleClick}>
+    <StyledButton color="tertiary" onClick={handleClick}>
       Upload
-    </Button>
+    </StyledButton>
   )
 }
 
