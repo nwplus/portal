@@ -46,7 +46,7 @@ const StyledLogoLockup = styled.img`
   top: 7em;
   margin: 0 50.5%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 9999;
 
   ${p =>
     p.theme.name === 'hackCamp' &&
