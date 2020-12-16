@@ -108,7 +108,10 @@ const createNewApplication = async user => {
 
   const newApplication = {
     ...HACKER_APPLICATION_TEMPLATE,
-    ...basicInfo,
+    basicInfo: {
+      ...HACKER_APPLICATION_TEMPLATE.basicInfo,
+      ...basicInfo,
+    },
     ...submission,
     ...userId,
     ...judging,
