@@ -1,8 +1,15 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
 import { useAuth } from './Auth'
-import { storage, getUserApplication, updateUserApplication, getLivesiteDoc } from './firebase'
+import {
+  analytics,
+  storage,
+  getUserApplication,
+  updateUserApplication,
+  getLivesiteDoc,
+} from './firebase'
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
+import { ANALYTICS_EVENTS } from './Constants'
 // import Page from '../components/Page'
 const HackerApplicationContext = createContext()
 
@@ -26,6 +33,18 @@ export function HackerApplicationProvider({ children }) {
   const [, setUpdated] = useState(false)
   const [applicationOpen, setApplicationOpen] = useState(null)
   const applicationRef = useRef()
+
+  /**Initialize retrieval of hacker application */
+  useEffect(() => {
+    const retrieveApplication = async () => {
+      if (!user) return
+      const app = await getUserApplication(user.uid)
+      setApplication(app)
+      setUpdated(false)
+      analytics.logEvent(ANALYTICS_EVENTS.AccessApplication, { userId: user.uid })
+    }
+    retrieveApplication()
+  }, [user])
 
   /**Saves the users application, can be called manually or through interval */
   /**Uses a reference to the application because I don't want all my useEffects triggering every time someone changes the application. */

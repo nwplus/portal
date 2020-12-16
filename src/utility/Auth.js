@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { getUserStatus } from './firebase'
-import { DB_HACKATHON, RedirectStatus } from './Constants'
+import { getUserStatus, analytics } from './firebase'
+import { DB_HACKATHON, REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
     return firebase.auth().onAuthStateChanged(async currUser => {
       if (!currUser) {
         setLoading(false)
+        analytics.setUserId(null)
         return
       }
       const { redirect, status } = await getUserStatus(currUser)
@@ -35,10 +36,12 @@ export function AuthProvider({ children }) {
       currUser.admin = admin
       setUser(currUser)
       setLoading(false)
+      analytics.setUserId(currUser.uid)
     })
   })
 
   const logout = async () => {
+    analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
     /* changed from / to /login for nwHacks application since the rest of the livesite content (schedule, sponsors, etc)
@@ -63,6 +66,8 @@ const handleUser = async (setUser, setLocation) => {
   const admin = await checkAdminClaim(user)
   user.admin = admin
   setUser(user)
+  analytics.setUserId(user.uid)
+  analytics.logEvent(ANALYTICS_EVENTS.Login, { userId: user.uid })
   setLocation(getRedirectUrl(redirect))
 }
 
@@ -71,11 +76,11 @@ export const getRedirectUrl = redirect => {
     if (DB_HACKATHON === 'LHD2021') return '/submission'
   }
   switch (redirect) {
-    case RedirectStatus.AttendingEvent && DB_HACKATHON === 'LHD2021':
-      return '/submission'
-    case RedirectStatus.ApplicationNotSubmitted:
+    case REDIRECT_STATUS.AttendingEvent && DB_HACKATHON === 'LHD2021':
+      return '/judging'
+    case REDIRECT_STATUS.ApplicationNotSubmitted:
       return '/application/part-1'
-    case RedirectStatus.ApplicationSubmitted:
+    case REDIRECT_STATUS.ApplicationSubmitted:
     default:
       return '/application'
   }

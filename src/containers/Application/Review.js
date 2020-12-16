@@ -4,7 +4,7 @@ import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import ReviewCards from '../../components/ApplicationForm/ReviewCards'
-import { ApplicationStatus } from '../../utility/Constants'
+import { APPLICATION_STATUS } from '../../utility/Constants'
 import { validateFormSection, checkForError, validateEntireForm } from '../../utility/Validation'
 
 export default () => {
@@ -37,7 +37,7 @@ export default () => {
     }
     updateApplication({
       status: {
-        applicationStatus: ApplicationStatus.applied,
+        applicationStatus: APPLICATION_STATUS.applied,
       },
     })
     setLocation('/application/confirmation')

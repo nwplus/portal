@@ -6,7 +6,7 @@ import { Button } from '../components/Input'
 import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
-import { DB_HACKATHON, firebaseAuthError } from '../utility/Constants'
+import { DB_HACKATHON, FIREBASE_AUTH_ERROR } from '../utility/Constants'
 import { useLocation } from 'wouter'
 import ErrorBanner from '../components/ErrorBanner'
 import { A } from '../components/Typography'
@@ -28,9 +28,9 @@ const ErrorMessage = ({ message }) => (
 // custom handling of errors
 const handleAuthError = (code, message) => {
   switch (code) {
-    case firebaseAuthError.EXPIRED_POPUP_REQUEST:
+    case FIREBASE_AUTH_ERROR.EXPIRED_POPUP_REQUEST:
       return null
-    case firebaseAuthError.POPUP_CLOSED_BY_USER:
+    case FIREBASE_AUTH_ERROR.POPUP_CLOSED_BY_USER:
       return null
     default:
       return <ErrorMessage message={message} />

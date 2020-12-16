@@ -26,13 +26,13 @@ export const SOCIAL_LINKS = Object.freeze({
   WEBSITE: 'https://www.nwplus.io',
 })
 
-export const RedirectStatus = Object.freeze({
+export const REDIRECT_STATUS = Object.freeze({
   ApplicationNotSubmitted: 'ApplicationNotSubmitted',
   ApplicationSubmitted: 'ApplicationSubmitted',
   AttendingEvent: 'AttendingEvent',
 })
 
-export const ApplicationStatus = Object.freeze({
+export const APPLICATION_STATUS = Object.freeze({
   applied: 'applied',
   accepted: 'accepted',
   rejected: 'rejected',
@@ -40,7 +40,7 @@ export const ApplicationStatus = Object.freeze({
   inProgress: 'inProgress',
 })
 
-export const hackerApplicationTemplate = Object.freeze({
+export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {
     email: '',
@@ -98,6 +98,15 @@ export const hackerApplicationTemplate = Object.freeze({
   team: '',
 })
 
+export const ANALYTICS_EVENTS = Object.freeze({
+  Login: 'Login',
+  AccessApplication: 'AccessApplication',
+  EditApplication: 'EditApplication',
+  Signup: 'Signup',
+  SocialMediaConversion: 'SocialMediaConversion',
+  Logout: 'Logout',
+  NotificationToggled: 'NotificationToggled',
+})
 // temporarily using constants until we add additional fields in the CMs
 export const relevantDates = Object.freeze({
   applicationDeadline: 'December 27th at 11:59PM (Pacific Time)',
@@ -108,7 +117,7 @@ export const relevantDates = Object.freeze({
 })
 
 // firebase auth error codes that are currently custom-handled
-export const firebaseAuthError = {
+export const FIREBASE_AUTH_ERROR = {
   EXPIRED_POPUP_REQUEST: 'auth/cancelled-popup-request',
   POPUP_CLOSED_BY_USER: 'auth/popup-closed-by-user',
 }
