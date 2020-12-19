@@ -33,7 +33,8 @@ const tierRanks = {
 
 export default ({ sponsors }) => {
   const tiers = sponsors.reduce((accumulator, sponsor) => {
-    accumulator[sponsor.tier] = [...(accumulator[sponsor.tier] || []), sponsor]
+    const tierLowerCase = sponsor.tier.toLowerCase()
+    accumulator[tierLowerCase] = [...(accumulator[tierLowerCase] || []), sponsor]
     return accumulator // group by tier
   }, {})
 
@@ -47,7 +48,7 @@ export default ({ sponsors }) => {
   }
 
   const singleSponsor = (entry, i) => {
-    const imgWidth = maxSponsorWidth * (1 - 0.1 * tierRanks[entry.tier])
+    const imgWidth = maxSponsorWidth * (1 - 0.1 * tierRanks[entry.tier.toLowerCase()])
     return (
       <SponsorContainer key={i}>
         <a href={entry.link}>
