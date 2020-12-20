@@ -41,17 +41,6 @@ export const getLivesiteDoc = callback => {
   })
 }
 
-export const getSponsors = () => {
-  return db
-    .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
-    .collection('Sponsors')
-    .get()
-    .then(querySnapshot => {
-      return querySnapshot.docs
-    })
-}
-
 export const syncToFirebase = async (projects, setMessageCallback) => {
   // delete old projects
   setMessageCallback(`Snapping old projects...`)
