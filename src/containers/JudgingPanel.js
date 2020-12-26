@@ -40,11 +40,12 @@ class Project {
     this.sponsorPrizes = entry['Opt-In Prizes'].replace(/['"]+/g, '').split(', ')
 
     for (let i = 0; i < teamsize; i++) {
-      const first = entry[`Team Member ${i + 1} First Name`]
-      const last = entry[`Team Member ${i + 1} Last Name`] ?? ''
-      if (!(first === undefined)) {
+      const first = entry[`Team Member ${i + 1} First Name`] ?? 'No first name'
+      const last = entry[`Team Member ${i + 1} Last Name`] ?? 'No last name'
+      const email = entry[`Team Member ${i + 1} Email`]
+      if (!(email === undefined)) {
         this.teamMembers.push(`${first} ${last}`)
-        this.teamMembersEmails.push(entry[`Team Member ${i + 1} Email`])
+        this.teamMembersEmails.push(email)
       }
     }
   }

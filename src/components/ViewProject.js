@@ -40,10 +40,11 @@ const StyledMessage = styled(Message)`
   text-align: right;
 `
 
-const ScoreInput = ({ id, label, score, onChange }) => {
+const ScoreInput = ({ id, label, description, score, onChange }) => {
   return (
     <>
       <StyledLabel htmlFor={id}>{label}</StyledLabel>
+      <P>{description}</P>
       <div id={id}>
         {[1, 2, 3, 4, 5].map(option => {
           return (
