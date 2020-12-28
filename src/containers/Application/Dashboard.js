@@ -3,34 +3,31 @@ import Dashboard from '../../components/ApplicationDashboard'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { useAuth } from '../../utility/Auth'
 import { useLocation } from 'wouter'
-import { relevantDates } from '../../utility/Constants'
-import { getLivesiteDoc } from '../../utility/firebase'
+import { getLivesiteDoc, livesiteDocRef } from '../../utility/firebase'
 import Page from '../../components/Page'
 
 const ApplicationDashboardContainer = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [livesiteDoc, setLivesiteDoc] = useState(false)
-  // const [relevantDates, setRelevantDates] = useState({})
+  const [relevantDates, setRelevantDates] = useState({})
   const { user } = useAuth()
   const [, setLocation] = useLocation()
 
-  // commenting this out until we add support in the cms for setting these fields
-
-  // useEffect(() => {
-  //   const unsubscribe = livesiteDocRef.onSnapshot(doc => {
-  //     const d = doc.data()
-  //     if (d) {
-  //       setRelevantDates({
-  //         applicationDeadline: d.applicationDeadline,
-  //         sendAcceptancesBy: d.sendAcceptancesBy,
-  //         rsvpBy: d.rsvpBy,
-  //         offWaitlistNotify: d.offWaitlistNotify,
-  //         hackathonWeekend: d.hackathonWeekend,
-  //       })
-  //     }
-  //   })
-  //   return unsubscribe
-  // }, [setRelevantDates])
+  useEffect(() => {
+    const unsubscribe = livesiteDocRef.onSnapshot(doc => {
+      const d = doc.data()
+      if (d) {
+        setRelevantDates({
+          applicationDeadline: d.applicationDeadline,
+          sendAcceptancesBy: d.sendAcceptancesBy,
+          rsvpBy: d.rsvpBy,
+          offWaitlistNotify: d.offWaitlistNotify,
+          hackathonWeekend: d.hackathonWeekend,
+        })
+      }
+    })
+    return unsubscribe
+  }, [setRelevantDates])
 
   const hackerStatusObject = application.status
   const hackerStatus =
