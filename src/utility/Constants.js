@@ -107,14 +107,6 @@ export const ANALYTICS_EVENTS = Object.freeze({
   Logout: 'Logout',
   NotificationToggled: 'NotificationToggled',
 })
-// temporarily using constants until we add additional fields in the CMs
-export const relevantDates = Object.freeze({
-  applicationDeadline: 'December 27th at 11:59PM (Pacific Time)',
-  rsvpBy: 'Janurary 3rd at 11:59PM (Pacific Time)',
-  offWaitlistNotify: 'one week before the event',
-  sendAcceptancesBy: 'December 30th, 2020',
-  hackathonWeekend: 'January 9-10th',
-})
 
 // firebase auth error codes that are currently custom-handled
 export const FIREBASE_AUTH_ERROR = {
