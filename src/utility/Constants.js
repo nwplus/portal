@@ -38,6 +38,7 @@ export const APPLICATION_STATUS = Object.freeze({
   rejected: 'rejected',
   waitlisted: 'waitlisted',
   inProgress: 'inProgress',
+  scored: 'scored',
 })
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
