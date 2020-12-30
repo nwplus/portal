@@ -94,6 +94,7 @@ export default ({
   isJudgingOpen,
   isSubmissionsOpen,
   isApplicationOpen,
+  hideSidebarCallback,
   hackerStatus,
 }) => {
   const [location] = useLocation()
@@ -135,7 +136,7 @@ export default ({
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
           links.map((link, i) => {
             return (
-              <Link key={i} href={link.location}>
+              <Link key={i} href={link.location} onClick={hideSidebarCallback}>
                 <StyledA selected={location === link.location}>{link.text}</StyledA>
               </Link>
             )
