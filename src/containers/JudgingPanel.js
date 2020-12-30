@@ -7,6 +7,7 @@ import { syncToFirebase, projectsRef } from '../utility/firebase'
 import ProjectTable from '../components/Judging/ProjectTable'
 import SponsorSubmissions from '../components/Judging/SponsorSubmissions'
 import { MoonLoader } from 'react-spinners'
+import ProgressBar from '../components/ProgressBar'
 
 class CSV {
   constructor(data) {
@@ -39,14 +40,38 @@ class Project {
     this.sponsorPrizes = entry['Opt-In Prizes'].replace(/['"]+/g, '').split(', ')
 
     for (let i = 0; i < teamsize; i++) {
-      const first = entry[`Team Member ${i + 1} First Name`]
-      const last = entry[`Team Member ${i + 1} Last Name`] ?? ''
-      if (!(first === undefined)) {
+      const first = entry[`Team Member ${i + 1} First Name`] ?? 'No first name'
+      const last = entry[`Team Member ${i + 1} Last Name`] ?? 'No last name'
+      const email = entry[`Team Member ${i + 1} Email`]
+      if (!(email === undefined)) {
         this.teamMembers.push(`${first} ${last}`)
-        this.teamMembersEmails.push(entry[`Team Member ${i + 1} Email`])
+        this.teamMembersEmails.push(email)
       }
     }
   }
+}
+
+const getStats = async () => {
+  const projectDocs = await projectsRef.get()
+  const projectData = projectDocs.docs.map(projectDoc => {
+    const project = projectDoc.data()
+    project.countGraded = project.grades ? Object.values(project.grades).length : 0
+    project.countTeamMembers = project.teamMembersEmails.length
+    return project
+  })
+  return projectData.reduce(
+    (accum, project) => {
+      accum.total += project.countTeamMembers
+      accum.assigned += project.countAssigned
+      accum.graded += project.countGraded
+      return accum
+    },
+    {
+      total: 0,
+      assigned: 0,
+      graded: 0,
+    }
+  )
 }
 
 const getGradedProjects = async () => {
@@ -88,21 +113,25 @@ export default () => {
   const [gradedProjects, setGradedProjects] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState({})
   const [isLoading, setLoading] = useState(false)
+  const [stats, setStats] = useState({
+    total: 0,
+    assigned: 0,
+    graded: 0,
+  })
 
   const uploadClickHandler = () => {
     inputFile.current.click()
   }
 
-  const handleClick = async () => {
+  const setProjectsAndStats = async () => {
     setLoading(true)
     setGradedProjects(await getGradedProjects())
+    getStats().then(data => setStats(data))
     setLoading(false)
   }
 
   useEffect(() => {
-    ;(async () => {
-      setGradedProjects(await getGradedProjects())
-    })()
+    setProjectsAndStats()
   }, [])
 
   const onChange = e => {
@@ -154,6 +183,9 @@ export default () => {
     }
   }
 
+  const percentageAssigned = ((stats.assigned * 100) / stats.total).toFixed(2)
+  const percentageGraded = ((stats.graded * 100) / stats.total).toFixed(2)
+
   return (
     <>
       <H1>Submissions</H1>
@@ -179,7 +211,11 @@ export default () => {
       </Card>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
       <H1>Grades</H1>
-      <Button color="secondary" width="large" style={{ margin: 0 }} onClick={handleClick}>
+      <H3>{percentageAssigned}% of projects assigned</H3>
+      <ProgressBar percent={percentageAssigned} />
+      <H3>{percentageGraded}% of projects judged</H3>
+      <ProgressBar percent={percentageGraded} />
+      <Button color="secondary" width="large" style={{ margin: 0 }} onClick={setProjectsAndStats}>
         Refresh Grades
       </Button>
       <MoonLoader color="#fff" loading={isLoading} />
