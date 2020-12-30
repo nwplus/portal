@@ -5,6 +5,7 @@ import { useAuth } from '../../utility/Auth'
 import { useLocation } from 'wouter'
 import { getLivesiteDoc, livesiteDocRef, currentHackathonRef } from '../../utility/firebase'
 import Page from '../../components/Page'
+import { APPLICATION_STATUS } from '../../utility/Constants'
 
 const ApplicationDashboardContainer = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -40,7 +41,7 @@ const ApplicationDashboardContainer = () => {
   }, [setRelevantDates])
 
   const hackerStatusObject = application.status
-  const hackerStatus =
+  let hackerStatus =
     hackerStatusObject !== undefined &&
     (hackerStatusObject.applicationStatus === 'accepted'
       ? hackerStatusObject.responded
@@ -49,6 +50,10 @@ const ApplicationDashboardContainer = () => {
           : 'acceptedNotAttending'
         : 'acceptedNoResponseYet'
       : hackerStatusObject.applicationStatus)
+
+  // handle case where applicationStatus: scored
+  hackerStatus =
+    hackerStatus === APPLICATION_STATUS.scored ? APPLICATION_STATUS.applied : hackerStatus
 
   const canRSVP =
     hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNotAttending'
