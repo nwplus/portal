@@ -155,7 +155,6 @@ export default ({
                     : null
                   : hackerStatuses()[hackerStatus]?.sidebarText}
               </StatusText>
-              {/* {!isRsvpOpen && hackerStatus === 'acceptedNoResponseYet' ? (isLoadingAppStatus ? null : 'NO RSVP') : hackerStatuses()[hackerStatus]?.sidebarText} */}
             </StyledA>
           </Link>
         )}
