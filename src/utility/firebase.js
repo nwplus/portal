@@ -32,6 +32,7 @@ export const storage = firebase.storage()
 export const analytics = firebase.analytics()
 
 export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
+export const currentHackathonRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON)
 export const applicantsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Applicants')
 export const projectsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Projects')
 

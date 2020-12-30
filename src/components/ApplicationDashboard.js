@@ -209,6 +209,8 @@ const Dashboard = ({
   username,
   editApplication,
   relevantDates,
+  isRsvpOpen,
+  isLoadingAppStatus,
 }) => {
   return (
     <Container>
@@ -230,7 +232,14 @@ const Dashboard = ({
       <StatusContainer>
         <div>
           <AppStatusText>
-            Application status: {hackerStatuses(relevantDates, username)[hackerStatus]?.cardText}
+            Application status:{' '}
+            {hackerStatus === 'acceptedNoResponseYet'
+              ? !isLoadingAppStatus
+                ? isRsvpOpen
+                  ? hackerStatuses()[hackerStatus]?.cardText
+                  : 'NO RSVP'
+                : null
+              : hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
           <StatusBlurbText>
             {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}
@@ -240,10 +249,10 @@ const Dashboard = ({
           <SocialMediaLinks />
           <RSVPButton
             width="flex"
-            onClick={isApplicationOpen && (() => setRSVP(canRSVP))}
+            onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
             shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
             color={canRSVP ? 'primary' : 'secondary'}
-            disabled={!isApplicationOpen}
+            disabled={!isRsvpOpen}
           >
             {canRSVP ? 'RSVP' : 'un-RSVP'}
           </RSVPButton>

@@ -95,6 +95,8 @@ export default ({
   isSubmissionsOpen,
   isApplicationOpen,
   hackerStatus,
+  isRsvpOpen,
+  isLoadingAppStatus,
 }) => {
   const [location] = useLocation()
   const { isAuthed, logout } = useAuth()
@@ -141,11 +143,19 @@ export default ({
             )
           })
         ) : (
-          // Not sure if I should abstract this case to use links.map
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
               <ApplicationText>APPLICATION</ApplicationText>
-              <StatusText>{hackerStatuses()[hackerStatus]?.sidebarText}</StatusText>
+              <StatusText>
+                {hackerStatus === 'acceptedNoResponseYet'
+                  ? !isLoadingAppStatus
+                    ? isRsvpOpen
+                      ? hackerStatuses()[hackerStatus]?.sidebarText
+                      : 'NO RSVP'
+                    : null
+                  : hackerStatuses()[hackerStatus]?.sidebarText}
+              </StatusText>
+              {/* {!isRsvpOpen && hackerStatus === 'acceptedNoResponseYet' ? (isLoadingAppStatus ? null : 'NO RSVP') : hackerStatuses()[hackerStatus]?.sidebarText} */}
             </StyledA>
           </Link>
         )}
