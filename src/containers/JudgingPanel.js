@@ -123,19 +123,15 @@ export default () => {
     inputFile.current.click()
   }
 
-  const handleClick = async () => {
+  const setProjectsAndStats = async () => {
     setLoading(true)
     setGradedProjects(await getGradedProjects())
     getStats().then(data => setStats(data))
     setLoading(false)
-    console.log(stats)
   }
 
   useEffect(() => {
-    ;(async () => {
-      setGradedProjects(await getGradedProjects())
-      getStats().then(data => setStats(data))
-    })()
+    setProjectsAndStats()
   }, [])
 
   const onChange = e => {
@@ -219,7 +215,7 @@ export default () => {
       <ProgressBar percent={percentageAssigned} />
       <H3>{percentageGraded}% of projects judged</H3>
       <ProgressBar percent={percentageGraded} />
-      <Button color="secondary" width="large" style={{ margin: 0 }} onClick={handleClick}>
+      <Button color="secondary" width="large" style={{ margin: 0 }} onClick={setProjectsAndStats}>
         Refresh Grades
       </Button>
       <MoonLoader color="#fff" loading={isLoading} />
