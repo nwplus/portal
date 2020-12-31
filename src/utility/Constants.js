@@ -41,6 +41,47 @@ export const APPLICATION_STATUS = Object.freeze({
   scored: 'scored',
 })
 
+export const JUDGING_RUBIRC = [
+  {
+    id: 'tech',
+    label: 'Technology',
+    description:
+      'The project has advanced usage of multiple technologies to very efficiently tackle the problem at hand. The team shows an excellent level of understanding of the technologies used.',
+    value: 5,
+    weight: 0.25,
+  },
+  {
+    id: 'design',
+    label: 'Design',
+    description:
+      'User Interface fits perfectly with the project and it is eye-pleasing. User Experience is very well thought, it is very easy to use the project. Hardware interaction is intuitive and well thought out. Goes above and beyond for factors beyond software (accessibility, etc.).',
+    value: 5,
+    weight: 0.25,
+  },
+  {
+    id: 'functionality',
+    label: 'Functionality',
+    description: 'Project is fully functional and polished. No apparent bugs during the demo.',
+    value: 5,
+    weight: 0.2,
+  },
+  {
+    id: 'creativity',
+    label: 'Creativity',
+    description: 'The project is a unique solution to a new problem.',
+    value: 5,
+    weight: 0.1,
+  },
+  {
+    id: 'pitch',
+    label: 'Pitch',
+    description:
+      'A lot of preparation was made for the pitch. All team members contribute to the pitch. The entire pitch content is relevant and no repeated information is given. Pitch is very engaging.',
+    value: 5,
+    weight: 0.2,
+  },
+]
+
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {
