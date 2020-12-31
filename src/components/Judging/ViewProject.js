@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { H2, P, A, Label, ErrorMessage, Message } from '../Typography'
 import { Select, Button, TextArea } from '../Input'
 import Youtube from '../Youtube'
+import { Card } from '../Common'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
 
 const Container = styled.div`
@@ -12,6 +13,11 @@ const Container = styled.div`
 const Column = styled.div`
   margin: 1em;
   flex: 1;
+`
+
+const JudgingColumn = styled(Column)`
+  flex: 0 0 550px;
+  margin-right: 4em;
 `
 
 const StyledYoutube = styled(Youtube)`
@@ -68,14 +74,16 @@ const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
 export default ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
   return (
     <Container>
-      <Column>
+      <JudgingColumn>
         <H2>Judging "{project.title}"</H2>
-        <StyledYoutube src={project.youtubeUrl} />
-        <StyledP>{project.description}</StyledP>
-        <A target="_blank" rel="noreferrer noopener" href={project.devpostUrl}>
-          View on Devpost
-        </A>
-      </Column>
+        <Card>
+          <StyledYoutube src={project.youtubeUrl} />
+          <StyledP>{project.description}</StyledP>
+          <A target="_blank" rel="noreferrer noopener" href={project.devpostUrl}>
+            View on Devpost
+          </A>
+        </Card>
+      </JudgingColumn>
       <Column>
         <H2>Scorecard</H2>
         {JUDGING_RUBRIC.map(entry => (
