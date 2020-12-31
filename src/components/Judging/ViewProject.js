@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { H2, P, A, Label, ErrorMessage, Message } from '../Typography'
 import { Select, Button, TextArea } from '../Input'
 import Youtube from '../Youtube'
+import { JUDGING_RUBRIC } from '../../utility/Constants'
 
 const Container = styled.div`
   display: flex;
@@ -40,13 +41,14 @@ const StyledMessage = styled(Message)`
   text-align: right;
 `
 
-const ScoreInput = ({ id, label, description, score, onChange }) => {
+const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
   return (
     <>
       <StyledLabel htmlFor={id}>{label}</StyledLabel>
       <P>{description}</P>
       <div id={id}>
-        {[1, 2, 3, 4, 5].map(option => {
+        {[...Array(maxScore).keys()].map(option => {
+          option = option + 1 // 1-index
           return (
             <Select
               key={option}
@@ -76,12 +78,16 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
       </Column>
       <Column>
         <H2>Scorecard</H2>
-        <ScoreInput id="tech" label="Technology" score={score} onChange={onChange} />
-        <ScoreInput id="design" label="Design" score={score} onChange={onChange} />
-        <ScoreInput id="functionality" label="Functionality" score={score} onChange={onChange} />
-        <ScoreInput id="creativity" label="Creativity" score={score} onChange={onChange} />
-        <ScoreInput id="pitch" label="Pitch" score={score} onChange={onChange} />
-
+        {JUDGING_RUBRIC.map(entry => (
+          <ScoreInput
+            id={entry.id}
+            label={entry.label}
+            description={entry.description}
+            maxScore={entry.value}
+            score={score}
+            onChange={onChange}
+          />
+        ))}
         <StyledLabel htmlFor="notes">Comments</StyledLabel>
         <StyledTextArea
           maxLength="600"

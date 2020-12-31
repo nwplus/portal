@@ -41,7 +41,7 @@ export const APPLICATION_STATUS = Object.freeze({
   scored: 'scored',
 })
 
-export const JUDGING_RUBIRC = [
+export const JUDGING_RUBRIC = [
   {
     id: 'tech',
     label: 'Technology',
