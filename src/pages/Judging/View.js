@@ -6,6 +6,7 @@ import { A } from '../../components/Typography'
 import ErrorBanner from '../../components/ErrorBanner'
 import { getLivesiteDoc, projectsRef, db, applicantsRef } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
+import { defaultScoreFromRubric, isUngraded } from '../../utility/Constants'
 
 const REDIRECT_TIMEOUT = 3000
 
@@ -18,15 +19,7 @@ export default ({ id }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [score, setScore] = useState({
-    tech: 0,
-    design: 0,
-    functionality: 0,
-    creativity: 0,
-    pitch: 0,
-    notes: '',
-  })
-
+  const [score, setScore] = useState(defaultScoreFromRubric())
   const [project, setProject] = useState()
 
   useEffect(() => {
@@ -53,7 +46,7 @@ export default ({ id }) => {
   }, [setIsJudgingOpen])
 
   const submit = async () => {
-    if (!score.tech || !score.design || !score.functionality || !score.creativity || !score.pitch) {
+    if (isUngraded(score)) {
       setFormError(true)
     } else if (!isSubmitting) {
       setFormError(false)

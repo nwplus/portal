@@ -82,6 +82,22 @@ export const JUDGING_RUBRIC = [
   },
 ]
 
+export const defaultScoreFromRubric = () => {
+  const res = JUDGING_RUBRIC.reduce((accum, val) => {
+    accum[val.id] = 0
+    return accum
+  }, {})
+  res.notes = ''
+  return res
+}
+
+export const isUngraded = score => {
+  const ids = JUDGING_RUBRIC.map(entry => entry.id)
+  return ids.reduce((accum, id) => {
+    return accum || score[id] === 0
+  }, false)
+}
+
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {
