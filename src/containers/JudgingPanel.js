@@ -76,18 +76,19 @@ const getStats = async () => {
 }
 
 const calculatePointTotals = project => {
-  // reset prev rubric items
-  JUDGING_RUBRIC.forEach(item => (project[item.id] = 0))
+  const res = { total: 0 }
 
   Object.values(project.grades).forEach(grade => {
     Object.entries(grade).forEach(([key, value]) => {
       if (key === 'notes') {
         return
       }
-      project[key] = project[key] ? project[key] + value : value
-      project.total = project.total ? project.total + value : value
+      res[key] = res[key] ? res[key] + value : value
+      res.total += value
     })
   })
+
+  return res
 }
 
 const calculateResiduals = project => {
@@ -108,10 +109,12 @@ const calculateResiduals = project => {
 const getGradedProjects = async (dropOutliers = 2) => {
   const projectDocs = await projectsRef.get()
   const projectData = projectDocs.docs.map(projectDoc => {
-    const project = projectDoc.data()
+    var project = projectDoc.data()
     if (project.grades) {
       project.countGraded = Object.values(project.grades).length
-      calculatePointTotals(project)
+
+      // add total grade calculations to project object
+      project = { ...project, ...calculatePointTotals(project) }
       const avg = total => {
         return (total / project.countGraded).toFixed(2)
       }
@@ -119,15 +122,21 @@ const getGradedProjects = async (dropOutliers = 2) => {
       JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
       project.grade = calculateGrade(project)
 
+      // sort residuals
       const residuals = calculateResiduals(project).sort()
       for (var i = 0; i < dropOutliers; i++) {
+        // remove top dropOutliers
         const residual = residuals.pop()
         delete project.grades[residual.id]
       }
 
       // recalculate if any grades were dropped
       if (dropOutliers > 0) {
-        calculatePointTotals(project)
+        // reset to 0 (needed in case after dropping outliers, grades is 0)
+        JUDGING_RUBRIC.forEach(item => (project[item.id] = 0))
+
+        // repopulate project object
+        project = { ...project, ...calculatePointTotals(project) }
         JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
         project.grade = calculateGrade(project)
       }
