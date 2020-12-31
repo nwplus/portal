@@ -46,37 +46,35 @@ export const JUDGING_RUBRIC = [
     id: 'tech',
     label: 'Technology',
     description:
-      'The project has advanced usage of multiple technologies to very efficiently tackle the problem at hand. The team shows an excellent level of understanding of the technologies used.',
+      'Use and proficiency of the technologies(programming languages, APIs, software) used for the project',
     value: 5,
     weight: 0.25,
   },
   {
     id: 'design',
     label: 'Design',
-    description:
-      'User Interface fits perfectly with the project and it is eye-pleasing. User Experience is very well thought, it is very easy to use the project. Hardware interaction is intuitive and well thought out. Goes above and beyond for factors beyond software (accessibility, etc.).',
+    description: 'UI and UX, ease of use and accessibility',
     value: 5,
     weight: 0.25,
   },
   {
     id: 'functionality',
     label: 'Functionality',
-    description: 'Project is fully functional and polished. No apparent bugs during the demo.',
+    description: 'Demo functionality and quality, bug problems',
     value: 5,
     weight: 0.2,
   },
   {
     id: 'creativity',
     label: 'Creativity',
-    description: 'The project is a unique solution to a new problem.',
+    description: 'Project creativity and originality',
     value: 5,
     weight: 0.1,
   },
   {
     id: 'pitch',
     label: 'Pitch',
-    description:
-      'A lot of preparation was made for the pitch. All team members contribute to the pitch. The entire pitch content is relevant and no repeated information is given. Pitch is very engaging.',
+    description: 'Preparedness, content and engagement',
     value: 5,
     weight: 0.2,
   },

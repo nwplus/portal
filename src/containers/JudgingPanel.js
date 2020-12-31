@@ -75,26 +75,58 @@ const getStats = async () => {
   )
 }
 
-const getGradedProjects = async () => {
+const calculatePointTotals = project => {
+  // reset prev rubric items
+  JUDGING_RUBRIC.forEach(item => (project[item.id] = 0))
+
+  Object.values(project.grades).forEach(grade => {
+    Object.entries(grade).forEach(([key, value]) => {
+      if (key === 'notes') return
+      project[key] = project[key] ? project[key] + value : value
+      project.total = project.total ? project.total + value : value
+    })
+  })
+}
+
+const calculateResiduals = project => {
+  const residuals = []
+  Object.entries(project.grades).forEach(([key, grade]) => {
+    Object.entries(grade).forEach(([subkey, value]) => {
+      if (subkey === 'notes') return
+      const mean = project[subkey] / project.countGraded
+      grade.residual = (mean - value) ** 2
+      residuals.push({ id: key, value: grade.residual })
+    })
+  })
+  return residuals
+}
+
+const getGradedProjects = async (dropOutliers = 2) => {
   const projectDocs = await projectsRef.get()
   const projectData = projectDocs.docs.map(projectDoc => {
     const project = projectDoc.data()
     if (project.grades) {
       project.countGraded = Object.values(project.grades).length
-      Object.values(project.grades).forEach(grade => {
-        Object.entries(grade).forEach(([key, value]) => {
-          if (key === 'notes') return
-          project[key] = project[key] ? project[key] + value : value
-          project.total = project.total ? project.total + value : value
-        })
-      })
-
+      calculatePointTotals(project)
       const avg = total => {
         return (total / project.countGraded).toFixed(2)
       }
 
       JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
       project.grade = calculateGrade(project)
+
+      const residuals = calculateResiduals(project).sort()
+      for (var i = 0; i < dropOutliers; i++) {
+        const residual = residuals.pop()
+        delete project.grades[residual.id]
+      }
+
+      // recalculate if any grades were dropped
+      if (dropOutliers > 0) {
+        calculatePointTotals(project)
+        JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
+        project.grade = calculateGrade(project)
+      }
     } else {
       project.countGraded = 0
       project.grade = 0
