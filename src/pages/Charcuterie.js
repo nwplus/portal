@@ -5,7 +5,7 @@ import { Button, TextInput, TextArea, Checkbox, Select, Dropdown } from '../comp
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
-import JudgingCard from '../components/JudgingCard'
+import JudgingCard from '../components/Judging/JudgingCard'
 import FormContainer from '../components/ApplicationForm'
 import VerticalProgressBar from '../components/VerticalProgressBar'
 import ResumeUploadBtn from '../components/ResumeUploadBtn'

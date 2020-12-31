@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Accordion from '../Accordion'
-import { H1 } from '../Typography'
-import { CardLike } from '../Common'
+import Accordion from '../../Accordion'
+import { H1 } from '../../Typography'
+import { CardLike } from '../../Common'
 
 const SponsorPrize = styled.div`
   ${CardLike};

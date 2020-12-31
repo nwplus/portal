@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
-import ViewSubmission from '../components/Submission'
+import ViewSubmission from '../components/Judging/Submission'
 import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
 import LinkSubmission from '../containers/SubmissionLink'

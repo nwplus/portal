@@ -1,7 +1,7 @@
 import React from 'react'
-import { TextInput } from './Input'
-import { H1, Message, A, P } from './Typography'
-import { TableForm, FormRow, SubmitRow } from './TableForm'
+import { TextInput } from '../Input'
+import { H1, Message, A, P } from '../Typography'
+import { TableForm, FormRow, SubmitRow } from '../TableForm'
 
 export default ({ email, msg, onSubmit, onChange }) => {
   return (
