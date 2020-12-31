@@ -95,8 +95,6 @@ export default ({
   isSubmissionsOpen,
   isApplicationOpen,
   hackerStatus,
-  isRsvpOpen,
-  isLoadingAppStatus,
 }) => {
   const [location] = useLocation()
   const { isAuthed, logout } = useAuth()
@@ -146,15 +144,7 @@ export default ({
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
               <ApplicationText>APPLICATION</ApplicationText>
-              <StatusText>
-                {hackerStatus === 'acceptedNoResponseYet'
-                  ? !isLoadingAppStatus
-                    ? isRsvpOpen
-                      ? hackerStatuses()[hackerStatus]?.sidebarText
-                      : 'NO RSVP'
-                    : null
-                  : hackerStatuses()[hackerStatus]?.sidebarText}
-              </StatusText>
+              <StatusText>{hackerStatuses()[hackerStatus]?.sidebarText}</StatusText>
             </StyledA>
           </Link>
         )}

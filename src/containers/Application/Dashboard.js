@@ -5,6 +5,7 @@ import { useAuth } from '../../utility/Auth'
 import { useLocation } from 'wouter'
 import { getLivesiteDoc, livesiteDocRef, currentHackathonRef } from '../../utility/firebase'
 import Page from '../../components/Page'
+import Spinner from '../../components/Loading'
 
 const ApplicationDashboardContainer = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -39,21 +40,28 @@ const ApplicationDashboardContainer = () => {
     return unsubscribe
   }, [setRelevantDates])
 
-  const hackerStatusObject = application.status
-  const hackerStatus =
-    hackerStatusObject !== undefined &&
-    (hackerStatusObject.applicationStatus === 'accepted'
-      ? hackerStatusObject.responded
-        ? hackerStatusObject.attending
-          ? 'acceptedAndAttending'
-          : 'acceptedNotAttending'
-        : 'acceptedNoResponseYet'
-      : hackerStatusObject.applicationStatus === 'scored'
-      ? 'applied'
-      : hackerStatusObject.applicationStatus)
+  const { applicationStatus, responded, attending } = application.status
+  let hackerStatus
 
-  const canRSVP =
-    hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNotAttending'
+  if (applicationStatus === 'accepted') {
+    if (responded) {
+      if (attending) {
+        hackerStatus = 'acceptedAndAttending'
+      } else {
+        hackerStatus = 'acceptedUnRSVP'
+      }
+    } else if (isRsvpOpen) {
+      hackerStatus = 'acceptedNoResponseYet'
+    } else {
+      hackerStatus = 'acceptedNoRSVP'
+    }
+  } else if (applicationStatus === 'scored') {
+    hackerStatus = 'applied'
+  } else {
+    hackerStatus = applicationStatus
+  }
+
+  const canRSVP = hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedUnRSVP'
   const setRSVP = rsvpStatus => {
     updateApplication({
       status: {
@@ -69,12 +77,10 @@ const ApplicationDashboardContainer = () => {
     return unsubscribe
   }, [setLivesiteDoc])
 
-  return (
-    <Page
-      hackerStatus={hackerStatus}
-      isRsvpOpen={isRsvpOpen}
-      isLoadingAppStatus={isLoadingAppStatus}
-    >
+  return isLoadingAppStatus ? (
+    <Spinner />
+  ) : (
+    <Page hackerStatus={hackerStatus}>
       <Dashboard
         editApplication={() => setLocation('/application/part-1')}
         username={user.displayName}
@@ -84,7 +90,6 @@ const ApplicationDashboardContainer = () => {
         canRSVP={canRSVP}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
-        isLoadingAppStatus={isLoadingAppStatus}
       />
     </Page>
   )
