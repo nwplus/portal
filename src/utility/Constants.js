@@ -92,10 +92,10 @@ export const defaultScoreFromRubric = () => {
 }
 
 export const isUngraded = score => {
-  const ids = JUDGING_RUBRIC.map(entry => entry.id)
-  return ids.reduce((accum, id) => {
-    return accum || score[id] === 0
-  }, false)
+  return JUDGING_RUBRIC.map(entry => entry.id).reduce(
+    (isUngraded, id) => isUngraded || score[id] === 0,
+    false
+  )
 }
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
