@@ -95,6 +95,13 @@ export const isUngraded = score => {
   return JUDGING_RUBRIC.map(entry => entry.id).some(id => score[id] === 0)
 }
 
+export const calculateGrade = score => {
+  return JUDGING_RUBRIC.reduce((currentScore, item) => {
+    currentScore += score[item.id] * item.weight
+    return currentScore
+  }, 0).toFixed(2)
+}
+
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {

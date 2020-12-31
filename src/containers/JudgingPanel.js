@@ -8,6 +8,7 @@ import ProjectTable from '../components/Judging/Admin/ProjectTable'
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 import { MoonLoader } from 'react-spinners'
 import ProgressBar from '../components/ProgressBar'
+import { JUDGING_RUBRIC, calculateGrade } from '../utility/Constants'
 
 class CSV {
   constructor(data) {
@@ -87,15 +88,13 @@ const getGradedProjects = async () => {
           project.total = project.total ? project.total + value : value
         })
       })
+
       const avg = total => {
         return (total / project.countGraded).toFixed(2)
       }
-      project.grade = avg(project.total)
-      project.tech = avg(project.tech)
-      project.design = avg(project.design)
-      project.functionality = avg(project.functionality)
-      project.creativity = avg(project.creativity)
-      project.pitch = avg(project.pitch)
+
+      JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
+      project.grade = calculateGrade(project)
     } else {
       project.countGraded = 0
       project.grade = 0
