@@ -40,6 +40,7 @@ const Page = ({ hackerStatus, children }) => {
         isSubmissionsOpen={livesiteDoc.submissionsOpen}
         isApplicationOpen={livesiteDoc.applicationsOpen}
         showMobileSidebar={showMobileSidebar}
+        hideSidebarCallback={() => setShowMobileSidebar(false)}
         hackerStatus={hackerStatus}
       />
       <RightContentContainer>
