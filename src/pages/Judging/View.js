@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, Link } from 'wouter'
 import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
-import ViewProject from '../../components/ViewProject'
+import ViewProject from '../../components/Judging/ViewProject'
 import { A } from '../../components/Typography'
 import ErrorBanner from '../../components/ErrorBanner'
 import { getLivesiteDoc, projectsRef, db, applicantsRef } from '../../utility/firebase'

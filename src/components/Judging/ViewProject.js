@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { H2, P, A, Label, ErrorMessage, Message } from '../components/Typography'
-import { Select, Button, TextArea } from '../components/Input'
-import Youtube from '../components/Youtube'
+import { H2, P, A, Label, ErrorMessage, Message } from '../Typography'
+import { Select, Button, TextArea } from '../Input'
+import Youtube from '../Youtube'
 
 const Container = styled.div`
   display: flex;
