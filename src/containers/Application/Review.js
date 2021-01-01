@@ -11,11 +11,17 @@ export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
-
+  const [loading, setLoading] = useState(false)
   const validate = change => {
     const newErrors = validateFormSection(change, 'termsAndConditions')
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
+  }
+
+  const save = async () => {
+    setLoading(true)
+    await forceSave()
+    setLoading(false)
   }
 
   const handleEdit = href => {
@@ -24,12 +30,12 @@ export default () => {
   }
 
   const handleNavigation = async href => {
-    await forceSave()
+    await save()
     setLocation(href)
     window.scrollTo(0, 0)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const allErrors = validateEntireForm(application)
     if (checkForError(allErrors)) {
       window.alert('Please agree to the required terms and conditions.')
@@ -40,6 +46,7 @@ export default () => {
         applicationStatus: APPLICATION_STATUS.applied,
       },
     })
+    await save()
     setLocation('/application/confirmation')
     window.scrollTo(0, 0)
   }
@@ -68,6 +75,7 @@ export default () => {
         secondButtonText="Submit"
         secondButtonOnClick={() => handleSubmit()}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
+        loading={loading}
       />
     </>
   )

@@ -12,11 +12,18 @@ export default () => {
   const [, setLocation] = useLocation()
   const { logout } = useAuth()
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'basicInfo')
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
+  }
+
+  const save = async () => {
+    setLoading(true)
+    await forceSave()
+    setLoading(false)
   }
 
   const updateBasicInfo = change => {
@@ -32,7 +39,7 @@ export default () => {
    * Saves and moves to next page
    */
   const handleNavigation = async href => {
-    await forceSave()
+    await save()
     if (href === '/application/part-2') {
       const newErrors = validate(application.basicInfo)
       if (checkForError(newErrors)) {
@@ -45,7 +52,7 @@ export default () => {
   }
 
   const handleLogout = async () => {
-    await forceSave()
+    await save()
     logout()
   }
   return (
@@ -58,6 +65,7 @@ export default () => {
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-2')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
+        loading={loading}
       />
     </>
   )
