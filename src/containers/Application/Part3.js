@@ -11,11 +11,18 @@ export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'questionnaire')
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
+  }
+
+  const save = async () => {
+    setLoading(true)
+    await forceSave()
+    setLoading(false)
   }
 
   const updateQuestionnaire = change => {
@@ -28,7 +35,7 @@ export default () => {
   }
 
   const handleNavigation = async href => {
-    await forceSave()
+    await save()
     if (href === '/application/review') {
       const newErrors = validate(application.questionnaire)
       if (checkForError(newErrors)) {
@@ -54,6 +61,7 @@ export default () => {
         secondButtonText="Review Your Application"
         secondButtonOnClick={() => handleNavigation('/application/review')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
+        loading={loading}
       />
     </>
   )

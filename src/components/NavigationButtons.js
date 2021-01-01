@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Input'
 import { I } from './Typography'
+import MoonLoader from 'react-spinners/MoonLoader'
 
 const StyledButton = styled(Button)`
   margin: 0;
@@ -39,6 +40,7 @@ export default ({
   secondButtonText,
   secondButtonOnClick,
   autosaveTime,
+  loading = false,
 }) => {
   return (
     <NavigationButtonsContainer>
@@ -47,9 +49,12 @@ export default ({
         <StyledButton color="secondary" width="flex" onClick={firstButtonOnClick}>
           {firstButtonText}
         </StyledButton>
-        <StyledButton width="flex" onClick={secondButtonOnClick}>
-          {secondButtonText}
-        </StyledButton>
+        <div style={{ display: 'flex' }}>
+          <MoonLoader css={{ margin: '0 10px' }} color="#fff" size="30" loading={loading} />
+          <StyledButton width="flex" onClick={secondButtonOnClick}>
+            {secondButtonText}
+          </StyledButton>
+        </div>
       </ButtonContainer>
     </NavigationButtonsContainer>
   )

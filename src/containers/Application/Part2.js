@@ -14,11 +14,18 @@ export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'skills')
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
+  }
+
+  const save = async () => {
+    setLoading(true)
+    await forceSave()
+    setLoading(false)
   }
 
   const updateSkillsInfo = change => {
@@ -40,14 +47,16 @@ export default () => {
     if (size > MAX_RESUME_FILE_SIZE_MB || newErrors.resume) return
 
     // upload the resume and update the application on success.
+    setLoading(true)
     await uploadResumeToStorage(application._id, resume)
+    setLoading(false)
     updateSkillsInfo({
       resume: resume.name,
     })
   }
 
   const handleNavigation = async href => {
-    await forceSave()
+    await save()
     if (href === '/application/part-3') {
       const newErrors = validate(application.skills)
       if (checkForError(newErrors)) {
@@ -75,6 +84,7 @@ export default () => {
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-3')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
+        loading={loading}
       />
     </>
   )
