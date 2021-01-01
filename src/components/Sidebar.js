@@ -142,7 +142,6 @@ export default ({
             )
           })
         ) : (
-          // Not sure if I should abstract this case to use links.map
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
               <ApplicationText>APPLICATION</ApplicationText>

@@ -156,9 +156,24 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     ),
     blurb: `We can't wait to see you at ${copyText.hackathonName}! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${copyText.hackathonName} anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
   },
-  acceptedNotAttending: {
+  acceptedUnRSVP: {
     sidebarText: "Un-RSVP'd",
     cardText: "Un-RSVP'd",
+    blurb: (
+      <>
+        We're sorry you won't be attending {copyText.hackathonName}. We do hope to see you at our
+        future events, visit our site{' '}
+        <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
+          nwplus.io
+        </A>{' '}
+        or follow us on social media to learn about our events and other ways to engage with the
+        technology community!
+      </>
+    ),
+  },
+  acceptedNoRSVP: {
+    sidebarText: 'No RSVP',
+    cardText: 'No RSVP',
     blurb: (
       <>
         We're sorry you won't be attending {copyText.hackathonName}. We do hope to see you at our
@@ -209,6 +224,7 @@ const Dashboard = ({
   username,
   editApplication,
   relevantDates,
+  isRsvpOpen,
 }) => {
   return (
     <Container>
@@ -230,7 +246,7 @@ const Dashboard = ({
       <StatusContainer>
         <div>
           <AppStatusText>
-            Application status: {hackerStatuses(relevantDates, username)[hackerStatus]?.cardText}
+            Application status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
           <StatusBlurbText>
             {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}
@@ -240,10 +256,10 @@ const Dashboard = ({
           <SocialMediaLinks />
           <RSVPButton
             width="flex"
-            onClick={isApplicationOpen && (() => setRSVP(canRSVP))}
+            onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
             shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
             color={canRSVP ? 'primary' : 'secondary'}
-            disabled={!isApplicationOpen}
+            disabled={!isRsvpOpen}
           >
             {canRSVP ? 'RSVP' : 'un-RSVP'}
           </RSVPButton>

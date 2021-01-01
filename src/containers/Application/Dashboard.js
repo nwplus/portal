@@ -3,16 +3,26 @@ import Dashboard from '../../components/ApplicationDashboard'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { useAuth } from '../../utility/Auth'
 import { useLocation } from 'wouter'
-import { getLivesiteDoc, livesiteDocRef } from '../../utility/firebase'
+import { getLivesiteDoc, livesiteDocRef, currentHackathonRef } from '../../utility/firebase'
 import Page from '../../components/Page'
-import { APPLICATION_STATUS } from '../../utility/Constants'
+import Spinner from '../../components/Loading'
 
 const ApplicationDashboardContainer = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [livesiteDoc, setLivesiteDoc] = useState(false)
   const [relevantDates, setRelevantDates] = useState({})
+  const [isRsvpOpen, setIsRsvpOpen] = useState(false)
+  const [isLoadingAppStatus, setIsLoadingAppStatus] = useState(true)
   const { user } = useAuth()
   const [, setLocation] = useLocation()
+
+  useEffect(() => {
+    const unsubscribe = currentHackathonRef.onSnapshot(doc => {
+      setIsRsvpOpen(doc.data().featureFlags.rsvpOpenFlag)
+      setIsLoadingAppStatus(false)
+    })
+    return unsubscribe
+  }, [setIsRsvpOpen])
 
   useEffect(() => {
     const unsubscribe = livesiteDocRef.onSnapshot(doc => {
@@ -30,28 +40,36 @@ const ApplicationDashboardContainer = () => {
     return unsubscribe
   }, [setRelevantDates])
 
-  const hackerStatusObject = application.status
-  let hackerStatus =
-    hackerStatusObject !== undefined &&
-    (hackerStatusObject.applicationStatus === 'accepted'
-      ? hackerStatusObject.responded
-        ? hackerStatusObject.attending
-          ? 'acceptedAndAttending'
-          : 'acceptedNotAttending'
-        : 'acceptedNoResponseYet'
-      : hackerStatusObject.applicationStatus)
+  const { applicationStatus, responded, attending } = application.status
+  let hackerStatus
 
-  // handle case where applicationStatus: scored
-  hackerStatus =
-    hackerStatus === APPLICATION_STATUS.scored ? APPLICATION_STATUS.applied : hackerStatus
+  if (applicationStatus === 'accepted') {
+    if (responded) {
+      if (attending) {
+        hackerStatus = 'acceptedAndAttending'
+      } else {
+        hackerStatus = 'acceptedUnRSVP'
+      }
+    } else if (isRsvpOpen) {
+      hackerStatus = 'acceptedNoResponseYet'
+    } else {
+      hackerStatus = 'acceptedNoRSVP'
+    }
+  } else if (applicationStatus === 'scored') {
+    hackerStatus = 'applied'
+  } else {
+    hackerStatus = applicationStatus
+  }
 
   const canRSVP =
-    hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNotAttending'
-  const setRSVP = canRSVP => {
+    hackerStatus === 'acceptedNoResponseYet' ||
+    hackerStatus === 'acceptedUnRSVP' ||
+    hackerStatus === 'acceptedNoRSVP'
+  const setRSVP = rsvpStatus => {
     updateApplication({
       status: {
         responded: true,
-        attending: canRSVP,
+        attending: rsvpStatus,
       },
     })
     forceSave()
@@ -62,16 +80,19 @@ const ApplicationDashboardContainer = () => {
     return unsubscribe
   }, [setLivesiteDoc])
 
-  return (
+  return isLoadingAppStatus ? (
+    <Spinner />
+  ) : (
     <Page hackerStatus={hackerStatus}>
       <Dashboard
         editApplication={() => setLocation('/application/part-1')}
         username={user.displayName}
         hackerStatus={hackerStatus}
         isApplicationOpen={livesiteDoc.applicationsOpen}
-        setRSVP={() => setRSVP(canRSVP)}
+        setRSVP={rsvpStatus => setRSVP(rsvpStatus)}
         canRSVP={canRSVP}
         relevantDates={relevantDates}
+        isRsvpOpen={isRsvpOpen}
       />
     </Page>
   )
