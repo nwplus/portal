@@ -61,7 +61,10 @@ const ApplicationDashboardContainer = () => {
     hackerStatus = applicationStatus
   }
 
-  const canRSVP = hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedUnRSVP'
+  const canRSVP =
+    hackerStatus === 'acceptedNoResponseYet' ||
+    hackerStatus === 'acceptedUnRSVP' ||
+    hackerStatus === 'acceptedNoRSVP'
   const setRSVP = rsvpStatus => {
     updateApplication({
       status: {
