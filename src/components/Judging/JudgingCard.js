@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'wouter'
-import { H2, P } from './Typography'
-import { CardLike } from '../components/Common.js'
-import { Button } from './Input/Button'
+import { H2, P } from '../Typography'
+import { CardLike } from '../Common.js'
+import { Button } from '../Input/Button'
 
 const MAX_CHARACTERS_IN_DESCRIPTION = 100
 

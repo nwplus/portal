@@ -41,6 +41,65 @@ export const APPLICATION_STATUS = Object.freeze({
   scored: 'scored',
 })
 
+export const JUDGING_RUBRIC = [
+  {
+    id: 'tech',
+    label: 'Technology',
+    description:
+      'Use and proficiency of the technologies(programming languages, APIs, software) used for the project',
+    value: 5,
+    weight: 0.25,
+  },
+  {
+    id: 'design',
+    label: 'Design',
+    description: 'UI and UX, ease of use and accessibility',
+    value: 5,
+    weight: 0.25,
+  },
+  {
+    id: 'functionality',
+    label: 'Functionality',
+    description: 'Demo functionality and quality, bug problems',
+    value: 5,
+    weight: 0.2,
+  },
+  {
+    id: 'creativity',
+    label: 'Creativity',
+    description: 'Project creativity and originality',
+    value: 5,
+    weight: 0.1,
+  },
+  {
+    id: 'pitch',
+    label: 'Pitch',
+    description: 'Preparedness, content and engagement',
+    value: 5,
+    weight: 0.2,
+  },
+]
+
+export const defaultScoreFromRubric = () => {
+  const res = JUDGING_RUBRIC.reduce((accum, val) => {
+    accum[val.id] = 0
+    return accum
+  }, {})
+  res.notes = ''
+  return res
+}
+
+export const isUngraded = score => {
+  return JUDGING_RUBRIC.map(entry => entry.id).some(id => score[id] === 0)
+}
+
+export const calculateGrade = score => {
+  return JUDGING_RUBRIC.reduce((currentScore, item) => {
+    currentScore += score[item.id] * item.weight
+    return currentScore
+  }, 0).toFixed(2)
+}
+
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {

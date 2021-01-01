@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { JUDGING_RUBRIC } from '../../../utility/Constants'
 
 const StyledTable = styled.table`
   width: 100%;
@@ -39,6 +40,10 @@ const StyledTd = styled.td`
   }
 `
 
+const RubricHeaders = () => JUDGING_RUBRIC.map(item => <StyledHeader>{item.label}</StyledHeader>)
+
+const ProjectTd = ({ proj }) => JUDGING_RUBRIC.map(item => <StyledTd>{proj[item.id]}</StyledTd>)
+
 export default ({ projects, includeGrades }) => (
   <StyledTable>
     <tbody>
@@ -50,11 +55,7 @@ export default ({ projects, includeGrades }) => (
             <StyledHeader># Assigned</StyledHeader>
             <StyledHeader># Graded</StyledHeader>
             <StyledHeader>Average Total</StyledHeader>
-            <StyledHeader>Tech</StyledHeader>
-            <StyledHeader>Design</StyledHeader>
-            <StyledHeader>Functionality</StyledHeader>
-            <StyledHeader>Creativity</StyledHeader>
-            <StyledHeader>Pitch</StyledHeader>
+            <RubricHeaders />
           </>
         ) : (
           <>
@@ -77,11 +78,7 @@ export default ({ projects, includeGrades }) => (
                 <StyledTd>{p.countAssigned}</StyledTd>
                 <StyledTd>{p.countGraded}</StyledTd>
                 <StyledTd>{p.grade}</StyledTd>
-                <StyledTd>{p.tech}</StyledTd>
-                <StyledTd>{p.design}</StyledTd>
-                <StyledTd>{p.functionality}</StyledTd>
-                <StyledTd>{p.creativity}</StyledTd>
-                <StyledTd>{p.pitch}</StyledTd>
+                <ProjectTd proj={p} />
               </>
             ) : (
               <>

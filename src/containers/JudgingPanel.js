@@ -4,10 +4,11 @@ import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
 import Accordion from '../components/Accordion'
 import { syncToFirebase, projectsRef } from '../utility/firebase'
-import ProjectTable from '../components/Judging/ProjectTable'
-import SponsorSubmissions from '../components/Judging/SponsorSubmissions'
+import ProjectTable from '../components/Judging/Admin/ProjectTable'
+import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 import { MoonLoader } from 'react-spinners'
 import ProgressBar from '../components/ProgressBar'
+import { JUDGING_RUBRIC, calculateGrade } from '../utility/Constants'
 
 class CSV {
   constructor(data) {
@@ -74,28 +75,71 @@ const getStats = async () => {
   )
 }
 
-const getGradedProjects = async () => {
+const calculatePointTotals = project => {
+  const res = { total: 0 }
+
+  Object.values(project.grades).forEach(grade => {
+    Object.entries(grade).forEach(([key, value]) => {
+      if (key === 'notes') {
+        return
+      }
+      res[key] = res[key] ? res[key] + value : value
+      res.total += value
+    })
+  })
+
+  return res
+}
+
+const calculateResiduals = project => {
+  const residuals = []
+  Object.entries(project.grades).forEach(([key, grade]) => {
+    Object.entries(grade).forEach(([subkey, value]) => {
+      if (key === 'notes') {
+        return
+      }
+      const mean = project[subkey] / project.countGraded
+      grade.residual = (mean - value) ** 2
+      residuals.push({ id: key, value: grade.residual })
+    })
+  })
+  return residuals
+}
+
+const getGradedProjects = async (dropOutliers = 2) => {
   const projectDocs = await projectsRef.get()
   const projectData = projectDocs.docs.map(projectDoc => {
-    const project = projectDoc.data()
+    var project = projectDoc.data()
     if (project.grades) {
       project.countGraded = Object.values(project.grades).length
-      Object.values(project.grades).forEach(grade => {
-        Object.entries(grade).forEach(([key, value]) => {
-          if (key === 'notes') return
-          project[key] = project[key] ? project[key] + value : value
-          project.total = project.total ? project.total + value : value
-        })
-      })
+
+      // add total grade calculations to project object
+      project = { ...project, ...calculatePointTotals(project) }
       const avg = total => {
         return (total / project.countGraded).toFixed(2)
       }
-      project.grade = avg(project.total)
-      project.tech = avg(project.tech)
-      project.design = avg(project.design)
-      project.functionality = avg(project.functionality)
-      project.creativity = avg(project.creativity)
-      project.pitch = avg(project.pitch)
+
+      JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
+      project.grade = calculateGrade(project)
+
+      // sort residuals
+      const residuals = calculateResiduals(project).sort()
+      for (var i = 0; i < dropOutliers; i++) {
+        // remove top dropOutliers
+        const residual = residuals.pop()
+        delete project.grades[residual.id]
+      }
+
+      // recalculate if any grades were dropped
+      if (dropOutliers > 0) {
+        // reset to 0 (needed in case after dropping outliers, grades is 0)
+        JUDGING_RUBRIC.forEach(item => (project[item.id] = 0))
+
+        // repopulate project object
+        project = { ...project, ...calculatePointTotals(project) }
+        JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
+        project.grade = calculateGrade(project)
+      }
     } else {
       project.countGraded = 0
       project.grade = 0

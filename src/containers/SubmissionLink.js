@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Form from '../components/SubmissionForm'
+import Form from '../components/Judging/SubmissionForm'
 import { applicantsRef, projectsRef } from '../utility/firebase'
 
 const NO_PROJECT = 'no project found'
