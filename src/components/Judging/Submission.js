@@ -4,6 +4,7 @@ import { H1, H2, H3, P } from '../Typography'
 import { Card } from '../Common'
 import { Button } from '../Input'
 import JudgingCard from './JudgingCard'
+import { JUDGING_RUBRIC } from '../../utility/Constants'
 
 const ItemList = styled.ul`
   list-style: none;
@@ -70,7 +71,9 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
           .sort()
           .forEach(key => (ordered[key] = item[key]))
 
-        const grades = Object.entries(ordered).filter(([key, value]) => key !== 'notes')
+        const grades = Object.entries(ordered).filter(([key]) =>
+          JUDGING_RUBRIC.map(item => item.id).includes(key)
+        )
         const total = Object.values(grades).reduce((accum, cur) => accum + cur[1], 0)
 
         return (
