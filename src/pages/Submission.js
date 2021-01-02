@@ -11,8 +11,13 @@ export default () => {
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
 
-  const reportGrade = id => {
-    console.log(id)
+  const reportGrade = async id => {
+    const grade = submission.grades[id]
+    submission.grades[id] = {
+      ...grade,
+    }
+
+    console.log(submission)
   }
 
   const getProject = async () => {
