@@ -41,11 +41,13 @@ export default () => {
       window.alert('Please agree to the required terms and conditions.')
       return
     }
-    updateApplication({
-      status: {
-        applicationStatus: APPLICATION_STATUS.applied,
-      },
-    })
+    if (application.status.applicationStatus === APPLICATION_STATUS.inProgress) {
+      updateApplication({
+        status: {
+          applicationStatus: APPLICATION_STATUS.applied,
+        },
+      })
+    }
     await save()
     setLocation('/application/confirmation')
     window.scrollTo(0, 0)
