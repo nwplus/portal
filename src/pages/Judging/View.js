@@ -4,7 +4,7 @@ import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import ViewProject from '../../components/Judging/ViewProject'
 import { A } from '../../components/Typography'
 import ErrorBanner from '../../components/ErrorBanner'
-import { getLivesiteDoc, submitGrade, projectsRef, db, applicantsRef } from '../../utility/firebase'
+import { getLivesiteDoc, projectsRef, applicantsRef, submitGrade } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 import { defaultScoreFromRubric, isUngraded } from '../../utility/Constants'
 
@@ -51,7 +51,7 @@ export default ({ id }) => {
     } else if (!isSubmitting) {
       setFormError(false)
       setIsSubmitting(true)
-      await submitGrade(id, score, user.uid, setIsSubmitting, setShowError)
+      await submitGrade(id, score, user.uid, setShowError)
       setIsSubmitting(false)
       setSuccess(true)
       setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)

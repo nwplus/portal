@@ -136,21 +136,15 @@ export const getUserApplication = async uuid => {
 }
 
 export const getSubmission = async uid => {
-  return (await projectsRef.doc(uid).get()).data()
+  const projectDoc = await projectsRef.doc(uid).get()
+  return { ...projectDoc.data(), id: projectsRef.doc(uid).id }
 }
 
-export const submitGrade = async (
-  id,
-  score,
-  userUid,
-  submittingCallback = () => {},
-  errorCallback = () => {}
-) => {
+export const submitGrade = async (id, score, userUid, errorCallback = () => {}) => {
   try {
     await db.runTransaction(async transaction => {
       const projectDoc = await transaction.get(projectsRef.doc(id))
       if (!projectDoc.exists) {
-        submittingCallback(false)
         console.err('Project does not exist')
         errorCallback(true)
         return

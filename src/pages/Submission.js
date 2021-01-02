@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
+import { getLivesiteDoc, getUserApplication, getSubmission, submitGrade } from '../utility/firebase'
 import ViewSubmission from '../components/Judging/Submission'
 import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
@@ -12,12 +12,11 @@ export default () => {
   const [submission, setSubmission] = useState()
 
   const reportGrade = async id => {
-    const grade = submission.grades[id]
-    submission.grades[id] = {
-      ...grade,
+    const score = {
+      ...submission.grades[id],
+      reported: true,
     }
-
-    console.log(submission)
+    await submitGrade(submission.id, score, id)
   }
 
   const getProject = async () => {
