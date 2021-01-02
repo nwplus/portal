@@ -11,6 +11,10 @@ export default () => {
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
 
+  const reportGrade = id => {
+    console.log(id)
+  }
+
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
     const submittedProjectRef = d.submittedProject
@@ -54,7 +58,7 @@ export default () => {
   }
 
   return !!submission ? (
-    <ViewSubmission project={formatProject(submission)} user={user} />
+    <ViewSubmission project={formatProject(submission)} user={user} reportCallback={reportGrade} />
   ) : (
     <LinkSubmission user={user} refreshCallback={getProject} />
   )
