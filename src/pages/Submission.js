@@ -17,6 +17,7 @@ export default () => {
       reported: true,
     }
     await submitGrade(submission.id, score, id)
+    window.location.reload()
   }
 
   const getProject = async () => {

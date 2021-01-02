@@ -52,6 +52,7 @@ const FeedbackItem = styled(Card)`
   &:last-child {
     margin-bottom: 0;
   }
+  ${p => p.reported && `border: 1px solid ${p.theme.colors.warning};`}
 `
 
 const Column = styled.div`
@@ -77,7 +78,7 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
         const total = Object.values(grades).reduce((accum, cur) => accum + cur[1], 0)
 
         return (
-          <FeedbackItem key={i}>
+          <FeedbackItem key={i} reported={item.reported}>
             <H3>Score: {total}</H3>
             <P>{item.notes || 'No feedback provided.'}</P>
             <ItemList>
@@ -87,8 +88,12 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
                 </Grade>
               ))}
             </ItemList>
-            <StyledButton color="warning" onClick={() => reportCallback(i)}>
-              Report
+            <StyledButton
+              disabled={item.reported}
+              color="warning"
+              onClick={() => reportCallback(i)}
+            >
+              {item.reported ? 'Reported' : 'Report'}
             </StyledButton>
           </FeedbackItem>
         )
