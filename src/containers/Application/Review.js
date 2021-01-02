@@ -43,7 +43,10 @@ export default () => {
     }
     updateApplication({
       status: {
-        applicationStatus: APPLICATION_STATUS.applied,
+        applicationStatus:
+          application.status.applicationStatus === APPLICATION_STATUS.inProgress
+            ? APPLICATION_STATUS.applied
+            : application.status.applicationStatus,
       },
     })
     await save()
