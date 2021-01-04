@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
+import { getLivesiteDoc, getUserApplication, getSubmission, submitGrade } from '../utility/firebase'
 import ViewSubmission from '../components/Judging/Submission'
 import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
@@ -10,6 +10,15 @@ export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState()
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
+
+  const reportGrade = async id => {
+    const score = {
+      ...submission.grades[id],
+      reported: true,
+    }
+    await submitGrade(submission.id, score, id)
+    window.location.reload()
+  }
 
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
@@ -54,7 +63,7 @@ export default () => {
   }
 
   return !!submission ? (
-    <ViewSubmission project={formatProject(submission)} user={user} />
+    <ViewSubmission project={formatProject(submission)} user={user} reportCallback={reportGrade} />
   ) : (
     <LinkSubmission user={user} refreshCallback={getProject} />
   )
