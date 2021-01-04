@@ -40,9 +40,10 @@ const StyledTd = styled.td`
   }
 `
 
-const RubricHeaders = () => JUDGING_RUBRIC.map(item => <StyledHeader>{item.label}</StyledHeader>)
-
-const ProjectTd = ({ proj }) => JUDGING_RUBRIC.map(item => <StyledTd>{proj[item.id]}</StyledTd>)
+const RubricHeaders = () =>
+  JUDGING_RUBRIC.map((item, i) => <StyledHeader key={i}>{item.label}</StyledHeader>)
+const ProjectTd = ({ proj }) =>
+  JUDGING_RUBRIC.map((item, i) => <StyledTd key={i}>{proj[item.id]}</StyledTd>)
 
 export default ({ projects, includeGrades }) => (
   <StyledTable>
