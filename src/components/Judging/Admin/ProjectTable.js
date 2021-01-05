@@ -8,7 +8,7 @@ const StyledTable = styled.table`
   border-collapse: collapse;
 `
 
-const StyledRow = styled.tr`
+export const StyledRow = styled.tr`
   &:nth-child(odd) {
     background-color: ${p => p.theme.colors.background};
   }
@@ -20,12 +20,12 @@ const StyledRow = styled.tr`
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 `
 
-const StyledHeader = styled.th`
+export const StyledHeader = styled.th`
   padding: 0.5em 0.25em;
   background-color: ${p => p.theme.colors.background};
 `
 
-const StyledTd = styled.td`
+export const StyledTd = styled.td`
   padding: 0.2em 0.5em;
 
   & > a {

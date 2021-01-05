@@ -5,7 +5,7 @@ import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
 import Accordion from '../components/Accordion'
-import ProjectTable from '../components/Judging/Admin/ProjectTable'
+import { ProjectTable } from '../components/Judging/Admin/Table'
 import GradeTable from '../components/Judging/Admin/GradeTable'
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 import ProgressBar from '../components/ProgressBar'
@@ -127,7 +127,6 @@ const getGrades = async () => {
     }
     return acc
   }, [])
-  console.log(gradeData)
   gradeData.sort((a, b) => {
     a.reported = a.reported || false
     b.reported = b.reported || false
@@ -297,11 +296,7 @@ export default () => {
           Refresh Grades
         </Button>
         <MoonLoader color="#fff" loading={isLoading} />
-        {toggle ? (
-          <GradeTable grades={grades} />
-        ) : (
-          <ProjectTable projects={gradedProjects} includeGrades />
-        )}
+        {toggle ? <GradeTable grades={grades} /> : <ProjectTable data={gradedProjects} />}
       </Card>
     </>
   )
