@@ -40,7 +40,7 @@ const StyledTd = styled.td`
   }
 `
 
-//An array of titles and an array of data
+//An array of titles and a nested array of data
 const Table = ({ titles, data }) => (
   <StyledTable>
     <tbody>
@@ -52,9 +52,18 @@ const Table = ({ titles, data }) => (
       {data &&
         data.map((row, i) => (
           <StyledRow key={i}>
-            {row.map((item, j) => (
-              <StyledTd key={j}>{item}</StyledTd>
-            ))}
+            {row.map((item, j) => {
+              if (typeof item === 'string' && item.includes('http')) {
+                return (
+                  <StyledTd>
+                    <a target="blank" href={item}>
+                      Link
+                    </a>
+                  </StyledTd>
+                )
+              }
+              return <StyledTd key={j}>{item}</StyledTd>
+            })}
           </StyledRow>
         ))}
     </tbody>
