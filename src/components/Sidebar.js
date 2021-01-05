@@ -115,7 +115,7 @@ export default ({
     links.push({ location: '/submission', text: 'SUBMISSION' })
   }
 
-  if (user.admin) {
+  if (user && user.admin) {
     links.push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
   }
 
