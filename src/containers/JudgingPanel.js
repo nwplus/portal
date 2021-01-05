@@ -113,20 +113,27 @@ const getProjectData = async () => {
 }
 
 const getGrades = async () => {
-  return (await getProjectData()).reduce((acc, project) => {
+  const gradeData = (await getProjectData()).reduce((acc, project) => {
     if (project.grades) {
       const projectGrades = Object.values(project.grades).map(grade => {
         return {
           title: project.title,
           devpostUrl: project.devpostUrl,
           ...grade,
+          totalGrade: calculateGrade(grade),
         }
       })
-
       acc = [...acc, ...projectGrades]
     }
     return acc
   }, [])
+  console.log(gradeData)
+  gradeData.sort((a, b) => {
+    a.reported = a.reported || false
+    b.reported = b.reported || false
+    return b.reported - a.reported || b.totalGrade - a.totalGrade
+  })
+  return gradeData
 }
 
 const getGradedProjects = async (dropOutliers = 2) => {

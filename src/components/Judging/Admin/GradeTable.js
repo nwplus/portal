@@ -11,6 +11,9 @@ const StyledTable = styled.table`
 const StyledRow = styled.tr`
   &:nth-child(odd) {
     background-color: ${p => p.theme.colors.background};
+    &:hover {
+      background-color: ${p => p.theme.colors.foreground};
+    }
   }
 
   &:hover {
@@ -18,6 +21,8 @@ const StyledRow = styled.tr`
   }
 
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  ${p => p.reported && `outline: 2px solid${p.theme.colors.warning};`}
 `
 
 const StyledHeader = styled.th`
@@ -45,28 +50,26 @@ const RubricHeaders = () =>
 const ProjectTd = ({ proj }) =>
   JUDGING_RUBRIC.map((item, i) => <StyledTd key={i}>{proj[item.id]}</StyledTd>)
 
-export default ({ grades }) => {
-  return (
-    <StyledTable>
-      <tbody>
-        <StyledRow>
-          <StyledHeader>Title</StyledHeader>
-          <StyledHeader>Devpost</StyledHeader>
-          <StyledHeader>Total Grade</StyledHeader>
-          <RubricHeaders />
-        </StyledRow>
-        {grades &&
-          grades.map((p, i) => (
-            <StyledRow key={i}>
-              <StyledTd>{p.title}</StyledTd>
-              <StyledTd>
-                <a href={p.devpostUrl}>Devpost</a>
-              </StyledTd>
-              <StyledTd>{69}</StyledTd>
-              <ProjectTd proj={p} />
-            </StyledRow>
-          ))}
-      </tbody>
-    </StyledTable>
-  )
-}
+export default ({ grades }) => (
+  <StyledTable>
+    <tbody>
+      <StyledRow>
+        <StyledHeader>Title</StyledHeader>
+        <StyledHeader>Devpost</StyledHeader>
+        <StyledHeader>Total Grade</StyledHeader>
+        <RubricHeaders />
+      </StyledRow>
+      {grades &&
+        grades.map((grade, i) => (
+          <StyledRow reported={grade.reported} key={i}>
+            <StyledTd>{grade.title}</StyledTd>
+            <StyledTd>
+              <a href={grade.devpostUrl}>Devpost</a>
+            </StyledTd>
+            <StyledTd>{grade.totalGrade}</StyledTd>
+            <ProjectTd proj={grade} />
+          </StyledRow>
+        ))}
+    </tbody>
+  </StyledTable>
+)
