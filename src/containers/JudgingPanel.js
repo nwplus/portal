@@ -199,7 +199,7 @@ export default () => {
 
   const setProjectsAndStats = async () => {
     setLoading(true)
-    setGradedProjects(await getGradedProjects(0))
+    setGradedProjects(await getGradedProjects())
     setGrades(await getGrades())
     getStats().then(data => setStats(data))
     setLoading(false)
