@@ -40,6 +40,7 @@ const StyledTd = styled.td`
   }
 `
 
+//An array of titles and an array of data
 const Table = ({ titles, data }) => (
   <StyledTable>
     <tbody>
@@ -60,10 +61,14 @@ const Table = ({ titles, data }) => (
   </StyledTable>
 )
 
-const RubricHeaders = () =>
-  JUDGING_RUBRIC.map((item, i) => <StyledHeader key={i}>{item.label}</StyledHeader>)
-const ProjectTd = ({ proj }) =>
-  JUDGING_RUBRIC.map((item, i) => <StyledTd key={i}>{proj[item.id]}</StyledTd>)
+const ProjectTitles = ['Title', 'Team Members', 'Team Member Emails', 'Devpost']
+
+export const ProjectTable = ({ data }) => {
+  const formattedData = data?.map(row => {
+    return [row.title, row.teamMembers.join(', '), row.teamMembersEmails.join(', '), row.devpostUrl]
+  })
+  return <Table titles={ProjectTitles} data={formattedData} />
+}
 
 const ProjectGradeTitles = [
   'Title',
@@ -74,18 +79,37 @@ const ProjectGradeTitles = [
   ...JUDGING_RUBRIC.map(item => item.label),
 ]
 
-const ProjectTitles = ['Title', 'Team Members', 'Team Member Emails', 'Devpost']
+export const ProjectGradeTable = ({ data }) => {
+  const formattedData = data?.map(row => {
+    return [
+      row.title,
+      row.devpostUrl,
+      row.countAssigned,
+      row.countGraded,
+      row.grade,
+      ...JUDGING_RUBRIC.map(item => row[item.id]),
+    ]
+  })
+  return <Table titles={ProjectGradeTitles} data={formattedData} />
+}
 
-export const ProjectTable = ({ data }) => {
-  const formattedData =
-    data &&
-    data.map(row => {
-      return [
-        row.title,
-        row.teamMembers.join(', '),
-        row.teamMembersEmails.join(', '),
-        row.devpostUrl,
-      ]
-    })
-  return <Table titles={ProjectTitles} data={formattedData} />
+const GradeTitles = [
+  'Title',
+  'Devpost',
+  'Total Grade',
+  ...JUDGING_RUBRIC.map(item => item.label),
+  'Reported',
+]
+
+export const GradeTable = ({ data }) => {
+  const formattedData = data?.map(row => {
+    return [
+      row.title,
+      row.devpostUrl,
+      row.totalGrade,
+      ...JUDGING_RUBRIC.map(item => row[item.id]),
+      row.reported ? 'true' : 'false',
+    ]
+  })
+  return <Table titles={GradeTitles} data={formattedData} />
 }
