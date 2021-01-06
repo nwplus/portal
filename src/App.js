@@ -58,7 +58,7 @@ const NavbarAuthRoute = ({ name, handleLogout, path, children }) => {
         name={name ? user.displayName : undefined}
         handleLogout={handleLogout ? logout : undefined}
       >
-        {name && handleLogout ? <Form>{children}</Form> : children}
+        {children}
       </Navbar>
     </Route>
   ) : (
@@ -195,7 +195,7 @@ function App() {
             <Submission />
           </AuthPageRoute>
           <Route path="/application" component={ApplicationDashboardRoutingContainer} />
-          <NavbarAuthRoute path="/application/review" handleLogout>
+          <NavbarAuthRoute path="/application/review" name handleLogout>
             <HackerApplicationProvider>
               <ApplicationReview />
             </HackerApplicationProvider>
