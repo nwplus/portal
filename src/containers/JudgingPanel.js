@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Button } from '../components/Input'
+import { MoonLoader } from 'react-spinners'
+import { syncToFirebase, projectsRef } from '../utility/firebase'
+import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
 import Accordion from '../components/Accordion'
-import { syncToFirebase, projectsRef } from '../utility/firebase'
-import ProjectTable from '../components/Judging/Admin/ProjectTable'
+import { ProjectTable, ProjectGradeTable, GradeTable } from '../components/Judging/Admin/Table'
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
-import { MoonLoader } from 'react-spinners'
 import ProgressBar from '../components/ProgressBar'
 import { JUDGING_RUBRIC, calculateGrade } from '../utility/Constants'
 
@@ -106,10 +106,36 @@ const calculateResiduals = project => {
   return residuals
 }
 
-const getGradedProjects = async (dropOutliers = 2) => {
+const getProjectData = async () => {
   const projectDocs = await projectsRef.get()
-  const projectData = projectDocs.docs.map(projectDoc => {
-    var project = projectDoc.data()
+  return projectDocs.docs.map(projectDoc => projectDoc.data())
+}
+
+const getGrades = async () => {
+  const gradeData = (await getProjectData()).reduce((acc, project) => {
+    if (project.grades) {
+      const projectGrades = Object.values(project.grades).map(grade => {
+        return {
+          title: project.title,
+          devpostUrl: project.devpostUrl,
+          ...grade,
+          totalGrade: calculateGrade(grade),
+        }
+      })
+      acc = [...acc, ...projectGrades]
+    }
+    return acc
+  }, [])
+  gradeData.sort((a, b) => {
+    a.reported = a.reported || false
+    b.reported = b.reported || false
+    return b.reported - a.reported || b.totalGrade - a.totalGrade
+  })
+  return gradeData
+}
+
+const getGradedProjects = async (dropOutliers = 2) => {
+  const projectData = (await getProjectData()).map(project => {
     if (project.grades) {
       project.countGraded = Object.values(project.grades).length
 
@@ -155,6 +181,7 @@ export default () => {
   const [message, setMessage] = useState('Waiting for .csv upload...')
   const [projects, setProjects] = useState([])
   const [gradedProjects, setGradedProjects] = useState([])
+  const [grades, setGrades] = useState([]) // Individual "grade" objects
   const [sponsorPrizes, setSponsorPrizes] = useState({})
   const [isLoading, setLoading] = useState(false)
   const [stats, setStats] = useState({
@@ -162,6 +189,7 @@ export default () => {
     assigned: 0,
     graded: 0,
   })
+  const [toggle, setToggle] = useState()
 
   const uploadClickHandler = () => {
     inputFile.current.click()
@@ -170,6 +198,7 @@ export default () => {
   const setProjectsAndStats = async () => {
     setLoading(true)
     setGradedProjects(await getGradedProjects())
+    setGrades(await getGrades())
     getStats().then(data => setStats(data))
     setLoading(false)
   }
@@ -259,11 +288,15 @@ export default () => {
       <ProgressBar percent={percentageAssigned} />
       <H3>{percentageGraded}% of projects judged</H3>
       <ProgressBar percent={percentageGraded} />
-      <Button color="secondary" width="large" style={{ margin: 0 }} onClick={setProjectsAndStats}>
-        Refresh Grades
-      </Button>
-      <MoonLoader color="#fff" loading={isLoading} />
-      <ProjectTable projects={gradedProjects} includeGrades />
+      <Card>
+        <ToggleSwitch checked={toggle} onChange={() => setToggle(!toggle)} />
+        <P>Toggle Projects/Grades</P>
+        <Button color="secondary" width="large" onClick={setProjectsAndStats}>
+          Refresh Grades
+        </Button>
+        <MoonLoader color="#fff" loading={isLoading} />
+        {toggle ? <GradeTable data={grades} /> : <ProjectGradeTable data={gradedProjects} />}
+      </Card>
     </>
   )
 }

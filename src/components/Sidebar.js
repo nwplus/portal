@@ -98,7 +98,7 @@ export default ({
   hackerStatus,
 }) => {
   const [location] = useLocation()
-  const { isAuthed, logout } = useAuth()
+  const { user, isAuthed, logout } = useAuth()
   const links = [
     { location: '/', text: 'DASHBOARD' },
     { location: '/schedule', text: 'SCHEDULE' },
@@ -115,8 +115,11 @@ export default ({
     links.push({ location: '/submission', text: 'SUBMISSION' })
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (user && user.admin) {
     links.push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
+  }
+
+  if (process.env.NODE_ENV !== 'production') {
     links.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 

@@ -140,7 +140,7 @@ export const getSubmission = async uid => {
   return { ...projectDoc.data(), id: projectsRef.doc(uid).id }
 }
 
-export const submitGrade = async (id, score, userUid, errorCallback = () => {}) => {
+export const submitGrade = async (id, score, user, errorCallback = () => {}) => {
   try {
     await db.runTransaction(async transaction => {
       const projectDoc = await transaction.get(projectsRef.doc(id))
@@ -150,7 +150,7 @@ export const submitGrade = async (id, score, userUid, errorCallback = () => {}) 
         return
       }
       const oldGrades = projectDoc.data().grades
-      const grades = { ...oldGrades, [userUid]: score }
+      const grades = { ...oldGrades, [user.uid]: { ...score, user: user.email } }
       transaction.update(projectsRef.doc(id), { grades })
     })
   } catch (e) {
