@@ -149,7 +149,7 @@ export function HackerApplicationProvider({ children }) {
    */
   return applicationOpen === null || application === undefined ? (
     <Spinner />
-  ) : !applicationOpen && window.location.pathname != '/application' ? (
+  ) : !applicationOpen && window.location.pathname !== '/application' ? (
     <Closed />
   ) : (
     <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
