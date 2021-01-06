@@ -10,7 +10,7 @@ import {
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
 import { ANALYTICS_EVENTS } from './Constants'
-// import Page from '../components/Page'
+import Closed from '../pages/Application/Closed'
 const HackerApplicationContext = createContext()
 
 export function useHackerApplication() {
@@ -149,10 +149,10 @@ export function HackerApplicationProvider({ children }) {
    */
   return applicationOpen === null || application === undefined ? (
     <Spinner />
+  ) : // Commented out temporarily, will determine behaviour when application isn't open later
+  !applicationOpen && window.location.pathname != '/application' ? (
+    <Closed />
   ) : (
-    // Commented out temporarily, will determine behaviour when application isn't open later
-    // ) : !applicationOpen ? (
-    //   <Page>Applications are closed.</Page>
     <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
       {children}
     </HackerApplicationContext.Provider>
