@@ -86,12 +86,8 @@ const StyledButton = styled.a`
     :hover {
       ${
         p.disabled
-          ? `
-      cursor: not-allowed;
-      `
-          : `
-      background: ${hexToRgba(p.theme.colors.primary, 0.2)};
-      `
+          ? `cursor: not-allowed;`
+          : `background: ${hexToRgba(p.theme.colors.primary, 0.2)};`
       }
     }
     :focus {
@@ -102,35 +98,38 @@ const StyledButton = styled.a`
     `color: ${p.theme.colors.background};
     background: ${p.theme.colors.primary};
     :hover {
-      ${
-        p.disabled
-          ? `
-      cursor: not-allowed;
-      `
-          : `
-      background: ${p.theme.colors.tertiaryHover};
-      `
-      }
+      ${p.disabled ? `cursor: not-allowed;` : `background: ${p.theme.colors.tertiaryHover};`}
     }
     :focus {
       box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};
     }`}
     ${p =>
+    p.color === 'warning' && // warning color (solid button)
+    `color: ${p.theme.colors.warning};
+    border: 1px solid ${p.theme.colors.warning};
+      :hover {
+        ${
+          p.disabled
+            ? `cursor: not-allowed;`
+            : `background: ${hexToRgba(p.theme.colors.secondaryWarning, 0.2)};`
+        }
+      }
+      :focus {
+        box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.warning, 0.5)};
+      }`}
+    ${p =>
     p.color !== 'primary' &&
     p.color !== 'secondary' &&
     p.color !== 'tertiary' &&
+    p.color !== 'warning' &&
     p.color && // some color other than the variants
     `color: ${p.labelColor || p.theme.colors.background};
       background: ${p.color};
       :hover {
         ${
           p.disabled
-            ? `
-        cursor: not-allowed;
-        `
-            : `
-        background: ${p.hover || p.theme.colors.tertiaryHover};
-        `
+            ? `cursor: not-allowed;`
+            : `background: ${p.hover || p.theme.colors.tertiaryHover};`
         }
       }
       :focus {

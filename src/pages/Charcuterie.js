@@ -153,6 +153,10 @@ export default () => {
       <Button color="tertiary" disabled>
         Tertiary
       </Button>
+      <Button color="warning">Warning</Button>
+      <Button color="warning" disabled>
+        Warning
+      </Button>
       <P>Widths</P>
       <Button width="small" color="secondary">
         Small

@@ -2,7 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { H1, H2, H3, P } from '../Typography'
 import { Card } from '../Common'
+import { Button } from '../Input'
 import JudgingCard from './JudgingCard'
+import { JUDGING_RUBRIC } from '../../utility/Constants'
 
 const ItemList = styled.ul`
   list-style: none;
@@ -41,7 +43,7 @@ const Columns = styled.div`
 
 const FeedbackItem = styled(Card)`
   box-sizing: border-box;
-  padding: 0.5em 1em 0 1em;
+  padding: 1em 2em;
   width: 100%;
   margin: 1em 0;
   &:first-child {
@@ -50,28 +52,33 @@ const FeedbackItem = styled(Card)`
   &:last-child {
     margin-bottom: 0;
   }
+  ${p => p.reported && `border: 1px solid ${p.theme.colors.warning};`}
 `
 
 const Column = styled.div`
   flex: ${p => p.width || 1};
 `
 
-const FeedbackCard = ({ feedback }) => {
+const StyledButton = styled(Button)`
+  float: right;
+`
+
+const FeedbackCard = ({ feedback, reportCallback }) => {
   return (
     <>
-      {feedback.map((item, i) => {
+      {Object.entries(feedback).map(([i, item]) => {
         const ordered = {}
         Object.keys(item)
           .sort()
-          .forEach(function (key) {
-            ordered[key] = item[key]
-          })
+          .forEach(key => (ordered[key] = item[key]))
 
-        const grades = Object.entries(ordered).filter(([key, value]) => key !== 'notes')
+        const grades = Object.entries(ordered).filter(([key]) =>
+          JUDGING_RUBRIC.map(item => item.id).includes(key)
+        )
         const total = Object.values(grades).reduce((accum, cur) => accum + cur[1], 0)
 
         return (
-          <FeedbackItem key={i}>
+          <FeedbackItem key={i} reported={item.reported}>
             <H3>Score: {total}</H3>
             <P>{item.notes || 'No feedback provided.'}</P>
             <ItemList>
@@ -81,6 +88,13 @@ const FeedbackCard = ({ feedback }) => {
                 </Grade>
               ))}
             </ItemList>
+            <StyledButton
+              disabled={item.reported}
+              color="warning"
+              onClick={() => reportCallback(i)}
+            >
+              {item.reported ? 'Reported' : 'Report'}
+            </StyledButton>
           </FeedbackItem>
         )
       })}
@@ -88,8 +102,8 @@ const FeedbackCard = ({ feedback }) => {
   )
 }
 
-export default ({ project }) => {
-  project.grades = Object.values(project.grades ?? {})
+export default ({ project, reportCallback }) => {
+  const gradeCount = Object.keys(project.grades ?? {}).length
   return (
     <>
       <H1>Project Submission</H1>
@@ -107,10 +121,10 @@ export default ({ project }) => {
         </Column>
         <Column width="2">
           <H2>Feedback</H2>
-          {project.grades.length > 0 ? (
+          {gradeCount > 0 ? (
             <>
-              <P>Your project has been judged {project.grades.length} times.</P>
-              <FeedbackCard feedback={project.grades} />
+              <P>Your project has been judged {gradeCount} times.</P>
+              <FeedbackCard feedback={project.grades} reportCallback={reportCallback} />
             </>
           ) : (
             <P>Check back here when judging ends to review your project feedback.</P>

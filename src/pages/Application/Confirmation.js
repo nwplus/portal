@@ -4,7 +4,6 @@ import { Button } from '../../components/Input'
 import { ButtonContainer } from '../Login'
 import { useLocation } from 'wouter'
 
-// TODO: add redirect to the button
 export default () => {
   const [, setLocation] = useLocation()
   return (
