@@ -51,7 +51,7 @@ export default ({ id }) => {
     } else if (!isSubmitting) {
       setFormError(false)
       setIsSubmitting(true)
-      await submitGrade(id, score, user.uid, setShowError)
+      await submitGrade(id, score, user, setShowError)
       setIsSubmitting(false)
       setSuccess(true)
       setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)

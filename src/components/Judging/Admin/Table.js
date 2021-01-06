@@ -21,8 +21,9 @@ const StyledRow = styled.tr`
 `
 
 const StyledHeader = styled.th`
-  padding: 0.5em 0.25em;
+  padding: 0.5em;
   background-color: ${p => p.theme.colors.background};
+  text-align: left;
 `
 
 const StyledTd = styled.td`
@@ -40,7 +41,7 @@ const StyledTd = styled.td`
   }
 `
 
-//An array of titles and an array of data
+//An array of titles and a nested array of data
 const Table = ({ titles, data }) => (
   <StyledTable>
     <tbody>
@@ -52,9 +53,18 @@ const Table = ({ titles, data }) => (
       {data &&
         data.map((row, i) => (
           <StyledRow key={i}>
-            {row.map((item, j) => (
-              <StyledTd key={j}>{item}</StyledTd>
-            ))}
+            {row.map((item, j) => {
+              if (typeof item === 'string' && item.includes('http')) {
+                return (
+                  <StyledTd>
+                    <a target="blank" href={item}>
+                      Link
+                    </a>
+                  </StyledTd>
+                )
+              }
+              return <StyledTd key={j}>{item}</StyledTd>
+            })}
           </StyledRow>
         ))}
     </tbody>
@@ -97,6 +107,7 @@ const GradeTitles = [
   'Title',
   'Devpost',
   'Total Grade',
+  'Submitted by',
   ...JUDGING_RUBRIC.map(item => item.label),
   'Reported',
 ]
@@ -107,6 +118,7 @@ export const GradeTable = ({ data }) => {
       row.title,
       row.devpostUrl,
       row.totalGrade,
+      row.user,
       ...JUDGING_RUBRIC.map(item => row[item.id]),
       row.reported ? 'true' : 'false',
     ]
