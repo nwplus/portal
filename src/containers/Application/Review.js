@@ -41,7 +41,8 @@ export default () => {
       window.alert('Please agree to the required terms and conditions.')
       return
     }
-    if (application.status.applicationStatus === APPLICATION_STATUS.inProgress) {
+    const status = application.status.applicationStatus
+    if (status === APPLICATION_STATUS.inProgress || status === APPLICATION_STATUS.scored) {
       updateApplication({
         status: {
           applicationStatus: APPLICATION_STATUS.applied,
