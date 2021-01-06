@@ -58,7 +58,7 @@ const NavbarAuthRoute = ({ name, handleLogout, path, children }) => {
         name={name ? user.displayName : undefined}
         handleLogout={handleLogout ? logout : undefined}
       >
-        {name && handleLogout ? <Form>{children}</Form> : children}
+        {children}
       </Navbar>
     </Route>
   ) : (
