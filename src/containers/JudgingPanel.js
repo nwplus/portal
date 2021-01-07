@@ -9,7 +9,6 @@ import { ProjectTable, ProjectGradeTable, GradeTable } from '../components/Judgi
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 import ProgressBar from '../components/ProgressBar'
 import { JUDGING_RUBRIC, calculateGrade } from '../utility/Constants'
-import { useAuth } from '../utility/Auth'
 
 class CSV {
   constructor(data) {
@@ -115,21 +114,24 @@ const getProjectData = async () => {
 }
 
 const getGrades = async () => {
-  const gradeData = (await getProjectData()).reduce((acc, project) => {
+  const gradeData = []
+  const projectData = await getProjectData()
+  projectData.forEach(project => {
     if (project.grades) {
-      const projectGrades = Object.values(project.grades).map(grade => {
-        return {
-          title: project.title,
-          devpostUrl: project.devpostUrl,
-          id: project.id,
-          ...grade,
-          totalGrade: calculateGrade(grade),
+      Object.entries(project.grades).forEach(([gradeId, grade]) => {
+        if (!grade.removed) {
+          gradeData.push({
+            title: project.title,
+            devpostUrl: project.devpostUrl,
+            id: project.id,
+            gradeId,
+            ...grade,
+            totalGrade: calculateGrade(grade),
+          })
         }
       })
-      acc = [...acc, ...projectGrades]
     }
-    return acc
-  }, [])
+  })
   gradeData.sort((a, b) => {
     a.reported = a.reported || false
     b.reported = b.reported || false
@@ -194,11 +196,10 @@ export default () => {
     graded: 0,
   })
   const [toggle, setToggle] = useState()
-  const { user } = useAuth()
 
-  const removeGrade = row => {
-    const { id, ...score } = row
-    submitGrade(id, { ...score, removed: true }, user)
+  const removeGrade = async row => {
+    const { id, gradeId, ...score } = row
+    await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user })
   }
 
   const uploadClickHandler = () => {
