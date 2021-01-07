@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
-import { syncToFirebase, projectsRef } from '../utility/firebase'
+import { syncToFirebase, projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
@@ -9,6 +9,7 @@ import { ProjectTable, ProjectGradeTable, GradeTable } from '../components/Judgi
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 import ProgressBar from '../components/ProgressBar'
 import { JUDGING_RUBRIC, calculateGrade } from '../utility/Constants'
+import { useAuth } from '../utility/Auth'
 
 class CSV {
   constructor(data) {
@@ -108,7 +109,9 @@ const calculateResiduals = project => {
 
 const getProjectData = async () => {
   const projectDocs = await projectsRef.get()
-  return projectDocs.docs.map(projectDoc => projectDoc.data())
+  return projectDocs.docs.map(projectDoc => {
+    return { ...projectDoc.data(), id: projectDoc.id }
+  })
 }
 
 const getGrades = async () => {
@@ -118,6 +121,7 @@ const getGrades = async () => {
         return {
           title: project.title,
           devpostUrl: project.devpostUrl,
+          id: project.id,
           ...grade,
           totalGrade: calculateGrade(grade),
         }
@@ -190,6 +194,12 @@ export default () => {
     graded: 0,
   })
   const [toggle, setToggle] = useState()
+  const { user } = useAuth()
+
+  const removeGrade = row => {
+    const { id, ...score } = row
+    submitGrade(id, { ...score, removed: true }, user)
+  }
 
   const uploadClickHandler = () => {
     inputFile.current.click()
@@ -295,7 +305,11 @@ export default () => {
           Refresh Grades
         </Button>
         <MoonLoader color="#fff" loading={isLoading} />
-        {toggle ? <GradeTable data={grades} /> : <ProjectGradeTable data={gradedProjects} />}
+        {toggle ? (
+          <GradeTable data={grades} onRemove={removeGrade} />
+        ) : (
+          <ProjectGradeTable data={gradedProjects} />
+        )}
       </Card>
     </>
   )
