@@ -145,7 +145,7 @@ export const submitGrade = async (id, score, user, errorCallback = () => {}) => 
     await db.runTransaction(async transaction => {
       const projectDoc = await transaction.get(projectsRef.doc(id))
       if (!projectDoc.exists) {
-        console.err('Project does not exist')
+        console.error('Project does not exist')
         errorCallback(true)
         return
       }
@@ -155,7 +155,7 @@ export const submitGrade = async (id, score, user, errorCallback = () => {}) => 
     })
   } catch (e) {
     errorCallback(true)
-    console.err(e)
+    console.error(e)
   }
 }
 

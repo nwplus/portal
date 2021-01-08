@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
-import { syncToFirebase, projectsRef } from '../utility/firebase'
+import { syncToFirebase, projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
@@ -108,24 +108,30 @@ const calculateResiduals = project => {
 
 const getProjectData = async () => {
   const projectDocs = await projectsRef.get()
-  return projectDocs.docs.map(projectDoc => projectDoc.data())
+  return projectDocs.docs.map(projectDoc => {
+    return { ...projectDoc.data(), id: projectDoc.id }
+  })
 }
 
 const getGrades = async () => {
-  const gradeData = (await getProjectData()).reduce((acc, project) => {
+  const gradeData = []
+  const projectData = await getProjectData()
+  projectData.forEach(project => {
     if (project.grades) {
-      const projectGrades = Object.values(project.grades).map(grade => {
-        return {
-          title: project.title,
-          devpostUrl: project.devpostUrl,
-          ...grade,
-          totalGrade: calculateGrade(grade),
+      Object.entries(project.grades).forEach(([gradeId, grade]) => {
+        if (!grade.removed) {
+          gradeData.push({
+            title: project.title,
+            devpostUrl: project.devpostUrl,
+            id: project.id,
+            gradeId,
+            ...grade,
+            totalGrade: calculateGrade(grade),
+          })
         }
       })
-      acc = [...acc, ...projectGrades]
     }
-    return acc
-  }, [])
+  })
   gradeData.sort((a, b) => {
     a.reported = a.reported || false
     b.reported = b.reported || false
@@ -190,6 +196,11 @@ export default () => {
     graded: 0,
   })
   const [toggle, setToggle] = useState()
+
+  const removeGrade = async row => {
+    const { id, gradeId, ...score } = row
+    await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user })
+  }
 
   const uploadClickHandler = () => {
     inputFile.current.click()
@@ -295,7 +306,11 @@ export default () => {
           Refresh Grades
         </Button>
         <MoonLoader color="#fff" loading={isLoading} />
-        {toggle ? <GradeTable data={grades} /> : <ProjectGradeTable data={gradedProjects} />}
+        {toggle ? (
+          <GradeTable data={grades} onRemove={removeGrade} />
+        ) : (
+          <ProjectGradeTable data={gradedProjects} />
+        )}
       </Card>
     </>
   )
