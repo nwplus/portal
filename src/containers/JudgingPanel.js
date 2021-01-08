@@ -352,7 +352,7 @@ export default () => {
               checked={toggle.filterDisqualify}
               onChange={() => setToggle({ filterDisqualify: !toggle.filterDisqualify })}
             />
-            <P>Filter disqualfied</P>
+            <P>Filter disqualified</P>
           </Column>
         </Columns>
         <Button color="secondary" width="large" onClick={setProjectsAndStats}>
