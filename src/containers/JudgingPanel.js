@@ -29,7 +29,7 @@ class CSV {
 
 class Project {
   constructor(entry) {
-    this.acknowledged = entry["Yes I Have Put All My Teammate's Names On The Devpost"] === '1'
+    this.acknowledged = entry['Acknowledged'] === '1'
     const teamsize = parseInt(entry['Additional Team Member Count'])
     this.teamMembers = [`${entry['Submitter First Name']} ${entry['Submitter Last Name']}`]
     this.teamMembersEmails = [entry['Submitter Email']]
