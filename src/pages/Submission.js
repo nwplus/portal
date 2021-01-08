@@ -25,7 +25,16 @@ export default () => {
     const submittedProjectRef = d.submittedProject
     if (!!submittedProjectRef) {
       const submission = await getSubmission(submittedProjectRef)
-      setSubmission(submission)
+
+      Object.keys(submission.grades).forEach(id => {
+        if (submission.grades[id].removed) {
+          delete submission.grades[id]
+        }
+      })
+
+      setSubmission(!submission ? false : submission)
+    } else {
+      setSubmission(false)
     }
   }
 
@@ -37,17 +46,9 @@ export default () => {
   }, [setIsSubmissionsOpen])
 
   useEffect(() => {
-    ;(async () => {
-      const d = await getUserApplication(user.uid)
-      const submittedProjectRef = d.submittedProject
-      if (!!submittedProjectRef) {
-        const submission = await getSubmission(submittedProjectRef)
-        setSubmission(!submission ? false : submission)
-      } else {
-        setSubmission(false)
-      }
-    })()
-  }, [user.uid])
+    getProject()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (isSubmissionsOpen === undefined || submission === undefined) {
     return <Loading />
