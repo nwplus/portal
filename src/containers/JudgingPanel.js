@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
-import { syncToFirebase, projectsRef, submitGrade } from '../utility/firebase'
+import { db, syncToFirebase, projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
@@ -202,6 +202,23 @@ export default () => {
     await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user })
   }
 
+  const onDisqualify = async projectId => {
+    try {
+      await db.runTransaction(async transaction => {
+        const projectDoc = await transaction.get(projectsRef.doc(projectId))
+        if (!projectDoc.exists) {
+          alert('Project does not exist')
+          return
+        }
+        const disqualified = !projectDoc.data().disqualified
+        transaction.update(projectsRef.doc(projectId), { disqualified })
+      })
+    } catch (e) {
+      alert(e)
+    }
+    window.location.reload()
+  }
+
   const uploadClickHandler = () => {
     inputFile.current.click()
   }
@@ -309,7 +326,7 @@ export default () => {
         {toggle ? (
           <GradeTable data={grades} onRemove={removeGrade} />
         ) : (
-          <ProjectGradeTable data={gradedProjects} />
+          <ProjectGradeTable data={gradedProjects} onDisqualify={onDisqualify} />
         )}
       </Card>
     </>

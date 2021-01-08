@@ -73,6 +73,18 @@ export const ProjectTable = ({ data }) => {
   return <Table titles={ProjectTitles} data={formattedData} />
 }
 
+const DisqualifyButton = ({ onClick, disqualified }) => {
+  return disqualified ? (
+    <StyledTd>
+      <A onClick={onClick}>Undisqualify</A>
+    </StyledTd>
+  ) : (
+    <StyledTd>
+      <A onClick={onClick}>Disqualify</A>
+    </StyledTd>
+  )
+}
+
 const ProjectGradeTitles = [
   'Title',
   'Devpost',
@@ -80,9 +92,10 @@ const ProjectGradeTitles = [
   '# Graded',
   'Average Total',
   ...JUDGING_RUBRIC.map(item => item.label),
+  'Disqualify',
 ]
 
-export const ProjectGradeTable = ({ data }) => {
+export const ProjectGradeTable = ({ data, onDisqualify }) => {
   const formattedData = data?.map(row => {
     return [
       row.title,
@@ -91,6 +104,11 @@ export const ProjectGradeTable = ({ data }) => {
       row.countGraded,
       row.grade,
       ...JUDGING_RUBRIC.map(item => row[item.id]),
+      <DisqualifyButton
+        key={row.id}
+        disqualified={row.disqualified}
+        onClick={() => onDisqualify(row.id)}
+      />,
     ]
   })
   return <Table titles={ProjectGradeTitles} data={formattedData} />
@@ -109,7 +127,9 @@ const GradeTitles = [
 const RemoveButton = ({ onRemove }) => {
   return (
     <StyledTd>
-      <Button onClick={onRemove}>Delete</Button>
+      <Button color="warning" onClick={onRemove}>
+        Delete
+      </Button>
     </StyledTd>
   )
 }
