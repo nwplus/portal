@@ -46,7 +46,8 @@ export default () => {
   }, [setIsSubmissionsOpen])
 
   useEffect(() => {
-    ;(async () => getProject())()
+    getProject()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (isSubmissionsOpen === undefined || submission === undefined) {
