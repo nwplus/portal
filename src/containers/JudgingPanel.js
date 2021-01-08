@@ -286,6 +286,12 @@ export default () => {
   const percentageAssigned = ((stats.assigned * 100) / stats.total).toFixed(2)
   const percentageGraded = ((stats.graded * 100) / stats.total).toFixed(2)
 
+  const filteredGradedProjects = () => {
+    return toggle.filterDisqualify
+      ? gradedProjects.filter(project => !project.disqualified)
+      : gradedProjects
+  }
+
   return (
     <>
       <H1>Submissions</H1>
@@ -340,7 +346,7 @@ export default () => {
         {toggle.projectsGrades ? (
           <GradeTable data={grades} onRemove={removeGrade} />
         ) : (
-          <ProjectGradeTable data={gradedProjects} onDisqualify={onDisqualify} />
+          <ProjectGradeTable data={filteredGradedProjects()} onDisqualify={onDisqualify} />
         )}
       </Card>
     </>
