@@ -202,6 +202,11 @@ export default () => {
     await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user })
   }
 
+  const onDisqualify = async (projectId, disqualified) => {
+    await projectsRef.doc(projectId).update({ disqualified: !disqualified })
+    window.location.reload()
+  }
+
   const uploadClickHandler = () => {
     inputFile.current.click()
   }
@@ -309,7 +314,7 @@ export default () => {
         {toggle ? (
           <GradeTable data={grades} onRemove={removeGrade} />
         ) : (
-          <ProjectGradeTable data={gradedProjects} />
+          <ProjectGradeTable data={gradedProjects} onDisqualify={onDisqualify} />
         )}
       </Card>
     </>
