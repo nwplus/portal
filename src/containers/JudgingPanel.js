@@ -295,7 +295,7 @@ export default () => {
           Sync {projects.length} projects to Firebase
         </Button>
         <Accordion heading="Project List">
-          <ProjectTable projects={projects} />
+          <ProjectTable data={projects} />
         </Accordion>
       </Card>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
