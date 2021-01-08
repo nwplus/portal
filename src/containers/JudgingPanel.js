@@ -228,10 +228,10 @@ export default () => {
     if (fileInput.files && fileInput.files[0]) {
       const csv = fileInput.files[0]
 
-      // if (fileInput.files[0].type !== 'text/csv') {
-      //   setMessage('err: not csv')
-      //   return
-      // }
+      if (fileInput.files[0].type !== 'text/csv') {
+        setMessage('err: not csv')
+        return
+      }
 
       setMessage(`Loaded ${csv.name} successfully`)
       var reader = new FileReader()
