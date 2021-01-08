@@ -16,7 +16,20 @@ class CSV {
 
     // parse column data
     const headings = parsed.shift()
-    this.headings = headings.slice(0, -1)
+    this.headings = headings.concat([''])
+
+    // get max team size
+    const indexBeforeTeamListing = this.headings.indexOf('Additional Team Member Count')
+    const teamSizes = parsed.map(e => +e[indexBeforeTeamListing]).filter(n => !isNaN(n))
+    const maxTeamSize = Math.max.apply(null, teamSizes)
+
+    // patch missing headers
+    for (var i = 0; i < maxTeamSize; i++) {
+      const offset = indexBeforeTeamListing + 3 * i + 1
+      this.headings[offset] = `Team Member ${i + 1} First Name`
+      this.headings[offset + 1] = `Team Member ${i + 1} Last Name`
+      this.headings[offset + 2] = `Team Member ${i + 1} Email`
+    }
 
     this.entries = parsed.map(row => {
       return row.reduce((accumulator, curr, i) => {
@@ -279,7 +292,7 @@ export default () => {
           Sync {projects.length} projects to Firebase
         </Button>
         <Accordion heading="Project List">
-          <ProjectTable projects={projects} />
+          <ProjectTable data={projects} />
         </Accordion>
       </Card>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
