@@ -167,7 +167,6 @@ const getGrades = async () => {
 const getGradedProjects = async (dropOutliers = 2) => {
   const projectData = (await getProjectData()).map(project => {
     if (project.grades) {
-      console.log(project.title, project.grades)
       project.countGraded = Object.values(project.grades).length
 
       // add total grade calculations to project object
