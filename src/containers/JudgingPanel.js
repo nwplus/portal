@@ -117,20 +117,23 @@ const calculateResiduals = project => {
 const getProjectData = async () => {
   const projectDocs = await projectsRef.get()
   return projectDocs.docs.map(projectDoc => {
-    const grades = {}
-    projectDoc.data().grades &&
-      Object.entries(projectDoc.data().grades).forEach(([id, grade]) => {
-        if (!grade.removed) {
-          grades[id] = grade
+    if (projectDoc.data().grades) {
+      const grades = projectDoc.data().grades
+      Object.keys(grades).forEach(id => {
+        if (grades[id].removed) {
+          delete grades[id]
         }
       })
-    if (Object.keys(grades).length) {
-      return { ...projectDoc.data(), grades, id: projectDoc.id }
-    } else {
-      const project = { ...projectDoc.data(), id: projectDoc.id }
-      delete project.grades
-      return project
+
+      if (Object.keys(grades).length) {
+        return { ...projectDoc.data(), grades, id: projectDoc.id }
+      } else {
+        const project = { ...projectDoc.data(), id: projectDoc.id }
+        delete project.grades
+        return project
+      }
     }
+    return { ...projectDoc.data(), id: projectDoc.id }
   })
 }
 
