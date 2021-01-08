@@ -107,7 +107,7 @@ export const ProjectGradeTable = ({ data, onDisqualify }) => {
       <DisqualifyButton
         key={row.id}
         disqualified={row.disqualified}
-        onClick={() => onDisqualify(row.id)}
+        onClick={() => onDisqualify(row.id, row.disqualified)}
       />,
     ]
   })

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
-import { db, syncToFirebase, projectsRef, submitGrade } from '../utility/firebase'
+import { syncToFirebase, projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
 import { Card } from '../components/Common'
@@ -202,20 +202,8 @@ export default () => {
     await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user })
   }
 
-  const onDisqualify = async projectId => {
-    try {
-      await db.runTransaction(async transaction => {
-        const projectDoc = await transaction.get(projectsRef.doc(projectId))
-        if (!projectDoc.exists) {
-          alert('Project does not exist')
-          return
-        }
-        const disqualified = !projectDoc.data().disqualified
-        transaction.update(projectsRef.doc(projectId), { disqualified })
-      })
-    } catch (e) {
-      alert(e)
-    }
+  const onDisqualify = async (projectId, disqualified) => {
+    await projectsRef.doc(projectId).update({ disqualified: !disqualified })
     window.location.reload()
   }
 
