@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
+import styled from 'styled-components'
 import { syncToFirebase, projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P, A } from '../components/Typography'
@@ -10,6 +11,13 @@ import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 import ProgressBar from '../components/ProgressBar'
 import { JUDGING_RUBRIC, calculateGrade } from '../utility/Constants'
 
+const Columns = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+const Column = styled.div`
+  margin: 1em;
+`
 class CSV {
   constructor(data) {
     const parsed = data.split('\n').map(row => row.split(/,(?=\S)/))
@@ -195,16 +203,19 @@ export default () => {
     assigned: 0,
     graded: 0,
   })
-  const [toggle, setToggle] = useState()
+  const [toggle, setToggle] = useState({})
 
   const removeGrade = async row => {
     const { id, gradeId, ...score } = row
-    await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user })
+    await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user }, () =>
+      alert("Error. If there is no 'Submitted by' this error is expected.")
+    )
+    await setProjectsAndStats()
   }
 
   const onDisqualify = async (projectId, disqualified) => {
     await projectsRef.doc(projectId).update({ disqualified: !disqualified })
-    window.location.reload()
+    await setProjectsAndStats()
   }
 
   const uploadClickHandler = () => {
@@ -305,13 +316,28 @@ export default () => {
       <H3>{percentageGraded}% of projects judged</H3>
       <ProgressBar percent={percentageGraded} />
       <Card>
-        <ToggleSwitch checked={toggle} onChange={() => setToggle(!toggle)} />
-        <P>Toggle Projects/Grades</P>
+        <Columns>
+          <Column>
+            <ToggleSwitch
+              checked={toggle.projectsGrades}
+              onChange={() => setToggle({ projectsGrades: !toggle.projectsGrades })}
+            />
+            <P>Toggle Projects/Grades</P>
+          </Column>
+
+          <Column>
+            <ToggleSwitch
+              checked={toggle.filterDisqualify}
+              onChange={() => setToggle({ filterDisqualify: !toggle.filterDisqualify })}
+            />
+            <P>Filter disqualfied</P>
+          </Column>
+        </Columns>
         <Button color="secondary" width="large" onClick={setProjectsAndStats}>
           Refresh Grades
         </Button>
         <MoonLoader color="#fff" loading={isLoading} />
-        {toggle ? (
+        {toggle.projectsGrades ? (
           <GradeTable data={grades} onRemove={removeGrade} />
         ) : (
           <ProjectGradeTable data={gradedProjects} onDisqualify={onDisqualify} />
