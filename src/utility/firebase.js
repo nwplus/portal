@@ -137,7 +137,7 @@ export const getUserApplication = async uuid => {
 
 export const getSubmission = async uid => {
   const projectDoc = await projectsRef.doc(uid).get()
-  return { ...projectDoc.data(), id: projectsRef.doc(uid).id }
+  return { ...projectDoc.data(), id: projectsRef.doc(uid).id, exists: projectDoc.exists }
 }
 
 export const submitGrade = async (id, score, user, errorCallback = () => {}) => {
