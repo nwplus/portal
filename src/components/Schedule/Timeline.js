@@ -42,7 +42,7 @@ const TimelineLabel = styled.span`
 `
 
 const CurrentTime = ({ start, duration, numCols }) => {
-  const hoursBetweenNowAndStart = ((new Date() - start) / 60) * 60 * 1000
+  const hoursBetweenNowAndStart = (new Date() - start) / 60 / 60 / 1000
   const renderCurrentTime = 0 < hoursBetweenNowAndStart && hoursBetweenNowAndStart < duration
   return (
     renderCurrentTime && (
