@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { HOUR_HEIGHT, EVENT_GAP, EVENT_WIDTH } from './Constants'
 
@@ -42,8 +42,17 @@ const TimelineLabel = styled.span`
 `
 
 const CurrentTime = ({ start, duration, numCols }) => {
-  const hoursBetweenNowAndStart = (new Date() - start) / 60 / 60 / 1000
+  const [currentTime, setCurrentTime] = useState(Date.now())
+  const hoursBetweenNowAndStart = (currentTime - start) / 60 / 60 / 1000
   const renderCurrentTime = 0 < hoursBetweenNowAndStart && hoursBetweenNowAndStart < duration
+
+  useEffect(() => {
+    const interval = setInterval(() => setCurrentTime(Date.now()), 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
   return (
     renderCurrentTime && (
       <CurrentTimeHR hourOffset={hoursBetweenNowAndStart} widthMultiplier={numCols} />
