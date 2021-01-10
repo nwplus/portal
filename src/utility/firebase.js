@@ -150,7 +150,9 @@ export const submitGrade = async (id, score, user, errorCallback = () => {}) => 
         return
       }
       const oldGrades = projectDoc.data().grades
-      const grades = { ...oldGrades, [user.uid]: { ...score, user: user.email } }
+      const newGrade = user.email ? { ...score, user: user.email } : { ...score }
+      const grades = { ...oldGrades, [user.uid]: newGrade }
+      console.log(grades)
       transaction.update(projectsRef.doc(id), { grades })
     })
   } catch (e) {

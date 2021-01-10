@@ -16,13 +16,13 @@ export default () => {
       ...submission.grades[id],
       reported: true,
     }
-    await submitGrade(submission.id, score, id)
+    await submitGrade(submission.id, score, { uid: id })
     window.location.reload()
   }
 
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
-    if (d.submittedProject === '') {
+    if (!d.submittedProject) {
       setSubmission(false)
       return
     }
