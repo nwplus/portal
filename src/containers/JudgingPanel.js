@@ -42,7 +42,6 @@ class CSV {
     }
 
     this.entries = parsed.map(row => {
-      console.log(row)
       return row.reduce((accumulator, curr, i) => {
         accumulator[`${this.headings[i]}`] = curr
         return accumulator
