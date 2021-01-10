@@ -82,10 +82,6 @@ export const getRedirectUrl = redirect => {
 }
 
 export const handleRedirect = async (redirect, setLocationCallback) => {
-  if (process.env.NODE_ENV === 'production' || process.env.REACT_APP_ENV === 'STAGING') {
-    if (DB_HACKATHON === 'LHD2021') return '/submission'
-  }
-
   const submissionOpen = (await livesiteDocRef.get()).data().submissionsOpen
   setLocationCallback(submissionOpen ? '/submission' : getRedirectUrl(redirect))
 }
