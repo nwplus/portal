@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getUserStatus, analytics, livesiteDocRef } from './firebase'
-import { DB_HACKATHON, REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
+import { REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
