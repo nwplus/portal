@@ -44,9 +44,7 @@ export function AuthProvider({ children }) {
     analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
-    /* changed from / to /login for nwHacks application since the rest of the livesite content (schedule, sponsors, etc)
-       hasn't been updated */
-    setLocation('/login')
+    setLocation('/')
   }
 
   return loading ? (
@@ -76,8 +74,8 @@ export const getRedirectUrl = redirect => {
     if (DB_HACKATHON === 'LHD2021') return '/submission'
   }
   switch (redirect) {
-    case REDIRECT_STATUS.AttendingEvent && DB_HACKATHON === 'LHD2021':
-      return '/judging'
+    case REDIRECT_STATUS.AttendingEvent:
+      return '/'
     case REDIRECT_STATUS.ApplicationNotSubmitted:
       return '/application/part-1'
     case REDIRECT_STATUS.ApplicationSubmitted:

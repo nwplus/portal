@@ -16,17 +16,21 @@ export default () => {
       ...submission.grades[id],
       reported: true,
     }
-    await submitGrade(submission.id, score, id)
+    await submitGrade(submission.id, score, { uid: id })
     window.location.reload()
   }
 
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
-    const submittedProjectRef = d.submittedProject
-    if (!!submittedProjectRef) {
-      const submission = await getSubmission(submittedProjectRef)
+    if (!d.submittedProject) {
+      setSubmission(false)
+      return
+    }
 
-      Object.keys(submission.grades).forEach(id => {
+    const submittedProjectRef = d.submittedProject
+    const submission = await getSubmission(submittedProjectRef)
+    if (!!submittedProjectRef && submission.exists) {
+      Object.keys(submission.grades ?? {}).forEach(id => {
         if (submission.grades[id].removed) {
           delete submission.grades[id]
         }
