@@ -20,7 +20,9 @@ const Column = styled.div`
 `
 class CSV {
   constructor(data) {
-    const parsed = data.split('\n').map(row => row.split(/,(?=\S)/))
+    const findLineBreaksInDoubleQuotes = /"[^"]*(?:""[^"]*)*"/g
+    const cleaned = data.replace(findLineBreaksInDoubleQuotes, m => m.replace(/\n/g, ''))
+    const parsed = cleaned.split('\n').map(row => row.split(/,(?=\S)/))
 
     // parse column data
     const headings = parsed.shift()
@@ -40,6 +42,7 @@ class CSV {
     }
 
     this.entries = parsed.map(row => {
+      console.log(row)
       return row.reduce((accumulator, curr, i) => {
         accumulator[`${this.headings[i]}`] = curr
         return accumulator
