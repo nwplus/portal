@@ -11,7 +11,7 @@ export const copyText = Object.freeze({
   hackathonName: 'nwHacks 2021',
 })
 
-export const PROJECTS_TO_JUDGE_COUNT = 4
+export const PROJECTS_TO_JUDGE_COUNT = 5
 
 export const NOTIFICATION_PERMISSIONS = Object.freeze({
   GRANTED: 'granted',
@@ -30,6 +30,7 @@ export const SOCIAL_LINKS = Object.freeze({
 export const REDIRECT_STATUS = Object.freeze({
   ApplicationNotSubmitted: 'ApplicationNotSubmitted',
   ApplicationSubmitted: 'ApplicationSubmitted',
+  ApplicationAccepted: 'ApplicationAccepted',
   AttendingEvent: 'AttendingEvent',
 })
 

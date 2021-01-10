@@ -124,6 +124,10 @@ export const getUserStatus = async user => {
     return { redirect: REDIRECT_STATUS.AttendingEvent, status }
   }
 
+  if (status === APPLICATION_STATUS.accepted) {
+    return { redirect: REDIRECT_STATUS.ApplicationAccepted, status }
+  }
+
   if (status === APPLICATION_STATUS.inProgress) {
     return { redirect: REDIRECT_STATUS.ApplicationNotSubmitted, status }
   }
