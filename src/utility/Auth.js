@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { getUserStatus, analytics } from './firebase'
-import { DB_HACKATHON, REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
+import { getUserStatus, analytics, livesiteDocRef } from './firebase'
+import { REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 
@@ -66,15 +66,12 @@ const handleUser = async (setUser, setLocation) => {
   setUser(user)
   analytics.setUserId(user.uid)
   analytics.logEvent(ANALYTICS_EVENTS.Login, { userId: user.uid })
-  setLocation(getRedirectUrl(redirect))
+  await handleRedirect(redirect, setLocation)
 }
 
 export const getRedirectUrl = redirect => {
-  if (process.env.NODE_ENV === 'production' || process.env.REACT_APP_ENV === 'STAGING') {
-    if (DB_HACKATHON === 'LHD2021') return '/submission'
-  }
   switch (redirect) {
-    case REDIRECT_STATUS.AttendingEvent:
+    case REDIRECT_STATUS.ApplicationAccepted:
       return '/'
     case REDIRECT_STATUS.ApplicationNotSubmitted:
       return '/application/part-1'
@@ -82,6 +79,11 @@ export const getRedirectUrl = redirect => {
     default:
       return '/application'
   }
+}
+
+export const handleRedirect = async (redirect, setLocationCallback) => {
+  const submissionOpen = (await livesiteDocRef.get()).data().submissionsOpen
+  setLocationCallback(submissionOpen ? '/submission' : getRedirectUrl(redirect))
 }
 
 export const googleSignIn = async (setUser, setLocation) => {
