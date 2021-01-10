@@ -50,7 +50,7 @@ class CSV {
 
 class Project {
   constructor(entry) {
-    this.acknowledged = entry['Acknowledged'] === '1'
+    this.acknowledged = entry['Acknowledged'] === '1' || entry['Acknowledged'] === 'yes'
     const teamsize = parseInt(entry['Additional Team Member Count'])
     this.teamMembers = [`${entry['Submitter First Name']} ${entry['Submitter Last Name']}`]
     this.teamMembersEmails = [entry['Submitter Email']]
@@ -298,7 +298,7 @@ export default () => {
         setSponsorPrizes(prizes)
       })
 
-      reader.readAsBinaryString(csv)
+      reader.readAsText(csv, 'UTF-8')
     }
   }
 
