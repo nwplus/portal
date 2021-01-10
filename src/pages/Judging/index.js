@@ -7,8 +7,7 @@ import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/Judging/JudgingCard'
 import { A } from '../../components/Typography'
 import { useAuth } from '../../utility/Auth'
-
-const PROJECTS_TO_JUDGE_COUNT = 4
+import { PROJECTS_TO_JUDGE_COUNT } from '../../utility/Constants'
 
 const Container = styled.div`
   display: flex;

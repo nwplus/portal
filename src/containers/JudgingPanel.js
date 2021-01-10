@@ -9,7 +9,7 @@ import Accordion from '../components/Accordion'
 import { ProjectTable, ProjectGradeTable, GradeTable } from '../components/Judging/Admin/Table'
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 import ProgressBar from '../components/ProgressBar'
-import { JUDGING_RUBRIC, calculateGrade } from '../utility/Constants'
+import { JUDGING_RUBRIC, calculateGrade, PROJECTS_TO_JUDGE_COUNT } from '../utility/Constants'
 
 const Columns = styled.div`
   display: flex;
@@ -312,8 +312,13 @@ export default () => {
     }
   }
 
-  const percentageAssigned = ((stats.assigned * 100) / stats.total).toFixed(2)
-  const percentageGraded = ((stats.graded * 100) / stats.total).toFixed(2)
+  const percentageAssigned = (
+    (stats.assigned * 100) /
+    (stats.total * PROJECTS_TO_JUDGE_COUNT)
+  ).toFixed(2)
+  const percentageGraded = ((stats.graded * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(
+    2
+  )
 
   const filteredGradedProjects = () => {
     return toggle.filterDisqualify
