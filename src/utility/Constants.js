@@ -2,7 +2,7 @@ export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
 export const DB_HACKATHON = 'nwHacks2021'
-
+export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
@@ -11,12 +11,13 @@ export const copyText = Object.freeze({
   hackathonName: 'nwHacks 2021',
 })
 
+export const PROJECTS_TO_JUDGE_COUNT = 4
+
 export const NOTIFICATION_PERMISSIONS = Object.freeze({
   GRANTED: 'granted',
   DEFAULT: 'default',
   DENIED: 'denied',
 })
-export const DAYOF_COLLECTION = 'DayOf'
 
 export const SOCIAL_LINKS = Object.freeze({
   FB: 'https://www.facebook.com/nwplusubc',
