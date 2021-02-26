@@ -9,6 +9,7 @@ const TimeContainer = styled.div`
 
 const TimeText = styled.span`
   color: ${p => p.theme.colors.text};
+  font-family: ${p => p.theme.typography.headerFont};
   width: 90px;
   font-size: 4em;
 `
