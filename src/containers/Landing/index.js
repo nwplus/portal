@@ -4,6 +4,7 @@ import Banner from '../../components/Banner'
 import logo_lockup from '../../assets/logo_lockup.svg'
 import hc_logo from '../../assets/hc_logo.svg'
 import cmdf_logo from '../../assets/cmdf_logo.svg'
+import cmdf_plants from '../../assets/plants.svg'
 import holo from '../../assets/holo.svg'
 import holo_end from '../../assets/holo2.svg'
 import Footer from './Footer'
@@ -97,6 +98,19 @@ const StyledBanner = styled(Banner)`
   }
 `
 
+const StyledLandingDecal = styled.img`
+  ${p =>
+    p.theme.name === 'cmdf' &&
+    `
+      position: absolute;
+      z-index: 9999;
+      display: block;
+      width: 100%;
+      height:100%;
+      object-fit: cover;
+    `}
+`
+
 // TODO: add sponsors if footer is shown
 export default ({ heading, description, showFooter, hackathon, children }) => {
   switch (hackathon) {
@@ -114,6 +128,7 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
     case 'cmdf':
       return (
         <LandingContainer showFooter={showFooter}>
+          <StyledLandingDecal src={cmdf_plants} />
           <StyledLogoLockup src={cmdf_logo} />
           <StyledBanner>
             <H1 size="1.5em">{heading}</H1>
