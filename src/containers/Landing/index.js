@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Banner from '../../components/Banner'
 import logo_lockup from '../../assets/logo_lockup.svg'
 import hc_logo from '../../assets/hc_logo.svg'
+import cmdf_logo from '../../assets/cmdf_logo.svg'
 import holo from '../../assets/holo.svg'
 import holo_end from '../../assets/holo2.svg'
 import Footer from './Footer'
@@ -49,9 +50,14 @@ const StyledLogoLockup = styled.img`
   z-index: 9999;
 
   ${p =>
-    p.theme.name === 'hackCamp' &&
+    p.theme.name !== 'nwPlus' &&
     `
       top: 14em;
+  `}
+  ${p =>
+    p.theme.name === 'cmdf' &&
+    `
+      top: 15em;
     `}
   ${p => p.theme.mediaQueries.tabletLarge} {
     top: 18%;
@@ -98,6 +104,17 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
       return (
         <LandingContainer showFooter={showFooter}>
           <StyledLogoLockup src={hc_logo} />
+          <StyledBanner>
+            <H1 size="1.5em">{heading}</H1>
+            <P>{description}</P>
+            {children}
+          </StyledBanner>
+        </LandingContainer>
+      )
+    case 'cmdf':
+      return (
+        <LandingContainer showFooter={showFooter}>
+          <StyledLogoLockup src={cmdf_logo} />
           <StyledBanner>
             <H1 size="1.5em">{heading}</H1>
             <P>{description}</P>

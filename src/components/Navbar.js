@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { P } from './Typography'
 import icon from '../assets/nwhacks_icon.svg'
 import { Button } from './Input'
+import { withTheme } from 'styled-components'
 
 const NavContainer = styled.div`
   direction: rtl;
@@ -45,24 +46,28 @@ const Greeting = styled(P)`
   }
 `
 
-export default ({ name, handleLogout, children }) => (
-  <div>
-    <NavContainer>
-      {handleLogout && (
-        <Button onClick={handleLogout} color="primary">
-          Logout
-        </Button>
-      )}
-      {name && (
-        <>
-          <span role="img" aria-label="tongue sticking out emoji">
-            &#128540;
-          </span>
-          <Greeting>Hi, {name}</Greeting>
-        </>
-      )}
-      <Icon src={icon} alt="nwHacks icon" />
-    </NavContainer>
-    {children}
-  </div>
-)
+const NavBar = ({ name, handleLogout, children, theme }) => {
+  return (
+    <div>
+      <NavContainer>
+        {handleLogout && (
+          <Button onClick={handleLogout} color="primary">
+            Logout
+          </Button>
+        )}
+        {name && (
+          <>
+            <span role="img" aria-label="tongue sticking out emoji">
+              &#128540;
+            </span>
+            <Greeting>Hi, {name}</Greeting>
+          </>
+        )}
+        {theme.name === 'nwHacks' && <Icon src={icon} alt={theme.name} />}
+      </NavContainer>
+      {children}
+    </div>
+  )
+}
+
+export default withTheme(NavBar)

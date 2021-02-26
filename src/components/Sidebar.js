@@ -4,6 +4,7 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
+import cmdf_logo from '../assets/cmdf_logo.svg'
 import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
@@ -17,9 +18,19 @@ const SidebarContainer = styled.div`
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
 `
+const chooseLogo = hackathon => {
+  switch (hackathon) {
+    case 'hackCamp':
+      return hc_logo
+    case 'cmdf':
+      return cmdf_logo
+    default:
+      return logo
+  }
+}
 
 const Logo = styled.img.attrs(p => ({
-  src: p.theme.name === 'hackCamp' ? hc_logo : logo,
+  src: chooseLogo(p.theme.name),
 }))`
   width: 80px;
   height: 85px;
@@ -31,6 +42,13 @@ const Logo = styled.img.attrs(p => ({
       width: 120px;
       margin: 30px 0 0px 60px;
     `}
+
+  ${p =>
+    p.theme.name === 'cmdf' &&
+    `
+        width: 120px;
+        margin: 86px 0 24px 48px;
+      `}
 `
 
 const ItemsContainer = styled.div`
