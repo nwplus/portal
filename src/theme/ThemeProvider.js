@@ -11,6 +11,8 @@ const SCREEN_BREAKPOINTS = {
 
 const base = {
   typography: {
+    headerFont: 'HK Grotesk',
+    bodyFont: 'HK Grotesk',
     h1: {
       weight: 700,
       size: '2em',
@@ -41,7 +43,6 @@ const base = {
 const nwTheme = {
   ...base,
   name: 'nwHacks',
-  font: 'HK Grotesk',
   colors: {
     background: '#2D2937',
     border: 'rgba(255, 255, 255, 0.3)',
@@ -80,7 +81,6 @@ const nwTheme = {
 const hackcampTheme = {
   ...base,
   name: 'hackCamp',
-  font: 'HK Grotesk',
   colors: {
     background: '#2A3C4A',
     border: 'rgba(255, 255, 255, 0.3)',

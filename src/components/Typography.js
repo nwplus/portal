@@ -5,21 +5,26 @@ export const text = css`
   color: ${p => p.theme.colors.text};
 `
 
-export const H1 = styled.h1`
+const headerText = css`
   ${text};
+  font-family: ${p => p.theme.typography.headerFont};
+`
+
+export const H1 = styled.h1`
+  ${headerText};
   font-weight: ${p => p.theme.typography.h1.weight};
   font-size: ${p => p.size || p.theme.typography.h1.size};
 `
 
 export const H2 = styled.h2`
-  ${text};
+  ${headerText};
   font-weight: ${p => p.theme.typography.h2.weight};
   font-size: ${p => p.theme.typography.h2.size};
   opacity: ${p => p.theme.typography.h2.opacity};
 `
 
 export const H3 = styled.h3`
-  ${text};
+  ${headerText};
   font-weight: ${p => p.theme.typography.h3.weight};
   font-size: ${p => p.theme.typography.h3.size};
   opacity: ${p => p.theme.typography.h3.opacity};
