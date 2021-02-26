@@ -116,8 +116,12 @@ const hackcampTheme = {
 
 const cmdfTheme = {
   ...base,
+  typography: {
+    ...base.typography,
+    headerFont: 'Fira Code',
+    bodyFont: 'DM Sans',
+  },
   name: 'cmdf',
-  font: 'HK Grotesk',
   colors: {
     background: '#F9F6EF',
     border: 'rgba(255, 255, 255, 0)',
