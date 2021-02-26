@@ -114,8 +114,45 @@ const hackcampTheme = {
   },
 }
 
-const THEMES = { nwTheme, hackcampTheme }
-let selectedTheme = nwTheme
+const cmdfTheme = {
+  ...base,
+  name: 'cmdf',
+  font: 'HK Grotesk',
+  colors: {
+    background: '#F9F6EF',
+    border: 'rgba(255, 255, 255, 0)',
+    secondaryBackground: '#fff',
+    secondaryBackgroundTransparent: '#B7C2B4',
+    foreground: '#FFBC96',
+    error: '#ff0033',
+    errorText: '#fff',
+    warning: '#FF8989',
+    secondaryWarning: '#EF6C6C',
+    primary: '#B95D1D',
+    default: '#FFBC96',
+    highlight: '#192825',
+    text: '#192825',
+    link: '#192825',
+    linkHover: '#FFBC96',
+    tertiaryHover: '#AD795E', // button hover
+    selects: {
+      hover: 'rgba(201, 149, 119, 0.2)',
+      focus: 'rgba(201, 149, 119, 0.5)',
+    },
+    hover: '#A0B9C0',
+    scrollbar: '#80959B',
+    banner: '#F9F6EF',
+    login: {
+      googleHover: '#C8BFB6',
+      githubHover: '#577079',
+    },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
+  },
+}
+
+const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
+let selectedTheme = cmdfTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')
