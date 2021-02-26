@@ -9,7 +9,37 @@ const SCREEN_BREAKPOINTS = {
   desktop: 1200,
 }
 
+const base = {
+  typography: {
+    h1: {
+      weight: 700,
+      size: '2em',
+    },
+    h2: {
+      weight: 600,
+      size: '1.4em',
+      opacity: 0.7,
+    },
+    h3: {
+      weight: 600,
+      size: '1em',
+      opacity: 0.5,
+    },
+  },
+  opacity: {
+    disabled: 0.5,
+  },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
+}
+
 const nwTheme = {
+  ...base,
   name: 'nwHacks',
   font: 'HK Grotesk',
   colors: {
@@ -45,35 +75,10 @@ const nwTheme = {
     greetingBorder: '#000000',
     applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
-  typography: {
-    h1: {
-      weight: 700,
-      size: '2em',
-    },
-    h2: {
-      weight: 600,
-      size: '1.4em',
-      opacity: 0.7,
-    },
-    h3: {
-      weight: 600,
-      size: '1em',
-      opacity: 0.5,
-    },
-  },
-  opacity: {
-    disabled: 0.5,
-  },
-  mediaQueries: {
-    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
-    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
-    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
-    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
-    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
-  },
 }
 
 const hackcampTheme = {
+  ...base,
   name: 'hackCamp',
   font: 'HK Grotesk',
   colors: {
@@ -106,32 +111,6 @@ const hackcampTheme = {
     },
     greetingBorder: '#000000',
     applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
-  },
-  typography: {
-    h1: {
-      weight: 700,
-      size: '2em',
-    },
-    h2: {
-      weight: 600,
-      size: '1.4em',
-      opacity: 0.9,
-    },
-    h3: {
-      weight: 600,
-      size: '1em',
-      opacity: 0.7,
-    },
-  },
-  opacity: {
-    disabled: 0.5,
-  },
-  mediaQueries: {
-    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
-    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
-    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
-    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
-    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
   },
 }
 
