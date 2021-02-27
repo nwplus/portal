@@ -124,8 +124,8 @@ const cmdfTheme = {
   name: 'cmdf',
   colors: {
     background: '#F9F6EF',
-    border: 'rgba(255, 255, 255, 0)',
-    secondaryBackground: '#fff',
+    border: 'rgba(0, 0, 0, 0.3)',
+    secondaryBackground: '#B7C2B4',
     secondaryBackgroundTransparent: '#B7C2B4',
     foreground: '#FFBC96',
     error: '#ff0033',
@@ -137,7 +137,7 @@ const cmdfTheme = {
     highlight: '#192825',
     text: '#192825',
     link: '#192825',
-    linkHover: '#FFBC96',
+    linkHover: '#fff',
     tertiaryHover: '#AD795E', // button hover
     selects: {
       hover: 'rgba(201, 149, 119, 0.2)',
