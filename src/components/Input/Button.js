@@ -47,7 +47,9 @@ const StyledButton = styled.a`
   ${p =>
     (p.color === 'primary' || !p.color) && // primary color (gradient button) or not specified color
     `color: ${p.theme.colors.background};
-    background: ${p.theme.colors.primaryGradient};
+    background: ${
+      p.theme.name === 'cmdf' ? p.theme.colors.primary : p.theme.colors.primaryGradient
+    };
     :hover {
       ${
         p.disabled
@@ -55,7 +57,9 @@ const StyledButton = styled.a`
       cursor: not-allowed;
       `
           : `
-      background: ${p.theme.colors.primaryGradientHover};
+      background: ${
+        p.theme.name === 'cmdf' ? p.theme.colors.tertiaryHover : p.theme.colors.primaryGradientHover
+      };
       `
       }
     }
