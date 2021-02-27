@@ -61,7 +61,8 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 60px;
   border-bottom: none;
-  color: ${p => (p.selected ? p.theme.colors.primary : p.theme.colors.highlight)};
+  color: ${p =>
+    p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
   ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
   &:hover {
     background: ${p => p.theme.colors.secondaryBackground};
