@@ -2,14 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { format } from 'timeago.js'
 import ReactMarkdown from 'react-markdown'
-import { Card } from './Common'
-import { H1, P, A } from './Typography'
+import { Card, CardWithHeader } from './Common'
+import { P, A } from './Typography'
 import NotificationToggle from '../containers/NotificationToggle'
 import { IS_DEVICE_IOS } from '../utility/Constants'
-
-const StyledH1 = styled(H1)`
-  margin: 0 0 0 0;
-`
 
 const StyledP = styled(P)`
   margin-bottom: 0.5em;
@@ -28,22 +24,13 @@ const Announcement = styled(Card)`
       : p.theme.colors.background};
 `
 
-const AnnouncementHeader = styled.div`
+const AnnouncementContainer = styled(CardWithHeader)`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 1em 0;
-  ${p => p.theme.mediaQueries.xs} {
-    display: inline-block;
-  }
 `
 
 // hide notification toggle on IOS devices because Notification API incompatible
 export default ({ announcements }) => (
-  <Card>
-    <AnnouncementHeader>
-      <StyledH1>Announcements</StyledH1>
-    </AnnouncementHeader>
+  <AnnouncementContainer header="Announcements">
     {!IS_DEVICE_IOS ? <NotificationToggle /> : null}
     {announcements.map(announcement => {
       const timeAgo = format(announcement.timestamp)
@@ -78,5 +65,5 @@ export default ({ announcements }) => (
         </Announcement>
       )
     })}
-  </Card>
+  </AnnouncementContainer>
 )

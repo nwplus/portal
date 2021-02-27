@@ -45,6 +45,7 @@ const nwTheme = {
   name: 'nwHacks',
   colors: {
     background: '#2D2937',
+    card: '#2D2937', // todo: update to proper colour
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
@@ -83,6 +84,7 @@ const hackcampTheme = {
   name: 'hackCamp',
   colors: {
     background: '#2A3C4A',
+    card: '#2A3C4A', // todo: update
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
@@ -124,8 +126,9 @@ const cmdfTheme = {
   name: 'cmdf',
   colors: {
     background: '#F9F6EF',
+    card: '#EFEDEA',
     border: 'rgba(0, 0, 0, 0.3)',
-    accordion: '#C8BFB6',
+    cardSecondary: '#C8BFB6',
     secondaryBackground: '#B7C2B4',
     secondaryBackgroundTransparent: '#B7C2B4',
     foreground: '#FFBC96',
