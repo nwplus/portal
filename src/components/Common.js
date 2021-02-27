@@ -18,6 +18,10 @@ export const Card = styled.div`
   ${CardLike};
 `
 
+const ThemedCardContainer = styled.div`
+  position: relative;
+  width: 100%;
+`
 const CardContainer = styled(Card)`
   position: relative;
   ${p =>
@@ -49,13 +53,13 @@ const TitleBar = styled.div`
 `
 export const CardWithHeader = withTheme(({ header, theme, children }) => {
   return theme.name === 'cmdf' ? (
-    <>
+    <ThemedCardContainer>
       <TitleBar>
         <Header>{header ?? '\u00A0'}</Header>
-        <img src={icons} />
+        <img src={icons} alt="Close window icon decals" />
       </TitleBar>
       <CardContainer>{children}</CardContainer>
-    </>
+    </ThemedCardContainer>
   ) : (
     <CardContainer>
       <Header>{header ?? '\u00A0'}</Header>

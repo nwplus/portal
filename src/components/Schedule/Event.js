@@ -12,15 +12,18 @@ const EventDescription = styled(P)`
 
 const EventCard = styled(Card)`
   position: absolute;
-
-  ${p => props =>
-    props.delayed
-      ? `
-      background: linear-gradient(${p.theme.colors.warning}, ${p.theme.colors.background});
+  background-color: ${p => p.theme.colors.secondaryBackground};
+  ${p =>
+    p.delayed &&
     `
-      : `
-      background-color: ${p.theme.colors.background};
-    `}
+    border: 3px solid ${p.theme.colors.secondaryWarning};
+    border-radius: 7px;
+    background: none;
+    
+    & > h3 {
+      color: ${p.theme.colors.secondaryWarning};
+    }
+  `};
 
   margin: 5px;
   width: ${EVENT_WIDTH - 50}px;

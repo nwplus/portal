@@ -1,16 +1,10 @@
 import React from 'react'
-import { A, UL, LI, H2 } from './Typography'
-import styled from 'styled-components'
-import { Card } from '../components/Common'
-
-const StyledH2 = styled(H2)`
-  margin-top: 0.1em;
-`
+import { A, UL, LI } from './Typography'
+import { CardWithHeader } from '../components/Common'
 
 export default ({ title, links }) => {
   return (
-    <Card>
-      <StyledH2>{title}</StyledH2>
+    <CardWithHeader header={title}>
       <UL>
         {links.map(link => (
           <LI key={link.label}>
@@ -18,6 +12,6 @@ export default ({ title, links }) => {
           </LI>
         ))}
       </UL>
-    </Card>
+    </CardWithHeader>
   )
 }

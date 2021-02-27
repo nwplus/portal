@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Card, ScrollbarLike } from '../Common'
+import { CardWithHeader, ScrollbarLike } from '../Common'
 import { EVENT_WIDTH } from './Constants'
 import { TimelineColumn } from './Timeline'
 import { TagLegend } from './Tag'
@@ -15,7 +15,7 @@ const FlexColumn = styled.div`
   flex: 0 0 ${EVENT_WIDTH}px;
 `
 
-const OverflowContainer = styled(Card)`
+const OverflowContainer = styled(CardWithHeader)`
   overflow-x: scroll;
   position: relative;
   ${ScrollbarLike};
@@ -76,7 +76,7 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   const durationOfHackathon = Math.min(msToHours(hackathonEnd - hackathonStart), 48)
 
   return (
-    <OverflowContainer>
+    <OverflowContainer header="Day-Of-Events Schedule">
       <TagLegend />
       <ScheduleFlexContainer>
         <TimelineColumn
