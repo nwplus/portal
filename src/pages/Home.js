@@ -10,6 +10,8 @@ import footer_decal from '../assets/cmdf_footerdecal.svg'
 const Decal = styled.img`
   pointer-events: none;
   object-fit: cover;
+  overflow: hidden;
+  z-index: -1;
 `
 
 const TopDecal = styled(Decal)`
