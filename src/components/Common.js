@@ -16,6 +16,10 @@ export const Card = styled.div`
   ${CardLike};
 `
 
+// export const CardWithHeader = () => (<Card>
+//
+// </Card>)
+
 export const DetailContainer = styled.div`
   display: flex;
   flex-direction: row;

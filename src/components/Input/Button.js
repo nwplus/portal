@@ -20,6 +20,7 @@ const buttonHeightPadding = {
 const StyledButton = styled.a`
   vertical-align: middle;
   display: inline-block;
+  box-shadow: 0 14px 28px rgba(27, 33, 48, 0.12), 0 10px 10px rgba(27, 33, 48, 0.08);
   text-decoration: none;
   font-family: ${p => p.theme};
   font-weight: ${p => p.theme.typography.h2.weight};

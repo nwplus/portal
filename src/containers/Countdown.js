@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
+import decal from '../assets/cmdf_bannerdecal.svg'
 import { H2 } from '../components/Typography'
 import TimeDisplay from '../components/TimeDisplay'
-// import ProgressBar from '../components/ProgressBar'
 
 export const Centered = styled.div`
   text-align: center;
 `
 
-const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
+const Decal = styled.img`
+  pointer-events: none;
+  position: absolute;
+  top: -3em;
+  left: calc(275px - 2em);
+  width: calc(100vw - 275px + 2em);
+  object-fit: cover;
+`
+
+const Countdown = ({ countDownDate, eventName, theme }) => {
   const [now, setNow] = useState(new Date())
 
   useEffect(() => {
@@ -25,11 +34,9 @@ const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
   const minutes = Math.floor((diff / (1000 * 60)) % 60)
   const seconds = Math.floor((diff / 1000) % 60)
 
-  // const rawHours = 24 * days + hours + minutes / 60
-  // const progress = 1 - (rawHours / eventDurationHours)
-
   return (
     <Centered>
+      {theme.name === 'cmdf' && <Decal src={decal} />}
       <H2>{eventName.toUpperCase()}</H2>
       <TimeDisplay days={days} hours={hours} minutes={minutes} seconds={seconds} />
       {/* <ProgressBar percent={progress * 100} /> */}
@@ -37,4 +44,4 @@ const Countdown = ({ countDownDate, eventDurationHours, eventName }) => {
   )
 }
 
-export default Countdown
+export default withTheme(Countdown)

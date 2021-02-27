@@ -74,7 +74,6 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
 
   const schedule = produceOptimalSchedule(events)
   const durationOfHackathon = Math.min(msToHours(hackathonEnd - hackathonStart), 48)
-  console.log(durationOfHackathon)
 
   return (
     <OverflowContainer>

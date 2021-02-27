@@ -41,7 +41,7 @@ const EventCard = styled(Card)`
 `
 
 const TimeStamp = styled(P)`
-  color: ${p => p.theme.colors.linkHover};
+  color: ${p => p.theme.colors.primary};
 `
 
 const formatTime = timeString => {
