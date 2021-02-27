@@ -126,6 +126,7 @@ const cmdfTheme = {
     background: '#F9F6EF',
     border: 'rgba(255, 255, 255, 0)',
     secondaryBackground: '#fff',
+    accordion: '#C8BFB6',
     secondaryBackgroundTransparent: '#B7C2B4',
     foreground: '#FFBC96',
     error: '#ff0033',

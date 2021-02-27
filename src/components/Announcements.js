@@ -22,7 +22,10 @@ const Time = styled(P)`
 const Announcement = styled(Card)`
   margin: 1em 0;
   padding: 1em;
-  background-color: ${p => p.theme.colors.background};
+  background-color: ${p =>
+    p.theme.name === 'cmdf'
+      ? p.theme.colors.secondaryBackgroundTransparent
+      : p.theme.colors.background};
 `
 
 const AnnouncementHeader = styled.div`

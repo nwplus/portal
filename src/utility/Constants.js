@@ -1,7 +1,7 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'nwHacks2021'
+export const DB_HACKATHON = 'LHD2021'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'

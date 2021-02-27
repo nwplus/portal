@@ -41,6 +41,8 @@ export const DetailColumn = styled.ul`
 
   & > li {
     ${CardLike};
+    background-color: ${p =>
+      p.theme.name === 'cmdf' ? p.theme.colors.accordion : p.theme.colors.secondaryBackground};
     margin: 0;
     padding: 0.5em 1em;
     margin-bottom: 1em;
