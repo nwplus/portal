@@ -20,6 +20,7 @@ const buttonHeightPadding = {
 const StyledButton = styled.a`
   vertical-align: middle;
   display: inline-block;
+  box-shadow: 0 14px 28px rgba(27, 33, 48, 0.12), 0 10px 10px rgba(27, 33, 48, 0.08);
   text-decoration: none;
   font-family: ${p => p.theme};
   font-weight: ${p => p.theme.typography.h2.weight};
@@ -47,7 +48,9 @@ const StyledButton = styled.a`
   ${p =>
     (p.color === 'primary' || !p.color) && // primary color (gradient button) or not specified color
     `color: ${p.theme.colors.background};
-    background: ${p.theme.colors.primaryGradient};
+    background: ${
+      p.theme.name === 'cmdf' ? p.theme.colors.primary : p.theme.colors.primaryGradient
+    };
     :hover {
       ${
         p.disabled
@@ -55,7 +58,9 @@ const StyledButton = styled.a`
       cursor: not-allowed;
       `
           : `
-      background: ${p.theme.colors.primaryGradientHover};
+      background: ${
+        p.theme.name === 'cmdf' ? p.theme.colors.tertiaryHover : p.theme.colors.primaryGradientHover
+      };
       `
       }
     }

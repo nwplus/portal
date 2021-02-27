@@ -1,5 +1,7 @@
-import styled, { css } from 'styled-components'
-import { P } from './Typography'
+import React from 'react'
+import styled, { css, withTheme } from 'styled-components'
+import { H1, P } from './Typography'
+import icons from '../assets/cmdf_buttons.svg'
 
 export const CardLike = css`
   padding: 2em;
@@ -15,6 +17,56 @@ export const CardLike = css`
 export const Card = styled.div`
   ${CardLike};
 `
+
+const ThemedCardContainer = styled.div`
+  position: relative;
+  width: 100%;
+`
+const CardContainer = styled(Card)`
+  position: relative;
+  ${p =>
+    p.theme.name === 'cmdf' &&
+    `
+    background: ${p.theme.colors.card};
+    margin: 0 auto;
+    border: 3px solid ${p.theme.colors.border};
+    border-radius: 0 0 5px 5px;
+    border-top: none;
+  `}
+`
+const Header = styled(H1)`
+  margin: 0 0 0 0;
+`
+const TitleBar = styled.div`
+  display: flex;
+  margin-top: 2em;
+  background: ${p => p.theme.colors.cardSecondary};
+  border-radius: 5px 5px 0 0;
+  border: 3px solid ${p => p.theme.colors.border};
+  & > img {
+    margin-right: 1em;
+  }
+  & > h1 {
+    font-size: 1.5rem;
+    margin: 0.25em auto;
+  }
+`
+export const CardWithHeader = withTheme(({ header, theme, children }) => {
+  return theme.name === 'cmdf' ? (
+    <ThemedCardContainer>
+      <TitleBar>
+        <Header>{header ?? '\u00A0'}</Header>
+        <img src={icons} alt="Close window icon decals" />
+      </TitleBar>
+      <CardContainer>{children}</CardContainer>
+    </ThemedCardContainer>
+  ) : (
+    <CardContainer>
+      <Header>{header ?? '\u00A0'}</Header>
+      {children}
+    </CardContainer>
+  )
+})
 
 export const DetailContainer = styled.div`
   display: flex;
@@ -41,6 +93,8 @@ export const DetailColumn = styled.ul`
 
   & > li {
     ${CardLike};
+    background-color: ${p =>
+      p.theme.name === 'cmdf' ? p.theme.colors.cardSecondary : p.theme.colors.secondaryBackground};
     margin: 0;
     padding: 0.5em 1em;
     margin-bottom: 1em;
@@ -64,7 +118,7 @@ export const TextInputLike = css`
   border: 2px solid ${p => p.theme.colors.highlight};
   border-radius: 7px;
   color: ${p => p.theme.colors.primary};
-  font-family: ${p => p.theme.font};
+  font-family: ${p => p.theme.typography.bodyFont};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {
     color: ${p => p.theme.colors.highlight};

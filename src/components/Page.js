@@ -8,6 +8,8 @@ const Container = styled.div`
   display: flex;
   align-items: stretch;
   min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
 `
 
 const RightContentContainer = styled.div`

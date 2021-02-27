@@ -9,11 +9,43 @@ const SCREEN_BREAKPOINTS = {
   desktop: 1200,
 }
 
+const base = {
+  typography: {
+    headerFont: 'HK Grotesk',
+    bodyFont: 'HK Grotesk',
+    h1: {
+      weight: 700,
+      size: '2em',
+    },
+    h2: {
+      weight: 600,
+      size: '1.4em',
+      opacity: 0.7,
+    },
+    h3: {
+      weight: 600,
+      size: '1em',
+      opacity: 0.5,
+    },
+  },
+  opacity: {
+    disabled: 0.5,
+  },
+  mediaQueries: {
+    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
+    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
+    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
+    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
+    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  },
+}
+
 const nwTheme = {
+  ...base,
   name: 'nwHacks',
-  font: 'HK Grotesk',
   colors: {
     background: '#2D2937',
+    card: '#2D2937', // todo: update to proper colour
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
@@ -45,39 +77,14 @@ const nwTheme = {
     greetingBorder: '#000000',
     applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
-  typography: {
-    h1: {
-      weight: 700,
-      size: '2em',
-    },
-    h2: {
-      weight: 600,
-      size: '1.4em',
-      opacity: 0.7,
-    },
-    h3: {
-      weight: 600,
-      size: '1em',
-      opacity: 0.5,
-    },
-  },
-  opacity: {
-    disabled: 0.5,
-  },
-  mediaQueries: {
-    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
-    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
-    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
-    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
-    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
-  },
 }
 
 const hackcampTheme = {
+  ...base,
   name: 'hackCamp',
-  font: 'HK Grotesk',
   colors: {
     background: '#2A3C4A',
+    card: '#2A3C4A', // todo: update
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#577079',
     secondaryBackgroundTransparent: '#577079bb',
@@ -107,36 +114,53 @@ const hackcampTheme = {
     greetingBorder: '#000000',
     applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
+}
+
+const cmdfTheme = {
+  ...base,
   typography: {
-    h1: {
-      weight: 700,
-      size: '2em',
-    },
-    h2: {
-      weight: 600,
-      size: '1.4em',
-      opacity: 0.9,
-    },
-    h3: {
-      weight: 600,
-      size: '1em',
-      opacity: 0.7,
-    },
+    ...base.typography,
+    headerFont: 'Fira Code',
+    bodyFont: 'DM Sans',
   },
-  opacity: {
-    disabled: 0.5,
-  },
-  mediaQueries: {
-    xs: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.xs}px)`,
-    mobile: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.mobile}px)`,
-    tablet: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tablet}px)`,
-    tabletLarge: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.tabletLarge}px)`,
-    desktop: `@media only screen and (max-width: ${SCREEN_BREAKPOINTS.desktop}px)`,
+  name: 'cmdf',
+  colors: {
+    background: '#F9F6EF',
+    card: '#EFEDEA',
+    border: 'rgba(0, 0, 0, 0.3)',
+    cardSecondary: '#C8BFB6',
+    secondaryBackground: '#B7C2B4',
+    secondaryBackgroundTransparent: '#B7C2B4',
+    foreground: '#FFBC96',
+    error: '#ff0033',
+    errorText: '#fff',
+    warning: '#FF8989',
+    secondaryWarning: '#EF6C6C',
+    primary: '#B95D1D',
+    default: '#FFBC96',
+    highlight: '#192825',
+    text: '#192825',
+    link: '#192825',
+    linkHover: '#fff',
+    tertiaryHover: '#AD795E', // button hover
+    selects: {
+      hover: 'rgba(201, 149, 119, 0.2)',
+      focus: 'rgba(201, 149, 119, 0.5)',
+    },
+    hover: '#A0B9C0',
+    scrollbar: '#80959B',
+    banner: '#F9F6EF',
+    login: {
+      googleHover: '#C8BFB6',
+      githubHover: '#577079',
+    },
+    greetingBorder: '#000000',
+    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
 }
 
-const THEMES = { nwTheme, hackcampTheme }
-let selectedTheme = nwTheme
+const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
+let selectedTheme = cmdfTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')

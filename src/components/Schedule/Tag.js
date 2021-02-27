@@ -12,7 +12,7 @@ export const TagLegendContainer = styled.div`
 `
 
 export const Tag = styled.span`
-  color: ${p => p.theme.colors.background};
+  color: ${p => p.theme.colors.text};
   font-weight: ${p => p.theme.typography.h3.weight};
   margin: 0;
   padding: 2px 5px;

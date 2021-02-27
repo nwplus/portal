@@ -50,7 +50,7 @@ const AuthPageRoute = ({ path, children }) => {
   return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
 }
 
-const NavbarAuthRoute = ({ name, handleLogout, path, children }) => {
+const NavbarAuthRoute = ({ name, handleLogout, path, children, theme }) => {
   const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
     <Route path={path}>

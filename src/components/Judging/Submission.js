@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { H1, H2, H3, P } from '../Typography'
-import { Card } from '../Common'
+import { Card, CardWithHeader } from '../Common'
 import { Button } from '../Input'
 import JudgingCard from './JudgingCard'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
@@ -36,9 +36,6 @@ const Columns = styled.div`
   display: flex;
   flex: 1 2;
   margin-top: 1em;
-  div:nth-child(1) {
-    margin-right: 2em;
-  }
 `
 
 const FeedbackItem = styled(Card)`
@@ -120,15 +117,16 @@ export default ({ project, reportCallback }) => {
           <JudgingCard {...project} buttonLabel="View on Devpost" />
         </Column>
         <Column width="2">
-          <H2>Feedback</H2>
-          {gradeCount > 0 ? (
-            <>
-              <P>Your project has been judged {gradeCount} times.</P>
-              <FeedbackCard feedback={project.grades} reportCallback={reportCallback} />
-            </>
-          ) : (
-            <P>Check back here when judging ends to review your project feedback.</P>
-          )}
+          <CardWithHeader header="Feedback">
+            {gradeCount > 0 ? (
+              <>
+                <P>Your project has been judged {gradeCount} times.</P>
+                <FeedbackCard feedback={project.grades} reportCallback={reportCallback} />
+              </>
+            ) : (
+              <P>Check back here when judging ends to review your project feedback.</P>
+            )}
+          </CardWithHeader>
         </Column>
       </Columns>
     </>
