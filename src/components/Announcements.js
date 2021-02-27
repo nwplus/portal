@@ -43,8 +43,8 @@ export default ({ announcements }) => (
   <Card>
     <AnnouncementHeader>
       <StyledH1>Announcements</StyledH1>
-      {!IS_DEVICE_IOS ? <NotificationToggle /> : null}
     </AnnouncementHeader>
+    {!IS_DEVICE_IOS ? <NotificationToggle /> : null}
     {announcements.map(announcement => {
       const timeAgo = format(announcement.timestamp)
       const options = {
