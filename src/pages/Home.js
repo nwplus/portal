@@ -16,9 +16,9 @@ const Decal = styled.img`
 
 const TopDecal = styled(Decal)`
   position: absolute;
-  left: calc(275px - 2em);
+  left: calc(256px - 2em);
   top: -3em;
-  width: calc(100vw - 275px + 2em);
+  width: calc(100vw - 265px + 2em);
 `
 
 const BottomDecal = styled(Decal)`
