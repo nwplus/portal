@@ -8,13 +8,14 @@ import head_decal from '../assets/cmdf_bannerdecal.svg'
 
 const HomeContainer = styled.div`
   height: 100%;
-  overflow-y: hidden;
+  overflow: hidden;
 `
 
 const TopDecal = styled.img`
   position: absolute;
   left: calc(256px - 2em);
   top: -3em;
+  pointer-events: none;
   width: calc(100vw - 256px + 2em);
 `
 
