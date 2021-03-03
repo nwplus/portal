@@ -1,7 +1,7 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'LHD2021'
+export const DB_HACKATHON = 'cmd-f2021'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
@@ -45,40 +45,44 @@ export const APPLICATION_STATUS = Object.freeze({
 
 export const JUDGING_RUBRIC = [
   {
-    id: 'tech',
-    label: 'Technology',
+    id: 'execution',
+    label: 'Execution',
     description:
-      'Use and proficiency of the technologies(programming languages, APIs, software) used for the project',
-    value: 5,
-    weight: 0.25,
+      'How well does the project address the teams selected theme/focus? How much impact will this solution have?',
+    value: 4,
+    weight: 1,
+  },
+  {
+    id: 'innovation',
+    label: 'Innovation',
+    description:
+      'Is the project a creative, original, and a suitable solution to the problem? Does the product introduce a new approach or perspective?',
+    value: 3,
+    weight: 1,
   },
   {
     id: 'design',
     label: 'Design',
-    description: 'UI and UX, ease of use and accessibility',
-    value: 5,
-    weight: 0.25,
+    description:
+      'Is the design accessible (e.g. high contrast for good visibility, etc.) and aesthetically pleasing?',
+    value: 4,
+    weight: 1,
   },
   {
-    id: 'functionality',
-    label: 'Functionality',
-    description: 'Demo functionality and quality, bug problems',
-    value: 5,
-    weight: 0.2,
+    id: 'completeness',
+    label: 'Technical Completion',
+    description:
+      'Does the hack work? Does the team present a clear explanation on the implementation and how it works? Does it seem finished or does it seem rough around the edges?',
+    value: 4,
+    weight: 1,
   },
   {
-    id: 'creativity',
-    label: 'Creativity',
-    description: 'Project creativity and originality',
-    value: 5,
-    weight: 0.1,
-  },
-  {
-    id: 'pitch',
-    label: 'Pitch',
-    description: 'Preparedness, content and engagement',
-    value: 5,
-    weight: 0.2,
+    id: 'presentation',
+    label: 'Presentation',
+    description:
+      'Is the presentation well-prepared and smooth? Does it make a good business case for the project? Are statistics used when relevant?',
+    value: 3,
+    weight: 1,
   },
 ]
 
