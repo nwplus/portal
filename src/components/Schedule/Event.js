@@ -40,6 +40,7 @@ const EventCard = styled(Card)`
 
   & > h3 {
     opacity: 1;
+    width: 65%;
   }
 `
 
