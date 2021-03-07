@@ -20,12 +20,29 @@ const Column = styled.div`
 `
 class CSV {
   constructor(data) {
+    // from: https://gist.github.com/Jezternz/c8e9fafc2c114e079829974e3764db75
+    const csvStringToArray = strData => {
+      const objPattern = new RegExp(
+        '(\\,|\\r?\\n|\\r|^)(?:"([^"]*(?:""[^"]*)*)"|([^\\,\\r\\n]*))',
+        'gi'
+      )
+      let arrMatches = null,
+        arrData = [[]]
+      while ((arrMatches = objPattern.exec(strData))) {
+        if (arrMatches[1].length && arrMatches[1] !== ',') arrData.push([])
+        arrData[arrData.length - 1].push(
+          arrMatches[2] ? arrMatches[2].replace(new RegExp('""', 'g'), '"') : arrMatches[3]
+        )
+      }
+      return arrData
+    }
+
     const findLineBreaksInDoubleQuotes = /"[^"]*(?:""[^"]*)*"/g
     const cleaned = data.replace(findLineBreaksInDoubleQuotes, m => m.replace(/\n/g, ''))
     const parsed = cleaned.split('\n').map(row => row.split(/,(?=\S)/))
 
     // parse column data
-    const headings = parsed.shift()
+    const headings = parsed[0]
     this.headings = headings.concat([''])
 
     // get max team size
@@ -41,7 +58,9 @@ class CSV {
       this.headings[offset + 2] = `Team Member ${i + 1} Email`
     }
 
-    this.entries = parsed.map(row => {
+    const new_rows = csvStringToArray(data)
+    new_rows.shift()
+    this.entries = new_rows.map(row => {
       return row.reduce((accumulator, curr, i) => {
         accumulator[`${this.headings[i]}`] = curr
         return accumulator
@@ -279,6 +298,11 @@ export default () => {
       var reader = new FileReader()
       reader.addEventListener('load', e => {
         const csvdata = e.target.result
+        console.log(
+          new CSV(csvdata).entries.filter(
+            r => r['Project Status'] === 'Submitted (Gallery/Visible)'
+          )
+        )
         const parsedProjects = new CSV(csvdata).entries
           .filter(r => r['Project Status'] === 'Submitted (Gallery/Visible)')
           .map(r => new Project(r))
