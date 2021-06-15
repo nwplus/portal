@@ -1,14 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import kabam from '../../assets/sponsor_kabam.png'
-import groundswell from '../../assets/sponsor_groundswell.svg'
-import deloitte from '../../assets/sponsor_deloitte.svg'
-import kpmg from '../../assets/sponsor_kpmg.svg'
+import SponsorLogos from '../SponsorLogos'
 import facebook from '../../assets/icons/facebook.svg'
 import instagram from '../../assets/icons/instagram.svg'
 import medium from '../../assets/icons/medium.svg'
 import twitter from '../../assets/icons/twitter.svg'
-import { H1, P, A } from '../../components/Typography'
+import { P, A } from '../../components/Typography'
 import { SOCIAL_LINKS } from '../../utility/Constants'
 import { CenterHorizontally } from '../../components/Common'
 
@@ -28,25 +25,6 @@ const SponsorsContainer = styled.div`
   ${p => p.theme.mediaQueries.xs} {
     margin-top: 145%;
   }
-`
-
-const LogoContainer = styled.div`
-  z-index: 100;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin: 24px 0;
-  top: 2.5em;
-`
-
-const SponsorLogo = styled.img`
-  max-width: 230px;
-  max-height: 45px;
-  width: auto;
-  height: auto;
-  float: left;
-  margin: 16px 32px;
 `
 
 const StyledFooterContainer = styled.div`
@@ -77,13 +55,7 @@ const CopyrightBlurb = styled(P)`
 export default () => (
   <>
     <SponsorsContainer>
-      <H1 size="1.5em">Sponsored by</H1>
-      <LogoContainer>
-        <SponsorLogo src={kabam} />
-        <SponsorLogo src={groundswell} />
-        <SponsorLogo src={deloitte} />
-        <SponsorLogo src={kpmg} />
-      </LogoContainer>
+      <SponsorLogos />
     </SponsorsContainer>
     <StyledFooterContainer>
       <a href={SOCIAL_LINKS.FB}>
