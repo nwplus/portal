@@ -13,6 +13,8 @@ When you create a pull request there will be a template that you can follow - th
 - keep writing and explanations concise
 - explain concepts/terminology that might not be familiar to reviewers
 - as an author, be receptive to comments and feedback
+- watch your merge build to make sure it is successful
+- notify codeowners if issues arise
 - delete your branch after merging
 
 ### Reviewing pull requests 👀
