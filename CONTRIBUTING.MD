@@ -13,6 +13,7 @@ When you create a pull request there will be a template that you can follow - th
 - keep writing and explanations concise
 - explain concepts/terminology that might not be familiar to reviewers
 - as an author, be receptive to comments and feedback
+- delete your branch after merging
 
 ### Reviewing pull requests 👀
 Pull requests require an approving review from a contributor with write access before they can pushed up to the main branch. If you're unsure of who you should ask for a review you can ask the [CODEOWNERS](CODEOWNERS).
