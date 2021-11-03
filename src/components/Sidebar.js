@@ -110,8 +110,8 @@ const StatusText = styled.div`
   margin-top: 5px;
 `
 
-const TitleSponsor = styled.a`
-  margin-left: 60px;
+const TitleSponsor = styled.img`
+  margin: 1em 0 0 60px;
 `
 
 export default ({
@@ -183,9 +183,9 @@ export default ({
           Logout
         </StyledButton>
       )}
-      <TitleSponsor href="https://www.covalenthq.com" target="_blank" rel="noopener noreferrer">
-        <img src="/title_sponsor.svg" alt="Covalent logo" />
-      </TitleSponsor>
+      <a href="https://www.covalenthq.com" target="_blank" rel="noopener noreferrer">
+        <TitleSponsor src="/title_sponsor.svg" alt="Covalent logo" />
+      </a>
     </SidebarContainer>
   )
 }
