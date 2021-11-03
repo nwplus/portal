@@ -12,7 +12,7 @@ const EventDescription = styled(P)`
 
 const EventCard = styled(Card)`
   position: absolute;
-  background-color: ${p => p.theme.colors.secondaryBackground};
+  background-color: ${p => p.theme.colors.card};
   ${p =>
     p.delayed &&
     `

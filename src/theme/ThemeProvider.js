@@ -83,11 +83,11 @@ const hackcampTheme = {
   ...base,
   name: 'hackCamp',
   colors: {
-    background: '#2A3C4A',
-    card: '#2A3C4A', // todo: update
+    background: '#476C6E',
+    card: '#476C6E', // todo: update
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackground: '#577079',
-    secondaryBackgroundTransparent: '#577079bb',
+    secondaryBackground: '#1E4F5A',
+    secondaryBackgroundTransparent: '#1E4F5A',
     foreground: '#FFBC96',
     error: '#ff0033',
     errorText: '#fff',
@@ -106,7 +106,7 @@ const hackcampTheme = {
     },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
-    banner: '#2A3C4A',
+    banner: '#476C6E',
     login: {
       googleHover: '#fafafa',
       githubHover: '#545159',
@@ -160,7 +160,7 @@ const cmdfTheme = {
 }
 
 const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
-let selectedTheme = cmdfTheme
+let selectedTheme = hackcampTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')
