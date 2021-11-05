@@ -129,7 +129,7 @@ export default ({
     { location: '/schedule', text: 'SCHEDULE' },
     { location: '/quicklinks', text: 'QUICKLINKS' },
     { location: '/faq', text: 'FAQ' },
-    { location: '/sponsors', text: 'SPONSORS' },
+    // { location: '/sponsors', text: 'SPONSORS' },
   ]
 
   if (isJudgingOpen) {
