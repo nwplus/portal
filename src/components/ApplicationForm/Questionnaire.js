@@ -129,20 +129,6 @@ export default ({ formInputs, onChange }) => {
         />
         <Select
           type="checkbox"
-          label="nwPlus Workshop Series"
-          checked={formInputs.eventsAttended.option5}
-          onChange={() =>
-            onChange({
-              ...formInputs,
-              eventsAttended: {
-                ...formInputs.eventsAttended,
-                option5: !formInputs.eventsAttended.option5,
-              },
-            })
-          }
-        />
-        <Select
-          type="checkbox"
           label="nwPlus Boothing"
           checked={formInputs.eventsAttended.option6}
           onChange={() =>
