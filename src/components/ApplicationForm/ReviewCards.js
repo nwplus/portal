@@ -275,16 +275,6 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
             </A>
             .
           </P>
-        </ContentWrapper>
-        <ContentWrapper textBlock>
-          <P>
-            We also use your (anonymized!) data to help you get the best sponsors and continuously
-            improve nwHacks with each iteration. Our hackathon aims to connect you with industry
-            professionals, recruiters, and career opportunities. In doing so, information about our
-            hackers is needed in order for attending companies to contact you.
-          </P>
-        </ContentWrapper>
-        <ContentWrapper textBlock>
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
@@ -337,6 +327,16 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
               <Required />
             </span>
           </Checkbox>
+        </ContentWrapper>
+        <ContentWrapper textBlock>
+          <P>
+            We also use your (anonymized!) data to help you get the best sponsors and continuously
+            improve nwHacks with each iteration. Our hackathon aims to connect you with industry
+            professionals, recruiters, and career opportunities. In doing so, information about our
+            hackers is needed in order for attending companies to contact you.
+          </P>
+        </ContentWrapper>
+        <ContentWrapper textBlock>
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
