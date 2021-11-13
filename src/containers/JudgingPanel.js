@@ -71,7 +71,9 @@ class CSV {
 
 class Project {
   constructor(entry) {
-    this.acknowledged = entry['Acknowledged'] === '1' || entry['Acknowledged'] === 'yes'
+    // Commenting out for HackCamp 2021
+    // this.acknowledged = entry['Acknowledged'] === '1' || entry['Acknowledged'] === 'yes'
+    this.acknowledged = true
     const teamsize = parseInt(entry['Additional Team Member Count'])
     this.teamMembers = [`${entry['Submitter First Name']} ${entry['Submitter Last Name']}`]
     this.teamMembersEmails = [entry['Submitter Email']]
@@ -80,7 +82,7 @@ class Project {
     this.devpostUrl = entry['Submission Url']
     this.youtubeUrl = entry['Youtube Link'].trim().replace(/,$/, '')
     this.description = entry['Brief Description']
-    this.sponsorPrizes = entry['Opt-In Prizes'].replace(/['"]+/g, '').split(', ')
+    this.sponsorPrizes = entry['Opt-In Prizes']?.replace(/['"]+/g, '')?.split(', ') || []
 
     for (let i = 0; i < teamsize; i++) {
       const first = entry[`Team Member ${i + 1} First Name`] ?? 'No first name'
