@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import buttonBG from '../../assets/hc_button.svg'
-import buttonBGHover from '../../assets/hc_button_hover.svg'
 import { hexToRgba } from '../../utility/utilities'
 
 const buttonWidth = {
@@ -48,41 +46,13 @@ const StyledButton = styled.a`
   ${p =>
     (p.color === 'primary' || !p.color) && // primary color (gradient button) or not specified color
     `color: ${p.theme.colors.background};
-    background: ${
-      p.theme.name === 'cmdf' ? p.theme.colors.primary : p.theme.colors.primaryGradient
-    };
+    background: ${p.theme.colors.primary};
     :hover {
-      ${
-        p.disabled
-          ? `
-      cursor: not-allowed;
-      `
-          : `
-      background: ${
-        p.theme.name === 'cmdf' ? p.theme.colors.tertiaryHover : p.theme.colors.primaryGradientHover
-      };
-      `
-      }
+      ${p.disabled ? `cursor: not-allowed;` : `background: ${p.theme.colors.tertiaryHover};`}
     }
     :focus {
       box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};
-    }
-    ${
-      p.theme.name === 'hackCamp' &&
-      `
-      background: url(${buttonBG});
-      background-size: contain;
-      background-repeat: no-repeat;
-      min-width: 100px;
-      width: 100px;
-      :hover {
-        background: url(${buttonBGHover}); 
-        background-size: contain;
-        background-repeat: no-repeat;
-      }
-      `
-    }
-    `}
+  }`}
   ${p =>
     p.color === 'secondary' && // secondary color (outline button)
     `color: ${p.theme.colors.primary};
