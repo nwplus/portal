@@ -45,43 +45,41 @@ export const APPLICATION_STATUS = Object.freeze({
 
 export const JUDGING_RUBRIC = [
   {
-    id: 'execution',
-    label: 'Execution',
+    id: 'technology',
+    label: 'Technology',
     description:
-      'How well does the project address the teams selected theme/focus? How much impact will this solution have?',
-    value: 4,
-    weight: 1,
-  },
-  {
-    id: 'innovation',
-    label: 'Innovation',
-    description:
-      'Is the project a creative, original, and a suitable solution to the problem? Does the product introduce a new approach or perspective?',
-    value: 3,
+      'Does the hack use technology to solve the problem? Was it evident the hackers pushed themselves to try out something new?',
+    value: 5,
     weight: 1,
   },
   {
     id: 'design',
     label: 'Design',
     description:
-      'Is the design accessible (e.g. high contrast for good visibility, etc.) and aesthetically pleasing?',
-    value: 4,
+      'Is the experience of using the hack friendly? Did the hack address our theme of "diversity, inclusivity, and accessibility" well?',
+    value: 5,
     weight: 1,
   },
   {
-    id: 'completeness',
-    label: 'Technical Completion',
-    description:
-      'Does the hack work? Does the team present a clear explanation on the implementation and how it works? Does it seem finished or does it seem rough around the edges?',
-    value: 4,
+    id: 'functionality',
+    label: 'Functionality',
+    description: 'Does the hack work? Is it polished?',
+    value: 5,
     weight: 1,
   },
   {
-    id: 'presentation',
-    label: 'Presentation',
+    id: 'creativity',
+    label: 'Creativity',
+    description: 'Is the project idea original? Does the project strive to solve a real problem?',
+    value: 5,
+    weight: 1,
+  },
+  {
+    id: 'pitch',
+    label: 'Pitch',
     description:
-      'Is the presentation well-prepared and smooth? Does it make a good business case for the project? Are statistics used when relevant?',
-    value: 3,
+      'As a user, how sold are you on the demo/pitch? How clear is the idea that the team is trying to convey?',
+    value: 5,
     weight: 1,
   },
 ]
