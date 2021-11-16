@@ -167,3 +167,14 @@ export const submitGrade = async (id, score, user, errorCallback = () => {}) => 
 export const updateUserApplication = async (uuid, newApp) => {
   return applicantsRef.doc(uuid).set(newApp)
 }
+
+export const getSponsors = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .collection('Sponsors')
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    })
+}
