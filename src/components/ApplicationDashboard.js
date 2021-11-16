@@ -63,7 +63,7 @@ const StatusContainer = styled.div`
     padding: 2em;
   }
   border-radius: 21px;
-  background-color: ${p => p.theme.colors.applicationCard};
+  background-color: ${p => p.theme.colors.secondaryBackground};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

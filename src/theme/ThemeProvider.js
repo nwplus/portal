@@ -111,7 +111,6 @@ const hackcampTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
-    greetingBorder: '#000000',
     applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
 }
