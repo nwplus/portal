@@ -68,7 +68,7 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
       <SubHeading>
-        What is your preferred name?
+        What is your full legal name?
         <Required />
       </SubHeading>
       <TextInput
@@ -80,6 +80,18 @@ export default ({ errors, formInputs, onChange }) => (
         onChange={e =>
           onChange({
             firstName: e.target.value,
+          })
+        }
+      />
+      <TextInput
+        placeholder="Middle Name"
+        inline
+        value={formInputs.middleName}
+        errorMsg={errors?.middleName}
+        invalid={false}
+        onChange={e =>
+          onChange({
+            middleName: e.target.value,
           })
         }
       />
