@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Sponsors from '../components/SponsorLogos'
-import { db } from '../utility/firebase'
-import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import { getSponsors } from '../utility/firebase'
 
 const CenteredH2 = styled.h2`
   text-align: center;
   margin-bottom: 1em;
 `
-
-const getSponsors = () => {
-  return db
-    .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
-    .collection('Sponsors')
-    .get()
-    .then(querySnapshot => {
-      return querySnapshot.docs
-    })
-}
 
 export default () => {
   const [sponsors, setSponsors] = useState([])

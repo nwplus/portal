@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import Banner from '../../components/Banner'
-import logo_lockup from '../../assets/logo_lockup.svg'
 import hc_logo from '../../assets/hc_logo.svg'
 import cmdf_logo from '../../assets/cmdf_logo.svg'
 import cmdf_plants from '../../assets/cmdf_splash.svg'
@@ -141,7 +140,6 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
     case 'nwHacks':
       return (
         <LandingContainer showFooter={showFooter}>
-          <StyledLogoLockup src={logo_lockup} />
           <StyledBanner blur>
             <H1 size="1.5em">{heading}</H1>
             <P>{description}</P>
