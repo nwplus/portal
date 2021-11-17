@@ -89,10 +89,10 @@ const Label = styled.label`
   }
 `
 
-export default ({ label, ...rest }) => {
+export default ({ label, customRef, ...rest }) => {
   return (
     <Label {...rest}>
-      <SelectWrapper {...rest}>
+      <SelectWrapper tabIndex="0" ref={customRef} {...rest}>
         <Input {...rest} />
         <Selector {...rest} />
         {label}

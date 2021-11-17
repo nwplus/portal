@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
@@ -6,6 +6,22 @@ import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useAuth } from '../../utility/Auth'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
+
+const questionsByOrder = [
+  'firstName',
+  'lastName',
+  'gender',
+  'ethnicity',
+  'isOfLegalAge',
+  'phoneNumber',
+  'school',
+  'major',
+  'educationLevel',
+  'graduation',
+  'hackathonsAttended',
+  'contributionRole',
+  'location',
+]
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -35,6 +51,22 @@ export default () => {
     })
   }
 
+  const refs = {
+    firstNameRef: useRef(null),
+    lastNameRef: useRef(null),
+    genderRef: useRef(null),
+    ethnicityRef: useRef(null),
+    isOfLegalAgeRef: useRef(null),
+    phoneNumberRef: useRef(null),
+    schoolRef: useRef(null),
+    majorRef: useRef(null),
+    educationLevelRef: useRef(null),
+    graduationRef: useRef(null),
+    hackathonsAttendedRef: useRef(null),
+    contributionRoleRef: useRef(null),
+    locationRef: useRef(null),
+  }
+
   /**
    * Saves and moves to next page
    */
@@ -43,7 +75,12 @@ export default () => {
     if (href === '/application/part-2') {
       const newErrors = validate(application.basicInfo)
       if (checkForError(newErrors)) {
-        window.alert('Please complete all required fields.')
+        for (let question of questionsByOrder) {
+          if (newErrors[question]) {
+            refs[`${question}Ref`].current.focus()
+            break
+          }
+        }
         return
       }
     }
@@ -57,7 +94,12 @@ export default () => {
   }
   return (
     <>
-      <BasicInfo errors={errors} formInputs={application.basicInfo} onChange={updateBasicInfo} />
+      <BasicInfo
+        refs={refs}
+        errors={errors}
+        formInputs={application.basicInfo}
+        onChange={updateBasicInfo}
+      />
       <VerticalProgressBar percent={25} />
       <NavigationButtons
         firstButtonText="Save &amp; Logout"
