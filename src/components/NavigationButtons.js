@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Input'
-import { I } from './Typography'
+import { I, P } from './Typography'
 import MoonLoader from 'react-spinners/MoonLoader'
 
 const StyledButton = styled(Button)`
@@ -34,6 +34,10 @@ const NavigationButtonsContainer = styled.div`
   text-align: right;
 `
 
+const StyledAsterisk = styled.span`
+  color: ${p => p.theme.colors.warning};
+`
+
 export default ({
   firstButtonText,
   firstButtonOnClick,
@@ -41,6 +45,7 @@ export default ({
   secondButtonOnClick,
   autosaveTime,
   loading = false,
+  showSubmitWarning,
 }) => {
   return (
     <NavigationButtonsContainer>
@@ -56,6 +61,12 @@ export default ({
           </StyledButton>
         </div>
       </ButtonContainer>
+      {showSubmitWarning && (
+        <P>
+          <StyledAsterisk>**</StyledAsterisk> Caution! You cannot edit your application after
+          submitting.
+        </P>
+      )}
     </NavigationButtonsContainer>
   )
 }
