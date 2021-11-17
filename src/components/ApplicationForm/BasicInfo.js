@@ -167,6 +167,21 @@ export default ({ errors, formInputs, onChange }) => (
               }
             />
           ))}
+      <br />
+      {formInputs.ethnicity.other && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          inline
+          value={formInputs.otherEthnicity}
+          onChange={e =>
+            onChange({
+              otherEthnicity: e.target.value,
+            })
+          }
+        />
+      )}
     </FormSpacing>
 
     <FormSpacing>
