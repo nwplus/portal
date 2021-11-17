@@ -2,8 +2,18 @@ import React from 'react'
 import { CenteredH1, H3, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
+import { findElement } from '../../utility/utilities'
+import Dropdown from '../Input/Dropdown'
 import { FormSpacing, SubHeading } from './'
 import styled from 'styled-components'
+
+const hackathonOptions = [
+  { value: 0, label: '0' },
+  { value: 1, label: '1' },
+  { value: 2, label: '2' },
+  { value: 3, label: '3' },
+  { value: 4, label: '4+' },
+]
 
 const QuestionForm = styled.form`
   display: table;
@@ -59,113 +69,22 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
       <FormSpacing>
         <QuestionHeading>question 12</QuestionHeading>
         <SubHeading>
-          {' '}
-          Don't be shy! Show off your wonderful skills{' '}
-          <span role="img" aria-label="smiling face">
-            😁
-          </span>
+          How many hackathons have you attended (both online and in-person)?
+          <Required />
         </SubHeading>
-        <H3>
-          (Please ensure the links are publicly accessible by opening them in an incognito browser)
-        </H3>
-
-        <QuestionForm>
-          <FormRow id="resume">
-            <ResumeUploadBtn
-              onChange={e => {
-                if (e.target.files[0]) {
-                  handleResume(e.target.files[0])
-                }
-              }}
-              hint={formInputs.resume}
-            />
-            {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
-          </FormRow>
-
-          {role === 'designer' ? (
-            <FormRow id="portfolio">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.portfolio}
-                invalid={!!errors.portfolio}
-                errorMsg={errors.portfolio}
-                onChange={e =>
-                  onChange({
-                    portfolio: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          ) : (
-            <FormRow id="github">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.github}
-                invalid={!!errors.github}
-                errorMsg={errors.github}
-                onChange={e =>
-                  onChange({
-                    github: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          )}
-
-          <FormRow id="linkedin">
-            <TextInput
-              inline
-              placeholder="Optional"
-              size="large"
-              value={formInputs.linkedin}
-              invalid={!!errors.linkedin}
-              errorMsg={errors.linkedin}
-              onChange={e =>
-                onChange({
-                  linkedin: e.target.value,
-                })
-              }
-            />
-          </FormRow>
-
-          {role === 'designer' ? (
-            <FormRow id="github">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.github}
-                invalid={!!errors.github}
-                errorMsg={errors.github}
-                onChange={e =>
-                  onChange({
-                    github: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          ) : (
-            <FormRow id="portfolio">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.portfolio}
-                invalid={!!errors.portfolio}
-                errorMsg={errors.portfolio}
-                onChange={e =>
-                  onChange({
-                    portfolio: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          )}
-        </QuestionForm>
+        {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
+        <Dropdown
+          options={hackathonOptions}
+          placeholder="Number of Hackathons"
+          isSearchable={false}
+          value={findElement(hackathonOptions, 'value', formInputs.hackathonsAttended)}
+          onChange={inputValue =>
+            onChange({
+              hackathonsAttended: inputValue.value,
+            })
+          }
+          isValid={!errors?.hackathonsAttended}
+        />
       </FormSpacing>
 
       <FormSpacing>

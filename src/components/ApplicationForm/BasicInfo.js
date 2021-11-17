@@ -45,14 +45,6 @@ const graduationOptions = [
   { value: 2025, label: '2025+' },
 ]
 
-const hackathonOptions = [
-  { value: 0, label: '0' },
-  { value: 1, label: '1' },
-  { value: 2, label: '2' },
-  { value: 3, label: '3' },
-  { value: 4, label: '4+' },
-]
-
 // form part 1
 export default ({ errors, formInputs, onChange }) => (
   <>
@@ -320,27 +312,6 @@ export default ({ errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
-        How many hackathons have you attended (both online and in-person)?
-        <Required />
-      </SubHeading>
-      {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
-      <Dropdown
-        options={hackathonOptions}
-        placeholder="Number of Hackathons"
-        isSearchable={false}
-        value={findElement(hackathonOptions, 'value', formInputs.hackathonsAttended)}
-        onChange={inputValue =>
-          onChange({
-            hackathonsAttended: inputValue.value,
-          })
-        }
-        isValid={!errors?.hackathonsAttended}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
-      <SubHeading>
         How do you want to contribute at nwHacks? Please select the category that you're strongest
         in.
         <Required />
@@ -361,7 +332,7 @@ export default ({ errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 12</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         Where are you currently located?
         <Required />
