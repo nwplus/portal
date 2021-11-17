@@ -1,7 +1,6 @@
 import React from 'react'
-import { CenteredH1, H3, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
-import { TextInput, TextArea } from '../Input'
-import ResumeUploadBtn from '../ResumeUploadBtn'
+import { CenteredH1, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
+import { TextArea } from '../Input'
 import { findElement } from '../../utility/utilities'
 import Dropdown from '../Input/Dropdown'
 import { FormSpacing, SubHeading } from './'
@@ -15,44 +14,9 @@ const hackathonOptions = [
   { value: 4, label: '4+' },
 ]
 
-const QuestionForm = styled.form`
-  display: table;
-  position: relative;
-  & > div {
-    display: table-row;
-
-    & > * {
-      display: table-cell;
-    }
-  }
-  ${p => p.theme.mediaQueries.tabletLarge} {
-    & > div {
-      display: block;
-      & > * {
-        display: block;
-        margin: 0.5em 0;
-      }
-    }
-  }
-`
-
-const QuestionRow = styled(QuestionHeading)`
-  padding-right: 4em;
-  ${p => p.theme.mediaQueries.xs} {
-    padding-right: 1em;
-  }
-`
-
 const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
-
-const FormRow = ({ id, children }) => (
-  <div>
-    <QuestionRow>{id}</QuestionRow>
-    <div>{children}</div>
-  </div>
-)
 
 export default ({ errors, formInputs, onChange, role, handleResume }) => {
   return (
