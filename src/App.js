@@ -24,7 +24,7 @@ import {
 } from './pages'
 import Page from './components/Page'
 import { db } from './utility/firebase'
-import { DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
+import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
@@ -50,17 +50,35 @@ const AuthPageRoute = ({ path, children }) => {
   return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
 }
 
-const NavbarAuthRoute = ({ name, handleLogout, path, children, theme }) => {
+const ApplicationInProgressRoute = ({ name, handleLogout, path, children, theme }) => {
   const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
     <Route path={path}>
-      <Navbar
-        name={name ? user.displayName : undefined}
-        handleLogout={handleLogout ? logout : undefined}
-      >
-        {children}
-      </Navbar>
+      <HackerApplicationProvider>
+        <ApplicationInProgressContentContainer>
+          <Navbar
+            name={name ? user.displayName : undefined}
+            handleLogout={handleLogout ? logout : undefined}
+          >
+            {children}
+          </Navbar>
+        </ApplicationInProgressContentContainer>
+      </HackerApplicationProvider>
     </Route>
+  ) : (
+    <Redirect to="/login" />
+  )
+}
+
+const ApplicationInProgressContentContainer = ({ children }) => {
+  const {
+    application: {
+      status: { applicationStatus },
+    },
+  } = useHackerApplication()
+
+  return applicationStatus === APPLICATION_STATUS.inProgress ? (
+    <>{children}</>
   ) : (
     <Redirect to="/login" />
   )
@@ -94,15 +112,21 @@ const NavbarSaveOnLogout = ({ name, handleLogout }) => {
   return <Navbar name={name} handleLogout={logout} />
 }
 
-const ApplicationFormContainer = ({ params }) => {
+const ApplicationFormContainer = ({ part }) => {
   const { isAuthed, user, logout } = useAuth()
-  return isAuthed ? (
-    <HackerApplicationProvider>
+  const {
+    application: {
+      status: { applicationStatus },
+    },
+  } = useHackerApplication()
+
+  return isAuthed && applicationStatus === APPLICATION_STATUS.inProgress ? (
+    <>
       <NavbarSaveOnLogout name={user.displayName} handleLogout={logout} />
       <Form>
-        <ApplicationForm part={params.part} />
+        <ApplicationForm part={part} />
       </Form>
-    </HackerApplicationProvider>
+    </>
   ) : (
     <Redirect to="/login" />
   )
@@ -195,17 +219,19 @@ function App() {
             <Submission />
           </AuthPageRoute>
           <Route path="/application" component={ApplicationDashboardRoutingContainer} />
-          <NavbarAuthRoute path="/application/review" name handleLogout>
-            <HackerApplicationProvider>
-              <ApplicationReview />
-            </HackerApplicationProvider>
-          </NavbarAuthRoute>
-          <NavbarAuthRoute path="/application/confirmation" handleLogout>
-            <HackerApplicationProvider>
-              <ApplicationConfirmation />
-            </HackerApplicationProvider>
-          </NavbarAuthRoute>
-          <Route path="/application/:part" component={ApplicationFormContainer} />
+          <ApplicationInProgressRoute path="/application/review" name handleLogout>
+            <ApplicationReview />
+          </ApplicationInProgressRoute>
+          <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
+            <ApplicationConfirmation />
+          </ApplicationInProgressRoute>
+          <Route path="/application/:part">
+            {params => (
+              <HackerApplicationProvider>
+                <ApplicationFormContainer part={params.part} />
+              </HackerApplicationProvider>
+            )}
+          </Route>
           <Route path="/:rest*">
             <NotFound />
           </Route>
