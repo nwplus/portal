@@ -40,7 +40,7 @@ export default ({ formInputs, onChange }) => {
         <SubHeading>How did you hear about nwHacks?</SubHeading>
         <StyledDropdown
           options={options}
-          placeholder={'Select an option'}
+          placeholder="Select an option"
           isSearchable={false}
           value={findElement(options, 'label', formInputs.engagementSource)}
           onChange={inputValue =>

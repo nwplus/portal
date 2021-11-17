@@ -128,6 +128,20 @@ export default ({ errors, formInputs, onChange }) => (
         }
         isValid={!errors?.gender}
       />
+      {formInputs.gender === 'other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          inline
+          value={formInputs.otherGender}
+          onChange={e =>
+            onChange({
+              otherGender: e.target.value,
+            })
+          }
+        />
+      )}
     </FormSpacing>
 
     <FormSpacing>
