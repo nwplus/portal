@@ -112,6 +112,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   basicInfo: {
     email: '',
     firstName: '',
+    middleName: '',
     lastName: '',
     gender: '',
     ethnicity: {

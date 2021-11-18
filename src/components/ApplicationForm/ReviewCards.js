@@ -205,10 +205,16 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
             <InfoGroup
-              heading="Full Name:"
-              data={formInputs.basicInfo.firstName
-                .concat(' ')
-                .concat(formInputs.basicInfo.lastName)}
+              heading="Full Legal Name:"
+              data={
+                formInputs.basicInfo.middleName
+                  ? formInputs.basicInfo.firstName.concat(' ').concat(formInputs.basicInfo.lastName)
+                  : formInputs.basicInfo.firstName
+                      .concat(' ')
+                      .concat(formInputs.basicInfo.middleName)
+                      .concat(' ')
+                      .concat(formInputs.basicInfo.lastName)
+              }
             />
             <InfoGroup heading="Gender:" data={gender} />
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
@@ -232,7 +238,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
             />
             <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
             <InfoGroup heading="Contribution at nwHacks:" data={contributionRole} />
-            <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
