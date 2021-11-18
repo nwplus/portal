@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Input'
-import { I, P } from './Typography'
+import { ErrorMessage, I } from './Typography'
 import MoonLoader from 'react-spinners/MoonLoader'
 
 const StyledButton = styled(Button)`
@@ -34,10 +34,6 @@ const NavigationButtonsContainer = styled.div`
   text-align: right;
 `
 
-const StyledAsterisk = styled.span`
-  color: ${p => p.theme.colors.warning};
-`
-
 export default ({
   firstButtonText,
   firstButtonOnClick,
@@ -50,6 +46,9 @@ export default ({
   return (
     <NavigationButtonsContainer>
       {autosaveTime && <I>Answers have been autosaved on {autosaveTime}</I>}
+      {showSubmitWarning && (
+        <ErrorMessage>Caution! You cannot edit your application after submitting.</ErrorMessage>
+      )}
       <ButtonContainer>
         <StyledButton color="secondary" width="flex" onClick={firstButtonOnClick}>
           {firstButtonText}
@@ -61,12 +60,6 @@ export default ({
           </StyledButton>
         </div>
       </ButtonContainer>
-      {showSubmitWarning && (
-        <P>
-          <StyledAsterisk>**</StyledAsterisk> Caution! You cannot edit your application after
-          submitting.
-        </P>
-      )}
     </NavigationButtonsContainer>
   )
 }
