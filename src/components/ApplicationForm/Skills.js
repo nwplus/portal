@@ -99,7 +99,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
               />
             </FormRow>
           ) : (
-            <FormRow id="github">
+            <FormRow id="GitHub/BitBucket/GitLab">
               <TextInput
                 inline
                 placeholder="Optional"
@@ -149,7 +149,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
               />
             </FormRow>
           ) : (
-            <FormRow id="portfolio">
+            <FormRow id="Personal website/portfolio link">
               <TextInput
                 inline
                 placeholder="Optional"
