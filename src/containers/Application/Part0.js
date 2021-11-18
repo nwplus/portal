@@ -41,7 +41,8 @@ export default () => {
     if (!application.vaccineInfo) {
       updateVaccineInfo({ willBeDoubleVaxed: false })
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   /**
    * Saves and moves to next page
