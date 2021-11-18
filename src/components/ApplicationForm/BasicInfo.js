@@ -80,7 +80,6 @@ export default ({ errors, formInputs, onChange }) => (
         inline
         value={formInputs.middleName}
         errorMsg={errors?.middleName}
-        invalid={false}
         onChange={e =>
           onChange({
             middleName: e.target.value,
@@ -328,26 +327,6 @@ export default ({ errors, formInputs, onChange }) => (
         label="Designer"
         checked={formInputs.contributionRole === 'designer'}
         onChange={() => onChange({ contributionRole: 'designer' })}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
-      <SubHeading>
-        Where are you currently located?
-        <Required />
-      </SubHeading>
-      <TextInput
-        placeholder="Enter your city and country"
-        value={formInputs.location}
-        errorMsg={errors?.location}
-        invalid={!!errors?.location}
-        onChange={e =>
-          onChange({
-            location: e.target.value,
-          })
-        }
-        inline
       />
     </FormSpacing>
   </>
