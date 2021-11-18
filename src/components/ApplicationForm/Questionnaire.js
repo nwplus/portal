@@ -36,7 +36,7 @@ export default ({ formInputs, onChange }) => {
         </CenteredH1>
       </FormSpacing>
       <FormSpacing>
-        <QuestionHeading>Question 14</QuestionHeading>
+        <QuestionHeading>Question 15</QuestionHeading>
         <SubHeading>How did you hear about nwHacks?</SubHeading>
         <StyledDropdown
           options={options}
@@ -69,7 +69,7 @@ export default ({ formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>Question 15</QuestionHeading>
+        <QuestionHeading>Question 16</QuestionHeading>
         <SubHeading>Which nwPlus events have you been to? (Select all that apply)</SubHeading>
         <Select
           type="checkbox"

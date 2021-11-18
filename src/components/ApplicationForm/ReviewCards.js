@@ -168,7 +168,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <JohnDiv>
           <QuestionHeading>Vaccination Status</QuestionHeading>
           <Button
-            onClick={() => handleEdit('/application/part-1')}
+            onClick={() => handleEdit('/application/part-0')}
             height="short"
             color="secondary"
           >
