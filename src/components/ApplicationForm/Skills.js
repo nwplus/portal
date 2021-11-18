@@ -170,16 +170,33 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <QuestionHeading>question 13</QuestionHeading>
-        <SubHeading color="primary">
-          Answer one of the two questions:
+        <SubHeading color="primary">Two written questions:</SubHeading>
+        <SubHeading size="1.25em">
+          1. What should technology be used for?
+          <Required />
+        </SubHeading>
+        <StyledTextArea
+          maxLength="650"
+          width="100%"
+          value={formInputs.longAnswers}
+          invalid={!!errors.longAnswers}
+          errorMsg={errors.longAnswers}
+          onChange={val =>
+            onChange({
+              longAnswers: val,
+            })
+          }
+        />
+        <SubHeading size="1.5em">
+          Choose one of the following:
           <Required />
         </SubHeading>
         <SubHeading size="1.25em">
-          1. Describe how you became interested in the world of technology and where you hope to go
-          from here on out!
+          1: How would you like to challenge yourself during this hackathon?
         </SubHeading>
         <SubHeading size="1.25em">
-          2. How would you like to challenge yourself during this hackathon?
+          2. Describe a time where you went above and beyond of your role to demonstrate leadership
+          in a project.
         </SubHeading>
         <StyledTextArea
           maxLength="650"
