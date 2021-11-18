@@ -98,7 +98,6 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                     })
                   }
                 />
-                {errors?.portfolio && <ErrorMessage>{errors?.portfolio}</ErrorMessage>}
               </FormRow>
               <FormRow id="GitHub/BitBucket/GitLab">
                 <TextInput
@@ -132,7 +131,6 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                     })
                   }
                 />
-                {errors?.github && <ErrorMessage>{errors?.github}</ErrorMessage>}
               </FormRow>
               <FormRow id="Personal website/portfolio link">
                 <TextInput
