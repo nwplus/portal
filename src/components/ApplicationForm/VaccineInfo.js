@@ -24,10 +24,10 @@ export default ({ formInputs, onChange }) => {
         </SubHeading>
         <Checkbox
           flex
-          checked={formInputs?.willBeDoubleVaxed}
+          checked={formInputs.willBeDoubleVaxed}
           onChange={() =>
             onChange({
-              vaccineInfo: !formInputs?.willBeDoubleVaxed,
+              willBeDoubleVaxed: !formInputs.willBeDoubleVaxed,
             })
           }
           required
