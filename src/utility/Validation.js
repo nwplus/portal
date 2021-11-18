@@ -3,6 +3,7 @@ const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please include a valid phone number including country code, eg. +1 123-456-7890'
+const MANDATORY_URL = 'Please include a valid URL.'
 const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
@@ -71,6 +72,13 @@ const validateTrueFunction = thing => {
   }
 }
 
+const mandatoryURLFunction = thing => {
+  return {
+    error: thing ? true : !validateURL(thing),
+    message: MANDATORY_URL,
+  }
+}
+
 const optionalURLFunction = thing => {
   return {
     error: thing ? !validateURL(thing) : false,
@@ -100,6 +108,8 @@ export const validateFormSection = (change, section) => {
   return newErrors
 }
 
+var isDesigner = false
+
 export const validateEntireForm = application => {
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
@@ -108,6 +118,7 @@ export const validateEntireForm = application => {
     application.termsAndConditions,
     'termsAndConditions'
   )
+  isDesigner = application.basicInfo.contributionRole === 'designer'
   return {
     ...basicInfoErrors,
     ...skillsErrors,
@@ -145,9 +156,9 @@ const validators = {
   },
   skills: {
     resume: noInvalidResumeFunction,
-    portfolio: optionalURLFunction,
+    portfolio: isDesigner ? mandatoryURLFunction : optionalURLFunction,
     linkedin: optionalURLFunction,
-    github: optionalURLFunction,
+    github: isDesigner ? optionalURLFunction : mandatoryURLFunction,
     longAnswers1: answer => {
       return {
         error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,

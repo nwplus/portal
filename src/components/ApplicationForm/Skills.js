@@ -98,8 +98,8 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                     })
                   }
                 />
+                {errors?.portfolio && <ErrorMessage>{errors?.portfolio}</ErrorMessage>}
               </FormRow>
-              {errors?.portfolio && <ErrorMessage>{errors?.portfolio}</ErrorMessage>}
               <FormRow id="GitHub/BitBucket/GitLab">
                 <TextInput
                   inline
@@ -132,8 +132,8 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                     })
                   }
                 />
+                {errors?.github && <ErrorMessage>{errors?.github}</ErrorMessage>}
               </FormRow>
-              {errors?.github && <ErrorMessage>{errors?.github}</ErrorMessage>}
               <FormRow id="Personal website/portfolio link">
                 <TextInput
                   inline
