@@ -18,7 +18,7 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
-export default ({ errors, formInputs, onChange, role, handleResume }) => {
+export default ({ errors, formInputs, onChange }) => {
   return (
     <>
       <FormSpacing>
