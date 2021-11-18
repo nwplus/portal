@@ -178,12 +178,12 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
         <StyledTextArea
           maxLength="650"
           width="100%"
-          value={formInputs.longAnswers}
-          invalid={!!errors.longAnswers}
-          errorMsg={errors.longAnswers}
+          value={formInputs.longAnswers1}
+          invalid={!!errors.longAnswers1}
+          errorMsg={errors.longAnswers1}
           onChange={val =>
             onChange({
-              longAnswers: val,
+              longAnswers1: val,
             })
           }
         />
@@ -201,12 +201,12 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
         <StyledTextArea
           maxLength="650"
           width="100%"
-          value={formInputs.longAnswers}
-          invalid={!!errors.longAnswers}
-          errorMsg={errors.longAnswers}
+          value={formInputs.longAnswers2}
+          invalid={!!errors.longAnswers2}
+          errorMsg={errors.longAnswers2}
           onChange={val =>
             onChange({
-              longAnswers: val,
+              longAnswers2: val,
             })
           }
         />

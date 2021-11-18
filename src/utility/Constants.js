@@ -137,7 +137,8 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     portfolio: '',
     linkedin: '',
     github: '',
-    longAnswers: '',
+    longAnswers1: '',
+    longAnswers2: '',
   },
   questionnaire: {
     engagementSource: '',

@@ -224,14 +224,23 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             <InfoGroup heading="Resume" data={formInputs.skills.resume ?? ''} />
-            <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
-            <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
-            <InfoGroup heading="GitHub" data={formInputs.skills.github} />
-            <InfoGroup heading="Answer one of the two questions:" />
-            <InfoGroup heading="1. Describe how you became interested in the world of technology and where you hope to go from here on out!" />
             <InfoGroup
-              heading="2. How would you like to challenge yourself during this hackathon?"
-              data={formInputs.skills.longAnswers}
+              heading="Personal Website/Portfolio Link"
+              data={formInputs.skills.portfolio}
+            />
+            <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
+            <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
+            <InfoGroup heading="Two written questions:" />
+            <InfoGroup
+              heading="1.What should technology be used for?"
+              data={formInputs.skills.longAnswers1}
+            />
+            <InfoGroup heading="Choose one of the following:" />
+            <InfoGroup heading="1: How would you like to challenge yourself during this hackathon?" />
+            <InfoGroup
+              heading="2. Describe a time where you went above and beyond of your role to demonstrate leadership
+              in a project."
+              data={formInputs.skills.longAnswers2}
             />
           </ContentWrapper>
         </StyledBanner>

@@ -148,7 +148,13 @@ const validators = {
     portfolio: optionalURLFunction,
     linkedin: optionalURLFunction,
     github: optionalURLFunction,
-    longAnswers: answer => {
+    longAnswers1: answer => {
+      return {
+        error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
+        message: NOT_EMPTY,
+      }
+    },
+    longAnswers2: answer => {
       return {
         error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
         message: NOT_EMPTY,
