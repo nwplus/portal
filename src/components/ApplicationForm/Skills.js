@@ -83,37 +83,71 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
           </FormRow>
 
           {role === 'designer' ? (
-            <FormRow id="portfolio">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.portfolio}
-                invalid={!!errors.portfolio}
-                errorMsg={errors.portfolio}
-                onChange={e =>
-                  onChange({
-                    portfolio: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
+            <>
+              <FormRow id="Personal website/portfolio link">
+                <TextInput
+                  inline
+                  placeholder="Optional"
+                  size="large"
+                  value={formInputs.portfolio}
+                  invalid={!!errors.portfolio}
+                  errorMsg={errors.portfolio}
+                  onChange={e =>
+                    onChange({
+                      portfolio: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+              <FormRow id="GitHub/BitBucket/GitLab">
+                <TextInput
+                  inline
+                  placeholder="Optional"
+                  size="large"
+                  value={formInputs.github}
+                  invalid={!!errors.github}
+                  errorMsg={errors.github}
+                  onChange={e =>
+                    onChange({
+                      github: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+            </>
           ) : (
-            <FormRow id="GitHub/BitBucket/GitLab">
-              <TextInput
-                inline
-                placeholder="Input your link"
-                size="large"
-                value={formInputs.github}
-                invalid={!!errors.github}
-                errorMsg={errors.github}
-                onChange={e =>
-                  onChange({
-                    github: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
+            <>
+              <FormRow id="GitHub/BitBucket/GitLab">
+                <TextInput
+                  inline
+                  placeholder="Input your link"
+                  size="large"
+                  value={formInputs.github}
+                  invalid={!!errors.github}
+                  errorMsg={errors.github}
+                  onChange={e =>
+                    onChange({
+                      github: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+              <FormRow id="Personal website/portfolio link">
+                <TextInput
+                  inline
+                  placeholder="Input your link"
+                  size="large"
+                  value={formInputs.portfolio}
+                  invalid={!!errors.portfolio}
+                  errorMsg={errors.portfolio}
+                  onChange={e =>
+                    onChange({
+                      portfolio: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+            </>
           )}
 
           <FormRow id="linkedin">
@@ -131,40 +165,6 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
               }
             />
           </FormRow>
-
-          {role === 'designer' ? (
-            <FormRow id="github">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.github}
-                invalid={!!errors.github}
-                errorMsg={errors.github}
-                onChange={e =>
-                  onChange({
-                    github: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          ) : (
-            <FormRow id="Personal website/portfolio link">
-              <TextInput
-                inline
-                placeholder="Input your link"
-                size="large"
-                value={formInputs.portfolio}
-                invalid={!!errors.portfolio}
-                errorMsg={errors.portfolio}
-                onChange={e =>
-                  onChange({
-                    portfolio: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          )}
         </QuestionForm>
       </FormSpacing>
 
