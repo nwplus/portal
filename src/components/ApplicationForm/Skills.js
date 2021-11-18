@@ -87,7 +87,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
               <FormRow id="Personal website/portfolio link">
                 <TextInput
                   inline
-                  placeholder="Optional"
+                  placeholder="Required"
                   size="large"
                   value={formInputs.portfolio}
                   invalid={!!errors.portfolio}
@@ -99,6 +99,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                   }
                 />
               </FormRow>
+              {errors?.portfolio && <ErrorMessage>{errors?.portfolio}</ErrorMessage>}
               <FormRow id="GitHub/BitBucket/GitLab">
                 <TextInput
                   inline
@@ -120,7 +121,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
               <FormRow id="GitHub/BitBucket/GitLab">
                 <TextInput
                   inline
-                  placeholder="Input your link"
+                  placeholder="Required"
                   size="large"
                   value={formInputs.github}
                   invalid={!!errors.github}
@@ -132,10 +133,11 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                   }
                 />
               </FormRow>
+              {errors?.github && <ErrorMessage>{errors?.github}</ErrorMessage>}
               <FormRow id="Personal website/portfolio link">
                 <TextInput
                   inline
-                  placeholder="Input your link"
+                  placeholder="Optional"
                   size="large"
                   value={formInputs.portfolio}
                   invalid={!!errors.portfolio}
