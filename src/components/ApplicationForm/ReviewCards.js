@@ -203,7 +203,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
               heading="Graduation Year:"
               data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
             />
-            <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
+            <InfoGroup heading="Prior Hackathons" data={formInputs.basicInfo.hackathonsAttended} />
             <InfoGroup heading="Contribution at nwHacks:" data={contributionRole} />
             <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
