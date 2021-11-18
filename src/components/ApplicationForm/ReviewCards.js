@@ -125,7 +125,7 @@ const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
 const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
-export default ({ formInputs, handleEdit, onChange, errors }) => {
+export default ({ formInputs, handleEdit, onChange }) => {
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
@@ -179,7 +179,13 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
           <ContentWrapper grid>
             <InfoGroup
               heading="Will be double-vaccinated"
-              data={formInputs.vaccineInfo ? 'Yes' : formInputs.vaccineInfo === null ? '' : 'No'}
+              data={
+                formInputs.vaccineInfo.willBeDoubleVaxed
+                  ? 'Yes'
+                  : formInputs.vaccineInfo.willBeDoubleVaxed === null
+                  ? ''
+                  : 'No'
+              }
             />
           </ContentWrapper>
         </StyledBanner>

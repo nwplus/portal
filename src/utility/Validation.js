@@ -101,6 +101,7 @@ export const validateFormSection = (change, section) => {
 }
 
 export const validateEntireForm = application => {
+  const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
@@ -109,6 +110,7 @@ export const validateEntireForm = application => {
     'termsAndConditions'
   )
   return {
+    ...vaccineInfoErrors,
     ...basicInfoErrors,
     ...skillsErrors,
     ...questionnaireErrors,
@@ -117,6 +119,9 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
+  vaccineInfo: {
+    willBeDoubleVaxed: validateTrueFunction,
+  },
   basicInfo: {
     email: email => {
       return {

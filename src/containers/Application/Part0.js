@@ -15,7 +15,7 @@ export default () => {
   const [loading, setLoading] = useState(false)
 
   const validate = change => {
-    const newErrors = validateFormSection(change, 'basicInfo')
+    const newErrors = validateFormSection(change, 'vaccineInfo')
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
   }
@@ -28,8 +28,10 @@ export default () => {
 
   const updateVaccineInfo = change => {
     validate(change)
+    console.log(application, 'this is the application object')
+
     updateApplication({
-      basicInfo: {
+      vaccineInfo: {
         ...change,
       },
     })
@@ -41,7 +43,7 @@ export default () => {
   const handleNavigation = async href => {
     await save()
     if (href === '/application/part-1') {
-      const newErrors = validate(application.basicInfo)
+      const newErrors = validate(application.vaccineInfo)
       if (checkForError(newErrors)) {
         window.alert('You can only participate in nwHacks if you are double-vaccinated by then!')
         return
@@ -59,7 +61,7 @@ export default () => {
     <>
       <VaccineInfo
         errors={errors}
-        formInputs={application.basicInfo}
+        formInputs={application.vaccineInfo}
         onChange={updateVaccineInfo}
       />
       <VerticalProgressBar percent={25} />

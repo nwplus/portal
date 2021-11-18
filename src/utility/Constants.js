@@ -106,8 +106,10 @@ export const calculateGrade = score => {
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
-  basicInfo: {
+  vaccineInfo: {
     willBeDoubleVaxed: false,
+  },
+  basicInfo: {
     email: '',
     firstName: '',
     lastName: '',
