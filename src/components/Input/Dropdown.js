@@ -244,6 +244,7 @@ const Dropdown = ({
   throttleTime,
   className,
   value,
+  customRef,
 }) => {
   // These props are used by react-select directly, the rest are custom props
   const userProps = {
@@ -295,6 +296,7 @@ const Dropdown = ({
       cacheOptions
       loadOptions={debounceEnabled && loadOptions}
       value={value}
+      ref={customRef}
       {...userProps}
     />
   )

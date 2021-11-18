@@ -54,7 +54,7 @@ const hackathonOptions = [
 ]
 
 // form part 1
-export default ({ errors, formInputs, onChange }) => (
+export default ({ refs, errors, formInputs, onChange }) => (
   <>
     <FormSpacing>
       <CenteredH1>
@@ -82,6 +82,7 @@ export default ({ errors, formInputs, onChange }) => (
             firstName: e.target.value,
           })
         }
+        customRef={refs['firstNameRef']}
       />
       <TextInput
         placeholder="Last Name"
@@ -94,6 +95,7 @@ export default ({ errors, formInputs, onChange }) => (
             lastName: e.target.value,
           })
         }
+        customRef={refs['lastNameRef']}
       />
     </FormSpacing>
 
@@ -115,6 +117,7 @@ export default ({ errors, formInputs, onChange }) => (
           })
         }
         isValid={!errors?.gender}
+        customRef={refs['genderRef']}
       />
     </FormSpacing>
 
@@ -139,6 +142,7 @@ export default ({ errors, formInputs, onChange }) => (
                   ethnicity: { ...formInputs.ethnicity, [key]: !val },
                 })
               }
+              customRef={key === 'asian' ? refs['ethnicityRef'] : null}
             />
           ))}
     </FormSpacing>
@@ -155,6 +159,7 @@ export default ({ errors, formInputs, onChange }) => (
         label="Yes"
         checked={formInputs.isOfLegalAge}
         onChange={() => onChange({ isOfLegalAge: true })}
+        customRef={refs['isOfLegalAgeRef']}
       ></Select>
       <Select
         type="radio"
@@ -181,6 +186,7 @@ export default ({ errors, formInputs, onChange }) => (
           })
         }
         inline
+        customRef={refs['phoneNumberRef']}
       />
     </FormSpacing>
 
@@ -206,6 +212,7 @@ export default ({ errors, formInputs, onChange }) => (
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
         isValid={!errors?.school}
+        customRef={refs['schoolRef']}
       />
     </FormSpacing>
 
@@ -231,6 +238,7 @@ export default ({ errors, formInputs, onChange }) => (
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
         isValid={!errors?.major}
+        customRef={refs['majorRef']}
       />
     </FormSpacing>
 
@@ -252,6 +260,7 @@ export default ({ errors, formInputs, onChange }) => (
           })
         }
         isValid={!errors?.educationLevel}
+        customRef={refs['educationLevelRef']}
       />
     </FormSpacing>
 
@@ -273,6 +282,7 @@ export default ({ errors, formInputs, onChange }) => (
           })
         }
         isValid={!errors?.graduation}
+        customRef={refs['graduationRef']}
       />
     </FormSpacing>
 
@@ -294,6 +304,7 @@ export default ({ errors, formInputs, onChange }) => (
           })
         }
         isValid={!errors?.hackathonsAttended}
+        customRef={refs['hackathonsAttendedRef']}
       />
     </FormSpacing>
 
@@ -310,6 +321,7 @@ export default ({ errors, formInputs, onChange }) => (
         label="Developer"
         checked={formInputs.contributionRole === 'developer'}
         onChange={() => onChange({ contributionRole: 'developer' })}
+        customRef={refs['contributionRoleRef']}
       />
       <Select
         type="radio"
@@ -336,6 +348,7 @@ export default ({ errors, formInputs, onChange }) => (
           })
         }
         inline
+        customRef={refs['locationRef']}
       />
     </FormSpacing>
   </>

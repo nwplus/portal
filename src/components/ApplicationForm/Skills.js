@@ -44,7 +44,7 @@ const FormRow = ({ id, children }) => (
   </div>
 )
 
-export default ({ errors, formInputs, onChange, role, handleResume }) => {
+export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
   return (
     <>
       <FormSpacing>
@@ -78,6 +78,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
                 }
               }}
               hint={formInputs.resume}
+              customRef={refs['resumeRef']}
             />
             {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
           </FormRow>
@@ -192,6 +193,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
               longAnswers: val,
             })
           }
+          customRef={refs['longAnswersRef']}
         />
       </FormSpacing>
     </>
