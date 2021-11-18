@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation } from 'wouter'
 import VaccineInfo from '../../components/ApplicationForm/VaccineInfo'
 import NavigationButtons from '../../components/NavigationButtons'
@@ -37,6 +37,12 @@ export default () => {
     })
   }
 
+  useEffect(() => {
+    if (!application.vaccineInfo) {
+      updateVaccineInfo({ willBeDoubleVaxed: false })
+    }
+  })
+
   /**
    * Saves and moves to next page
    */
@@ -59,11 +65,13 @@ export default () => {
   }
   return (
     <>
-      <VaccineInfo
-        errors={errors}
-        formInputs={application.vaccineInfo}
-        onChange={updateVaccineInfo}
-      />
+      {application.vaccineInfo && (
+        <VaccineInfo
+          errors={errors}
+          formInputs={application.vaccineInfo}
+          onChange={updateVaccineInfo}
+        />
+      )}
       <VerticalProgressBar percent={25} />
       <NavigationButtons
         firstButtonText="Save &amp; Logout"
