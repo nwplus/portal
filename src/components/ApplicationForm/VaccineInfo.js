@@ -1,10 +1,10 @@
 import React from 'react'
-import { CenteredH1, ErrorSpan as Required } from '../Typography'
+import { CenteredH1, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { Checkbox } from '../../components/Input'
 import { FormSpacing, SubHeading } from './'
 
 // form part 0 for vaccine info
-export default ({ formInputs, onChange }) => {
+export default ({ formInputs, onChange, error }) => {
   return (
     <>
       <FormSpacing>
@@ -37,6 +37,7 @@ export default ({ formInputs, onChange }) => {
             <Required />
           </span>
         </Checkbox>
+        {error?.willBeDoubleVaxed && <ErrorMessage>{error?.willBeDoubleVaxed}</ErrorMessage>}
       </FormSpacing>
     </>
   )

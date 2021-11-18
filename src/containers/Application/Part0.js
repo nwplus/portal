@@ -52,7 +52,6 @@ export default () => {
     if (href === '/application/part-1') {
       const newErrors = validate(application.vaccineInfo)
       if (checkForError(newErrors)) {
-        window.alert('You can only participate in nwHacks if you are double-vaccinated by then!')
         return
       }
     }
@@ -68,7 +67,7 @@ export default () => {
     <>
       {application.vaccineInfo && (
         <VaccineInfo
-          errors={errors}
+          error={errors}
           formInputs={application.vaccineInfo}
           onChange={updateVaccineInfo}
         />

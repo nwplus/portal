@@ -1,3 +1,5 @@
+const MUST_BE_VACCINATED =
+  'You can only participate in nwHacks if you are double-vaccinated by then!'
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
@@ -41,6 +43,13 @@ const validateNotAllFalse = thing => {
 const validateResume = thing => {
   const allowedExtensions = /(\.pdf)$/i
   return allowedExtensions.exec(thing)
+}
+
+const mustBeVaccinatedFunction = thing => {
+  return {
+    error: !thing,
+    message: MUST_BE_VACCINATED,
+  }
 }
 
 const noEmptyFunction = thing => {
@@ -120,7 +129,7 @@ export const validateEntireForm = application => {
 
 const validators = {
   vaccineInfo: {
-    willBeDoubleVaxed: validateTrueFunction,
+    willBeDoubleVaxed: mustBeVaccinatedFunction,
   },
   basicInfo: {
     email: email => {
