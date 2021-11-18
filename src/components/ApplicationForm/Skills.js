@@ -102,7 +102,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
             <FormRow id="GitHub/BitBucket/GitLab">
               <TextInput
                 inline
-                placeholder="Optional"
+                placeholder="Input your link"
                 size="large"
                 value={formInputs.github}
                 invalid={!!errors.github}
@@ -152,7 +152,7 @@ export default ({ errors, formInputs, onChange, role, handleResume }) => {
             <FormRow id="Personal website/portfolio link">
               <TextInput
                 inline
-                placeholder="Optional"
+                placeholder="Input your link"
                 size="large"
                 value={formInputs.portfolio}
                 invalid={!!errors.portfolio}
