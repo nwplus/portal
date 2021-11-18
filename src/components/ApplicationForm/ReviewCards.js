@@ -205,7 +205,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
             <InfoGroup
-              heading="Full Legal Name:"
+              heading="Full Legal Name"
               data={
                 formInputs.basicInfo.middleName
                   ? formInputs.basicInfo.firstName.concat(' ').concat(formInputs.basicInfo.lastName)
@@ -254,7 +254,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
+            <InfoGroup heading="Prior Hackathons" data={formInputs.basicInfo.hackathonsAttended} />
             <InfoGroup heading="Resume" data={formInputs.skills.resume ?? ''} />
             <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
