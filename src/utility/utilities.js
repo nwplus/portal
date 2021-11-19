@@ -83,3 +83,29 @@ export const creatableDropdownValue = (arr, key, val) => {
     return createObj(val)
   }
 }
+
+const isNullOrUndefined = obj => obj === null || obj === undefined
+
+export function verifyObjectExists(obj, templateObj, key) {
+  if (
+    !key ||
+    key === '_id' ||
+    typeof obj === 'string' ||
+    typeof templateObj === 'string' ||
+    isNullOrUndefined(templateObj) ||
+    isNullOrUndefined(templateObj)
+  )
+    return
+  if (obj[key] === undefined) {
+    obj[key] = templateObj[key]
+  }
+  Object.keys(templateObj[key]).forEach(k => {
+    verifyObjectExists(obj[key], templateObj[key], k)
+  })
+}
+
+export const fillMissingProperties = (obj, templateObj) => {
+  Object.keys(templateObj).forEach(k => {
+    verifyObjectExists(obj, templateObj, k)
+  })
+}

@@ -9,8 +9,10 @@ import {
 } from './firebase'
 import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
-import { ANALYTICS_EVENTS } from './Constants'
+import { ANALYTICS_EVENTS, HACKER_APPLICATION_TEMPLATE } from './Constants'
 import Closed from '../pages/Application/Closed'
+import { fillMissingProperties } from './utilities'
+
 const HackerApplicationContext = createContext()
 
 export function useHackerApplication() {
@@ -68,6 +70,7 @@ export function HackerApplicationProvider({ children }) {
     const retrieveApplication = async () => {
       if (!user) return
       const app = await getUserApplication(user.uid)
+      fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
       setApplication(app)
       applicationRef.current = app
       setUpdated(false)
