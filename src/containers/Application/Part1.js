@@ -3,12 +3,14 @@ import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
+import { useAuth } from '../../utility/Auth'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
+  const { logout } = useAuth()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
@@ -17,13 +19,11 @@ export default () => {
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
   }
-
   const save = async () => {
     setLoading(true)
     await forceSave()
     setLoading(false)
   }
-
   const updateBasicInfo = change => {
     validate(change)
     updateApplication({
@@ -32,7 +32,6 @@ export default () => {
       },
     })
   }
-
   /**
    * Saves and moves to next page
    */
@@ -49,13 +48,17 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
+  const handleLogout = async () => {
+    await save()
+    logout()
+  }
   return (
     <>
       <BasicInfo errors={errors} formInputs={application.basicInfo} onChange={updateBasicInfo} />
       <VerticalProgressBar percent={25} />
       <NavigationButtons
-        firstButtonText="Back"
-        firstButtonOnClick={() => handleNavigation('/application/part-0')}
+        firstButtonText="Save &amp; Logout"
+        firstButtonOnClick={() => handleLogout('/login')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-2')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
