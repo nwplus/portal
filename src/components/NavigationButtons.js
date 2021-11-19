@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Input'
-import { I } from './Typography'
+import { ErrorMessage, I } from './Typography'
 import MoonLoader from 'react-spinners/MoonLoader'
 
 const StyledButton = styled(Button)`
@@ -41,10 +41,14 @@ export default ({
   secondButtonOnClick,
   autosaveTime,
   loading = false,
+  showSubmitWarning,
 }) => {
   return (
     <NavigationButtonsContainer>
       {autosaveTime && <I>Answers have been autosaved on {autosaveTime}</I>}
+      {showSubmitWarning && (
+        <ErrorMessage>Caution! You cannot edit your application after submitting.</ErrorMessage>
+      )}
       <ButtonContainer>
         <StyledButton color="secondary" width="flex" onClick={firstButtonOnClick}>
           {firstButtonText}

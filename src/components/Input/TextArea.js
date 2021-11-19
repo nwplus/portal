@@ -22,6 +22,7 @@ export const TextArea = ({
   errorMsg,
   className,
   width,
+  customRef,
   ...rest
 }) => {
   const [isLengthExceeded, setIsLengthExceeded] = useState(false)
@@ -46,6 +47,7 @@ export const TextArea = ({
         placeholder={`${placeholder !== null || placeholder !== undefined ? '' : placeholder} ${
           maxLength == null ? '' : `Maximum of ${maxLength} characters`
         }`}
+        ref={customRef}
         {...rest}
       />
       {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}

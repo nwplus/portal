@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
@@ -9,6 +9,8 @@ import {
   validateFormSection,
   MAX_RESUME_FILE_SIZE_MB,
 } from '../../utility/Validation'
+
+const questionsByOrder = ['resume', 'longAnswers']
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -60,7 +62,12 @@ export default () => {
     if (href === '/application/part-3') {
       const newErrors = validate(application.skills)
       if (checkForError(newErrors)) {
-        window.alert('Please complete all required fields.')
+        for (let question of questionsByOrder) {
+          if (newErrors[question]) {
+            refs[`${question}Ref`].current.focus()
+            break
+          }
+        }
         return
       }
     }
@@ -68,9 +75,15 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
+  const refs = {
+    resumeRef: useRef(null),
+    longAnswersRef: useRef(null),
+  }
+
   return (
     <>
       <Skills
+        refs={refs}
         formInputs={application.skills}
         onChange={updateSkillsInfo}
         role={application.basicInfo.contributionRole}

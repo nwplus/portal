@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
     analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/')
+    setLocation('/login')
   }
 
   return loading ? (

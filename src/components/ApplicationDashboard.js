@@ -63,7 +63,7 @@ const StatusContainer = styled.div`
     padding: 2em;
   }
   border-radius: 21px;
-  background-color: ${p => p.theme.colors.applicationCard};
+  background-color: ${p => p.theme.colors.secondaryBackground};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -237,10 +237,14 @@ const Dashboard = ({
         <EditAppButton
           color="secondary"
           height="short"
-          onClick={isApplicationOpen && (() => editApplication())}
-          disabled={!isApplicationOpen}
+          onClick={
+            isApplicationOpen &&
+            hackerStatus === APPLICATION_STATUS.inProgress &&
+            (() => editApplication())
+          }
+          disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
         >
-          {hackerStatus !== APPLICATION_STATUS.inProgress ? 'Edit' : 'Complete'} Your Application
+          Complete Your Application
         </EditAppButton>
       </AppLinks>
       <StatusContainer>
