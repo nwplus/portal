@@ -19,11 +19,13 @@ export default () => {
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
   }
+
   const save = async () => {
     setLoading(true)
     await forceSave()
     setLoading(false)
   }
+
   const updateBasicInfo = change => {
     validate(change)
     updateApplication({
@@ -32,6 +34,7 @@ export default () => {
       },
     })
   }
+
   /**
    * Saves and moves to next page
    */
