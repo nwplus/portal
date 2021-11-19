@@ -79,6 +79,7 @@ export default () => {
         secondButtonOnClick={() => handleSubmit()}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
         loading={loading}
+        showSubmitWarning
       />
     </>
   )

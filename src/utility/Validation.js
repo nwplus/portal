@@ -1,3 +1,5 @@
+const MUST_BE_VACCINATED =
+  'You can only participate in nwHacks if you are double-vaccinated by then!'
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
@@ -42,6 +44,13 @@ const validateNotAllFalse = thing => {
 const validateResume = thing => {
   const allowedExtensions = /(\.pdf)$/i
   return allowedExtensions.exec(thing)
+}
+
+const mustBeVaccinatedFunction = thing => {
+  return {
+    error: !thing,
+    message: MUST_BE_VACCINATED,
+  }
 }
 
 const noEmptyFunction = thing => {
@@ -111,6 +120,7 @@ export const validateFormSection = (change, section) => {
 var isDesigner = false
 
 export const validateEntireForm = application => {
+  const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
@@ -120,6 +130,7 @@ export const validateEntireForm = application => {
   )
   isDesigner = application.basicInfo.contributionRole === 'designer'
   return {
+    ...vaccineInfoErrors,
     ...basicInfoErrors,
     ...skillsErrors,
     ...questionnaireErrors,
@@ -128,6 +139,9 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
+  vaccineInfo: {
+    willBeDoubleVaxed: mustBeVaccinatedFunction,
+  },
   basicInfo: {
     email: email => {
       return {

@@ -116,6 +116,7 @@ export const Button = props => {
   return (
     <StyledButton
       {...props}
+      ref={props.customRef}
       tabIndex={props.disabled ? null : 0}
       href={props.disabled ? null : props.href}
     >

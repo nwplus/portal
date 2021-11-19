@@ -15,15 +15,15 @@ const StyledButton = styled(Button)`
   margin-left: 0;
 `
 
-const UploadButton = ({ handleClick }) => {
+const UploadButton = ({ handleClick, customRef }) => {
   return (
-    <StyledButton color="tertiary" onClick={handleClick}>
+    <StyledButton color="tertiary" onClick={handleClick} customRef={customRef}>
       Upload
     </StyledButton>
   )
 }
 
-export default ({ onChange, hint, errorMsg }) => {
+export default ({ onChange, hint, errorMsg, customRef }) => {
   const inputFile = useRef()
 
   const handleClick = () => {
@@ -33,7 +33,7 @@ export default ({ onChange, hint, errorMsg }) => {
   return (
     <ResumeContainer>
       <ResumeFile inputFile={inputFile} onChange={onChange} />
-      <UploadButton handleClick={handleClick} />
+      <UploadButton handleClick={handleClick} customRef={customRef} />
       {hint ? <span>✔ {hint} uploaded!</span> : <ErrorMessage>{errorMsg}</ErrorMessage>}
     </ResumeContainer>
   )

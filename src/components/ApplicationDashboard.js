@@ -237,10 +237,14 @@ const Dashboard = ({
         <EditAppButton
           color="secondary"
           height="short"
-          onClick={isApplicationOpen && (() => editApplication())}
-          disabled={!isApplicationOpen}
+          onClick={
+            isApplicationOpen &&
+            hackerStatus === APPLICATION_STATUS.inProgress &&
+            (() => editApplication())
+          }
+          disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
         >
-          {hackerStatus !== APPLICATION_STATUS.inProgress ? 'Edit' : 'Complete'} Your Application
+          Complete Your Application
         </EditAppButton>
       </AppLinks>
       <StatusContainer>
