@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import facebook from '../../assets/icons/facebook.svg'
-import instagram from '../../assets/icons/instagram.svg'
-import medium from '../../assets/icons/medium.svg'
-import twitter from '../../assets/icons/twitter.svg'
 import { H1, P, A } from '../../components/Typography'
 import { SOCIAL_LINKS } from '../../utility/Constants'
 import { CenterHorizontally } from '../../components/Common'
+import Icon from '../../components/Icon'
 import { getSponsors } from '../../utility/firebase'
 
 const SponsorsContainer = styled.div`
@@ -46,13 +43,14 @@ const SponsorLogo = styled.img`
   margin: 16px 32px;
 `
 
-const StyledFooterContainer = styled.div`
+const SocialIconContainer = styled.div`
   ${CenterHorizontally}
   z-index: 100;
   top: 55em;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 180px;
   padding: 0 560px;
 `
 
@@ -92,20 +90,12 @@ export default () => {
         <H1 size="1.5em">Sponsored by</H1>
         <LogoContainer>{SponsorList}</LogoContainer>
       </SponsorsContainer>
-      <StyledFooterContainer>
-        <a href={SOCIAL_LINKS.FB}>
-          <BoundingBox src={facebook} alt="nwPlus Facebook" />
-        </a>
-        <a href={SOCIAL_LINKS.IG}>
-          <BoundingBox src={instagram} alt="nwPlus Instagram" />
-        </a>
-        <a href={SOCIAL_LINKS.MEDIUM}>
-          <BoundingBox src={medium} alt="nwPlus Medium" />
-        </a>
-        <a href={SOCIAL_LINKS.TW}>
-          <BoundingBox src={twitter} alt="nwPlus Twitter" />
-        </a>
-      </StyledFooterContainer>
+      <SocialIconContainer>
+        <Icon href={SOCIAL_LINKS.FB} icon="facebook" brand size="2x" />
+        <Icon href={SOCIAL_LINKS.IG} icon="instagram" brand size="2x" />
+        <Icon href={SOCIAL_LINKS.MEDIUM} icon="medium" brand size="2x" />
+        <Icon href={SOCIAL_LINKS.TW} icon="twitter" brand size="2x" />
+      </SocialIconContainer>
       <CopyrightBlurb>
         Copyright &copy; 2020 <A href={SOCIAL_LINKS.WEBSITE}>nwPlus</A>
       </CopyrightBlurb>

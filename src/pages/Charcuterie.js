@@ -12,6 +12,8 @@ import ResumeUploadBtn from '../components/ResumeUploadBtn'
 import styled from 'styled-components'
 import NavigationButtons from '../components/NavigationButtons'
 import Loading from '../components/Loading'
+import Landing from '../containers/Landing'
+import { ButtonContainer } from './Login'
 
 const CustomStyledDropdown = styled(Dropdown)`
   .react-select__control {
@@ -482,6 +484,18 @@ export default () => {
         secondButtonText="Next"
         secondButtonHref="https://www.linkedin.com/in/kevin-zou/"
       />
+
+      <Landing
+        heading="Thanks for Applying!"
+        description="Stay tuned as your application gets assessed. Expect to hear from us by end of December."
+        showFooter
+      >
+        <ButtonContainer>
+          <Button color="primary" width="flex">
+            Go to Dashboard
+          </Button>
+        </ButtonContainer>
+      </Landing>
     </>
   )
 }
