@@ -77,7 +77,7 @@ const createNewApplication = async user => {
     ? {
         email: user.email,
         firstName: user?.displayName?.split(' ')[0] ?? '',
-        lastName: user?.displayName?.split(' ')[1] ?? '',
+        lastName: user?.displayName?.split(' ')[user?.displayName?.split(' ').length - 1] ?? '',
       }
     : {
         email: user.email,

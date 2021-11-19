@@ -45,14 +45,6 @@ const graduationOptions = [
   { value: 2025, label: '2025+' },
 ]
 
-const hackathonOptions = [
-  { value: 0, label: '0' },
-  { value: 1, label: '1' },
-  { value: 2, label: '2' },
-  { value: 3, label: '3' },
-  { value: 4, label: '4+' },
-]
-
 // form part 1
 export default ({ refs, errors, formInputs, onChange }) => (
   <>
@@ -68,7 +60,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
       <SubHeading>
-        What is your preferred name?
+        What is your full legal name?
         <Required />
       </SubHeading>
       <TextInput
@@ -83,6 +75,17 @@ export default ({ refs, errors, formInputs, onChange }) => (
           })
         }
         customRef={refs['firstNameRef']}
+      />
+      <TextInput
+        placeholder="Middle Name"
+        inline
+        value={formInputs.middleName}
+        errorMsg={errors?.middleName}
+        onChange={e =>
+          onChange({
+            middleName: e.target.value,
+          })
+        }
       />
       <TextInput
         placeholder="Last Name"
@@ -119,6 +122,20 @@ export default ({ refs, errors, formInputs, onChange }) => (
         isValid={!errors?.gender}
         customRef={refs['genderRef']}
       />
+      {formInputs.gender === 'other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          inline
+          value={formInputs.otherGender}
+          onChange={e =>
+            onChange({
+              otherGender: e.target.value,
+            })
+          }
+        />
+      )}
     </FormSpacing>
 
     <FormSpacing>
@@ -145,12 +162,27 @@ export default ({ refs, errors, formInputs, onChange }) => (
               customRef={key === 'asian' ? refs['ethnicityRef'] : null}
             />
           ))}
+      <br />
+      {formInputs.ethnicity.other && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          inline
+          value={formInputs.otherEthnicity}
+          onChange={e =>
+            onChange({
+              otherEthnicity: e.target.value,
+            })
+          }
+        />
+      )}
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
-        Will you be 19 years or older by January 9th, 2021?
+        Will you be 19 years or older by January 15th, 2022?
         <Required />
       </SubHeading>
       {errors?.isOfLegalAge && <ErrorMessage>{errors?.isOfLegalAge}</ErrorMessage>}
@@ -289,28 +321,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
-        How many hackathons have you attended (both online and in-person)?
-        <Required />
-      </SubHeading>
-      {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
-      <Dropdown
-        options={hackathonOptions}
-        placeholder="Number of Hackathons"
-        isSearchable={false}
-        value={findElement(hackathonOptions, 'value', formInputs.hackathonsAttended)}
-        onChange={inputValue =>
-          onChange({
-            hackathonsAttended: inputValue.value,
-          })
-        }
-        isValid={!errors?.hackathonsAttended}
-        customRef={refs['hackathonsAttendedRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
-      <SubHeading>
         How do you want to contribute at nwHacks? Please select the category that you're strongest
         in.
         <Required />
@@ -328,27 +338,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
         label="Designer"
         checked={formInputs.contributionRole === 'designer'}
         onChange={() => onChange({ contributionRole: 'designer' })}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 12</QuestionHeading>
-      <SubHeading>
-        Where are you currently located?
-        <Required />
-      </SubHeading>
-      <TextInput
-        placeholder="Enter your city and country"
-        value={formInputs.location}
-        errorMsg={errors?.location}
-        invalid={!!errors?.location}
-        onChange={e =>
-          onChange({
-            location: e.target.value,
-          })
-        }
-        inline
-        customRef={refs['locationRef']}
       />
     </FormSpacing>
   </>

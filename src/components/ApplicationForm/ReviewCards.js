@@ -125,7 +125,7 @@ const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
 const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
-export default ({ formInputs, handleEdit, onChange, errors }) => {
+export default ({ formInputs, handleEdit, onChange }) => {
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
@@ -166,6 +166,33 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
 
       <ReviewContainer>
         <JohnDiv>
+          <QuestionHeading>Vaccination Status</QuestionHeading>
+          <Button
+            onClick={() => handleEdit('/application/part-0')}
+            height="short"
+            color="secondary"
+          >
+            Edit
+          </Button>
+        </JohnDiv>
+        <StyledBanner wide={true} blur>
+          <ContentWrapper grid>
+            <InfoGroup
+              heading="Will be double-vaccinated"
+              data={
+                formInputs.vaccineInfo.willBeDoubleVaxed
+                  ? 'Yes'
+                  : formInputs.vaccineInfo.willBeDoubleVaxed === null
+                  ? ''
+                  : 'No'
+              }
+            />
+          </ContentWrapper>
+        </StyledBanner>
+      </ReviewContainer>
+
+      <ReviewContainer>
+        <JohnDiv>
           <QuestionHeading>Tell us about yourself</QuestionHeading>
           <Button
             onClick={() => handleEdit('/application/part-1')}
@@ -178,10 +205,16 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
             <InfoGroup
-              heading="Full Name:"
-              data={formInputs.basicInfo.firstName
-                .concat(' ')
-                .concat(formInputs.basicInfo.lastName)}
+              heading="Full Legal Name"
+              data={
+                formInputs.basicInfo.middleName
+                  ? formInputs.basicInfo.firstName.concat(' ').concat(formInputs.basicInfo.lastName)
+                  : formInputs.basicInfo.firstName
+                      .concat(' ')
+                      .concat(formInputs.basicInfo.middleName)
+                      .concat(' ')
+                      .concat(formInputs.basicInfo.lastName)
+              }
             />
             <InfoGroup heading="Gender:" data={gender} />
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
@@ -203,9 +236,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
               heading="Graduation Year:"
               data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
             />
-            <InfoGroup heading="Prior Hackathons:" data={formInputs.basicInfo.hackathonsAttended} />
             <InfoGroup heading="Contribution at nwHacks:" data={contributionRole} />
-            <InfoGroup heading="Currently Located:" data={formInputs.basicInfo.location} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -223,6 +254,7 @@ export default ({ formInputs, handleEdit, onChange, errors }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
+            <InfoGroup heading="Prior Hackathons" data={formInputs.basicInfo.hackathonsAttended} />
             <InfoGroup heading="Resume" data={formInputs.skills.resume ?? ''} />
             <InfoGroup heading="Portfolio" data={formInputs.skills.portfolio} />
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />

@@ -2,6 +2,8 @@ import React from 'react'
 import { CenteredH1, H3, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
+import { findElement } from '../../utility/utilities'
+import Dropdown from '../Input/Dropdown'
 import { FormSpacing, SubHeading } from './'
 import styled from 'styled-components'
 
@@ -10,7 +12,6 @@ const QuestionForm = styled.form`
   position: relative;
   & > div {
     display: table-row;
-
     & > * {
       display: table-cell;
     }
@@ -32,6 +33,14 @@ const QuestionRow = styled(QuestionHeading)`
     padding-right: 1em;
   }
 `
+
+const hackathonOptions = [
+  { value: 0, label: '0' },
+  { value: 1, label: '1' },
+  { value: 2, label: '2' },
+  { value: 3, label: '3' },
+  { value: 4, label: '4+' },
+]
 
 const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
@@ -58,6 +67,27 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <QuestionHeading>question 12</QuestionHeading>
+        <SubHeading>
+          How many hackathons have you attended (both online and in-person)?
+          <Required />
+        </SubHeading>
+        {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
+        <Dropdown
+          options={hackathonOptions}
+          placeholder="Number of Hackathons"
+          isSearchable={false}
+          value={findElement(hackathonOptions, 'value', formInputs.hackathonsAttended)}
+          onChange={inputValue =>
+            onChange({
+              hackathonsAttended: inputValue.value,
+            })
+          }
+          isValid={!errors?.hackathonsAttended}
+        />
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 13</QuestionHeading>
         <SubHeading>
           {' '}
           Don't be shy! Show off your wonderful skills{' '}
@@ -170,7 +200,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 13</QuestionHeading>
+        <QuestionHeading>question 14</QuestionHeading>
         <SubHeading color="primary">
           Answer one of the two questions:
           <Required />
