@@ -54,11 +54,6 @@ const SocialIconContainer = styled.div`
   padding: 0 560px;
 `
 
-const BoundingBox = styled.img`
-  display: flex;
-  margin: 24px;
-`
-
 const CopyrightBlurb = styled(P)`
   && {
     display: block;
