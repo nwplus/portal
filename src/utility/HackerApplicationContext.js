@@ -41,6 +41,7 @@ export function HackerApplicationProvider({ children }) {
     const retrieveApplication = async () => {
       if (!user) return
       const app = await getUserApplication(user.uid)
+      fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
       setApplication(app)
       setUpdated(false)
       analytics.logEvent(ANALYTICS_EVENTS.AccessApplication, { userId: user.uid })

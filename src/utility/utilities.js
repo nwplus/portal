@@ -93,7 +93,7 @@ export function verifyObjectExists(obj, templateObj, key) {
     typeof obj === 'string' ||
     typeof templateObj === 'string' ||
     isNullOrUndefined(templateObj) ||
-    isNullOrUndefined(templateObj)
+    isNullOrUndefined(templateObj[key])
   )
     return
   if (obj[key] === undefined) {
