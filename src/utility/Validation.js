@@ -74,7 +74,7 @@ const validateTrueFunction = thing => {
 
 const mandatoryURLFunction = thing => {
   return {
-    error: thing ? true : !validateURL(thing),
+    error: validateStringNotEmpty(thing) ? !validateURL(thing) : false,
     message: MANDATORY_URL,
   }
 }
