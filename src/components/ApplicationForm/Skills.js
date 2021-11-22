@@ -46,9 +46,9 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
-const FormRow = ({ id, children }) => (
+const FormRow = ({ fieldValue, children }) => (
   <div>
-    <QuestionRow>{id}</QuestionRow>
+    <QuestionRow>{fieldValue}</QuestionRow>
     <div>{children}</div>
   </div>
 )
@@ -100,7 +100,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </H3>
 
         <QuestionForm>
-          <FormRow id="resume">
+          <FormRow fieldValue="resume">
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {
@@ -115,7 +115,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
           {role === 'designer' ? (
             <>
-              <FormRow id="Personal website/portfolio link">
+              <FormRow fieldValue="Personal website/portfolio link">
                 <TextInput
                   inline
                   placeholder="Required"
@@ -130,7 +130,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                   }
                 />
               </FormRow>
-              <FormRow id="GitHub/BitBucket/GitLab">
+              <FormRow fieldValue="GitHub/BitBucket/GitLab">
                 <TextInput
                   inline
                   placeholder="Optional"
@@ -148,7 +148,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             </>
           ) : (
             <>
-              <FormRow id="GitHub/BitBucket/GitLab">
+              <FormRow fieldValue="GitHub/BitBucket/GitLab">
                 <TextInput
                   inline
                   placeholder="Required"
@@ -163,7 +163,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                   }
                 />
               </FormRow>
-              <FormRow id="Personal website/portfolio link">
+              <FormRow fieldValue="Personal website/portfolio link">
                 <TextInput
                   inline
                   placeholder="Optional"
@@ -181,7 +181,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             </>
           )}
 
-          <FormRow id="linkedin">
+          <FormRow fieldValue="linkedin">
             <TextInput
               inline
               placeholder="Optional"
