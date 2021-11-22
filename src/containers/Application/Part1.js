@@ -18,9 +18,7 @@ const questionsByOrder = [
   'major',
   'educationLevel',
   'graduation',
-  'hackathonsAttended',
   'contributionRole',
-  'location',
 ]
 
 export default () => {

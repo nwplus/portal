@@ -46,9 +46,9 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
-const FormRow = ({ id, children }) => (
+const FormRow = ({ fieldValue, children }) => (
   <div>
-    <QuestionRow>{id}</QuestionRow>
+    <QuestionRow>{fieldValue}</QuestionRow>
     <div>{children}</div>
   </div>
 )
@@ -100,7 +100,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </H3>
 
         <QuestionForm>
-          <FormRow id="resume">
+          <FormRow fieldValue="resume">
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {
@@ -114,40 +114,74 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           </FormRow>
 
           {role === 'designer' ? (
-            <FormRow id="portfolio">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.portfolio}
-                invalid={!!errors.portfolio}
-                errorMsg={errors.portfolio}
-                onChange={e =>
-                  onChange({
-                    portfolio: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
+            <>
+              <FormRow fieldValue="Personal website/portfolio link">
+                <TextInput
+                  inline
+                  placeholder="Required"
+                  size="large"
+                  value={formInputs.portfolio}
+                  invalid={!!errors.portfolio}
+                  errorMsg={errors.portfolio}
+                  onChange={e =>
+                    onChange({
+                      portfolio: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+              <FormRow fieldValue="GitHub/BitBucket/GitLab">
+                <TextInput
+                  inline
+                  placeholder="Optional"
+                  size="large"
+                  value={formInputs.github}
+                  invalid={!!errors.github}
+                  errorMsg={errors.github}
+                  onChange={e =>
+                    onChange({
+                      github: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+            </>
           ) : (
-            <FormRow id="github">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.github}
-                invalid={!!errors.github}
-                errorMsg={errors.github}
-                onChange={e =>
-                  onChange({
-                    github: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
+            <>
+              <FormRow fieldValue="GitHub/BitBucket/GitLab">
+                <TextInput
+                  inline
+                  placeholder="Required"
+                  size="large"
+                  value={formInputs.github}
+                  invalid={!!errors.github}
+                  errorMsg={errors.github}
+                  onChange={e =>
+                    onChange({
+                      github: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+              <FormRow fieldValue="Personal website/portfolio link">
+                <TextInput
+                  inline
+                  placeholder="Optional"
+                  size="large"
+                  value={formInputs.portfolio}
+                  invalid={!!errors.portfolio}
+                  errorMsg={errors.portfolio}
+                  onChange={e =>
+                    onChange({
+                      portfolio: e.target.value,
+                    })
+                  }
+                />
+              </FormRow>
+            </>
           )}
 
-          <FormRow id="linkedin">
+          <FormRow fieldValue="linkedin">
             <TextInput
               inline
               placeholder="Optional"
@@ -162,65 +196,48 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
               }
             />
           </FormRow>
-
-          {role === 'designer' ? (
-            <FormRow id="github">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.github}
-                invalid={!!errors.github}
-                errorMsg={errors.github}
-                onChange={e =>
-                  onChange({
-                    github: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          ) : (
-            <FormRow id="portfolio">
-              <TextInput
-                inline
-                placeholder="Optional"
-                size="large"
-                value={formInputs.portfolio}
-                invalid={!!errors.portfolio}
-                errorMsg={errors.portfolio}
-                onChange={e =>
-                  onChange({
-                    portfolio: e.target.value,
-                  })
-                }
-              />
-            </FormRow>
-          )}
         </QuestionForm>
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 14</QuestionHeading>
-        <SubHeading color="primary">
-          Answer one of the two questions:
+        <QuestionHeading>question 13</QuestionHeading>
+        <SubHeading color="primary">Two written questions:</SubHeading>
+        <SubHeading size="1.25em">
+          1. What should technology be used for?
           <Required />
-        </SubHeading>
-        <SubHeading size="1.25em">
-          1. Describe how you became interested in the world of technology and where you hope to go
-          from here on out!
-        </SubHeading>
-        <SubHeading size="1.25em">
-          2. How would you like to challenge yourself during this hackathon?
         </SubHeading>
         <StyledTextArea
           maxLength="650"
           width="100%"
-          value={formInputs.longAnswers}
-          invalid={!!errors.longAnswers}
-          errorMsg={errors.longAnswers}
+          value={formInputs.longAnswers1}
+          invalid={!!errors.longAnswers1}
+          errorMsg={errors.longAnswers1}
           onChange={val =>
             onChange({
-              longAnswers: val,
+              longAnswers1: val,
+            })
+          }
+        />
+        <SubHeading size="1.5em">
+          Choose one of the following:
+          <Required />
+        </SubHeading>
+        <SubHeading size="1.25em">
+          1: How would you like to challenge yourself during this hackathon?
+        </SubHeading>
+        <SubHeading size="1.25em">
+          2. Describe a time where you went above and beyond of your role to demonstrate leadership
+          in a project.
+        </SubHeading>
+        <StyledTextArea
+          maxLength="650"
+          width="100%"
+          value={formInputs.longAnswers2}
+          invalid={!!errors.longAnswers2}
+          errorMsg={errors.longAnswers2}
+          onChange={val =>
+            onChange({
+              longAnswers2: val,
             })
           }
           customRef={refs['longAnswersRef']}
