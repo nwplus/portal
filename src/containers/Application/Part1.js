@@ -72,7 +72,6 @@ export default () => {
     await save()
     if (href === '/application/part-2') {
       const newErrors = validate(application.basicInfo)
-      console.log(newErrors, 'there is error in this page')
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
           if (newErrors[question]) {

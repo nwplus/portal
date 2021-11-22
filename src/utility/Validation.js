@@ -153,13 +153,11 @@ const validators = {
     lastName: noEmptyFunction,
     gender: noEmptyFunction,
     ethnicity: noNoneFunction,
-    location: noEmptyFunction,
     isOfLegalAge: noNeitherFunction,
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
-    hackathonsAttended: noEmptyFunction,
     contributionRole: noEmptyFunction,
     phoneNumber: number => {
       return {
@@ -172,6 +170,7 @@ const validators = {
     resume: noInvalidResumeFunction,
     portfolio: isDesigner ? mandatoryURLFunction : optionalURLFunction,
     linkedin: optionalURLFunction,
+    hackathonsAttended: noEmptyFunction,
     github: isDesigner ? optionalURLFunction : mandatoryURLFunction,
     longAnswers1: answer => {
       return {
