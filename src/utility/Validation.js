@@ -1,8 +1,11 @@
+const MUST_BE_VACCINATED =
+  'You can only participate in nwHacks if you are double-vaccinated by then!'
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please include a valid phone number including country code, eg. +1 123-456-7890'
+const MANDATORY_URL = 'Please include a valid URL.'
 const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
@@ -43,6 +46,13 @@ const validateResume = thing => {
   return allowedExtensions.exec(thing)
 }
 
+const mustBeVaccinatedFunction = thing => {
+  return {
+    error: !thing,
+    message: MUST_BE_VACCINATED,
+  }
+}
+
 const noEmptyFunction = thing => {
   return {
     error: !validateStringNotEmpty(thing),
@@ -68,6 +78,13 @@ const validateTrueFunction = thing => {
   return {
     error: !thing,
     message: MUST_BE_TRUE,
+  }
+}
+
+const mandatoryURLFunction = thing => {
+  return {
+    error: validateStringNotEmpty(thing) ? !validateURL(thing) : false,
+    message: MANDATORY_URL,
   }
 }
 
@@ -100,7 +117,10 @@ export const validateFormSection = (change, section) => {
   return newErrors
 }
 
+var isDesigner = false
+
 export const validateEntireForm = application => {
+  const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
@@ -108,7 +128,9 @@ export const validateEntireForm = application => {
     application.termsAndConditions,
     'termsAndConditions'
   )
+  isDesigner = application.basicInfo.contributionRole === 'designer'
   return {
+    ...vaccineInfoErrors,
     ...basicInfoErrors,
     ...skillsErrors,
     ...questionnaireErrors,
@@ -117,6 +139,9 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
+  vaccineInfo: {
+    willBeDoubleVaxed: mustBeVaccinatedFunction,
+  },
   basicInfo: {
     email: email => {
       return {
@@ -128,13 +153,11 @@ const validators = {
     lastName: noEmptyFunction,
     gender: noEmptyFunction,
     ethnicity: noNoneFunction,
-    location: noEmptyFunction,
     isOfLegalAge: noNeitherFunction,
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
-    hackathonsAttended: noEmptyFunction,
     contributionRole: noEmptyFunction,
     phoneNumber: number => {
       return {
@@ -145,10 +168,17 @@ const validators = {
   },
   skills: {
     resume: noInvalidResumeFunction,
-    portfolio: optionalURLFunction,
+    portfolio: isDesigner ? mandatoryURLFunction : optionalURLFunction,
     linkedin: optionalURLFunction,
-    github: optionalURLFunction,
-    longAnswers: answer => {
+    hackathonsAttended: noEmptyFunction,
+    github: isDesigner ? optionalURLFunction : mandatoryURLFunction,
+    longAnswers1: answer => {
+      return {
+        error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
+        message: NOT_EMPTY,
+      }
+    },
+    longAnswers2: answer => {
       return {
         error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
         message: NOT_EMPTY,

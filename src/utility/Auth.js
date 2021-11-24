@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
     analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/')
+    setLocation('/login')
   }
 
   return loading ? (
@@ -74,7 +74,7 @@ export const getRedirectUrl = redirect => {
     case REDIRECT_STATUS.ApplicationAccepted:
       return '/'
     case REDIRECT_STATUS.ApplicationNotSubmitted:
-      return '/application/part-1'
+      return '/application/part-0'
     case REDIRECT_STATUS.ApplicationSubmitted:
     default:
       return '/application'

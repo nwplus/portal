@@ -74,8 +74,6 @@ const nwTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
-    greetingBorder: '#000000',
-    applicationCard: 'rgba(75, 65, 130, 0.2)',
   },
 }
 
@@ -111,8 +109,6 @@ const hackcampTheme = {
       googleHover: '#fafafa',
       githubHover: '#545159',
     },
-    greetingBorder: '#000000',
-    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
 }
 
@@ -154,8 +150,6 @@ const cmdfTheme = {
       googleHover: '#C8BFB6',
       githubHover: '#577079',
     },
-    greetingBorder: '#000000',
-    applicationCard: 'rgba(75, 65, 130, 0.2)', // TODO
   },
 }
 

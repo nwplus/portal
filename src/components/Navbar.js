@@ -36,9 +36,6 @@ const Greeting = styled(P)`
   font-weight: 700;
   font-size: 18px;
   z-index: 101;
-  text-shadow: -1px 0 ${p => p.theme.colors.greetingBorder},
-    0 1px ${p => p.theme.colors.greetingBorder}, 1px 0 ${p => p.theme.colors.greetingBorder},
-    0 -1px ${p => p.theme.colors.greetingBorder};
   ${p => p.theme.mediaQueries.mobile} {
     padding-right: 0.1em;
     font-weight: 700;

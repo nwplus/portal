@@ -3,10 +3,7 @@ import styled from 'styled-components'
 import { H1, A } from './Typography'
 import { Button } from './Input/Button'
 import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '../utility/Constants'
-import facebook from '../assets/icons/facebook.svg'
-import instagram from '../assets/icons/instagram.svg'
-import medium from '../assets/icons/medium.svg'
-import twitter from '../assets/icons/twitter.svg'
+import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { analytics } from '../utility/firebase'
 
@@ -63,7 +60,7 @@ const StatusContainer = styled.div`
     padding: 2em;
   }
   border-radius: 21px;
-  background-color: ${p => p.theme.colors.applicationCard};
+  background-color: ${p => p.theme.colors.secondaryBackground};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -95,13 +92,11 @@ const FooterContainer = styled.div`
   }
 `
 
-const SocialMediaIcons = styled.img`
-  margin: 24px;
-  ${p => p.theme.mediaQueries.mobile} {
-    width: 24px;
-    height: 24px;
-    margin: 16px;
-  }
+const SocialIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 180px;
 `
 
 const RSVPButton = styled(Button)`
@@ -199,20 +194,36 @@ const SocialMediaLinks = () => {
     analytics.logEvent(ANALYTICS_EVENTS.SocialMediaConversion, { socialMedia: socialName })
   }
   return (
-    <div>
-      <a href={SOCIAL_LINKS.FB} onClick={() => UpdateAnalytics('facebook')}>
-        <SocialMediaIcons src={facebook} alt="nwPlus Facebook" />
-      </a>
-      <a href={SOCIAL_LINKS.IG} onClick={() => UpdateAnalytics('instagram')}>
-        <SocialMediaIcons src={instagram} alt="nwPlus Instagram" />
-      </a>
-      <a href={SOCIAL_LINKS.MEDIUM} onClick={() => UpdateAnalytics('medium')}>
-        <SocialMediaIcons src={medium} alt="nwPlus Medium" />
-      </a>
-      <a href={SOCIAL_LINKS.TW} onClick={() => UpdateAnalytics('twitter')}>
-        <SocialMediaIcons src={twitter} alt="nwPlus Twitter" />
-      </a>
-    </div>
+    <SocialIconContainer>
+      <Icon
+        href={SOCIAL_LINKS.FB}
+        icon="facebook"
+        brand
+        size="2x"
+        onClick={() => UpdateAnalytics('facebook')}
+      />
+      <Icon
+        href={SOCIAL_LINKS.IG}
+        icon="instagram"
+        brand
+        size="2x"
+        onClick={() => UpdateAnalytics('instagram')}
+      />
+      <Icon
+        href={SOCIAL_LINKS.MEDIUM}
+        icon="medium"
+        brand
+        size="2x"
+        onClick={() => UpdateAnalytics('medium')}
+      />
+      <Icon
+        href={SOCIAL_LINKS.TW}
+        icon="twitter"
+        brand
+        size="2x"
+        onClick={() => UpdateAnalytics('twitter')}
+      />
+    </SocialIconContainer>
   )
 }
 
@@ -237,10 +248,14 @@ const Dashboard = ({
         <EditAppButton
           color="secondary"
           height="short"
-          onClick={isApplicationOpen && (() => editApplication())}
-          disabled={!isApplicationOpen}
+          onClick={
+            isApplicationOpen &&
+            hackerStatus === APPLICATION_STATUS.inProgress &&
+            (() => editApplication())
+          }
+          disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
         >
-          {hackerStatus !== APPLICATION_STATUS.inProgress ? 'Edit' : 'Complete'} Your Application
+          Complete Your Application
         </EditAppButton>
       </AppLinks>
       <StatusContainer>
@@ -252,8 +267,8 @@ const Dashboard = ({
             {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}
           </StatusBlurbText>
         </div>
+        <SocialMediaLinks />
         <FooterContainer>
-          <SocialMediaLinks />
           <RSVPButton
             width="flex"
             onClick={isRsvpOpen && (() => setRSVP(canRSVP))}

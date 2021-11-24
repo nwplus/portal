@@ -47,10 +47,18 @@ const TextInputError = styled(ErrorMessage)`
   position: absolute;
 `
 
-export const TextInput = ({ className, invalid, errorMsg, noOutline, inline, ...rest }) => {
+export const TextInput = ({
+  className,
+  invalid,
+  errorMsg,
+  noOutline,
+  inline,
+  customRef,
+  ...rest
+}) => {
   return (
     <TextInputContainer className={className} inline={inline} noOutline={noOutline}>
-      <TextInputBox invalid={invalid} noOutline={noOutline} {...rest} />
+      <TextInputBox invalid={invalid} noOutline={noOutline} ref={customRef} {...rest} />
       {invalid && <TextInputError> {errorMsg} </TextInputError>}
     </TextInputContainer>
   )
