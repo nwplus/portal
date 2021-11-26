@@ -200,7 +200,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 13</QuestionHeading>
+        <QuestionHeading>question 14</QuestionHeading>
         <SubHeading color="primary">Two written questions:</SubHeading>
         <SubHeading size="1.25em">
           1. What should technology be used for?
