@@ -1,10 +1,10 @@
-# 🔴 Live Site
+# 🔴 Portal
 
-The Live Site aims to be a central information hub for hackers which will contain important information about the hackathon
+Portal aims to be a central information hub for hackers which will contain important information about the hackathon
 
 ## 🖼️ big picture
 
-We hope for the Live Site to
+We hope for Portal to
 
 - relay important time sensitive information like announcements
 - contain a schedule detailing the events happening during a hackathon which can be updated through a CMS
