@@ -218,17 +218,15 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             })
           }
         />
-        <SubHeading size="1.5em">
-          Choose one of the following:
+        <SubHeading size="1.25em">
+          2. Choose one of the following:
           <Required />
         </SubHeading>
-        <SubHeading size="1.25em">
-          1: How would you like to challenge yourself during this hackathon?
-        </SubHeading>
-        <SubHeading size="1.25em">
-          2. Describe a time where you went above and beyond of your role to demonstrate leadership
+        <H3>A. How would you like to challenge yourself during this hackathon?</H3>
+        <H3>
+          B. Describe a time where you went above and beyond of your role to demonstrate leadership
           in a project.
-        </SubHeading>
+        </H3>
         <StyledTextArea
           maxLength="650"
           width="100%"

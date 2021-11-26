@@ -186,7 +186,9 @@ function App() {
         <GlobalStyle />
         <Switch>
           <PageRoute path="/">
-            <Home announcements={announcements} />
+            {/* <Home announcements={announcements} /> */}
+            <Redirect to="/application" />{' '}
+            {/* TODO: Delete this line and route to Home (above) on event day-of */}
           </PageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
