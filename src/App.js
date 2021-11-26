@@ -38,9 +38,11 @@ const notifyUser = announcement => {
 }
 
 const PageRoute = ({ path, children }) => {
+  const ONLY_APPLICATION = true // CHANGE: when not application
+
   return (
     <Route path={path}>
-      <Page>{children}</Page>
+      {ONLY_APPLICATION ? <Redirect to="/application" /> : <Page>{children}</Page>}
     </Route>
   )
 }
@@ -186,9 +188,7 @@ function App() {
         <GlobalStyle />
         <Switch>
           <PageRoute path="/">
-            {/* <Home announcements={announcements} /> */}
-            <Redirect to="/application" />{' '}
-            {/* TODO: Delete this line and route to Home (above) on event day-of */}
+            <Home announcements={announcements} />
           </PageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />

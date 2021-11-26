@@ -3,7 +3,6 @@ import { useLocation } from 'wouter'
 import VaccineInfo from '../../components/ApplicationForm/VaccineInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
-import { useAuth } from '../../utility/Auth'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
 
