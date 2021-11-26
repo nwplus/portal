@@ -3,7 +3,6 @@ import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
-import { useAuth } from '../../utility/Auth'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
 
@@ -24,7 +23,6 @@ const questionsByOrder = [
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
-  const { logout } = useAuth()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
@@ -86,10 +84,6 @@ export default () => {
     window.scrollTo(0, 0)
   }
 
-  const handleLogout = async () => {
-    await save()
-    logout()
-  }
   return (
     <>
       <BasicInfo
@@ -100,8 +94,8 @@ export default () => {
       />
       <VerticalProgressBar percent={25} />
       <NavigationButtons
-        firstButtonText="Save &amp; Logout"
-        firstButtonOnClick={() => handleLogout('/login')}
+        firstButtonText="Back"
+        firstButtonOnClick={() => handleNavigation('/application/part-0')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-2')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}

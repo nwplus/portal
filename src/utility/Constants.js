@@ -1,14 +1,15 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'HackCamp2021'
+export const DB_HACKATHON = 'nwHacks2022'
+export const ONLY_APPLICATION = true // CHANGE: when not application
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'HackCamp 2021',
+  hackathonName: 'nwHacks 2022',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 5

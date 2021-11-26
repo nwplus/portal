@@ -50,9 +50,13 @@ export default ({
         <ErrorMessage>Caution! You cannot edit your application after submitting.</ErrorMessage>
       )}
       <ButtonContainer>
-        <StyledButton color="secondary" width="flex" onClick={firstButtonOnClick}>
-          {firstButtonText}
-        </StyledButton>
+        {firstButtonText && firstButtonOnClick ? (
+          <StyledButton color="secondary" width="flex" onClick={firstButtonOnClick}>
+            {firstButtonText}
+          </StyledButton>
+        ) : (
+          <div></div>
+        )}
         <div style={{ display: 'flex' }}>
           <MoonLoader css={{ margin: '0 10px' }} color="#fff" size="30" loading={loading} />
           <StyledButton width="flex" onClick={secondButtonOnClick}>
