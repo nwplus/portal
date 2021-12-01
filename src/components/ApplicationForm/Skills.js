@@ -66,6 +66,10 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
+const H3A = styled(H3)`
+  opacity: 1;
+`
+
 const FormRow = ({ fieldValue, required, children }) => (
   <div>
     <QuestionRow>
@@ -240,11 +244,11 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           2. Choose one of the following:
           <Required />
         </SubHeading>
-        <H3>A. How would you like to challenge yourself during this hackathon?</H3>
-        <H3>
+        <H3A>A. How would you like to challenge yourself during this hackathon?</H3A>
+        <H3A>
           B. Describe a time where you went above and beyond of your role to demonstrate leadership
           in a project.
-        </H3>
+        </H3A>
         <StyledTextArea
           maxLength="650"
           width="100%"
