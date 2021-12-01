@@ -2,12 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import Banner from '../../components/Banner'
 import hc_logo from '../../assets/hc_logo.svg'
-import nwhacks_logo from '../../assets/nwhacks2022_logo.svg'
+import nwhacks_logo from '../../assets/nwhacks_logo.svg'
 import cmdf_logo from '../../assets/cmdf_logo.svg'
 import cmdf_plants from '../../assets/cmdf_splash.svg'
 import Footer from './Footer'
 import { H1, P } from '../../components/Typography'
-import { CenterHorizontally } from '../../components/Common'
 
 const LandingContainer = styled.div`
   position: relative;
@@ -20,14 +19,14 @@ const LandingContainer = styled.div`
 const StyledLogoLockup = styled.img`
   position: absolute;
   top: 7em;
-  margin: 0 50.5%;
+  margin: 0 50%;
   transform: translateX(-50%);
   z-index: 9999;
 
   ${p =>
     p.theme.name !== 'nwPlus' &&
     `
-      top: 14em;
+      top: 15em;
   `}
   ${p =>
     p.theme.name === 'cmdf' &&
@@ -47,8 +46,6 @@ const StyledLogoLockup = styled.img`
     top: 19%;
   }
 `
-
-const StyledLogo = styled.img``
 
 const StyledBanner = styled(Banner)`
   && {
@@ -117,8 +114,8 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
     case 'nwHacks':
       return (
         <LandingContainer showFooter={showFooter}>
-          <StyledBanner blur>
-            <StyledLogo src={nwhacks_logo} />
+          <StyledLogoLockup src={nwhacks_logo} />
+          <StyledBanner>
             <H1 size="1.5em">{heading}</H1>
             <P>{description}</P>
             {children}

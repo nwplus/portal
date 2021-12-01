@@ -30,7 +30,7 @@ const StyledButton = styled.a`
   padding: ${p => (p.height ? buttonHeightPadding[p.height] : buttonHeightPadding['default'])}
     0.75em;
   border-radius: 3px;
-  margin: 1em ${p => (!!p.no_margin ? '0px' : '0.75em')};
+  margin: 1em ${p => (!!p.no_margin ? '0px' : !!p.nav ? '0 1em 0.75em' : '0.75em')};
   :hover {
     cursor: pointer;
   }

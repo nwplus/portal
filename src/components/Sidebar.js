@@ -4,6 +4,7 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
+import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import cmdf_logo from '../assets/cmdf_logo.svg'
 import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
@@ -26,6 +27,8 @@ const chooseLogo = hackathon => {
       return hc_logo
     case 'cmdf':
       return cmdf_logo
+    case 'nwHacks':
+      return nwhacks_logo
     default:
       return logo
   }
@@ -110,9 +113,9 @@ const StatusText = styled.div`
   margin-top: 5px;
 `
 
-const TitleSponsor = styled.img`
-  margin: 1em 0 0 60px;
-`
+// const TitleSponsor = styled.img`
+//   margin: 1em 0 0 60px;
+// `
 
 export default ({
   showMobileSidebar,
@@ -183,9 +186,9 @@ export default ({
           Logout
         </StyledButton>
       )}
-      <a href="https://www.covalenthq.com" target="_blank" rel="noopener noreferrer">
+      {/* <a href="https://www.covalenthq.com" target="_blank" rel="noopener noreferrer">
         <TitleSponsor src="/title_sponsor.svg" alt="Covalent logo" />
-      </a>
+      </a> */}
     </SidebarContainer>
   )
 }
