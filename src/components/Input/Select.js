@@ -1,10 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
-
-const SelectFocusLike = css`
-  background: ${p => p.theme.colors.selects.focus};
-  border: 2px solid ${p => p.theme.colors.primary};
-`
+import styled from 'styled-components'
 
 const SelectWrapper = styled.span`
   display: inline-block;
@@ -32,12 +27,6 @@ const SelectWrapper = styled.span`
   :hover {
     background: ${p.theme.colors.selects.focus};
   `}
-  :focus-within {
-    ${SelectFocusLike}
-  }
-  :focus {
-    ${SelectFocusLike}
-  }
 `
 
 const Selector = styled.span`
@@ -60,12 +49,6 @@ const Selector = styled.span`
         ? `cursor: not-allowed;`
         : `border: 2px solid ${p.checked ? p.theme.colors.background : p.theme.colors.primary};`}
   }
-  ${SelectWrapper}:focus & {
-    border: 2px solid ${p => !p.checked && p.theme.colors.primary};
-  }
-  ${SelectWrapper}:focus-within & {
-    border: 2px solid ${p => !p.checked && p.theme.colors.primary};
-  }
 `
 
 const Input = styled.input`
@@ -83,9 +66,6 @@ const Label = styled.label`
         ? `cursor: not-allowed;`
         : `color: ${p.theme.colors.primary}; 
           cursor: pointer;`}
-  }
-  :focus-within {
-    color: ${p => !p.checked && p.theme.colors.primary};
   }
 `
 
