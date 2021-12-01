@@ -2,10 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Banner from '../../components/Banner'
 import hc_logo from '../../assets/hc_logo.svg'
+import nwhacks_logo from '../../assets/nwhacks2022_logo.svg'
 import cmdf_logo from '../../assets/cmdf_logo.svg'
 import cmdf_plants from '../../assets/cmdf_splash.svg'
-import holo from '../../assets/holo.svg'
-import holo_end from '../../assets/holo2.svg'
 import Footer from './Footer'
 import { H1, P } from '../../components/Typography'
 import { CenterHorizontally } from '../../components/Common'
@@ -16,30 +15,6 @@ const LandingContainer = styled.div`
   height: 100vh;
   overflow-x: hidden;
   ${p => !p.showFooter && 'overflow-y: hidden;'}
-`
-
-const HoloBackground = styled.img`
-  position: absolute;
-  float: left;
-  overflow-x: hidden;
-  display: block;
-  opacity: 0.8;
-  width: 100%;
-  top: 18em;
-  ${CenterHorizontally}
-  z-index: -1;
-  ${p => p.theme.mediaQueries.tabletLarge} {
-    width: 200%;
-    top: 40%;
-  }
-  ${p => p.theme.mediaQueries.tablet} {
-    width: 200%;
-    top: 40%;
-  }
-  ${p => p.theme.mediaQueries.xs} {
-    width: 300%;
-    top: 50%;
-  }
 `
 
 const StyledLogoLockup = styled.img`
@@ -72,6 +47,8 @@ const StyledLogoLockup = styled.img`
     top: 19%;
   }
 `
+
+const StyledLogo = styled.img``
 
 const StyledBanner = styled(Banner)`
   && {
@@ -141,17 +118,12 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
       return (
         <LandingContainer showFooter={showFooter}>
           <StyledBanner blur>
+            <StyledLogo src={nwhacks_logo} />
             <H1 size="1.5em">{heading}</H1>
             <P>{description}</P>
             {children}
           </StyledBanner>
-          {showFooter ? (
-            <>
-              <Footer /> <HoloBackground src={holo_end} />
-            </>
-          ) : (
-            <HoloBackground src={holo} />
-          )}
+          {showFooter && <Footer />}
         </LandingContainer>
       )
   }
