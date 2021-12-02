@@ -154,6 +154,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                       portfolio: e.target.value,
                     })
                   }
+                  customRef={refs['portfolioRef']}
                 />
               </FormRow>
               <FormRow fieldValue="GitHub/BitBucket/GitLab">
@@ -185,6 +186,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                       github: e.target.value,
                     })
                   }
+                  customRef={refs['githubRef']}
                 />
               </FormRow>
               <FormRow fieldValue="Personal website/portfolio link">

@@ -1,30 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import holo from '../../assets/holo_review.svg'
 import Banner from '../Banner'
 import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
-import { CenterHorizontally } from '../Common'
 import { FormSpacing } from './'
-
-const HoloBackground = styled.img`
-  position: absolute;
-  text-align: center;
-  display: block;
-  float: left;
-  overflow-x: hidden;
-  margin: 0 auto;
-  opacity: 0.8;
-  width: 100%;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  height: min-content;
-  ${CenterHorizontally}
-  ${p => p.theme.mediaQueries.tabletLarge} {
-    display: none;
-  }
-`
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -407,7 +386,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
           </Checkbox>
         </ContentWrapper>
       </ReviewContainer>
-      <HoloBackground src={holo} />
     </>
   )
 }
