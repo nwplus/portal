@@ -8,20 +8,40 @@ import { FormSpacing, SubHeading } from './'
 import styled from 'styled-components'
 
 const QuestionForm = styled.form`
-  display: table;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
   & > div {
-    display: table-row;
-    & > * {
-      display: table-cell;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    & > *:nth-child(1) {
+      flex-grow: 1;
+      margin: 0;
+      width: 30%;
+    }
+    & > *:nth-child(2) {
+      flex-grow: 1;
+      margin: 0;
+      width: 60%;
+      & > div {
+        margin-left: 0;
+        padding-right: 0.5em;
+      }
     }
   }
   ${p => p.theme.mediaQueries.tabletLarge} {
     & > div {
-      display: block;
+      flex-direction: column;
+      align-items: stretch;
       & > * {
+        width: 100%;
         display: block;
         margin: 0.5em 0;
+      }
+      & > *:nth-child(1),
+      & > *:nth-child(2) {
+        width: 100%;
       }
     }
   }
@@ -46,9 +66,16 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
-const FormRow = ({ fieldValue, children }) => (
+const H3A = styled(H3)`
+  opacity: 1;
+`
+
+const FormRow = ({ fieldValue, required, children }) => (
   <div>
-    <QuestionRow>{fieldValue}</QuestionRow>
+    <QuestionRow>
+      {fieldValue}
+      {required && <Required />}
+    </QuestionRow>
     <div>{children}</div>
   </div>
 )
@@ -100,7 +127,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </H3>
 
         <QuestionForm>
-          <FormRow fieldValue="resume">
+          <FormRow fieldValue="resume" required>
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {
@@ -115,9 +142,8 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
           {role === 'designer' ? (
             <>
-              <FormRow fieldValue="Personal website/portfolio link">
+              <FormRow fieldValue="Personal website/portfolio link" required>
                 <TextInput
-                  inline
                   placeholder="Required"
                   size="large"
                   value={formInputs.portfolio}
@@ -128,11 +154,11 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                       portfolio: e.target.value,
                     })
                   }
+                  customRef={refs['portfolioRef']}
                 />
               </FormRow>
               <FormRow fieldValue="GitHub/BitBucket/GitLab">
                 <TextInput
-                  inline
                   placeholder="Optional"
                   size="large"
                   value={formInputs.github}
@@ -148,9 +174,8 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             </>
           ) : (
             <>
-              <FormRow fieldValue="GitHub/BitBucket/GitLab">
+              <FormRow fieldValue="GitHub/BitBucket/GitLab" required>
                 <TextInput
-                  inline
                   placeholder="Required"
                   size="large"
                   value={formInputs.github}
@@ -161,11 +186,11 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                       github: e.target.value,
                     })
                   }
+                  customRef={refs['githubRef']}
                 />
               </FormRow>
               <FormRow fieldValue="Personal website/portfolio link">
                 <TextInput
-                  inline
                   placeholder="Optional"
                   size="large"
                   value={formInputs.portfolio}
@@ -183,7 +208,6 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
           <FormRow fieldValue="linkedin">
             <TextInput
-              inline
               placeholder="Optional"
               size="large"
               value={formInputs.linkedin}
@@ -222,11 +246,11 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           2. Choose one of the following:
           <Required />
         </SubHeading>
-        <H3>A. How would you like to challenge yourself during this hackathon?</H3>
-        <H3>
+        <H3A>A. How would you like to challenge yourself during this hackathon?</H3A>
+        <H3A>
           B. Describe a time where you went above and beyond of your role to demonstrate leadership
           in a project.
-        </H3>
+        </H3A>
         <StyledTextArea
           maxLength="650"
           width="100%"

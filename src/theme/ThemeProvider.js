@@ -44,15 +44,15 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: '#2D2937',
-    card: '#2D2937', // todo: update to proper colour
+    background: '#2C2543',
+    card: '#2C2543', // todo: update to proper colour
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#1D1B24bb',
     secondaryBackground: '#1D1B24',
     error: '#ff0033',
     errorText: '#fff',
     foreground: '#4F4A59',
-    primary: '#06C1C0',
+    primary: '#0DEFE1',
     default: '#BEBEBE',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',

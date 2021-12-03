@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { P } from './Typography'
-import icon from '../assets/nwhacks_icon.svg'
+import icon from '../assets/nwplus_icon.svg'
 import { Button } from './Input'
 import { withTheme } from 'styled-components'
 
@@ -48,7 +48,7 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
     <div>
       <NavContainer>
         {handleLogout && (
-          <Button onClick={handleLogout} color="primary">
+          <Button onClick={handleLogout} color="primary" nav>
             Logout
           </Button>
         )}

@@ -5,7 +5,7 @@ import { SOCIAL_LINKS } from '../../utility/Constants'
 
 export default () => (
   <Landing
-    heading="Thanks for your interest in nwHacks 2021"
+    heading="Thanks for your interest in nwHacks 2022"
     description={
       <>
         We are no longer accepting applications, but we do hope to see you at our future events!
