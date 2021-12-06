@@ -23,7 +23,7 @@ const ethnicityOptions = {
   hispanic: 'Hispanic or Latinx',
   middleEastern: 'Middle Eastern',
   nativeHawaiian: 'Native Hawaiian or Pacific Islander',
-  northAmerica: 'North American Indigenous',
+  northAmerica: 'Indigenous (First Nations, Métis, Inuk/Inuit)',
   other: 'Other',
   preferNot: 'Prefer not to say',
 }
@@ -243,6 +243,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
         }
         emptySearchDefaultOption="Start typing to search"
         canCreateNewOption
+        debounceEnabled
+        throttleTime={1000}
         isValid={!errors?.school}
         customRef={refs['schoolRef']}
       />
@@ -294,6 +296,22 @@ export default ({ refs, errors, formInputs, onChange }) => (
         isValid={!errors?.educationLevel}
         customRef={refs['educationLevelRef']}
       />
+      {formInputs.educationLevel === 'other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          inline
+          value={formInputs.otherEducationLevel}
+          errorMsg={errors?.otherEducationLevel}
+          invalid={!!errors?.otherEducationLevel}
+          onChange={e =>
+            onChange({
+              otherEducationLevel: e.target.value,
+            })
+          }
+        />
+      )}
     </FormSpacing>
 
     <FormSpacing>

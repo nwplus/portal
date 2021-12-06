@@ -6,7 +6,7 @@ const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please include a valid phone number including country code, eg. +1 123-456-7890'
 export const MANDATORY_URL = 'Please include a valid URL.'
-const OPTIONAL_URL = 'If you would like to include an optional URL here, please ensure it is valid.'
+const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
@@ -34,7 +34,7 @@ const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
 }
 const validatePhoneNumber = thing => {
-  const phoneno = /^\+((?:9[679]|8[035789]|6[789]|5[90]|42|3[578]|2[1-689])|9[0-58]|8[1246]|6[0-6]|5[1-8]|4[013-9]|3[0-469]|2[70]|7|1)(?:\W*\d){0,13}\d$/
+  const phoneno = /^\+([0-9]{1})[-. ]??([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
   return thing.match(phoneno)
 }
 const validateNotAllFalse = thing => {
@@ -118,6 +118,7 @@ export const validateFormSection = (change, section) => {
 }
 
 var isDesigner = false
+var isFirstTimeHacker = true
 
 export const validateEntireForm = application => {
   const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
@@ -128,7 +129,10 @@ export const validateEntireForm = application => {
     application.termsAndConditions,
     'termsAndConditions'
   )
+
+  // only for use when validating entire form at the end
   isDesigner = application.basicInfo.contributionRole === 'designer'
+  isFirstTimeHacker = application.skills.hackathonsAttended === 0
   return {
     ...vaccineInfoErrors,
     ...basicInfoErrors,
@@ -157,6 +161,7 @@ const validators = {
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
+    otherEducationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     contributionRole: noEmptyFunction,
     phoneNumber: number => {
@@ -168,21 +173,29 @@ const validators = {
   },
   skills: {
     resume: noInvalidResumeFunction,
-    // NOTE: isDesigner variable isn't accessible here when invoking `validateFormSection`:  ternary default to false -- WORKAROUND: local handling in Part2.js
-    portfolio: isDesigner ? mandatoryURLFunction : optionalURLFunction,
-    github: isDesigner ? optionalURLFunction : mandatoryURLFunction,
+    // NOTE: isDesigner (and isFirstTimeHacker) variables aren't accessible here when invoking `validateFormSection`:  ternary default to false -- WORKAROUND: local handling in Part2.js
+    portfolio: isFirstTimeHacker
+      ? optionalURLFunction
+      : isDesigner
+      ? mandatoryURLFunction
+      : optionalURLFunction,
+    github: isFirstTimeHacker
+      ? optionalURLFunction
+      : isDesigner
+      ? optionalURLFunction
+      : mandatoryURLFunction,
     linkedin: optionalURLFunction,
     hackathonsAttended: noEmptyFunction,
     longAnswers1: answer => {
       return {
         error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
-        message: NOT_EMPTY,
+        message: answer.length > LONG_ANSWER_CHAR_LIMIT ? '' : NOT_EMPTY,
       }
     },
     longAnswers2: answer => {
       return {
         error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
-        message: NOT_EMPTY,
+        message: answer.length > LONG_ANSWER_CHAR_LIMIT ? '' : NOT_EMPTY,
       }
     },
   },
