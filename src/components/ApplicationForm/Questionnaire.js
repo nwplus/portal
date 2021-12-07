@@ -73,7 +73,7 @@ export default ({ formInputs, onChange }) => {
         <SubHeading>Which nwPlus events have you been to? (Select all that apply)</SubHeading>
         <Select
           type="checkbox"
-          label="Local Hack Day / Hack Camp"
+          label="Local Hack Day / HackCamp"
           checked={formInputs.eventsAttended.option1}
           onChange={() =>
             onChange({
