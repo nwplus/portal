@@ -4,7 +4,7 @@ const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
-  'Please include a valid phone number including country code, eg. +1 123-456-7890'
+  'Please use only numerals and/or hyphens in your phone number, eg. 1234567890 or 123-456-7890'
 export const MANDATORY_URL = 'Please include a valid URL.'
 const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
@@ -34,7 +34,7 @@ const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
 }
 const validatePhoneNumber = thing => {
-  const phoneno = /^\+([0-9]{1})[-. ]??([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+  const phoneno = /^([0-9]+-)*[0-9]+$/
   return thing.match(phoneno)
 }
 const validateNotAllFalse = thing => {
