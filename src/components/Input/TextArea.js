@@ -51,14 +51,14 @@ export const TextArea = ({
         {...rest}
       />
       {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
-      {isLengthExceeded ? (
+      {isLengthExceeded && (
         <ErrorMessage>
           {' '}
-          Sorry! It looks like your answer is more than {maxLength} characters.{' '}
+          Sorry! It looks like your answer is {value.length - maxLength} character(s) over the
+          limit.{' '}
         </ErrorMessage>
-      ) : (
-        maxLength != null && <Message> {value.length} characters. </Message>
       )}
+      {maxLength != null && <Message> {value.length} characters. </Message>}
     </div>
   )
 }

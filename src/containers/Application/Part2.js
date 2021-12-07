@@ -65,10 +65,18 @@ export default () => {
 
       // check if user left mandatory github or portfolio link EMPTY
       const role = application.basicInfo.contributionRole
-      if (role === 'designer' && application.skills.portfolio === '') {
+      if (
+        role === 'designer' &&
+        application.skills.hackathonsAttended > 0 &&
+        application.skills.portfolio === ''
+      ) {
         // if portfolio empty, force enter error
         newErrors.portfolio = MANDATORY_URL
-      } else if (role === 'developer' && application.skills.github === '') {
+      } else if (
+        role === 'developer' &&
+        application.skills.hackathonsAttended > 0 &&
+        application.skills.github === ''
+      ) {
         newErrors.github = MANDATORY_URL
       }
       setErrors({ ...errors, ...newErrors })

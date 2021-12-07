@@ -26,7 +26,6 @@ export default () => {
 
   const updateVaccineInfo = change => {
     validate(change)
-    console.log(application, 'this is the application object')
 
     updateApplication({
       vaccineInfo: {

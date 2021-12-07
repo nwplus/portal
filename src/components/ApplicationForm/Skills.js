@@ -142,9 +142,12 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
           {role === 'designer' ? (
             <>
-              <FormRow fieldValue="Personal website/portfolio link" required>
+              <FormRow
+                fieldValue="Personal website/portfolio link"
+                required={formInputs.hackathonsAttended > 0}
+              >
                 <TextInput
-                  placeholder="Required"
+                  placeholder={formInputs.hackathonsAttended > 0 ? 'Required' : 'Optional'}
                   size="large"
                   value={formInputs.portfolio}
                   invalid={!!errors.portfolio}
@@ -174,9 +177,12 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             </>
           ) : (
             <>
-              <FormRow fieldValue="GitHub/BitBucket/GitLab" required>
+              <FormRow
+                fieldValue="GitHub/BitBucket/GitLab"
+                required={formInputs.hackathonsAttended > 0}
+              >
                 <TextInput
-                  placeholder="Required"
+                  placeholder={formInputs.hackathonsAttended > 0 ? 'Required' : 'Optional'}
                   size="large"
                   value={formInputs.github}
                   invalid={!!errors.github}
