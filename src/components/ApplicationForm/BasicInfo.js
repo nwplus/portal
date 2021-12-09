@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { QuestionHeading, CenteredH1, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput } from '../Input/TextInput'
 import Dropdown from '../Input/Dropdown'
@@ -44,6 +45,10 @@ const graduationOptions = [
   { value: 2025, label: '2025+' },
 ]
 
+const StyledTextInput = styled(TextInput)`
+  margin: 0.5em 1em 1em 0;
+`
+
 // form part 1
 export default ({ refs, errors, formInputs, onChange }) => (
   <>
@@ -62,7 +67,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         What is your full legal name?
         <Required />
       </SubHeading>
-      <TextInput
+      <StyledTextInput
         placeholder="First Name"
         value={formInputs.firstName}
         errorMsg={errors?.firstName}
@@ -74,7 +79,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         }
         customRef={refs['firstNameRef']}
       />
-      <TextInput
+      <StyledTextInput
         placeholder="Middle Name"
         value={formInputs.middleName}
         errorMsg={errors?.middleName}
@@ -84,7 +89,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
           })
         }
       />
-      <TextInput
+      <StyledTextInput
         placeholder="Last Name"
         value={formInputs.lastName}
         errorMsg={errors?.lastName}
@@ -201,7 +206,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         What is your phone number?
         <Required />
       </SubHeading>
-      <TextInput
+      <StyledTextInput
         placeholder="XXX-XXX-XXXX"
         value={formInputs.phoneNumber}
         errorMsg={errors?.phoneNumber}
