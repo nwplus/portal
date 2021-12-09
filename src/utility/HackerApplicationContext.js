@@ -11,7 +11,7 @@ import firebase from 'firebase/app'
 import Spinner from '../components/Loading'
 import { ANALYTICS_EVENTS, HACKER_APPLICATION_TEMPLATE } from './Constants'
 import Closed from '../pages/Application/Closed'
-import { fillMissingProperties } from './utilities'
+import { fillMissingProperties, useDebounce } from './utilities'
 
 const HackerApplicationContext = createContext()
 
@@ -92,13 +92,11 @@ export function HackerApplicationProvider({ children }) {
     })
   }, [forceSave])
 
-  /**Setup auto-saving every 30 seconds */
-  useEffect(() => {
-    let interval = setInterval(syncAppToFirebase, 30000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [syncAppToFirebase, user])
+  // Debounced update that's called whenever the application object is updated
+  // Will only update the application on Firebase if 30 seconds have passed since last call
+  const debounceUpdate = useDebounce(() => {
+    syncAppToFirebase()
+  }, 30000)
 
   /**Update the updated variable when making changes to the new app
      Keep the ref up to date with the latest application
@@ -143,6 +141,7 @@ export function HackerApplicationProvider({ children }) {
     setApplication(mergedApp)
     applicationRef.current = mergedApp
     setUpdated(true)
+    debounceUpdate()
   }
 
   /**Check if the application is open */

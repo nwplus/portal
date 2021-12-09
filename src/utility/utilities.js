@@ -1,6 +1,9 @@
 // given array, split into array of chunks of size n
 // "balanced" (subarrays' lengths differ as less as possible) or
 // "even" (all subarrays but the last have the same length):
+
+import { useState, useCallback } from 'react'
+
 // https://stackoverflow.com/questions/8188548/splitting-a-js-array-into-n-arrays
 export const chunkify = (a, n, balanced) => {
   const numChunks = n
@@ -108,4 +111,24 @@ export const fillMissingProperties = (obj, templateObj) => {
   Object.keys(templateObj).forEach(k => {
     verifyObjectExists(obj, templateObj, k)
   })
+}
+
+export const useDebounce = (fn, waitTime) => {
+  const [timeoutHandler, setTimeoutHandler] = useState()
+
+  const clear = () => {
+    clearTimeout(timeoutHandler)
+    setTimeoutHandler(null)
+  }
+
+  const debounced = useCallback(() => {
+    if (timeoutHandler) {
+      clear()
+    }
+    setTimeoutHandler(setTimeout(fn, waitTime))
+    return clear
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fn, waitTime])
+
+  return debounced
 }
