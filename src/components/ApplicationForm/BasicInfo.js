@@ -64,7 +64,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
       </SubHeading>
       <TextInput
         placeholder="First Name"
-        inline
         value={formInputs.firstName}
         errorMsg={errors?.firstName}
         invalid={!!errors?.firstName}
@@ -77,7 +76,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
       />
       <TextInput
         placeholder="Middle Name"
-        inline
         value={formInputs.middleName}
         errorMsg={errors?.middleName}
         onChange={e =>
@@ -88,7 +86,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
       />
       <TextInput
         placeholder="Last Name"
-        inline
         value={formInputs.lastName}
         errorMsg={errors?.lastName}
         invalid={!!errors?.lastName}
@@ -126,7 +123,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
           placeholder="Please Specify"
           size="small"
           noOutline
-          inline
           value={formInputs.otherGender}
           onChange={e =>
             onChange({
@@ -167,7 +163,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
           placeholder="Please Specify"
           size="small"
           noOutline
-          inline
           value={formInputs.otherEthnicity}
           onChange={e =>
             onChange({
@@ -216,7 +211,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
             phoneNumber: e.target.value,
           })
         }
-        inline
         customRef={refs['phoneNumberRef']}
       />
     </FormSpacing>
@@ -300,7 +294,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
           placeholder="Please Specify"
           size="small"
           noOutline
-          inline
           value={formInputs.otherEducationLevel}
           errorMsg={errors?.otherEducationLevel}
           invalid={!!errors?.otherEducationLevel}
