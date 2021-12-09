@@ -127,7 +127,8 @@ export const useDebounce = (fn, waitTime) => {
     }
     setTimeoutHandler(setTimeout(fn, waitTime))
     return clear
-  }, [fn])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fn, waitTime])
 
   return debounced
 }
