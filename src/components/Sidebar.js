@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
@@ -9,6 +9,7 @@ import cmdf_logo from '../assets/cmdf_logo.svg'
 import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
+import { getSponsors } from '../utility/firebase'
 
 const SidebarContainer = styled.div`
   min-width: 275px;
@@ -113,9 +114,11 @@ const StatusText = styled.div`
   margin-top: 5px;
 `
 
-// const TitleSponsor = styled.img`
-//   margin: 1em 0 0 60px;
-// `
+const SponsorLogo = styled.img`
+  display: block;
+  margin: 1em 0 0 60px;
+  max-width: calc(200px - 2em);
+`
 
 export default ({
   showMobileSidebar,
@@ -134,6 +137,17 @@ export default ({
     { location: '/faq', text: 'FAQ' },
     { location: '/sponsors', text: 'SPONSORS' },
   ]
+  const [sponsors, setSponsors] = useState([])
+
+  useEffect(() => {
+    getSponsors().then(docs => {
+      // Only keep platinum tier sponsors for sidebar
+      const filteredDocs = docs
+        .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
+        .map(doc => doc.data())
+      setSponsors(filteredDocs)
+    })
+  }, [setSponsors])
 
   if (isJudgingOpen) {
     links.push({ location: '/judging', text: 'JUDGING' })
@@ -186,9 +200,7 @@ export default ({
           Logout
         </StyledButton>
       )}
-      {/* <a href="https://www.covalenthq.com" target="_blank" rel="noopener noreferrer">
-        <TitleSponsor src="/title_sponsor.svg" alt="Covalent logo" />
-      </a> */}
+      {sponsors && sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}
     </SidebarContainer>
   )
 }
