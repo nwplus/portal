@@ -142,14 +142,14 @@ export default ({
   useEffect(() => {
     getSponsors().then(docs => {
       // Only keep platinum tier sponsors for sidebar
-      const filteredDocs = docs.filter(
-        doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum'
-      )
-      setSponsors(filteredDocs.map(doc => doc.data()))
+      const filteredDocs = docs
+        .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
+        .map(doc => {
+          return doc.data()
+        })
+      setSponsors(filteredDocs)
     })
   }, [setSponsors])
-
-  const SponsorList = sponsors.map(sponsor => <SponsorLogo src={sponsor.imgURL} />)
 
   if (isJudgingOpen) {
     links.push({ location: '/judging', text: 'JUDGING' })
@@ -202,7 +202,7 @@ export default ({
           Logout
         </StyledButton>
       )}
-      {sponsors && SponsorList}
+      {sponsors && sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}
     </SidebarContainer>
   )
 }
