@@ -144,9 +144,7 @@ export default ({
       // Only keep platinum tier sponsors for sidebar
       const filteredDocs = docs
         .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
-        .map(doc => {
-          return doc.data()
-        })
+        .map(doc => doc.data())
       setSponsors(filteredDocs)
     })
   }, [setSponsors])
