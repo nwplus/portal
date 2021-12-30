@@ -23,14 +23,8 @@ import {
   Application,
 } from './pages'
 import Page from './components/Page'
-import { db } from './utility/firebase'
-import {
-  APPLICATION_STATUS,
-  DB_COLLECTION,
-  DB_HACKATHON,
-  IS_DEVICE_IOS,
-  ONLY_APPLICATION,
-} from './utility/Constants'
+import { db, getLivesiteDoc } from './utility/firebase'
+import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
@@ -44,9 +38,18 @@ const notifyUser = announcement => {
 }
 
 const PageRoute = ({ path, children }) => {
+  const [livesiteDoc, setLivesiteDoc] = useState(false)
+
+  useEffect(() => {
+    const unsubscribe = getLivesiteDoc(setLivesiteDoc)
+    return unsubscribe
+  }, [setLivesiteDoc])
+
+  console.log(livesiteDoc.applicationsOpen)
+
   return (
     <Route path={path}>
-      {ONLY_APPLICATION ? <Redirect to="/application" /> : <Page>{children}</Page>}
+      {livesiteDoc.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
     </Route>
   )
 }
