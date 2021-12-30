@@ -38,16 +38,16 @@ const notifyUser = announcement => {
 }
 
 const PageRoute = ({ path, children }) => {
-  const [livesiteDoc, setLivesiteDoc] = useState(false)
+  const [livesiteDoc, setLivesiteDoc] = useState(null)
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(setLivesiteDoc)
     return unsubscribe
-  }, [setLivesiteDoc])
+  }, [])
 
   return (
     <Route path={path}>
-      {livesiteDoc.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
+      {livesiteDoc?.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
     </Route>
   )
 }
