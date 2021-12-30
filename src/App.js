@@ -45,8 +45,6 @@ const PageRoute = ({ path, children }) => {
     return unsubscribe
   }, [setLivesiteDoc])
 
-  console.log(livesiteDoc.applicationsOpen)
-
   return (
     <Route path={path}>
       {livesiteDoc.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
