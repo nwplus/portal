@@ -26,6 +26,7 @@ const TextInputWithField = ({
   fieldName,
   value,
   placeholder,
+  autocomplete,
   required,
   invalid,
   errorMsg,
@@ -38,6 +39,7 @@ const TextInputWithField = ({
       <StyledTextInput
         value={value}
         placeholder={placeholder}
+        autoComplete={autocomplete}
         invalid={invalid}
         errorMsg={errorMsg}
         onChange={onChange}
@@ -201,6 +203,7 @@ export default ({ project, onSubmit }) => {
             fieldName="Member 1 Name"
             value={members[0]?.name}
             placeholder="FirstName LastName"
+            autocomplete="name"
             required
             invalid={errors?.member1Name}
             errorMsg={errors?.member1Name}
@@ -210,6 +213,7 @@ export default ({ project, onSubmit }) => {
             fieldName="Member 1 Email"
             value={members[0]?.email}
             placeholder="name@nwplus.io"
+            autocomplete="email"
             required
             invalid={errors?.member1Email}
             errorMsg={errors?.member1Email}
@@ -229,6 +233,7 @@ export default ({ project, onSubmit }) => {
           <TextInputWithField
             fieldName="Member 2 Name"
             value={members[1]?.name}
+            autocomplete="name"
             invalid={errors?.member2Name}
             errorMsg={errors?.member2Name}
             onChange={e => updateMember(1, 'name', e.target.value)}
@@ -236,6 +241,7 @@ export default ({ project, onSubmit }) => {
           <TextInputWithField
             fieldName="Member 2 Email"
             value={members[1]?.email}
+            autocomplete="email"
             invalid={errors?.member2Email}
             errorMsg={errors?.member2Email}
             onChange={e => updateMember(1, 'email', e.target.value)}
@@ -252,6 +258,7 @@ export default ({ project, onSubmit }) => {
           <TextInputWithField
             fieldName="Member 3 Name"
             value={members[2]?.name}
+            autocomplete="name"
             invalid={errors?.member3Name}
             errorMsg={errors?.member3Name}
             onChange={e => updateMember(2, 'name', e.target.value)}
@@ -259,6 +266,7 @@ export default ({ project, onSubmit }) => {
           <TextInputWithField
             fieldName="Member 3 Email"
             value={members[2]?.email}
+            autocomplete="email"
             invalid={errors?.member3Email}
             errorMsg={errors?.member3Email}
             onChange={e => updateMember(2, 'email', e.target.value)}
@@ -275,6 +283,7 @@ export default ({ project, onSubmit }) => {
           <TextInputWithField
             fieldName="Member 4 Name"
             value={members[3]?.name}
+            autocomplete="name"
             invalid={errors?.member4Name}
             errorMsg={errors?.member4Name}
             onChange={e => updateMember(3, 'name', e.target.value)}
@@ -282,6 +291,7 @@ export default ({ project, onSubmit }) => {
           <TextInputWithField
             fieldName="Member 4 Email"
             value={members[3]?.email}
+            autocomplete="email"
             invalid={errors?.member4Email}
             errorMsg={errors?.member4Email}
             onChange={e => updateMember(3, 'email', e.target.value)}
@@ -306,7 +316,7 @@ export default ({ project, onSubmit }) => {
           onChange={e => setLinks({ ...links, youtube: e.target.value })}
         />
         <TextInputWithField
-          fieldName="Source code"
+          fieldName="Source code (GitHub/BitBucket/GitLab)"
           value={links?.sourceCode}
           required
           invalid={errors?.sourceCode}
