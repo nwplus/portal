@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { H1, P } from '../components/Typography'
+import { H1, H2, P } from '../components/Typography'
 
 import { getSubmission } from '../utility/firebase'
 import { MAX_CHARACTERS_IN_DESCRIPTION } from '../utility/Constants'
 import { cutString, hexToRgba } from '../utility/utilities'
 import { Loading } from '../components/HeroPage'
 import Youtube from '../components/Youtube'
+import { Button } from '../components/Input'
 
 const StyledProjectContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  margin: 0 50px;
 `
 
 const StyledYoutube = styled(Youtube)`
@@ -32,28 +34,43 @@ const StyledBanner = styled.div`
   min-width: 100%;
 `
 
-const BannerStyledH1 = styled(H1)`
+const StyledH1 = styled(H1)`
   color: inherit;
   margin-bottom: 16px;
 `
 
-const BannerStyledP = styled(P)`
+const StyledP = styled(P)`
   color: inherit;
   margin-bottom: 21px;
+`
+
+const StyledH2 = styled(H2)`
+  opacity: 1;
 `
 
 const Project = ({ project }) => {
   return (
     <StyledProjectContainer>
       <StyledBanner>
-        <BannerStyledH1>{project.title}</BannerStyledH1>
-        <BannerStyledP>Created By: {project.teamMembers.join(' | ')}</BannerStyledP>
+        <StyledH1>{project.title}</StyledH1>
+        <StyledP>Created By: {project.teamMembers.join(' | ')}</StyledP>
       </StyledBanner>
       <P>{cutString(project.shortDescription, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
       <StyledYoutube src={project.youtubeUrl} />
-      <p>{project.longDescription}</p>
-
-      <p>{project.links}</p>
+      <div>
+        <StyledH2>Long Description</StyledH2>
+        <P>{project.longDescription}</P>
+      </div>
+      <div>
+        <StyledH2>Relevant Links</StyledH2>
+        <div>
+          {project.links.map(link => (
+            <Button color="primary" width="flex" href={link}>
+              {link}
+            </Button>
+          ))}
+        </div>
+      </div>
     </StyledProjectContainer>
   )
 }
