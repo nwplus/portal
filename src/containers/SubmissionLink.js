@@ -1,3 +1,5 @@
+// TODO: remove this when we finish project submission system
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import Form from '../components/Judging/SubmissionForm'
 import { projectsRef } from '../utility/firebase'

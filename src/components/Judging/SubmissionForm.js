@@ -80,6 +80,7 @@ export default ({ project, onSubmit }) => {
       }
     }
     setMembers(newArray)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const updateMember = (index, field, value) => {
