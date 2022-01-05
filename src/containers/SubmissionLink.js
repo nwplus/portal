@@ -36,7 +36,6 @@ const tempProject = {
 }
 
 export default ({ user, refreshCallback }) => {
-  const [message, setMessage] = useState('')
   const [project, setProject] = useState(tempProject)
 
   // TODO: fetch project based on current user setProject
@@ -46,5 +45,5 @@ export default ({ user, refreshCallback }) => {
     console.log(projectSubmission)
   }
 
-  return <Form msg={message} project={project} onSubmit={submit} />
+  return <Form project={project} onSubmit={submit} />
 }
