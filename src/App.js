@@ -151,9 +151,11 @@ const JudgingViewContainer = ({ params }) => {
   )
 }
 
-const ProjectViewContainer = ({ params }) => <Page>
-  <ProjectView id={params.id} />
-</Page>
+const ProjectViewContainer = ({ params }) => (
+  <Page>
+    <ProjectView pid={params.id} />
+  </Page>
+)
 
 const ApplicationDashboardRoutingContainer = () => {
   const { isAuthed } = useAuth()
