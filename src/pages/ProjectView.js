@@ -3,10 +3,10 @@ import { getSubmission } from '../utility/firebase'
 import { Loading } from '../components/HeroPage'
 import Youtube from '../components/Youtube'
 
-const Project = ({ projectInfo }) => {
+const Project = ({ project }) => {
   return (
     <div>
-      <Youtube src={projectInfo.youtubeUrl} />
+      <Youtube src={project.youtubeUrl} />
     </div>
   )
 }
@@ -16,6 +16,7 @@ export default ({ pid }) => {
 
   const getProject = async () => {
     const projectData = await getSubmission(pid)
+    console.log(projectData, ' logging the result of getting submission')
     if (projectData.exists) {
       setProjectInfo(!projectData ? null : projectData)
     } else {
