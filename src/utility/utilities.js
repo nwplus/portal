@@ -132,3 +132,11 @@ export const useDebounce = (fn, waitTime) => {
 
   return debounced
 }
+
+export const cutString = (string, maxLength) => {
+  const cut = string.indexOf(' ', maxLength)
+  if (cut === -1) {
+    return string
+  }
+  return `${string.substring(0, cut)}...`
+}
