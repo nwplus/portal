@@ -143,7 +143,6 @@ export default ({ project, onSubmit }) => {
     Object.entries(links).forEach(entry => {
       const [source, link] = entry
       if (link && !validateURL(link)) {
-        console.log('not a valid URL')
         newErrors[source] = 'Please enter a valid URL'
       }
     })
@@ -151,7 +150,6 @@ export default ({ project, onSubmit }) => {
 
     // Remove incomplete member objects
     const membersArray = [...members]
-    console.log(membersArray)
     const filteredMembers = membersArray.filter(member => {
       return member?.name && member?.email && member?.discord
     })
