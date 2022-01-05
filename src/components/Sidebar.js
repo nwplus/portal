@@ -14,10 +14,11 @@ import { getSponsors } from '../utility/firebase'
 const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
-  border-right: 1px solid ${p => p.theme.colors.border};
+  // border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
   z-index: 1;
-  background: ${p => p.theme.colors.background};
+  background: #051439;
+  text-transform: uppercase;
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
@@ -65,17 +66,16 @@ const ItemsContainer = styled.div`
 const StyledA = styled(A)`
   display: block;
   font-weight: bold;
-  padding: 1em 60px;
+  padding: 1em 50px;
   border-bottom: none;
-  color: ${p =>
-    p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
-  ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
+  color: ${p => (p.theme.name !== 'cmdf' && p.selected ? '#051439' : p.theme.colors.highlight)};
+  ${p => p.selected && `background: #FFB72C;`}
   &:hover {
-    background: ${p => p.theme.colors.secondaryBackground};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
   &:focus {
-    background: ${p => p.theme.colors.secondaryBackground};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
 `
@@ -116,8 +116,14 @@ const StatusText = styled.div`
 
 const SponsorLogo = styled.img`
   display: block;
-  margin: 1em 0 0 60px;
+  margin: 1em 0 0 50px;
   max-width: calc(200px - 2em);
+`
+
+const CategoryHeader = styled.h4`
+  padding: 1em 50px 0;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.45);
 `
 
 export default ({
@@ -130,12 +136,36 @@ export default ({
 }) => {
   const [location] = useLocation()
   const { user, isAuthed, logout } = useAuth()
+  // const links = [
+  //   { location: '/', text: 'DASHBOARD' },
+  //   { location: '/schedule', text: 'SCHEDULE' },
+  //   { location: '/quicklinks', text: 'QUICKLINKS' },
+  //   { location: '/faq', text: 'FAQ' },
+  //   { location: '/sponsors', text: 'SPONSORS' },
+  // ]
+  const linksDict = ['General', 'Tools', 'Information', '']
   const links = [
-    { location: '/', text: 'DASHBOARD' },
-    { location: '/schedule', text: 'SCHEDULE' },
-    { location: '/quicklinks', text: 'QUICKLINKS' },
-    { location: '/faq', text: 'FAQ' },
-    { location: '/sponsors', text: 'SPONSORS' },
+    // General
+    [
+      { location: '/quicklinks', text: 'Getting Started' },
+      { location: '/', text: 'Home' },
+      { location: '/schedule', text: 'Schedule' },
+      { location: '/sponsors', text: 'Sponsors' },
+    ],
+    // Tools
+    [
+      { location: '/gallery', text: 'Project Gallery' },
+      // (conditional) Project Submission
+      // (conditional) Peer Judging
+    ],
+    // Information
+    [
+      { location: '/package', text: 'Info Package' },
+      { location: '/faq', text: 'FAQ' },
+      // (conditional) Judging
+    ],
+    // DEBUG/misc
+    [],
   ]
   const [sponsors, setSponsors] = useState([])
 
@@ -150,25 +180,49 @@ export default ({
   }, [setSponsors])
 
   if (isJudgingOpen) {
-    links.push({ location: '/judging', text: 'JUDGING' })
+    links[1].push({ location: '/judging', text: 'Peer Judging' })
   }
 
   if (isSubmissionsOpen) {
-    links.push({ location: '/submission', text: 'SUBMISSION' })
+    links[1].push({ location: '/submission', text: 'Project Submission' })
   }
 
   if (user && user.admin) {
-    links.push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
+    links[3].push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    links.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
+    links[3].push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 
   if (isApplicationOpen) {
     // List the application as the last item on the menu
-    links.push({ location: '/application', text: 'APPLICATION' })
+    links[3].push({ location: '/application', text: 'APPLICATION' })
   }
+
+  const [renderLinks, setRenderLinks] = useState([])
+
+  useEffect(() => {
+    let renderArray = []
+
+    links.forEach((item, index) =>
+      renderArray.push(
+        <>
+          <CategoryHeader>{linksDict[index]}</CategoryHeader>
+          {item.map((link, i) => {
+            return (
+              <Link key={i} href={link.location} onClick={hideSidebarCallback}>
+                <StyledA selected={location === link.location}>{link.text}</StyledA>
+              </Link>
+            )
+          })}
+        </>
+      )
+    )
+
+    setRenderLinks(renderArray)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [links])
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
@@ -179,13 +233,7 @@ export default ({
       </LiveLabel>
       <ItemsContainer>
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
-          links.map((link, i) => {
-            return (
-              <Link key={i} href={link.location} onClick={hideSidebarCallback}>
-                <StyledA selected={location === link.location}>{link.text}</StyledA>
-              </Link>
-            )
-          })
+          renderLinks
         ) : (
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
