@@ -59,9 +59,22 @@ export const getYoutubeThumbnail = link => {
   }
   if (link.includes('youtu.be')) {
     const youtubeID = new URL(link).pathname
-    return `https://img.youtube.com/vi${youtubeID}/maxresdefault.jpg`
+    return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
   }
   return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'
+}
+
+// given youtube video URL, convert to embed URL
+export const getYoutubeEmbedUrl = link => {
+  if (link.includes('youtube')) {
+    const youtubeID = new URL(link).searchParams.get('v')
+    return `https://img.youtube.com/embed/${youtubeID}`
+  }
+  if (link.includes('youtu.be')) {
+    const youtubeID = new URL(link).pathname
+    return `https://img.youtube.com/embed/${youtubeID}`
+  }
+  return 'https://img.youtube.com/embed/aaa'
 }
 
 export const formatProject = project => {
