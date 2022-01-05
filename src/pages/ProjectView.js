@@ -14,8 +14,15 @@ const StyledProjectContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 40px;
   margin: 0 50px;
+`
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100%;
 `
 
 const StyledYoutube = styled(Youtube)`
@@ -48,6 +55,10 @@ const StyledH2 = styled(H2)`
   opacity: 1;
 `
 
+const StyledButton = styled(Button)`
+  margin-top: 0;
+`
+
 const Project = ({ project }) => {
   return (
     <StyledProjectContainer>
@@ -57,20 +68,29 @@ const Project = ({ project }) => {
       </StyledBanner>
       <P>{cutString(project.shortDescription, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
       <StyledYoutube src={project.youtubeUrl} />
-      <div>
+      <StyledDiv>
         <StyledH2>Long Description</StyledH2>
         <P>{project.longDescription}</P>
-      </div>
-      <div>
+      </StyledDiv>
+      <StyledDiv>
         <StyledH2>Relevant Links</StyledH2>
         <div>
-          {project.links.map(link => (
-            <Button color="primary" width="flex" href={link}>
-              {link}
-            </Button>
-          ))}
+          {project.links.map(link => {
+            const cleanedUpLink = link.replace('https://', '').replace('http://', '')
+            return (
+              <StyledButton
+                color="primary"
+                width="flex"
+                href={`//${cleanedUpLink}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {cleanedUpLink}
+              </StyledButton>
+            )
+          })}
         </div>
-      </div>
+      </StyledDiv>
     </StyledProjectContainer>
   )
 }
@@ -80,7 +100,6 @@ export default ({ pid }) => {
 
   const getProject = async () => {
     const projectData = await getSubmission(pid)
-    console.log(projectData, ' logging the result of getting submission')
     if (projectData.exists) {
       setProjectInfo(!projectData ? null : projectData)
     } else {
