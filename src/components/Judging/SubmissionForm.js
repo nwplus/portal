@@ -115,16 +115,14 @@ export default ({ project, onSubmit }) => {
 
     // Validate member fields
     members.forEach((member, index) => {
-      if (!member.name && (member.email || member.discord)) {
-        console.log('name missing')
+      const isRequired = index === 0
+      if (!member.name && (isRequired || member.email || member.discord)) {
         newErrors[`member${index + 1}Name`] = 'Please enter a name'
       }
-      if (!member.email && (member.name || member.discord)) {
-        console.log('email missing')
+      if (!member.email && (isRequired || member.name || member.discord)) {
         newErrors[`member${index + 1}Email`] = 'Please enter a valid email'
       }
-      if (!member.discord && (member.name || member.email)) {
-        console.log('discord missing')
+      if (!member.discord && (isRequired || member.name || member.email)) {
         newErrors[`member${index + 1}Discord`] = 'Please enter a valid Discord username'
       }
       if (member.email && !validateEmail(member.email)) {
