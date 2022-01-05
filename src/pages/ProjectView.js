@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+
 import { getSubmission } from '../utility/firebase'
 import { Loading } from '../components/HeroPage'
 import Youtube from '../components/Youtube'
 
+const StyledYoutube = styled(Youtube)`
+  width: 600px;
+  height: 350px;
+  border-radius: 3px;
+`
+
 const Project = ({ project }) => {
   return (
     <div>
-      <Youtube src={project.youtubeUrl} />
+      <StyledYoutube src={project.youtubeUrl} />
     </div>
   )
 }
