@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Checkbox, TextArea, TextInput } from '../Input'
+import { Button, Select, TextArea, TextInput } from '../Input'
 import { ErrorSpan as Required, ErrorMessage, H1, Label } from '../Typography'
 import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
@@ -13,9 +13,20 @@ const FormSection = styled.div`
   margin-bottom: 40px;
 `
 
-const TeamMemberRow = styled.div`
+const MemberList = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 40px;
+`
+
+const TeamMember = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+`
+
+const FieldName = styled.div`
+  margin-bottom: 4px;
 `
 
 const StyledTextInput = styled(TextInput)`
@@ -34,8 +45,10 @@ const TextInputWithField = ({
 }) => {
   return (
     <div>
-      {fieldName}
-      {required && <Required />}
+      <FieldName>
+        {fieldName}
+        {required && <Required />}
+      </FieldName>
       <StyledTextInput
         value={value}
         placeholder={placeholder}
@@ -125,13 +138,15 @@ export default ({ project, onSubmit }) => {
         newErrors[`member${index + 1}Email`] = 'Please enter a valid email'
       }
       if (!member.discord && (isRequired || member.name || member.email)) {
-        newErrors[`member${index + 1}Discord`] = 'Please enter a valid Discord username'
+        newErrors[`member${index + 1}Discord`] =
+          'Please enter a valid Discord username (eg. username#1234)'
       }
       if (member.email && !validateEmail(member.email)) {
         newErrors[`member${index + 1}Email`] = 'Please enter a valid email'
       }
       if (member.discord && !validateDiscord(member.discord)) {
-        newErrors[`member${index + 1}Discord`] = 'Please enter a valid Discord username'
+        newErrors[`member${index + 1}Discord`] =
+          'Please enter a valid Discord username (eg. username#1234)'
       }
     })
 
@@ -198,112 +213,41 @@ export default ({ project, onSubmit }) => {
       </FormSection>
       <FormSection>
         <Label>Team members</Label>
-        <TeamMemberRow>
-          <TextInputWithField
-            fieldName="Member 1 Name"
-            value={members[0]?.name}
-            placeholder="FirstName LastName"
-            autocomplete="name"
-            required
-            invalid={errors?.member1Name}
-            errorMsg={errors?.member1Name}
-            onChange={e => updateMember(0, 'name', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 1 Email"
-            value={members[0]?.email}
-            placeholder="name@nwplus.io"
-            autocomplete="email"
-            required
-            invalid={errors?.member1Email}
-            errorMsg={errors?.member1Email}
-            onChange={e => updateMember(0, 'email', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 1 Discord"
-            value={members[0]?.discord}
-            placeholder="username#1234"
-            required
-            invalid={errors?.member1Discord}
-            errorMsg={errors?.member1Discord}
-            onChange={e => updateMember(0, 'discord', e.target.value)}
-          />
-        </TeamMemberRow>
-        <TeamMemberRow>
-          <TextInputWithField
-            fieldName="Member 2 Name"
-            value={members[1]?.name}
-            autocomplete="name"
-            invalid={errors?.member2Name}
-            errorMsg={errors?.member2Name}
-            onChange={e => updateMember(1, 'name', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 2 Email"
-            value={members[1]?.email}
-            autocomplete="email"
-            invalid={errors?.member2Email}
-            errorMsg={errors?.member2Email}
-            onChange={e => updateMember(1, 'email', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 2 Discord"
-            value={members[1]?.discord}
-            invalid={errors?.member2Discord}
-            errorMsg={errors?.member2Discord}
-            onChange={e => updateMember(1, 'discord', e.target.value)}
-          />
-        </TeamMemberRow>
-        <TeamMemberRow>
-          <TextInputWithField
-            fieldName="Member 3 Name"
-            value={members[2]?.name}
-            autocomplete="name"
-            invalid={errors?.member3Name}
-            errorMsg={errors?.member3Name}
-            onChange={e => updateMember(2, 'name', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 3 Email"
-            value={members[2]?.email}
-            autocomplete="email"
-            invalid={errors?.member3Email}
-            errorMsg={errors?.member3Email}
-            onChange={e => updateMember(2, 'email', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 3 Discord"
-            value={members[2]?.discord}
-            invalid={errors?.member3Discord}
-            errorMsg={errors?.member3Discord}
-            onChange={e => updateMember(2, 'discord', e.target.value)}
-          />
-        </TeamMemberRow>
-        <TeamMemberRow>
-          <TextInputWithField
-            fieldName="Member 4 Name"
-            value={members[3]?.name}
-            autocomplete="name"
-            invalid={errors?.member4Name}
-            errorMsg={errors?.member4Name}
-            onChange={e => updateMember(3, 'name', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 4 Email"
-            value={members[3]?.email}
-            autocomplete="email"
-            invalid={errors?.member4Email}
-            errorMsg={errors?.member4Email}
-            onChange={e => updateMember(3, 'email', e.target.value)}
-          />
-          <TextInputWithField
-            fieldName="Member 4 Discord"
-            value={members[3]?.discord}
-            invalid={errors?.member4Discord}
-            errorMsg={errors?.member4Discord}
-            onChange={e => updateMember(3, 'discord', e.target.value)}
-          />
-        </TeamMemberRow>
+        <MemberList>
+          {members.map((member, index) => (
+            <TeamMember>
+              <TextInputWithField
+                fieldName={`Member ${index + 1} Name`}
+                value={member?.name}
+                placeholder="FirstName LastName"
+                autocomplete="name"
+                required={index === 0}
+                invalid={errors?.[`member${index + 1}Name`]}
+                errorMsg={errors?.[`member${index + 1}Name`]}
+                onChange={e => updateMember(index, 'name', e.target.value)}
+              />
+              <TextInputWithField
+                fieldName={`Member ${index + 1} Email`}
+                value={member?.email}
+                placeholder="name@nwplus.io"
+                autocomplete="email"
+                required={index === 0}
+                invalid={errors?.[`member${index + 1}Email`]}
+                errorMsg={errors?.[`member${index + 1}Email`]}
+                onChange={e => updateMember(index, 'email', e.target.value)}
+              />
+              <TextInputWithField
+                fieldName={`Member ${index + 1} Discord`}
+                value={member?.discord}
+                placeholder="username#1234"
+                required={index === 0}
+                invalid={errors?.[`member${index + 1}Discord`]}
+                errorMsg={errors?.[`member${index + 1}Discord`]}
+                onChange={e => updateMember(index, 'discord', e.target.value)}
+              />
+            </TeamMember>
+          ))}
+        </MemberList>
       </FormSection>
       <FormSection>
         <Label>Links</Label>
@@ -333,16 +277,19 @@ export default ({ project, onSubmit }) => {
       </FormSection>
       <FormSection>
         <Label>Sponsor Prizes</Label>
-        {sponsorPrizes.map(prize => {
-          return (
-            <Checkbox
-              key={prize}
-              checked={selectedPrizes.includes(prize)}
-              label={prize}
-              onChange={() => handleCheck(prize)}
-            />
-          )
-        })}
+        <div>
+          {sponsorPrizes.map(prize => {
+            return (
+              <Select
+                key={prize}
+                type="checkbox"
+                checked={selectedPrizes.includes(prize)}
+                label={prize}
+                onChange={() => handleCheck(prize)}
+              />
+            )
+          })}
+        </div>
       </FormSection>
       {Object.keys(errors).length > 0 && (
         <ErrorMessage>Please address errors before submitting.</ErrorMessage>
