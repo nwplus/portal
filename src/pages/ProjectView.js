@@ -76,7 +76,7 @@ const Project = ({ project }) => {
         <StyledH2>Relevant Links</StyledH2>
         <div>
           {project.links.map(link => {
-            const cleanedUpLink = link.replace('https://', '').replace('http://', '')
+            const cleanedUpLink = link.replace(/https?:\/\//, '')
             return (
               <StyledButton
                 color="primary"
