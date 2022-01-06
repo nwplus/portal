@@ -221,47 +221,6 @@ export default ({ project, onSubmit }) => {
           onChange={setDescription}
         />
       </FormSection>
-      <StyledHr />
-      <FormSection>
-        <Label>Add up to 4 team members</Label>
-        <MemberList>
-          {members.map((member, index) => (
-            <TeamMember>
-              <StyledH3>Member {index + 1}</StyledH3>
-              <TextInputWithField
-                fieldName="Name"
-                value={member?.name}
-                placeholder="FirstName LastName"
-                autocomplete="name"
-                required={index === 0}
-                invalid={errors?.[`member${index + 1}Name`]}
-                errorMsg={errors?.[`member${index + 1}Name`]}
-                onChange={e => updateMember(index, 'name', e.target.value)}
-              />
-              <TextInputWithField
-                fieldName="Email"
-                value={member?.email}
-                placeholder="name@nwplus.io"
-                autocomplete="email"
-                required={index === 0}
-                invalid={errors?.[`member${index + 1}Email`]}
-                errorMsg={errors?.[`member${index + 1}Email`]}
-                onChange={e => updateMember(index, 'email', e.target.value)}
-              />
-              <TextInputWithField
-                fieldName="Discord username"
-                value={member?.discord}
-                placeholder="username#1234"
-                required={index === 0}
-                invalid={errors?.[`member${index + 1}Discord`]}
-                errorMsg={errors?.[`member${index + 1}Discord`]}
-                onChange={e => updateMember(index, 'discord', e.target.value)}
-              />
-            </TeamMember>
-          ))}
-        </MemberList>
-      </FormSection>
-      <StyledHr />
       <FormSection>
         <Label>Links</Label>
         <TextInputWithField
@@ -304,17 +263,57 @@ export default ({ project, onSubmit }) => {
           })}
         </div>
       </FormSection>
+      <StyledHr />
+      <FormSection>
+        <Label>Add up to 4 team members</Label>
+        <MemberList>
+          {members.map((member, index) => (
+            <TeamMember>
+              <StyledH3>Member {index + 1}</StyledH3>
+              <TextInputWithField
+                fieldName="Name"
+                value={member?.name}
+                placeholder="FirstName LastName"
+                autocomplete="name"
+                required={index === 0}
+                invalid={errors?.[`member${index + 1}Name`]}
+                errorMsg={errors?.[`member${index + 1}Name`]}
+                onChange={e => updateMember(index, 'name', e.target.value)}
+              />
+              <TextInputWithField
+                fieldName="Email"
+                value={member?.email}
+                placeholder="name@nwplus.io"
+                autocomplete="email"
+                required={index === 0}
+                invalid={errors?.[`member${index + 1}Email`]}
+                errorMsg={errors?.[`member${index + 1}Email`]}
+                onChange={e => updateMember(index, 'email', e.target.value)}
+              />
+              <TextInputWithField
+                fieldName="Discord username"
+                value={member?.discord}
+                placeholder="username#1234"
+                required={index === 0}
+                invalid={errors?.[`member${index + 1}Discord`]}
+                errorMsg={errors?.[`member${index + 1}Discord`]}
+                onChange={e => updateMember(index, 'discord', e.target.value)}
+              />
+            </TeamMember>
+          ))}
+        </MemberList>
+      </FormSection>
       {Object.keys(errors).length > 0 && (
-        <ErrorMessage>Please address errors before submitting.</ErrorMessage>
+        <ErrorMessage>Please address errors before submitting</ErrorMessage>
       )}
-      <Button no_margin onClick={handleSubmit}>
-        Submit
-      </Button>
       {project.lastEditedBy && (
         <div>
           Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
         </div>
       )}
+      <Button no_margin onClick={handleSubmit}>
+        Submit
+      </Button>
     </div>
   )
 }
