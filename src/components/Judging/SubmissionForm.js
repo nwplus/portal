@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput } from '../Input'
-import { ErrorSpan as Required, ErrorMessage, H1, H2, Label } from '../Typography'
+import { ErrorSpan as Required, ErrorMessage, H1, H3, Label } from '../Typography'
 import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
@@ -13,9 +13,14 @@ const FormSection = styled.div`
   margin-bottom: 40px;
 `
 
+const StyledHr = styled.hr`
+  margin: 40px 0;
+  border-color: ${p => p.theme.colors.border};
+`
+
 const MemberList = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 40px;
 `
 
@@ -25,8 +30,9 @@ const TeamMember = styled.div`
   gap: 16px;
 `
 
-const StyledH2 = styled(H2)`
+const StyledH3 = styled(H3)`
   margin: 0;
+  text-transform: uppercase;
 `
 
 const FieldName = styled.div`
@@ -215,12 +221,13 @@ export default ({ project, onSubmit }) => {
           onChange={setDescription}
         />
       </FormSection>
+      <StyledHr />
       <FormSection>
         <Label>Add up to 4 team members</Label>
         <MemberList>
           {members.map((member, index) => (
             <TeamMember>
-              <StyledH2>Member {index + 1}</StyledH2>
+              <StyledH3>Member {index + 1}</StyledH3>
               <TextInputWithField
                 fieldName="Name"
                 value={member?.name}
@@ -254,6 +261,7 @@ export default ({ project, onSubmit }) => {
           ))}
         </MemberList>
       </FormSection>
+      <StyledHr />
       <FormSection>
         <Label>Links</Label>
         <TextInputWithField
