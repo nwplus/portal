@@ -18,7 +18,6 @@ const SidebarContainer = styled.div`
   transition: opacity 1s ease-out;
   z-index: 1;
   background: #051439;
-  text-transform: uppercase;
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
@@ -64,6 +63,7 @@ const ItemsContainer = styled.div`
 `
 
 const StyledA = styled(A)`
+  text-transform: uppercase;
   display: block;
   font-weight: bold;
   padding: 1em 50px;
@@ -71,10 +71,12 @@ const StyledA = styled(A)`
   color: ${p => (p.theme.name !== 'cmdf' && p.selected ? '#051439' : p.theme.colors.highlight)};
   ${p => p.selected && `background: #FFB72C;`}
   &:hover {
+    color: #ffffff;
     background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
   &:focus {
+    color: #ffffff;
     background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
@@ -83,7 +85,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background-color: ${p => p.theme.colors.background};
+  background: ${p => p.theme.colors.background};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -94,8 +96,10 @@ const LiveLabel = styled.p`
   font-weight: 600;
   font-size: 0.9em;
   border-radius: 7px;
-  background-color: ${p => p.theme.colors.primary};
-  color: ${p => p.theme.colors.background};
+  // background-color: ${p => p.theme.colors.primary};
+  background: linear-gradient(to bottom, #ffd12c, #fe800b);
+  // color: ${p => p.theme.colors.background};
+  color: #051439;
   width: 4em;
   padding: 5px;
 `
@@ -121,7 +125,9 @@ const SponsorLogo = styled.img`
 `
 
 const CategoryHeader = styled.h4`
+  text-transform: uppercase;
   padding: 1em 50px 0;
+  font-weight: 600;
   margin-bottom: 0.5rem;
   color: rgba(255, 255, 255, 0.45);
 `
@@ -161,8 +167,8 @@ export default ({
     // Information
     [
       { location: '/package', text: 'Info Package' },
+      { location: '/judging', text: 'Judging' },
       { location: '/faq', text: 'FAQ' },
-      // (conditional) Judging
     ],
     // DEBUG/misc
     [],
@@ -179,16 +185,16 @@ export default ({
     })
   }, [setSponsors])
 
-  if (isJudgingOpen) {
-    links[1].push({ location: '/judging', text: 'Peer Judging' })
-  }
-
   if (isSubmissionsOpen) {
     links[1].push({ location: '/submission', text: 'Project Submission' })
   }
 
+  if (isJudgingOpen) {
+    links[1].push({ location: '/judging', text: 'Peer Judging' })
+  }
+
   if (user && user.admin) {
-    links[3].push({ location: '/judging/admin', text: 'JUDGING ADMIN' })
+    links[1].push({ location: '/judging/admin', text: 'Judging Admin' })
   }
 
   if (process.env.NODE_ENV !== 'production') {
