@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput } from '../Input'
-import { ErrorSpan as Required, ErrorMessage, H1, Label } from '../Typography'
+import { ErrorSpan as Required, ErrorMessage, H1, H2, Label } from '../Typography'
 import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
@@ -23,6 +23,10 @@ const TeamMember = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`
+
+const StyledH2 = styled(H2)`
+  margin: 0;
 `
 
 const FieldName = styled.div`
@@ -212,12 +216,13 @@ export default ({ project, onSubmit }) => {
         />
       </FormSection>
       <FormSection>
-        <Label>Team members</Label>
+        <Label>Add up to 4 team members</Label>
         <MemberList>
           {members.map((member, index) => (
             <TeamMember>
+              <StyledH2>Member {index + 1}</StyledH2>
               <TextInputWithField
-                fieldName={`Member ${index + 1} Name`}
+                fieldName="Name"
                 value={member?.name}
                 placeholder="FirstName LastName"
                 autocomplete="name"
@@ -227,7 +232,7 @@ export default ({ project, onSubmit }) => {
                 onChange={e => updateMember(index, 'name', e.target.value)}
               />
               <TextInputWithField
-                fieldName={`Member ${index + 1} Email`}
+                fieldName="Email"
                 value={member?.email}
                 placeholder="name@nwplus.io"
                 autocomplete="email"
@@ -237,7 +242,7 @@ export default ({ project, onSubmit }) => {
                 onChange={e => updateMember(index, 'email', e.target.value)}
               />
               <TextInputWithField
-                fieldName={`Member ${index + 1} Discord`}
+                fieldName="Discord username"
                 value={member?.discord}
                 placeholder="username#1234"
                 required={index === 0}
