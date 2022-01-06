@@ -5,7 +5,7 @@ import { H1, H2, P } from '../components/Typography'
 
 import { getSubmission } from '../utility/firebase'
 import { MAX_CHARACTERS_IN_DESCRIPTION } from '../utility/Constants'
-import { cutString, hexToRgba } from '../utility/utilities'
+import { hexToRgba } from '../utility/utilities'
 import { Loading } from '../components/HeroPage'
 import Youtube from '../components/Youtube'
 import { Button } from '../components/Input'
@@ -66,10 +66,10 @@ const Project = ({ project }) => {
         <StyledH1>{project.title}</StyledH1>
         <StyledP>Created By: {project.teamMembers.join(' | ')}</StyledP>
       </StyledBanner>
-      <P>{cutString(project.shortDescription, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
+      <P>{project.shortDescription}</P>
       <StyledYoutube src={project.youtubeUrl} />
       <StyledDiv>
-        <StyledH2>Long Description</StyledH2>
+        <StyledH2>Description</StyledH2>
         <P>{project.longDescription}</P>
       </StyledDiv>
       <StyledDiv>
