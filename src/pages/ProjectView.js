@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { H1, H2, P } from '../components/Typography'
 
 import { getSubmission } from '../utility/firebase'
-import { MAX_CHARACTERS_IN_DESCRIPTION } from '../utility/Constants'
 import { hexToRgba } from '../utility/utilities'
 import { Loading } from '../components/HeroPage'
 import Youtube from '../components/Youtube'
