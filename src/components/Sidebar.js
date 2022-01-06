@@ -142,13 +142,6 @@ export default ({
 }) => {
   const [location] = useLocation()
   const { user, isAuthed, logout } = useAuth()
-  // const links = [
-  //   { location: '/', text: 'DASHBOARD' },
-  //   { location: '/schedule', text: 'SCHEDULE' },
-  //   { location: '/quicklinks', text: 'QUICKLINKS' },
-  //   { location: '/faq', text: 'FAQ' },
-  //   { location: '/sponsors', text: 'SPONSORS' },
-  // ]
   const linksDict = ['General', 'Tools', 'Information', '']
   const links = [
     // General
@@ -163,6 +156,7 @@ export default ({
       { location: '/gallery', text: 'Project Gallery' },
       // (conditional) Project Submission
       // (conditional) Peer Judging
+      // (conditional) Judging (Admin)
     ],
     // Information
     [
