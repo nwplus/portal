@@ -24,6 +24,11 @@ const StyledDiv = styled.div`
   min-width: 100%;
 `
 
+const LinkContainer = styled.div`
+  display: flex;
+  justify-contents: center;
+`
+
 const StyledYoutube = styled(Youtube)`
   width: 600px;
   height: 350px;
@@ -73,7 +78,7 @@ const Project = ({ project }) => {
       </StyledDiv>
       <StyledDiv>
         <StyledH2>Relevant Links</StyledH2>
-        <div>
+        <LinkContainer>
           {project.links.map(link => {
             const cleanedUpLink = link.replace(/https?:\/\//, '')
             return (
@@ -88,7 +93,7 @@ const Project = ({ project }) => {
               </StyledButton>
             )
           })}
-        </div>
+        </LinkContainer>
       </StyledDiv>
     </StyledProjectContainer>
   )
