@@ -4,8 +4,8 @@ import { Link } from 'wouter'
 import { H2, P } from '../Typography'
 import { CardLike } from '../Common.js'
 import { Button } from '../Input/Button'
-
-const MAX_CHARACTERS_IN_DESCRIPTION = 100
+import { MAX_CHARACTERS_IN_DESCRIPTION } from '../../utility/Constants'
+import { cutString } from '../../utility/utilities'
 
 const StyledCard = styled.div`
   ${CardLike};
@@ -35,14 +35,6 @@ const Title = styled(H2)`
   margin: 0;
   margin-bottom: 0.5em;
 `
-
-const cutString = (string, maxLength) => {
-  const cut = string.indexOf(' ', maxLength)
-  if (cut === -1) {
-    return string
-  }
-  return `${string.substring(0, cut)}...`
-}
 
 export default ({
   imgUrl,
