@@ -99,7 +99,7 @@ export default ({ project, onSubmit, isSubmitting }) => {
   // Required so that updateMember function doesn't break
   useEffect(() => {
     setTitle(project.title || '')
-    setDescription(project.longDescription || '')
+    setDescription(project.description || '')
     setLinks(project.links || {})
     setSelectedPrizes(project.sponsorPrizes || [])
     setMentorNominations(project.mentorNominations || '')

@@ -4,16 +4,6 @@ import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
 import { projectsRef, applicantsRef } from '../utility/firebase'
 
-// const NO_PROJECT = 'no project found'
-
-// const getUser = async uid => {
-//   const userDoc = await applicantsRef.get(uid)
-//   if (userDoc.docs.length < 1) {
-//     return NO_USER
-//   }
-//   return userDoc
-// }
-
 const tempProject = {
   // title: '',
   // description: '',
@@ -37,7 +27,6 @@ const tempProject = {
 
 export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState(tempProject)
-  const [userObj, setUserObj] = useState({})
   const [isSubmitting, setSubmitting] = useState(false)
 
   useEffect(() => {
@@ -47,7 +36,6 @@ export default ({ user, refreshCallback }) => {
         return
       }
       const userData = userDoc.data()
-      setUserObj(userData)
       const projectId = userData.submittedProject
       if (projectId) {
         const projectDoc = await projectsRef.doc(projectId).get()
@@ -62,15 +50,32 @@ export default ({ user, refreshCallback }) => {
       return
     }
     setSubmitting(true)
-    // TODO: Write project submission to Firebase
     const projectId = projectSubmission.uid
     delete projectSubmission.uid
     if (projectId) {
-      // update doc
       await projectsRef.doc(projectId).update(projectSubmission)
+      // TODO: Determine if these emails are "new" emails
+      await Promise.all(
+        projectSubmission.teamMembers.map(async member => {
+          console.log(member.email)
+          const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+          if (res.docs.length > 0) {
+            return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: projectId })
+          }
+        })
+      )
     } else {
       const res = await projectsRef.add(projectSubmission)
-      await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
+      // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
+      await Promise.all(
+        projectSubmission.teamMembers.map(async member => {
+          console.log(member.email)
+          const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+          if (res.docs.length > 0) {
+            return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: res.id })
+          }
+        })
+      )
     }
     setSubmitting(false)
   }
