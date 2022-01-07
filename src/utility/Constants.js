@@ -12,6 +12,7 @@ export const copyText = Object.freeze({
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 5
+export const MAX_CHARACTERS_IN_DESCRIPTION = 100
 
 export const NOTIFICATION_PERMISSIONS = Object.freeze({
   GRANTED: 'granted',
