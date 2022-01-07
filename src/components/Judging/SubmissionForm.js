@@ -190,6 +190,7 @@ export default ({ project, onSubmit }) => {
         teamMembers: filteredMembers,
         links,
         sponsorPrizes: selectedPrizes,
+        mentorNominations,
       })
     }
   }
