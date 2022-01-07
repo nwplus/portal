@@ -179,6 +179,11 @@ export const getSponsors = () => {
     })
 }
 
+export const getProjects = () => {
+  return projectsRef.get().then(querySnapshot => {
+    return querySnapshot.docs
+  })
+}
 // Fetch list of sponsor prizes
 export const getSponsorPrizes = () => {
   return db
