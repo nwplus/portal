@@ -55,6 +55,8 @@ export default ({ user, refreshCallback }) => {
     if (projectId) {
       await projectsRef.doc(projectId).update(projectSubmission)
       // TODO: Determine if these emails are "new" emails
+      // TODO: Check that the person doesn't already have a project
+      // TODO: Allow Remove people
       await Promise.all(
         projectSubmission.teamMembers.map(async member => {
           console.log(member.email)
@@ -68,6 +70,8 @@ export default ({ user, refreshCallback }) => {
       const res = await projectsRef.add(projectSubmission)
       // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
       await Promise.all(
+        // TODO: Check that the person doesn't already have a project
+        // TODO: Allow Remove people
         projectSubmission.teamMembers.map(async member => {
           console.log(member.email)
           const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
