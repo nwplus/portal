@@ -5,39 +5,6 @@ import { H1 } from '../components/Typography'
 import { getProjects } from '../utility/firebase'
 import { getYoutubeThumbnail } from '../utility/utilities'
 
-const MOCK_PROJECTS = [
-  {
-    title: 'title',
-    description: 'description',
-    imgUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/13884/LINEStorePC/main.png',
-  },
-  {
-    title: 'title',
-    description: 'description',
-    imgUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/13884/LINEStorePC/main.png',
-  },
-  {
-    title: 'title',
-    description: 'description',
-    imgUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/13884/LINEStorePC/main.png',
-  },
-  {
-    title: 'title',
-    description: 'description',
-    imgUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/13884/LINEStorePC/main.png',
-  },
-  {
-    title: 'title',
-    description: 'description',
-    imgUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/13884/LINEStorePC/main.png',
-  },
-  {
-    title: 'title',
-    description: 'description',
-    imgUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/13884/LINEStorePC/main.png',
-  },
-]
-
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
