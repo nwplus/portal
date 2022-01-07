@@ -28,6 +28,7 @@ import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from '
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
+import Gallery from './pages/Gallery'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -150,6 +151,12 @@ const JudgingViewContainer = ({ params }) => {
   )
 }
 
+const GalleryContainer = ({ params }) => (
+  <Page>
+    <Gallery />
+  </Page>
+)
+
 const ApplicationDashboardRoutingContainer = () => {
   const { isAuthed } = useAuth()
   return isAuthed ? (
@@ -222,6 +229,7 @@ function App() {
             <JudgingAdmin />
           </AdminAuthPageRoute>
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
+          <Route path="/projects" component={GalleryContainer} />
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
