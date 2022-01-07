@@ -52,15 +52,12 @@ export default () => {
       const newProjects = projectsData.map(project => {
         return { ...project.data(), uid: project.id }
       })
-      const newIDs = projectsData.map(project => project.id)
       setProjects(newProjects)
-      console.log('newProjects: ', newProjects)
     })
   }, [])
   return (
     <>
       <H1>Project Gallery</H1>
-      {console.log(projects)}
       <Container>
         {projects.map(project => {
           console.log(project)

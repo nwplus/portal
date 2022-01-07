@@ -139,9 +139,9 @@ export const getUserApplication = async uuid => {
   return (await applicantsRef.doc(uuid).get()).data()
 }
 
-export const getSubmission = async uid => {
-  const projectDoc = await projectsRef.doc(uid).get()
-  return { ...projectDoc.data(), id: projectsRef.doc(uid).id, exists: projectDoc.exists }
+export const getSubmission = async pid => {
+  const projectDoc = await projectsRef.doc(pid).get()
+  return { ...projectDoc.data(), id: projectsRef.doc(pid).id, exists: projectDoc.exists }
 }
 
 export const submitGrade = async (id, score, user, errorCallback = () => {}) => {
@@ -183,4 +183,14 @@ export const getProjects = () => {
   return projectsRef.get().then(querySnapshot => {
     return querySnapshot.docs
   })
+}
+// Fetch list of sponsor prizes
+export const getSponsorPrizes = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.data().sponsorPrizes
+    })
 }

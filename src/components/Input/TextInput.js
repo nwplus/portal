@@ -43,6 +43,11 @@ const TextInputBox = styled.input.attrs({
     `}
 `
 
+// max-width: fit-content to make the error message only span the text input width
+const StyledErrorMessage = styled(ErrorMessage)`
+  max-width: fit-content;
+`
+
 export const TextInput = ({
   className,
   invalid,
@@ -55,7 +60,7 @@ export const TextInput = ({
   return (
     <TextInputContainer className={className} inline={inline} noOutline={noOutline}>
       <TextInputBox invalid={invalid} noOutline={noOutline} ref={customRef} {...rest} />
-      {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
+      {invalid && <StyledErrorMessage> {errorMsg} </StyledErrorMessage>}
     </TextInputContainer>
   )
 }

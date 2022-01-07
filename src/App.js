@@ -17,6 +17,7 @@ import {
   JudgingAdmin,
   JudgingView,
   Submission,
+  ProjectView,
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
@@ -156,6 +157,11 @@ const GalleryContainer = ({ params }) => (
     <Gallery />
   </Page>
 )
+const ProjectViewContainer = ({ params }) => (
+  <Page>
+    <ProjectView pid={params.id} />
+  </Page>
+)
 
 const ApplicationDashboardRoutingContainer = () => {
   const { isAuthed } = useAuth()
@@ -230,6 +236,7 @@ function App() {
           </AdminAuthPageRoute>
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
           <Route path="/projects" component={GalleryContainer} />
+          <Route path="/projects/:id" component={ProjectViewContainer} />
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
