@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput } from '../Input'
-import { ErrorSpan as Required, ErrorMessage, H1, H3, Label } from '../Typography'
+import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
 import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
@@ -83,6 +83,7 @@ export default ({ project, onSubmit }) => {
   const [links, setLinks] = useState(project.links || {})
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
+  const [mentorNominations, setMentorNominations] = useState(project.mentorNominations || '')
   const [errors, setErrors] = useState({})
 
   // Fetch list of sponsor prizes from Firebase
@@ -302,6 +303,17 @@ export default ({ project, onSubmit }) => {
             </TeamMember>
           ))}
         </MemberList>
+      </FormSection>
+      <StyledHr />
+      <FormSection>
+        <div>
+          <Label>Mentor nominations</Label>
+          <P>
+            Nominate any mentors who helped make your hackathon experience better! Include their
+            name and/or Discord username and how they helped.
+          </P>
+        </div>
+        <TextArea value={mentorNominations} maxLength={MAX_CHARS} onChange={setMentorNominations} />
       </FormSection>
       {Object.keys(errors).length > 0 && (
         <ErrorMessage>Please address errors before submitting</ErrorMessage>
