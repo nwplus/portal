@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import JudgingCard from '../components/Judging/JudgingCard'
 import styled from 'styled-components'
 import { H1 } from '../components/Typography'
-import { getProjects, getSponsors, projectsRef } from '../utility/firebase'
+import { getProjects } from '../utility/firebase'
 import { getYoutubeThumbnail } from '../utility/utilities'
 
 const MOCK_PROJECTS = [
@@ -49,8 +49,12 @@ export default () => {
 
   useEffect(() => {
     getProjects().then(projectsData => {
-      const newProjects = projectsData.map(project => project.data())
+      const newProjects = projectsData.map(project => {
+        return { ...project.data(), uid: project.id }
+      })
+      const newIDs = projectsData.map(project => project.id)
       setProjects(newProjects)
+      console.log('newProjects: ', newProjects)
     })
   }, [])
   return (
@@ -67,6 +71,7 @@ export default () => {
               imgUrl={getYoutubeThumbnail(project.links.youtube)}
               buttonLabel="See more"
               buttonDisabled={false}
+              href={'projects/' + project.uid}
             />
           )
         })}
