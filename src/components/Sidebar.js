@@ -17,6 +17,7 @@ const SidebarContainer = styled.div`
   // border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
   z-index: 1;
+  // background: ${p => p.theme.colors.background};
   background: #051439;
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
@@ -68,15 +69,23 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 50px;
   border-bottom: none;
+
+  // color: ${p =>
+    p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
   color: ${p => (p.theme.name !== 'cmdf' && p.selected ? '#051439' : p.theme.colors.highlight)};
+
+  // ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
   ${p => p.selected && `background: #FFB72C;`}
+
   &:hover {
     color: #ffffff;
+    // background: ${p => p.theme.colors.secondaryBackground};
     background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
   &:focus {
     color: #ffffff;
+    // background: ${p => p.theme.colors.secondaryBackground};
     background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
@@ -105,7 +114,7 @@ const LiveLabel = styled.p`
 `
 
 const StyledButton = styled(Button)`
-  margin: 1em 0 2em 60px;
+  margin: 1em 0 2em 50px;
 `
 
 const ApplicationText = styled.div`
@@ -142,31 +151,28 @@ export default ({
 }) => {
   const [location] = useLocation()
   const { user, isAuthed, logout } = useAuth()
-  const linksDict = ['General', 'Tools', 'Information', '']
-  const links = [
+  const links = {
     // General
-    [
+    general: [
       { location: '/quicklinks', text: 'Getting Started' },
       { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
     // Tools
-    [
+    tools: [
       { location: '/gallery', text: 'Project Gallery' },
       // (conditional) Project Submission
       // (conditional) Peer Judging
       // (conditional) Judging (Admin)
     ],
     // Information
-    [
+    information: [
       { location: '/package', text: 'Info Package' },
       { location: '/judging', text: 'Judging' },
       { location: '/faq', text: 'FAQ' },
     ],
-    // DEBUG/misc
-    [],
-  ]
+  }
   const [sponsors, setSponsors] = useState([])
 
   useEffect(() => {
@@ -180,49 +186,25 @@ export default ({
   }, [setSponsors])
 
   if (isSubmissionsOpen) {
-    links[1].push({ location: '/submission', text: 'Project Submission' })
+    links.tools.push({ location: '/submission', text: 'Project Submission' })
   }
 
   if (isJudgingOpen) {
-    links[1].push({ location: '/judging', text: 'Peer Judging' })
+    links.tools.push({ location: '/judging', text: 'Peer Judging' })
   }
 
   if (user && user.admin) {
-    links[1].push({ location: '/judging/admin', text: 'Judging Admin' })
+    links.tools.push({ location: '/judging/admin', text: 'Judging Admin' })
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    links[3].push({ location: '/charcuterie', text: 'CHARCUTERIE' })
+    links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 
   if (isApplicationOpen) {
     // List the application as the last item on the menu
-    links[3].push({ location: '/application', text: 'APPLICATION' })
+    links.information.push({ location: '/application', text: 'APPLICATION' })
   }
-
-  const [renderLinks, setRenderLinks] = useState([])
-
-  useEffect(() => {
-    let renderArray = []
-
-    links.forEach((item, index) =>
-      renderArray.push(
-        <>
-          <CategoryHeader>{linksDict[index]}</CategoryHeader>
-          {item.map((link, i) => {
-            return (
-              <Link key={i} href={link.location} onClick={hideSidebarCallback}>
-                <StyledA selected={location === link.location}>{link.text}</StyledA>
-              </Link>
-            )
-          })}
-        </>
-      )
-    )
-
-    setRenderLinks(renderArray)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [links])
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
@@ -233,7 +215,18 @@ export default ({
       </LiveLabel>
       <ItemsContainer>
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
-          renderLinks
+          Object.entries(links).map((t, k) => {
+            return (
+              <>
+                <CategoryHeader>{t[0]}</CategoryHeader>
+                {t[1].map((v, i) => (
+                  <Link key={i} href={v.location} onClick={hideSidebarCallback}>
+                    <StyledA selected={location === v.location}>{v.text}</StyledA>
+                  </Link>
+                ))}
+              </>
+            )
+          })
         ) : (
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>

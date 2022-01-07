@@ -47,8 +47,8 @@ const nwTheme = {
     background: 'linear-gradient(to bottom, #52999F, #051439)',
     card: '#2C2543', // TODO: update to proper colour
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackgroundTransparent: '#FFB72Cbb',
-    secondaryBackground: '#1D1B24', // before: #1D1B24
+    secondaryBackgroundTransparent: '#FFB72Cbb', // before: #1D1B24bb
+    secondaryBackground: '#1D1B24',
     error: '#ff0033',
     errorText: '#fff',
     foreground: '#4F4A59',
