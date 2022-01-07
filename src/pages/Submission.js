@@ -3,7 +3,7 @@ import { getLivesiteDoc, getUserApplication, getSubmission, submitGrade } from '
 import ViewSubmission from '../components/Judging/Submission'
 import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
-import LinkSubmission from '../containers/SubmissionLink'
+import SubmissionLink from '../containers/SubmissionLink'
 import { formatProject } from '../utility/utilities'
 
 export default () => {
@@ -67,9 +67,10 @@ export default () => {
     )
   }
 
-  return !!submission ? (
-    <ViewSubmission project={formatProject(submission)} user={user} reportCallback={reportGrade} />
-  ) : (
-    <LinkSubmission user={user} refreshCallback={getProject} />
-  )
+  // return !!submission ? (
+  //   <ViewSubmission project={formatProject(submission)} user={user} reportCallback={reportGrade} />
+  // ) : (
+  //   <LinkSubmission user={user} refreshCallback={getProject} />
+  // )
+  return <SubmissionLink user={user} refreshCallback={getProject} />
 }

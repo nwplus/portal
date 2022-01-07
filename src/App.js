@@ -222,6 +222,7 @@ function App() {
             <JudgingAdmin />
           </AdminAuthPageRoute>
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
+
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
