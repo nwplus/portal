@@ -178,3 +178,14 @@ export const getSponsors = () => {
       return querySnapshot.docs
     })
 }
+
+// Fetch list of sponsor prizes
+export const getSponsorPrizes = () => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.data().sponsorPrizes
+    })
+}
