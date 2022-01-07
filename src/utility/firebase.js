@@ -178,3 +178,9 @@ export const getSponsors = () => {
       return querySnapshot.docs
     })
 }
+
+export const getProjects = () => {
+  return projectsRef.get().then(querySnapshot => {
+    return querySnapshot.docs
+  })
+}

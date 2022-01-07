@@ -23,6 +23,8 @@ const CardContent = styled.div`
 
 const StyledImg = styled.img`
   width: 100%;
+  height: 40%;
+  object-fit: cover;
 `
 
 const StyledButton = styled(Button)`

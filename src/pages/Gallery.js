@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import JudgingCard from '../components/Judging/JudgingCard'
 import styled from 'styled-components'
 import { H1 } from '../components/Typography'
+import { getProjects, getSponsors, projectsRef } from '../utility/firebase'
+import { getYoutubeThumbnail } from '../utility/utilities'
 
 const MOCK_PROJECTS = [
   {
@@ -39,23 +41,30 @@ const MOCK_PROJECTS = [
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 0em 2em;
 `
 
-const StyledJudgingCard = styled(JudgingCard)`
-  margin: 0 2em 2em 0;
-`
+export default () => {
+  const [projects, setProjects] = useState([])
 
-export default ({ projects }) => {
+  useEffect(() => {
+    getProjects().then(projectsData => {
+      const newProjects = projectsData.map(project => project.data())
+      setProjects(newProjects)
+    })
+  }, [])
   return (
     <>
       <H1>Project Gallery</H1>
+      {console.log(projects)}
       <Container>
-        {MOCK_PROJECTS.map(project => {
+        {projects.map(project => {
+          console.log(project)
           return (
-            <StyledJudgingCard
+            <JudgingCard
               title={project.title}
               description={project.description}
-              imgUrl={project.imgUrl}
+              imgUrl={getYoutubeThumbnail(project.links.youtube)}
               buttonLabel="See more"
               buttonDisabled={false}
             />
