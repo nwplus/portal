@@ -153,7 +153,7 @@ const JudgingViewContainer = ({ params }) => {
 
 const ProjectViewContainer = ({ params }) => (
   <Page>
-    <ProjectView id={params.id} />
+    <ProjectView pid={params.id} />
   </Page>
 )
 
