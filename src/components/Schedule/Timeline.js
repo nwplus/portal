@@ -8,7 +8,6 @@ const TimelineColumnContainer = styled.div`
 `
 
 const TimelineBlock = styled.div`
-  width: 100%;
   position: absolute;
   transform: translateY(-${EVENT_GAP}px);
 `
