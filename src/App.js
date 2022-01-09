@@ -22,6 +22,7 @@ import {
   ApplicationReview,
   ApplicationConfirmation,
   Application,
+  InfoPackage,
 } from './pages'
 import Page from './components/Page'
 import { db, getLivesiteDoc } from './utility/firebase'
@@ -223,11 +224,17 @@ function App() {
           <PageRoute path="/quicklinks">
             <Quicklinks />
           </PageRoute>
+          <PageRoute path="/package">
+            <InfoPackage />
+          </PageRoute>
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />
             </Navbar>
           </NoAuthRoute>
+          <AuthPageRoute path="/judging/info">
+            <Judging />
+          </AuthPageRoute>
           <AuthPageRoute path="/judging">
             <Judging />
           </AuthPageRoute>

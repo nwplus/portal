@@ -15,6 +15,7 @@ import Application from './Application'
 import ApplicationForm from './Application/Form'
 import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
+import InfoPackage from './InfoPackage'
 
 export {
   NotFound,
@@ -34,4 +35,5 @@ export {
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
+  InfoPackage,
 }
