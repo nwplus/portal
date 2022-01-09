@@ -15,18 +15,18 @@ const ScrollableContainer = styled.div`
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: transparent;
+    background-color: #8e7eb4;
     border-radius: 10px;
-    border: 1px solid ${p => p.theme.colors.highlight};
+    border: none;
   }
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
   ::-webkit-scrollbar-corner {
-    background-color: transparent;
+    background-color: #8e7eb4;
   }
   ::-webkit-resizer {
-    background-color: transparent;
+    background-color: #8e7eb4;
   }
 `
 
