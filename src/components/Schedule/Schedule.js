@@ -119,26 +119,3 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
     </OverflowContainer>
   )
 }
-
-{
-  /* <OverflowContainer header="Day-Of-Events Schedule">
-  <TagLegend />
-
-  <ScheduleFlexContainer>
-    <TimelineColumn
-      hackathonStart={hackathonStart}
-      duration={durationOfHackathon}
-      numCols={schedule.length}
-    />
-    <ScrollableContainer>
-      <ColumnContainer>
-        {schedule.map((column, i) => (
-          <ScheduleColumn key={i} column={column} />
-        ))}
-      </ColumnContainer>
-    </ScrollableContainer>
-
-  </ScheduleFlexContainer>
-
-</OverflowContainer> */
-}
