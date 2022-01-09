@@ -6,9 +6,35 @@ import { TimelineColumn } from './Timeline'
 import { TagLegend } from './Tag'
 import Event from './Event'
 
+const ScrollableContainer = styled.div`
+  overflow-x: scroll;
+  overflow-y: hidden;
+  transform: rotateX(180deg);
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid ${p => p.theme.colors.highlight};
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  ::-webkit-resizer {
+    background-color: transparent;
+  }
+`
+
 const ScheduleFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
+  transform: rotateX(180deg);
+  padding-top: 15px;
 `
 
 const FlexColumn = styled.div`
@@ -78,16 +104,41 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   return (
     <OverflowContainer header="Day-Of-Events Schedule">
       <TagLegend />
-      <ScheduleFlexContainer>
-        <TimelineColumn
-          hackathonStart={hackathonStart}
-          duration={durationOfHackathon}
-          numCols={schedule.length}
-        />
+      <ScrollableContainer>
+        <ScheduleFlexContainer>
+          <TimelineColumn
+            hackathonStart={hackathonStart}
+            duration={durationOfHackathon}
+            numCols={schedule.length}
+          />
+          {schedule.map((column, i) => (
+            <ScheduleColumn key={i} column={column} />
+          ))}
+        </ScheduleFlexContainer>
+      </ScrollableContainer>
+    </OverflowContainer>
+  )
+}
+
+{
+  /* <OverflowContainer header="Day-Of-Events Schedule">
+  <TagLegend />
+
+  <ScheduleFlexContainer>
+    <TimelineColumn
+      hackathonStart={hackathonStart}
+      duration={durationOfHackathon}
+      numCols={schedule.length}
+    />
+    <ScrollableContainer>
+      <ColumnContainer>
         {schedule.map((column, i) => (
           <ScheduleColumn key={i} column={column} />
         ))}
-      </ScheduleFlexContainer>
-    </OverflowContainer>
-  )
+      </ColumnContainer>
+    </ScrollableContainer>
+
+  </ScheduleFlexContainer>
+
+</OverflowContainer> */
 }
