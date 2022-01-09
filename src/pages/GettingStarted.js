@@ -49,7 +49,12 @@ export default () => {
         your first, second or nth time at nwHacks, we hope you'll be able to connect, collaborate,
         and build something extraordinary. The future is yours!
       </StyledP>
-      <StyledP>💕 The nwHacks team</StyledP>
+      <StyledP>
+        <span role="img" aria-label="heart-emoji">
+          💕
+        </span>{' '}
+        The nwHacks team
+      </StyledP>
       <StyledH2>Contact Information</StyledH2>
       <StyledP>
         Logistics team:
