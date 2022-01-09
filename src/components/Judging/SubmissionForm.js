@@ -324,7 +324,7 @@ export default ({ project, onSubmit }) => {
           Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
         </div>
       )}
-      <Button no_margin onClick={handleSubmit}>
+      <Button no_margin color="aurora" onClick={handleSubmit}>
         Submit
       </Button>
     </div>
