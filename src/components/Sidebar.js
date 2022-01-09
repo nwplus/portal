@@ -161,7 +161,7 @@ export default ({
     ],
     // Tools
     tools: [
-      { location: '/gallery', text: 'Project Gallery' },
+      { location: '/projects', text: 'Project Gallery' },
       // (conditional) Project Submission
       // (conditional) Peer Judging
       // (conditional) Judging (Admin)

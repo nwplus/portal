@@ -65,22 +65,24 @@ const StyledButton = styled(Button)`
 `
 
 const Project = ({ project }) => {
+  const teamMembers = Object.values(project.teamMembers).map(member => member.name)
+
   return (
     <StyledProjectContainer>
       <StyledBanner>
         <StyledH1>{project.title}</StyledH1>
-        <StyledP>Created By: {project.teamMembers.join(' | ')}</StyledP>
+        <StyledP>Created By: {teamMembers.join(' | ')}</StyledP>
       </StyledBanner>
-      <P>{project.shortDescription}</P>
-      <StyledYoutube src={project.youtubeUrl} />
+      <StyledYoutube src={project.links.youtube} />
       <StyledDiv>
         <StyledH2>Description</StyledH2>
-        <P>{project.longDescription}</P>
+        <P>{project.description}</P>
       </StyledDiv>
       <StyledDiv>
         <StyledH2>Relevant Links</StyledH2>
         <LinkContainer>
-          {project.links.map(link => {
+          {Object.values(project.links).map(link => {
+            console.log(link)
             const cleanedUpLink = link.replace(/https?:\/\//, '')
             return (
               <StyledButton
