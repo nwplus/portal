@@ -15,7 +15,7 @@ export const Tag = styled.span`
   color: ${p => p.theme.colors.text};
   font-weight: ${p => p.theme.typography.h3.weight};
   margin: 0;
-  padding: 2px 5px;
+  padding: 3px 6px;
   border-radius: 4px;
   background-color: ${props => props.colour};
 `

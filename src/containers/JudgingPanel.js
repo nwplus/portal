@@ -367,10 +367,10 @@ export default () => {
         </P>
         <H3>Status: {message}</H3>
         <input ref={inputFile} type="file" hidden onChange={onChange} />
-        <Button no_margin color="tertiary" onClick={uploadClickHandler}>
+        <Button no_margin color="aurora" onClick={uploadClickHandler}>
           Upload
         </Button>
-        <Button width="flex" color="tertiary" onClick={sync}>
+        <Button width="flex" color="aurora" onClick={sync}>
           Sync {projects.length} projects to Firebase
         </Button>
         <Accordion heading="Project List">
@@ -379,9 +379,11 @@ export default () => {
       </Card>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
       <H1>Grades</H1>
-      <H3>{percentageAssigned}% of projects assigned</H3>
+      <H3>
+        {typeof percentageAssigned === 'number' ? percentageAssigned : '0'}% of projects assigned
+      </H3>
       <ProgressBar percent={percentageAssigned} />
-      <H3>{percentageGraded}% of projects judged</H3>
+      <H3>{typeof percentageGraded === 'number' ? percentageGraded : '0'}% of projects judged</H3>
       <ProgressBar percent={percentageGraded} />
       <Card>
         <Columns>

@@ -139,6 +139,10 @@ export default () => {
       />
 
       <P>Colors</P>
+      <Button color="aurora">Aurora</Button>
+      <Button color="aurora" disabled>
+        Aurora
+      </Button>
       <Button color="primary">Primary</Button>
       <Button color="primary" disabled>
         Primary

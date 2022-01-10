@@ -110,6 +110,28 @@ const StyledButton = styled.a`
       :focus {
         box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};
       }`}
+    
+    ${p =>
+    p.color === 'aurora' &&
+    `
+      color: #051439;
+      border-radius: 20px;
+      background: linear-gradient(to bottom, #FFD12C, #FE800B);
+      transition:0.2s all cubic-bezier(.65,-0.01,.4,1);
+
+      ${
+        !p.disabled &&
+        `
+        :hover {
+          opacity: 0.8;
+          background: linear-gradient(to bottom, #FFD12C, #FE800B);
+        }
+        :focus {
+          box-shadow: 0 0 0 .15rem ${hexToRgba('#FE800B', 0.5)};
+        }
+      `
+      }
+    `}
 `
 
 export const Button = props => {
