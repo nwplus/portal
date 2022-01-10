@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { Link } from 'wouter'
 
 // mix-ins
 export const text = css`
@@ -56,6 +57,25 @@ export const ErrorSpan = styled.span`
   color: ${p => p.theme.colors.warning};
   &:after {
     content '${p => p.content || '*'}';
+  }
+`
+
+// note: didn't use text-decoration: underline here because we didn't use it for the A component below - kevo
+// this uses the wouter Link component so we can link to our own pages and not have a reload forced
+export const PortalLink = styled(Link)`
+  text-decoration: none;
+  font-weight: ${p => (p.bolded ? 600 : 400)};
+  border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
+  color: ${p =>
+    p.color ? (p.color === 'primary' && p.theme.colors.primary) || p.color : p.theme.colors.link};
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    color: ${p => p.theme.colors.linkHover};
+    border-bottom: 1px solid ${p => p.theme.colors.linkHover};
+  }
+  &:focus {
+    color: ${p => p.theme.colors.linkHover};
+    border-bottom: 1px solid ${p => p.theme.colors.linkHover};
   }
 `
 

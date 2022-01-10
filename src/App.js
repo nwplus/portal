@@ -221,7 +221,7 @@ function App() {
           <PageRoute path="/sponsors">
             <Sponsors />
           </PageRoute>
-          <PageRoute path="/quicklinks">
+          <PageRoute path="/getting-started">
             <Quicklinks />
           </PageRoute>
           <PageRoute path="/package">

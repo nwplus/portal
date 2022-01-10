@@ -154,7 +154,7 @@ export default ({
   const links = {
     // General
     general: [
-      { location: '/quicklinks', text: 'Getting Started' },
+      { location: '/getting-started', text: 'Getting Started' },
       { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/sponsors', text: 'Sponsors' },
