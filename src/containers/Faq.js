@@ -4,7 +4,7 @@ import Faq from '../components/Faq'
 import { H1, H2 } from '../components/Typography'
 import { TextInput } from '../components/Input'
 import { db } from '../utility/firebase'
-import { FAQ_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import { FAQ_COLLECTION } from '../utility/Constants'
 
 const StyledTextInput = styled(TextInput)`
   margin: 0;
@@ -19,7 +19,7 @@ export default () => {
   useEffect(() => {
     const unsubscribe = db
       .collection(FAQ_COLLECTION)
-      .where('hackathonIDs', 'array-contains-any', [DB_HACKATHON, 'livesite'])
+      .where('hackathonIDs', 'array-contains-any', ['portal'])
       .onSnapshot(querySnapshot => {
         setFaqs(Object.values(querySnapshot.docs.map(doc => doc.data())))
       })
