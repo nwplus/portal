@@ -4,11 +4,12 @@ import Charcuterie from './Charcuterie'
 import Home from './Home'
 import Faq from './Faq'
 import Sponsors from './Sponsors'
-import Quicklinks from './Quicklinks'
+import GettingStarted from './GettingStarted'
 import Schedule from './Schedule'
 import Judging from './Judging'
 import JudgingView from './Judging/View'
 import JudgingAdmin from './Judging/Admin'
+import Gallery from './Gallery'
 import Submission from './Submission'
 import ProjectView from './ProjectView'
 import Application from './Application'
@@ -24,10 +25,11 @@ export {
   Home,
   Faq,
   Sponsors,
-  Quicklinks,
+  GettingStarted,
   Schedule,
   Judging,
   JudgingAdmin,
+  Gallery,
   JudgingView,
   Submission,
   ProjectView,

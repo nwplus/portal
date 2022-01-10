@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { Link } from 'wouter'
 
 // mix-ins
 export const text = css`
@@ -59,6 +60,30 @@ export const ErrorSpan = styled.span`
   }
 `
 
+export const HR = styled.hr`
+  margin: 40px 0;
+  border-color: ${p => p.theme.colors.border};
+`
+
+// note: didn't use text-decoration: underline here because we didn't use it for the A component below - kevo
+// this uses the wouter Link component so we can link to our own pages and not have a reload forced
+export const PortalLink = styled(Link)`
+  text-decoration: none;
+  font-weight: ${p => (p.bolded ? 600 : 400)};
+  border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
+  color: ${p =>
+    p.color ? (p.color === 'primary' && p.theme.colors.primary) || p.color : p.theme.colors.link};
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    color: ${p => p.theme.colors.linkHover};
+    border-bottom: 1px solid ${p => p.theme.colors.linkHover};
+  }
+  &:focus {
+    color: ${p => p.theme.colors.linkHover};
+    border-bottom: 1px solid ${p => p.theme.colors.linkHover};
+  }
+`
+
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
 export const A = styled.a`
   cursor: pointer;
@@ -105,4 +130,12 @@ export const Label = styled.label`
 
 export const CenteredH1 = styled(H1)`
   text-align: center;
+`
+
+export const Code = styled.code`
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  border-radius: 4px;
 `
