@@ -16,7 +16,7 @@ const StyledRow = styled.tr`
   }
 
   &:hover {
-    background-color: ${p => p.theme.colors.foreground};
+    background-color: ${p => p.theme.colors.border};
   }
 
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);

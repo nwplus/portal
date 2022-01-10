@@ -8,7 +8,7 @@ const ToggleSwitchContainer = styled.div`
 const ToggleSwitchGraphic = styled.div`
   width: 35px;
   height: 30px;
-  background: ${p => p.theme.colors.background};
+  background: ${p => p.theme.colors.border};
   z-index: 0;
   cursor: pointer;
   position: relative;

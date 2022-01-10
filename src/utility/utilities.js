@@ -58,8 +58,8 @@ export const getYoutubeThumbnail = link => {
     return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
   }
   if (link.includes('youtu.be')) {
-    const youtubeID = new URL(link).pathname
-    return `https://img.youtube.com/vi${youtubeID}/maxresdefault.jpg`
+    const youtubeID = new URL(link).pathname.replace('/', '')
+    return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
   }
   return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'
 }
@@ -131,4 +131,12 @@ export const useDebounce = (fn, waitTime) => {
   }, [fn, waitTime])
 
   return debounced
+}
+
+export const cutString = (string, maxLength) => {
+  const cut = string.indexOf(' ', maxLength)
+  if (cut === -1) {
+    return string
+  }
+  return `${string.substring(0, cut)}...`
 }

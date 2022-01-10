@@ -26,7 +26,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && firebase deploy --only hosting:production"
+    "deploy": "yarn build && firebase deploy --only hosting:nwplus-ubc",
+    "deploy:dev": "yarn build && firebase deploy --only hosting:nwplus-ubc-dev"
   },
   "eslintConfig": {
     "extends": "react-app"

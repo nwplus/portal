@@ -11,7 +11,7 @@ const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
 const LONG_ANSWER_CHAR_LIMIT = 650
-const validateURL = thing => {
+export const validateURL = thing => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
@@ -30,12 +30,16 @@ const validateNotNull = thing => {
 const validateStringNotEmpty = thing => {
   return (typeof thing === 'string' || typeof thing === 'number') && thing !== ''
 }
-const validateEmail = thing => {
+export const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
 }
 const validatePhoneNumber = thing => {
   const phoneno = /^([0-9]+-)*[0-9]+$/
   return thing.match(phoneno)
+}
+export const validateDiscord = thing => {
+  const pattern = new RegExp('^.{3,32}#[0-9]{4}$')
+  return !!pattern.test(thing)
 }
 const validateNotAllFalse = thing => {
   const thingValues = Object.values(thing)

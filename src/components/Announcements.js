@@ -21,7 +21,7 @@ const Announcement = styled(Card)`
   background-color: ${p =>
     p.theme.name === 'cmdf'
       ? p.theme.colors.secondaryBackgroundTransparent
-      : p.theme.colors.background};
+      : p.theme.colors.border};
 `
 
 const AnnouncementContainer = styled(CardWithHeader)`

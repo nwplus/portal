@@ -4,16 +4,19 @@ import Charcuterie from './Charcuterie'
 import Home from './Home'
 import Faq from './Faq'
 import Sponsors from './Sponsors'
-import Quicklinks from './Quicklinks'
+import GettingStarted from './GettingStarted'
 import Schedule from './Schedule'
 import Judging from './Judging'
 import JudgingView from './Judging/View'
 import JudgingAdmin from './Judging/Admin'
+import Gallery from './Gallery'
 import Submission from './Submission'
+import ProjectView from './ProjectView'
 import Application from './Application'
 import ApplicationForm from './Application/Form'
 import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
+import InfoPackage from './InfoPackage'
 
 export {
   NotFound,
@@ -22,14 +25,17 @@ export {
   Home,
   Faq,
   Sponsors,
-  Quicklinks,
+  GettingStarted,
   Schedule,
   Judging,
   JudgingAdmin,
+  Gallery,
   JudgingView,
   Submission,
+  ProjectView,
   Application,
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
+  InfoPackage,
 }

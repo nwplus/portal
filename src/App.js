@@ -11,16 +11,19 @@ import {
   Home,
   Faq,
   Sponsors,
-  Quicklinks,
+  GettingStarted,
   Schedule,
   Judging,
   JudgingAdmin,
   JudgingView,
   Submission,
+  ProjectView,
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
   Application,
+  InfoPackage,
+  Gallery,
 } from './pages'
 import Page from './components/Page'
 import { db, getLivesiteDoc } from './utility/firebase'
@@ -150,6 +153,17 @@ const JudgingViewContainer = ({ params }) => {
   )
 }
 
+const GalleryContainer = ({ params }) => (
+  <Page>
+    <Gallery />
+  </Page>
+)
+const ProjectViewContainer = ({ params }) => (
+  <Page>
+    <ProjectView pid={params.id} />
+  </Page>
+)
+
 const ApplicationDashboardRoutingContainer = () => {
   const { isAuthed } = useAuth()
   return isAuthed ? (
@@ -207,9 +221,15 @@ function App() {
           <PageRoute path="/sponsors">
             <Sponsors />
           </PageRoute>
-          <PageRoute path="/quicklinks">
-            <Quicklinks />
+          <PageRoute path="/getting-started">
+            <GettingStarted />
           </PageRoute>
+          <PageRoute path="/info-package">
+            <InfoPackage />
+          </PageRoute>
+          {/* <PageRoute path="/judging/info">
+            <JudgingInfo />
+          </PageRoute> */}
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />
@@ -222,6 +242,8 @@ function App() {
             <JudgingAdmin />
           </AdminAuthPageRoute>
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
+          <Route path="/projects" component={GalleryContainer} />
+          <Route path="/projects/:id" component={ProjectViewContainer} />
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
