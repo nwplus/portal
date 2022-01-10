@@ -19,7 +19,7 @@ export default () => {
   useEffect(() => {
     const unsubscribe = db
       .collection(FAQ_COLLECTION)
-      .where('hackathonIDs', 'array-contains-any', ['portal'])
+      .where('hackathonIDs', 'array-contains-any', ['Portal'])
       .onSnapshot(querySnapshot => {
         setFaqs(Object.values(querySnapshot.docs.map(doc => doc.data())))
       })
