@@ -27,7 +27,6 @@ export default () => {
       <H1>Project Gallery</H1>
       <Container>
         {projects.map(project => {
-          console.log(project)
           return (
             <JudgingCard
               title={project.title}
