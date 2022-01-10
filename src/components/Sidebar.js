@@ -169,7 +169,8 @@ export default ({
     // Information
     information: [
       { location: '/info-package', text: 'Info Package' },
-      { location: '/judging/info', text: 'Judging' },
+      // Add back when judging copy is complete
+      // { location: '/judging/info', text: 'Judging' },
       { location: '/faq', text: 'FAQ' },
     ],
   }

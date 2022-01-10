@@ -232,9 +232,6 @@ function App() {
               <Login />
             </Navbar>
           </NoAuthRoute>
-          <AuthPageRoute path="/judging/info">
-            <Judging />
-          </AuthPageRoute>
           <AuthPageRoute path="/judging">
             <Judging />
           </AuthPageRoute>
