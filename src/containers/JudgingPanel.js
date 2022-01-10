@@ -101,7 +101,7 @@ const getStats = async () => {
   const projectData = projectDocs.docs.map(projectDoc => {
     const project = projectDoc.data()
     project.countGraded = project.grades ? Object.values(project.grades).length : 0
-    project.countTeamMembers = project.teamMembersEmails.length
+    project.countTeamMembers = project.teamMembers.length
     return project
   })
   return projectData.reduce(

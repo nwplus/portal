@@ -31,6 +31,7 @@ import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
 import Gallery from './pages/Gallery'
+import JudgingInfo from './pages/JudgingInfo'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -227,14 +228,14 @@ function App() {
           <PageRoute path="/package">
             <InfoPackage />
           </PageRoute>
+          <PageRoute path="/judging/info">
+            <JudgingInfo />
+          </PageRoute>
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />
             </Navbar>
           </NoAuthRoute>
-          <AuthPageRoute path="/judging/info">
-            <Judging />
-          </AuthPageRoute>
           <AuthPageRoute path="/judging">
             <Judging />
           </AuthPageRoute>
