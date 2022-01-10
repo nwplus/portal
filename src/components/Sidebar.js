@@ -168,7 +168,7 @@ export default ({
     ],
     // Information
     information: [
-      { location: '/package', text: 'Info Package' },
+      { location: '/info-package', text: 'Info Package' },
       { location: '/judging/info', text: 'Judging' },
       { location: '/faq', text: 'FAQ' },
     ],

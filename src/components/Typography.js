@@ -60,6 +60,11 @@ export const ErrorSpan = styled.span`
   }
 `
 
+export const HR = styled.hr`
+  margin: 40px 0;
+  border-color: ${p => p.theme.colors.border};
+`
+
 // note: didn't use text-decoration: underline here because we didn't use it for the A component below - kevo
 // this uses the wouter Link component so we can link to our own pages and not have a reload forced
 export const PortalLink = styled(Link)`
@@ -125,4 +130,12 @@ export const Label = styled.label`
 
 export const CenteredH1 = styled(H1)`
   text-align: center;
+`
+
+export const Code = styled.code`
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  border-radius: 4px;
 `

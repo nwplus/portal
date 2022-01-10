@@ -11,7 +11,7 @@ import {
   Home,
   Faq,
   Sponsors,
-  Quicklinks,
+  GettingStarted,
   Schedule,
   Judging,
   JudgingAdmin,
@@ -23,6 +23,7 @@ import {
   ApplicationConfirmation,
   Application,
   InfoPackage,
+  Gallery,
 } from './pages'
 import Page from './components/Page'
 import { db, getLivesiteDoc } from './utility/firebase'
@@ -30,7 +31,6 @@ import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from '
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
-import Gallery from './pages/Gallery'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -222,9 +222,9 @@ function App() {
             <Sponsors />
           </PageRoute>
           <PageRoute path="/getting-started">
-            <Quicklinks />
+            <GettingStarted />
           </PageRoute>
-          <PageRoute path="/package">
+          <PageRoute path="/info-package">
             <InfoPackage />
           </PageRoute>
           <NoAuthRoute path="/login">

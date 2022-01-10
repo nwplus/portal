@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { H1, H2, H3, P, A, UL, LI, PortalLink } from '../components/Typography'
+import { H1, H2, H3, P, A, UL, LI, PortalLink, HR } from '../components/Typography'
 import { Checkbox } from '../components/Input'
 
 const StyledH2 = styled(H2)`
@@ -11,11 +11,6 @@ const StyledH3 = styled(H3)`
 `
 const StyledP = styled(P)`
   margin-top: 5px;
-`
-
-const StyledHr = styled.hr`
-  margin: 40px 0;
-  border-color: ${p => p.theme.colors.border};
 `
 
 const TodoColumnContainer = styled.div`
@@ -62,7 +57,7 @@ export default () => {
         </span>{' '}
         The nwHacks team
       </StyledP>
-      <StyledHr />
+      <HR />
       <StyledH2>Contact Information</StyledH2>
       <StyledP>
         Logistics team: <A href="mailto:logistics@nwplus.io">logistics@nwplus.io</A>
@@ -72,7 +67,7 @@ export default () => {
         <strong>#ask-organizers</strong> channel will be available for you for any questions that
         might arise during the event.
       </StyledP>
-      <StyledHr />
+      <HR />
       <StyledH2>Hacker TODO's</StyledH2>
       <TodoColumnContainer>
         <TodoColumn>
@@ -225,7 +220,7 @@ export default () => {
           />
         </TodoColumn>
       </TodoColumnContainer>
-      <StyledHr />
+      <HR />
       <StyledH2>Our Online Platform: Discord!</StyledH2>
       <StyledP>
         All hacker interaction will be happening on our nwHacks 2022 Discord server. The nwPlus
@@ -261,14 +256,14 @@ export default () => {
           </A>
         </LI>
       </UL>
-      <StyledHr />
+      <HR />
       <StyledH2>Schedule</StyledH2>
       <StyledP>
-        The schedule for nwHacks 2022 can be found on our{' '}
+        The schedule for nwHacks 2022 can be found on the{' '}
         <PortalLink href="/schedule">schedule page</PortalLink>! Please also turn on the
         announcements notification to stay updated on our events!
       </StyledP>
-      <StyledHr />
+      <HR />
       <StyledH2>Tag Us on Social Media! #nwHacks2022</StyledH2>
       <StyledP>Instagram, Facebook, Twitter: @nwplusubc</StyledP>
       <StyledP>
