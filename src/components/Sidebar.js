@@ -114,7 +114,7 @@ const LiveLabel = styled.p`
 `
 
 const StyledButton = styled(Button)`
-  margin: 1em 0 2em 50px;
+  margin: 1em 0 1em 50px;
 `
 
 const ApplicationText = styled.div`
@@ -127,10 +127,17 @@ const StatusText = styled.div`
   margin-top: 5px;
 `
 
-const SponsorLogo = styled.img`
-  display: block;
-  margin: 1em 0 0 50px;
+const SponsorContainer = styled.div`
+  margin: 40px 0 40px 50px;
   max-width: calc(200px - 2em);
+`
+
+const SponsorLogo = styled.img`
+  width: 100%;
+
+  &:not(:last-of-type) {
+    margin-bottom: 1em;
+  }
 `
 
 const CategoryHeader = styled.h4`
@@ -242,7 +249,10 @@ export default ({
           Logout
         </StyledButton>
       )}
-      {sponsors && sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}
+      <SponsorContainer>
+        {sponsors &&
+          sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}
+      </SponsorContainer>
     </SidebarContainer>
   )
 }
