@@ -58,7 +58,7 @@ export const getYoutubeThumbnail = link => {
     return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
   }
   if (link.includes('youtu.be')) {
-    const youtubeID = new URL(link).pathname
+    const youtubeID = new URL(link).pathname.replace('/', '')
     return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
   }
   return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'

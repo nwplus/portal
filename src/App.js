@@ -227,6 +227,9 @@ function App() {
           <PageRoute path="/info-package">
             <InfoPackage />
           </PageRoute>
+          {/* <PageRoute path="/judging/info">
+            <JudgingInfo />
+          </PageRoute> */}
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />

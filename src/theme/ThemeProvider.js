@@ -44,15 +44,15 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: 'linear-gradient(to bottom, #52999F, #051439)',
-    card: '#2C2543', // TODO: update to proper colour
+    background: 'linear-gradient(to bottom, #52999F, #173351)', // linear-gradient(to bottom, #52999F, #051439)
+    card: 'rgba(82,153,159,0.2)', // before: #2C2543
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#FFB72Cbb', // before: #1D1B24bb
-    secondaryBackground: '#1D1B24',
+    secondaryBackground: '#051439',
     error: '#ff0033',
     errorText: '#fff',
     foreground: '#4F4A59',
-    primary: '#0DEFE1',
+    primary: '#FFB72C',
     default: '#BEBEBE',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
