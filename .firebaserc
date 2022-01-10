@@ -9,6 +9,13 @@
           "nw-livesite"
         ]
       }
+    },
+    "nwplus-ubc-dev": {
+      "hosting": {
+        "nwplus-ubc-dev": [
+          "dev-nwplus-portal"
+        ]
+      }
     }
   }
 }
