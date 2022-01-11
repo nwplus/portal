@@ -45,7 +45,7 @@ const nwTheme = {
   name: 'nwHacks',
   colors: {
     background: 'linear-gradient(to bottom, #52999F, #173351)', // linear-gradient(to bottom, #52999F, #051439)
-    card: 'rgba(82,153,159,0.2)', // before: #2C2543
+    card: '#182B47',
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#FFB72Cbb', // before: #1D1B24bb
     secondaryBackground: '#051439',
@@ -56,7 +56,7 @@ const nwTheme = {
     default: '#BEBEBE',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
-    highlight: '#FFFFFF', // before: opacity 0.6
+    highlight: 'rgba(255, 255, 255, 0.5)',
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
