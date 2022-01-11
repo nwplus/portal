@@ -70,7 +70,7 @@ const StyledButton = styled.a`
     }`}
   ${p =>
     p.color === 'tertiary' && // tertiary color (solid button)
-    `color: ${p.theme.colors.background};
+    `color: ${p.theme.colors.secondaryBackground};
     background: ${p.theme.colors.primary};
     :hover {
       ${p.disabled ? `cursor: not-allowed;` : `background: ${p.theme.colors.tertiaryHover};`}
