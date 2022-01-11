@@ -67,7 +67,7 @@ const AuthPageRoute = ({ path, children }) => {
   }
   return (
     <Route path={path}>
-      {user.status === APPLICATION_STATUS.accepted ? <Page>{children}</Page> : <Redirect to="/" />}
+      {user?.status === APPLICATION_STATUS.accepted ? <Page>{children}</Page> : <Redirect to="/" />}
     </Route>
   )
 }
