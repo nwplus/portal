@@ -74,9 +74,9 @@ const nwTheme = {
       googleBg: '#fff',
       googleText: '#000',
       googleBgHover: '#fff',
-      githubBg: '#577079',
+      githubBg: '#051439',
       githubText: '#fff',
-      githubBgHover: '#577079',
+      githubBgHover: '#051439',
     },
   },
 }
