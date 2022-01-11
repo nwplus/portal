@@ -55,9 +55,21 @@ const PageRoute = ({ path, children }) => {
   )
 }
 
+// Authenticate for only applicants that have been accepted
 const AuthPageRoute = ({ path, children }) => {
-  const { isAuthed } = useAuth()
-  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+  const { isAuthed, user } = useAuth()
+  if (!isAuthed) {
+    return (
+      <Route path={path}>
+        <Redirect to="/login" />
+      </Route>
+    )
+  }
+  return (
+    <Route path={path}>
+      {user.status === APPLICATION_STATUS.accepted ? <Page>{children}</Page> : <Redirect to="/" />}
+    </Route>
+  )
 }
 
 const ApplicationInProgressRoute = ({ name, handleLogout, path, children, theme }) => {
