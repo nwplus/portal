@@ -46,7 +46,7 @@ export default () => {
       </StyledP>
       <StyledUL>
         <LI>Pre-hacking boothing time (8:30 AM - 10:00 PM PST)</LI>
-        <LI>Pre-hacking boothing time (8:30 AM - 10:00 PM PST)</LI>
+        <LI>Post-hacking boothing time (1:00 PM - 4:00 PM PST)</LI>
         <LI>
           Spontaneous sponsor booths during hacking time- Once booths are open, we’ll let you know!
         </LI>

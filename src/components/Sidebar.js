@@ -11,14 +11,15 @@ import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
 
+/* Old styles
+border-right: 1px solid ${p => p.theme.colors.border};
+*/
 const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
-  // border-right: 1px solid ${p => p.theme.colors.border};
   transition: opacity 1s ease-out;
   z-index: 1;
-  // background: ${p => p.theme.colors.background};
-  background: #051439;
+  background: ${p => p.theme.colors.secondaryBackground};
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
@@ -63,6 +64,18 @@ const ItemsContainer = styled.div`
   flex-direction: column;
 `
 
+/* Old styles
+  color: ${p =>
+    p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
+  ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
+
+  &:hover {
+    background: ${p => p.theme.colors.secondaryBackground};
+  }
+  &:focus {
+    background: ${p => p.theme.colors.secondaryBackground};
+  }
+*/
 const StyledA = styled(A)`
   text-transform: uppercase;
   display: block;
@@ -70,22 +83,20 @@ const StyledA = styled(A)`
   padding: 1em 50px;
   border-bottom: none;
 
-  // color: ${p =>
-    p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
-  color: ${p => (p.theme.name !== 'cmdf' && p.selected ? '#051439' : p.theme.colors.highlight)};
+  color: ${p =>
+    p.theme.name !== 'cmdf' && p.selected
+      ? p.theme.colors.secondaryBackground
+      : p.theme.colors.font};
 
-  // ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
-  ${p => p.selected && `background: #FFB72C;`}
+  ${p => p.selected && `background: ${p.theme.colors.primary};`}
 
   &:hover {
     color: #ffffff;
-    // background: ${p => p.theme.colors.secondaryBackground};
     background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
   &:focus {
     color: #ffffff;
-    // background: ${p => p.theme.colors.secondaryBackground};
     background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
@@ -94,21 +105,21 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.background};
+  background: ${p => p.theme.colors.secondaryBackground};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
 `
-
+/* Old styles
+background-color: ${p => p.theme.colors.primary};
+*/
 const LiveLabel = styled.p`
   margin: 1em 0 2em 60px;
   font-weight: 600;
   font-size: 0.9em;
   border-radius: 7px;
-  // background-color: ${p => p.theme.colors.primary};
   background: linear-gradient(to bottom, #ffd12c, #fe800b);
-  // color: ${p => p.theme.colors.background};
-  color: #051439;
+  color: ${p => p.theme.colors.secondaryBackground};
   width: 4em;
   padding: 5px;
 `
