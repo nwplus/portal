@@ -71,8 +71,12 @@ const nwTheme = {
     scrollbar: '#4F4A59',
     banner: 'rgba(75, 65, 130, 0.2)',
     login: {
-      googleHover: '#fafafa',
-      githubHover: '#545159',
+      googleBg: '#fff',
+      googleText: '#000',
+      googleBgHover: '#fff',
+      githubBg: '#577079',
+      githubText: '#fff',
+      githubBgHover: '#577079',
     },
   },
 }

@@ -81,8 +81,9 @@ export default () => {
         <ButtonContainer>
           <StyledButton
             width="flex"
-            color={theme.colors.text}
-            hover={theme.colors.login.googleHover}
+            labelColor={theme.colors.login.googleText}
+            color={theme.colors.login.googleBg}
+            hover={theme.colors.login.googleBgHover}
             onClick={signInWithGoogle}
           >
             <BoundingBox src={google} />
@@ -90,9 +91,9 @@ export default () => {
           </StyledButton>
           <StyledButton
             width="flex"
-            labelColor={theme.colors.text}
-            color={theme.colors.secondaryBackground}
-            hover={theme.colors.login.githubHover}
+            labelColor={theme.colors.login.githubText}
+            color={theme.colors.login.githubBg}
+            hover={theme.colors.login.githubBgHover}
             onClick={signInWithGithub}
           >
             <BoundingBox src={github} />
