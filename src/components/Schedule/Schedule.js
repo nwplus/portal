@@ -6,9 +6,37 @@ import { TimelineColumn } from './Timeline'
 import { TagLegend } from './Tag'
 import Event from './Event'
 
+// Rotation transformation is done to make the scroll bar on top
+const ScrollableContainer = styled.div`
+  overflow-x: auto;
+  overflow-y: hidden;
+  transform: rotateX(180deg);
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #8e7eb4;
+    border-radius: 10px;
+    border: none;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: #8e7eb4;
+  }
+  ::-webkit-resizer {
+    background-color: #8e7eb4;
+  }
+`
+// Content is upside down due to transformation in ScrollableContainer,
+// which needs to be flipped back
 const ScheduleFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
+  transform: rotateX(180deg);
+  padding-top: 30px;
 `
 
 const FlexColumn = styled.div`
@@ -78,16 +106,18 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   return (
     <OverflowContainer header="Day-Of-Events Schedule">
       <TagLegend />
-      <ScheduleFlexContainer>
-        <TimelineColumn
-          hackathonStart={hackathonStart}
-          duration={durationOfHackathon}
-          numCols={schedule.length}
-        />
-        {schedule.map((column, i) => (
-          <ScheduleColumn key={i} column={column} />
-        ))}
-      </ScheduleFlexContainer>
+      <ScrollableContainer>
+        <ScheduleFlexContainer>
+          <TimelineColumn
+            hackathonStart={hackathonStart}
+            duration={durationOfHackathon}
+            numCols={schedule.length}
+          />
+          {schedule.map((column, i) => (
+            <ScheduleColumn key={i} column={column} />
+          ))}
+        </ScheduleFlexContainer>
+      </ScrollableContainer>
     </OverflowContainer>
   )
 }

@@ -44,19 +44,19 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: '#2C2543',
-    card: '#2C2543', // todo: update to proper colour
+    background: 'linear-gradient(to bottom, #52999F, #173351)', // linear-gradient(to bottom, #52999F, #051439)
+    card: '#182B47',
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackgroundTransparent: '#1D1B24bb',
-    secondaryBackground: '#1D1B24',
+    secondaryBackgroundTransparent: '#FFB72Cbb', // before: #1D1B24bb
+    secondaryBackground: '#051439',
     error: '#ff0033',
     errorText: '#fff',
     foreground: '#4F4A59',
-    primary: '#0DEFE1',
+    primary: '#FFB72C',
     default: '#BEBEBE',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
-    highlight: 'rgba(255, 255, 255, 0.6)',
+    highlight: 'rgba(255, 255, 255, 0.5)',
     text: '#fff',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
@@ -71,8 +71,12 @@ const nwTheme = {
     scrollbar: '#4F4A59',
     banner: 'rgba(75, 65, 130, 0.2)',
     login: {
-      googleHover: '#fafafa',
-      githubHover: '#545159',
+      googleBg: '#fff',
+      googleText: '#000',
+      googleBgHover: '#fff',
+      githubBg: '#051439',
+      githubText: '#fff',
+      githubBgHover: '#051439',
     },
   },
 }

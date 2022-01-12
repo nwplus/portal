@@ -7,7 +7,7 @@ export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   background-color: ${p => p.theme.colors.secondaryBackground};
-  margin: 2em 0;
+  margin: 1em 0;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
     margin: 0.75em 0;
@@ -117,7 +117,7 @@ export const TextInputLike = css`
   padding: 10px;
   border: 2px solid ${p => p.theme.colors.highlight};
   border-radius: 7px;
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.text};
   font-family: ${p => p.theme.typography.bodyFont};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {

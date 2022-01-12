@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
     analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
     await firebase.auth().signOut()
     setUser(null)
-    setLocation('/login')
+    setLocation('/')
   }
 
   return loading ? (
@@ -66,7 +66,7 @@ const handleUser = async (setUser, setLocation) => {
   setUser(user)
   analytics.setUserId(user.uid)
   analytics.logEvent(ANALYTICS_EVENTS.Login, { userId: user.uid })
-  await handleRedirect(redirect, setLocation)
+  // await handleRedirect(redirect, setLocation)
 }
 
 export const getRedirectUrl = redirect => {

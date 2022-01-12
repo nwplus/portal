@@ -11,7 +11,7 @@ import {
   Home,
   Faq,
   Sponsors,
-  Quicklinks,
+  GettingStarted,
   Schedule,
   Judging,
   JudgingAdmin,
@@ -22,6 +22,8 @@ import {
   ApplicationReview,
   ApplicationConfirmation,
   Application,
+  InfoPackage,
+  Gallery,
 } from './pages'
 import Page from './components/Page'
 import { db, getLivesiteDoc } from './utility/firebase'
@@ -53,9 +55,21 @@ const PageRoute = ({ path, children }) => {
   )
 }
 
+// Authenticate for only applicants that have been accepted
 const AuthPageRoute = ({ path, children }) => {
-  const { isAuthed } = useAuth()
-  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+  const { isAuthed, user } = useAuth()
+  if (!isAuthed) {
+    return (
+      <Route path={path}>
+        <Redirect to="/login" />
+      </Route>
+    )
+  }
+  return (
+    <Route path={path}>
+      {user?.status === APPLICATION_STATUS.accepted ? <Page>{children}</Page> : <Redirect to="/" />}
+    </Route>
+  )
 }
 
 const ApplicationInProgressRoute = ({ name, handleLogout, path, children, theme }) => {
@@ -151,6 +165,11 @@ const JudgingViewContainer = ({ params }) => {
   )
 }
 
+const GalleryContainer = ({ params }) => (
+  <Page>
+    <Gallery />
+  </Page>
+)
 const ProjectViewContainer = ({ params }) => (
   <Page>
     <ProjectView pid={params.id} />
@@ -214,9 +233,15 @@ function App() {
           <PageRoute path="/sponsors">
             <Sponsors />
           </PageRoute>
-          <PageRoute path="/quicklinks">
-            <Quicklinks />
+          <PageRoute path="/getting-started">
+            <GettingStarted />
           </PageRoute>
+          <PageRoute path="/info-package">
+            <InfoPackage />
+          </PageRoute>
+          {/* <PageRoute path="/judging/info">
+            <JudgingInfo />
+          </PageRoute> */}
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />
@@ -229,6 +254,7 @@ function App() {
             <JudgingAdmin />
           </AdminAuthPageRoute>
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
+          <Route path="/projects" component={GalleryContainer} />
           <Route path="/projects/:id" component={ProjectViewContainer} />
           <AuthPageRoute path="/submission">
             <Submission />

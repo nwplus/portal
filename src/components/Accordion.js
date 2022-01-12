@@ -16,11 +16,15 @@ const Accordion = styled.details`
   }
 `
 
+const StyledH3 = styled(H3)`
+  opacity: 1;
+`
+
 export default ({ heading, children }) => {
   return (
     <Accordion>
       <summary>
-        <H3>{heading}</H3>
+        <StyledH3>{heading}</StyledH3>
       </summary>
       {children}
     </Accordion>

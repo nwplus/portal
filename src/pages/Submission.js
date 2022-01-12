@@ -1,3 +1,5 @@
+// TODO: remove this when we finish project submission system
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
 // import ViewSubmission from '../components/Judging/Submission'
@@ -67,10 +69,5 @@ export default () => {
     )
   }
 
-  // return !!submission ? (
-  //   <ViewSubmission project={formatProject(submission)} user={user} reportCallback={reportGrade} />
-  // ) : (
-  //   <LinkSubmission user={user} refreshCallback={getProject} />
-  // )
   return <SubmissionLink user={user} refreshCallback={getProject} />
 }

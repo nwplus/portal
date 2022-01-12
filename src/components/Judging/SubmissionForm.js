@@ -331,7 +331,12 @@ export default ({ project, onSubmit, isSubmitting }) => {
           Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
         </div>
       )}
-      <Button no_margin onClick={!isSubmitting && handleSubmit} disabled={isSubmitting}>
+      <Button
+        no_margin
+        color="aurora"
+        onClick={!isSubmitting && handleSubmit}
+        disabled={isSubmitting}
+      >
         Submit
       </Button>
     </div>

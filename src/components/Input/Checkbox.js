@@ -24,7 +24,7 @@ const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${p => (p.checked ? p.theme.colors.primary : p.theme.colors.background)};
+  background: ${p => (p.checked ? p.theme.colors.primary : 'transparent')};
   border-radius: 3px;
   border: 2px solid ${p => (p.checked ? p.theme.colors.primary : p.theme.colors.default)};
   transition: all 150ms;
