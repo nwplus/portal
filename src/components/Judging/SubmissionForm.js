@@ -44,6 +44,11 @@ const StyledTextInput = styled(TextInput)`
   margin: 0;
 `
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const TextInputWithField = ({
   fieldName,
   value,
@@ -346,23 +351,25 @@ export default ({ project, onSubmit, isSubmitting, error }) => {
         onChange={inputValue => setDraftStatus(inputValue.value)}
         isValid
       />
-      <Button
-        no_margin
-        color="primary"
-        onClick={!isSubmitting ? handleSubmit : undefined}
-        disabled={isSubmitting}
-      >
-        Submit
-      </Button>
-      <Button
-        no_margin
-        color="secondary"
-        width="flex"
-        onClick={!isSubmitting ? handleSubmit : undefined}
-        disabled={isSubmitting}
-      >
-        Leave Project
-      </Button>
+      <ButtonContainer>
+        <Button
+          no_margin
+          color="primary"
+          onClick={!isSubmitting ? handleSubmit : undefined}
+          disabled={isSubmitting}
+        >
+          Submit
+        </Button>
+        <Button
+          no_margin
+          color="secondary"
+          width="flex"
+          onClick={!isSubmitting ? handleSubmit : undefined}
+          disabled={isSubmitting}
+        >
+          Leave Project
+        </Button>
+      </ButtonContainer>
       {error && <ErrorBanner>{error.message}</ErrorBanner>}
     </div>
   )
