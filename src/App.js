@@ -14,8 +14,10 @@ import {
   GettingStarted,
   Schedule,
   Judging,
+  JudgingInfo,
   JudgingAdmin,
   JudgingView,
+  DiscordBot,
   Submission,
   ProjectView,
   ApplicationForm,
@@ -239,9 +241,12 @@ function App() {
           <PageRoute path="/info-package">
             <InfoPackage />
           </PageRoute>
-          {/* <PageRoute path="/judging/info">
+          <PageRoute path="/judging/info">
             <JudgingInfo />
-          </PageRoute> */}
+          </PageRoute>
+          <PageRoute path="/discord-bot">
+            <DiscordBot />
+          </PageRoute>
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />

@@ -7,8 +7,10 @@ import Sponsors from './Sponsors'
 import GettingStarted from './GettingStarted'
 import Schedule from './Schedule'
 import Judging from './Judging'
+import JudgingInfo from './JudgingInfo'
 import JudgingView from './Judging/View'
 import JudgingAdmin from './Judging/Admin'
+import DiscordBot from './DiscordBot'
 import Gallery from './Gallery'
 import Submission from './Submission'
 import ProjectView from './ProjectView'
@@ -28,7 +30,9 @@ export {
   GettingStarted,
   Schedule,
   Judging,
+  JudgingInfo,
   JudgingAdmin,
+  DiscordBot,
   Gallery,
   JudgingView,
   Submission,

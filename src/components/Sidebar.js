@@ -187,8 +187,8 @@ export default ({
     // Information
     information: [
       { location: '/info-package', text: 'Info Package' },
-      // Add back when judging copy is complete
-      // { location: '/judging/info', text: 'Judging' },
+      { location: '/judging/info', text: 'Judging' },
+      { location: '/discord-bot', text: 'Discord Bot' },
       { location: '/faq', text: 'FAQ' },
     ],
   }
