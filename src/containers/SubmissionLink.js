@@ -28,6 +28,7 @@ const tempProject = {
 export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState(tempProject)
   const [isSubmitting, setSubmitting] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const getProject = async () => {
@@ -55,40 +56,49 @@ export default ({ user, refreshCallback }) => {
     if (isSubmitting) {
       return
     }
+    setError(null)
     setSubmitting(true)
     const projectId = projectSubmission.uid
     delete projectSubmission.uid
     if (projectId) {
-      await projectsRef.doc(projectId).update(projectSubmission)
-      // TODO: Determine if these emails are "new" emails
-      // TODO: Check that the person doesn't already have a project
-      // TODO: Allow Remove people
-      await Promise.all(
-        projectSubmission.teamMembers.map(async member => {
-          console.log(member.email)
-          const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
-          if (res.docs.length > 0) {
-            return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: projectId })
-          }
-        })
-      )
-    } else {
-      const res = await projectsRef.add(projectSubmission)
-      // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
-      await Promise.all(
+      try {
+        await projectsRef.doc(projectId).update(projectSubmission)
+        // TODO: Determine if these emails are "new" emails
         // TODO: Check that the person doesn't already have a project
         // TODO: Allow Remove people
-        projectSubmission.teamMembers.map(async member => {
-          console.log(member.email)
-          const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
-          if (res.docs.length > 0) {
-            return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: res.id })
-          }
-        })
-      )
+        await Promise.all(
+          projectSubmission.teamMembers.map(async member => {
+            console.log(member.email)
+            const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+            if (res.docs.length > 0) {
+              return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: projectId })
+            }
+          })
+        )
+      } catch (error) {
+        setError(error)
+      }
+    } else {
+      try {
+        const res = await projectsRef.add(projectSubmission)
+        // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
+        await Promise.all(
+          // TODO: Check that the person doesn't already have a project
+          // TODO: Allow Remove people
+          projectSubmission.teamMembers.map(async member => {
+            console.log(member.email)
+            const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+            if (res.docs.length > 0) {
+              return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: res.id })
+            }
+          })
+        )
+      } catch (error) {
+        setError(error)
+      }
     }
     setSubmitting(false)
   }
 
-  return <Form project={project} onSubmit={submit} isSubmitting={isSubmitting} />
+  return <Form project={project} onSubmit={submit} isSubmitting={isSubmitting} error={error} />
 }
