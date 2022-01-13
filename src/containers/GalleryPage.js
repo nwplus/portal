@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import JudgingCard from '../components/Judging/JudgingCard'
 import Pagination, { getClickedPageIndex } from '../components/Pagination'
+import { H2 } from '../components/Typography'
 import { getYoutubeThumbnail } from '../utility/utilities'
 
 const ProjectPageWrapper = styled.div`
@@ -34,25 +35,10 @@ export default function GalleryPage({ projects, startingPageIndex = 0 }) {
 
   const TOTAL_PROJECT_PAGES = Math.ceil(projects.length / PROJECTS_PER_PAGE)
 
-  // OG code
-  // const getCurrPageProjects = (projects, currPageIndex) => {
-  //   const currPageProjects = []
-  //   for (let i = currPageIndex; i < PROJECTS_PER_PAGE && i < projects.length; i++) {
-  //     console.log('currPageIndex: ', currPageIndex)
-  //     const { description, links, teamMembers, title } = projects[i]
-  //     if (!description || !links || !teamMembers || !title) {
-  //       return
-  //     }
-  //     currPageProjects.push(projects[i])
-  //   }
-  //   return currPageProjects
-  // }
-
   const getCurrPageProjects = (projects, currPageIndex) => {
     const currPageProjects = []
-    const begin = currPageIndex === 0 ? currPageIndex : currPageIndex * PROJECTS_PER_PAGE
+    const begin = currPageIndex * PROJECTS_PER_PAGE
     for (let i = begin; i < begin + PROJECTS_PER_PAGE && i < projects.length; i++) {
-      console.log('currPageIndex: ', currPageIndex)
       const { description, links, teamMembers, title } = projects[i]
       if (!description || !links || !teamMembers || !title) {
         return
@@ -74,8 +60,8 @@ export default function GalleryPage({ projects, startingPageIndex = 0 }) {
   }
   return (
     <ProjectPageWrapper>
-      {currPageProjects.length == 0 ? (
-        <div>No projects found :(</div>
+      {currPageProjects.length === 0 ? (
+        <H2>No projects found :(</H2>
       ) : (
         <>
           <ProjectPageContainer>

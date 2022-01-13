@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import prev from '../assets/pagination/prev.svg'
 import next from '../assets/pagination/next.svg'

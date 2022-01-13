@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import JudgingCard from '../components/Judging/JudgingCard'
 import styled from 'styled-components'
 import { H1 } from '../components/Typography'
 import { getProjects } from '../utility/firebase'
-import { getYoutubeThumbnail } from '../utility/utilities'
 import GalleryPage from '../containers/GalleryPage'
 
 const Container = styled.div`
@@ -317,7 +315,7 @@ export default () => {
     <>
       <H1>Project Gallery</H1>
       <Container>
-        <GalleryPage projects={MOCK_PROJECTS} />
+        <GalleryPage projects={projects} />
       </Container>
     </>
   )
