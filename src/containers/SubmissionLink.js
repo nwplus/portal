@@ -80,7 +80,7 @@ export default ({ user, refreshCallback }) => {
       }
     } else {
       try {
-        const res = await projectsRef.add(projectSubmission)
+        const project = await projectsRef.add(projectSubmission)
         // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
         await Promise.all(
           // TODO: Check that the person doesn't already have a project
@@ -89,7 +89,9 @@ export default ({ user, refreshCallback }) => {
             console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: res.id })
+              return await applicantsRef
+                .doc(res.docs[0].id)
+                .update({ submittedProject: project.id })
             }
           })
         )
