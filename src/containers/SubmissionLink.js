@@ -30,6 +30,7 @@ export default ({ user, refreshCallback }) => {
   const [isSubmitting, setSubmitting] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
   const [error, setError] = useState(null)
+  const [userData, setUserData] = useState({})
 
   useEffect(() => {
     const getProject = async () => {
@@ -48,7 +49,16 @@ export default ({ user, refreshCallback }) => {
             submittedProject: '',
           })
         }
+      } else {
+        let autoFill = [
+          {
+            name: userData.basicInfo.firstName + ' ' + userData.basicInfo.lastName,
+            email: userData.basicInfo.email,
+          },
+        ]
+        setProject({ teamMembers: autoFill })
       }
+      setUserData(userData)
     }
     getProject()
   }, [user.uid])
@@ -72,7 +82,17 @@ export default ({ user, refreshCallback }) => {
             console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: projectId })
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: projectId })
             }
           })
         )
@@ -90,9 +110,17 @@ export default ({ user, refreshCallback }) => {
             console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              return await applicantsRef
-                .doc(res.docs[0].id)
-                .update({ submittedProject: project.id })
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: project.id })
             }
           })
         )
@@ -136,6 +164,7 @@ export default ({ user, refreshCallback }) => {
       isSubmitting={isSubmitting}
       onLeave={leaveProject}
       isLeaving={isLeaving}
+      userData={userData}
       error={error}
     />
   )
