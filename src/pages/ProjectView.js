@@ -37,9 +37,9 @@ const StyledYoutube = styled(Youtube)`
 `
 const StyledBanner = styled.div`
   ${p => `
-    color: ${p.theme.colors.primary};
-    background: ${hexToRgba(p.theme.colors.primary, 0)};
-    border: 1px solid ${p.theme.colors.primary};`}
+    color: ${p.theme.colors.text};
+    background: transparent;
+    border: 1px solid ${p.theme.colors.text};`}
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,6 +68,17 @@ const StyledButton = styled(Button)`
 const Project = ({ project }) => {
   const teamMembers = Object.values(project.teamMembers).map(member => member.name)
 
+  const getDisplayName = linkKey => {
+    switch (linkKey) {
+      case 'youtube':
+        return 'YouTube'
+      case 'sourceCode':
+        return 'Source code'
+      default:
+        return null
+    }
+  }
+
   return (
     <StyledProjectContainer>
       <StyledBanner>
@@ -82,7 +93,7 @@ const Project = ({ project }) => {
       <StyledDiv>
         <StyledH2>Relevant Links</StyledH2>
         <LinkContainer>
-          {Object.values(project.links).map(link => {
+          {Object.entries(project.links).map(([key, link]) => {
             const cleanedUpLink = link.replace(/https?:\/\//, '')
             return (
               <StyledButton
@@ -92,7 +103,7 @@ const Project = ({ project }) => {
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {cleanedUpLink}
+                {getDisplayName(key) ?? cleanedUpLink}
               </StyledButton>
             )
           })}
