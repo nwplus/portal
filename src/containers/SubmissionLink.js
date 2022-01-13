@@ -101,6 +101,7 @@ export default ({ user, refreshCallback }) => {
       }
     }
     setSubmitting(false)
+    window.location.reload()
   }
 
   // just need to actually write the logic and we are done!
