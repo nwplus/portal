@@ -76,7 +76,7 @@ const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
 
-export default ({ project, onSubmit, isSubmitting }) => {
+export default ({ project, onSubmit, isSubmitting, userData }) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -146,8 +146,12 @@ export default ({ project, onSubmit, isSubmitting }) => {
     }
 
     // Validate member fields
+    let containsSelf = false
     members.forEach((member, index) => {
       const isRequired = index === 0
+      if (member.email === userData.basicInfo.email) {
+        containsSelf = true
+      }
       if (!member.name && (isRequired || member.email || member.discord)) {
         newErrors[`member${index + 1}Name`] = 'Please enter a name'
       }
@@ -166,6 +170,11 @@ export default ({ project, onSubmit, isSubmitting }) => {
           'Please enter a valid Discord username (eg. username#1234)'
       }
     })
+
+    // Validate that currently auth'd user has included themself in submission
+    if (!containsSelf) {
+      newErrors.self = 'You must include yourself in the submission'
+    }
 
     // Validate links
     if (!links.youtube) {
@@ -311,6 +320,7 @@ export default ({ project, onSubmit, isSubmitting }) => {
             </TeamMember>
           ))}
         </MemberList>
+        {errors.self && <ErrorMessage>{errors.self}</ErrorMessage>}
       </FormSection>
       <StyledHr />
       <FormSection>

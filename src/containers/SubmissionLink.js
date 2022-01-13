@@ -28,6 +28,7 @@ const tempProject = {
 export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState(tempProject)
   const [isSubmitting, setSubmitting] = useState(false)
+  const [userData, setUserData] = useState({})
 
   useEffect(() => {
     const getProject = async () => {
@@ -40,7 +41,17 @@ export default ({ user, refreshCallback }) => {
       if (projectId) {
         const projectDoc = await projectsRef.doc(projectId).get()
         setProject({ ...projectDoc.data(), uid: projectDoc.id })
+      } else {
+        let autoFill = [
+          {
+            name: userData.basicInfo.firstName + ' ' + userData.basicInfo.lastName,
+            email: userData.basicInfo.email,
+          },
+        ]
+        console.log(autoFill)
+        setProject({ teamMembers: autoFill })
       }
+      setUserData(userData)
     }
     getProject()
   }, [user.uid])
@@ -74,9 +85,9 @@ export default ({ user, refreshCallback }) => {
         // TODO: Allow Remove people
         projectSubmission.teamMembers.map(async member => {
           console.log(member.email)
-          const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
-          if (res.docs.length > 0) {
-            return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: res.id })
+          const userRes = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+          if (userRes.docs.length > 0) {
+            return await applicantsRef.doc(userRes.docs[0].id).update({ submittedProject: res.id })
           }
         })
       )
@@ -84,5 +95,7 @@ export default ({ user, refreshCallback }) => {
     setSubmitting(false)
   }
 
-  return <Form project={project} onSubmit={submit} isSubmitting={isSubmitting} />
+  return (
+    <Form project={project} onSubmit={submit} isSubmitting={isSubmitting} userData={userData} />
+  )
 }
