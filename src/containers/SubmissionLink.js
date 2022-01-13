@@ -29,6 +29,7 @@ export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState(tempProject)
   const [isSubmitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
+  const [userData, setUserData] = useState({})
 
   useEffect(() => {
     const getProject = async () => {
@@ -47,7 +48,16 @@ export default ({ user, refreshCallback }) => {
             submittedProject: '',
           })
         }
+      } else {
+        let autoFill = [
+          {
+            name: userData.basicInfo.firstName + ' ' + userData.basicInfo.lastName,
+            email: userData.basicInfo.email,
+          },
+        ]
+        setProject({ teamMembers: autoFill })
       }
+      setUserData(userData)
     }
     getProject()
   }, [user.uid])
@@ -119,6 +129,13 @@ export default ({ user, refreshCallback }) => {
     }
     setSubmitting(false)
   }
-
-  return <Form project={project} onSubmit={submit} isSubmitting={isSubmitting} error={error} />
+  return (
+    <Form
+      project={project}
+      onSubmit={submit}
+      isSubmitting={isSubmitting}
+      userData={userData}
+      error={error}
+    />
+  )
 }
