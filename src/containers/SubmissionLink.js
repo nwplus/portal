@@ -28,6 +28,7 @@ const tempProject = {
 export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState(tempProject)
   const [isSubmitting, setSubmitting] = useState(false)
+  const [isLeaving, setIsLeaving] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -102,5 +103,16 @@ export default ({ user, refreshCallback }) => {
     setSubmitting(false)
   }
 
-  return <Form project={project} onSubmit={submit} isSubmitting={isSubmitting} error={error} />
+  const leaveProject = () => console.log('I want to leave!')
+
+  return (
+    <Form
+      project={project}
+      onSubmit={submit}
+      isSubmitting={isSubmitting}
+      onLeave={leaveProject}
+      isLeaving={isLeaving}
+      error={error}
+    />
+  )
 }

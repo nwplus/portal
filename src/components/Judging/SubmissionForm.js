@@ -82,7 +82,7 @@ const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
 
-export default ({ project, onSubmit, isSubmitting, error }) => {
+export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error }) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -358,14 +358,14 @@ export default ({ project, onSubmit, isSubmitting, error }) => {
           onClick={!isSubmitting ? handleSubmit : undefined}
           disabled={isSubmitting}
         >
-          Submit
+          Save
         </Button>
         <Button
           no_margin
           color="secondary"
           width="flex"
-          onClick={!isSubmitting ? handleSubmit : undefined}
-          disabled={isSubmitting}
+          onClick={!isLeaving ? onLeave : undefined}
+          disabled={isLeaving}
         >
           Leave Project
         </Button>
