@@ -16,9 +16,11 @@ export default () => {
 
   useEffect(() => {
     getProjects().then(projectsData => {
-      const newProjects = projectsData.map(project => {
-        return { ...project.data(), uid: project.id }
-      })
+      const newProjects = projectsData
+        .map(project => {
+          return { ...project.data(), uid: project.id }
+        })
+        .filter(project => project.draftStatus === 'public')
       setProjects(newProjects)
     })
   }, [])
@@ -29,6 +31,7 @@ export default () => {
         {projects.map(project => {
           return (
             <JudgingCard
+              key={project.uid}
               title={project.title}
               description={project.description}
               imgUrl={getYoutubeThumbnail(project.links.youtube)}

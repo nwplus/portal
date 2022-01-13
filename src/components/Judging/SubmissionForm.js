@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Select, TextArea, TextInput } from '../Input'
+import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
 import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
 import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
@@ -84,6 +84,7 @@ export default ({ project, onSubmit, isSubmitting }) => {
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [mentorNominations, setMentorNominations] = useState(project.mentorNominations || '')
+  const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
 
   // Fetch list of sponsor prizes from Firebase
@@ -103,6 +104,7 @@ export default ({ project, onSubmit, isSubmitting }) => {
     setLinks(project.links || {})
     setSelectedPrizes(project.sponsorPrizes || [])
     setMentorNominations(project.mentorNominations || '')
+    setDraftStatus(project.draftStatus || 'draft')
 
     const newArray = project.teamMembers ? [...project.teamMembers] : []
     if (newArray.length < 4) {
@@ -198,6 +200,7 @@ export default ({ project, onSubmit, isSubmitting }) => {
         sponsorPrizes: selectedPrizes,
         mentorNominations,
         uid: project.uid,
+        draftStatus,
       })
     }
   }
@@ -331,6 +334,17 @@ export default ({ project, onSubmit, isSubmitting }) => {
           Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
         </div>
       )}
+      <StyledHr />
+      <Dropdown
+        options={[
+          { value: 'draft', label: 'Save as draft' },
+          { value: 'public', label: 'Publish project' },
+        ]}
+        placeholder={draftStatus === 'draft' ? 'Save as draft' : 'Publish project'}
+        isSearchable={false}
+        onChange={inputValue => setDraftStatus(inputValue.value)}
+        isValid
+      />
       <Button
         no_margin
         color="aurora"
