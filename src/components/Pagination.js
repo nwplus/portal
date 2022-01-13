@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import prev from '../assets/pagination/prev.svg'
+import next from '../assets/pagination/next.svg'
 
 const PaginationContainer = styled.div`
   text-align: center;
@@ -62,14 +64,10 @@ const Pages = ({ count, active, onPageClick }) => {
 export default function Pagination({ count, pageIndex, onPageClick, onPrevClick, onNextClick }) {
   return (
     <PaginationContainer>
-      <BasePaginationButton
-        contentUrl="../assets/pagination/prev.svg"
-        onClick={onPrevClick}
-        disabled={pageIndex === 0}
-      />
+      <BasePaginationButton contentUrl={prev} onClick={onPrevClick} disabled={pageIndex === 0} />
       <Pages count={count} active={pageIndex} onPageClick={onPageClick} />
       <BasePaginationButton
-        contentUrl="../assets/pagination/next.svg"
+        contentUrl={next}
         onClick={onNextClick}
         disabled={pageIndex === count - 1}
       />

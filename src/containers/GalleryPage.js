@@ -26,7 +26,7 @@ const ProjectPageContainer = styled.div`
   }
 `
 
-const PROJECTS_PER_PAGE = 6
+const PROJECTS_PER_PAGE = 24
 
 export default function GalleryPage({ projects, startingPageIndex = 0 }) {
   const [currPageIndex, setCurrPageIndex] = useState(startingPageIndex)
