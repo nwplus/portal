@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { H1, H2, P } from '../components/Typography'
 
 import { getSubmission } from '../utility/firebase'
-import { hexToRgba } from '../utility/utilities'
 import { Loading } from '../components/HeroPage'
 import Youtube from '../components/Youtube'
 import { Button } from '../components/Input'
