@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import JudgingCard from '../components/Judging/JudgingCard'
 import styled from 'styled-components'
 import { H1 } from '../components/Typography'
 import { getProjects } from '../utility/firebase'
-import { getYoutubeThumbnail } from '../utility/utilities'
+import GalleryPage from '../containers/GalleryPage'
 
 const Container = styled.div`
   display: flex;
@@ -28,19 +27,7 @@ export default () => {
     <>
       <H1>Project Gallery</H1>
       <Container>
-        {projects.map(project => {
-          return (
-            <JudgingCard
-              key={project.uid}
-              title={project.title}
-              description={project.description}
-              imgUrl={getYoutubeThumbnail(project.links.youtube)}
-              buttonLabel="See more"
-              buttonDisabled={false}
-              href={'projects/' + project.uid}
-            />
-          )
-        })}
+        <GalleryPage projects={projects} />
       </Container>
     </>
   )
