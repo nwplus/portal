@@ -71,7 +71,17 @@ export default ({ user, refreshCallback }) => {
             console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: projectId })
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: projectId })
             }
           })
         )
@@ -89,9 +99,17 @@ export default ({ user, refreshCallback }) => {
             console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              return await applicantsRef
-                .doc(res.docs[0].id)
-                .update({ submittedProject: project.id })
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: project.id })
             }
           })
         )
