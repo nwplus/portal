@@ -3,6 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput } from '../Input'
 import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
+import ErrorBanner from '../ErrorBanner'
 import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
@@ -76,7 +77,7 @@ const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
 
-export default ({ project, onSubmit, isSubmitting }) => {
+export default ({ project, onSubmit, isSubmitting, error }) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -334,11 +335,12 @@ export default ({ project, onSubmit, isSubmitting }) => {
       <Button
         no_margin
         color="aurora"
-        onClick={!isSubmitting && handleSubmit}
+        onClick={!isSubmitting ? handleSubmit : undefined}
         disabled={isSubmitting}
       >
         Submit
       </Button>
+      {error && <ErrorBanner>{error.message}</ErrorBanner>}
     </div>
   )
 }
