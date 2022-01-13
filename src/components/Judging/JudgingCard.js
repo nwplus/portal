@@ -15,7 +15,7 @@ const StyledCard = styled.div`
 
 const CardContent = styled.div`
   padding: 1em 2em 2em 2em;
-  height: 220px;
+  height: 80px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,6 @@ const StyledImg = styled.img`
 
 const StyledButton = styled(Button)`
   width: 100%;
-  margin: auto 0 0 0;
   box-sizing: border-box;
 `
 

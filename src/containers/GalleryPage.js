@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import JudgingCard from '../components/Judging/JudgingCard'
 import Pagination, { getClickedPageIndex } from '../components/Pagination'
+import { getYoutubeThumbnail } from '../utility/utilities'
 
 const ProjectPageWrapper = styled.div`
   width: 100%;
@@ -66,7 +67,15 @@ export default function GalleryPage({ projects, startingPageIndex = 0 }) {
         <>
           <ProjectPageContainer>
             {currPageProjects.map((project, index) => (
-              <JudgingCard key={index} {...project} />
+              <JudgingCard
+                key={index}
+                title={project.title}
+                description={project.description}
+                imgUrl={getYoutubeThumbnail(project.links.youtube)}
+                buttonLabel="See more"
+                buttonDisabled={false}
+                href={'projects/' + project.uid}
+              />
             ))}
           </ProjectPageContainer>
           <Pagination
