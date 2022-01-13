@@ -26,7 +26,7 @@ const BasePaginationButton = styled.button`
   background: transparent;
   border: none;
   margin: 8px;
-  color: ${p => (p.active ? p.theme.colors.primary : p.theme.colors.secondary)};
+  color: ${p => (p.active ? p.theme.colors.primary : '#FFFFFF')};
   &:focus {
     color: ${p => p.theme.colors.primary};
   }
