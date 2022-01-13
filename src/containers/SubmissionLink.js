@@ -103,7 +103,30 @@ export default ({ user, refreshCallback }) => {
     setSubmitting(false)
   }
 
-  const leaveProject = () => console.log('I want to leave!')
+  // just need to actually write the logic and we are done!
+  const leaveProject = async () => {
+    if (isLeaving) return
+    if (!project.uid) return //user does not have a project yet
+
+    setIsLeaving(true)
+
+    if (project.teamMembers.length === 1) {
+      // current member is the last team member on the project
+      await projectsRef.doc(project.uid).delete()
+    } else {
+      // remove current member from the project
+      const updatedTeamMember = project.teamMembers.filter(
+        teamMember => teamMember.email !== user.email
+      )
+      await projectsRef.doc(project.uid).update({ teamMembers: updatedTeamMember })
+    }
+
+    await applicantsRef.doc(user.uid).update({
+      submittedProject: '',
+    })
+    setIsLeaving(false)
+    window.location.reload()
+  }
 
   return (
     <Form
