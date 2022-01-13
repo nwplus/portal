@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const ErrorDiv = styled.div`
-  max-width: 400px;
+  width: 25%;
   background-color: ${p => p.theme.colors.error};
   position: fixed;
   bottom: ${p => (p.shown ? '40px' : '-100px')};
@@ -15,6 +15,7 @@ const ErrorDiv = styled.div`
   left: 0;
   right: 0;
   border-radius: 5px;
+  word-break: break-word;
 `
 const ErrorText = styled.p`
   text-align: center;
