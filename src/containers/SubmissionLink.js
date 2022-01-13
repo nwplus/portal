@@ -39,7 +39,13 @@ export default ({ user, refreshCallback }) => {
       const projectId = userData.submittedProject
       if (projectId) {
         const projectDoc = await projectsRef.doc(projectId).get()
-        setProject({ ...projectDoc.data(), uid: projectDoc.id })
+        if (projectDoc.exists) {
+          setProject({ ...projectDoc.data(), uid: projectDoc.id })
+        } else {
+          await applicantsRef.doc(user.uid).update({
+            submittedProject: '',
+          })
+        }
       }
     }
     getProject()
