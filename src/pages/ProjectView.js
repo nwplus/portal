@@ -8,6 +8,7 @@ import { hexToRgba } from '../utility/utilities'
 import { Loading } from '../components/HeroPage'
 import Youtube from '../components/Youtube'
 import { Button } from '../components/Input'
+import { NotFound } from '.'
 
 const StyledProjectContainer = styled.div`
   display: flex;
@@ -102,6 +103,7 @@ const Project = ({ project }) => {
 }
 
 export default ({ pid }) => {
+  const [loading, setLoading] = useState(true)
   const [projectInfo, setProjectInfo] = useState(null)
 
   const getProject = async () => {
@@ -111,6 +113,7 @@ export default ({ pid }) => {
     } else {
       setProjectInfo(null)
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -118,5 +121,5 @@ export default ({ pid }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return !!projectInfo ? <Project project={projectInfo} /> : <Loading />
+  return loading ? <Loading /> : !!projectInfo ? <Project project={projectInfo} /> : <NotFound />
 }
