@@ -76,7 +76,7 @@ const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
 
-export default ({ project, onSubmit }) => {
+export default ({ project, onSubmit, isSubmitting }) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -98,7 +98,13 @@ export default ({ project, onSubmit }) => {
   // Fill the rest of the members array with empty objects
   // Required so that updateMember function doesn't break
   useEffect(() => {
-    const newArray = [...members]
+    setTitle(project.title || '')
+    setDescription(project.description || '')
+    setLinks(project.links || {})
+    setSelectedPrizes(project.sponsorPrizes || [])
+    setMentorNominations(project.mentorNominations || '')
+
+    const newArray = project.teamMembers ? [...project.teamMembers] : []
     if (newArray.length < 4) {
       // Do with for loop, since Array.fill will fill with references to same object
       for (let i = newArray.length; i < 4; i++) {
@@ -107,7 +113,7 @@ export default ({ project, onSubmit }) => {
     }
     setMembers(newArray)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [project])
 
   const updateMember = (index, field, value) => {
     const newMembers = [...members]
@@ -191,6 +197,7 @@ export default ({ project, onSubmit }) => {
         links,
         sponsorPrizes: selectedPrizes,
         mentorNominations,
+        uid: project.uid,
       })
     }
   }
@@ -324,7 +331,12 @@ export default ({ project, onSubmit }) => {
           Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
         </div>
       )}
-      <Button no_margin onClick={handleSubmit}>
+      <Button
+        no_margin
+        color="aurora"
+        onClick={!isSubmitting && handleSubmit}
+        disabled={isSubmitting}
+      >
         Submit
       </Button>
     </div>

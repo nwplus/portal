@@ -63,13 +63,13 @@ export default function Pagination({ count, pageIndex, onPageClick, onPrevClick,
   return (
     <PaginationContainer>
       <BasePaginationButton
-        contentUrl="/assets/pagination/prev.svg"
+        contentUrl="../assets/pagination/prev.svg"
         onClick={onPrevClick}
         disabled={pageIndex === 0}
       />
       <Pages count={count} active={pageIndex} onPageClick={onPageClick} />
       <BasePaginationButton
-        contentUrl="/assets/pagination/next.svg"
+        contentUrl="../assets/pagination/next.svg"
         onClick={onNextClick}
         disabled={pageIndex === count - 1}
       />

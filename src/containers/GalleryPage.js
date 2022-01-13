@@ -34,10 +34,25 @@ export default function GalleryPage({ projects, startingPageIndex = 0 }) {
 
   const TOTAL_PROJECT_PAGES = Math.ceil(projects.length / PROJECTS_PER_PAGE)
 
+  // OG code
+  // const getCurrPageProjects = (projects, currPageIndex) => {
+  //   const currPageProjects = []
+  //   for (let i = currPageIndex; i < PROJECTS_PER_PAGE && i < projects.length; i++) {
+  //     console.log('currPageIndex: ', currPageIndex)
+  //     const { description, links, teamMembers, title } = projects[i]
+  //     if (!description || !links || !teamMembers || !title) {
+  //       return
+  //     }
+  //     currPageProjects.push(projects[i])
+  //   }
+  //   return currPageProjects
+  // }
+
   const getCurrPageProjects = (projects, currPageIndex) => {
-    console.log('inside getCurrPageProjects')
     const currPageProjects = []
-    for (let i = currPageIndex; i < PROJECTS_PER_PAGE && i < projects.length; i++) {
+    const begin = currPageIndex === 0 ? currPageIndex : currPageIndex * PROJECTS_PER_PAGE
+    for (let i = begin; i < begin + PROJECTS_PER_PAGE && i < projects.length; i++) {
+      console.log('currPageIndex: ', currPageIndex)
       const { description, links, teamMembers, title } = projects[i]
       if (!description || !links || !teamMembers || !title) {
         return
@@ -48,7 +63,6 @@ export default function GalleryPage({ projects, startingPageIndex = 0 }) {
   }
 
   useEffect(() => {
-    console.log('in useEffect')
     setCurrPageProjects(getCurrPageProjects(projects, currPageIndex))
   }, [currPageIndex, setCurrPageIndex, projects])
 
@@ -58,7 +72,6 @@ export default function GalleryPage({ projects, startingPageIndex = 0 }) {
     }
     setCurrPageIndex(nextPageIndex)
   }
-  console.log(currPageProjects)
   return (
     <ProjectPageWrapper>
       {currPageProjects.length == 0 ? (

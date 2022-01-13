@@ -19,7 +19,7 @@ const EventCard = styled(Card)`
     border: 3px solid ${p.theme.colors.secondaryWarning};
     border-radius: 7px;
     background: ${p.theme.colors.card};
-    
+
     & > h3 {
       color: ${p.theme.colors.secondaryWarning};
     }

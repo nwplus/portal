@@ -11,7 +11,7 @@ import {
   Home,
   Faq,
   Sponsors,
-  Quicklinks,
+  GettingStarted,
   Schedule,
   Judging,
   JudgingAdmin,
@@ -23,6 +23,7 @@ import {
   ApplicationConfirmation,
   Application,
   InfoPackage,
+  Gallery,
 } from './pages'
 import Page from './components/Page'
 import { db, getLivesiteDoc } from './utility/firebase'
@@ -30,7 +31,6 @@ import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from '
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
-import Gallery from './pages/Gallery'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -55,9 +55,21 @@ const PageRoute = ({ path, children }) => {
   )
 }
 
+// Authenticate for only applicants that have been accepted
 const AuthPageRoute = ({ path, children }) => {
-  const { isAuthed } = useAuth()
-  return <Route path={path}>{isAuthed ? <Page>{children}</Page> : <Redirect to="/login" />}</Route>
+  const { isAuthed, user } = useAuth()
+  if (!isAuthed) {
+    return (
+      <Route path={path}>
+        <Redirect to="/login" />
+      </Route>
+    )
+  }
+  return (
+    <Route path={path}>
+      {user?.status === APPLICATION_STATUS.accepted ? <Page>{children}</Page> : <Redirect to="/" />}
+    </Route>
+  )
 }
 
 const ApplicationInProgressRoute = ({ name, handleLogout, path, children, theme }) => {
@@ -221,20 +233,20 @@ function App() {
           <PageRoute path="/sponsors">
             <Sponsors />
           </PageRoute>
-          <PageRoute path="/quicklinks">
-            <Quicklinks />
+          <PageRoute path="/getting-started">
+            <GettingStarted />
           </PageRoute>
-          <PageRoute path="/package">
+          <PageRoute path="/info-package">
             <InfoPackage />
           </PageRoute>
+          {/* <PageRoute path="/judging/info">
+            <JudgingInfo />
+          </PageRoute> */}
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />
             </Navbar>
           </NoAuthRoute>
-          <AuthPageRoute path="/judging/info">
-            <Judging />
-          </AuthPageRoute>
           <AuthPageRoute path="/judging">
             <Judging />
           </AuthPageRoute>

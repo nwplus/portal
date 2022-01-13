@@ -1,24 +1,26 @@
+// TODO: remove this when we finish project submission system
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc, getUserApplication, getSubmission, submitGrade } from '../utility/firebase'
-import ViewSubmission from '../components/Judging/Submission'
+import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
+// import ViewSubmission from '../components/Judging/Submission'
 import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
-import LinkSubmission from '../containers/SubmissionLink'
-import { formatProject } from '../utility/utilities'
+import SubmissionLink from '../containers/SubmissionLink'
+// import { formatProject } from '../utility/utilities'
 
 export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState()
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
 
-  const reportGrade = async id => {
-    const score = {
-      ...submission.grades[id],
-      reported: true,
-    }
-    await submitGrade(submission.id, score, { uid: id })
-    window.location.reload()
-  }
+  // const reportGrade = async id => {
+  //   const score = {
+  //     ...submission.grades[id],
+  //     reported: true,
+  //   }
+  //   await submitGrade(submission.id, score, { uid: id })
+  //   window.location.reload()
+  // }
 
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
@@ -67,9 +69,5 @@ export default () => {
     )
   }
 
-  return !!submission ? (
-    <ViewSubmission project={formatProject(submission)} user={user} reportCallback={reportGrade} />
-  ) : (
-    <LinkSubmission user={user} refreshCallback={getProject} />
-  )
+  return <SubmissionLink user={user} refreshCallback={getProject} />
 }

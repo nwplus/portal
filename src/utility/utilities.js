@@ -53,19 +53,14 @@ export const hexToRgba = (hex, a = 1) => {
 
 // given youtube video URL, convert to thumnail URL
 export const getYoutubeThumbnail = link => {
-  console.log('helloooo')
   if (link.includes('youtube')) {
     const youtubeID = new URL(link).searchParams.get('v')
-    console.log(`https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`)
     return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
   }
   if (link.includes('youtu.be')) {
-    const youtubeID = new URL(link).pathname
-
-    console.log(`https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`)
+    const youtubeID = new URL(link).pathname.replace('/', '')
     return `https://img.youtube.com/vi/${youtubeID}/maxresdefault.jpg`
   }
-  console.log('https://img.youtube.com/vi/aaa/maxresdefault.jpg')
   return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'
 }
 

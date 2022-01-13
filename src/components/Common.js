@@ -117,7 +117,7 @@ export const TextInputLike = css`
   padding: 10px;
   border: 2px solid ${p => p.theme.colors.highlight};
   border-radius: 7px;
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.text};
   font-family: ${p => p.theme.typography.bodyFont};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {

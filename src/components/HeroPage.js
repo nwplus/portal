@@ -11,6 +11,7 @@ const HeroContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: none;
 `
 
 export const HeroPage = ({ children }) => (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { H1, H2, H3, P, A, UL, LI } from '../components/Typography'
+import { H1, H2, H3, P, A, UL, LI, PortalLink, HR } from '../components/Typography'
 import { Checkbox } from '../components/Input'
 
 const StyledH2 = styled(H2)`
@@ -12,14 +12,15 @@ const StyledH3 = styled(H3)`
 const StyledP = styled(P)`
   margin-top: 5px;
 `
+
 const TodoColumnContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
 `
 
 const TodoColumn = styled.div`
-  max-width: 350px;
-  padding: 0 15px 0 15px;
+  flex: 1 0 200px;
   display: flex;
   flex-direction: column;
 `
@@ -47,24 +48,26 @@ export default () => {
         We're thrilled to have you at nwHacks 2022! Though things are different with our event being
         virtual this year, we're still looking to have a great experience together. Whether it's
         your first, second or nth time at nwHacks, we hope you'll be able to connect, collaborate,
-        and build something extraordinary. The future is yours!
+        and build something extraordinary.
       </StyledP>
+      <StyledP>The future is yours!</StyledP>
       <StyledP>
         <span role="img" aria-label="heart-emoji">
           💕
         </span>{' '}
         The nwHacks team
       </StyledP>
+      <HR />
       <StyledH2>Contact Information</StyledH2>
       <StyledP>
-        Logistics team:
-        <A href="mailto:logistics@nwplus.io">logistics@nwplus.io</A>
+        Logistics team: <A href="mailto:logistics@nwplus.io">logistics@nwplus.io</A>
       </StyledP>
       <StyledP>Feel more than welcome to email us with any questions!</StyledP>
       <StyledP>
         <strong>#ask-organizers</strong> channel will be available for you for any questions that
         might arise during the event.
       </StyledP>
+      <HR />
       <StyledH2>Hacker TODO's</StyledH2>
       <TodoColumnContainer>
         <TodoColumn>
@@ -90,7 +93,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Run the !verify <email> command on the Discord server to verify your name on our RSVPed hacker list"
+            label="Follow the Discord bot’s instructions which should have been sent to you via DM when you joined the server to verify your email on our list!"
             checked={states.preHacking.verify}
             onChange={() =>
               setStates({
@@ -99,19 +102,19 @@ export default () => {
               })
             }
           />
-        </TodoColumn>
-        <TodoColumn>
-          <StyledH3>The day of hacking</StyledH3>
           <Checkbox
-            label="Run the !attend <email> command on our Discord server"
-            checked={states.dayOf.attend}
+            label="Attend pre-hackathon workshops by our amazing sponsors!"
+            checked={states.preHacking.workshops}
             onChange={() =>
               setStates({
                 ...states,
-                dayOf: { ...states.dayOf, attend: !states.dayOf.attend },
+                preHacking: { ...states.preHacking, workshops: !states.preHacking.workshops },
               })
             }
           />
+        </TodoColumn>
+        <TodoColumn>
+          <StyledH3>The day of hacking</StyledH3>
           <Checkbox
             label="Enjoy your time at nwHacks 2022 and create something amazing with your team 😉"
             checked={states.dayOf.enjoy}
@@ -162,6 +165,16 @@ export default () => {
               })
             }
           />
+          <Checkbox
+            label="Interact with mentors by submitting mentor tickets"
+            checked={states.dayOf.interact}
+            onChange={() =>
+              setStates({
+                ...states,
+                dayOf: { ...states.dayOf, interact: !states.dayOf.interact },
+              })
+            }
+          />
         </TodoColumn>
         <TodoColumn>
           <StyledH3>Post-hacking</StyledH3>
@@ -207,6 +220,7 @@ export default () => {
           />
         </TodoColumn>
       </TodoColumnContainer>
+      <HR />
       <StyledH2>Our Online Platform: Discord!</StyledH2>
       <StyledP>
         All hacker interaction will be happening on our nwHacks 2022 Discord server. The nwPlus
@@ -215,37 +229,50 @@ export default () => {
       </StyledP>
       <UL>
         <LI>
-          Link to join our discord can be found here →{' '}
-          <A href="https://discord.gg/nwhacks-2022">https://discord.gg/nwhacks-2022</A>
+          Link to join our Discord can be found at{' '}
+          <A href="https://discord.gg/nwhacks-2022" target="_blank" rel="noreferrer noopener">
+            https://discord.gg/nwhacks-2022
+          </A>
         </LI>
-        <LI>
-          Learn more about our nwPlus Discord Bot Commands here (link to the section of the page
-          with the discord commands below)
-        </LI>
+        <LI>Learn more about our nwPlus Discord Bot Commands (link coming soon!)</LI>
         <LI>
           If you are unfamiliar with Discord, check out our{' '}
-          <A href="https://www.notion.so/8fec58618b68464eba5b78c01902213d">
-            introductory discord videos
+          <A
+            href="https://www.notion.so/8fec58618b68464eba5b78c01902213d"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            introductory Discord videos
           </A>
         </LI>
         <LI>
           We ask all hackers to familiarize themselves with our{' '}
-          <A href="https://www.notion.so/nwplus/PUBLIC-Discord-Etiquette-and-Policies-fa1722736bd047c49c64d6cd1bd93590">
+          <A
+            href="https://www.notion.so/nwplus/PUBLIC-Discord-Etiquette-and-Policies-fa1722736bd047c49c64d6cd1bd93590"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             Discord Etiquette and Policies
           </A>
         </LI>
       </UL>
+      <HR />
       <StyledH2>Schedule</StyledH2>
       <StyledP>
-        Schedule for nwHacks 2022 is on our <A href="https://portal.nwplus.io/">live portal</A>!
-        Please also turn on the announcements notification to stay updated on our events!
+        The schedule for nwHacks 2022 can be found on the{' '}
+        <PortalLink href="/schedule">schedule page</PortalLink>! Please also turn on the
+        announcements notification to stay updated on our events!
       </StyledP>
+      <HR />
       <StyledH2>Tag Us on Social Media! #nwHacks2022</StyledH2>
       <StyledP>Instagram, Facebook, Twitter: @nwplusubc</StyledP>
       <StyledP>
         Be sure to also follow all of our{' '}
-        <A href="https://linktr.ee/nwplusubc">social media pages</A> to see event photos,
-        behind-the-scenes sneak peeks, and be the first to know about all of our upcoming events!
+        <A href="https://linktr.ee/nwplusubc" target="_blank" rel="noreferrer noopener">
+          social media pages
+        </A>{' '}
+        to see event photos, behind-the-scenes sneak peeks, and be the first to know about all of
+        our upcoming events!
       </StyledP>
     </>
   )

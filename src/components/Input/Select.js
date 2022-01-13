@@ -40,8 +40,8 @@ const Selector = styled.span`
   vertical-align: middle;
   ${p =>
     p.checked
-      ? `background-color: ${p.theme.colors.background};
-        border: 2px solid ${p.theme.colors.background};`
+      ? `background-color: ${p.theme.colors.secondaryBackground};
+        border: 2px solid ${p.theme.colors.secondaryBackground};`
       : `border: 2px solid ${p.theme.colors.default};`}
   ${SelectWrapper}:hover & {
     ${p =>
@@ -59,12 +59,12 @@ const Input = styled.input`
 
 const Label = styled.label`
   align-items: center;
-  color: ${p => p.checked && p.theme.colors.background};
+  color: ${p => p.checked && p.theme.colors.secondaryBackground};
   ${SelectWrapper}:hover {
     ${p =>
       p.disabled
         ? `cursor: not-allowed;`
-        : `color: ${p.theme.colors.primary}; 
+        : `color: ${p.checked ? p.theme.colors.secondaryBackground : p.theme.colors.primary}; 
           cursor: pointer;`}
   }
 `

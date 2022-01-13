@@ -11,6 +11,80 @@ const Container = styled.div`
   flex-wrap: wrap;
   gap: 0em 2em;
 `
+const MOCK_PROJECTS = [
+  {
+    title: 'title 1',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 2',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 3',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 4',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 5',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 6',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 7',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 8',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 9',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 10',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 11',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+  {
+    title: 'title 12',
+    description: 'description',
+    links: { youtube: 'https://www.youtube.com/watch?v=kOHB85vDuow&ab_channel=JYPEntertainment' },
+    teamMembers: [],
+  },
+]
 
 export default () => {
   const [projects, setProjects] = useState([])
@@ -27,7 +101,7 @@ export default () => {
     <>
       <H1>Project Gallery</H1>
       <Container>
-        <GalleryPage projects={projects} />
+        <GalleryPage projects={MOCK_PROJECTS} />
       </Container>
     </>
   )

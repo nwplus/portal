@@ -5,8 +5,15 @@
   "targets": {
     "nwplus-ubc": {
       "hosting": {
-        "production": [
-          "nw-livesite"
+        "nwplus-ubc": [
+          "nwplus-ubc"
+        ]
+      }
+    },
+    "nwplus-ubc-dev": {
+      "hosting": {
+        "nwplus-ubc-dev": [
+          "dev-nwplus-portal"
         ]
       }
     }
