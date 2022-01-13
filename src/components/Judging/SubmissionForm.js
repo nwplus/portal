@@ -348,11 +348,20 @@ export default ({ project, onSubmit, isSubmitting, error }) => {
       />
       <Button
         no_margin
-        color="aurora"
+        color="primary"
         onClick={!isSubmitting ? handleSubmit : undefined}
         disabled={isSubmitting}
       >
         Submit
+      </Button>
+      <Button
+        no_margin
+        color="secondary"
+        width="flex"
+        onClick={!isSubmitting ? handleSubmit : undefined}
+        disabled={isSubmitting}
+      >
+        Leave Project
       </Button>
       {error && <ErrorBanner>{error.message}</ErrorBanner>}
     </div>
