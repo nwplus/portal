@@ -35,7 +35,7 @@ export default () => {
       </StyledP>
       <StyledP>
         Links and times for the workshops can be found on the{' '}
-        <PortalLink href="/schedule">schedule page</PortalLink>.
+        <PortalLink href="/schedule">schedule page</PortalLink> or through Discord Events functionality.
       </StyledP>
       <HR />
       <StyledH2>Sponsor Booth</StyledH2>
@@ -53,7 +53,7 @@ export default () => {
       </StyledUL>
       <StyledP>
         Links and times for the boothings can be found on the{' '}
-        <PortalLink href="/schedule">schedule page</PortalLink>.
+        <PortalLink href="/schedule">schedule page</PortalLink> or through Discord Events functionality.
       </StyledP>
       <HR />
       <StyledH2>Mini Activities</StyledH2>
@@ -83,7 +83,12 @@ export default () => {
       </StyledP>
       <StyledP>
         <A href="https://majorleaguehacking.typeform.com/to/prgvE4AV?typeform-source=hackp.ac">
-          Shipping Address Form
+          Shipping Address Form (MLH)
+        </A>
+      </StyledP>
+      <StyledP>
+        <A href="https://forms.gle/snthRE15an29Cr1G7">
+          Shipping Address Form (nwHacks)
         </A>
       </StyledP>
       <HR />
@@ -108,10 +113,13 @@ export default () => {
               <strong>Covalent's</strong> Web3 in Your nwHacks Project
             </LI>
             <LI>
+              <strong>Kabam's</strong> Best UX/UI
+            </LI>            <LI>
+              <strong>Microsoft's</strong> Best Use of Azure
+            </LI>            <LI>
               <strong>MLH’s</strong> multiple sponsor challenges and prizes:{' '}
               <A href="https://hack.mlh.io/prizes">https://hack.mlh.io/prizes</A>
             </LI>
-            <LI>More sponsor challenges and prizes to be added! Stay tuned!</LI>
           </StyledUL>
         </InfoSection>
         <InfoSection>
@@ -136,6 +144,9 @@ export default () => {
         this weekend! Find out more on{' '}
         <A href="https://hack.mlh.io/software">https://hack.mlh.io/software</A>.
       </StyledP>
+      <StyledP>
+      Craver Solutions is giving out their t-shirt swag to the first 100 people! Go fill out this <A href="https://docs.google.com/forms/d/e/1FAIpQLSc6pPCUFtS9v88iOJIHj23WE0EWr9UyqWAb103c1TBVm93n_A/viewform">google form</A> and be one of the lucky hackers to get a free t-shirt.{''}
+      </StyledP>      
       <HR />
       <StyledH2>More Info</StyledH2>
       <StyledP>
