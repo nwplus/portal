@@ -305,9 +305,11 @@ export default () => {
 
   useEffect(() => {
     getProjects().then(projectsData => {
-      const newProjects = projectsData.map(project => {
-        return { ...project.data(), uid: project.id }
-      })
+      const newProjects = projectsData
+        .map(project => {
+          return { ...project.data(), uid: project.id }
+        })
+        .filter(project => project.draftStatus === 'public')
       setProjects(newProjects)
     })
   }, [])
