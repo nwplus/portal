@@ -81,7 +81,17 @@ export default ({ user, refreshCallback }) => {
             console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              return await applicantsRef.doc(res.docs[0].id).update({ submittedProject: projectId })
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: projectId })
             }
           })
         )
@@ -90,16 +100,26 @@ export default ({ user, refreshCallback }) => {
       }
     } else {
       try {
-        const res = await projectsRef.add(projectSubmission)
+        const project = await projectsRef.add(projectSubmission)
         // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
         await Promise.all(
           // TODO: Check that the person doesn't already have a project
           // TODO: Allow Remove people
           projectSubmission.teamMembers.map(async member => {
             console.log(member.email)
-            const userRes = await applicantsRef.where('basicInfo.email', '==', member.email).get()
-            if (userRes.docs.length > 0) {
-              return await applicantsRef.doc(userRes.docs[0].id).update({ submittedProject: res.id })
+            const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+            if (res.docs.length > 0) {
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: project.id })
             }
           })
         )
@@ -110,6 +130,12 @@ export default ({ user, refreshCallback }) => {
     setSubmitting(false)
   }
   return (
-    <Form project={project} onSubmit={submit} isSubmitting={isSubmitting} userData={userData} error={error} />
+    <Form
+      project={project}
+      onSubmit={submit}
+      isSubmitting={isSubmitting}
+      userData={userData}
+      error={error}
+    />
   )
 }
