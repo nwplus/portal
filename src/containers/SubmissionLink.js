@@ -93,10 +93,12 @@ export default ({ user, refreshCallback }) => {
                 setError(
                   new Error(member.email + ' is already part of a different project submission.')
                 )
-              } else validMembers.push(member)
-              return await applicantsRef
-                .doc(res.docs[0].id)
-                .update({ 'submission.submittedProject': projectId })
+              } else {
+                validMembers.push(member)
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ 'submission.submittedProject': projectId })
+              }
             } else {
               setError(new Error(member.email + ' is not a valid hacker.'))
             }
