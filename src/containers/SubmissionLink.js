@@ -59,17 +59,18 @@ export default ({ user, refreshCallback }) => {
         // Array to hold validated members
         let validMembers = []
 
-        // Update the submission.submittedProject for each user
+        // Update the submittedProject for each user
         await Promise.all(
           projectSubmission.teamMembers.map(async member => {
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              const userData = res.docs[0].data()
+              const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
                 setError(new Error(member.email + ' is not a valid hacker.'))
                 // Check that the hacker isn't already associated with another project
-              } else if (res.docs[0].data().submittedProject !== projectId) {
+              } else if (userData.submittedProject && userData.submittedProject !== projectId) {
                 setError(
                   new Error(member.email + ' is already part of a different project submission.')
                 )
@@ -77,7 +78,7 @@ export default ({ user, refreshCallback }) => {
                 validMembers.push(member)
                 return await applicantsRef
                   .doc(res.docs[0].id)
-                  .update({ 'submission.submittedProject': projectId })
+                  .update({ submittedProject: projectId })
               }
             } else {
               setError(new Error(member.email + ' is not a valid hacker.'))
@@ -107,17 +108,18 @@ export default ({ user, refreshCallback }) => {
         // Array to hold validated members
         let validMembers = []
 
-        // Update the submission.submittedProject for each user
+        // Update the submittedProject for each user
         await Promise.all(
           projectSubmission.teamMembers.map(async member => {
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
-              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              const userData = res.docs[0].data()
+              const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
                 setError(new Error(member.email + ' is not a valid hacker.'))
                 // Check that the hacker isn't already associated with another project
-              } else if (res.docs[0].data().submittedProject) {
+              } else if (userData.submittedProject) {
                 setError(
                   new Error(member.email + ' is already part of a different project submission.')
                 )
