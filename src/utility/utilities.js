@@ -65,6 +65,7 @@ export const getYoutubeThumbnail = link => {
   } catch (err) {
     return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'
   }
+  return 'https://img.youtube.com/vi/aaa/maxresdefault.jpg'
 }
 
 export const formatProject = project => {
