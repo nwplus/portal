@@ -24,6 +24,19 @@ export const validateURL = thing => {
   return typeof thing === 'string' && !!pattern.test(thing)
 }
 
+export const validateYoutubeURL = thing => {
+  return validateURL(thing) && (thing.includes('youtube.com') || thing.includes('youtu.be'))
+}
+
+export const validateSrcCodeURL = thing => {
+  return (
+    validateURL(thing) &&
+    (thing.includes('bitbucket.org') ||
+      thing.includes('github.com') ||
+      thing.includes('gitlab.com'))
+  )
+}
+
 const validateNotNull = thing => {
   return thing !== null
 }
