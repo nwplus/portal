@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
-import { projectsRef, applicantsRef } from '../utility/firebase'
+import { projectsRef, applicantsRef, createProject, updateProject } from '../utility/firebase'
 
 const tempProject = {
   // title: '',
@@ -82,7 +82,6 @@ export default ({ user, refreshCallback }) => {
         // Update the submission.submittedProject for each user
         await Promise.all(
           projectSubmission.teamMembers.map(async member => {
-            console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
               const { applicationStatus, attending, responded } = res.docs[0].data().status
@@ -106,10 +105,11 @@ export default ({ user, refreshCallback }) => {
 
         // If there are no errors, update project with new information
         if (!error) {
-          await projectsRef.doc(projectId).update({
+          await updateProject(user.email, projectId, {
             ...projectSubmission,
             teamMembers: validMembers,
           })
+          window.location.reload()
         }
       } catch (error) {
         setError(error)
@@ -121,7 +121,7 @@ export default ({ user, refreshCallback }) => {
         // TODO: Allow Remove people
 
         // Temp variable for project
-        let project = {}
+        let project = null
 
         // Array to hold validated members
         let validMembers = []
@@ -140,15 +140,16 @@ export default ({ user, refreshCallback }) => {
                 setError(
                   new Error(member.email + ' is already part of a different project submission.')
                 )
+              } else {
+                // On first valid member, create a project to be used
+                if (!project) {
+                  project = await createProject(user.email, projectSubmission)
+                }
+                validMembers.push(member)
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: project.id })
               }
-              // On first valid member, create a project to be used
-              else if (!project) {
-                project = await projectsRef.add(projectSubmission)
-              }
-              validMembers.push(member)
-              return await applicantsRef
-                .doc(res.docs[0].id)
-                .update({ submittedProject: project.id })
             } else {
               setError(new Error(member.email + ' is not a valid hacker.'))
             }
@@ -157,10 +158,11 @@ export default ({ user, refreshCallback }) => {
 
         // If there are no errors, update project with new information (and ony valid members)
         if (!error) {
-          await projectsRef.doc(projectId).update({
+          await updateProject(user.email, project.id, {
             ...projectSubmission,
             teamMembers: validMembers,
           })
+          window.location.reload()
         }
       } catch (error) {
         setError(error)
