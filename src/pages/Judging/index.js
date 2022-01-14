@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'wouter'
 import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/Judging/JudgingCard'
-import { A } from '../../components/Typography'
 import { useAuth } from '../../utility/Auth'
 import { PROJECTS_TO_JUDGE_COUNT } from '../../utility/Constants'
 
