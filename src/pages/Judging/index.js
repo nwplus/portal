@@ -106,11 +106,7 @@ export default () => {
     return (
       <HeroPage>
         <h2>Error, permission denied</h2>
-        Please{' '}
-        <Link href="/submission">
-          <A>link your Devpost</A>
-        </Link>{' '}
-        account to access judging
+        <p>To access judging you must have submitted a project</p>
       </HeroPage>
     )
   }
