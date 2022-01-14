@@ -194,3 +194,23 @@ export const getSponsorPrizes = () => {
       return querySnapshot.data().sponsorPrizes
     })
 }
+
+export const createProject = (author, data) => {
+  return projectsRef.add({
+    ...data,
+    lastEditedBy: {
+      date: firebase.firestore.Timestamp.now(),
+      email: author,
+    },
+  })
+}
+
+export const updateProject = (author, projectId, data) => {
+  return projectsRef.doc(projectId).update({
+    ...data,
+    lastEditedBy: {
+      date: firebase.firestore.Timestamp.now(),
+      email: author,
+    },
+  })
+}

@@ -4,7 +4,12 @@ import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
 import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
 import ErrorBanner from '../ErrorBanner'
-import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
+import {
+  validateDiscord,
+  validateEmail,
+  validateYoutubeURL,
+  validateURL,
+} from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
 const FormSection = styled.div`
@@ -44,6 +49,11 @@ const StyledTextInput = styled(TextInput)`
   margin: 0;
 `
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const TextInputWithField = ({
   fieldName,
   value,
@@ -76,7 +86,8 @@ const TextInputWithField = ({
 const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
-export default ({ project, onSubmit, isSubmitting, error, userData }) => {
+
+export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, userData }) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -178,19 +189,20 @@ export default ({ project, onSubmit, isSubmitting, error, userData }) => {
       newErrors.self = 'You must include yourself in the submission'
     }
 
-    // Validate links
+    // Validate YouTube link
     if (!links.youtube) {
       newErrors.youtube = 'Please enter a URL'
+    } else if (!validateYoutubeURL(links.youtube)) {
+      newErrors.youtube = 'Please enter a valid YouTube URL'
     }
+
+    // Validate source code link
     if (!links.sourceCode) {
       newErrors.sourceCode = 'Please enter a URL'
+    } else if (!validateURL(links.sourceCode)) {
+      newErrors.sourceCode = 'Please enter a valid source code URL'
     }
-    Object.entries(links).forEach(entry => {
-      const [source, link] = entry
-      if (link && !validateURL(link)) {
-        newErrors[source] = 'Please enter a valid URL'
-      }
-    })
+
     setErrors(newErrors)
 
     // Remove incomplete member objects
@@ -341,7 +353,8 @@ export default ({ project, onSubmit, isSubmitting, error, userData }) => {
       )}
       {project.lastEditedBy && (
         <div>
-          Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
+          Last edited by {project.lastEditedBy.email} at{' '}
+          {project.lastEditedBy.date.toDate().toLocaleString()}
         </div>
       )}
       <StyledHr />
@@ -355,14 +368,25 @@ export default ({ project, onSubmit, isSubmitting, error, userData }) => {
         onChange={inputValue => setDraftStatus(inputValue.value)}
         isValid
       />
-      <Button
-        no_margin
-        color="aurora"
-        onClick={!isSubmitting ? handleSubmit : undefined}
-        disabled={isSubmitting}
-      >
-        Submit
-      </Button>
+      <ButtonContainer>
+        <Button
+          no_margin
+          color="primary"
+          onClick={!isSubmitting ? handleSubmit : undefined}
+          disabled={isSubmitting}
+        >
+          Save
+        </Button>
+        <Button
+          no_margin
+          color="secondary"
+          width="flex"
+          onClick={!isLeaving ? onLeave : undefined}
+          disabled={isLeaving}
+        >
+          Leave Project
+        </Button>
+      </ButtonContainer>
       {error && <ErrorBanner>{error.message}</ErrorBanner>}
     </div>
   )
