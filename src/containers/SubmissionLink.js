@@ -4,10 +4,8 @@ import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
 import { projectsRef, applicantsRef, createProject, updateProject } from '../utility/firebase'
 
-const tempProject = {}
-
 export default ({ user, refreshCallback }) => {
-  const [project, setProject] = useState(tempProject)
+  const [project, setProject] = useState({})
   const [isSubmitting, setSubmitting] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
   const [error, setError] = useState(null)
@@ -126,7 +124,10 @@ export default ({ user, refreshCallback }) => {
               } else {
                 // On first valid member, create a project to be used
                 if (!project) {
-                  project = await createProject(user.email, projectSubmission)
+                  project = await createProject(user.email, {
+                    ...projectSubmission,
+                    countAssigned: 0,
+                  })
                 }
                 validMembers.push(member)
                 return await applicantsRef
