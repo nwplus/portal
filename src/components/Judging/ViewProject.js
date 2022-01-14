@@ -77,10 +77,10 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
       <JudgingColumn>
         <H2>Judging "{project.title}"</H2>
         <Card>
-          <StyledYoutube src={project.youtubeUrl} />
+          <StyledYoutube src={project.links.youtube} />
           <StyledP>{project.description}</StyledP>
-          <A target="_blank" rel="noreferrer noopener" href={project.devpostUrl}>
-            View on Devpost
+          <A target="_blank" rel="noreferrer noopener" href={project.links.sourceCode}>
+            View source code
           </A>
         </Card>
       </JudgingColumn>
