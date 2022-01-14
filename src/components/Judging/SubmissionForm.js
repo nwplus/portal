@@ -347,7 +347,8 @@ export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, us
       )}
       {project.lastEditedBy && (
         <div>
-          Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
+          Last edited by {project.lastEditedBy.email} at{' '}
+          {project.lastEditedBy.date.toDate().toLocaleString()}
         </div>
       )}
       <StyledHr />
