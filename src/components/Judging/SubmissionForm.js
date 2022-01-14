@@ -4,7 +4,12 @@ import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
 import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
 import ErrorBanner from '../ErrorBanner'
-import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
+import {
+  validateDiscord,
+  validateEmail,
+  validateYoutubeURL,
+  validateURL,
+} from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
 const FormSection = styled.div`
@@ -184,19 +189,20 @@ export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, us
       newErrors.self = 'You must include yourself in the submission'
     }
 
-    // Validate links
+    // Validate YouTube link
     if (!links.youtube) {
       newErrors.youtube = 'Please enter a URL'
+    } else if (!validateYoutubeURL(links.youtube)) {
+      newErrors.youtube = 'Please enter a valid YouTube URL'
     }
+
+    // Validate source code link
     if (!links.sourceCode) {
       newErrors.sourceCode = 'Please enter a URL'
+    } else if (!validateURL(links.sourceCode)) {
+      newErrors.sourceCode = 'Please enter a valid source code URL'
     }
-    Object.entries(links).forEach(entry => {
-      const [source, link] = entry
-      if (link && !validateURL(link)) {
-        newErrors[source] = 'Please enter a valid URL'
-      }
-    })
+
     setErrors(newErrors)
 
     // Remove incomplete member objects
