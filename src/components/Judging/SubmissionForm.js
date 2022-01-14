@@ -44,6 +44,11 @@ const StyledTextInput = styled(TextInput)`
   margin: 0;
 `
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const TextInputWithField = ({
   fieldName,
   value,
@@ -76,7 +81,8 @@ const TextInputWithField = ({
 const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
-export default ({ project, onSubmit, isSubmitting, error, userData }) => {
+
+export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, userData }) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -355,14 +361,25 @@ export default ({ project, onSubmit, isSubmitting, error, userData }) => {
         onChange={inputValue => setDraftStatus(inputValue.value)}
         isValid
       />
-      <Button
-        no_margin
-        color="aurora"
-        onClick={!isSubmitting ? handleSubmit : undefined}
-        disabled={isSubmitting}
-      >
-        Submit
-      </Button>
+      <ButtonContainer>
+        <Button
+          no_margin
+          color="primary"
+          onClick={!isSubmitting ? handleSubmit : undefined}
+          disabled={isSubmitting}
+        >
+          Save
+        </Button>
+        <Button
+          no_margin
+          color="secondary"
+          width="flex"
+          onClick={!isLeaving ? onLeave : undefined}
+          disabled={isLeaving}
+        >
+          Leave Project
+        </Button>
+      </ButtonContainer>
       {error && <ErrorBanner>{error.message}</ErrorBanner>}
     </div>
   )
