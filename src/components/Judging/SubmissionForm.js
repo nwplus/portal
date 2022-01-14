@@ -193,7 +193,7 @@ export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, us
     if (!links.youtube) {
       newErrors.youtube = 'Please enter a URL'
     } else if (!validateYoutubeURL(links.youtube)) {
-      newErrors.youtube = 'Please enter a valid Youtube URL'
+      newErrors.youtube = 'Please enter a valid YouTube URL'
     }
 
     // Validate source code link
