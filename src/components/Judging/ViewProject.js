@@ -72,6 +72,7 @@ const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
 }
 
 export default ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
+  const cleanedUpLink = project.links.sourceCode.replace(/https?:\/\//, '')
   return (
     <Container>
       <JudgingColumn>
@@ -79,7 +80,7 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
         <Card>
           <StyledYoutube src={project.links.youtube} />
           <StyledP>{project.description}</StyledP>
-          <A target="_blank" rel="noreferrer noopener" href={project.links.sourceCode}>
+          <A target="_blank" rel="noreferrer noopener" href={`//${cleanedUpLink}`}>
             View source code
           </A>
         </Card>

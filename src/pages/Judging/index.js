@@ -21,6 +21,7 @@ const StyledJudgingCard = styled(JudgingCard)`
 const getProjects = async (userId, projectId) => {
   const getAndAssignProjects = async () => {
     const projectDocs = await projectsRef
+      .where('draftStatus', '==', 'public')
       .orderBy('countAssigned')
       .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
       .get()
