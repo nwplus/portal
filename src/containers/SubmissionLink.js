@@ -1,51 +1,141 @@
 // TODO: remove this when we finish project submission system
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
-import { projectsRef } from '../utility/firebase'
+import { projectsRef, applicantsRef } from '../utility/firebase'
 
-const NO_PROJECT = 'no project found'
-
-const getProjectByEmail = async email => {
-  const projectDoc = await projectsRef.where('teamMembersEmails', 'array-contains', email).get()
-  if (projectDoc.docs.length < 1) {
-    return NO_PROJECT
-  }
-  return projectDoc
-}
-
-// TODO: remove
-// Temporary representation of what the project object should look like
 const tempProject = {
-  title: 'Testing Project',
-  description: 'Just testing stuff',
-  teamMembers: [
-    {
-      name: 'Kevin Zou',
-      email: 'kevin@nwplus.io',
-      discord: 'kevin#1234',
-    },
-  ],
-  links: {
-    youtube: 'youtube.com',
-    sourceCode: 'github.com',
-  },
-  sponsorPrizes: ['Testing', 'kevbin'],
-  lastEditedBy: {
-    email: 'kevin@nwplus.io',
-    date: new Date(),
-  },
+  // title: '',
+  // description: '',
+  // teamMembers: [
+  //   {
+  //     name: 'Kevin Zou',
+  //     email: 'kevin@nwplus.io',
+  //     discord: 'kevin#1234',
+  //   },
+  // ],
+  // links: {
+  //   youtube: 'youtube.com',
+  //   sourceCode: 'github.com',
+  // },
+  // sponsorPrizes: ['Testing', 'kevbin'],
+  // lastEditedBy: {
+  //   email: 'kevin@nwplus.io',
+  //   date: new Date(),
+  // },
 }
 
 export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState(tempProject)
+  const [isSubmitting, setSubmitting] = useState(false)
+  const [error, setError] = useState(null)
+  const [userData, setUserData] = useState({})
 
-  // TODO: fetch project based on current user setProject
+  useEffect(() => {
+    const getProject = async () => {
+      const userDoc = await applicantsRef.doc(user.uid).get()
+      if (!userDoc.exists) {
+        return
+      }
+      const userData = userDoc.data()
+      const projectId = userData.submittedProject
+      if (projectId) {
+        const projectDoc = await projectsRef.doc(projectId).get()
+        if (projectDoc.exists) {
+          setProject({ ...projectDoc.data(), uid: projectDoc.id })
+        } else {
+          await applicantsRef.doc(user.uid).update({
+            submittedProject: '',
+          })
+        }
+      } else {
+        let autoFill = [
+          {
+            name: userData.basicInfo.firstName + ' ' + userData.basicInfo.lastName,
+            email: userData.basicInfo.email,
+          },
+        ]
+        setProject({ teamMembers: autoFill })
+      }
+      setUserData(userData)
+    }
+    getProject()
+  }, [user.uid])
 
   const submit = async projectSubmission => {
-    // TODO: Write project submission to Firebase
-    console.log(projectSubmission)
+    if (isSubmitting) {
+      return
+    }
+    setError(null)
+    setSubmitting(true)
+    const projectId = projectSubmission.uid
+    delete projectSubmission.uid
+    if (projectId) {
+      try {
+        await projectsRef.doc(projectId).update(projectSubmission)
+        // TODO: Determine if these emails are "new" emails
+        // TODO: Check that the person doesn't already have a project
+        // TODO: Allow Remove people
+        await Promise.all(
+          projectSubmission.teamMembers.map(async member => {
+            console.log(member.email)
+            const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+            if (res.docs.length > 0) {
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: projectId })
+            }
+          })
+        )
+      } catch (error) {
+        setError(error)
+      }
+    } else {
+      try {
+        const project = await projectsRef.add(projectSubmission)
+        // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
+        await Promise.all(
+          // TODO: Check that the person doesn't already have a project
+          // TODO: Allow Remove people
+          projectSubmission.teamMembers.map(async member => {
+            console.log(member.email)
+            const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+            if (res.docs.length > 0) {
+              const { applicationStatus, attending, responded } = res.docs[0].data().status
+              if (applicationStatus !== 'accepted' || !attending || !responded) {
+                setError(new Error(member.email + ' is not a valid hacker.'))
+              } else if (res.docs[0].data().submittedProject) {
+                setError(
+                  new Error(member.email + ' is already part of a different project submission.')
+                )
+              } else
+                return await applicantsRef
+                  .doc(res.docs[0].id)
+                  .update({ submittedProject: project.id })
+            }
+          })
+        )
+      } catch (error) {
+        setError(error)
+      }
+    }
+    setSubmitting(false)
   }
-
-  return <Form project={project} onSubmit={submit} />
+  return (
+    <Form
+      project={project}
+      onSubmit={submit}
+      isSubmitting={isSubmitting}
+      userData={userData}
+      error={error}
+    />
+  )
 }

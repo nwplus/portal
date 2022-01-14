@@ -35,7 +35,8 @@ export default () => {
       </StyledP>
       <StyledP>
         Links and times for the workshops can be found on the{' '}
-        <PortalLink href="/schedule">schedule page</PortalLink>.
+        <PortalLink href="/schedule">schedule page</PortalLink> or through Discord Events
+        functionality.
       </StyledP>
       <HR />
       <StyledH2>Sponsor Booth</StyledH2>
@@ -53,7 +54,8 @@ export default () => {
       </StyledUL>
       <StyledP>
         Links and times for the boothings can be found on the{' '}
-        <PortalLink href="/schedule">schedule page</PortalLink>.
+        <PortalLink href="/schedule">schedule page</PortalLink> or through Discord Events
+        functionality.
       </StyledP>
       <HR />
       <StyledH2>Mini Activities</StyledH2>
@@ -83,8 +85,11 @@ export default () => {
       </StyledP>
       <StyledP>
         <A href="https://majorleaguehacking.typeform.com/to/prgvE4AV?typeform-source=hackp.ac">
-          Shipping Address Form
+          Shipping Address Form (MLH)
         </A>
+      </StyledP>
+      <StyledP>
+        <A href="https://forms.gle/snthRE15an29Cr1G7">Shipping Address Form (nwHacks)</A>
       </StyledP>
       <HR />
       <StyledH2>Prizes</StyledH2>
@@ -108,10 +113,17 @@ export default () => {
               <strong>Covalent's</strong> Web3 in Your nwHacks Project
             </LI>
             <LI>
-              <strong>MLH’s</strong> multiple sponsor challenges and prizes:{' '}
-              <A href="https://hack.mlh.io/prizes">https://hack.mlh.io/prizes</A>
+              <strong>Kabam's</strong> Best UX/UI
             </LI>
-            <LI>More sponsor challenges and prizes to be added! Stay tuned!</LI>
+            <LI>
+              <strong>Microsoft's</strong> Best Use of Azure
+            </LI>
+            <LI>
+              <strong>MLH’s</strong> multiple sponsor challenges and prizes:{' '}
+              <A href="https://hack.mlh.io/prizes" target="_blank">
+                https://hack.mlh.io/prizes
+              </A>
+            </LI>
           </StyledUL>
         </InfoSection>
         <InfoSection>
@@ -134,7 +146,17 @@ export default () => {
       <StyledP>
         MLH partnered with some amazing technology companies to get you free access to their APIs
         this weekend! Find out more on{' '}
-        <A href="https://hack.mlh.io/software">https://hack.mlh.io/software</A>.
+        <A href="https://hack.mlh.io/software" target="_blank">
+          https://hack.mlh.io/software
+        </A>
+        .
+      </StyledP>
+      <StyledP>
+        Craver Solutions is giving out their t-shirt swag to the first 100 people! Go fill out this{' '}
+        <A href="https://docs.google.com/forms/d/e/1FAIpQLSc6pPCUFtS9v88iOJIHj23WE0EWr9UyqWAb103c1TBVm93n_A/viewform">
+          google form
+        </A>{' '}
+        and be one of the lucky hackers to get a free t-shirt.{''}
       </StyledP>
       <HR />
       <StyledH2>More Info</StyledH2>
@@ -144,18 +166,21 @@ export default () => {
       </StyledP>
       <StyledUL>
         <LI>
-          <A href="https://resources.nwplus.io/">
+          <A href="https://resources.nwplus.io/" target="_blank">
             Self Learning Resources Wiki: Everything About Coding
           </A>
         </LI>
         <LI>
-          <A href="https://medium.com/nwplusubc/hackathons-101-your-guide-to-nwhacks-a5aeb80b0579">
+          <A
+            href="https://medium.com/nwplusubc/hackathons-101-your-guide-to-nwhacks-a5aeb80b0579"
+            target="_blank"
+          >
             {' '}
             Hackathons 101: Your Guide to nwHacks
           </A>
         </LI>
         <LI>
-          <A href="https://medium.com/nwplusubc/hackathon-timeline-9cdcd1825bd4">
+          <A href="https://medium.com/nwplusubc/hackathon-timeline-9cdcd1825bd4" target="_blank">
             Timeline of a Hackathon
           </A>
         </LI>
@@ -169,15 +194,22 @@ export default () => {
       </StyledP>
       <UL>
         <LI>
-          <A href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct</A>
+          <A href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">
+            MLH Code of Conduct
+          </A>
         </LI>
         <LI>
-          <A href="https://www.notion.so/nwplus/PUBLIC-Discord-Etiquette-and-Policies-35c5dc4f0ccf45efa0ea390babc88549">
+          <A
+            href="https://www.notion.so/nwplus/PUBLIC-Discord-Etiquette-and-Policies-35c5dc4f0ccf45efa0ea390babc88549"
+            target="_blank"
+          >
             Discord Etiquette and Policies
           </A>
         </LI>
         <LI>
-          <A href="https://nwhacks2021.devpost.com/rules">nwHacks 2021 Project Submission Rules</A>
+          <A href="https://nwhacks2021.devpost.com/rules" target="_blank">
+            nwHacks 2021 Project Submission Rules
+          </A>
         </LI>
       </UL>
       <StyledP>

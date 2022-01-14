@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Select, TextArea, TextInput } from '../Input'
+import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
 import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
+import ErrorBanner from '../ErrorBanner'
 import { validateDiscord, validateEmail, validateURL } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
@@ -75,8 +76,7 @@ const TextInputWithField = ({
 const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
-
-export default ({ project, onSubmit }) => {
+export default ({ project, onSubmit, isSubmitting, error, userData }) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -84,6 +84,7 @@ export default ({ project, onSubmit }) => {
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [mentorNominations, setMentorNominations] = useState(project.mentorNominations || '')
+  const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
 
   // Fetch list of sponsor prizes from Firebase
@@ -98,7 +99,14 @@ export default ({ project, onSubmit }) => {
   // Fill the rest of the members array with empty objects
   // Required so that updateMember function doesn't break
   useEffect(() => {
-    const newArray = [...members]
+    setTitle(project.title || '')
+    setDescription(project.description || '')
+    setLinks(project.links || {})
+    setSelectedPrizes(project.sponsorPrizes || [])
+    setMentorNominations(project.mentorNominations || '')
+    setDraftStatus(project.draftStatus || 'draft')
+
+    const newArray = project.teamMembers ? [...project.teamMembers] : []
     if (newArray.length < 4) {
       // Do with for loop, since Array.fill will fill with references to same object
       for (let i = newArray.length; i < 4; i++) {
@@ -107,7 +115,7 @@ export default ({ project, onSubmit }) => {
     }
     setMembers(newArray)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [project])
 
   const updateMember = (index, field, value) => {
     const newMembers = [...members]
@@ -140,8 +148,12 @@ export default ({ project, onSubmit }) => {
     }
 
     // Validate member fields
+    let containsSelf = false
     members.forEach((member, index) => {
       const isRequired = index === 0
+      if (member.email === userData.basicInfo.email) {
+        containsSelf = true
+      }
       if (!member.name && (isRequired || member.email || member.discord)) {
         newErrors[`member${index + 1}Name`] = 'Please enter a name'
       }
@@ -160,6 +172,11 @@ export default ({ project, onSubmit }) => {
           'Please enter a valid Discord username (eg. username#1234)'
       }
     })
+
+    // Validate that currently auth'd user has included themself in submission
+    if (!containsSelf) {
+      newErrors.self = 'You must include yourself in the submission'
+    }
 
     // Validate links
     if (!links.youtube) {
@@ -191,6 +208,8 @@ export default ({ project, onSubmit }) => {
         links,
         sponsorPrizes: selectedPrizes,
         mentorNominations,
+        uid: project.uid,
+        draftStatus,
       })
     }
   }
@@ -304,6 +323,7 @@ export default ({ project, onSubmit }) => {
             </TeamMember>
           ))}
         </MemberList>
+        {errors.self && <ErrorMessage>{errors.self}</ErrorMessage>}
       </FormSection>
       <StyledHr />
       <FormSection>
@@ -324,9 +344,26 @@ export default ({ project, onSubmit }) => {
           Last edited by {project.lastEditedBy.email} at {project.lastEditedBy.date.toString()}
         </div>
       )}
-      <Button no_margin color="aurora" onClick={handleSubmit}>
+      <StyledHr />
+      <Dropdown
+        options={[
+          { value: 'draft', label: 'Save as draft' },
+          { value: 'public', label: 'Publish project' },
+        ]}
+        placeholder={draftStatus === 'draft' ? 'Save as draft' : 'Publish project'}
+        isSearchable={false}
+        onChange={inputValue => setDraftStatus(inputValue.value)}
+        isValid
+      />
+      <Button
+        no_margin
+        color="aurora"
+        onClick={!isSubmitting ? handleSubmit : undefined}
+        disabled={isSubmitting}
+      >
         Submit
       </Button>
+      {error && <ErrorBanner>{error.message}</ErrorBanner>}
     </div>
   )
 }
