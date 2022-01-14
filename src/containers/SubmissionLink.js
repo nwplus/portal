@@ -4,26 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
 import { projectsRef, applicantsRef, createProject, updateProject } from '../utility/firebase'
 
-const tempProject = {
-  // title: '',
-  // description: '',
-  // teamMembers: [
-  //   {
-  //     name: 'Kevin Zou',
-  //     email: 'kevin@nwplus.io',
-  //     discord: 'kevin#1234',
-  //   },
-  // ],
-  // links: {
-  //   youtube: 'youtube.com',
-  //   sourceCode: 'github.com',
-  // },
-  // sponsorPrizes: ['Testing', 'kevbin'],
-  // lastEditedBy: {
-  //   email: 'kevin@nwplus.io',
-  //   date: new Date(),
-  // },
-}
+const tempProject = {}
 
 export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState(tempProject)
@@ -73,8 +54,7 @@ export default ({ user, refreshCallback }) => {
     delete projectSubmission.uid
     if (projectId) {
       try {
-        // TODO: Determine if these emails are "new" emails
-        // TODO: Allow Remove people
+        // TODO: Determine teamMembers diff - add new members and remove old ones
 
         // Array to hold validated members
         let validMembers = []
@@ -119,8 +99,7 @@ export default ({ user, refreshCallback }) => {
     } else {
       // Project does not exist, make a new one
       try {
-        // TODO: Check that the person doesn't already have a project
-        // TODO: Allow Remove people
+        // TODO: Determine teamMembers diff - add new members and remove old ones
 
         // Temp variable for project
         let project = null
