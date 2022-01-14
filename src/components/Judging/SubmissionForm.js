@@ -8,7 +8,7 @@ import {
   validateDiscord,
   validateEmail,
   validateYoutubeURL,
-  validateSrcCodeURL,
+  validateURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 
@@ -199,7 +199,7 @@ export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, us
     // Validate source code link
     if (!links.sourceCode) {
       newErrors.sourceCode = 'Please enter a URL'
-    } else if (!validateSrcCodeURL(links.sourceCode)) {
+    } else if (!validateURL(links.sourceCode)) {
       newErrors.sourceCode = 'Please enter a valid source code URL'
     }
 
