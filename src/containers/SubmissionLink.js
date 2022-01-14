@@ -73,63 +73,100 @@ export default ({ user, refreshCallback }) => {
     delete projectSubmission.uid
     if (projectId) {
       try {
-        await projectsRef.doc(projectId).update(projectSubmission)
         // TODO: Determine if these emails are "new" emails
-        // TODO: Check that the person doesn't already have a project
         // TODO: Allow Remove people
+
+        // Array to hold validated members
+        let validMembers = []
+
+        // Update the submission.submittedProject for each user
         await Promise.all(
           projectSubmission.teamMembers.map(async member => {
             console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
               const { applicationStatus, attending, responded } = res.docs[0].data().status
+              // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
                 setError(new Error(member.email + ' is not a valid hacker.'))
-              } else if (res.docs[0].data().submittedProject) {
+                // Check that the hacker isn't already associated with another project
+              } else if (res.docs[0].data().submittedProject !== projectId) {
                 setError(
                   new Error(member.email + ' is already part of a different project submission.')
                 )
-              } else
-                return await applicantsRef
-                  .doc(res.docs[0].id)
-                  .update({ submittedProject: projectId })
+              } else validMembers.push(member)
+              return await applicantsRef
+                .doc(res.docs[0].id)
+                .update({ 'submission.submittedProject': projectId })
+            } else {
+              setError(new Error(member.email + ' is not a valid hacker.'))
             }
           })
         )
+
+        // If there are no errors, update project with new information
+        if (!error) {
+          await projectsRef.doc(projectId).update({
+            ...projectSubmission,
+            teamMembers: validMembers,
+          })
+        }
       } catch (error) {
         setError(error)
       }
     } else {
+      // Project does not exist, make a new one
       try {
-        const project = await projectsRef.add(projectSubmission)
-        // await applicantsRef.doc(user.uid).update({ submittedProject: res.id })
+        // TODO: Check that the person doesn't already have a project
+        // TODO: Allow Remove people
+
+        // Temp variable for project
+        let project = {}
+
+        // Array to hold validated members
+        let validMembers = []
+
+        // Update the submission.submittedProject for each user
         await Promise.all(
-          // TODO: Check that the person doesn't already have a project
-          // TODO: Allow Remove people
           projectSubmission.teamMembers.map(async member => {
-            console.log(member.email)
             const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
             if (res.docs.length > 0) {
               const { applicationStatus, attending, responded } = res.docs[0].data().status
+              // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
                 setError(new Error(member.email + ' is not a valid hacker.'))
+                // Check that the hacker isn't already associated with another project
               } else if (res.docs[0].data().submittedProject) {
                 setError(
                   new Error(member.email + ' is already part of a different project submission.')
                 )
-              } else
-                return await applicantsRef
-                  .doc(res.docs[0].id)
-                  .update({ submittedProject: project.id })
+              }
+              // On first valid member, create a project to be used
+              else if (!project) {
+                project = await projectsRef.add(projectSubmission)
+              }
+              validMembers.push(member)
+              return await applicantsRef
+                .doc(res.docs[0].id)
+                .update({ submittedProject: project.id })
+            } else {
+              setError(new Error(member.email + ' is not a valid hacker.'))
             }
           })
         )
+
+        // If there are no errors, update project with new information (and ony valid members)
+        if (!error) {
+          await projectsRef.doc(projectId).update({
+            ...projectSubmission,
+            teamMembers: validMembers,
+          })
+        }
       } catch (error) {
         setError(error)
       }
     }
     setSubmitting(false)
-    window.location.reload()
   }
 
   // just need to actually write the logic and we are done!
