@@ -185,21 +185,6 @@ export default function JudgingInfo() {
           </td>
         </tr>
         <tr>
-          <td>Various MLH Prizes</td>
-          <td>See details</td>
-          <td>
-            <p>
-              Various MLH prizes are up for grabs! See the link below for details and how to
-              qualify.
-            </p>
-            <p>
-              <A href="https://hack.mlh.io/prizes" target="_blank">
-                https://hack.mlh.io/prizes
-              </A>
-            </p>
-          </td>
-        </tr>
-        <tr>
           <td>OpenAI Best use of OpenAI API</td>
           <td>
             <p>1st place winners: $120 worth of tokens</p>
@@ -211,6 +196,21 @@ export default function JudgingInfo() {
               More information:{' '}
               <A href="https://tinyurl.com/openaiprize" target="_blank">
                 https://tinyurl.com/openaiprize
+              </A>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Various MLH Prizes</td>
+          <td>See details</td>
+          <td>
+            <p>
+              Various MLH prizes are up for grabs! See the link below for details and how to
+              qualify.
+            </p>
+            <p>
+              <A href="https://hack.mlh.io/prizes" target="_blank">
+                https://hack.mlh.io/prizes
               </A>
             </p>
           </td>

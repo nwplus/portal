@@ -93,7 +93,7 @@ export default function DiscordBot() {
           </td>
         </tr>
         <tr>
-          <td>Get an additional role</td>
+          <td>To report a misconduct</td>
           <td>
             <Code>!report</Code>
           </td>

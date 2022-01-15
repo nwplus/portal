@@ -234,7 +234,10 @@ export default () => {
             https://discord.gg/nwhacks-2022
           </A>
         </LI>
-        <LI>Learn more about our nwPlus Discord Bot Commands (link coming soon!)</LI>
+        <LI>
+          Learn more about our nwPlus Discord Bot Commands{' '}
+          <PortalLink href="/discord-bot">here</PortalLink>
+        </LI>
         <LI>
           If you are unfamiliar with Discord, check out our{' '}
           <A
