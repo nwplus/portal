@@ -178,7 +178,7 @@ export default function JudgingInfo() {
           </td>
         </tr>
         <tr>
-          <td>Microsoft Best use of Azure</td>
+          <td>Microsoft Best use of Azure ACS</td>
           <td>$2000 + Dinner with Microsoft team</td>
           <td>
             <p>

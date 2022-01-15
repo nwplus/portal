@@ -116,7 +116,7 @@ export default () => {
               <strong>Kabam's</strong> Best UX/UI
             </LI>
             <LI>
-              <strong>Microsoft's</strong> Best Use of Azure
+              <strong>Microsoft's</strong> Best Use of Azure ACS
             </LI>
             <LI>
               <strong>OpenAI's</strong> Best Use of OpenAI API

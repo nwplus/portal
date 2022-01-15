@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { ProjectPageContainer } from '../../containers/GalleryPage'
 import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/Judging/JudgingCard'
 import { useAuth } from '../../utility/Auth'
 import { PROJECTS_TO_JUDGE_COUNT } from '../../utility/Constants'
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
-
-const StyledJudgingCard = styled(JudgingCard)`
-  margin: 0 2em 2em 0;
-`
 
 const getProjects = async (userId, projectId) => {
   const getAndAssignProjects = async () => {
@@ -114,10 +105,10 @@ export default () => {
   }
 
   return (
-    <Container>
+    <ProjectPageContainer>
       {projects.map(project => {
         return (
-          <StyledJudgingCard
+          <JudgingCard
             {...project}
             key={project.id}
             buttonLabel={project.judged ? 'Already Judged' : 'Judge this Submission'}
@@ -126,6 +117,6 @@ export default () => {
           />
         )
       })}
-    </Container>
+    </ProjectPageContainer>
   )
 }

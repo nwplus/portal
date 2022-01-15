@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { H1, H3 } from '../components/Typography'
 import { getProjects } from '../utility/firebase'
-import GalleryPage from '../containers/GalleryPage'
+import { GalleryPage } from '../containers/GalleryPage'
 import { Select } from '../components/Input'
 
 const SPONSORS_LIST = [
