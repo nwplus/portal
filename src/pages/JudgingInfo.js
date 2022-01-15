@@ -94,15 +94,15 @@ export default function JudgingInfo() {
         </tr>
         <tr>
           <td>First Place</td>
-          <td>CA$1,800.00</td>
+          <td>CA$2,000.00</td>
         </tr>
         <tr>
           <td>Second Place</td>
-          <td>CA$1,200.00</td>
+          <td>CA$1,250.00</td>
         </tr>
         <tr>
           <td>Third Place</td>
-          <td>CA$700.00</td>
+          <td>CA$750.00</td>
         </tr>
         <tr>
           <td>Honourable Mention</td>
@@ -195,6 +195,22 @@ export default function JudgingInfo() {
             <p>
               <A href="https://hack.mlh.io/prizes" target="_blank">
                 https://hack.mlh.io/prizes
+              </A>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>OpenAI Best use of OpenAI API</td>
+          <td>
+            <p>1st place winners: $120 worth of tokens</p>
+            <p>2nd place winners: $60 worth of tokens</p>
+          </td>
+          <td>
+            <p>To qualify for this prize the project must use OpenAI API.</p>
+            <p>
+              More information:{' '}
+              <A href="https://tinyurl.com/openaiprize" target="_blank">
+                https://tinyurl.com/openaiprize
               </A>
             </p>
           </td>

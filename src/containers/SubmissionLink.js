@@ -4,10 +4,8 @@ import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
 import { projectsRef, applicantsRef, createProject, updateProject } from '../utility/firebase'
 
-const tempProject = {}
-
 export default ({ user, refreshCallback }) => {
-  const [project, setProject] = useState(tempProject)
+  const [project, setProject] = useState({})
   const [isSubmitting, setSubmitting] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
   const [error, setError] = useState(null)
@@ -56,8 +54,8 @@ export default ({ user, refreshCallback }) => {
       try {
         // TODO: Determine teamMembers diff - add new members and remove old ones
 
-        // Array to hold validated members
-        let validMembers = []
+        let validMembers = [] // Array to hold validated members
+        let error = null
 
         // Update the submittedProject for each user
         await Promise.all(
@@ -68,11 +66,11 @@ export default ({ user, refreshCallback }) => {
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
-                setError(new Error(member.email + ' is not a valid hacker.'))
+                error = new Error(member.email + ' is not a valid hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject && userData.submittedProject !== projectId) {
-                setError(
-                  new Error(member.email + ' is already part of a different project submission.')
+                error = new Error(
+                  member.email + ' is already part of a different project submission.'
                 )
               } else {
                 validMembers.push(member)
@@ -81,7 +79,7 @@ export default ({ user, refreshCallback }) => {
                   .update({ submittedProject: projectId })
               }
             } else {
-              setError(new Error(member.email + ' is not a valid hacker.'))
+              error = new Error(member.email + ' is not a valid hacker.')
             }
           })
         )
@@ -93,20 +91,20 @@ export default ({ user, refreshCallback }) => {
             teamMembers: validMembers,
           })
           window.location.reload()
+        } else {
+          setError(error)
         }
-      } catch (error) {
-        setError(error)
+      } catch (err) {
+        setError(err)
       }
     } else {
       // Project does not exist, make a new one
       try {
         // TODO: Determine teamMembers diff - add new members and remove old ones
 
-        // Temp variable for project
-        let project = null
-
-        // Array to hold validated members
-        let validMembers = []
+        let project = null // Temp variable for project
+        let validMembers = [] // Array to hold validated members
+        let error = null
 
         // Update the submittedProject for each user
         await Promise.all(
@@ -117,16 +115,19 @@ export default ({ user, refreshCallback }) => {
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
-                setError(new Error(member.email + ' is not a valid hacker.'))
+                error = new Error(member.email + ' is not a valid hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject) {
-                setError(
-                  new Error(member.email + ' is already part of a different project submission.')
+                error = new Error(
+                  member.email + ' is already part of a different project submission.'
                 )
               } else {
                 // On first valid member, create a project to be used
                 if (!project) {
-                  project = await createProject(user.email, projectSubmission)
+                  project = await createProject(user.email, {
+                    ...projectSubmission,
+                    countAssigned: 0,
+                  })
                 }
                 validMembers.push(member)
                 return await applicantsRef
@@ -134,7 +135,7 @@ export default ({ user, refreshCallback }) => {
                   .update({ submittedProject: project.id })
               }
             } else {
-              setError(new Error(member.email + ' is not a valid hacker.'))
+              error = new Error(member.email + ' is not a valid hacker.')
             }
           })
         )
@@ -146,9 +147,11 @@ export default ({ user, refreshCallback }) => {
             teamMembers: validMembers,
           })
           window.location.reload()
+        } else {
+          setError(error)
         }
-      } catch (error) {
-        setError(error)
+      } catch (err) {
+        setError(err)
       }
     }
     setSubmitting(false)

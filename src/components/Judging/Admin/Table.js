@@ -44,7 +44,7 @@ const Table = ({ titles, data }) => (
       {data?.map((row, i) => (
         <StyledRow key={i}>
           {row.map((item, j) => {
-            if (typeof item === 'string' && item.includes('http')) {
+            if (typeof item === 'string' && item.includes('/projects/')) {
               return (
                 <StyledTd key={j}>
                   <A target="blank" href={item}>
@@ -87,7 +87,7 @@ const DisqualifyButton = ({ onClick, disqualified }) => {
 
 const ProjectGradeTitles = [
   'Title',
-  'Devpost',
+  'View',
   '# Assigned',
   '# Graded',
   'Average Total',
@@ -97,9 +97,10 @@ const ProjectGradeTitles = [
 
 export const ProjectGradeTable = ({ data, onDisqualify }) => {
   const formattedData = data?.map(row => {
+    const projectLink = `/projects/${row.id}`
     return [
       row.title,
-      row.devpostUrl,
+      projectLink,
       row.countAssigned,
       row.countGraded,
       row.grade,
@@ -116,7 +117,7 @@ export const ProjectGradeTable = ({ data, onDisqualify }) => {
 
 const GradeTitles = [
   'Title',
-  'Devpost',
+  'View',
   'Total Grade',
   'Submitted by',
   ...JUDGING_RUBRIC.map(item => item.label),
@@ -136,9 +137,10 @@ const RemoveButton = ({ onRemove }) => {
 
 export const GradeTable = ({ data, onRemove }) => {
   const formattedData = data?.map(row => {
+    const projectLink = `/projects/${row.id}`
     return [
       row.title,
-      row.devpostUrl,
+      projectLink,
       row.totalGrade,
       row.user,
       ...JUDGING_RUBRIC.map(item => row[item.id]),
