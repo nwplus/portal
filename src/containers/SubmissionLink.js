@@ -4,11 +4,15 @@ import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
 import { projectsRef, applicantsRef, createProject, updateProject } from '../utility/firebase'
 
+// Redirect for successful submissions + leaving of project
+const REDIRECT_TIMEOUT = 3000
+
 export default ({ user, refreshCallback }) => {
   const [project, setProject] = useState({})
   const [isSubmitting, setSubmitting] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
   const [error, setError] = useState(null)
+  const [successMsg, setSuccessMsg] = useState('')
   const [userData, setUserData] = useState({})
 
   useEffect(() => {
@@ -90,7 +94,8 @@ export default ({ user, refreshCallback }) => {
             ...projectSubmission,
             teamMembers: validMembers,
           })
-          window.location.reload()
+          setSuccessMsg('Successfully saved project - redirecting soon!')
+          setTimeout(() => window.location.reload(), REDIRECT_TIMEOUT)
         } else {
           setError(error)
         }
@@ -146,7 +151,8 @@ export default ({ user, refreshCallback }) => {
             ...projectSubmission,
             teamMembers: validMembers,
           })
-          window.location.reload()
+          setSuccessMsg('Successfully saved project - redirecting soon!')
+          setTimeout(() => window.location.reload(), REDIRECT_TIMEOUT)
         } else {
           setError(error)
         }
@@ -179,7 +185,8 @@ export default ({ user, refreshCallback }) => {
       submittedProject: '',
     })
     setIsLeaving(false)
-    window.location.reload()
+    setSuccessMsg('Successfully left project - redirecting soon!')
+    setTimeout(() => window.location.reload(), REDIRECT_TIMEOUT)
   }
 
   return (
@@ -191,6 +198,7 @@ export default ({ user, refreshCallback }) => {
       isLeaving={isLeaving}
       userData={userData}
       error={error}
+      successMsg={successMsg}
     />
   )
 }
