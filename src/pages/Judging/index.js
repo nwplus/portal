@@ -8,12 +8,20 @@ import { useAuth } from '../../utility/Auth'
 import { PROJECTS_TO_JUDGE_COUNT } from '../../utility/Constants'
 
 const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
-
-const StyledJudgingCard = styled(JudgingCard)`
-  margin: 0 2em 2em 0;
+  width: 100%;
+  display: inline-grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 64px;
+  row-gap: 56px;
+  margin-bottom: 40px;
+  ${p => p.theme.mediaQueries.mobile} {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 28px;
+    row-gap: 24px;
+    margin-bottom: 16px;
+  }
 `
 
 const getProjects = async (userId, projectId) => {
@@ -117,7 +125,7 @@ export default () => {
     <Container>
       {projects.map(project => {
         return (
-          <StyledJudgingCard
+          <JudgingCard
             {...project}
             key={project.id}
             buttonLabel={project.judged ? 'Already Judged' : 'Judge this Submission'}

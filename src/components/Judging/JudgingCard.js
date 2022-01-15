@@ -14,6 +14,25 @@ const StyledCard = styled.div`
   max-height: 400px;
 `
 
+const StyledP = styled(P)`
+  word-break: break-word;
+  max-height: 150px;
+  overflow: auto;
+  margin-bottom: 10px;
+
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${p => p.theme.colors.secondaryBackground};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${p => p.theme.colors.primary};
+  }
+`
+
 const CardContent = styled.div`
   padding: 1em 2em 2em 2em;
   height: 220px;
@@ -55,7 +74,7 @@ export default ({
       </a>
       <CardContent>
         <Title>{title}</Title>
-        <P>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</P>
+        <StyledP>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</StyledP>
         {href.includes('http') ? (
           <StyledButton
             color="tertiary"
