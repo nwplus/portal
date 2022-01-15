@@ -119,6 +119,9 @@ export default () => {
               <strong>Microsoft's</strong> Best Use of Azure
             </LI>
             <LI>
+              <strong>OpenAI's</strong> Best Use of OpenAI API
+            </LI>
+            <LI>
               <strong>MLH’s</strong> multiple sponsor challenges and prizes:{' '}
               <A href="https://hack.mlh.io/prizes" target="_blank">
                 https://hack.mlh.io/prizes
@@ -129,7 +132,14 @@ export default () => {
         <InfoSection>
           <StyledH2 noMargin>Mini activity Prizes</StyledH2>
           <StyledUL>
-            <LI>Stamp card raffle: mystery prize for 30 hackers</LI>
+            <LI>Stamp card raffle: mystery prize for 20 hackers</LI>
+            <LI>
+              Craver-nwHacks raffle: fill out{' '}
+              <A href="https://forms.gle/uZRixK7yp8Th715B8" target="_blank">
+                this form
+              </A>{' '}
+              to win some cool gaming peripherals sponsored by Craver Solutions
+            </LI>
             <LI>Discord contests: mystery prize for 20 hackers</LI>
           </StyledUL>
           <StyledP>
@@ -154,7 +164,7 @@ export default () => {
       <StyledP>
         Craver Solutions is giving out their t-shirt swag to the first 100 people! Go fill out this{' '}
         <A href="https://docs.google.com/forms/d/e/1FAIpQLSc6pPCUFtS9v88iOJIHj23WE0EWr9UyqWAb103c1TBVm93n_A/viewform">
-          google form
+          Google Form
         </A>{' '}
         and be one of the lucky hackers to get a free t-shirt.{''}
       </StyledP>
