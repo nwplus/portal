@@ -107,7 +107,7 @@ const getStats = async () => {
   return projectData.reduce(
     (accum, project) => {
       accum.total += project.countTeamMembers
-      accum.assigned += project.countAssigned
+      accum.assigned += project.countAssigned ?? 0
       accum.graded += project.countGraded
       return accum
     },
