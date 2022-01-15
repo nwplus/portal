@@ -10,7 +10,7 @@ const ProjectPageWrapper = styled.div`
   text-align: center;
 `
 
-const ProjectPageContainer = styled.div`
+export const ProjectPageContainer = styled.div`
   width: 100%;
   display: inline-grid;
   grid-template-rows: 1fr 1fr;
@@ -29,7 +29,7 @@ const ProjectPageContainer = styled.div`
 
 const PROJECTS_PER_PAGE = 24
 
-export default function GalleryPage({ projects, startingPageIndex = 0 }) {
+export function GalleryPage({ projects, startingPageIndex = 0 }) {
   const [currPageIndex, setCurrPageIndex] = useState(startingPageIndex)
   const [currPageProjects, setCurrPageProjects] = useState([])
 
