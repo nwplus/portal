@@ -71,6 +71,8 @@ const handleUser = async (setUser, setLocation) => {
 
 export const getRedirectUrl = redirect => {
   switch (redirect) {
+    case REDIRECT_STATUS.AttendingEvent:
+      return '/'
     case REDIRECT_STATUS.ApplicationAccepted:
       return '/'
     case REDIRECT_STATUS.ApplicationNotSubmitted:
