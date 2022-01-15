@@ -181,7 +181,16 @@ export default function JudgingInfo() {
           <td>Microsoft Best use of Azure</td>
           <td>$2000 + Dinner with Microsoft team</td>
           <td>
-            <p>To qualify for this prize the project must use Azure.</p>
+            <p>
+              To qualify for this prize your project must utilize at least one of the ACS UI
+              libraries.
+            </p>
+            <p>
+              More information:{' '}
+              <A href="https://tinyurl.com/microsoft-sponsor-prize" target="_blank">
+                https://tinyurl.com/microsoft-sponsor-prize
+              </A>
+            </p>
           </td>
         </tr>
         <tr>

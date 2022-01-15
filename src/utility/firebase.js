@@ -42,31 +42,6 @@ export const getLivesiteDoc = callback => {
   })
 }
 
-export const syncToFirebase = async (projects, setMessageCallback) => {
-  // delete old projects
-  setMessageCallback(`Snapping old projects...`)
-  const snapshot = await projectsRef.get()
-
-  const deleteBatch = db.batch()
-  snapshot.docs.forEach(doc => {
-    deleteBatch.delete(doc.ref)
-  })
-  await deleteBatch.commit()
-  setMessageCallback(`Snapped!`)
-
-  // insert new
-  const insertBatch = firebase.firestore().batch()
-  projects.forEach(p => {
-    var docRef = projectsRef.doc()
-    p.countAssigned = 0
-    insertBatch.set(docRef, Object.assign({}, p))
-  })
-
-  setMessageCallback(`Inserting ${projects.length} new projects...`)
-  await insertBatch.commit()
-  setMessageCallback('Insert done!')
-}
-
 const createNewApplication = async user => {
   analytics.logEvent(ANALYTICS_EVENTS.signup, { userId: user.uid })
   const userId = {

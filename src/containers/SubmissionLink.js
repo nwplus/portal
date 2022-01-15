@@ -107,7 +107,6 @@ export default ({ user, refreshCallback }) => {
       try {
         // TODO: Determine teamMembers diff - add new members and remove old ones
 
-        let project = null // Temp variable for project
         let validMembers = [] // Array to hold validated members
         let error = null
 
@@ -127,17 +126,10 @@ export default ({ user, refreshCallback }) => {
                   member.email + ' is already part of a different project submission.'
                 )
               } else {
-                // On first valid member, create a project to be used
-                if (!project) {
-                  project = await createProject(user.email, {
-                    ...projectSubmission,
-                    countAssigned: 0,
-                  })
-                }
-                validMembers.push(member)
-                return await applicantsRef
-                  .doc(res.docs[0].id)
-                  .update({ submittedProject: project.id })
+                validMembers.push({
+                  ...member,
+                  id: res.docs[0].id,
+                })
               }
             } else {
               error = new Error(member.email + ' is not a valid hacker.')
@@ -145,11 +137,15 @@ export default ({ user, refreshCallback }) => {
           })
         )
 
-        // If there are no errors, update project with new information (and ony valid members)
+        // If there are no errors, create a new project with new information (and only valid members)
         if (!error) {
-          await updateProject(user.email, project.id, {
+          const project = await createProject(user.email, {
             ...projectSubmission,
             teamMembers: validMembers,
+            countAssigned: 0,
+          })
+          validMembers.forEach(async member => {
+            await applicantsRef.doc(member.id).update({ submittedProject: project.id })
           })
           setSuccessMsg('Successfully saved project - redirecting soon!')
           setTimeout(() => window.location.reload(), REDIRECT_TIMEOUT)
