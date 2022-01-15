@@ -51,7 +51,7 @@ export const JUDGING_RUBRIC = [
     description:
       "How simple or advanced is the team's use of the technology (APIs, libraries, algorithm, etc) driving the project? Can the demo demonstrate the core functionality of the project?",
     value: 5,
-    weight: 0.4,
+    weight: 1.2,
   },
   {
     id: 'design',
@@ -59,7 +59,7 @@ export const JUDGING_RUBRIC = [
     description:
       'Looking at both the User Interface (UI) and the User Experience (UX). Is it clean, elegant, consistent with the theme, easy to use, intuitive?',
     value: 5,
-    weight: 0.3,
+    weight: 0.9,
   },
   {
     id: 'pitchImpact',
@@ -67,7 +67,7 @@ export const JUDGING_RUBRIC = [
     description:
       "Is the pitch engaging, well planned out, prepared, has meaningful content? Is it something relevant to today's world? Is it an interesting take on previous solutions or is it an improvement?",
     value: 5,
-    weight: 0.3,
+    weight: 0.9,
   },
 ]
 

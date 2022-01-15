@@ -124,7 +124,7 @@ const calculatePointTotals = project => {
 
   Object.values(project.grades).forEach(grade => {
     Object.entries(grade).forEach(([key, value]) => {
-      if (key === 'notes') {
+      if (typeof value !== 'number') {
         return
       }
       res[key] = res[key] ? res[key] + value : value
@@ -139,7 +139,7 @@ const calculateResiduals = project => {
   const residuals = []
   Object.entries(project.grades).forEach(([key, grade]) => {
     Object.entries(grade).forEach(([subkey, value]) => {
-      if (key === 'notes') {
+      if (typeof value !== 'number') {
         return
       }
       const mean = project[subkey] / project.countGraded
@@ -208,7 +208,7 @@ const getGradedProjects = async (dropOutliers = 2) => {
       // add total grade calculations to project object
       project = { ...project, ...calculatePointTotals(project) }
       const avg = total => {
-        return (total / project.countGraded).toFixed(2)
+        return (total / Object.entries(project.grades).length).toFixed(2)
       }
 
       JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
