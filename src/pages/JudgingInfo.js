@@ -209,8 +209,8 @@ export default function JudgingInfo() {
               qualify.
             </p>
             <p>
-              <A href="https://hack.mlh.io/prizes" target="_blank">
-                https://hack.mlh.io/prizes
+              <A href="https://tinyurl.com/mlhprizes" target="_blank">
+                https://tinyurl.com/mlhprizes
               </A>
             </p>
           </td>
