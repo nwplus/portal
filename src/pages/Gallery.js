@@ -59,63 +59,61 @@ export default () => {
     })
   }, [])
 
-  const filteredProjects = projects.filter(project => {
-    const isFiltersApplied = Object.values(sponsorFilters).includes(true)
+  const isFiltersApplied = Object.values(sponsorFilters).includes(true)
 
-    if (!isFiltersApplied) {
-      return true
-    }
+  const filteredProjects = !isFiltersApplied
+    ? projects
+    : projects.filter(project => {
+        let covalentFilter = false
+        let tttFilter = false
+        let kabamFilter = false
+        let microsoftFilter = false
+        let openaiFilter = false
+        let monetizationFilter = false
+        let hardwareFilter = false
+        let domainFilter = false
+        let cloudFilter = false
 
-    let covalentFilter = false
-    let tttFilter = false
-    let kabamFilter = false
-    let microsoftFilter = false
-    let openaiFilter = false
-    let monetizationFilter = false
-    let hardwareFilter = false
-    let domainFilter = false
-    let cloudFilter = false
+        if (sponsorFilters.covalent) {
+          covalentFilter = project.sponsorPrizes.includes(PRIZE_LABELS.covalent)
+        }
+        if (sponsorFilters.ttt) {
+          tttFilter = project.sponsorPrizes.includes(PRIZE_LABELS.ttt)
+        }
+        if (sponsorFilters.kabam) {
+          kabamFilter = project.sponsorPrizes.includes(PRIZE_LABELS.kabam)
+        }
+        if (sponsorFilters.microsoft) {
+          microsoftFilter = project.sponsorPrizes.includes(PRIZE_LABELS.microsoft)
+        }
+        if (sponsorFilters.openai) {
+          openaiFilter = project.sponsorPrizes.includes(PRIZE_LABELS.openai)
+        }
+        if (sponsorFilters.monetization) {
+          monetizationFilter = project.sponsorPrizes.includes(PRIZE_LABELS.monetization)
+        }
+        if (sponsorFilters.hardware) {
+          hardwareFilter = project.sponsorPrizes.includes(PRIZE_LABELS.hardware)
+        }
+        if (sponsorFilters.domain) {
+          domainFilter = project.sponsorPrizes.includes(PRIZE_LABELS.domain)
+        }
+        if (sponsorFilters.cloud) {
+          cloudFilter = project.sponsorPrizes.includes(PRIZE_LABELS.cloud)
+        }
 
-    if (sponsorFilters.covalent) {
-      covalentFilter = project.sponsorPrizes.includes(PRIZE_LABELS.covalent)
-    }
-    if (sponsorFilters.ttt) {
-      tttFilter = project.sponsorPrizes.includes(PRIZE_LABELS.ttt)
-    }
-    if (sponsorFilters.kabam) {
-      kabamFilter = project.sponsorPrizes.includes(PRIZE_LABELS.kabam)
-    }
-    if (sponsorFilters.microsoft) {
-      microsoftFilter = project.sponsorPrizes.includes(PRIZE_LABELS.microsoft)
-    }
-    if (sponsorFilters.openai) {
-      openaiFilter = project.sponsorPrizes.includes(PRIZE_LABELS.openai)
-    }
-    if (sponsorFilters.monetization) {
-      monetizationFilter = project.sponsorPrizes.includes(PRIZE_LABELS.monetization)
-    }
-    if (sponsorFilters.hardware) {
-      hardwareFilter = project.sponsorPrizes.includes(PRIZE_LABELS.hardware)
-    }
-    if (sponsorFilters.domain) {
-      domainFilter = project.sponsorPrizes.includes(PRIZE_LABELS.domain)
-    }
-    if (sponsorFilters.cloud) {
-      cloudFilter = project.sponsorPrizes.includes(PRIZE_LABELS.cloud)
-    }
-
-    return (
-      covalentFilter ||
-      tttFilter ||
-      kabamFilter ||
-      microsoftFilter ||
-      openaiFilter ||
-      monetizationFilter ||
-      hardwareFilter ||
-      domainFilter ||
-      cloudFilter
-    )
-  })
+        return (
+          covalentFilter ||
+          tttFilter ||
+          kabamFilter ||
+          microsoftFilter ||
+          openaiFilter ||
+          monetizationFilter ||
+          hardwareFilter ||
+          domainFilter ||
+          cloudFilter
+        )
+      })
   return (
     <>
       <H1>Project Gallery</H1>
