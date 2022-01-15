@@ -124,7 +124,7 @@ const calculatePointTotals = project => {
 
   Object.values(project.grades).forEach(grade => {
     Object.entries(grade).forEach(([key, value]) => {
-      if (key === 'notes' || key === 'user') {
+      if (typeof value !== 'number') {
         return
       }
       res[key] = res[key] ? res[key] + value : value
@@ -139,7 +139,7 @@ const calculateResiduals = project => {
   const residuals = []
   Object.entries(project.grades).forEach(([key, grade]) => {
     Object.entries(grade).forEach(([subkey, value]) => {
-      if (key === 'notes') {
+      if (typeof value !== 'number') {
         return
       }
       const mean = project[subkey] / project.countGraded
