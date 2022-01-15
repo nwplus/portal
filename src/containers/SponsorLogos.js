@@ -13,11 +13,7 @@ export default () => {
 
   useEffect(() => {
     getSponsors().then(docs => {
-      // only keep non-inkind sponsors
-      const filteredDocs = docs.filter(
-        doc => doc.data().tier && doc.data().tier.toLowerCase() !== 'inkind'
-      )
-      setSponsors(filteredDocs.map(doc => doc.data()))
+      setSponsors(docs.map(doc => doc.data()))
     })
   }, [setSponsors])
 
