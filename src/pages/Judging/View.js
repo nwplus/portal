@@ -3,7 +3,7 @@ import { useLocation, Link } from 'wouter'
 import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import ViewProject from '../../components/Judging/ViewProject'
 import { A } from '../../components/Typography'
-import ErrorBanner from '../../components/ErrorBanner'
+import Toast from '../../components/Toast'
 import { getLivesiteDoc, projectsRef, applicantsRef, submitGrade } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 import { defaultScoreFromRubric, isUngraded } from '../../utility/Constants'
@@ -90,11 +90,11 @@ export default ({ id }) => {
         success={success}
       />
 
-      <ErrorBanner>
+      <Toast>
         {showError
           ? 'There was an issue submitting. If this persists, please contact us on discord.'
           : null}
-      </ErrorBanner>
+      </Toast>
     </>
   )
 }

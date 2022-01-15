@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 
-const ErrorDiv = styled.div`
+const ToastDiv = styled.div`
   width: 25%;
-  background-color: ${p => p.theme.colors.error};
+  background-color: ${p => (p.type === 'success' ? p.theme.colors.success : p.theme.colors.error)};
   position: fixed;
   bottom: ${p => (p.shown ? '40px' : '-100px')};
   opacity: ${p => (p.shown ? '100%' : '0%')};
@@ -17,23 +17,23 @@ const ErrorDiv = styled.div`
   border-radius: 5px;
   word-break: break-word;
 `
-const ErrorText = styled.p`
+const ToastText = styled.p`
   text-align: center;
-  color: ${p => p.theme.colors.errorText};
+  color: ${p => p.theme.colors.toastText};
   margin: 10px 20px;
 `
 
-export default function ErrorBanner({ children }) {
-  const [showError, setShowError] = useState(false)
+export default function Toast({ children, type = 'error' }) {
+  const [showToast, setShowToast] = useState(false)
 
   useEffect(() => {
     if (children) {
-      setShowError(true)
+      setShowToast(true)
     } else {
-      setShowError(false)
+      setShowToast(false)
     }
     const errorTimeOut = setTimeout(() => {
-      setShowError(false)
+      setShowToast(false)
     }, 10000)
     return () => {
       clearTimeout(errorTimeOut)
@@ -42,9 +42,9 @@ export default function ErrorBanner({ children }) {
 
   return (
     <>
-      <ErrorDiv shown={showError}>
-        <ErrorText>{children}</ErrorText>
-      </ErrorDiv>
+      <ToastDiv shown={showToast} type={type}>
+        <ToastText>{children}</ToastText>
+      </ToastDiv>
     </>
   )
 }

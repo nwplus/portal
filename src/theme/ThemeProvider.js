@@ -50,7 +50,8 @@ const nwTheme = {
     secondaryBackgroundTransparent: '#FFB72Cbb', // before: #1D1B24bb
     secondaryBackground: '#051439',
     error: '#ff0033',
-    errorText: '#fff',
+    success: '#629F5D',
+    toastText: '#fff', // Color for text in toast messages (Toast.js)
     foreground: '#4F4A59',
     primary: '#FFB72C',
     default: '#BEBEBE',
@@ -92,7 +93,8 @@ const hackcampTheme = {
     secondaryBackgroundTransparent: '#1E4F5A',
     foreground: '#FFBC96',
     error: '#ff0033',
-    errorText: '#fff',
+    success: '#629F5D',
+    toastText: '#fff', // Color for text in toast messages (Toast.js)
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
     primary: '#FFBC96',
@@ -133,7 +135,8 @@ const cmdfTheme = {
     secondaryBackgroundTransparent: '#B7C2B4',
     foreground: '#FFBC96',
     error: '#ff0033',
-    errorText: '#fff',
+    success: '#629F5D',
+    toastText: '#fff', // Color for text in toast messages (Toast.js)
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
     primary: '#B95D1D',
