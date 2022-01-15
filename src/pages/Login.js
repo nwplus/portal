@@ -8,7 +8,7 @@ import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
 import { DB_HACKATHON, FIREBASE_AUTH_ERROR } from '../utility/Constants'
 import { useLocation } from 'wouter'
-import ErrorBanner from '../components/ErrorBanner'
+import Toast from '../components/Toast'
 import { A } from '../components/Typography'
 import { copyText } from '../utility/Constants'
 
@@ -102,7 +102,7 @@ export default () => {
         </ButtonContainer>
         {DB_HACKATHON === 'LHD2021' && <A href="/">Return to Portal</A>}
       </Landing>
-      <ErrorBanner>{error ? handleAuthError(error.code, error.message) : null}</ErrorBanner>
+      <Toast>{error ? handleAuthError(error.code, error.message) : null}</Toast>
     </>
   )
 }

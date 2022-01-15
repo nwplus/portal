@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
 import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
-import ErrorBanner from '../ErrorBanner'
+import Toast from '../Toast'
 import {
   validateDiscord,
   validateEmail,
@@ -87,7 +87,16 @@ const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 240
 
-export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, userData }) => {
+export default ({
+  project,
+  onSubmit,
+  isSubmitting,
+  onLeave,
+  isLeaving,
+  error,
+  successMsg,
+  userData,
+}) => {
   const [title, setTitle] = useState(project.title || '')
   const [description, setDescription] = useState(project.description || '')
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
@@ -387,7 +396,8 @@ export default ({ project, onSubmit, isSubmitting, onLeave, isLeaving, error, us
           Leave Project
         </Button>
       </ButtonContainer>
-      {error && <ErrorBanner>{error.message}</ErrorBanner>}
+      {error && <Toast>{error.message}</Toast>}
+      {successMsg && <Toast type="success">{successMsg}</Toast>}
     </div>
   )
 }
