@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'wouter'
 import HeroPage, { Loading, JudgingNotOpen } from '../../components/HeroPage'
 import { db, firestore, getLivesiteDoc, applicantsRef, projectsRef } from '../../utility/firebase'
 import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/Judging/JudgingCard'
-import { A } from '../../components/Typography'
 import { useAuth } from '../../utility/Auth'
 import { PROJECTS_TO_JUDGE_COUNT } from '../../utility/Constants'
 
@@ -106,11 +104,7 @@ export default () => {
     return (
       <HeroPage>
         <h2>Error, permission denied</h2>
-        Please{' '}
-        <Link href="/submission">
-          <A>link your Devpost</A>
-        </Link>{' '}
-        account to access judging
+        <p>To access judging you must have submitted a project</p>
       </HeroPage>
     )
   }

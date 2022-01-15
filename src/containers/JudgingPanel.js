@@ -340,13 +340,13 @@ export default () => {
     }
   }
 
-  const percentageAssigned = (
-    (stats.assigned * 100) /
-    (stats.total * PROJECTS_TO_JUDGE_COUNT)
-  ).toFixed(2)
-  const percentageGraded = ((stats.graded * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(
-    2
-  )
+  const percentageAssigned = stats.total
+    ? ((stats.assigned * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
+    : '0'
+
+  const percentageGraded = stats.total
+    ? ((stats.graded * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
+    : '0'
 
   const filteredGradedProjects = () => {
     return toggle.filterDisqualify
@@ -379,11 +379,9 @@ export default () => {
       </Card>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
       <H1>Grades</H1>
-      <H3>
-        {typeof percentageAssigned === 'number' ? percentageAssigned : '0'}% of projects assigned
-      </H3>
+      <H3>{percentageAssigned}% of projects assigned</H3>
       <ProgressBar percent={percentageAssigned} />
-      <H3>{typeof percentageGraded === 'number' ? percentageGraded : '0'}% of projects judged</H3>
+      <H3>{percentageGraded}% of projects judged</H3>
       <ProgressBar percent={percentageGraded} />
       <Card>
         <Columns>

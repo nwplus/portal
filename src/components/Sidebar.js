@@ -179,7 +179,7 @@ export default ({
     ],
     // Tools
     tools: [
-      { location: '/projects', text: 'Project Gallery' },
+      // (conditional) Project Gallery
       // (conditional) Project Submission
       // (conditional) Peer Judging
       // (conditional) Judging (Admin)
@@ -205,6 +205,7 @@ export default ({
   }, [setSponsors])
 
   if (isSubmissionsOpen) {
+    links.tools.push({ location: '/projects', text: 'Project Gallery' })
     links.tools.push({ location: '/submission', text: 'Project Submission' })
   }
 
@@ -236,14 +237,16 @@ export default ({
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
           Object.entries(links).map((t, k) => {
             return (
-              <>
-                <CategoryHeader>{t[0]}</CategoryHeader>
-                {t[1].map((v, i) => (
-                  <Link key={i} href={v.location} onClick={hideSidebarCallback}>
-                    <StyledA selected={location === v.location}>{v.text}</StyledA>
-                  </Link>
-                ))}
-              </>
+              t[1].length > 0 && (
+                <>
+                  <CategoryHeader>{t[0]}</CategoryHeader>
+                  {t[1].map((v, i) => (
+                    <Link key={i} href={v.location} onClick={hideSidebarCallback}>
+                      <StyledA selected={location === v.location}>{v.text}</StyledA>
+                    </Link>
+                  ))}
+                </>
+              )
             )
           })
         ) : (

@@ -49,39 +49,25 @@ export const JUDGING_RUBRIC = [
     id: 'technology',
     label: 'Technology',
     description:
-      'Does the hack use technology to solve the problem? Was it evident the hackers pushed themselves to try out something new?',
+      "How simple or advanced is the team's use of the technology (APIs, libraries, algorithm, etc) driving the project? Can the demo demonstrate the core functionality of the project?",
     value: 5,
-    weight: 1,
+    weight: 0.4,
   },
   {
     id: 'design',
     label: 'Design',
     description:
-      'Is the experience of using the hack friendly? Did the hack address our theme of "diversity, inclusivity, and accessibility" well?',
+      'Looking at both the User Interface (UI) and the User Experience (UX). Is it clean, elegant, consistent with the theme, easy to use, intuitive?',
     value: 5,
-    weight: 1,
+    weight: 0.3,
   },
   {
-    id: 'functionality',
-    label: 'Functionality',
-    description: 'Does the hack work? Is it polished?',
-    value: 5,
-    weight: 1,
-  },
-  {
-    id: 'creativity',
-    label: 'Creativity',
-    description: 'Is the project idea original? Does the project strive to solve a real problem?',
-    value: 5,
-    weight: 1,
-  },
-  {
-    id: 'pitch',
-    label: 'Pitch',
+    id: 'pitchImpact',
+    label: 'Pitch + Impact',
     description:
-      'As a user, how sold are you on the demo/pitch? How clear is the idea that the team is trying to convey?',
+      "Is the pitch engaging, well planned out, prepared, has meaningful content? Is it something relevant to today's world? Is it an interesting take on previous solutions or is it an improvement?",
     value: 5,
-    weight: 1,
+    weight: 0.3,
   },
 ]
 
