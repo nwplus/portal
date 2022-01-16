@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { H1, H2, H3, P } from '../Typography'
+import { H1, H3, P } from '../Typography'
 import { Card, CardWithHeader } from '../Common'
 import { Button } from '../Input'
 import JudgingCard from './JudgingCard'
