@@ -42,7 +42,7 @@ const validatePhoneNumber = thing => {
   return thing.match(phoneno)
 }
 export const validateDiscord = thing => {
-  const pattern = new RegExp('^.{3,32}#[0-9]{4}$')
+  const pattern = new RegExp('^.{2,32}#[0-9]{4}$')
   return !!pattern.test(thing)
 }
 const validateNotAllFalse = thing => {
