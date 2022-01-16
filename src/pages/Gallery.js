@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { H1, H3, HR } from '../components/Typography'
+import { H1, H2, HR } from '../components/Typography'
 import { getProjects, getSponsorPrizes } from '../utility/firebase'
 import { GalleryPage } from '../containers/GalleryPage'
-import { Dropdown } from '../components/Input'
+import { Dropdown, TextInput } from '../components/Input'
 
 const Container = styled.div`
   display: flex;
@@ -11,10 +11,17 @@ const Container = styled.div`
   gap: 0em 2em;
 `
 
+const StyledSearch = styled(TextInput)`
+  margin: 0;
+`
+
 export default () => {
   const [projects, setProjects] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [selectedFilter, setSelectedFilter] = useState('All projects')
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [searchFiltered, setSearchFiltered] = useState([])
 
   const prizes = [{ value: 'All projects', label: 'All projects' }]
 
@@ -35,18 +42,34 @@ export default () => {
     })
   }, [])
 
-  sponsorPrizes.map(prize => prizes.push({ value: prize, label: prize }))
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search)
+    }, 10)
 
-  const filteredProjects =
-    selectedFilter === 'All projects'
-      ? projects
-      : projects.filter(project => {
-          return project.sponsorPrizes.includes(selectedFilter)
-        })
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [search])
+
+  useEffect(() => {
+    const filtered =
+      selectedFilter === 'All projects'
+        ? projects
+        : projects.filter(project => {
+            return project.sponsorPrizes.includes(selectedFilter)
+          })
+    setSearchFiltered(
+      filtered.filter(project => {
+        return project.title.toLowerCase().includes(debouncedSearch)
+      })
+    )
+  }, [debouncedSearch, projects, selectedFilter])
+  sponsorPrizes.map(prize => prizes.push({ value: prize, label: prize }))
   return (
     <>
       <H1>Project Gallery</H1>
-      <H3>Filter by sponsor prize</H3>
+      <H2>Filter by sponsor prize</H2>
       <Dropdown
         options={prizes}
         placeholder="All projects"
@@ -54,9 +77,15 @@ export default () => {
         isSearchable={false}
         onChange={input => setSelectedFilter(input.value)}
       />
+      <H2>Search by project name</H2>
+      <StyledSearch
+        placeholder="Project title"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
       <HR />
       <Container>
-        <GalleryPage projects={filteredProjects} />
+        <GalleryPage projects={searchFiltered} />
       </Container>
     </>
   )
