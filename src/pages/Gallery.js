@@ -5,6 +5,7 @@ import { getProjects } from '../utility/firebase'
 import { GalleryPage } from '../containers/GalleryPage'
 import { Select } from '../components/Input'
 
+// TODO: Fetch from firebase
 const SPONSORS_LIST = [
   'covalent',
   'ttt',
