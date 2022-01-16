@@ -64,15 +64,6 @@ const Table = ({ titles, data }) => (
   </StyledTable>
 )
 
-// const ProjectTitles = ['Title', 'Team Members', 'Team Member Emails', 'Devpost']
-
-// export const ProjectTable = ({ data }) => {
-//   const formattedData = data?.map(row => {
-//     return [row.title, row.teamMembers.join(', '), row.teamMembersEmails.join(', '), row.devpostUrl]
-//   })
-//   return <Table titles={ProjectTitles} data={formattedData} />
-// }
-
 const DisqualifyButton = ({ onClick, disqualified }) => {
   return disqualified ? (
     <StyledTd>
