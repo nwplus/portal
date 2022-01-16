@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
 import styled from 'styled-components'
+import { CSVLink } from 'react-csv'
 import { projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P } from '../components/Typography'
@@ -15,6 +16,10 @@ const Columns = styled.div`
 `
 const Column = styled.div`
   margin: 1em;
+`
+const StyledCSVLink = styled(CSVLink)`
+  color: ${p => p.theme.colors.primary};
+  text-decoration: none;
 `
 
 const getStats = async () => {
@@ -169,6 +174,7 @@ const getGradedProjects = async (dropOutliers = 2) => {
 
 export default () => {
   const [gradedProjects, setGradedProjects] = useState([])
+  const [CSVProjectData, setCSVProjectData] = useState([])
   const [grades, setGrades] = useState([]) // Individual "grade" objects
   const [isLoading, setLoading] = useState(false)
   const [stats, setStats] = useState({
@@ -202,6 +208,17 @@ export default () => {
   useEffect(() => {
     setProjectsAndStats()
   }, [])
+
+  useEffect(() => {
+    const formattedProjects = gradedProjects.map(projects => {
+      const portalLink = window.location.origin // to support local development as well
+      return {
+        title: projects.title,
+        link: `${portalLink}/projects/${projects.id}`,
+      }
+    })
+    setCSVProjectData(formattedProjects)
+  }, [gradedProjects])
 
   const percentageAssigned = stats.total
     ? ((stats.assigned * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
@@ -245,6 +262,11 @@ export default () => {
         </Columns>
         <Button color="secondary" width="large" onClick={setProjectsAndStats}>
           Refresh Grades
+        </Button>
+        <Button color="secondary" width="large">
+          <StyledCSVLink data={CSVProjectData} filename={'projects.csv'} target="_blank">
+            Download CSV
+          </StyledCSVLink>
         </Button>
         <MoonLoader color="#fff" loading={isLoading} />
         {toggle.projectsGrades ? (
