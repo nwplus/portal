@@ -10,7 +10,7 @@ const ProjectPageWrapper = styled.div`
   text-align: center;
 `
 
-const ProjectPageContainer = styled.div`
+export const ProjectPageContainer = styled.div`
   width: 100%;
   display: inline-grid;
   grid-template-rows: 1fr 1fr;
@@ -27,9 +27,13 @@ const ProjectPageContainer = styled.div`
   }
 `
 
+const StyledJudgingCard = styled(JudgingCard)`
+  max-height: 400px;
+`
+
 const PROJECTS_PER_PAGE = 24
 
-export default function GalleryPage({ projects, startingPageIndex = 0 }) {
+export function GalleryPage({ projects, startingPageIndex = 0 }) {
   const [currPageIndex, setCurrPageIndex] = useState(startingPageIndex)
   const [currPageProjects, setCurrPageProjects] = useState([])
 
@@ -66,7 +70,7 @@ export default function GalleryPage({ projects, startingPageIndex = 0 }) {
         <>
           <ProjectPageContainer>
             {currPageProjects.map((project, index) => (
-              <JudgingCard
+              <StyledJudgingCard
                 key={index}
                 title={project.title}
                 description={project.description}

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { A } from './Typography'
 
 const HeroContent = styled.div`
-  height: 80vh;
+  height: 100vh;
   box-sizing: border-box;
   text-align: center;
   display: flex;
