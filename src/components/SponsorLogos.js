@@ -29,6 +29,7 @@ const tierRanks = {
   gold: 1,
   silver: 2,
   bronze: 3,
+  inkind: 4,
 }
 
 export default ({ sponsors }) => {
@@ -38,7 +39,7 @@ export default ({ sponsors }) => {
     return accumulator // group by tier
   }, {})
 
-  // sort by rank (plat - bronze)
+  // sort by rank (plat - inkind)
   const sortedTiers = Object.keys(tiers).sort((t1, t2) => {
     return tierRanks[t1] - tierRanks[t2]
   })

@@ -168,6 +168,16 @@ export default () => {
         </A>{' '}
         and be one of the lucky hackers to get a free t-shirt.{''}
       </StyledP>
+      <StyledP>
+        Here are some more{' '}
+        <A
+          href="https://nwplus.notion.site/nwHacks-2022-Resources-d8fe8ff5cffd4682bd3a3bab585bb5a8"
+          target="_blank"
+        >
+          free resources
+        </A>
+        !
+      </StyledP>
       <HR />
       <StyledH2>More Info</StyledH2>
       <StyledP>
@@ -185,7 +195,6 @@ export default () => {
             href="https://medium.com/nwplusubc/hackathons-101-your-guide-to-nwhacks-a5aeb80b0579"
             target="_blank"
           >
-            {' '}
             Hackathons 101: Your Guide to nwHacks
           </A>
         </LI>
