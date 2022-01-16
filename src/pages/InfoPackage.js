@@ -225,11 +225,6 @@ export default () => {
             Discord Etiquette and Policies
           </A>
         </LI>
-        <LI>
-          <A href="https://nwhacks2021.devpost.com/rules" target="_blank">
-            nwHacks 2021 Project Submission Rules
-          </A>
-        </LI>
       </UL>
       <StyledP>
         If you witness any behaviour that does not align with these guidelines (or are unsure if it

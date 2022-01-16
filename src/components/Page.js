@@ -39,6 +39,7 @@ const Page = ({ hackerStatus, children }) => {
     <Container>
       <Sidebar
         isJudgingOpen={livesiteDoc.judgingOpen}
+        isJudgingReleased={livesiteDoc.judgingReleased}
         isSubmissionsOpen={livesiteDoc.submissionsOpen}
         isApplicationOpen={livesiteDoc.applicationsOpen}
         showMobileSidebar={showMobileSidebar}
