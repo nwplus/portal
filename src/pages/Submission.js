@@ -1,26 +1,25 @@
-// TODO: remove this when we finish project submission system
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
-import { getLivesiteDoc, getUserApplication, getSubmission } from '../utility/firebase'
-// import ViewSubmission from '../components/Judging/Submission'
+import { getLivesiteDoc, getUserApplication, getSubmission, submitGrade } from '../utility/firebase'
+import ViewSubmission from '../components/Judging/Submission'
 import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
 import SubmissionLink from '../containers/SubmissionLink'
-// import { formatProject } from '../utility/utilities'
+import { formatProject } from '../utility/utilities'
 
 export default () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState()
+  const [isJudgingReleased, setIsJudgingReleased] = useState()
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
 
-  // const reportGrade = async id => {
-  //   const score = {
-  //     ...submission.grades[id],
-  //     reported: true,
-  //   }
-  //   await submitGrade(submission.id, score, { uid: id })
-  //   window.location.reload()
-  // }
+  const reportGrade = async id => {
+    const score = {
+      ...submission.grades[id],
+      reported: true,
+    }
+    await submitGrade(submission.id, score, { uid: id })
+    window.location.reload()
+  }
 
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
@@ -45,9 +44,10 @@ export default () => {
   }
 
   useEffect(() => {
-    const unsubscribe = getLivesiteDoc(livesiteDoc =>
+    const unsubscribe = getLivesiteDoc(livesiteDoc => {
       setIsSubmissionsOpen(livesiteDoc.submissionsOpen)
-    )
+      setIsJudgingReleased(livesiteDoc.judgingReleased)
+    })
     return unsubscribe
   }, [setIsSubmissionsOpen])
 
@@ -58,6 +58,16 @@ export default () => {
 
   if (isSubmissionsOpen === undefined || submission === undefined) {
     return <Loading />
+  }
+
+  if (isJudgingReleased) {
+    return (
+      <ViewSubmission
+        project={formatProject(submission)}
+        user={user}
+        reportCallback={reportGrade}
+      />
+    )
   }
 
   if (!isSubmissionsOpen) {

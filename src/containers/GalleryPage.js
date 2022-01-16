@@ -27,6 +27,10 @@ export const ProjectPageContainer = styled.div`
   }
 `
 
+const StyledJudgingCard = styled(JudgingCard)`
+  max-height: 400px;
+`
+
 const PROJECTS_PER_PAGE = 24
 
 export function GalleryPage({ projects, startingPageIndex = 0 }) {
@@ -66,7 +70,7 @@ export function GalleryPage({ projects, startingPageIndex = 0 }) {
         <>
           <ProjectPageContainer>
             {currPageProjects.map((project, index) => (
-              <JudgingCard
+              <StyledJudgingCard
                 key={index}
                 title={project.title}
                 description={project.description}

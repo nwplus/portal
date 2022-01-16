@@ -28,10 +28,6 @@ const Grade = styled(Item)`
   text-transform: capitalize;
 `
 
-const SponsorPrizeHeading = styled(H3)`
-  display: inline-block;
-`
-
 const Columns = styled.div`
   display: flex;
   flex: 1 2;
@@ -72,11 +68,9 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
         const grades = Object.entries(ordered).filter(([key]) =>
           JUDGING_RUBRIC.map(item => item.id).includes(key)
         )
-        const total = Object.values(grades).reduce((accum, cur) => accum + cur[1], 0)
 
         return (
           <FeedbackItem key={i} reported={item.reported}>
-            <H3>Score: {total}</H3>
             <P>{item.notes || 'No feedback provided.'}</P>
             <ItemList>
               {grades.map(([key, value]) => (
@@ -88,7 +82,9 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
             <StyledButton
               disabled={item.reported}
               color="warning"
-              onClick={() => reportCallback(i)}
+              onClick={() => {
+                !item.reported && reportCallback(i)
+              }}
             >
               {item.reported ? 'Reported' : 'Report'}
             </StyledButton>
@@ -104,17 +100,16 @@ export default ({ project, reportCallback }) => {
   return (
     <>
       <H1>Project Submission</H1>
-      <H3>Team Members: {project.teamMembers.join(', ')}</H3>
-      <SponsorPrizeHeading>
+      <H3>Team Members: {project.teamMembers.map(member => member.name).join(', ')}</H3>
+      <H3>
         Sponsor Prizes:{' '}
         {project.sponsorPrizes[0]
           ? project.sponsorPrizes.join(', ')
           : "Didn't apply for sponsor prizes"}
-      </SponsorPrizeHeading>
+      </H3>
       <Columns>
         <Column>
-          <H2>Details</H2>
-          <JudgingCard {...project} buttonLabel="View on Devpost" />
+          <JudgingCard {...project} buttonLabel="View project" href={'projects/' + project.id} />
         </Column>
         <Column width="2">
           <CardWithHeader header="Feedback">

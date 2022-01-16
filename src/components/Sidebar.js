@@ -162,6 +162,7 @@ const CategoryHeader = styled.h4`
 export default ({
   showMobileSidebar,
   isJudgingOpen,
+  isJudgingReleased,
   isSubmissionsOpen,
   isApplicationOpen,
   hideSidebarCallback,
@@ -204,8 +205,11 @@ export default ({
     })
   }, [setSponsors])
 
-  if (isSubmissionsOpen) {
+  if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
     links.tools.push({ location: '/projects', text: 'Project Gallery' })
+  }
+  console.log('isJudgingReleased', isJudgingReleased)
+  if (isSubmissionsOpen || isJudgingReleased) {
     links.tools.push({ location: '/submission', text: 'Project Submission' })
   }
 

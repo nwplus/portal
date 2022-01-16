@@ -11,7 +11,6 @@ const StyledCard = styled.div`
   ${CardLike};
   padding: 0;
   max-width: 320px;
-  max-height: 400px;
 `
 
 const StyledP = styled(P)`
