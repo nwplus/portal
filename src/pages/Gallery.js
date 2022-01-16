@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { H1, HR } from '../components/Typography'
+import { H1, H3, HR } from '../components/Typography'
 import { getProjects, getSponsorPrizes } from '../utility/firebase'
 import { GalleryPage } from '../containers/GalleryPage'
 import { Dropdown } from '../components/Input'
@@ -46,6 +46,7 @@ export default () => {
   return (
     <>
       <H1>Project Gallery</H1>
+      <H3>Filter by sponsor prize</H3>
       <Dropdown
         options={prizes}
         placeholder="All projects"
