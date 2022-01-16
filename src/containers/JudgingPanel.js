@@ -159,7 +159,11 @@ const getGradedProjects = async (dropOutliers = 2) => {
     }
     return project
   })
-  projectData.sort((a, b) => b.grade - a.grade)
+  projectData.sort((a, b) => {
+    a.grade = a.grade === 'NaN' ? false : a.grade
+    b.grade = b.grade === 'NaN' ? false : b.grade
+    return b.grade - a.grade
+  })
   return projectData
 }
 
