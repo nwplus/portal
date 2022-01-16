@@ -21,7 +21,7 @@ export default () => {
   const [selectedFilter, setSelectedFilter] = useState('All projects')
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
-  const [searchFiltered, setSearchFiltered] = useState([])
+  const [searchAndFilteredProjects, setSearchAndFilteredProjects] = useState([])
 
   const prizes = [{ value: 'All projects', label: 'All projects' }]
 
@@ -45,7 +45,7 @@ export default () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(search)
-    }, 10)
+    }, 500)
 
     return () => {
       clearTimeout(handler)
@@ -59,7 +59,7 @@ export default () => {
         : projects.filter(project => {
             return project.sponsorPrizes.includes(selectedFilter)
           })
-    setSearchFiltered(
+    setSearchAndFilteredProjects(
       filtered.filter(project => {
         return project.title.toLowerCase().includes(debouncedSearch)
       })
@@ -85,7 +85,7 @@ export default () => {
       />
       <HR />
       <Container>
-        <GalleryPage projects={searchFiltered} />
+        <GalleryPage projects={searchAndFilteredProjects} />
       </Container>
     </>
   )
