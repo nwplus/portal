@@ -85,7 +85,7 @@ const TextInputWithField = ({
 // Need to be explicit with object declaration (otherwise they'll all reference the same object)
 const defaultMembers = [{}, {}, {}, {}]
 
-const MAX_CHARS = 240
+const MAX_CHARS = 1000
 
 export default ({
   project,
