@@ -61,7 +61,7 @@ export default () => {
           })
     setSearchAndFilteredProjects(
       filtered.filter(project => {
-        return project.title.toLowerCase().includes(debouncedSearch)
+        return project.title.toLowerCase().includes(debouncedSearch.toLowerCase())
       })
     )
   }, [debouncedSearch, projects, selectedFilter])
