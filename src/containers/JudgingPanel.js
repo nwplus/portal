@@ -210,12 +210,18 @@ export default () => {
   }, [])
 
   useEffect(() => {
-    const formattedProjects = gradedProjects.map(projects => {
+    const formattedProjects = gradedProjects.map(project => {
       const portalLink = window.location.origin // to support local development as well
-      return {
-        title: projects.title,
-        link: `${portalLink}/projects/${projects.id}`,
+      const projectInfo = {
+        title: project.title,
+        link: `${portalLink}/projects/${project.id}`,
       }
+      project.teamMembers.forEach((member, index) => {
+        projectInfo[`member ${index + 1} name`] = member.name
+        projectInfo[`member ${index + 1} email`] = member.email
+        projectInfo[`member ${index + 1} discord`] = member.discord
+      })
+      return projectInfo
     })
     setCSVProjectData(formattedProjects)
   }, [gradedProjects])
