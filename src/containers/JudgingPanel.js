@@ -213,13 +213,14 @@ export default () => {
     const formattedProjects = gradedProjects.map(project => {
       const portalLink = window.location.origin // to support local development as well
       const projectInfo = {
-        title: project.title,
-        link: `${portalLink}/projects/${project.id}`,
+        Title: project.title,
+        Link: `${portalLink}/projects/${project.id}`,
+        'Mentor nominations': project.mentorNominations,
       }
       project.teamMembers.forEach((member, index) => {
-        projectInfo[`member ${index + 1} name`] = member.name
-        projectInfo[`member ${index + 1} email`] = member.email
-        projectInfo[`member ${index + 1} discord`] = member.discord
+        projectInfo[`Member ${index + 1} Name`] = member.name
+        projectInfo[`Member ${index + 1} Email`] = member.email
+        projectInfo[`Member ${index + 1} Discord`] = member.discord
       })
       return projectInfo
     })
