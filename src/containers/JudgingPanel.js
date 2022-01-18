@@ -213,8 +213,9 @@ export default () => {
     const formattedProjects = gradedProjects.map(projects => {
       const portalLink = window.location.origin // to support local development as well
       return {
-        title: projects.title,
-        link: `${portalLink}/projects/${projects.id}`,
+        Title: projects.title,
+        Link: `${portalLink}/projects/${projects.id}`,
+        'Mentor nominations': projects.mentorNominations,
       }
     })
     setCSVProjectData(formattedProjects)
