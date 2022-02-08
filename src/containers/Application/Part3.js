@@ -54,7 +54,7 @@ export default () => {
         formInputs={application.questionnaire}
         onChange={updateQuestionnaire}
       />
-      <VerticalProgressBar percent={75} />
+      <VerticalProgressBar percent={100} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-2')}
