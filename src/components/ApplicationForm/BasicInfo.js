@@ -8,6 +8,7 @@ import { FormSpacing, SubHeading } from './'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
 import { findElement, creatableDropdownValue } from '../../utility/utilities'
+import { copyText } from '../../utility/Constants'
 
 const genderOptions = [
   { value: 'female', label: 'Female' },
@@ -17,15 +18,22 @@ const genderOptions = [
   { value: 'prefer not to say', label: 'Prefer not to say' },
 ]
 
+const pronounOptions = [
+  { value: 'she/her', label: 'she/her' },
+  { value: 'they/them', label: 'they/them' },
+  { value: 'ze/zir', label: 'ze/zir' },
+  { value: 'he/him', label: 'he/him' },
+  { value: 'other', label: 'Other' },
+  { value: 'prefer not to say', label: 'Prefer not to say' },
+]
+
 const ethnicityOptions = {
-  asian: 'Asian',
-  black: 'Black or African American',
-  caucasian: 'Caucasian or European',
+  africanAmerican: 'African American or Black',
+  americanIndian: 'American Indian or Alaskan Native',
+  asian: 'Asian or Pacific Islander',
+  caucasian: 'Caucasian or White',
   hispanic: 'Hispanic or Latinx',
-  middleEastern: 'Middle Eastern',
-  nativeHawaiian: 'Native Hawaiian or Pacific Islander',
-  northAmerica: 'Indigenous (First Nations, Métis, Inuk/Inuit)',
-  other: 'Other',
+  other: 'Multiple ethnicity/Other',
   preferNot: 'Prefer not to say',
 }
 
@@ -33,16 +41,17 @@ const educationOptions = [
   { value: 'high school', label: 'High school' },
   { value: 'undergraduate', label: 'Undergraduate' },
   { value: 'graduate', label: 'Graduate or Post-Graduate' },
+  { value: 'recent-graduate', label: 'Recently graduated' },
   { value: 'other', label: 'Other' },
 ]
 
 const graduationOptions = [
-  { value: 2020, label: '2020' },
   { value: 2021, label: '2021' },
   { value: 2022, label: '2022' },
   { value: 2023, label: '2023' },
   { value: 2024, label: '2024' },
-  { value: 2025, label: '2025+' },
+  { value: 2025, label: '2025' },
+  { value: 2026, label: '2026+' },
 ]
 
 const StyledTextInput = styled(TextInput)`
@@ -64,6 +73,9 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
       <SubHeading>
+        <span role="img" aria-label="Pencil emoji">
+          ✏️
+        </span>{' '}
         What is your full legal name?
         <Required />
       </SubHeading>
@@ -106,6 +118,32 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>
+        <span role="img" aria-label="Telephone emoji">
+          ☎️
+        </span>{' '}
+        What is your phone number?
+        <Required />
+      </SubHeading>
+      <StyledTextInput
+        placeholder="XXX-XXX-XXXX"
+        value={formInputs.phoneNumber}
+        errorMsg={errors?.phoneNumber}
+        invalid={!!errors?.phoneNumber}
+        onChange={e =>
+          onChange({
+            phoneNumber: e.target.value,
+          })
+        }
+        customRef={refs['phoneNumberRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 03</QuestionHeading>
+      <SubHeading>
+        <span role="img" aria-label="Person raising one hand emoji">
+          🙋
+        </span>{' '}
         Which gender do you identify as?
         <Required />
       </SubHeading>
@@ -139,7 +177,45 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 03</QuestionHeading>
+      <QuestionHeading>question 04</QuestionHeading>
+      <SubHeading>
+        <span role="img" aria-label="Mushroom emoji">
+          🍄
+        </span>{' '}
+        What are your pronouns?
+        <Required />
+      </SubHeading>
+      {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>}
+      <Dropdown
+        options={pronounOptions}
+        placeholder="Pronouns"
+        isSearchable={false}
+        value={findElement(pronounOptions, 'value', formInputs.pronouns)}
+        onChange={e =>
+          onChange({
+            pronouns: e.value,
+          })
+        }
+        isValid={!errors?.pronouns}
+        customRef={refs['pronounsRef']}
+      />
+      {formInputs.pronouns === 'other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs.otherPronoun}
+          onChange={e =>
+            onChange({
+              otherPronoun: e.target.value,
+            })
+          }
+        />
+      )}
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 05</QuestionHeading>
       <SubHeading>
         What is your race/ethnicity? (Select all that apply)
         <Required />
@@ -159,7 +235,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
                   ethnicity: { ...formInputs.ethnicity, [key]: !val },
                 })
               }
-              customRef={key === 'asian' ? refs['ethnicityRef'] : null}
+              customRef={key === 'africanAmerican' ? refs['ethnicityRef'] : null}
             />
           ))}
       <br />
@@ -179,9 +255,12 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 04</QuestionHeading>
+      <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
-        Will you be 19 years or older by January 15th, 2022?
+        <span role="img" aria-label="Baby chick emoji">
+          🐥
+        </span>{' '}
+        Will you be 19 years of age or older by March 5th, 2022?
         <Required />
       </SubHeading>
       {errors?.isOfLegalAge && <ErrorMessage>{errors?.isOfLegalAge}</ErrorMessage>}
@@ -201,83 +280,9 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 05</QuestionHeading>
-      <SubHeading>
-        What is your phone number?
-        <Required />
-      </SubHeading>
-      <StyledTextInput
-        placeholder="XXX-XXX-XXXX"
-        value={formInputs.phoneNumber}
-        errorMsg={errors?.phoneNumber}
-        invalid={!!errors?.phoneNumber}
-        onChange={e =>
-          onChange({
-            phoneNumber: e.target.value,
-          })
-        }
-        customRef={refs['phoneNumberRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 06</QuestionHeading>
-      <SubHeading>
-        What school do you go to?
-        <Required />
-      </SubHeading>
-      {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
-      <Dropdown
-        options={schools}
-        placeholder="Enter your school"
-        isSearchable
-        formatCreateLabel={inputValue => `${inputValue}`}
-        label={formInputs.school}
-        value={creatableDropdownValue(schools, 'label', formInputs.school)}
-        onChange={e =>
-          onChange({
-            school: e.label,
-          })
-        }
-        emptySearchDefaultOption="Start typing to search"
-        canCreateNewOption
-        debounceEnabled
-        throttleTime={1000}
-        isValid={!errors?.school}
-        customRef={refs['schoolRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
       <QuestionHeading>question 07</QuestionHeading>
       <SubHeading>
-        What is your current or intended major?
-        <Required />
-      </SubHeading>
-      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
-      <Dropdown
-        options={majors}
-        placeholder="Enter your major"
-        isSearchable
-        formatCreateLabel={inputValue => `${inputValue}`}
-        label={formInputs.major}
-        value={creatableDropdownValue(majors, 'label', formInputs.major)}
-        onChange={e =>
-          onChange({
-            major: e.label,
-          })
-        }
-        emptySearchDefaultOption="Start typing to search"
-        canCreateNewOption
-        isValid={!errors?.major}
-        customRef={refs['majorRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 08</QuestionHeading>
-      <SubHeading>
-        What is your current level of education?
+        What level of education are you currently studying at?
         <Required />
       </SubHeading>
       {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
@@ -312,9 +317,66 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
+      <QuestionHeading>question 08</QuestionHeading>
+      <SubHeading>
+        What school do you currently attend?
+        <Required />
+      </SubHeading>
+      {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
+      <Dropdown
+        options={schools}
+        placeholder="Enter your school"
+        isSearchable
+        formatCreateLabel={inputValue => `${inputValue}`}
+        label={formInputs.school}
+        value={creatableDropdownValue(schools, 'label', formInputs.school)}
+        onChange={e =>
+          onChange({
+            school: e.label,
+          })
+        }
+        emptySearchDefaultOption="Start typing to search"
+        canCreateNewOption
+        debounceEnabled
+        throttleTime={1000}
+        isValid={!errors?.school}
+        customRef={refs['schoolRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
       <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>
-        What is your graduation year?
+        <span role="img" aria-label="Book emoji">
+          📖
+        </span>
+        What is your current or intended major?
+        <Required />
+      </SubHeading>
+      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
+      <Dropdown
+        options={majors}
+        placeholder="Enter your major"
+        isSearchable
+        formatCreateLabel={inputValue => `${inputValue}`}
+        label={formInputs.major}
+        value={creatableDropdownValue(majors, 'label', formInputs.major)}
+        onChange={e =>
+          onChange({
+            major: e.label,
+          })
+        }
+        emptySearchDefaultOption="Start typing to search"
+        canCreateNewOption
+        isValid={!errors?.major}
+        customRef={refs['majorRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 10</QuestionHeading>
+      <SubHeading>
+        What is your expected graduation year?
         <Required />
       </SubHeading>
       {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
@@ -334,10 +396,10 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
-        How do you want to contribute at nwHacks? Please select the category that you're strongest
-        in.
+        How do you want to contribute at {copyText.hackathonName}? Please select the category that
+        you're strongest in.
         <Required />
       </SubHeading>
       {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}

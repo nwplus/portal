@@ -143,7 +143,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </CenterH1>
       </FormSpacing>
 
-      <ReviewContainer>
+      {/* Commenting out for cmd-f 2022 */}
+      {/* <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Vaccination Status</QuestionHeading>
           <Button
@@ -168,7 +169,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             />
           </ContentWrapper>
         </StyledBanner>
-      </ReviewContainer>
+      </ReviewContainer> */}
 
       <ReviewContainer>
         <JohnDiv>

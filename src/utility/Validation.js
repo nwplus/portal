@@ -1,5 +1,6 @@
-const MUST_BE_VACCINATED =
-  'You can only participate in nwHacks if you are double-vaccinated by then!'
+import { copyText } from './Constants'
+
+const MUST_BE_VACCINATED = `You can only participate in ${copyText.hackathonName} if you are double-vaccinated by then!`
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
@@ -129,7 +130,7 @@ var isDesigner = false
 var isFirstTimeHacker = true
 
 export const validateEntireForm = application => {
-  const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
+  // const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
@@ -142,7 +143,7 @@ export const validateEntireForm = application => {
   isDesigner = application.basicInfo.contributionRole === 'designer'
   isFirstTimeHacker = application.skills.hackathonsAttended === 0
   return {
-    ...vaccineInfoErrors,
+    // ...vaccineInfoErrors,
     ...basicInfoErrors,
     ...skillsErrors,
     ...questionnaireErrors,
@@ -151,9 +152,10 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
-  vaccineInfo: {
-    willBeDoubleVaxed: mustBeVaccinatedFunction,
-  },
+  // Commenting out for cmd-f 2022
+  // vaccineInfo: {
+  //   willBeDoubleVaxed: mustBeVaccinatedFunction,
+  // },
   basicInfo: {
     email: email => {
       return {
@@ -164,6 +166,7 @@ const validators = {
     firstName: noEmptyFunction,
     lastName: noEmptyFunction,
     gender: noEmptyFunction,
+    pronouns: noEmptyFunction,
     ethnicity: noNoneFunction,
     isOfLegalAge: noNeitherFunction,
     school: noEmptyFunction,

@@ -1,14 +1,14 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'nwHacks2022'
+export const DB_HACKATHON = 'cmd-f2022'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'nwHacks 2022',
+  hackathonName: 'cmd-f 2022',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 5
@@ -93,23 +93,23 @@ export const calculateGrade = score => {
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
-  vaccineInfo: {
-    willBeDoubleVaxed: false,
-  },
+  // Commenting out for cmd-f 2022
+  // vaccineInfo: {
+  //   willBeDoubleVaxed: false,
+  // },
   basicInfo: {
     email: '',
     firstName: '',
     middleName: '',
     lastName: '',
     gender: '',
+    pronouns: '',
     ethnicity: {
+      africanAmerican: false,
+      americanIndian: false,
       asian: false,
-      black: false,
       caucasian: false,
       hispanic: false,
-      middleEastern: false,
-      nativeHawaiian: false,
-      northAmerica: false,
       other: false,
       preferNot: false,
     },
