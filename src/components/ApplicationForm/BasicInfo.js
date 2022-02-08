@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { QuestionHeading, CenteredH1, ErrorMessage, ErrorSpan as Required } from '../Typography'
+import { QuestionHeading, CenteredH1, P, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput } from '../Input/TextInput'
 import Dropdown from '../Input/Dropdown'
 import Select from '../Input/Select'
@@ -263,6 +263,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         Will you be 19 years of age or older by March 5th, 2022?
         <Required />
       </SubHeading>
+      <P>We accept hackers currently in high school but require this for consent purposes.</P>
       {errors?.isOfLegalAge && <ErrorMessage>{errors?.isOfLegalAge}</ErrorMessage>}
       <Select
         type="radio"
@@ -322,6 +323,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         What school do you currently attend?
         <Required />
       </SubHeading>
+      <P>If you have graduated, please specify the school you most recently attended.</P>
       {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
       <Dropdown
         options={schools}
@@ -349,8 +351,10 @@ export default ({ refs, errors, formInputs, onChange }) => (
       <SubHeading>
         <span role="img" aria-label="Book emoji">
           📖
-        </span>
-        What is your current or intended major?
+        </span>{' '}
+        {formInputs.educationLevel === 'high school'
+          ? 'What do you plan on studying?'
+          : 'What is your current or intended major?'}
         <Required />
       </SubHeading>
       {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
