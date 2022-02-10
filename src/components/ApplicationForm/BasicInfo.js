@@ -8,7 +8,7 @@ import { FormSpacing, SubHeading } from './'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
 import { findElement, creatableDropdownValue } from '../../utility/utilities'
-import { copyText } from '../../utility/Constants'
+import { copyText, ETHNICITY_OPTIONS } from '../../utility/Constants'
 
 const genderOptions = [
   { value: 'female', label: 'Female' },
@@ -26,16 +26,6 @@ const pronounOptions = [
   { value: 'other', label: 'Other' },
   { value: 'prefer not to say', label: 'Prefer not to say' },
 ]
-
-const ethnicityOptions = {
-  africanAmerican: 'African American or Black',
-  americanIndian: 'American Indian or Alaskan Native',
-  asian: 'Asian or Pacific Islander',
-  caucasian: 'Caucasian or White',
-  hispanic: 'Hispanic or Latinx',
-  other: 'Multiple ethnicity/Other',
-  preferNot: 'Prefer not to say',
-}
 
 const educationOptions = [
   { value: 'high school', label: 'High school' },
@@ -228,7 +218,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
             <Select
               key={key}
               type="checkbox"
-              label={ethnicityOptions[key]}
+              label={ETHNICITY_OPTIONS[key]}
               checked={val}
               onChange={() =>
                 onChange({

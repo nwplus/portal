@@ -91,6 +91,25 @@ export const calculateGrade = score => {
   }, 0).toFixed(2)
 }
 
+export const ETHNICITY_OPTIONS = Object.freeze({
+  africanAmerican: 'African American or Black',
+  americanIndian: 'American Indian or Alaskan Native',
+  asian: 'Asian or Pacific Islander',
+  caucasian: 'Caucasian or White',
+  hispanic: 'Hispanic or Latinx',
+  other: 'Multiple ethnicity/Other',
+  preferNot: 'Prefer not to say',
+})
+
+export const EVENTS_ATTENDED = Object.freeze({
+  mentorship: 'connect-f Mentorship Program',
+  phase1: 'cmd-f Phase 1: Resume Review & Networking',
+  phase2: 'cmd-f Phase 2: Intro to LinkedIn & Networking Workshop',
+  cmdf2019: 'cmd-f 2019',
+  cmdf2020: 'cmd-f 2020',
+  cmdf2021: 'cmd-f 2021',
+})
+
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   // Commenting out for cmd-f 2022
