@@ -5,6 +5,7 @@ import { QuestionHeading } from '../../components/Typography'
 import { FormSpacing, SubHeading } from './'
 import { CenteredH1 } from '../Typography'
 import { findElement } from '../../utility/utilities'
+import { copyText } from '../../utility/Constants'
 
 const StyledDropdown = styled(Dropdown)`
   .react-select__control {
@@ -37,7 +38,7 @@ export default ({ formInputs, onChange }) => {
       </FormSpacing>
       <FormSpacing>
         <QuestionHeading>Question 15</QuestionHeading>
-        <SubHeading>How did you hear about nwHacks?</SubHeading>
+        <SubHeading>How did you hear about {copyText.hackathonName}?</SubHeading>
         <StyledDropdown
           options={options}
           placeholder="Select an option"
@@ -70,73 +71,92 @@ export default ({ formInputs, onChange }) => {
 
       <FormSpacing>
         <QuestionHeading>Question 16</QuestionHeading>
-        <SubHeading>Which nwPlus events have you been to? (Select all that apply)</SubHeading>
+        <SubHeading>
+          <span role="img" aria-label="Grinning face with star eyes emoji">
+            🤩
+          </span>{' '}
+          Have you previously attended any cmd-f organized events? (select all that apply)
+        </SubHeading>
         <Select
           type="checkbox"
-          label="Local Hack Day / HackCamp"
-          checked={formInputs.eventsAttended.option1}
+          label="connect-f Mentorship Program"
+          checked={formInputs.eventsAttended.mentorship}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                option1: !formInputs.eventsAttended.option1,
+                mentorship: !formInputs.eventsAttended.mentorship,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="nwHacks"
-          checked={formInputs.eventsAttended.option2}
+          label="cmd-f Phase 1: Resume Review &amp; Networking"
+          checked={formInputs.eventsAttended.phase1}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                option2: !formInputs.eventsAttended.option2,
+                phase1: !formInputs.eventsAttended.phase1,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f"
-          checked={formInputs.eventsAttended.option3}
+          label="cmd-f Phase 2: Intro to LinkedIn &amp; Networking Workshop"
+          checked={formInputs.eventsAttended.phase2}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                option3: !formInputs.eventsAttended.option3,
+                phase2: !formInputs.eventsAttended.phase2,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f Phases"
-          checked={formInputs.eventsAttended.option4}
+          label="cmd-f 2019"
+          checked={formInputs.eventsAttended.cmdf2019}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                option4: !formInputs.eventsAttended.option4,
+                cmdf2019: !formInputs.eventsAttended.cmdf2019,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="nwPlus Boothing"
-          checked={formInputs.eventsAttended.option6}
+          label="cmd-f 2020"
+          checked={formInputs.eventsAttended.cmdf2020}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                option6: !formInputs.eventsAttended.option6,
+                cmdf2020: !formInputs.eventsAttended.cmdf2020,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="cmd-f 2021"
+          checked={formInputs.eventsAttended.cmdf2021}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                cmdf2021: !formInputs.eventsAttended.cmdf2021,
               },
             })
           }

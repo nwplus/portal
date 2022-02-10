@@ -11,7 +11,7 @@ const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it 
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
-const LONG_ANSWER_CHAR_LIMIT = 650
+const LONG_ANSWER_CHAR_LIMIT = 500
 export const validateURL = thing => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -126,9 +126,6 @@ export const validateFormSection = (change, section) => {
   return newErrors
 }
 
-var isDesigner = false
-var isFirstTimeHacker = true
-
 export const validateEntireForm = application => {
   // const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
@@ -139,9 +136,6 @@ export const validateEntireForm = application => {
     'termsAndConditions'
   )
 
-  // only for use when validating entire form at the end
-  isDesigner = application.basicInfo.contributionRole === 'designer'
-  isFirstTimeHacker = application.skills.hackathonsAttended === 0
   return {
     // ...vaccineInfoErrors,
     ...basicInfoErrors,
@@ -183,27 +177,13 @@ const validators = {
     },
   },
   skills: {
-    resume: noInvalidResumeFunction,
-    // NOTE: isDesigner (and isFirstTimeHacker) variables aren't accessible here when invoking `validateFormSection`:  ternary default to false -- WORKAROUND: local handling in Part2.js
-    portfolio: isFirstTimeHacker
-      ? optionalURLFunction
-      : isDesigner
-      ? mandatoryURLFunction
-      : optionalURLFunction,
-    github: isFirstTimeHacker
-      ? optionalURLFunction
-      : isDesigner
-      ? optionalURLFunction
-      : mandatoryURLFunction,
+    // Commenting out for cmd-f 2022
+    // resume: noInvalidResumeFunction,
+    portfolio: optionalURLFunction,
+    github: optionalURLFunction,
     linkedin: optionalURLFunction,
-    hackathonsAttended: noEmptyFunction,
+    hackathonsAttended: noNeitherFunction,
     longAnswers1: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
-        message: answer.length > LONG_ANSWER_CHAR_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers2: answer => {
       return {
         error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
         message: answer.length > LONG_ANSWER_CHAR_LIMIT ? '' : NOT_EMPTY,

@@ -62,25 +62,6 @@ export default () => {
     await save()
     if (href === '/application/part-3') {
       const newErrors = validate(application.skills)
-
-      // check if user left mandatory github or portfolio link EMPTY
-      const role = application.basicInfo.contributionRole
-      if (
-        role === 'designer' &&
-        application.skills.hackathonsAttended > 0 &&
-        application.skills.portfolio === ''
-      ) {
-        // if portfolio empty, force enter error
-        newErrors.portfolio = MANDATORY_URL
-      } else if (
-        role === 'developer' &&
-        application.skills.hackathonsAttended > 0 &&
-        application.skills.github === ''
-      ) {
-        newErrors.github = MANDATORY_URL
-      }
-      setErrors({ ...errors, ...newErrors })
-
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
           if (newErrors[question]) {

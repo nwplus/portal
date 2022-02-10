@@ -128,7 +128,6 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     linkedin: '',
     github: '',
     longAnswers1: '',
-    longAnswers2: '',
   },
   questionnaire: {
     engagementSource: '',
