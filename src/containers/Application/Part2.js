@@ -8,7 +8,6 @@ import {
   checkForError,
   validateFormSection,
   MAX_RESUME_FILE_SIZE_MB,
-  MANDATORY_URL,
 } from '../../utility/Validation'
 
 const questionsByOrder = ['resume', 'portfolio', 'github', 'longAnswers']

@@ -61,6 +61,7 @@ const validateResume = thing => {
   return allowedExtensions.exec(thing)
 }
 
+// eslint-disable-next-line no-unused-vars
 const mustBeVaccinatedFunction = thing => {
   return {
     error: !thing,
@@ -96,6 +97,7 @@ const validateTrueFunction = thing => {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const mandatoryURLFunction = thing => {
   return {
     error: validateStringNotEmpty(thing) ? !validateURL(thing) : false,
@@ -110,6 +112,7 @@ const optionalURLFunction = thing => {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const noInvalidResumeFunction = thing => {
   return {
     error: !validateResume(thing),
