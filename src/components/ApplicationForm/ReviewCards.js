@@ -94,7 +94,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
   var ethnicitiesValues = []
 
   for (var i = 0; i < ethnicities.length; i++) {
-    ethnicitiesValues.push(ethnicities[i])
+    if (ethnicities[i] === 'Multiple ethnicity/Other') {
+      ethnicitiesValues.push(formInputs.basicInfo?.otherEthnicity || 'Multiple ethnicity/Other')
+    } else {
+      ethnicitiesValues.push(ethnicities[i])
+    }
 
     if (i < ethnicities.length - 1) {
       ethnicitiesValues.push(', ')
