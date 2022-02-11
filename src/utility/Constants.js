@@ -152,6 +152,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     engagementSource: '',
     eventsAttended: [],
     otherEngagementSource: '',
+    friendEmail: '',
   },
   submission: {
     lastUpdated: '',

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { QuestionHeading } from '../../components/Typography'
 import { FormSpacing, SubHeading } from './'
-import { CenteredH1 } from '../Typography'
+import { CenteredH1, P } from '../Typography'
 import { findElement } from '../../utility/utilities'
 import { copyText } from '../../utility/Constants'
 
@@ -11,6 +11,10 @@ const StyledDropdown = styled(Dropdown)`
   .react-select__control {
     margin: 0 0 1em;
   }
+`
+
+const StyledTextInput = styled(TextInput)`
+  margin: 0.5em 1em 1em 0;
 `
 
 export const options = [
@@ -25,7 +29,7 @@ export const options = [
 ]
 
 // form part 3
-export default ({ formInputs, onChange }) => {
+export default ({ errors, formInputs, onChange }) => {
   return (
     <>
       <FormSpacing>
@@ -158,6 +162,23 @@ export default ({ formInputs, onChange }) => {
                 ...formInputs.eventsAttended,
                 cmdf2021: !formInputs.eventsAttended.cmdf2021,
               },
+            })
+          }
+        />
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 17</QuestionHeading>
+        <SubHeading>Are you registering with a friend? If so, insert their email here!</SubHeading>
+        <P>Please ensure this email is the same one your friend is using to apply with.</P>
+        <StyledTextInput
+          placeholder="hacker@nwplus.io"
+          value={formInputs.friendEmail}
+          errorMsg={errors?.friendEmail}
+          invalid={!!errors?.friendEmail}
+          onChange={e =>
+            onChange({
+              friendEmail: e.target.value,
             })
           }
         />

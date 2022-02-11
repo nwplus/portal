@@ -38,6 +38,12 @@ const validateStringNotEmpty = thing => {
 export const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
 }
+const validateOptionalEmail = email => {
+  return {
+    error: email ? !validateEmail(email) : false,
+    message: EMAIL_MESSAGE,
+  }
+}
 const validatePhoneNumber = thing => {
   const phoneno = /^([0-9]+-)*[0-9]+$/
   return thing.match(phoneno)
@@ -191,7 +197,7 @@ const validators = {
     },
   },
   questionnaire: {
-    // no validations, I think they're all optional
+    friendEmail: validateOptionalEmail,
   },
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,

@@ -244,14 +244,21 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             <InfoGroup
-              heading={`You Heard about ${copyText.hackathonName} from`}
+              heading={`You heard about ${copyText.hackathonName} from`}
               data={
                 formInputs.questionnaire.engagementSource !== 'Other'
                   ? formInputs.questionnaire.engagementSource
                   : formInputs.questionnaire.otherEngagementSource
               }
             />
-            <InfoGroup heading="Events Attended:" data={attendedValues} />
+            <InfoGroup
+              heading="Previous cmd-f events attended:"
+              data={attendedValues.length ? attendedValues : 'None'}
+            />
+            <InfoGroup
+              heading="Email of friend you're applying with:"
+              data={formInputs.questionnaire.friendEmail}
+            />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
