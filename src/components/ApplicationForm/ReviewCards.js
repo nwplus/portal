@@ -36,7 +36,7 @@ const InfoGroupWrapper = styled.div`
 `
 
 const StyledH1 = styled(H1)`
-  color: ${p => (p.heading ? p.theme.colors.primary : p.theme.colors.text)};
+  color: ${p => p.theme.colors.default};
   overflow-wrap: break-word;
   font-size: ${p => (p.heading ? `1.2em` : `1.5em`)};
   ${p => p.theme.mediaQueries.tabletLarge} {
@@ -76,7 +76,7 @@ const CenterH1 = styled(H1)`
 const InfoGroup = ({ heading, data }) => (
   <InfoGroupWrapper>
     <StyledH1 heading>{heading}</StyledH1>
-    <StyledH1>{data || 'No response'}</StyledH1>
+    <P>{data || 'No response'}</P>
   </InfoGroupWrapper>
 )
 
@@ -169,7 +169,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
             <InfoGroup
-              heading="Full Legal Name"
+              heading="Full Legal Name:"
               data={
                 formInputs.basicInfo.middleName
                   ? formInputs.basicInfo.firstName.concat(' ').concat(formInputs.basicInfo.lastName)
@@ -183,7 +183,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="Gender:" data={gender} />
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
             <InfoGroup
-              heading="19 Years Old or Older"
+              heading="19 Years Old or Older:"
               data={
                 formInputs.basicInfo.isOfLegalAge
                   ? 'Yes'
@@ -192,10 +192,10 @@ export default ({ formInputs, handleEdit, onChange }) => {
                   : 'No'
               }
             />
-            <InfoGroup heading="Phone number:" data={formInputs.basicInfo.phoneNumber} />
+            <InfoGroup heading="Phone Number:" data={formInputs.basicInfo.phoneNumber} />
             <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
             <InfoGroup heading="Intended Major:" data={formInputs.basicInfo.major} />
-            <InfoGroup heading="Level of Education" data={educationLevel} />
+            <InfoGroup heading="Level of Education:" data={educationLevel} />
             <InfoGroup
               heading="Graduation Year:"
               data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}

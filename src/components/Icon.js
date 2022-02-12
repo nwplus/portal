@@ -6,7 +6,7 @@ const StyledIcon = styled.i`
   transition: color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   &:hover {
-    color: ${p => p.color || p.theme.colors.text};
+    color: ${p => p.color || p.theme.colors.secondary};
   }
 `
 
