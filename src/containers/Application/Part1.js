@@ -9,13 +9,14 @@ import { checkForError, validateFormSection } from '../../utility/Validation'
 const questionsByOrder = [
   'firstName',
   'lastName',
+  'phoneNumber',
   'gender',
+  'pronouns',
   'ethnicity',
   'isOfLegalAge',
-  'phoneNumber',
+  'educationLevel',
   'school',
   'major',
-  'educationLevel',
   'graduation',
   'contributionRole',
 ]
@@ -51,6 +52,7 @@ export default () => {
     firstNameRef: useRef(null),
     lastNameRef: useRef(null),
     genderRef: useRef(null),
+    pronounsRef: useRef(null),
     ethnicityRef: useRef(null),
     isOfLegalAgeRef: useRef(null),
     phoneNumberRef: useRef(null),
@@ -92,7 +94,7 @@ export default () => {
         formInputs={application.basicInfo}
         onChange={updateBasicInfo}
       />
-      <VerticalProgressBar percent={25} />
+      <VerticalProgressBar percent={33} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-0')}

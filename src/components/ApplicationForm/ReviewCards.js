@@ -4,6 +4,7 @@ import Banner from '../Banner'
 import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
 import { FormSpacing } from './'
+import { copyText, EVENTS_ATTENDED, ETHNICITY_OPTIONS } from '../../utility/Constants'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -75,30 +76,9 @@ const CenterH1 = styled(H1)`
 const InfoGroup = ({ heading, data }) => (
   <InfoGroupWrapper>
     <StyledH1 heading>{heading}</StyledH1>
-    <StyledH1>{data}</StyledH1>
+    <StyledH1>{data || 'No response'}</StyledH1>
   </InfoGroupWrapper>
 )
-
-const ethnicityOptions = {
-  asian: 'Asian',
-  black: 'Black or African American',
-  caucasian: 'Caucasian or European',
-  hispanic: 'Hispanic or Latinx',
-  middleEastern: 'Middle Eastern',
-  nativeHawaiian: 'Native Hawaiian or Pacific Islander',
-  northAmerica: 'North American Indigenous',
-  other: 'Other',
-  preferNot: 'Prefer not to say',
-}
-
-const eventOptions = {
-  option1: 'Local Hack Day / HackCamp',
-  option2: 'nwHacks',
-  option3: 'cmd-f',
-  option4: 'cmd-f Phases',
-  option5: 'nwPlus Workshop Series',
-  option6: 'nwPlus Boothing',
-}
 
 const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
@@ -110,18 +90,22 @@ export default ({ formInputs, handleEdit, onChange }) => {
   const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
   const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
 
-  const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ethnicityOptions[e])
+  const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ETHNICITY_OPTIONS[e])
   var ethnicitiesValues = []
 
   for (var i = 0; i < ethnicities.length; i++) {
-    ethnicitiesValues.push(ethnicities[i])
+    if (ethnicities[i] === 'Multiple ethnicity/Other') {
+      ethnicitiesValues.push(formInputs.basicInfo?.otherEthnicity || 'Multiple ethnicity/Other')
+    } else {
+      ethnicitiesValues.push(ethnicities[i])
+    }
 
     if (i < ethnicities.length - 1) {
       ethnicitiesValues.push(', ')
     }
   }
 
-  const events = getEvents(formInputs.questionnaire.eventsAttended).map(e => eventOptions[e])
+  const events = getEvents(formInputs.questionnaire.eventsAttended).map(e => EVENTS_ATTENDED[e])
   var attendedValues = []
 
   for (var j = 0; j < events.length; j++) {
@@ -143,7 +127,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </CenterH1>
       </FormSpacing>
 
-      <ReviewContainer>
+      {/* Commenting out for cmd-f 2022 */}
+      {/* <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Vaccination Status</QuestionHeading>
           <Button
@@ -168,7 +153,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             />
           </ContentWrapper>
         </StyledBanner>
-      </ReviewContainer>
+      </ReviewContainer> */}
 
       <ReviewContainer>
         <JohnDiv>
@@ -234,24 +219,16 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             <InfoGroup heading="Prior Hackathons" data={formInputs.basicInfo.hackathonsAttended} />
-            <InfoGroup heading="Resume" data={formInputs.skills.resume ?? ''} />
+            <InfoGroup heading="Resume" data={formInputs.skills.resume} />
             <InfoGroup
               heading="Personal Website/Portfolio Link"
               data={formInputs.skills.portfolio}
             />
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
-            <InfoGroup heading="Two written questions:" />
             <InfoGroup
-              heading="1.What should technology be used for?"
+              heading="How do you intend to grow at cmd-f?"
               data={formInputs.skills.longAnswers1}
-            />
-            <InfoGroup heading="Choose one of the following:" />
-            <InfoGroup heading="1: How would you like to challenge yourself during this hackathon?" />
-            <InfoGroup
-              heading="2. Describe a time where you went above and beyond of your role to demonstrate leadership
-              in a project."
-              data={formInputs.skills.longAnswers2}
             />
           </ContentWrapper>
         </StyledBanner>
@@ -271,14 +248,21 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             <InfoGroup
-              heading="You Heard about nwHacks From"
+              heading={`You heard about ${copyText.hackathonName} from`}
               data={
                 formInputs.questionnaire.engagementSource !== 'Other'
                   ? formInputs.questionnaire.engagementSource
                   : formInputs.questionnaire.otherEngagementSource
               }
             />
-            <InfoGroup heading="nwPlus Events Attended:" data={attendedValues} />
+            <InfoGroup
+              heading="Previous cmd-f events attended:"
+              data={attendedValues.length ? attendedValues : 'None'}
+            />
+            <InfoGroup
+              heading="Email of friend you're applying with:"
+              data={formInputs.questionnaire.friendEmail}
+            />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -328,7 +312,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             }
           >
             <span>
-              I authorize you to share my application/registration information for event
+              I authorize nwPlus to share my application/registration information for event
               administration, ranking, MLH administration, pre- and post-event informational
               e-mails, and occasional messages about hackathons in-line with the{' '}
               <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">

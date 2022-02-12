@@ -8,7 +8,6 @@ import {
   checkForError,
   validateFormSection,
   MAX_RESUME_FILE_SIZE_MB,
-  MANDATORY_URL,
 } from '../../utility/Validation'
 
 const questionsByOrder = ['resume', 'portfolio', 'github', 'longAnswers']
@@ -62,25 +61,6 @@ export default () => {
     await save()
     if (href === '/application/part-3') {
       const newErrors = validate(application.skills)
-
-      // check if user left mandatory github or portfolio link EMPTY
-      const role = application.basicInfo.contributionRole
-      if (
-        role === 'designer' &&
-        application.skills.hackathonsAttended > 0 &&
-        application.skills.portfolio === ''
-      ) {
-        // if portfolio empty, force enter error
-        newErrors.portfolio = MANDATORY_URL
-      } else if (
-        role === 'developer' &&
-        application.skills.hackathonsAttended > 0 &&
-        application.skills.github === ''
-      ) {
-        newErrors.github = MANDATORY_URL
-      }
-      setErrors({ ...errors, ...newErrors })
-
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
           if (newErrors[question]) {
@@ -112,7 +92,7 @@ export default () => {
         handleResume={handleResume}
         errors={errors}
       />
-      <VerticalProgressBar percent={50} />
+      <VerticalProgressBar percent={66} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-1')}

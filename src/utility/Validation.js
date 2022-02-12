@@ -1,5 +1,6 @@
-const MUST_BE_VACCINATED =
-  'You can only participate in nwHacks if you are double-vaccinated by then!'
+import { copyText } from './Constants'
+
+const MUST_BE_VACCINATED = `You can only participate in ${copyText.hackathonName} if you are double-vaccinated by then!`
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
@@ -10,7 +11,7 @@ const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it 
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
-const LONG_ANSWER_CHAR_LIMIT = 650
+const LONG_ANSWER_CHAR_LIMIT = 500
 export const validateURL = thing => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -37,6 +38,12 @@ const validateStringNotEmpty = thing => {
 export const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
 }
+const validateOptionalEmail = email => {
+  return {
+    error: email ? !validateEmail(email) : false,
+    message: EMAIL_MESSAGE,
+  }
+}
 const validatePhoneNumber = thing => {
   const phoneno = /^([0-9]+-)*[0-9]+$/
   return thing.match(phoneno)
@@ -54,6 +61,7 @@ const validateResume = thing => {
   return allowedExtensions.exec(thing)
 }
 
+// eslint-disable-next-line no-unused-vars
 const mustBeVaccinatedFunction = thing => {
   return {
     error: !thing,
@@ -89,6 +97,7 @@ const validateTrueFunction = thing => {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const mandatoryURLFunction = thing => {
   return {
     error: validateStringNotEmpty(thing) ? !validateURL(thing) : false,
@@ -103,6 +112,7 @@ const optionalURLFunction = thing => {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const noInvalidResumeFunction = thing => {
   return {
     error: !validateResume(thing),
@@ -125,11 +135,8 @@ export const validateFormSection = (change, section) => {
   return newErrors
 }
 
-var isDesigner = false
-var isFirstTimeHacker = true
-
 export const validateEntireForm = application => {
-  const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
+  // const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
@@ -138,11 +145,8 @@ export const validateEntireForm = application => {
     'termsAndConditions'
   )
 
-  // only for use when validating entire form at the end
-  isDesigner = application.basicInfo.contributionRole === 'designer'
-  isFirstTimeHacker = application.skills.hackathonsAttended === 0
   return {
-    ...vaccineInfoErrors,
+    // ...vaccineInfoErrors,
     ...basicInfoErrors,
     ...skillsErrors,
     ...questionnaireErrors,
@@ -151,9 +155,10 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
-  vaccineInfo: {
-    willBeDoubleVaxed: mustBeVaccinatedFunction,
-  },
+  // Commenting out for cmd-f 2022
+  // vaccineInfo: {
+  //   willBeDoubleVaxed: mustBeVaccinatedFunction,
+  // },
   basicInfo: {
     email: email => {
       return {
@@ -164,6 +169,7 @@ const validators = {
     firstName: noEmptyFunction,
     lastName: noEmptyFunction,
     gender: noEmptyFunction,
+    pronouns: noEmptyFunction,
     ethnicity: noNoneFunction,
     isOfLegalAge: noNeitherFunction,
     school: noEmptyFunction,
@@ -180,27 +186,13 @@ const validators = {
     },
   },
   skills: {
-    resume: noInvalidResumeFunction,
-    // NOTE: isDesigner (and isFirstTimeHacker) variables aren't accessible here when invoking `validateFormSection`:  ternary default to false -- WORKAROUND: local handling in Part2.js
-    portfolio: isFirstTimeHacker
-      ? optionalURLFunction
-      : isDesigner
-      ? mandatoryURLFunction
-      : optionalURLFunction,
-    github: isFirstTimeHacker
-      ? optionalURLFunction
-      : isDesigner
-      ? optionalURLFunction
-      : mandatoryURLFunction,
+    // Commenting out for cmd-f 2022
+    // resume: noInvalidResumeFunction,
+    portfolio: optionalURLFunction,
+    github: optionalURLFunction,
     linkedin: optionalURLFunction,
-    hackathonsAttended: noEmptyFunction,
+    hackathonsAttended: noNeitherFunction,
     longAnswers1: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
-        message: answer.length > LONG_ANSWER_CHAR_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers2: answer => {
       return {
         error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
         message: answer.length > LONG_ANSWER_CHAR_LIMIT ? '' : NOT_EMPTY,
@@ -208,7 +200,7 @@ const validators = {
     },
   },
   questionnaire: {
-    // no validations, I think they're all optional
+    friendEmail: validateOptionalEmail,
   },
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,
