@@ -170,7 +170,10 @@ export default ({ errors, formInputs, onChange }) => {
       <FormSpacing>
         <QuestionHeading>question 17</QuestionHeading>
         <SubHeading>Are you registering with a friend? If so, insert their email here!</SubHeading>
-        <P>Please ensure this email is the same one your friend is using to apply with.</P>
+        <P>
+          Please ensure this email is the same one your friend is using to apply with. Including an
+          email here does not register you as a team.
+        </P>
         <StyledTextInput
           placeholder="hacker@nwplus.io"
           value={formInputs.friendEmail}

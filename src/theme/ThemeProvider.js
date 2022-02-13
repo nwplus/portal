@@ -120,11 +120,6 @@ const hackcampTheme = {
 
 const cmdfTheme = {
   ...base,
-  typography: {
-    ...base.typography,
-    headerFont: 'Fira Code',
-    bodyFont: 'DM Sans',
-  },
   name: 'cmdf',
   colors: {
     background: '#FFF6D8',
@@ -149,7 +144,7 @@ const cmdfTheme = {
     text: '#192825',
     link: '#3D995F',
     linkHover: '#2C3933',
-    tertiaryHover: '#AD795E', // button hover
+    tertiaryHover: '#FE800B', // button hover
     selects: {
       border: '#2C3933',
       text: '#2C3933',
