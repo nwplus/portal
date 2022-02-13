@@ -3,30 +3,32 @@ import styled from 'styled-components'
 
 const SelectWrapper = styled.span`
   display: inline-block;
-  border: 2px solid ${p => p.theme.colors.default};
+  color: ${p => p.theme.colors.selects.text};
+  border: 2px solid ${p => p.theme.colors.selects.border};
   border-radius: 7px;
   padding: 8px 24px 8px 16px;
   margin: 8px 12px 12px 0;
   ${p =>
     p.disabled
       ? `
-  opacity: ${p.theme.opacity.disabled};
-  cursor: not-allowed;
-`
-      : `:hover {
+      opacity: ${p.theme.opacity.disabled};
+      cursor: not-allowed;
+    `
+      : `
+      :hover {
         background: ${p.theme.colors.selects.hover};
-    border: 2px solid ${p.theme.colors.primary};
-    cursor: pointer;
-}`}
+        cursor: pointer;
+        transition: background-color 0.25s linear;
+      }
+    `}
   ${p =>
     p.checked &&
     `
-  background: ${p.theme.colors.primary};
-  border: 2px solid ${p.theme.colors.primary};
-  transition: background-color 0.25s linear;
-  :hover {
-    background: ${p.theme.colors.selects.focus};
-  `}
+    background: ${p.theme.colors.selects.selected};
+    transition: background-color 0.25s linear;
+    :hover {
+      background: transparent;
+    `}
 `
 
 const Selector = styled.span`
@@ -40,14 +42,16 @@ const Selector = styled.span`
   vertical-align: middle;
   ${p =>
     p.checked
-      ? `background-color: ${p.theme.colors.secondaryBackground};
-        border: 2px solid ${p.theme.colors.secondaryBackground};`
-      : `border: 2px solid ${p.theme.colors.default};`}
+      ? `
+      background-color: ${p.theme.colors.selects.text};
+      border: 2px solid ${p.theme.colors.selects.text};
+    `
+      : `
+      border: 2px solid ${p.theme.colors.selects.text};
+    `}
   ${SelectWrapper}:hover & {
     ${p =>
-      p.disabled
-        ? `cursor: not-allowed;`
-        : `border: 2px solid ${p.checked ? p.theme.colors.background : p.theme.colors.primary};`}
+      p.disabled ? `cursor: not-allowed;` : `border: 2px solid ${p.theme.colors.selects.text};`}
   }
 `
 
@@ -59,13 +63,9 @@ const Input = styled.input`
 
 const Label = styled.label`
   align-items: center;
-  color: ${p => p.checked && p.theme.colors.secondaryBackground};
+  color: ${p => p.checked && p.theme.colors.selects.text};
   ${SelectWrapper}:hover {
-    ${p =>
-      p.disabled
-        ? `cursor: not-allowed;`
-        : `color: ${p.checked ? p.theme.colors.secondaryBackground : p.theme.colors.primary}; 
-          cursor: pointer;`}
+    ${p => (p.disabled ? `cursor: not-allowed;` : `cursor: pointer;`)}
   }
 `
 

@@ -5,7 +5,7 @@ import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
-import cmdf_logo from '../assets/cmdf_logo.svg'
+import cmdf_logo from '../assets/cmdf_logo.png'
 import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
@@ -40,8 +40,7 @@ const chooseLogo = hackathon => {
 const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
-  width: 80px;
-  height: 85px;
+  height: 6em;
   margin: 30px 0 0px 50px;
 
   ${p =>
@@ -83,10 +82,7 @@ const StyledA = styled(A)`
   padding: 1em 50px;
   border-bottom: none;
 
-  color: ${p =>
-    p.theme.name !== 'cmdf' && p.selected
-      ? p.theme.colors.secondaryBackground
-      : p.theme.colors.font};
+  color: ${p => p.theme.colors.sidebar.link};
 
   ${p => p.selected && `background: ${p.theme.colors.primary};`}
 
@@ -134,7 +130,7 @@ const ApplicationText = styled.div`
 
 const StatusText = styled.div`
   font-size: 0.8em;
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.secondaryBackground};
   margin-top: 5px;
 `
 

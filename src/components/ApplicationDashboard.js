@@ -45,7 +45,7 @@ const AppLinks = styled.div`
 `
 
 const HackerAppText = styled.p`
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.default};
   margin-top: 1.55em;
 `
 
@@ -67,6 +67,7 @@ const StatusContainer = styled.div`
 `
 
 const AppStatusText = styled.p`
+  color: ${p => p.theme.colors.primary};
   font-size: 1.25em;
   font-weight: 700;
   margin-top: 0;

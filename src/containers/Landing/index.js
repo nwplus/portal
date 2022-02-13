@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import Banner from '../../components/Banner'
 import hc_logo from '../../assets/hc_logo.svg'
 import nwhacks_logo from '../../assets/nwhacks_logo.svg'
-import cmdf_logo from '../../assets/cmdf_logo.svg'
-import cmdf_plants from '../../assets/cmdf_splash.svg'
+import cmdf_logo from '../../assets/cmdf_logo.png'
 import Footer from './Footer'
 import { H1, P } from '../../components/Typography'
 
@@ -13,7 +12,27 @@ const LandingContainer = styled.div`
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
+  ${p => p.background && `background: ${p.background};`}
   ${p => !p.showFooter && 'overflow-y: hidden;'}
+`
+
+const FlexLandingContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  ${p => p.background && `background: ${p.background};`}
+`
+
+const Flex = styled.div`
+  max-width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 `
 
 const StyledLogoLockup = styled.img`
@@ -74,21 +93,12 @@ const StyledBanner = styled(Banner)`
   }
 `
 
-const StyledLandingDecal = styled.img`
-  pointer-events: none;
-  ${p =>
-    p.theme.name === 'cmdf' &&
-    `
-      position: absolute;
-      z-index: 9999;
-      display: block;
-      width: 100%;
-      object-fit: cover;
-    `}
+const StyledP = styled(P)`
+  color: ${p => p.theme.colors.login.text};
 `
 
 // TODO: add sponsors if footer is shown
-export default ({ heading, description, showFooter, hackathon, children }) => {
+export default ({ heading, description, showFooter, hackathon, children, background }) => {
   switch (hackathon) {
     case 'hackCamp':
       return (
@@ -103,15 +113,14 @@ export default ({ heading, description, showFooter, hackathon, children }) => {
       )
     case 'cmdf':
       return (
-        <LandingContainer showFooter={showFooter}>
-          <StyledLandingDecal src={cmdf_plants} />
-          <StyledLogoLockup src={cmdf_logo} />
-          <StyledBanner>
-            <H1 size="1.5em">{heading}</H1>
-            <P>{description}</P>
+        <FlexLandingContainer background={background}>
+          <Flex>
+            <img src={cmdf_logo} alt="cmd-f 2022 logo" />
+            <StyledP>{heading}</StyledP>
+            <StyledP>{description}</StyledP>
             {children}
-          </StyledBanner>
-        </LandingContainer>
+          </Flex>
+        </FlexLandingContainer>
       )
     default:
     case 'nwHacks':
