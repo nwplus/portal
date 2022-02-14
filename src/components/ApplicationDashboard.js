@@ -245,7 +245,7 @@ const Dashboard = ({
         <StyledHandWave />
       </WelcomeHeader>
       <AppLinks>
-        <HackerAppText>YOUR HACKER APPLICATION</HackerAppText>
+        <HackerAppText>YOUR HACKER REGISTRATION</HackerAppText>
         <EditAppButton
           color="secondary"
           height="short"
@@ -256,13 +256,13 @@ const Dashboard = ({
           }
           disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
         >
-          Complete Your Application
+          Complete Your Registration
         </EditAppButton>
       </AppLinks>
       <StatusContainer>
         <div>
           <AppStatusText>
-            Application status: {hackerStatuses()[hackerStatus]?.cardText}
+            Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
           <StatusBlurbText>
             {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}

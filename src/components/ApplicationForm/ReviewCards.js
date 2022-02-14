@@ -120,7 +120,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
     <>
       <FormSpacing>
         <CenterH1>
-          Review Your Application&nbsp;
+          Review Your Submission&nbsp;
           <span role="img" aria-label="eyes">
             &#128064;
           </span>

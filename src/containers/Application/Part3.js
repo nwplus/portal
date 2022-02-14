@@ -58,7 +58,7 @@ export default () => {
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-2')}
-        secondButtonText="Review Your Application"
+        secondButtonText="Review Your Submission"
         secondButtonOnClick={() => handleNavigation('/application/review')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
         loading={loading}
