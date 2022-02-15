@@ -42,6 +42,7 @@ const BoundingBox = styled.img`
 `
 
 const StyledButton = styled(Button)`
+  border-radius: 100px;
   && {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2));
     margin-bottom: 0.25em;
@@ -52,6 +53,9 @@ const StyledButton = styled(Button)`
 `
 
 export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0.5em 0;
 `
 
@@ -75,8 +79,8 @@ export default () => {
     <>
       <Landing
         heading={`Welcome to ${copyText.hackathonName}!`}
-        description="Please continue with one of the following:"
         hackathon={theme.name}
+        background={theme.colors.login.background}
       >
         <ButtonContainer>
           <StyledButton

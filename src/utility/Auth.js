@@ -76,7 +76,7 @@ export const getRedirectUrl = redirect => {
     case REDIRECT_STATUS.ApplicationAccepted:
       return '/'
     case REDIRECT_STATUS.ApplicationNotSubmitted:
-      return '/application/part-0'
+      return '/application/part-1'
     case REDIRECT_STATUS.ApplicationSubmitted:
     default:
       return '/application'

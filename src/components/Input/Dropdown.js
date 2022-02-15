@@ -6,6 +6,7 @@ import AsyncCreatableSelect from 'react-select/async-creatable'
 import styled, { withTheme, css } from 'styled-components'
 import { components } from 'react-select'
 import customCursor from '../../assets/custom-cursor.png'
+import Icon from '../Icon'
 
 const dropdownWidth = {
   normal: '300px',
@@ -21,7 +22,7 @@ const sharedStyle = css`
     box-shadow: none;
     max-width: ${p => (p.isSearchable ? dropdownWidth.searchable : dropdownWidth.normal)};
     height: 2.5em;
-    border-color: ${p => (p.isValid ? p.theme.colors.default : p.theme.colors.warning)};
+    border-color: ${p => (p.isValid ? p.theme.colors.selects.border : p.theme.colors.warning)};
     padding-right: 17px;
     padding-left: 7px;
     flex-direction: ${p => p.isSearchable && `row-reverse`};
@@ -30,7 +31,8 @@ const sharedStyle = css`
 
   .react-select__control:hover,
   .react-select__control--is-focused {
-    border-color: ${p => (p.isValid ? p.theme.colors.primary : p.theme.colors.secondaryWarning)};
+    border-color: ${p =>
+      p.isValid ? p.theme.colors.selects.hover : p.theme.colors.secondaryWarning};
   }
 
   .react-select__option {
@@ -70,12 +72,12 @@ const sharedStyle = css`
   }
 
   .react-select__placeholder {
-    color: ${p => p.theme.colors.default};
+    color: ${p => p.theme.colors.selects.text};
   }
 
   .react-select__single-value,
   .react-select__input {
-    color: ${p => p.theme.colors.primary};
+    color: ${p => p.theme.colors.selects.text};
   }
 
   .react-select__menu-notice--no-options {
@@ -117,27 +119,7 @@ const StyledErrorMsg = styled.div`
 
 const DropdownIcon = ({ className, isSearchable }) =>
   isSearchable ? (
-    <svg
-      className={className}
-      width="21"
-      height="21"
-      viewBox="0 0 21 21"
-      xmlns="http://www.w3.org/2000/svg"
-      xlink="http://www.w3.org/1999/xlink"
-    >
-      <rect width="21" height="21" fill="url(#pattern0)" />
-      <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-          <use href="#image0" transform="scale(0.02)" />
-        </pattern>
-        <image
-          id="image0"
-          width="50"
-          height="50"
-          href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAEaUlEQVRoQ+2ZXeiecxjHP19xwCQH2EbCwWK2vCRqirzuwAHbkAMrJ0KMZvNOWCvW8pKssOWtcOZtkkQka+Ul2ZgiceCd7EBeCrn01f3ot9v93Pf9+z2P9ezf/zr697+v3/f6fe/r9b4eMUVEU4QH00QmzZPTHpmSHomIY4GFwBHATGAP4FfgS+B94EVJX/+f5ItDKyL2B64DzgcO6bhkAO8AjwAPS/pz3KSyiUTEnsBK4Fpgn4ILfQzcIOm5grNDj2QRiYgDgWeBE8ZwifXAMkl/jAGrfx+JiGMc64DJNMk2YBPwLfAT4NA7GDgTOGDImVeBxZJ+HpVML49UnnCM10n4bW4A7pX0adNlImI34CTgNuDUBp3ngSWS/hqFTCeRKifeAI6vGdrqRJf0Sd8LRMQS4NGG3LpD0s19cZr0+hC5BVhdO/wycF5JSETEPMDnD0ow7Y3jJLlUF0krkarEOmTS6vQRsECS86BIqr7jfNorAXhd0mlFgNCe7BGxtiqzA3znxPyccBp2sYi4Criv9vxkSW+WkOnyyGfAYQnwOklXlhiqn4kId39XujnjwB9KpHL/e7ULzBlWnUrIRcRyV7zk7BeeEiR5EsiSNiLXA2sStG2S5mehdyhHhL1tr6cyT5LzMEvaiDwGXJSgrZd0aRZ6D+WI8GCZVjBXw6d7HN1BpY2Iu/hZifbtklblGujSj4i3az3qckkPdJ2rP28j4vHh9OTACklpPOfaatSPiFeAM5KHyyXVq1mnrTYiHh3OThDWSLqxEzFTISK2AEclx5ZKejITZngfiYh1wBUJ4FOSLsw10KZfzWE/Avsmegsl2UtZ0uaRS4CHErTvgdmjDnfp7SJiAbA5+Z/L7kxJP2SxaOvs1cTripKSPUWSB8ixSETcDaxIwLZKOroEvKuzv1X7iHpNUloASmz+cyYiZgGe42YkIKsl3VoC2kXEfePBGvC5kp4pMVYLqyeANOd+Bw6V9E0JdheR3YEPgcMTcE+9J0rynFQkEXEZUO8VGyQ5L4ukz/fIouo7PTXwFbBI0ru5VisS9wN+SQNxIZkraXsu3kC/k0gVzza8rGbkN29D/Gb7LBAiwvuuu4ClDZcdyRvG60vEb++lWgce3McJ656zUdLntTzw97o3Lt59Od/SxK7zuUaSq1iR9CJSeWVvwAl6ToslbxMdds4jb068RUmbXdcli8n0JlKR8Rv297tDyn+XinNiI3BxA0ARmSwiA6PVjsufwd5Z5YhL7OPVpnF7RHhj6bypy0pJ9+QAFxFJCHlfdUE1XDqMmsRjh0u4V6QuDDv0iXGRGYlIQsg4c4Ejgf0A74c9L33nbXzX7DQOMmMhkhMCw3Qj4mqgKZxuknRnl42JIVIVk2IyE0WkIlPfrAyc0eqZiSNSkfFo39Qcvez2zxr/kYkk0kLmBUnp5/e/hCaWyBAyayV537breCQp7YsBj/cfAKsk/bJLEukqu4PnEx1afUlYb5pIztvaGbrTHtkZbznHxt+6w2NCwq5TogAAAABJRU5ErkJggg=="
-        />
-      </defs>
-    </svg>
+    <Icon icon="search" color={p => p.theme.colors.selects.text} />
   ) : (
     <svg
       className={className}
@@ -154,9 +136,9 @@ const StyledDropdownIcon = styled(DropdownIcon)`
   transform: ${p => !p.isSearchable && p.menuIsOpen && `rotate(90deg)`};
   fill: ${p =>
     p.isSearchable
-      ? `none`
-      : p.menuIsOpen || p.hasValue
       ? p.theme.colors.primary
+      : p.menuIsOpen || p.hasValue
+      ? p.theme.colors.default
       : p.theme.colors.default};
 `
 

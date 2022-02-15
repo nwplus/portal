@@ -1,9 +1,8 @@
 import React from 'react'
-import { CenteredH1, H3, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
+import { CenteredH1, P, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { TextInput, TextArea } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
-import { findElement } from '../../utility/utilities'
-import Dropdown from '../Input/Dropdown'
+import { Select } from '../Input'
 import { FormSpacing, SubHeading } from './'
 import styled from 'styled-components'
 
@@ -54,20 +53,8 @@ const QuestionRow = styled(QuestionHeading)`
   }
 `
 
-const hackathonOptions = [
-  { value: 0, label: '0' },
-  { value: 1, label: '1' },
-  { value: 2, label: '2' },
-  { value: 3, label: '3' },
-  { value: 4, label: '4+' },
-]
-
 const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
-`
-
-const H3A = styled(H3)`
-  opacity: 1;
 `
 
 const FormRow = ({ fieldValue, required, children }) => (
@@ -95,39 +82,39 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       <FormSpacing>
         <QuestionHeading>question 12</QuestionHeading>
         <SubHeading>
-          How many hackathons have you attended (both online and in-person)?
+          Is this your first hackathon?
           <Required />
         </SubHeading>
         {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
-        <Dropdown
-          options={hackathonOptions}
-          placeholder="Number of Hackathons"
-          isSearchable={false}
-          value={findElement(hackathonOptions, 'value', formInputs.hackathonsAttended)}
-          onChange={inputValue =>
-            onChange({
-              hackathonsAttended: inputValue.value,
-            })
-          }
-          isValid={!errors?.hackathonsAttended}
+        <Select
+          type="radio"
+          label="Yes"
+          checked={formInputs.hackathonsAttended}
+          onChange={() => onChange({ hackathonsAttended: true })}
+          customRef={refs['hackathonsAttendedRef']}
+        />
+        <Select
+          type="radio"
+          label="No"
+          checked={formInputs.hackathonsAttended === false}
+          onChange={() => onChange({ hackathonsAttended: false })}
         />
       </FormSpacing>
 
       <FormSpacing>
         <QuestionHeading>question 13</QuestionHeading>
         <SubHeading>
-          {' '}
-          Don't be shy! Show off your wonderful skills{' '}
-          <span role="img" aria-label="smiling face">
-            😁
-          </span>
+          Help us get to know you better by providing as many links as you feel will support your
+          registration!
         </SubHeading>
-        <H3>
-          (Please ensure the links are publicly accessible by opening them in an incognito browser)
-        </H3>
+        <P>
+          We will be looking at your resume and GitHub if you're a developer, and we will be looking
+          at your resume and portfolio if you're a designer. Please ensure the links are publicly
+          accessible by opening them in an incognito browser.
+        </P>
 
         <QuestionForm>
-          <FormRow fieldValue="resume" required>
+          <FormRow fieldValue="resume">
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {
@@ -142,12 +129,9 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
           {role === 'designer' ? (
             <>
-              <FormRow
-                fieldValue="Personal website/portfolio link"
-                required={formInputs.hackathonsAttended > 0}
-              >
+              <FormRow fieldValue="Personal website/portfolio link">
                 <TextInput
-                  placeholder={formInputs.hackathonsAttended > 0 ? 'Required' : 'Optional'}
+                  placeholder="Optional"
                   size="large"
                   value={formInputs.portfolio}
                   invalid={!!errors.portfolio}
@@ -177,12 +161,9 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             </>
           ) : (
             <>
-              <FormRow
-                fieldValue="GitHub/BitBucket/GitLab"
-                required={formInputs.hackathonsAttended > 0}
-              >
+              <FormRow fieldValue="GitHub/BitBucket/GitLab">
                 <TextInput
-                  placeholder={formInputs.hackathonsAttended > 0 ? 'Required' : 'Optional'}
+                  placeholder="Optional"
                   size="large"
                   value={formInputs.github}
                   invalid={!!errors.github}
@@ -231,13 +212,19 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <QuestionHeading>question 14</QuestionHeading>
-        <SubHeading color="primary">Two written questions:</SubHeading>
+        <SubHeading>
+          Open ended question! We recommend to not write more than a paragraph, your response should
+          be concise, sweet and sufficient.
+        </SubHeading>
         <SubHeading size="1.25em">
-          1. What should technology be used for?
+          <span role="img" aria-label="Seedling emoji">
+            🌱
+          </span>{' '}
+          How do you intend to grow at cmd-f?
           <Required />
         </SubHeading>
         <StyledTextArea
-          maxLength="650"
+          maxLength="500"
           width="100%"
           value={formInputs.longAnswers1}
           invalid={!!errors.longAnswers1}
@@ -245,27 +232,6 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           onChange={val =>
             onChange({
               longAnswers1: val,
-            })
-          }
-        />
-        <SubHeading size="1.25em">
-          2. Choose one of the following:
-          <Required />
-        </SubHeading>
-        <H3A>A. How would you like to challenge yourself during this hackathon?</H3A>
-        <H3A>
-          B. Describe a time where you went above and beyond of your role to demonstrate leadership
-          in a project.
-        </H3A>
-        <StyledTextArea
-          maxLength="650"
-          width="100%"
-          value={formInputs.longAnswers2}
-          invalid={!!errors.longAnswers2}
-          errorMsg={errors.longAnswers2}
-          onChange={val =>
-            onChange({
-              longAnswers2: val,
             })
           }
           customRef={refs['longAnswersRef']}

@@ -115,23 +115,23 @@ export const TextInputLike = css`
   max-width: 100%;
   background-color: transparent;
   padding: 10px;
-  border: 2px solid ${p => p.theme.colors.highlight};
+  border: 2px solid ${p => p.theme.colors.selects.border};
   border-radius: 7px;
-  color: ${p => p.theme.colors.text};
+  color: ${p => p.theme.colors.selects.text};
   font-family: ${p => p.theme.typography.bodyFont};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {
-    color: ${p => p.theme.colors.highlight};
+    color: ${p => p.theme.colors.selects.placeholder};
   }
   :hover {
-    border: 2px solid ${p => p.theme.colors.primary};
+    border: 2px solid ${p => p.theme.colors.selects.hover};
   }
   :focus {
-    border: 2px solid ${p => p.theme.colors.primary};
+    border: 2px solid ${p => p.theme.colors.selects.hover};
     outline: none;
   }
   :disabled {
-    border: 2px solid ${p => p.theme.colors.highlight};
+    border: 2px solid ${p => p.theme.colors.selects.disabled};
     opacity: ${p => p.theme.opacity.disabled};
   }
   ${p =>

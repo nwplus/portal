@@ -54,11 +54,11 @@ export default () => {
         formInputs={application.questionnaire}
         onChange={updateQuestionnaire}
       />
-      <VerticalProgressBar percent={75} />
+      <VerticalProgressBar percent={100} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-2')}
-        secondButtonText="Review Your Application"
+        secondButtonText="Review Your Submission"
         secondButtonOnClick={() => handleNavigation('/application/review')}
         autosaveTime={application.submission.lastUpdated.toDate().toString()}
         loading={loading}

@@ -85,7 +85,7 @@ const ApplicationDashboardContainer = () => {
   ) : (
     <Page hackerStatus={hackerStatus}>
       <Dashboard
-        editApplication={() => setLocation('/application/part-0')}
+        editApplication={() => setLocation('/application/part-1')}
         username={user.displayName}
         hackerStatus={hackerStatus}
         isApplicationOpen={livesiteDoc.applicationsOpen}

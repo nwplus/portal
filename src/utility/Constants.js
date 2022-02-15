@@ -1,14 +1,15 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'nwHacks2022'
+export const DB_HACKATHON = 'cmd-f2022'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'nwHacks 2022',
+  hackathonName: 'cmd-f 2022',
+  hackathonNameShort: 'cmd-f',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 5
@@ -91,25 +92,44 @@ export const calculateGrade = score => {
   }, 0).toFixed(2)
 }
 
+export const ETHNICITY_OPTIONS = Object.freeze({
+  africanAmerican: 'African American or Black',
+  americanIndian: 'American Indian or Alaskan Native',
+  asian: 'Asian or Pacific Islander',
+  caucasian: 'Caucasian or White',
+  hispanic: 'Hispanic or Latinx',
+  other: 'Multiple ethnicity/Other',
+  preferNot: 'Prefer not to say',
+})
+
+export const EVENTS_ATTENDED = Object.freeze({
+  mentorship: 'connect-f Mentorship Program',
+  phase1: 'cmd-f Phase 1: Resume Review & Networking',
+  phase2: 'cmd-f Phase 2: Intro to LinkedIn & Networking Workshop',
+  cmdf2019: 'cmd-f 2019',
+  cmdf2020: 'cmd-f 2020',
+  cmdf2021: 'cmd-f 2021',
+})
+
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
-  vaccineInfo: {
-    willBeDoubleVaxed: false,
-  },
+  // Commenting out for cmd-f 2022
+  // vaccineInfo: {
+  //   willBeDoubleVaxed: false,
+  // },
   basicInfo: {
     email: '',
     firstName: '',
     middleName: '',
     lastName: '',
     gender: '',
+    pronouns: '',
     ethnicity: {
+      africanAmerican: false,
+      americanIndian: false,
       asian: false,
-      black: false,
       caucasian: false,
       hispanic: false,
-      middleEastern: false,
-      nativeHawaiian: false,
-      northAmerica: false,
       other: false,
       preferNot: false,
     },
@@ -128,12 +148,12 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     linkedin: '',
     github: '',
     longAnswers1: '',
-    longAnswers2: '',
   },
   questionnaire: {
     engagementSource: '',
     eventsAttended: [],
     otherEngagementSource: '',
+    friendEmail: '',
   },
   submission: {
     lastUpdated: '',
