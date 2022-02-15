@@ -105,7 +105,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         <QuestionHeading>question 13</QuestionHeading>
         <SubHeading>
           Help us get to know you better by providing as many links as you feel will support your
-          submission!
+          registration!
         </SubHeading>
         <P>
           We will be looking at your resume and GitHub if you're a developer, and we will be looking

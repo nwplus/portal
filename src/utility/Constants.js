@@ -9,6 +9,7 @@ export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !wi
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
   hackathonName: 'cmd-f 2022',
+  hackathonNameShort: 'cmd-f',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 5

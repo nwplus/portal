@@ -169,7 +169,10 @@ export default ({ errors, formInputs, onChange }) => {
 
       <FormSpacing>
         <QuestionHeading>question 17</QuestionHeading>
-        <SubHeading>Are you registering with a friend? If so, insert their email here!</SubHeading>
+        <SubHeading>
+          Are you registering with a friend? If so, insert their email here for a chance to win a
+          small prize!
+        </SubHeading>
         <P>
           Please ensure this email is the same one your friend is using to apply with. Including an
           email here does not register you as a team.

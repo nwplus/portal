@@ -200,7 +200,10 @@ export default ({ formInputs, handleEdit, onChange }) => {
               heading="Graduation Year:"
               data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
             />
-            <InfoGroup heading="Contribution at nwHacks:" data={contributionRole} />
+            <InfoGroup
+              heading={`Contribution at ${copyText.hackathonName}:`}
+              data={contributionRole}
+            />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -335,9 +338,9 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <ContentWrapper textBlock>
           <P>
             We also use your (anonymized!) data to help you get the best sponsors and continuously
-            improve nwHacks with each iteration. Our hackathon aims to connect you with industry
-            professionals, recruiters, and career opportunities. In doing so, information about our
-            hackers is needed in order for attending companies to contact you.
+            improve {copyText.hackathonNameShort} with each iteration. Our hackathon aims to connect
+            you with industry professionals, recruiters, and career opportunities. In doing so,
+            information about our hackers is needed in order for attending companies to contact you.
           </P>
         </ContentWrapper>
         <ContentWrapper textBlock>
