@@ -299,26 +299,30 @@ export default ({
         />
       </FormSection>
       <FormSection>
-        <Label>Charity Choice</Label>
-        <P>
-          Every project submitted at cmd-f 202, regardless of completion, will be eligible for a $20
-          donation to the charity of your choice from a curated list by the cmd-f team! This is done
-          so as to empathize cmd-f's mission of focusing on the learning and growth aspect of
-          hackathons!
-        </P>
-        <Dropdown
-          options={[
-            { value: 'CMHA', label: 'Canadian Mental Health Association' },
-            { value: 'BCCH', label: "BC Children's Hospital" },
-            { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
-            { value: 'GWC', label: 'Girls Who Code' },
-            { value: 'SRM', label: 'Sunrise Movement' },
-          ]}
-          placeholder={charityChoice === '' ? 'Pick A Charity' : charities[charityChoice]}
-          isSearchable={false}
-          onChange={inputValue => setCharityChoice(inputValue.value)}
-          isValid
-        />
+        <div>
+          <Label>Charity Choice</Label>
+          <P>
+            Every project submitted at cmd-f 202, regardless of completion, will be eligible for a
+            $20 donation to the charity of your choice from a curated list by the cmd-f team! This
+            is done so as to empathize cmd-f's mission of focusing on the learning and growth aspect
+            of hackathons!
+          </P>
+        </div>
+        <div>
+          <Dropdown
+            options={[
+              { value: 'CMHA', label: 'Canadian Mental Health Association' },
+              { value: 'BCCH', label: "BC Children's Hospital" },
+              { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
+              { value: 'GWC', label: 'Girls Who Code' },
+              { value: 'SRM', label: 'Sunrise Movement' },
+            ]}
+            placeholder={charityChoice === '' ? 'Pick a charity' : charities[charityChoice]}
+            isSearchable={false}
+            onChange={inputValue => setCharityChoice(inputValue.value)}
+            isValid
+          />
+        </div>
       </FormSection>
       <FormSection>
         <Label>Sponsor Prizes</Label>
