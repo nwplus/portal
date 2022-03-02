@@ -102,10 +102,19 @@ export default ({
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
   const [links, setLinks] = useState(project.links || {})
   const [sponsorPrizes, setSponsorPrizes] = useState([])
+  const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [mentorNominations, setMentorNominations] = useState(project.mentorNominations || '')
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
+
+  const charities = {
+    CMHA: 'Canadian Mental Health Association',
+    BCCH: "BC Children's Hospital",
+    DEWC: "Downtown Eastside Women's Centre",
+    GWC: 'Girls Who Code',
+    SRM: 'Sunrise Movement',
+  }
 
   // Fetch list of sponsor prizes from Firebase
   useEffect(() => {
@@ -290,19 +299,42 @@ export default ({
         />
       </FormSection>
       <FormSection>
+        <Label>Charity Choice</Label>
+        <P>
+          Every project submitted at cmd-f 202, regardless of completion, will be eligible for a $20
+          donation to the charity of your choice from a curated list by the cmd-f team! This is done
+          so as to empathize cmd-f's mission of focusing on the learning and growth aspect of
+          hackathons!
+        </P>
+        <Dropdown
+          options={[
+            { value: 'CMHA', label: 'Canadian Mental Health Association' },
+            { value: 'BCCH', label: "BC Children's Hospital" },
+            { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
+            { value: 'GWC', label: 'Girls Who Code' },
+            { value: 'SRM', label: 'Sunrise Movement' },
+          ]}
+          placeholder={charityChoice === '' ? 'Pick A Charity' : charities[charityChoice]}
+          isSearchable={false}
+          onChange={inputValue => setCharityChoice(inputValue.value)}
+          isValid
+        />
+      </FormSection>
+      <FormSection>
         <Label>Sponsor Prizes</Label>
         <div>
-          {sponsorPrizes.map(prize => {
-            return (
-              <Select
-                key={prize}
-                type="checkbox"
-                checked={selectedPrizes.includes(prize)}
-                label={prize}
-                onChange={() => handleCheck(prize)}
-              />
-            )
-          })}
+          {sponsorPrizes &&
+            sponsorPrizes.map(prize => {
+              return (
+                <Select
+                  key={prize}
+                  type="checkbox"
+                  checked={selectedPrizes.includes(prize)}
+                  label={prize}
+                  onChange={() => handleCheck(prize)}
+                />
+              )
+            })}
         </div>
       </FormSection>
       <StyledHr />
