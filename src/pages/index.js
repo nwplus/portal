@@ -7,7 +7,6 @@ import Sponsors from './Sponsors'
 import GettingStarted from './GettingStarted'
 import Schedule from './Schedule'
 import Judging from './Judging'
-import JudgingInfo from './JudgingInfo'
 import JudgingView from './Judging/View'
 import JudgingAdmin from './Judging/Admin'
 import DiscordBot from './DiscordBot'
@@ -18,7 +17,6 @@ import Application from './Application'
 import ApplicationForm from './Application/Form'
 import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
-import InfoPackage from './InfoPackage'
 
 export {
   NotFound,
@@ -30,7 +28,6 @@ export {
   GettingStarted,
   Schedule,
   Judging,
-  JudgingInfo,
   JudgingAdmin,
   DiscordBot,
   Gallery,
@@ -41,5 +38,4 @@ export {
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
-  InfoPackage,
 }

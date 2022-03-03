@@ -27,7 +27,7 @@ const TodoColumn = styled.div`
 
 export default () => {
   const [states, setStates] = useState({
-    preHacking: { info: false, discord: false, workshops: false, verify: false },
+    preHacking: { info: false, discord: false, workshops: false, verify: false, notion: false },
     dayOf: {
       attend: false,
       enjoy: false,
@@ -36,6 +36,7 @@ export default () => {
       stamps: false,
       sponsor: false,
       interact: false,
+      hydrate: false,
     },
     postHacking: { judge: false, vote: false, feedback: false, ceremony: false },
   })
@@ -43,24 +44,24 @@ export default () => {
   return (
     <>
       <H1>Getting Started</H1>
-      <StyledH2>Welcome to nwHacks 2022!</StyledH2>
+      <StyledH2>Welcome to cmd-f 2022!</StyledH2>
       <StyledP>
-        We're thrilled to have you at nwHacks 2022! Though things are different with our event being
-        virtual this year, we're still looking to have a great experience together. Whether it's
-        your first, second or nth time at nwHacks, we hope you'll be able to connect, collaborate,
-        and build something extraordinary.
+        We're thrilled to have you at cmd-f 2022! Whether it's your first, second or nth time at
+        cmd-f, we hope to cultivate a safe space for women* and gender minorities this weekend and
+        beyond where they can learn new skills, build confidence, and discover a supportive
+        community!
       </StyledP>
       <StyledP>The future is yours!</StyledP>
       <StyledP>
         <span role="img" aria-label="heart-emoji">
           💕
         </span>{' '}
-        The nwHacks team
+        The cmd-f team
       </StyledP>
       <HR />
       <StyledH2>Contact Information</StyledH2>
       <StyledP>
-        Logistics team: <A href="mailto:logistics@nwplus.io">logistics@nwplus.io</A>
+        Logistics team: <A href="mailto:cmd-f@nwplus.io">cmd-f@nwplus.io</A>
       </StyledP>
       <StyledP>Feel more than welcome to email us with any questions!</StyledP>
       <StyledP>
@@ -73,7 +74,7 @@ export default () => {
         <TodoColumn>
           <StyledH3>Pre-hacking</StyledH3>
           <Checkbox
-            label="Read the entirety of this nwHacks 2022 Hacker Info page"
+            label="Read the entirety of this cmd-f 2022 Getting Started page on Portal"
             checked={states.preHacking.info}
             onChange={() =>
               setStates({
@@ -83,7 +84,17 @@ export default () => {
             }
           />
           <Checkbox
-            label="Join the nwHacks 2022 Discord server"
+            label="Read the entirety of the cmd-f 2022 Hacker Info Package on Notion (link in hacker info email)"
+            checked={states.preHacking.notion}
+            onChange={() =>
+              setStates({
+                ...states,
+                preHacking: { ...states.preHacking, notion: !states.preHacking.notion },
+              })
+            }
+          />
+          <Checkbox
+            label="Join the cmd-f 2022 Discord server (link in hacker info email)"
             checked={states.preHacking.discord}
             onChange={() =>
               setStates({
@@ -116,7 +127,7 @@ export default () => {
         <TodoColumn>
           <StyledH3>The day of hacking</StyledH3>
           <Checkbox
-            label="Enjoy your time at nwHacks 2022 and create something amazing with your team 😉"
+            label="Enjoy your time at cmd-f 2022 and create something amazing with your team 😉"
             checked={states.dayOf.enjoy}
             onChange={() =>
               setStates({
@@ -126,7 +137,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Attend Opening Ceremony"
+            label="Attend Opening Ceremonies!"
             checked={states.dayOf.ceremony}
             onChange={() =>
               setStates({
@@ -166,12 +177,22 @@ export default () => {
             }
           />
           <Checkbox
-            label="Interact with mentors by submitting mentor tickets"
+            label="Interact with mentors by submitting mentor tickets on Discord"
             checked={states.dayOf.interact}
             onChange={() =>
               setStates({
                 ...states,
                 dayOf: { ...states.dayOf, interact: !states.dayOf.interact },
+              })
+            }
+          />
+          <Checkbox
+            label="Take care of yourself and stay hydrated"
+            checked={states.dayOf.hydrate}
+            onChange={() =>
+              setStates({
+                ...states,
+                dayOf: { ...states.dayOf, hydrate: !states.dayOf.hydrate },
               })
             }
           />
@@ -189,7 +210,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Vote for most helpful mentor of nwHacks 2022"
+            label="Vote for most helpful mentor of cmd-f 2022"
             checked={states.postHacking.vote}
             onChange={() =>
               setStates({
@@ -199,7 +220,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Fill out feedback form to share your thoughts about nwHacks 2022"
+            label="Fill out feedback form to share your thoughts about cmd-f 2022"
             checked={states.postHacking.feedback}
             onChange={() =>
               setStates({
@@ -209,7 +230,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Attend Closing Ceremony"
+            label="Attend Closing Ceremonies!"
             checked={states.postHacking.attend}
             onChange={() =>
               setStates({
@@ -223,15 +244,15 @@ export default () => {
       <HR />
       <StyledH2>Our Online Platform: Discord!</StyledH2>
       <StyledP>
-        All hacker interaction will be happening on our nwHacks 2022 Discord server. The nwPlus
-        staff has been working hard to deliver a Discord Bot to facilitate hacker assistance at
-        nwHacks 2022.
+        All hacker interaction will be happening on our cmd-f 2022 Discord server. The nwPlus staff
+        has been working hard to deliver a Discord Bot to facilitate hacker assistance at cmd-f
+        2022.
       </StyledP>
       <UL>
         <LI>
           Link to join our Discord can be found at{' '}
-          <A href="https://discord.gg/nwhacks-2022" target="_blank" rel="noreferrer noopener">
-            https://discord.gg/nwhacks-2022
+          <A href="https://discord.gg/cmdf-2022" target="_blank" rel="noreferrer noopener">
+            https://discord.gg/cmdf-2022
           </A>
         </LI>
         <LI>
@@ -241,7 +262,7 @@ export default () => {
         <LI>
           If you are unfamiliar with Discord, check out our{' '}
           <A
-            href="https://www.notion.so/8fec58618b68464eba5b78c01902213d"
+            href="https://www.notion.so/nwplus/PUBLIC-Discord-Guide-8fec58618b68464eba5b78c01902213d"
             target="_blank"
             rel="noreferrer noopener"
           >
@@ -262,12 +283,12 @@ export default () => {
       <HR />
       <StyledH2>Schedule</StyledH2>
       <StyledP>
-        The schedule for nwHacks 2022 can be found on the{' '}
+        The schedule for cmd-f 2022 can be found on the{' '}
         <PortalLink href="/schedule">schedule page</PortalLink>! Please also turn on the
         announcements notification to stay updated on our events!
       </StyledP>
       <HR />
-      <StyledH2>Tag Us on Social Media! #nwHacks2022</StyledH2>
+      <StyledH2>Tag Us on Social Media! #cmdf2022</StyledH2>
       <StyledP>Instagram, Facebook, Twitter: @nwplusubc</StyledP>
       <StyledP>
         Be sure to also follow all of our{' '}
