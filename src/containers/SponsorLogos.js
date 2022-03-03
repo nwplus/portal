@@ -12,8 +12,12 @@ export default () => {
   const [sponsors, setSponsors] = useState([])
 
   useEffect(() => {
+    // Filter out in-kind sponsors
     getSponsors().then(docs => {
-      setSponsors(docs.map(doc => doc.data()))
+      const filteredDocs = docs.filter(
+        doc => doc.data().tier && doc.data().tier.toLowerCase() !== 'inkind'
+      )
+      setSponsors(filteredDocs.map(doc => doc.data()))
     })
   }, [setSponsors])
 
