@@ -289,22 +289,24 @@ export default ({
           onChange={e => setLinks({ ...links, other: e.target.value })}
         />
       </FormSection>
-      <FormSection>
-        <Label>Sponsor Prizes</Label>
-        <div>
-          {sponsorPrizes.map(prize => {
-            return (
-              <Select
-                key={prize}
-                type="checkbox"
-                checked={selectedPrizes.includes(prize)}
-                label={prize}
-                onChange={() => handleCheck(prize)}
-              />
-            )
-          })}
-        </div>
-      </FormSection>
+      {sponsorPrizes && (
+        <FormSection>
+          <Label>Sponsor Prizes</Label>
+          <div>
+            {sponsorPrizes.map(prize => {
+              return (
+                <Select
+                  key={prize}
+                  type="checkbox"
+                  checked={selectedPrizes.includes(prize)}
+                  label={prize}
+                  onChange={() => handleCheck(prize)}
+                />
+              )
+            })}
+          </div>
+        </FormSection>
+      )}
       <StyledHr />
       <FormSection>
         <Label>Add up to 4 team members</Label>
