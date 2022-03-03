@@ -183,8 +183,6 @@ export default ({
     ],
     // Information
     information: [
-      { location: '/info-package', text: 'Info Package' },
-      { location: '/judging/info', text: 'Judging' },
       { location: '/discord-bot', text: 'Discord Bot' },
       { location: '/faq', text: 'FAQ' },
     ],

@@ -14,7 +14,6 @@ import {
   GettingStarted,
   Schedule,
   Judging,
-  JudgingInfo,
   JudgingAdmin,
   JudgingView,
   DiscordBot,
@@ -24,7 +23,6 @@ import {
   ApplicationReview,
   ApplicationConfirmation,
   Application,
-  InfoPackage,
   Gallery,
 } from './pages'
 import Page from './components/Page'
@@ -237,12 +235,6 @@ function App() {
           </PageRoute>
           <PageRoute path="/getting-started">
             <GettingStarted />
-          </PageRoute>
-          <PageRoute path="/info-package">
-            <InfoPackage />
-          </PageRoute>
-          <PageRoute path="/judging/info">
-            <JudgingInfo />
           </PageRoute>
           <PageRoute path="/discord-bot">
             <DiscordBot />
