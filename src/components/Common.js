@@ -54,10 +54,6 @@ const TitleBar = styled.div`
 export const CardWithHeader = withTheme(({ header, theme, children }) => {
   return theme.name === 'cmdf' ? (
     <ThemedCardContainer>
-      <TitleBar>
-        <Header>{header ?? '\u00A0'}</Header>
-        <img src={icons} alt="Close window icon decals" />
-      </TitleBar>
       <CardContainer>{children}</CardContainer>
     </ThemedCardContainer>
   ) : (

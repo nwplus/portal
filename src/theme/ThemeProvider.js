@@ -123,7 +123,7 @@ const cmdfTheme = {
   name: 'cmdf',
   colors: {
     background: '#FFF6D8',
-    card: '#EFEDEA',
+    card: '#EBC029',
     border: 'rgba(0, 0, 0, 0.3)',
     cardSecondary: '#C8BFB6',
     secondaryBackground: '#2C3933',
