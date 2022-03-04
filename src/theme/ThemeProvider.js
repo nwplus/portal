@@ -123,7 +123,8 @@ const cmdfTheme = {
   name: 'cmdf',
   colors: {
     background: '#FFF6D8',
-    card: '#EFEDEA',
+    card: '#EBC029',
+    cardText: '#ffffff',
     border: 'rgba(0, 0, 0, 0.3)',
     cardSecondary: '#C8BFB6',
     secondaryBackground: '#2C3933',
@@ -145,6 +146,12 @@ const cmdfTheme = {
     link: '#3D995F',
     linkHover: '#2C3933',
     tertiaryHover: '#FE800B', // button hover
+    // Styling for schedule page
+    schedule: {
+      background: '#FFF6D8',
+      event: '#2C3933',
+      text: '#FFFFFF',
+    },
     selects: {
       border: '#2C3933',
       text: '#2C3933',

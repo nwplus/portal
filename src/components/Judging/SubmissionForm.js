@@ -325,11 +325,11 @@ export default ({
           />
         </div>
       </FormSection>
-      <FormSection>
-        <Label>Sponsor Prizes</Label>
-        <div>
-          {sponsorPrizes &&
-            sponsorPrizes.map(prize => {
+      {sponsorPrizes && (
+        <FormSection>
+          <Label>Sponsor Prizes</Label>
+          <div>
+            {sponsorPrizes.map(prize => {
               return (
                 <Select
                   key={prize}
@@ -340,8 +340,9 @@ export default ({
                 />
               )
             })}
-        </div>
-      </FormSection>
+          </div>
+        </FormSection>
+      )}
       <StyledHr />
       <FormSection>
         <Label>Add up to 4 team members</Label>
