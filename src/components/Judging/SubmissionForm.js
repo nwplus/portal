@@ -237,6 +237,7 @@ export default ({
         teamMembers: filteredMembers,
         links,
         sponsorPrizes: selectedPrizes,
+        charityChoice,
         mentorNominations,
         uid: project.uid,
         draftStatus,
