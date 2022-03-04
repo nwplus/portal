@@ -18,10 +18,7 @@ const Time = styled(P)`
 const Announcement = styled(Card)`
   margin: 1em 0;
   padding: 1em;
-  background-color: ${p =>
-    p.theme.name === 'cmdf'
-      ? p.theme.colors.secondaryBackgroundTransparent
-      : p.theme.colors.border};
+  background-color: ${p => p.theme.colors.border};
 `
 
 const AnnouncementContainer = styled(CardWithHeader)`
