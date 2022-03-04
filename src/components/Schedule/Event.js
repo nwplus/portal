@@ -8,11 +8,14 @@ import { PositionedTag } from './Tag'
 const EventDescription = styled(P)`
   opacity: 0.8;
   margin-bottom: 2em;
+  color: ${p => p.theme.colors.schedule.text};
 `
 
 const EventCard = styled(Card)`
   position: absolute;
-  background-color: ${p => p.theme.colors.card};
+  background-color: ${p => p.theme.colors.schedule.event};
+  color: ${p => p.theme.colors.schedule.text};
+
   ${p =>
     p.delayed &&
     `
@@ -38,14 +41,19 @@ const EventCard = styled(Card)`
 
   ${ScrollbarLike};
 
+  ::-webkit-scrollbar-thumb {
+    background-color: ${p => p.theme.colors.primary};
+  }
+
   & > h3 {
     opacity: 1;
     width: 65%;
+    color: ${p => p.theme.colors.schedule.text};
   }
 `
 
 const TimeStamp = styled(P)`
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.schedule.text};
 `
 
 const formatTime = timeString => {
