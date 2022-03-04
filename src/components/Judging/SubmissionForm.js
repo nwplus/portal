@@ -8,6 +8,7 @@ import {
   validateDiscord,
   validateEmail,
   validateYoutubeURL,
+  validateDevpostURL,
   validateURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
@@ -198,6 +199,13 @@ export default ({
       newErrors.self = 'You must include yourself in the submission'
     }
 
+    // Validate Devpost
+    if (!links.devpost) {
+      newErrors.devpost = 'Please enter a URL'
+    } else if (!validateDevpostURL(links.devpost)) {
+      newErrors.devpost = 'Please enter a valid Devpost URL'
+    }
+
     // Validate YouTube link
     if (!links.youtube) {
       newErrors.youtube = 'Please enter a URL'
@@ -265,6 +273,14 @@ export default ({
       </FormSection>
       <FormSection>
         <Label>Links</Label>
+        <TextInputWithField
+          fieldName="Devpost URL"
+          value={links?.devpost}
+          required
+          invalid={errors?.devpost}
+          errorMsg={errors?.devpost}
+          onChange={e => setLinks({ ...links, devpost: e.target.value })}
+        />
         <TextInputWithField
           fieldName="YouTube URL"
           value={links?.youtube}
