@@ -1,16 +1,23 @@
 import React from 'react'
 import styled, { css, withTheme } from 'styled-components'
 import { H1, P } from './Typography'
-import icons from '../assets/cmdf_buttons.svg'
 
 export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
+  color: ${p => p.theme.colors.cardText};
   background-color: ${p => p.theme.colors.secondaryBackground};
   margin: 1em 0;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
     margin: 0.75em 0;
+  }
+
+  & > h1,
+  h2,
+  h3,
+  p {
+    color: ${p => p.theme.colors.cardText};
   }
 `
 
@@ -18,49 +25,14 @@ export const Card = styled.div`
   ${CardLike};
 `
 
-const ThemedCardContainer = styled.div`
-  position: relative;
-  width: 100%;
-`
 const CardContainer = styled(Card)`
   position: relative;
-  ${p =>
-    p.theme.name === 'cmdf' &&
-    `
-    background: ${p.theme.colors.card};
-    margin: 0 auto;
-    border: 3px solid ${p.theme.colors.border};
-    border-radius: 0 0 5px 5px;
-    border-top: none;
-  `}
 `
 const Header = styled(H1)`
   margin: 0 0 0 0;
 `
-const TitleBar = styled.div`
-  display: flex;
-  margin-top: 2em;
-  background: ${p => p.theme.colors.cardSecondary};
-  border-radius: 5px 5px 0 0;
-  border: 3px solid ${p => p.theme.colors.border};
-  & > img {
-    margin-right: 1em;
-  }
-  & > h1 {
-    font-size: 1.5rem;
-    margin: 0.25em auto;
-  }
-`
-export const CardWithHeader = withTheme(({ header, theme, children }) => {
-  return theme.name === 'cmdf' ? (
-    <ThemedCardContainer>
-      <TitleBar>
-        <Header>{header ?? '\u00A0'}</Header>
-        <img src={icons} alt="Close window icon decals" />
-      </TitleBar>
-      <CardContainer>{children}</CardContainer>
-    </ThemedCardContainer>
-  ) : (
+export const CardWithHeader = withTheme(({ header, children }) => {
+  return (
     <CardContainer>
       <Header>{header ?? '\u00A0'}</Header>
       {children}
@@ -93,8 +65,6 @@ export const DetailColumn = styled.ul`
 
   & > li {
     ${CardLike};
-    background-color: ${p =>
-      p.theme.name === 'cmdf' ? p.theme.colors.cardSecondary : p.theme.colors.secondaryBackground};
     margin: 0;
     padding: 0.5em 1em;
     margin-bottom: 1em;

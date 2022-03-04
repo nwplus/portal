@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CardWithHeader, ScrollbarLike } from '../Common'
+import { ScrollbarLike } from '../Common'
 import { EVENT_WIDTH } from './Constants'
 import { TimelineColumn } from './Timeline'
 import { TagLegend } from './Tag'
 import Event from './Event'
+import { H1 } from '../Typography'
 
 // Rotation transformation is done to make the scroll bar on top
 const ScrollableContainer = styled.div`
@@ -16,7 +17,7 @@ const ScrollableContainer = styled.div`
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #8e7eb4;
+    background-color: ${p => p.theme.colors.secondaryBackground};
     border-radius: 10px;
     border: none;
   }
@@ -24,10 +25,10 @@ const ScrollableContainer = styled.div`
     background-color: transparent;
   }
   ::-webkit-scrollbar-corner {
-    background-color: #8e7eb4;
+    background-color: ${p => p.theme.colors.secondaryBackground};
   }
   ::-webkit-resizer {
-    background-color: #8e7eb4;
+    background-color: ${p => p.theme.colors.secondaryBackground};
   }
 `
 // Content is upside down due to transformation in ScrollableContainer,
@@ -43,13 +44,38 @@ const FlexColumn = styled.div`
   flex: 0 0 ${EVENT_WIDTH}px;
 `
 
-const OverflowContainer = styled(CardWithHeader)`
+// These styles are a copy of what's in Common.js
+// I'm doing this because we're styling Schedule uniquely for cmd-f 2022
+// TODO: We should change this back to what it was before this PR
+const OverflowContainer = styled.div`
+  padding: 2em;
+  border-radius: 3px;
+  background-color: ${p => p.theme.colors.schedule.background};
+  margin: 1em 0;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 1em;
+    margin: 0.75em 0;
+  }
   overflow-x: scroll;
   position: relative;
   ${ScrollbarLike};
 `
 
 const msToHours = ms => ms / 1000 / 60 / 60
+
+const Header = styled(H1)`
+  margin: 0 0 0 0;
+  color: ${p => p.theme.colors.schedule.event};
+`
+
+const ScheduleContainer = ({ header, children }) => {
+  return (
+    <OverflowContainer>
+      <Header>{header ?? '\u00A0'}</Header>
+      {children}
+    </OverflowContainer>
+  )
+}
 
 const ScheduleColumn = ({ column }) => {
   return (
@@ -104,7 +130,7 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   const durationOfHackathon = Math.min(msToHours(hackathonEnd - hackathonStart), 48)
 
   return (
-    <OverflowContainer header="Day-Of-Events Schedule">
+    <ScheduleContainer header="Day-Of-Events Schedule">
       <TagLegend />
       <ScrollableContainer>
         <ScheduleFlexContainer>
@@ -118,6 +144,6 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
           ))}
         </ScheduleFlexContainer>
       </ScrollableContainer>
-    </OverflowContainer>
+    </ScheduleContainer>
   )
 }
