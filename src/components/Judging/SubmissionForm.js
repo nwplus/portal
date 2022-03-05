@@ -8,6 +8,7 @@ import {
   validateDiscord,
   validateEmail,
   validateYoutubeURL,
+  validateDevpostURL,
   validateURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
@@ -102,10 +103,19 @@ export default ({
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
   const [links, setLinks] = useState(project.links || {})
   const [sponsorPrizes, setSponsorPrizes] = useState([])
+  const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [mentorNominations, setMentorNominations] = useState(project.mentorNominations || '')
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
+
+  const charities = {
+    CMHA: 'Canadian Mental Health Association',
+    BCCH: "BC Children's Hospital",
+    DEWC: "Downtown Eastside Women's Centre",
+    GWC: 'Girls Who Code',
+    SRM: 'Sunrise Movement',
+  }
 
   // Fetch list of sponsor prizes from Firebase
   useEffect(() => {
@@ -198,6 +208,13 @@ export default ({
       newErrors.self = 'You must include yourself in the submission'
     }
 
+    // Validate Devpost
+    if (!links.devpost) {
+      newErrors.devpost = 'Please enter a URL'
+    } else if (!validateDevpostURL(links.devpost)) {
+      newErrors.devpost = 'Please enter a valid Devpost URL'
+    }
+
     // Validate YouTube link
     if (!links.youtube) {
       newErrors.youtube = 'Please enter a URL'
@@ -228,6 +245,7 @@ export default ({
         teamMembers: filteredMembers,
         links,
         sponsorPrizes: selectedPrizes,
+        charityChoice,
         mentorNominations,
         uid: project.uid,
         draftStatus,
@@ -266,6 +284,14 @@ export default ({
       <FormSection>
         <Label>Links</Label>
         <TextInputWithField
+          fieldName="Devpost URL"
+          value={links?.devpost}
+          required
+          invalid={errors?.devpost}
+          errorMsg={errors?.devpost}
+          onChange={e => setLinks({ ...links, devpost: e.target.value })}
+        />
+        <TextInputWithField
           fieldName="YouTube URL"
           value={links?.youtube}
           required
@@ -288,6 +314,32 @@ export default ({
           errorMsg={errors?.other}
           onChange={e => setLinks({ ...links, other: e.target.value })}
         />
+      </FormSection>
+      <FormSection>
+        <div>
+          <Label>Charity Choice</Label>
+          <P>
+            Every project submitted at cmd-f 202, regardless of completion, will be eligible for a
+            $20 donation to the charity of your choice from a curated list by the cmd-f team! This
+            is done so as to empathize cmd-f's mission of focusing on the learning and growth aspect
+            of hackathons!
+          </P>
+        </div>
+        <div>
+          <Dropdown
+            options={[
+              { value: 'CMHA', label: 'Canadian Mental Health Association' },
+              { value: 'BCCH', label: "BC Children's Hospital" },
+              { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
+              { value: 'GWC', label: 'Girls Who Code' },
+              { value: 'SRM', label: 'Sunrise Movement' },
+            ]}
+            placeholder={charityChoice === '' ? 'Pick a charity' : charities[charityChoice]}
+            isSearchable={false}
+            onChange={inputValue => setCharityChoice(inputValue.value)}
+            isValid
+          />
+        </div>
       </FormSection>
       {sponsorPrizes && (
         <FormSection>

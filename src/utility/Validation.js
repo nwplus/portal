@@ -25,6 +25,10 @@ export const validateURL = thing => {
   return typeof thing === 'string' && !!pattern.test(thing)
 }
 
+export const validateDevpostURL = thing => {
+  return validateURL(thing) && thing.includes('devpost.com')
+}
+
 export const validateYoutubeURL = thing => {
   return validateURL(thing) && (thing.includes('youtube.com') || thing.includes('youtu.be'))
 }

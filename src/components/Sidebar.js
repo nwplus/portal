@@ -10,6 +10,9 @@ import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
+import covalent from '../assets/sponsors/covalent.png'
+import hootsuite from '../assets/sponsors/hootsuite.png'
+import tttStudios from '../assets/sponsors/ttt-studios.png'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -192,10 +195,27 @@ export default ({
   useEffect(() => {
     getSponsors().then(docs => {
       // Only keep platinum tier sponsors for sidebar
-      const filteredDocs = docs
-        .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
-        .map(doc => doc.data())
-      setSponsors(filteredDocs)
+      // const filteredDocs = docs
+      //   .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
+      //   .map(doc => doc.data())
+      // setSponsors(filteredDocs)
+
+      // TODO: Revert this change
+      // For cmd-f 2022 the logos in the sidebar should be light variants
+      setSponsors([
+        {
+          name: 'TTT Studios',
+          imgURL: tttStudios,
+        },
+        {
+          name: 'Covalent',
+          imgURL: covalent,
+        },
+        {
+          name: 'Hootsuite',
+          imgURL: hootsuite,
+        },
+      ])
     })
   }, [setSponsors])
 
