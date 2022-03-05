@@ -69,6 +69,8 @@ const Project = ({ project }) => {
 
   const getDisplayName = linkKey => {
     switch (linkKey) {
+      case 'devpost':
+        return 'Devpost'
       case 'youtube':
         return 'YouTube'
       case 'sourceCode':
