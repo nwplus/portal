@@ -43,6 +43,7 @@ const TimelineLabel = styled.span`
 
 const CurrentTime = ({ start, duration, numCols }) => {
   const [currentTime, setCurrentTime] = useState(Date.now())
+  const [scrolled, setScrolled] = useState(false)
   const hoursBetweenNowAndStart = (currentTime - start) / 60 / 60 / 1000
   const renderCurrentTime = 0 < hoursBetweenNowAndStart && hoursBetweenNowAndStart < duration
 
@@ -52,6 +53,22 @@ const CurrentTime = ({ start, duration, numCols }) => {
       clearInterval(interval)
     }
   }, [])
+
+  // Scroll to where the current time indicator is
+  // I use a timeout because for some reason window initially thinks its height is short, so
+  // the scroll maxes out at this point. Obviously we don't want to, so a small timeout here.
+  useEffect(() => {
+    if (!scrolled && hoursBetweenNowAndStart > 1) {
+      const timeout = setTimeout(() => {
+        const scrollHeight = 72 + hoursBetweenNowAndStart * HOUR_HEIGHT
+        window.scrollTo({ top: scrollHeight, behavior: 'smooth' })
+        setScrolled(true)
+      }, 500)
+      return () => {
+        clearTimeout(timeout)
+      }
+    }
+  }, [scrolled, hoursBetweenNowAndStart])
 
   return (
     renderCurrentTime && (
