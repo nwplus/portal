@@ -6,7 +6,7 @@ export const CardLike = css`
   padding: 2em;
   border-radius: 3px;
   color: ${p => p.theme.colors.cardText};
-  background-color: ${p => p.theme.colors.secondaryBackground};
+  background-color: ${p => p.theme.colors.card};
   margin: 1em 0;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
