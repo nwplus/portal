@@ -211,10 +211,13 @@ export default () => {
 
   useEffect(() => {
     const formattedProjects = gradedProjects.map(project => {
+      console.log(project)
       const portalLink = window.location.origin // to support local development as well
       const projectInfo = {
         Title: project.title,
         Link: `${portalLink}/projects/${project.id}`,
+        Devpost: project.links.devpost,
+        'Charity choice': project.charityChoice,
         'Mentor nominations': project.mentorNominations,
       }
       project.teamMembers.forEach((member, index) => {
