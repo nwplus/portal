@@ -211,7 +211,6 @@ export default () => {
 
   useEffect(() => {
     const formattedProjects = gradedProjects.map(project => {
-      console.log(project)
       const portalLink = window.location.origin // to support local development as well
       const projectInfo = {
         Title: project.title,
