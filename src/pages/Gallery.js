@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+// TODO: Remove this eslint-disable when put back in the sponsor filter
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { H1, H2, HR } from '../components/Typography'
@@ -69,14 +71,14 @@ export default () => {
   return (
     <>
       <H1>Project Gallery</H1>
-      <H2>Filter by sponsor prize</H2>
+      {/* <H2>Filter by sponsor prize</H2>
       <Dropdown
         options={prizes}
         placeholder="All projects"
         isValid
         isSearchable={false}
         onChange={input => setSelectedFilter(input.value)}
-      />
+      /> */}
       <H2>Search by project name</H2>
       <StyledSearch
         placeholder="Project title"
