@@ -30,6 +30,15 @@ const StyledP = styled(P)`
   margin: 1em 0;
 `
 
+const StyledA = styled(A)`
+  color: ${p => p.theme.colors.primary};
+  border-color: ${p => p.theme.colors.primary};
+
+  &:hover {
+    color: ${p => p.theme.colors.tertiaryHover};
+  }
+`
+
 const StyledLabel = styled(Label)`
   display: block;
   margin: 1em 0 0.25em 0;
@@ -73,6 +82,7 @@ const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
 
 export default ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
   const cleanedUpLink = project.links.sourceCode.replace(/https?:\/\//, '')
+  const cleanedUpDevpostLink = project.links.devpost.replace(/https?:\/\//, '')
   return (
     <Container>
       <JudgingColumn>
@@ -80,9 +90,16 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
         <Card>
           <StyledYoutube src={project.links.youtube} />
           <StyledP>{project.description}</StyledP>
-          <A target="_blank" rel="noreferrer noopener" href={`//${cleanedUpLink}`}>
-            View source code
-          </A>
+          <StyledP>
+            <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpDevpostLink}`}>
+              View Devpost
+            </StyledA>
+          </StyledP>
+          <StyledP>
+            <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpLink}`}>
+              View source code
+            </StyledA>
+          </StyledP>
         </Card>
       </JudgingColumn>
       <Column>
