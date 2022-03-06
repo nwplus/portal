@@ -215,6 +215,8 @@ export default () => {
       const projectInfo = {
         Title: project.title,
         Link: `${portalLink}/projects/${project.id}`,
+        Devpost: project.links.devpost,
+        'Charity choice': project.charityChoice,
         'Mentor nominations': project.mentorNominations,
       }
       project.teamMembers.forEach((member, index) => {
