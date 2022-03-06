@@ -70,7 +70,7 @@ export default ({ user, refreshCallback }) => {
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
-                error = new Error(member.email + ' is not a valid hacker.')
+                error = new Error(member.email + ' is not a registered hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject && userData.submittedProject !== projectId) {
                 error = new Error(
@@ -83,7 +83,7 @@ export default ({ user, refreshCallback }) => {
                   .update({ submittedProject: projectId })
               }
             } else {
-              error = new Error(member.email + ' is not a valid hacker.')
+              error = new Error(member.email + ' is not a registered hacker.')
             }
           })
         )
@@ -119,7 +119,7 @@ export default ({ user, refreshCallback }) => {
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
               if (applicationStatus !== 'accepted' || !attending || !responded) {
-                error = new Error(member.email + ' is not a valid hacker.')
+                error = new Error(member.email + ' is not a registered hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject) {
                 error = new Error(
@@ -132,7 +132,7 @@ export default ({ user, refreshCallback }) => {
                 })
               }
             } else {
-              error = new Error(member.email + ' is not a valid hacker.')
+              error = new Error(member.email + ' is not a registered hacker.')
             }
           })
         )
