@@ -47,28 +47,44 @@ export const APPLICATION_STATUS = Object.freeze({
 
 export const JUDGING_RUBRIC = [
   {
-    id: 'technology',
-    label: 'Technology',
+    id: 'execution',
+    label: 'Execution',
     description:
-      "How simple or advanced is the team's use of the technology (APIs, libraries, algorithm, etc) driving the project? Can the demo demonstrate the core functionality of the project?",
+      'How well does the project address the teams selected theme/focus? How much impact will this solution have?',
     value: 5,
-    weight: 1.2,
+    weight: 4 / 18,
+  },
+  {
+    id: 'innovation',
+    label: 'Innovation',
+    description:
+      'Is the project a creative, original, and a suitable solution to the problem? Does the product introduce a new approach or perspective?',
+    value: 5,
+    weight: 3 / 18,
   },
   {
     id: 'design',
     label: 'Design',
     description:
-      'Looking at both the User Interface (UI) and the User Experience (UX). Is it clean, elegant, consistent with the theme, easy to use, intuitive?',
+      'Is the design accessible (e.g. high contrast for good visibility, etc.) and aesthetically pleasing?',
     value: 5,
-    weight: 0.9,
+    weight: 4 / 18,
   },
   {
-    id: 'pitchImpact',
-    label: 'Pitch + Impact',
+    id: 'technicalCompletion',
+    label: 'Technical Completion',
     description:
-      "Is the pitch engaging, well planned out, prepared, has meaningful content? Is it something relevant to today's world? Is it an interesting take on previous solutions or is it an improvement?",
+      'Does the hack work? Does the team present a clear explanation on the implementation and how it works? Does it seem finished or does it seem rough around the edges?',
     value: 5,
-    weight: 0.9,
+    weight: 4 / 18,
+  },
+  {
+    id: 'presentation',
+    label: 'Presentation',
+    description:
+      'Is the presentation well-prepared and smooth? Does it make a good business case for the project? Are statistics used when relevant?',
+    value: 5,
+    weight: 3 / 18,
   },
 ]
 

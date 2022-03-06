@@ -12,7 +12,7 @@ const StyledTable = styled.table`
 
 const StyledRow = styled.tr`
   &:nth-child(odd) {
-    background-color: ${p => p.theme.colors.background};
+    background-color: ${p => p.theme.colors.secondaryBackground};
   }
 
   &:hover {
@@ -24,7 +24,7 @@ const StyledRow = styled.tr`
 
 const StyledHeader = styled.th`
   padding: 0.5em;
-  background-color: ${p => p.theme.colors.background};
+  background-color: ${p => p.theme.colors.secondaryBackground};
   text-align: left;
 `
 
