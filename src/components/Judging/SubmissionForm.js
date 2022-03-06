@@ -12,6 +12,7 @@ import {
   validateURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
+import { findElement } from '../../utility/utilities'
 
 const FormSection = styled.div`
   display: flex;
@@ -109,13 +110,13 @@ export default ({
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
 
-  const charities = {
-    CMHA: 'Canadian Mental Health Association',
-    BCCH: "BC Children's Hospital",
-    DEWC: "Downtown Eastside Women's Centre",
-    GWC: 'Girls Who Code',
-    SRM: 'Sunrise Movement',
-  }
+  const charities = [
+    { value: 'CMHA', label: 'Canadian Mental Health Association' },
+    { value: 'BCCH', label: "BC Children's Hospital" },
+    { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
+    { value: 'GWC', label: 'Girls Who Code' },
+    { value: 'SRM', label: 'Sunrise Movement' },
+  ]
 
   // Fetch list of sponsor prizes from Firebase
   useEffect(() => {
@@ -132,6 +133,7 @@ export default ({
     setTitle(project.title || '')
     setDescription(project.description || '')
     setLinks(project.links || {})
+    setCharityChoice(project.charityChoice || '')
     setSelectedPrizes(project.sponsorPrizes || [])
     setMentorNominations(project.mentorNominations || '')
     setDraftStatus(project.draftStatus || 'draft')
@@ -333,14 +335,11 @@ export default ({
         </div>
         <div>
           <Dropdown
-            options={[
-              { value: 'CMHA', label: 'Canadian Mental Health Association' },
-              { value: 'BCCH', label: "BC Children's Hospital" },
-              { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
-              { value: 'GWC', label: 'Girls Who Code' },
-              { value: 'SRM', label: 'Sunrise Movement' },
-            ]}
-            placeholder={charityChoice === '' ? 'Pick a charity' : charities[charityChoice]}
+            options={charities}
+            placeholder={
+              charityChoice ? 'Pick a charity' : findElement(charities, 'value', charityChoice)
+            }
+            value={findElement(charities, 'value', charityChoice)}
             isSearchable={false}
             onChange={inputValue => setCharityChoice(inputValue.value)}
             isValid
