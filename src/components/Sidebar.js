@@ -219,17 +219,17 @@ export default ({
     })
   }, [setSponsors])
 
-  if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
-    links.tools.push({ location: '/projects', text: 'Project Gallery' })
-  }
+  // if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
+  //   links.tools.push({ location: '/projects', text: 'Project Gallery' })
+  // }
 
-  if (isSubmissionsOpen || isJudgingReleased) {
-    links.tools.push({ location: '/submission', text: 'Project Submission' })
-  }
+  // if (isSubmissionsOpen || isJudgingReleased) {
+  //   links.tools.push({ location: '/submission', text: 'Project Submission' })
+  // }
 
-  if (isJudgingOpen) {
-    links.tools.push({ location: '/judging', text: 'Peer Judging' })
-  }
+  // if (isJudgingOpen) {
+  //   links.tools.push({ location: '/judging', text: 'Peer Judging' })
+  // }
 
   if (user && user.admin) {
     links.tools.push({ location: '/judging/admin', text: 'Judging Admin' })

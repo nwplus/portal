@@ -229,6 +229,11 @@ export default ({
       newErrors.sourceCode = 'Please enter a valid source code URL'
     }
 
+    // Validate charity selection
+    if (!charityChoice) {
+      newErrors.charity = 'Please select a charity'
+    }
+
     setErrors(newErrors)
 
     // Remove incomplete member objects
@@ -318,10 +323,11 @@ export default ({
       <FormSection>
         <div>
           <Label>Charity Choice</Label>
+          <Required />
           <P>
-            Every project submitted at cmd-f 202, regardless of completion, will be eligible for a
+            Every project submitted at cmd-f 2022, regardless of completion, will be eligible for a
             $20 donation to the charity of your choice from a curated list by the cmd-f team! This
-            is done so as to empathize cmd-f's mission of focusing on the learning and growth aspect
+            is done so as to emphasize cmd-f's mission of focusing on the learning and growth aspect
             of hackathons!
           </P>
         </div>

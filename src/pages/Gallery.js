@@ -69,14 +69,14 @@ export default () => {
   return (
     <>
       <H1>Project Gallery</H1>
-      <H2>Filter by sponsor prize</H2>
+      {/* <H2>Filter by sponsor prize</H2>
       <Dropdown
         options={prizes}
         placeholder="All projects"
         isValid
         isSearchable={false}
         onChange={input => setSelectedFilter(input.value)}
-      />
+      /> */}
       <H2>Search by project name</H2>
       <StyledSearch
         placeholder="Project title"
