@@ -82,7 +82,7 @@ export const JUDGING_RUBRIC = [
     id: 'presentation',
     label: 'Presentation',
     description:
-      's the presentation well-prepared and smooth? Does it make a good business case for the project? Are statistics used when relevant?',
+      'Is the presentation well-prepared and smooth? Does it make a good business case for the project? Are statistics used when relevant?',
     value: 5,
     weight: 3 / 18,
   },
