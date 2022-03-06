@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+// TODO: Remove this eslint-disable when put back in the sponsor filter
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { H1, H2, HR } from '../components/Typography'
