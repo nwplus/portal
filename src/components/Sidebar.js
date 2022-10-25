@@ -10,9 +10,9 @@ import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
-import covalent from '../assets/sponsors/covalent.png'
-import hootsuite from '../assets/sponsors/hootsuite.png'
-import tttStudios from '../assets/sponsors/ttt-studios.png'
+// import covalent from '../assets/sponsors/covalent.png'
+// import hootsuite from '../assets/sponsors/hootsuite.png'
+// import tttStudios from '../assets/sponsors/ttt-studios.png'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
