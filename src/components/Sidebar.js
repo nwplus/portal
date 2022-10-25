@@ -199,23 +199,23 @@ export default ({
       //   .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
       //   .map(doc => doc.data())
       // setSponsors(filteredDocs)
-
       // TODO: Revert this change
       // For cmd-f 2022 the logos in the sidebar should be light variants
-      setSponsors([
-        {
-          name: 'TTT Studios',
-          imgURL: tttStudios,
-        },
-        {
-          name: 'Covalent',
-          imgURL: covalent,
-        },
-        {
-          name: 'Hootsuite',
-          imgURL: hootsuite,
-        },
-      ])
+      // HackCamp22 has no plat sponsors :(
+      // setSponsors([
+      //   {
+      //     name: 'TTT Studios',
+      //     imgURL: tttStudios,
+      //   },
+      //   {
+      //     name: 'Covalent',
+      //     imgURL: covalent,
+      //   },
+      //   {
+      //     name: 'Hootsuite',
+      //     imgURL: hootsuite,
+      //   },
+      // ])
     })
   }, [setSponsors])
 
