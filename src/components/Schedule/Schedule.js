@@ -50,7 +50,7 @@ const FlexColumn = styled.div`
 const OverflowContainer = styled.div`
   padding: 2em;
   border-radius: 3px;
-  background-color: ${p => p.theme.colors.schedule.background};
+  background-color: ${p => p.theme.colors?.schedule?.background};
   margin: 1em 0;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
