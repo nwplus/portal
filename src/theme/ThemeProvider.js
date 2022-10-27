@@ -49,6 +49,9 @@ const nwTheme = {
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#FFB72Cbb', // before: #1D1B24bb
     secondaryBackground: '#051439',
+    sidebar: {
+      link: '#fff',
+    },
     error: '#ff0033',
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
@@ -91,6 +94,9 @@ const hackcampTheme = {
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#1E4F5A',
     secondaryBackgroundTransparent: '#1E4F5A',
+    sidebar: {
+      link: '#fff',
+    },
     foreground: '#FFBC96',
     error: '#ff0033',
     success: '#629F5D',
@@ -104,6 +110,12 @@ const hackcampTheme = {
     link: '#fff',
     linkHover: '#FFBC96',
     tertiaryHover: '#AD795E', // button hover
+    // Styling for schedule page
+    schedule: {
+      background: 'transparent',
+      event: '#2C3933',
+      text: '#FFFFFF',
+    },
     selects: {
       hover: 'rgba(201, 149, 119, 0.2)',
       focus: 'rgba(201, 149, 119, 0.5)',
@@ -177,7 +189,7 @@ const cmdfTheme = {
 }
 
 const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
-let selectedTheme = cmdfTheme
+let selectedTheme = hackcampTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')
