@@ -50,7 +50,7 @@ const Logo = styled.img.attrs(p => ({
     p.theme.name === 'hackCamp' &&
     `
       width: 120px;
-      margin: 30px 0 0px 60px;
+      margin: 30px 0 0px 2rem;
     `}
 
   ${p =>
@@ -82,12 +82,22 @@ const StyledA = styled(A)`
   text-transform: uppercase;
   display: block;
   font-weight: bold;
-  padding: 1em 50px;
+  padding: 1em 50px 1em 2rem;
   border-bottom: none;
 
   color: ${p => p.theme.colors.sidebar.link};
 
-  ${p => p.selected && `background: ${p.theme.colors.primary};`}
+  ${p =>
+    p.selected &&
+    `
+    background: ${p.theme.colors.primary};
+
+    &:hover {
+      color: #ffffff;
+      background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+      border-bottom: none;
+    }
+  `}
 
   &:hover {
     color: #ffffff;
@@ -113,7 +123,7 @@ const LiveDot = styled.span`
 background-color: ${p => p.theme.colors.primary};
 */
 const LiveLabel = styled.p`
-  margin: 1em 0 2em 60px;
+  margin: 1em 0 2em 2rem;
   font-weight: 600;
   font-size: 0.9em;
   border-radius: 7px;
@@ -124,7 +134,7 @@ const LiveLabel = styled.p`
 `
 
 const StyledButton = styled(Button)`
-  margin: 1em 0 1em 50px;
+  margin: 1em 0 1em 2rem;
 `
 
 const ApplicationText = styled.div`
@@ -152,7 +162,7 @@ const SponsorLogo = styled.img`
 
 const CategoryHeader = styled.h4`
   text-transform: uppercase;
-  padding: 1em 50px 0;
+  padding: 1em 50px 0 2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: rgba(255, 255, 255, 0.45);

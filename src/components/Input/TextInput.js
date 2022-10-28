@@ -25,9 +25,11 @@ const TextInputBox = styled.input.attrs({
 })`
   width: ${p => (p.size ? inputSize[p.size] : inputSize['default'])};
   ${TextInputLike};
+
   ${p =>
-    p.noOutline &&
+    p.noOutline &
     `
+
     ${TextInputNoOutline};
     padding-left: 0;
     border-bottom-color: ${p.theme.colors.default};
