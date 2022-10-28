@@ -30,7 +30,7 @@ export default () => {
   useEffect(() => {
     async function getPrizes() {
       const prizes = await getSponsorPrizes()
-      setSponsorPrizes(prizes)
+      setSponsorPrizes(prizes || [])
     }
     getPrizes()
 

@@ -80,6 +80,14 @@ const Project = ({ project }) => {
     }
   }
 
+  const truncateLink = link => {
+    if (link?.length > 10) {
+      return `${link.substring(0, 7)}...`
+    } else {
+      return link
+    }
+  }
+
   return (
     <StyledProjectContainer>
       <StyledBanner>
@@ -95,7 +103,7 @@ const Project = ({ project }) => {
         <StyledH2>Relevant Links</StyledH2>
         <LinkContainer>
           {Object.entries(project.links).map(([key, link]) => {
-            const cleanedUpLink = link.replace(/https?:\/\//, '')
+            const cleanedUpLink = truncateLink(link.replace(/https?:\/\//, ''))
             return (
               <StyledButton
                 color="primary"

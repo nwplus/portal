@@ -96,6 +96,7 @@ export const googleSignIn = async (setUser, setLocation) => {
     await handleUser(setUser, setLocation)
     return null
   } catch (e) {
+    console.error(e)
     return e
   }
 }

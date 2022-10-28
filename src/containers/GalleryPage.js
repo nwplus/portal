@@ -29,6 +29,14 @@ export const ProjectPageContainer = styled.div`
 
 const StyledJudgingCard = styled(JudgingCard)`
   max-height: 400px;
+  width: 100%;
+`
+
+const CardContainerWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 `
 
 const PROJECTS_PER_PAGE = 24
@@ -70,15 +78,17 @@ export function GalleryPage({ projects, startingPageIndex = 0 }) {
         <>
           <ProjectPageContainer>
             {currPageProjects.map((project, index) => (
-              <StyledJudgingCard
-                key={index}
-                title={project.title}
-                description={project.description}
-                imgUrl={getYoutubeThumbnail(project.links.youtube)}
-                buttonLabel="See more"
-                buttonDisabled={false}
-                href={'projects/' + project.uid}
-              />
+              <CardContainerWrap>
+                <StyledJudgingCard
+                  key={index}
+                  title={project.title}
+                  description={project.description}
+                  imgUrl={getYoutubeThumbnail(project.links.youtube)}
+                  buttonLabel="See more"
+                  buttonDisabled={false}
+                  href={'projects/' + project.uid}
+                />
+              </CardContainerWrap>
             ))}
           </ProjectPageContainer>
           <Pagination

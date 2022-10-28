@@ -4,7 +4,10 @@ import { H1, P } from './Typography'
 
 export const CardLike = css`
   padding: 2em;
-  border-radius: 3px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+
   color: ${p => p.theme.colors.cardText};
   background-color: ${p => p.theme.colors.card};
   margin: 1em 0;
