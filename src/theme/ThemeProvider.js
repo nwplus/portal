@@ -90,10 +90,10 @@ const hackcampTheme = {
   name: 'hackCamp',
   colors: {
     background: '#476C6E',
-    card: '#476C6E', // todo: update
+    card: '#1E4F5A',
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#1E4F5A',
-    secondaryBackgroundTransparent: '#1E4F5A',
+    secondaryBackgroundTransparent: '#FFBC9650',
     sidebar: {
       link: '#fff',
     },
@@ -113,12 +113,15 @@ const hackcampTheme = {
     // Styling for schedule page
     schedule: {
       background: 'transparent',
-      event: '#2C3933',
+      event: 'white',
       text: '#FFFFFF',
     },
     selects: {
-      hover: 'rgba(201, 149, 119, 0.2)',
-      focus: 'rgba(201, 149, 119, 0.5)',
+      border: 'rgba(255, 255, 255, 0.5)',
+      text: 'white',
+      placeholder: 'rgba(255, 255, 255, 0.5)',
+      hover: 'rgba(255, 255, 255, 0.2)',
+      focus: 'white',
     },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
