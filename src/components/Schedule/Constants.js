@@ -6,5 +6,5 @@ export const EVENT_TYPES = {
   main: { label: 'MAIN', colour: '#3D995F' },
   minievents: { label: 'ACTIVITY', colour: '#EBC029' },
   workshops: { label: 'WORKSHOP', colour: '#FE800B' },
-  notices: { label: 'NOTICE', colour: '#FFF6D8' },
+  notices: { label: 'NOTICE', colour: '#CCC4AC' },
 }

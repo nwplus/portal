@@ -56,6 +56,10 @@ const TimeStamp = styled(P)`
   color: ${p => p.theme.colors.schedule.text};
 `
 
+const StyledH3 = styled(H3)`
+  color: ${p => p.theme.colors.schedule.text};
+`
+
 const formatTime = timeString => {
   const time = new Date(timeString)
   const options = {
@@ -71,10 +75,10 @@ const formatTime = timeString => {
 export default ({ event }) => {
   return (
     <EventCard timeStart={event.timeStart} duration={event.duration} delayed={event.delayed}>
-      <H3>
+      <StyledH3>
         {event.name}
         {event.delayed && ' (DELAYED)'}
-      </H3>
+      </StyledH3>
       <PositionedTag colour={EVENT_TYPES[event.type].colour}>
         {EVENT_TYPES[event.type].label}
       </PositionedTag>
