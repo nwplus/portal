@@ -127,7 +127,6 @@ const RemoveButton = ({ onRemove }) => {
 }
 
 export const GradeTable = ({ data, onRemove }) => {
-  console.log(data)
   const formattedData = data?.map(row => {
     const projectLink = `/projects/${row.id}`
     return [
