@@ -44,29 +44,28 @@ export default () => {
   return (
     <>
       <H1>Getting Started</H1>
-      <StyledH2>Welcome to cmd-f 2022!</StyledH2>
+      <StyledH2>Welcome to HackCamp 2022!</StyledH2>
       <StyledP>
-        We're thrilled to have you at cmd-f 2022! Whether it's your first, second or nth time at
-        cmd-f, we hope to cultivate a safe space for women* and gender minorities this weekend and
-        beyond where they can learn new skills, build confidence, and discover a supportive
-        community!
-      </StyledP>
-      <StyledP>The future is yours!</StyledP>
-      <StyledP>
-        <span role="img" aria-label="heart-emoji">
-          💕
-        </span>{' '}
-        The cmd-f team
+        Welcome to HackCamp: an immersive experience where a collective of inspired minds unite to
+        learn, connect, and create. During this two-day adventure, you will have the chance to meet
+        with industry-level professionals, attend a variety of design, development, and
+        entrepreneurial workshops, and collaborate alongside a team of fellow hackers to craft and
+        pitch your unique project. At nwPlus, we strive for inclusivity, diversity, and
+        accessibility at the core of our community; no matter your background, skill set, or story,
+        we are ecstatic to learn more about you, your vision, and the ideas you offer to build and
+        grow the world we share. This is your great unknown — explore the resources at your
+        fingertips, advance through new frontiers, and make your own mark in this vast cosmos of
+        possibility.
       </StyledP>
       <HR />
       <StyledH2>Contact Information</StyledH2>
       <StyledP>
-        Logistics team: <A href="mailto:cmd-f@nwplus.io">cmd-f@nwplus.io</A>
+        Logistics team: <A href="mailto:hackcamp@nwplus.io">hackcamp@nwplus.io</A>
       </StyledP>
       <StyledP>Feel more than welcome to email us with any questions!</StyledP>
       <StyledP>
-        <strong>#ask-organizers</strong> channel will be available for you for any questions that
-        might arise during the event.
+        <strong>#questions</strong> channel will be available for you for any questions that might
+        arise during the event.
       </StyledP>
       <HR />
       <StyledH2>Hacker TODO's</StyledH2>
@@ -74,7 +73,7 @@ export default () => {
         <TodoColumn>
           <StyledH3>Pre-hacking</StyledH3>
           <Checkbox
-            label="Read the entirety of this cmd-f 2022 Getting Started page on Portal"
+            label="Read the entirety of this HackCamp 2022 Getting Started page on portal"
             checked={states.preHacking.info}
             onChange={() =>
               setStates({
@@ -84,7 +83,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Read the entirety of the cmd-f 2022 Hacker Info Package on Notion (link in hacker info email)"
+            label="Read the entirety of the HackCamp 2022 Hacker Package (link in the RSVP Confirmation Email)"
             checked={states.preHacking.notion}
             onChange={() =>
               setStates({
@@ -94,7 +93,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Join the cmd-f 2022 Discord server (link in hacker info email)"
+            label="Join the HackCamp 2022 Slack server (link in the RSVP Confirmation Email & Hacker Package)"
             checked={states.preHacking.discord}
             onChange={() =>
               setStates({
@@ -104,7 +103,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Follow the Discord bot’s instructions which should have been sent to you via DM when you joined the server to verify your email on our list!"
+            label="Attend pre-hackathon workshops hosted by our amazing organizers!"
             checked={states.preHacking.verify}
             onChange={() =>
               setStates({
@@ -113,7 +112,7 @@ export default () => {
               })
             }
           />
-          <Checkbox
+          {/* <Checkbox
             label="Attend pre-hackathon workshops by our amazing sponsors!"
             checked={states.preHacking.workshops}
             onChange={() =>
@@ -122,12 +121,12 @@ export default () => {
                 preHacking: { ...states.preHacking, workshops: !states.preHacking.workshops },
               })
             }
-          />
+          /> */}
         </TodoColumn>
         <TodoColumn>
           <StyledH3>The day of hacking</StyledH3>
           <Checkbox
-            label="Enjoy your time at cmd-f 2022 and create something amazing with your team 😉"
+            label="Enjoy your time at HackCamp 2022 and create something amazing with your team!"
             checked={states.dayOf.enjoy}
             onChange={() =>
               setStates({
@@ -147,7 +146,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Attend workshops"
+            label="Participate in mini activities and complete the engagement stamp card for prizes!"
             checked={states.dayOf.workshops}
             onChange={() =>
               setStates({
@@ -157,7 +156,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Get stamps by visiting sponsor booths and participating in mini activities"
+            label="Interact with mentors by asking questions in the #mentor-help channel or visiting them in the LIFE building"
             checked={states.dayOf.stamps}
             onChange={() =>
               setStates({
@@ -166,7 +165,7 @@ export default () => {
               })
             }
           />
-          <Checkbox
+          {/* <Checkbox
             label="Attend Sponsor Q&amp;A sessions"
             checked={states.dayOf.sponsor}
             onChange={() =>
@@ -185,7 +184,7 @@ export default () => {
                 dayOf: { ...states.dayOf, interact: !states.dayOf.interact },
               })
             }
-          />
+          /> */}
           <Checkbox
             label="Take care of yourself and stay hydrated"
             checked={states.dayOf.hydrate}
@@ -200,7 +199,7 @@ export default () => {
         <TodoColumn>
           <StyledH3>Post-hacking</StyledH3>
           <Checkbox
-            label="Peer judge at least 5 other projects in order for your project to be considered for prizes"
+            label="Peer judge 4 other projects in order for your project to be considered for prizes"
             checked={states.postHacking.judge}
             onChange={() =>
               setStates({
@@ -210,7 +209,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Vote for most helpful mentor of cmd-f 2022"
+            label="Fill out the feedback form and share your thoughts about HackCamp"
             checked={states.postHacking.vote}
             onChange={() =>
               setStates({
@@ -220,7 +219,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Fill out feedback form to share your thoughts about cmd-f 2022"
+            label="Attend closing ceremonies!"
             checked={states.postHacking.feedback}
             onChange={() =>
               setStates({
@@ -230,7 +229,7 @@ export default () => {
             }
           />
           <Checkbox
-            label="Attend Closing Ceremonies!"
+            label="Give yourself a pat on the back for a weekend of hard work! :')"
             checked={states.postHacking.attend}
             onChange={() =>
               setStates({
@@ -244,21 +243,23 @@ export default () => {
       <HR />
       <StyledH2>Our Online Platform: Discord!</StyledH2>
       <StyledP>
-        All hacker interaction will be happening on our cmd-f 2022 Discord server. The nwPlus staff
-        has been working hard to deliver a Discord Bot to facilitate hacker assistance at cmd-f
-        2022.
+        The primary form of hacker communication will be on our HackCamp 2022 Slack server.
       </StyledP>
       <UL>
         <LI>
-          Link to join our Discord can be found at{' '}
-          <A href="https://discord.gg/cmdf-2022" target="_blank" rel="noreferrer noopener">
-            https://discord.gg/cmdf-2022
+          Link to join our Slack server can be found{' '}
+          <A
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://join.slack.com/t/hackcamp-2022/shared_invite/zt-1hwpxaelx-ILbPpOazWCbkTaK0WKwFsw"
+          >
+            here
           </A>
         </LI>
-        <LI>
+        {/* <LI>
           Learn more about our nwPlus Discord Bot Commands{' '}
           <PortalLink href="/discord-bot">here</PortalLink>
-        </LI>
+        </LI> 
         <LI>
           If you are unfamiliar with Discord, check out our{' '}
           <A
@@ -268,27 +269,21 @@ export default () => {
           >
             introductory Discord videos
           </A>
-        </LI>
+        </LI> */}
         <LI>
-          We ask all hackers to familiarize themselves with our{' '}
-          <A
-            href="https://www.notion.so/nwplus/PUBLIC-Discord-Etiquette-and-Policies-fa1722736bd047c49c64d6cd1bd93590"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Discord Etiquette and Policies
-          </A>
+          We ask all hackers to familiar themselves with the rules of etiquette in the #rules
+          channel
         </LI>
       </UL>
       <HR />
       <StyledH2>Schedule</StyledH2>
       <StyledP>
-        The schedule for cmd-f 2022 can be found on the{' '}
+        The schedule for HackCamp 2022 can be found on the{' '}
         <PortalLink href="/schedule">schedule page</PortalLink>! Please also turn on the
-        announcements notification to stay updated on our events!
+        notifications for the #announcements channel on Slack to stay updated on our events!
       </StyledP>
       <HR />
-      <StyledH2>Tag Us on Social Media! #cmdf2022</StyledH2>
+      <StyledH2>Tag Us on Social Media! #hackcamp2022</StyledH2>
       <StyledP>Instagram, Facebook, Twitter: @nwplusubc</StyledP>
       <StyledP>
         Be sure to also follow all of our{' '}

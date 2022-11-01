@@ -114,7 +114,7 @@ const hackcampTheme = {
     schedule: {
       background: 'transparent',
       event: 'white',
-      text: '#FFFFFF',
+      text: '#476C6E',
     },
     selects: {
       border: 'rgba(255, 255, 255, 0.5)',
