@@ -12,7 +12,7 @@ import {
   validateURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
-import { findElement } from '../../utility/utilities'
+// import { findElement } from '../../utility/utilities' // to fix no-unused-vars; commented out charities
 
 const FormSection = styled.div`
   display: flex;
@@ -110,13 +110,13 @@ export default ({
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
 
-  const charities = [
-    { value: 'CMHA', label: 'Canadian Mental Health Association' },
-    { value: 'BCCH', label: "BC Children's Hospital" },
-    { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
-    { value: 'GWC', label: 'Girls Who Code' },
-    { value: 'SRM', label: 'Sunrise Movement' },
-  ]
+  // const charities = [
+  //   { value: 'CMHA', label: 'Canadian Mental Health Association' },
+  //   { value: 'BCCH', label: "BC Children's Hospital" },
+  //   { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
+  //   { value: 'GWC', label: 'Girls Who Code' },
+  //   { value: 'SRM', label: 'Sunrise Movement' },
+  // ]
 
   // Fetch list of sponsor prizes from Firebase
   useEffect(() => {
@@ -192,10 +192,10 @@ export default ({
       if (!member.email && (isRequired || member.name || member.discord)) {
         newErrors[`member${index + 1}Email`] = 'Please enter a valid email'
       }
-      if (!member.discord && (isRequired || member.name || member.email)) {
-        newErrors[`member${index + 1}Discord`] =
-          'Please enter a valid Discord username (eg. username#1234)'
-      }
+      // if (!member.discord && (isRequired || member.name || member.email)) {
+      //   newErrors[`member${index + 1}Discord`] =
+      //     'Please enter a valid Discord username (eg. username#1234)'
+      // }
       if (member.email && !validateEmail(member.email)) {
         newErrors[`member${index + 1}Email`] = 'Please enter a valid email'
       }
@@ -232,16 +232,16 @@ export default ({
     }
 
     // Validate charity selection
-    if (!charityChoice) {
-      newErrors.charity = 'Please select a charity'
-    }
+    // if (!charityChoice) {
+    //   newErrors.charity = 'Please select a charity'
+    // }
 
     setErrors(newErrors)
 
     // Remove incomplete member objects
     const membersArray = [...members]
     const filteredMembers = membersArray.filter(member => {
-      return member?.name && member?.email && member?.discord
+      return member?.name && member?.email // && member?.discord
     })
 
     // If no errors, submit
@@ -322,7 +322,8 @@ export default ({
           onChange={e => setLinks({ ...links, other: e.target.value })}
         />
       </FormSection>
-      <FormSection>
+      {/* Charities for CMD-F */}
+      {/* <FormSection>
         <div>
           <Label>Charity Choice</Label>
           <Required />
@@ -332,8 +333,7 @@ export default ({
             is done so as to emphasize cmd-f's mission of focusing on the learning and growth aspect
             of hackathons!
           </P>
-        </div>
-        <div>
+        </div> <div>
           <Dropdown
             options={charities}
             placeholder={
@@ -345,7 +345,7 @@ export default ({
             isValid
           />
         </div>
-      </FormSection>
+      </FormSection> */}
       {sponsorPrizes && (
         <FormSection>
           <Label>Sponsor Prizes</Label>
@@ -391,7 +391,8 @@ export default ({
                 errorMsg={errors?.[`member${index + 1}Email`]}
                 onChange={e => updateMember(index, 'email', e.target.value)}
               />
-              <TextInputWithField
+              {/* HackCamp 2022 uses slack */}
+              {/* <TextInputWithField
                 fieldName="Discord username"
                 value={member?.discord}
                 placeholder="username#1234"
@@ -399,7 +400,7 @@ export default ({
                 invalid={errors?.[`member${index + 1}Discord`]}
                 errorMsg={errors?.[`member${index + 1}Discord`]}
                 onChange={e => updateMember(index, 'discord', e.target.value)}
-              />
+              /> */}
             </TeamMember>
           ))}
         </MemberList>
