@@ -50,6 +50,7 @@ const StyledTextArea = styled(TextArea)`
 
 const RightButton = styled(Button)`
   float: right;
+  white-space: nowrap;
 `
 
 const StyledMessage = styled(Message)`
