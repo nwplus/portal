@@ -31,6 +31,7 @@ import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from '
 import notifications from './utility/notifications'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
+import Area51 from './pages/Area51'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -249,6 +250,9 @@ function App() {
           </AuthPageRoute>
           <AdminAuthPageRoute path="/judging/admin">
             <JudgingAdmin />
+          </AdminAuthPageRoute>
+          <AdminAuthPageRoute path="/area51">
+            <Area51 />
           </AdminAuthPageRoute>
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
           <Route path="/projects" component={GalleryContainer} />

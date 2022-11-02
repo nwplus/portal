@@ -71,7 +71,7 @@ export const getYoutubeThumbnail = link => {
 export const formatProject = project => {
   return {
     ...project,
-    imgUrl: getYoutubeThumbnail(project.links.youtube),
+    imgUrl: getYoutubeThumbnail(project?.links?.youtube || ''),
     href: project.devpostUrl,
   }
 }

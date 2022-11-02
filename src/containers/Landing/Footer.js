@@ -82,8 +82,12 @@ export default () => {
   return (
     <>
       <SponsorsContainer>
-        <H1 size="1.5em">Sponsored by</H1>
-        <LogoContainer>{SponsorList}</LogoContainer>
+        {sponsors.length > 0 && (
+          <>
+            <H1 size="1.5em">Sponsored by</H1>
+            <LogoContainer>{SponsorList}</LogoContainer>
+          </>
+        )}
       </SponsorsContainer>
       <SocialIconContainer>
         <Icon href={SOCIAL_LINKS.FB} icon="facebook" brand size="2x" />
@@ -92,7 +96,7 @@ export default () => {
         <Icon href={SOCIAL_LINKS.TW} icon="twitter" brand size="2x" />
       </SocialIconContainer>
       <CopyrightBlurb>
-        Copyright &copy; 2020 <A href={SOCIAL_LINKS.WEBSITE}>nwPlus</A>
+        Copyright &copy; {new Date().getFullYear()} <A href={SOCIAL_LINKS.WEBSITE}>nwPlus</A>
       </CopyrightBlurb>
     </>
   )

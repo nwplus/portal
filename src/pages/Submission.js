@@ -60,6 +60,8 @@ export default () => {
     return <Loading />
   }
 
+  console.log(isJudgingReleased, isSubmissionsOpen)
+
   if (isJudgingReleased) {
     return (
       <ViewSubmission

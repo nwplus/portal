@@ -97,16 +97,20 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
 
 export default ({ project, reportCallback }) => {
   const gradeCount = Object.keys(project.grades ?? {}).length
+
+  console.log(project)
+  if (!project?.href) return <></>
+
   return (
     <>
       <H1>Project Submission</H1>
-      <H3>Team Members: {project.teamMembers.map(member => member.name).join(', ')}</H3>
-      <H3>
+      <H3>Team Members: {project?.teamMembers?.map(member => member.name).join(', ')}</H3>
+      {/* <H3>
         Sponsor Prizes:{' '}
         {project.sponsorPrizes[0]
           ? project.sponsorPrizes.join(', ')
           : "Didn't apply for sponsor prizes"}
-      </H3>
+      </H3> */}
       <Columns>
         <Column>
           <JudgingCard {...project} buttonLabel="View project" href={'projects/' + project.id} />
