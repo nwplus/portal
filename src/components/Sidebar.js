@@ -196,7 +196,7 @@ export default ({
     ],
     // Information
     information: [
-      { location: '/discord-bot', text: 'Discord Bot' },
+      // { location: '/discord-bot', text: 'Discord Bot' },
       { location: '/faq', text: 'FAQ' },
     ],
   }

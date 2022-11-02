@@ -47,6 +47,8 @@ const toggleTheme = () => {
   const oldTheme = window.localStorage.getItem('localTheme')
   if (oldTheme === 'nwTheme') {
     window.localStorage.setItem('localTheme', 'cmdfTheme')
+  } else if (oldTheme === 'cmdfTheme') {
+    window.localStorage.setItem('localTheme', 'hackcampTheme')
   } else {
     window.localStorage.setItem('localTheme', 'nwTheme')
   }
