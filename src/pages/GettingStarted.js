@@ -241,7 +241,7 @@ export default () => {
         </TodoColumn>
       </TodoColumnContainer>
       <HR />
-      <StyledH2>Our Online Platform: Discord!</StyledH2>
+      <StyledH2>Our Online Platform: Slack!</StyledH2>
       <StyledP>
         The primary form of hacker communication will be on our HackCamp 2022 Slack server.
       </StyledP>
