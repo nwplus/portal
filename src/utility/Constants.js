@@ -46,21 +46,22 @@ export const APPLICATION_STATUS = Object.freeze({
 })
 
 export const JUDGING_RUBRIC = [
-  {
-    id: 'execution',
-    label: 'Execution',
-    description:
-      'How well does the project address the teams selected theme/focus? How much impact will this solution have?',
-    value: 5,
-    weight: 4 / 18,
-  },
+  // {
+  //   id: 'execution',
+  //   label: 'Execution',
+  //   description:
+  //     'How well does the project address the teams selected theme/focus? How much impact will this solution have?',
+  //   value: 5,
+  //   weight: 4 / 18,
+  // },
   {
     id: 'innovation',
     label: 'Innovation',
     description:
       'Is the project a creative, original, and a suitable solution to the problem? Does the product introduce a new approach or perspective?',
     value: 5,
-    weight: 3 / 18,
+    // weight: 3 / 18,
+    weight: 1 / 4,
   },
   {
     id: 'design',
@@ -68,23 +69,36 @@ export const JUDGING_RUBRIC = [
     description:
       'Is the design accessible (e.g. high contrast for good visibility, etc.) and aesthetically pleasing?',
     value: 5,
-    weight: 4 / 18,
+    // weight: 4 / 18,
+    weight: 1 / 4,
   },
+  // {
+  //   id: 'technicalCompletion',
+  //   label: 'Technical Completion',
+  //   description:
+  //     'Does the hack work? Does the team present a clear explanation on the implementation and how it works? Does it seem finished or does it seem rough around the edges?',
+  //   value: 5,
+  //   weight: 4 / 18,
+  // },
+  // ------------------ HC
   {
-    id: 'technicalCompletion',
-    label: 'Technical Completion',
+    id: 'creativity',
+    label: 'Creativity',
     description:
-      'Does the hack work? Does the team present a clear explanation on the implementation and how it works? Does it seem finished or does it seem rough around the edges?',
+      'How original, nuanced, or unique is the work through its purpose, structure, or functions? Does the team incorporate different perspectives to incorporate diversity, inclusivity, and/or accessibility?',
     value: 5,
-    weight: 4 / 18,
+    // weight: 4 / 18,
+    weight: 1 / 4,
   },
+  // ------------------ HC
   {
     id: 'presentation',
     label: 'Presentation',
     description:
       'Is the presentation well-prepared and smooth? Does it make a good business case for the project? Are statistics used when relevant?',
     value: 5,
-    weight: 3 / 18,
+    // weight: 3 / 18,
+    weight: 1 / 4,
   },
 ]
 

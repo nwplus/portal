@@ -412,7 +412,7 @@ export default ({
           <Label>Mentor nominations</Label>
           <P>
             Nominate any mentors who helped make your hackathon experience better! Include their
-            name and/or Discord username and how they helped.
+            name and/or Slack username and how they helped.
           </P>
         </div>
         <TextArea value={mentorNominations} maxLength={MAX_CHARS} onChange={setMentorNominations} />

@@ -125,7 +125,7 @@ const createNewApplication = async user => {
   // -----------------------------------------------------
   // If not whitelisted, no
   const whitelisted = await getWhitelisted()
-  if (whitelisted.includes(user.email)) {
+  if (whitelisted.includes(user.email) || user.email.includes('@nwplus.io')) {
     // good to go
     newApplication = {
       ...newApplication,

@@ -50,7 +50,6 @@ const StyledTextArea = styled(TextArea)`
 
 const RightButton = styled(Button)`
   float: right;
-  white-space: nowrap;
 `
 
 const StyledMessage = styled(Message)`
@@ -105,6 +104,10 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
       </JudgingColumn>
       <Column>
         <H2>Scorecard</H2>
+        <StyledP>
+          For a full break-down on the rubric, please refer to the Judging Guide on the Hacker
+          Package!
+        </StyledP>
         {JUDGING_RUBRIC.map(entry => (
           <ScoreInput
             id={entry.id}
