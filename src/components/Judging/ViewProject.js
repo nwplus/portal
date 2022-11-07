@@ -8,6 +8,10 @@ import { JUDGING_RUBRIC } from '../../utility/Constants'
 
 const Container = styled.div`
   display: flex;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    flex-direction: column;
+  }
 `
 
 const Column = styled.div`
@@ -18,6 +22,10 @@ const Column = styled.div`
 const JudgingColumn = styled(Column)`
   flex: 0 0 550px;
   margin-right: 4em;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    flex: none;
+  }
 `
 
 const StyledYoutube = styled(Youtube)`
