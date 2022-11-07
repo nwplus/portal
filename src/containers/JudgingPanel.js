@@ -217,7 +217,7 @@ export default () => {
         Link: `${portalLink}/projects/${project.id}`,
         Devpost: project.links.devpost,
         'Charity choice': project.charityChoice,
-        'Mentor nominations': project.mentorNominations,
+        // 'Mentor nominations': project.mentorNominations,
       }
       project.teamMembers.forEach((member, index) => {
         projectInfo[`Member ${index + 1} Name`] = member.name
