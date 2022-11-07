@@ -106,7 +106,6 @@ export default ({
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
-  const [mentorNominations, setMentorNominations] = useState(project.mentorNominations || '')
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
 
@@ -135,7 +134,6 @@ export default ({
     setLinks(project.links || {})
     setCharityChoice(project.charityChoice || '')
     setSelectedPrizes(project.sponsorPrizes || [])
-    setMentorNominations(project.mentorNominations || '')
     setDraftStatus(project.draftStatus || 'draft')
 
     const newArray = project.teamMembers ? [...project.teamMembers] : []
@@ -253,7 +251,6 @@ export default ({
         links,
         sponsorPrizes: selectedPrizes,
         charityChoice,
-        mentorNominations,
         uid: project.uid,
         draftStatus,
       })
@@ -407,22 +404,6 @@ export default ({
         {errors.self && <ErrorMessage>{errors.self}</ErrorMessage>}
       </FormSection>
       <StyledHr />
-      //{' '}
-      <FormSection>
-        //{' '}
-        <div>
-          // <Label>Mentor nominations</Label>
-          //{' '}
-          <P>
-            // Nominate any mentors who helped make your hackathon experience better! Include their
-            // name and/or Slack username and how they helped. //{' '}
-          </P>
-          //{' '}
-        </div>
-        //{' '}
-        <TextArea value={mentorNominations} maxLength={MAX_CHARS} onChange={setMentorNominations} />
-        //{' '}
-      </FormSection>
       {Object.keys(errors).length > 0 && (
         <ErrorMessage>Please address errors before submitting</ErrorMessage>
       )}
