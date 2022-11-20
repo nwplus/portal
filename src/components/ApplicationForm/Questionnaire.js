@@ -79,60 +79,60 @@ export default ({ errors, formInputs, onChange }) => {
           <span role="img" aria-label="Grinning face with star eyes emoji">
             🤩
           </span>{' '}
-          Have you previously attended any cmd-f organized events? (select all that apply)
+          Have you previously attended any nwPlus organized events? (select all that apply)
         </SubHeading>
         <Select
           type="checkbox"
-          label="connect-f Mentorship Program"
+          label="HackCamp 2021"
           checked={formInputs.eventsAttended.mentorship}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                mentorship: !formInputs.eventsAttended.mentorship,
+                hackCamp2021: !formInputs.eventsAttended.mentorship,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f Phase 1: Resume Review &amp; Networking"
+          label="HackCamp 2022"
           checked={formInputs.eventsAttended.phase1}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                phase1: !formInputs.eventsAttended.phase1,
+                hackCamp2022: !formInputs.eventsAttended.phase1,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f Phase 2: Intro to LinkedIn &amp; Networking Workshop"
+          label="nwHacks 2021"
           checked={formInputs.eventsAttended.phase2}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                phase2: !formInputs.eventsAttended.phase2,
+                nwHacks2021: !formInputs.eventsAttended.phase2,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f 2019"
+          label="nwHacks 2022"
           checked={formInputs.eventsAttended.cmdf2019}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                cmdf2019: !formInputs.eventsAttended.cmdf2019,
+                nwHacks2022: !formInputs.eventsAttended.cmdf2019,
               },
             })
           }
@@ -167,7 +167,7 @@ export default ({ errors, formInputs, onChange }) => {
         />
       </FormSpacing>
 
-      <FormSpacing>
+      {/* <FormSpacing>
         <QuestionHeading>question 19</QuestionHeading>
         <SubHeading>
           Are you registering with a friend? If so, insert their email here for a chance to win a
@@ -188,7 +188,7 @@ export default ({ errors, formInputs, onChange }) => {
             })
           }
         />
-      </FormSpacing>
+      </FormSpacing> */}
     </>
   )
 }
