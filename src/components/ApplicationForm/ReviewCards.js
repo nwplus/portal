@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import Banner from '../Banner'
 import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
-import { FormSpacing } from './'
+import { FormSpacing, SubHeading } from './'
 import { copyText, EVENTS_ATTENDED, ETHNICITY_OPTIONS } from '../../utility/Constants'
+import { SocialMediaLinks } from '../ApplicationDashboard'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -371,6 +372,17 @@ export default ({ formInputs, handleEdit, onChange }) => {
             I would like to share my resume and supporting links (Linkedin, GitHub, Portfolio) to
             event sponsors and recruiters.
           </Checkbox>
+        </ContentWrapper>
+      </ReviewContainer>
+
+      <ReviewContainer>
+        <QuestionHeading>Social Media</QuestionHeading>
+        <SubHeading>
+          Connect with the community of nwHacks on Medium, Twitter, and Facebook! Share your story
+          and excitement with us!
+        </SubHeading>
+        <ContentWrapper textBlock>
+          <SocialMediaLinks />
         </ContentWrapper>
       </ReviewContainer>
     </>
