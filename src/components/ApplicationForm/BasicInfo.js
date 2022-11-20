@@ -36,12 +36,12 @@ const educationOptions = [
 ]
 
 const graduationOptions = [
-  { value: 2021, label: '2021' },
   { value: 2022, label: '2022' },
   { value: 2023, label: '2023' },
   { value: 2024, label: '2024' },
   { value: 2025, label: '2025' },
-  { value: 2026, label: '2026+' },
+  { value: 2026, label: '2026' },
+  { value: 2027, label: '2027+' },
 ]
 
 const StyledTextInput = styled(TextInput)`
@@ -106,7 +106,31 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 02</QuestionHeading>
+      <QuestionHeading>question 03</QuestionHeading>
+      <SubHeading>
+        <span role="img" aria-label="Telephone emoji">
+          ✨
+        </span>{' '}
+        What is your preferred name?
+        <Required />
+      </SubHeading>
+
+      <StyledTextInput
+        placeholder="Preferred Name"
+        value={formInputs.preferredName}
+        errorMsg={errors?.preferredName}
+        invalid={!!errors?.preferredName}
+        onChange={e =>
+          onChange({
+            preferredName: e.target.value,
+          })
+        }
+        customRef={refs['preferredNameRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Telephone emoji">
           ☎️
@@ -129,7 +153,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 03</QuestionHeading>
+      <QuestionHeading>question 05</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Person raising one hand emoji">
           🙋
@@ -347,6 +371,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
           : 'What is your current or intended major?'}
         <Required />
       </SubHeading>
+      <P>Enter your intended/current major, or unknown</P>
       {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
       <Dropdown
         options={majors}

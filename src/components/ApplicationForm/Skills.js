@@ -212,19 +212,19 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <QuestionHeading>question 14</QuestionHeading>
-        <SubHeading>
-          Open ended question! We recommend to not write more than a paragraph, your response should
-          be concise, sweet and sufficient.
-        </SubHeading>
+        <SubHeading>General question</SubHeading>
+        <P>
+          Although many come to hackathons to work together to build a software project, we
+          recognize that there may be other reasons for attending an hackathon, such as attending
+          workshops, or connecting with sponsors.
+        </P>
         <SubHeading size="1.25em">
-          <span role="img" aria-label="Seedling emoji">
-            🌱
-          </span>{' '}
-          How do you intend to grow at cmd-f?
+          In your own words, describe your definition of a hackathon, and what it means to you. (max
+          200 words)
           <Required />
         </SubHeading>
         <StyledTextArea
-          maxLength="500"
+          maxWords="200"
           width="100%"
           value={formInputs.longAnswers1}
           invalid={!!errors.longAnswers1}
@@ -234,7 +234,35 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
               longAnswers1: val,
             })
           }
-          customRef={refs['longAnswersRef']}
+          customRef={refs['longAnswers1Ref']}
+        />
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 14</QuestionHeading>
+        <SubHeading>Open ended question!</SubHeading>
+        <P>
+          We recommend to not write more than a paragraph. Your response should be concise, sweet
+          and sufficient.
+        </P>
+        <SubHeading size="1.25em">
+          Please answer one of below two questions (max 200 words) <br />
+          Option 1: How would you like to challenge yourself during this hackathon? <br />
+          Option 2: What should technology be used for?
+          <Required />
+        </SubHeading>
+        <StyledTextArea
+          maxWords="200"
+          width="100%"
+          value={formInputs.longAnswers2}
+          invalid={!!errors.longAnswers2}
+          errorMsg={errors.longAnswers2}
+          onChange={val =>
+            onChange({
+              longAnswers2: val,
+            })
+          }
+          customRef={refs['longAnswers2Ref']}
         />
       </FormSpacing>
     </>
