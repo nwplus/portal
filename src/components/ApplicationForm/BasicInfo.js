@@ -106,7 +106,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 03</QuestionHeading>
+      <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Telephone emoji">
           ✨
@@ -130,7 +130,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 04</QuestionHeading>
+      <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Telephone emoji">
           ☎️
@@ -153,7 +153,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 05</QuestionHeading>
+      <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Person raising one hand emoji">
           🙋
@@ -191,7 +191,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 04</QuestionHeading>
+      <QuestionHeading>question 05</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Mushroom emoji">
           🍄
@@ -229,7 +229,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 05</QuestionHeading>
+      <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
         What is your race/ethnicity? (Select all that apply)
         <Required />
@@ -269,7 +269,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 06</QuestionHeading>
+      <QuestionHeading>question 07</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Baby chick emoji">
           🐥
@@ -295,7 +295,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 07</QuestionHeading>
+      <QuestionHeading>question 08</QuestionHeading>
       <SubHeading>
         What level of education are you currently studying at?
         <Required />
@@ -332,7 +332,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 08</QuestionHeading>
+      <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>
         What school do you currently attend?
         <Required />
@@ -361,7 +361,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 09</QuestionHeading>
+      <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Book emoji">
           📖
@@ -393,7 +393,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         What is your expected graduation year?
         <Required />
@@ -415,7 +415,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
+      <QuestionHeading>question 12</QuestionHeading>
       <SubHeading>
         How do you want to contribute at {copyText.hackathonName}? Please select the category that
         you're strongest in.

@@ -80,7 +80,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 12</QuestionHeading>
+        <QuestionHeading>question 13</QuestionHeading>
         <SubHeading>
           Is this your first hackathon?
           <Required />
@@ -102,7 +102,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 13</QuestionHeading>
+        <QuestionHeading>question 14</QuestionHeading>
         <SubHeading>
           Help us get to know you better by providing as many links as you feel will support your
           registration!
@@ -211,7 +211,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 14</QuestionHeading>
+        <QuestionHeading>question 15</QuestionHeading>
         <SubHeading>General question</SubHeading>
         <P>
           Although many come to hackathons to work together to build a software project, we
@@ -239,7 +239,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 14</QuestionHeading>
+        <QuestionHeading>question 16</QuestionHeading>
         <SubHeading>Open ended question!</SubHeading>
         <P>
           We recommend to not write more than a paragraph. Your response should be concise, sweet

@@ -41,7 +41,7 @@ export default ({ errors, formInputs, onChange }) => {
         </CenteredH1>
       </FormSpacing>
       <FormSpacing>
-        <QuestionHeading>Question 15</QuestionHeading>
+        <QuestionHeading>Question 17</QuestionHeading>
         <SubHeading>How did you hear about {copyText.hackathonName}?</SubHeading>
         <StyledDropdown
           options={options}
@@ -74,7 +74,7 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>Question 16</QuestionHeading>
+        <QuestionHeading>Question 18</QuestionHeading>
         <SubHeading>
           <span role="img" aria-label="Grinning face with star eyes emoji">
             🤩
@@ -168,7 +168,7 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 17</QuestionHeading>
+        <QuestionHeading>question 19</QuestionHeading>
         <SubHeading>
           Are you registering with a friend? If so, insert their email here for a chance to win a
           small prize!
