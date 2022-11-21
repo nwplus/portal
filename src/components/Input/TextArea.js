@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike, TextInputLike } from '../Common.js'
 import { ErrorMessage, Message } from '../Typography'
@@ -27,7 +28,7 @@ export const TextArea = ({
   ...rest
 }) => {
   const [isLengthExceeded, setIsLengthExceeded] = useState(false)
-  const getWords = () => {
+  const getWords = useCallback(() => {
     const split = value?.split(' ')
     if (split.length === 1) {
       if (split[0] === '') {
@@ -41,7 +42,7 @@ export const TextArea = ({
       if (split[i] !== '') cleanedSplit.push(split[i])
     }
     return cleanedSplit.length || 0
-  }
+  }, [value])
   useEffect(() => {
     // debounced with setTimeout
     const handler = setTimeout(() => {
@@ -53,7 +54,7 @@ export const TextArea = ({
     return () => {
       clearTimeout(handler)
     }
-  }, [maxLength, value])
+  }, [maxLength, value, maxWords, getWords])
 
   return (
     <div className={className}>

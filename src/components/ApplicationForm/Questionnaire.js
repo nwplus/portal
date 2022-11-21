@@ -3,7 +3,10 @@ import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { QuestionHeading } from '../../components/Typography'
 import { FormSpacing, SubHeading } from './'
-import { CenteredH1, P } from '../Typography'
+import {
+  CenteredH1,
+  // P
+} from '../Typography'
 import { findElement } from '../../utility/utilities'
 import { copyText } from '../../utility/Constants'
 
@@ -13,9 +16,9 @@ const StyledDropdown = styled(Dropdown)`
   }
 `
 
-const StyledTextInput = styled(TextInput)`
-  margin: 0.5em 1em 1em 0;
-`
+// const StyledTextInput = styled(TextInput)`
+//   margin: 0.5em 1em 1em 0;
+// `
 
 export const options = [
   { value: '1', label: 'MLH' },
