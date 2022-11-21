@@ -114,7 +114,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </P>
 
         <QuestionForm>
-          <FormRow fieldValue="resume">
+          <FormRow fieldValue="resume" required>
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {

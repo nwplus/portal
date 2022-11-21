@@ -274,7 +274,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         <span role="img" aria-label="Baby chick emoji">
           🐥
         </span>{' '}
-        Will you be 19 years of age or older by March 5th, 2022?
+        Will you be 19 years of age or older by Jan 14th, 2023?
         <Required />
       </SubHeading>
       <P>We accept hackers currently in high school but require this for consent purposes.</P>

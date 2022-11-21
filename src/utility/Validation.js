@@ -191,8 +191,7 @@ const validators = {
     },
   },
   skills: {
-    // Commenting out for cmd-f 2022
-    // resume: noInvalidResumeFunction,
+    resume: noEmptyFunction,
     portfolio: optionalURLFunction,
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
