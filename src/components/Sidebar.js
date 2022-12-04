@@ -44,7 +44,7 @@ const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
   height: 6em;
-  margin: 30px 0 0px 50px;
+  margin: 30px 0 0px 2rem;
 
   ${p =>
     p.theme.name === 'hackCamp' &&
@@ -127,7 +127,7 @@ const LiveLabel = styled.p`
   font-weight: 600;
   font-size: 0.9em;
   border-radius: 7px;
-  background: linear-gradient(to bottom, #ffd12c, #fe800b);
+  background: linear-gradient(to bottom left, #cfcdf0, #f3d5d5);
   color: ${p => p.theme.colors.secondaryBackground};
   width: 4em;
   padding: 5px;

@@ -159,10 +159,9 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
-  // Commenting out for cmd-f 2022
-  // vaccineInfo: {
-  //   willBeDoubleVaxed: mustBeVaccinatedFunction,
-  // },
+  vaccineInfo: {
+    willBeDoubleVaxed: mustBeVaccinatedFunction,
+  },
   basicInfo: {
     email: email => {
       return {

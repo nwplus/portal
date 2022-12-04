@@ -117,7 +117,8 @@ export const LI = styled.li`
 `
 
 export const QuestionHeading = styled.p`
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.text};
+  opacity: 0.5;
   font-weight: 600;
   text-transform: uppercase;
 `
