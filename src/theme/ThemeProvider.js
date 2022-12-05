@@ -80,7 +80,7 @@ const nwTheme = {
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
-    banner: 'rgba(75, 65, 130, 0.2)',
+    banner: 'rgba(0,0,0,0)',
     login: {
       googleBg: '#fff',
       googleText: '#000',

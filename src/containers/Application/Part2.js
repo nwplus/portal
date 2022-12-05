@@ -93,7 +93,7 @@ export default () => {
         handleResume={handleResume}
         errors={errors}
       />
-      <VerticalProgressBar percent={66} />
+      <VerticalProgressBar percent={75} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-1')}

@@ -36,7 +36,7 @@ const sharedStyle = css`
   }
 
   .react-select__option {
-    color: ${p => p.theme.colors.background};
+    color: ${p => p.theme.colors.text};
     overflow-wrap: break-word;
   }
 

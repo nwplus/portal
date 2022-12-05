@@ -96,7 +96,7 @@ export default () => {
         formInputs={application.basicInfo}
         onChange={updateBasicInfo}
       />
-      <VerticalProgressBar percent={33} />
+      <VerticalProgressBar percent={50} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-0')}
