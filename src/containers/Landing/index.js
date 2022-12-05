@@ -55,18 +55,18 @@ const StyledLogoLockup = styled.img`
     `}
   ${p => p.theme.mediaQueries.tabletLarge} {
     top: 18%;
-    width: 80%;
-    ${p => p.theme.name !== 'nwPlus' && `top: 15%; width: 20%;`}
+    width: 60px;
+    ${p => p.theme.name !== 'nwHacks' && `top: 15%; width: 20%;`}
   }
   ${p => p.theme.mediaQueries.tablet} {
-    top: 15%;
-    width: 82%;
-    ${p => p.theme.name !== 'nwPlus' && `top:22%; width: 20%;`}
+    top: 30%;
+    width: 60px;
+    ${p => p.theme.name !== 'nwHacks' && `top:22%; width: 20%; `}
   }
   ${p => p.theme.mediaQueries.xs} {
-    width: 90%;
-    top: 19%;
-    ${p => p.theme.name !== 'nwPlus' && `top: 15%; width: 35%;`}
+    top: 25%;
+    width: 60px;
+    ${p => p.theme.name !== 'nwHacks' && `top: 15%; width: 35%;`}
   }
 `
 

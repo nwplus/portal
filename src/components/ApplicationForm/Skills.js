@@ -161,9 +161,9 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             </>
           ) : (
             <>
-              <FormRow fieldValue="GitHub/BitBucket/GitLab">
+              <FormRow fieldValue="GitHub/BitBucket/GitLab" required>
                 <TextInput
-                  placeholder="Optional"
+                  placeholder="Required"
                   size="large"
                   value={formInputs.github}
                   invalid={!!errors.github}

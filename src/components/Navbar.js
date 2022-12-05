@@ -20,6 +20,7 @@ const NavContainer = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     height: 3em;
   }
+  background: linear-gradient(to bottom, #544d92, rgba(33, 30, 57, 0));
 `
 
 const Icon = styled.img`
