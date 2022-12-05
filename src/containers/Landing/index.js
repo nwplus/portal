@@ -46,6 +46,7 @@ const StyledLogoLockup = styled.img`
     p.theme.name !== 'nwPlus' &&
     `
       top: 15em;
+      width: 60px;
   `}
   ${p =>
     p.theme.name === 'cmdf' &&
