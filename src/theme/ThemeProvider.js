@@ -44,7 +44,7 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: 'linear-gradient(to bottom left, #C5ACE5, #454390)', // linear-gradient(to bottom, #52999F, #051439)
+    background: '#544D92', //'linear-gradient(to bottom left, #C5ACE5, #454390)', // linear-gradient(to bottom, #52999F, #051439)
     card: '#182B47',
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#10186Cbb', // before: #1D1B24bb
@@ -72,7 +72,7 @@ const nwTheme = {
       focus: 'rgba(197, 172, 229, 0.4)',
       border: '#10186C',
       placeholder: '#10186C',
-      text: '#10186C',
+      text: '#fff',
     },
     button: {
       text: 'white',
