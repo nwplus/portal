@@ -110,7 +110,8 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         <P>
           We will be looking at your resume and GitHub if you're a developer, and we will be looking
           at your resume and portfolio if you're a designer. Please ensure the links are publicly
-          accessible by opening them in an incognito browser.
+          accessible by opening them in an incognito browser. Resume cannot exceed 2MB and must be a
+          PDF document.
         </P>
 
         <QuestionForm>

@@ -8,7 +8,7 @@ const ResumeContainer = styled.div`
   align-items: center;
 `
 const ResumeFile = ({ inputFile, onChange }) => {
-  return <input ref={inputFile} type="file" hidden onChange={onChange} />
+  return <input ref={inputFile} type="file" accept=".pdf" hidden onChange={onChange} />
 }
 
 const StyledButton = styled(Button)`

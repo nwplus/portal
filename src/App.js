@@ -136,13 +136,18 @@ const NavbarSaveOnLogout = ({ name, handleLogout }) => {
 
 const ApplicationFormContainer = ({ part }) => {
   const { isAuthed, user, logout } = useAuth()
+
   const {
-    application: {
-      status: { applicationStatus },
-    },
+    application,
+    // got rid of destructuring in case of null value (not logged in, visits a page on application - maybe it was bookmarked)
+    // {
+    //   status: {
+    //     applicationStatus
+    //   },
+    // },
   } = useHackerApplication()
 
-  return isAuthed && applicationStatus === APPLICATION_STATUS.inProgress ? (
+  return isAuthed && application.status.applicationStatus === APPLICATION_STATUS.inProgress ? (
     <>
       <NavbarSaveOnLogout name={user.displayName} handleLogout={logout} />
       <Form>

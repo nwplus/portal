@@ -265,7 +265,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             />
             <InfoGroup
               heading="Previous events attended:"
-              data={attendedValues.length ? attendedValues : 'None'}
+              data={attendedValues.length > 0 ? attendedValues : 'None'}
             />
             {/* Commenting out for nwHacks 2023 */}
             {/* <InfoGroup
