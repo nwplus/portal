@@ -44,11 +44,11 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: '#544D92', //'linear-gradient(to bottom left, #C5ACE5, #454390)', // linear-gradient(to bottom, #52999F, #051439)
-    card: '#182B47',
+    background: '#3C4BA5', // Background
+    card: '#0A1361', // BG Accent
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#10186Cbb', // before: #1D1B24bb
-    secondaryBackground: '#635BA4',
+    secondaryBackground: '#5667CF', // Primary 1
     sidebar: {
       link: '#fff',
     },
@@ -56,7 +56,7 @@ const nwTheme = {
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     foreground: '#4F4A59',
-    primary: '#10186C',
+    primary: '#253281', // Primary
     default: '#BEBEBE',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
@@ -64,14 +64,14 @@ const nwTheme = {
     text: '#FFF',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
-    primaryGradient: 'linear-gradient(180deg, #FED9CD 0%, #CDCAEC 100%)', // button
-    primaryGradientHover: 'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
+    primaryGradient: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', //'linear-gradient(180deg, #FED9CD 0%, #CDCAEC 100%)', // button
+    primaryGradientHover: 'linear-gradient(263.82deg, #E9C3CB 38.58%, #A4A9F1 78.17%)', //'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
     tertiaryHover: '#1EEDC8', // button hover
     selects: {
       hover: 'rgba(197, 172, 229, 0.2)',
       focus: 'rgba(197, 172, 229, 0.4)',
-      border: '#10186C',
-      placeholder: '#10186C',
+      border: '#253281',
+      placeholder: '#253281',
       text: '#fff',
     },
     button: {
