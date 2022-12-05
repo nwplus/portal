@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import Banner from '../Banner'
 import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
-import { FormSpacing } from './'
+import { FormSpacing, SubHeading } from './'
 import { copyText, EVENTS_ATTENDED, ETHNICITY_OPTIONS } from '../../utility/Constants'
+import { SocialMediaLinks } from '../ApplicationDashboard'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -52,6 +53,7 @@ const StyledH1 = styled(H1)`
 `
 
 const StyledBanner = styled(Banner)`
+  background-color: ${p => p.theme.colors.secondaryBackground};
   && {
     top: 18em;
     padding: 0;
@@ -127,8 +129,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </CenterH1>
       </FormSpacing>
 
-      {/* Commenting out for cmd-f 2022 */}
-      {/* <ReviewContainer>
+      <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Vaccination Status</QuestionHeading>
           <Button
@@ -153,7 +154,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             />
           </ContentWrapper>
         </StyledBanner>
-      </ReviewContainer> */}
+      </ReviewContainer>
 
       <ReviewContainer>
         <JohnDiv>
@@ -230,8 +231,12 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
             <InfoGroup
-              heading="How do you intend to grow at cmd-f?"
+              heading="In your own words, describe your definition of a hackathon, and what it means to you."
               data={formInputs.skills.longAnswers1}
+            />
+            <InfoGroup
+              heading="How would you like to challenge yourself during this hackathon? / What should technology be used for?"
+              data={formInputs.skills.longAnswers2}
             />
           </ContentWrapper>
         </StyledBanner>
@@ -259,13 +264,14 @@ export default ({ formInputs, handleEdit, onChange }) => {
               }
             />
             <InfoGroup
-              heading="Previous cmd-f events attended:"
-              data={attendedValues.length ? attendedValues : 'None'}
+              heading="Previous events attended:"
+              data={attendedValues.length > 0 ? attendedValues : 'None'}
             />
-            <InfoGroup
+            {/* Commenting out for nwHacks 2023 */}
+            {/* <InfoGroup
               heading="Email of friend you're applying with:"
               data={formInputs.questionnaire.friendEmail}
-            />
+            /> */}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -325,7 +331,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               <A
                 bolded
                 color="primary"
-                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                 target="_blank"
               >
                 MLH Contest Terms and Conditions
@@ -371,6 +377,17 @@ export default ({ formInputs, handleEdit, onChange }) => {
             I would like to share my resume and supporting links (Linkedin, GitHub, Portfolio) to
             event sponsors and recruiters.
           </Checkbox>
+        </ContentWrapper>
+      </ReviewContainer>
+
+      <ReviewContainer>
+        <QuestionHeading>Social Media</QuestionHeading>
+        <SubHeading>
+          Connect with the community of nwHacks on Medium, Twitter, and Facebook! Share your story
+          and excitement with us!
+        </SubHeading>
+        <ContentWrapper textBlock>
+          <SocialMediaLinks />
         </ContentWrapper>
       </ReviewContainer>
     </>

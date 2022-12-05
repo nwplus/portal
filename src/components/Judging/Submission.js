@@ -98,8 +98,7 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
 export default ({ project, reportCallback }) => {
   const gradeCount = Object.keys(project.grades ?? {}).length
 
-  console.log(project)
-  if (!project?.href) return <></>
+  if (!project?.id) return <>No project to view.</>
 
   return (
     <>

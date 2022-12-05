@@ -1,9 +1,3 @@
-/*
- * THIS PAGE IS CURRENTLY NOT SHOWN IN THE APPLICATION FORM
- *
- * When hackathons go back in-person and we're checking vaccination info we can use this
- */
-
 import React from 'react'
 import { CenteredH1, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { Checkbox } from '../../components/Input'
@@ -24,10 +18,10 @@ export default ({ formInputs, onChange, error }) => {
       </FormSpacing>
       <FormSpacing>
         <SubHeading>
-          This year, {copyText.hackathonName} is back in-person! Due to British Columbia's
-          Provincial Health Regulation and to ensure everyone's safety, we are only accepting
-          hackers who are/will be double-vaccinated by the day of {copyText.hackathonName}. We will
-          be checking for the proof of vaccination and your ID at sign-in.
+          This year, {copyText.hackathonName} is back in-person! Due to MLH{`'`}s regulations and to
+          ensure everyone{`'`}s safety, we will only be accepting hackers who are/will be
+          double-vaccinated by the day of {copyText.hackathonName}. We will be checking your proof
+          of vaccination and ID at sign-in. Thank you for your cooperation!
         </SubHeading>
         <Checkbox
           flex
@@ -40,7 +34,7 @@ export default ({ formInputs, onChange, error }) => {
           required
         >
           <span>
-            I confirm I will be double-vaccinated at {copyText.hackathonName}
+            I confirm I am or will be double-vaccinated at {copyText.hackathonName}
             <Required />
           </span>
         </Checkbox>

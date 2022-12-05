@@ -103,7 +103,7 @@ const Project = ({ project }) => {
         <StyledH2>Relevant Links</StyledH2>
         <LinkContainer>
           {Object.entries(project.links).map(([key, link]) => {
-            const cleanedUpLink = truncateLink(link.replace(/https?:\/\//, ''))
+            const cleanedUpLink = link.replace(/https?:\/\//, '')
             return (
               <StyledButton
                 color="primary"
@@ -112,7 +112,7 @@ const Project = ({ project }) => {
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getDisplayName(key) ?? cleanedUpLink}
+                {getDisplayName(key) ?? truncateLink(cleanedUpLink)}
               </StyledButton>
             )
           })}

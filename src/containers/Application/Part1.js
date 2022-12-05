@@ -9,6 +9,7 @@ import { checkForError, validateFormSection } from '../../utility/Validation'
 const questionsByOrder = [
   'firstName',
   'lastName',
+  'preferredName',
   'phoneNumber',
   'gender',
   'pronouns',
@@ -51,6 +52,7 @@ export default () => {
   const refs = {
     firstNameRef: useRef(null),
     lastNameRef: useRef(null),
+    preferredNameRef: useRef(null),
     genderRef: useRef(null),
     pronounsRef: useRef(null),
     ethnicityRef: useRef(null),
@@ -94,7 +96,7 @@ export default () => {
         formInputs={application.basicInfo}
         onChange={updateBasicInfo}
       />
-      <VerticalProgressBar percent={33} />
+      <VerticalProgressBar percent={50} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-0')}

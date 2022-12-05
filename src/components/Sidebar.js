@@ -4,12 +4,13 @@ import { Link, useLocation } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
-import nwhacks_logo from '../assets/nwhacks_logo.svg'
+import nwhacks_logo from '../assets/nwhacks_logo_white.svg'
 import cmdf_logo from '../assets/cmdf_logo.png'
 import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
+import poweredBy from '../assets/powered_by_livepeer.svg'
 // import covalent from '../assets/sponsors/covalent.png'
 // import hootsuite from '../assets/sponsors/hootsuite.png'
 // import tttStudios from '../assets/sponsors/ttt-studios.png'
@@ -44,7 +45,7 @@ const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
   height: 6em;
-  margin: 30px 0 0px 50px;
+  margin: 30px 0 0px 2rem;
 
   ${p =>
     p.theme.name === 'hackCamp' &&
@@ -127,7 +128,7 @@ const LiveLabel = styled.p`
   font-weight: 600;
   font-size: 0.9em;
   border-radius: 7px;
-  background: linear-gradient(to bottom, #ffd12c, #fe800b);
+  background: linear-gradient(to bottom left, #cfcdf0, #f3d5d5);
   color: ${p => p.theme.colors.secondaryBackground};
   width: 4em;
   padding: 5px;
@@ -166,6 +167,16 @@ const CategoryHeader = styled.h4`
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: rgba(255, 255, 255, 0.45);
+`
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: flex-end;
+`
+
+const SponsorIcon = styled.img`
+  width: 100px;
+  height: 42px;
 `
 
 export default ({
@@ -256,7 +267,10 @@ export default ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
-      <Logo alt="logo" />
+      <LogoContainer>
+        <Logo alt="logo" />
+        <SponsorIcon src={poweredBy} alt="powered by Livepeer" />
+      </LogoContainer>
       <LiveLabel>
         <LiveDot />
         LIVE

@@ -36,12 +36,12 @@ const educationOptions = [
 ]
 
 const graduationOptions = [
-  { value: 2021, label: '2021' },
   { value: 2022, label: '2022' },
   { value: 2023, label: '2023' },
   { value: 2024, label: '2024' },
   { value: 2025, label: '2025' },
-  { value: 2026, label: '2026+' },
+  { value: 2026, label: '2026' },
+  { value: 2027, label: '2027+' },
 ]
 
 const StyledTextInput = styled(TextInput)`
@@ -109,6 +109,30 @@ export default ({ refs, errors, formInputs, onChange }) => (
       <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Telephone emoji">
+          ✨
+        </span>{' '}
+        What is your preferred name?
+        <Required />
+      </SubHeading>
+
+      <StyledTextInput
+        placeholder="Preferred Name"
+        value={formInputs.preferredName}
+        errorMsg={errors?.preferredName}
+        invalid={!!errors?.preferredName}
+        onChange={e =>
+          onChange({
+            preferredName: e.target.value,
+          })
+        }
+        customRef={refs['preferredNameRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 03</QuestionHeading>
+      <SubHeading>
+        <span role="img" aria-label="Telephone emoji">
           ☎️
         </span>{' '}
         What is your phone number?
@@ -129,7 +153,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 03</QuestionHeading>
+      <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Person raising one hand emoji">
           🙋
@@ -167,7 +191,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 04</QuestionHeading>
+      <QuestionHeading>question 05</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Mushroom emoji">
           🍄
@@ -205,7 +229,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 05</QuestionHeading>
+      <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
         What is your race/ethnicity? (Select all that apply)
         <Required />
@@ -245,12 +269,12 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 06</QuestionHeading>
+      <QuestionHeading>question 07</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Baby chick emoji">
           🐥
         </span>{' '}
-        Will you be 19 years of age or older by March 5th, 2022?
+        Will you be 19 years of age or older by Jan 14th, 2023?
         <Required />
       </SubHeading>
       <P>We accept hackers currently in high school but require this for consent purposes.</P>
@@ -271,7 +295,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 07</QuestionHeading>
+      <QuestionHeading>question 08</QuestionHeading>
       <SubHeading>
         What level of education are you currently studying at?
         <Required />
@@ -308,7 +332,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 08</QuestionHeading>
+      <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>
         What school do you currently attend?
         <Required />
@@ -337,7 +361,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 09</QuestionHeading>
+      <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Book emoji">
           📖
@@ -347,6 +371,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
           : 'What is your current or intended major?'}
         <Required />
       </SubHeading>
+      <P>Enter your intended/current major, or unknown</P>
       {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
       <Dropdown
         options={majors}
@@ -368,7 +393,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         What is your expected graduation year?
         <Required />
@@ -390,7 +415,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
+      <QuestionHeading>question 12</QuestionHeading>
       <SubHeading>
         How do you want to contribute at {copyText.hackathonName}? Please select the category that
         you're strongest in.

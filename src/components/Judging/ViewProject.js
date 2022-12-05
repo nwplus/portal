@@ -8,6 +8,10 @@ import { JUDGING_RUBRIC } from '../../utility/Constants'
 
 const Container = styled.div`
   display: flex;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    flex-direction: column;
+  }
 `
 
 const Column = styled.div`
@@ -18,6 +22,10 @@ const Column = styled.div`
 const JudgingColumn = styled(Column)`
   flex: 0 0 550px;
   margin-right: 4em;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    flex: none;
+  }
 `
 
 const StyledYoutube = styled(Youtube)`
@@ -50,7 +58,6 @@ const StyledTextArea = styled(TextArea)`
 
 const RightButton = styled(Button)`
   float: right;
-  white-space: nowrap;
 `
 
 const StyledMessage = styled(Message)`
@@ -105,6 +112,10 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
       </JudgingColumn>
       <Column>
         <H2>Scorecard</H2>
+        <StyledP>
+          For a full break-down on the rubric, please refer to the Judging Guide on the Hacker
+          Package!
+        </StyledP>
         {JUDGING_RUBRIC.map(entry => (
           <ScoreInput
             id={entry.id}

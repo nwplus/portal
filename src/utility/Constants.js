@@ -1,15 +1,15 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'HackCamp2022'
+export const DB_HACKATHON = 'nwHacks2023'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'HackCamp 2022',
-  hackathonNameShort: 'HackCamp',
+  hackathonName: 'nwHacks 2023',
+  hackathonNameShort: 'nwHacks',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 4
@@ -46,21 +46,22 @@ export const APPLICATION_STATUS = Object.freeze({
 })
 
 export const JUDGING_RUBRIC = [
-  {
-    id: 'execution',
-    label: 'Execution',
-    description:
-      'How well does the project address the teams selected theme/focus? How much impact will this solution have?',
-    value: 5,
-    weight: 4 / 18,
-  },
+  // {
+  //   id: 'execution',
+  //   label: 'Execution',
+  //   description:
+  //     'How well does the project address the teams selected theme/focus? How much impact will this solution have?',
+  //   value: 5,
+  //   weight: 4 / 18,
+  // },
   {
     id: 'innovation',
     label: 'Innovation',
     description:
       'Is the project a creative, original, and a suitable solution to the problem? Does the product introduce a new approach or perspective?',
     value: 5,
-    weight: 3 / 18,
+    // weight: 3 / 18,
+    weight: 1 / 4,
   },
   {
     id: 'design',
@@ -68,23 +69,36 @@ export const JUDGING_RUBRIC = [
     description:
       'Is the design accessible (e.g. high contrast for good visibility, etc.) and aesthetically pleasing?',
     value: 5,
-    weight: 4 / 18,
+    // weight: 4 / 18,
+    weight: 1 / 4,
   },
+  // {
+  //   id: 'technicalCompletion',
+  //   label: 'Technical Completion',
+  //   description:
+  //     'Does the hack work? Does the team present a clear explanation on the implementation and how it works? Does it seem finished or does it seem rough around the edges?',
+  //   value: 5,
+  //   weight: 4 / 18,
+  // },
+  // ------------------ HC
   {
-    id: 'technicalCompletion',
-    label: 'Technical Completion',
+    id: 'creativity',
+    label: 'Creativity',
     description:
-      'Does the hack work? Does the team present a clear explanation on the implementation and how it works? Does it seem finished or does it seem rough around the edges?',
+      'How original, nuanced, or unique is the work through its purpose, structure, or functions? Does the team incorporate different perspectives to incorporate diversity, inclusivity, and/or accessibility?',
     value: 5,
-    weight: 4 / 18,
+    // weight: 4 / 18,
+    weight: 1 / 4,
   },
+  // ------------------ HC
   {
     id: 'presentation',
     label: 'Presentation',
     description:
       'Is the presentation well-prepared and smooth? Does it make a good business case for the project? Are statistics used when relevant?',
     value: 5,
-    weight: 3 / 18,
+    // weight: 3 / 18,
+    weight: 1 / 4,
   },
 ]
 
@@ -125,19 +139,23 @@ export const EVENTS_ATTENDED = Object.freeze({
   cmdf2019: 'cmd-f 2019',
   cmdf2020: 'cmd-f 2020',
   cmdf2021: 'cmd-f 2021',
+  hackCamp2021: 'HackCamp 2021',
+  hackCamp2022: 'HackCamp 2022',
+  nwHacks2021: 'nwHacks 2021',
+  nwHacks2022: 'nwHacks 2022',
 })
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
-  // Commenting out for cmd-f 2022
-  // vaccineInfo: {
-  //   willBeDoubleVaxed: false,
-  // },
+  vaccineInfo: {
+    willBeDoubleVaxed: false,
+  },
   basicInfo: {
     email: '',
     firstName: '',
     middleName: '',
     lastName: '',
+    preferredName: '',
     gender: '',
     pronouns: '',
     ethnicity: {
@@ -164,6 +182,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     linkedin: '',
     github: '',
     longAnswers1: '',
+    longAnswers2: '',
   },
   questionnaire: {
     engagementSource: '',

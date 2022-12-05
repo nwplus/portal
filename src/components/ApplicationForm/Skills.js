@@ -80,7 +80,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 12</QuestionHeading>
+        <QuestionHeading>question 13</QuestionHeading>
         <SubHeading>
           Is this your first hackathon?
           <Required />
@@ -102,7 +102,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 13</QuestionHeading>
+        <QuestionHeading>question 14</QuestionHeading>
         <SubHeading>
           Help us get to know you better by providing as many links as you feel will support your
           registration!
@@ -110,11 +110,12 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         <P>
           We will be looking at your resume and GitHub if you're a developer, and we will be looking
           at your resume and portfolio if you're a designer. Please ensure the links are publicly
-          accessible by opening them in an incognito browser.
+          accessible by opening them in an incognito browser. Resume cannot exceed 2MB and must be a
+          PDF document.
         </P>
 
         <QuestionForm>
-          <FormRow fieldValue="resume">
+          <FormRow fieldValue="resume" required>
             <ResumeUploadBtn
               onChange={e => {
                 if (e.target.files[0]) {
@@ -161,9 +162,9 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             </>
           ) : (
             <>
-              <FormRow fieldValue="GitHub/BitBucket/GitLab">
+              <FormRow fieldValue="GitHub/BitBucket/GitLab" required>
                 <TextInput
-                  placeholder="Optional"
+                  placeholder="Required"
                   size="large"
                   value={formInputs.github}
                   invalid={!!errors.github}
@@ -211,20 +212,20 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 14</QuestionHeading>
-        <SubHeading>
-          Open ended question! We recommend to not write more than a paragraph, your response should
-          be concise, sweet and sufficient.
-        </SubHeading>
+        <QuestionHeading>question 15</QuestionHeading>
+        <SubHeading>General question</SubHeading>
+        <P>
+          Although many come to hackathons to work together to build a software project, we
+          recognize that there may be other reasons for attending an hackathon, such as attending
+          workshops, or connecting with sponsors.
+        </P>
         <SubHeading size="1.25em">
-          <span role="img" aria-label="Seedling emoji">
-            🌱
-          </span>{' '}
-          How do you intend to grow at cmd-f?
+          In your own words, describe your definition of a hackathon, and what it means to you. (max
+          200 words)
           <Required />
         </SubHeading>
         <StyledTextArea
-          maxLength="500"
+          maxWords="200"
           width="100%"
           value={formInputs.longAnswers1}
           invalid={!!errors.longAnswers1}
@@ -234,7 +235,34 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
               longAnswers1: val,
             })
           }
-          customRef={refs['longAnswersRef']}
+          customRef={refs['longAnswers1Ref']}
+        />
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 16</QuestionHeading>
+        <SubHeading>Open ended question!</SubHeading>
+        <P>
+          We recommend to not write more than a paragraph. Your response should be concise, sweet
+          and sufficient.
+        </P>
+        <SubHeading size="1.25em">
+          Please answer one of below two questions (max 200 words) <Required /> <br />
+          Option 1: How would you like to challenge yourself during this hackathon? <br />
+          Option 2: What should technology be used for?
+        </SubHeading>
+        <StyledTextArea
+          maxWords="200"
+          width="100%"
+          value={formInputs.longAnswers2}
+          invalid={!!errors.longAnswers2}
+          errorMsg={errors.longAnswers2}
+          onChange={val =>
+            onChange({
+              longAnswers2: val,
+            })
+          }
+          customRef={refs['longAnswers2Ref']}
         />
       </FormSpacing>
     </>

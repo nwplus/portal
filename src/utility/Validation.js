@@ -11,7 +11,7 @@ const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it 
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
-const LONG_ANSWER_CHAR_LIMIT = 500
+const LONG_ANSWER_WORD_LIMIT = 200
 export const validateURL = thing => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -124,6 +124,22 @@ const noInvalidResumeFunction = thing => {
   }
 }
 
+const getWords = value => {
+  const split = value?.split(' ')
+  if (split.length === 1) {
+    if (split[0] === '') {
+      return 0
+    } else {
+      return 1
+    }
+  }
+  const cleanedSplit = []
+  for (let i = 0; i < split.length; i++) {
+    if (split[i] !== '') cleanedSplit.push(split[i])
+  }
+  return cleanedSplit.length || 0
+}
+
 export const checkForError = errors => {
   if (!errors) return true
   return Object.values(errors).some(val => val !== false)
@@ -159,10 +175,9 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
-  // Commenting out for cmd-f 2022
-  // vaccineInfo: {
-  //   willBeDoubleVaxed: mustBeVaccinatedFunction,
-  // },
+  vaccineInfo: {
+    willBeDoubleVaxed: mustBeVaccinatedFunction,
+  },
   basicInfo: {
     email: email => {
       return {
@@ -172,6 +187,7 @@ const validators = {
     },
     firstName: noEmptyFunction,
     lastName: noEmptyFunction,
+    preferredName: noEmptyFunction,
     gender: noEmptyFunction,
     pronouns: noEmptyFunction,
     ethnicity: noNoneFunction,
@@ -190,16 +206,21 @@ const validators = {
     },
   },
   skills: {
-    // Commenting out for cmd-f 2022
-    // resume: noInvalidResumeFunction,
+    resume: noEmptyFunction,
     portfolio: optionalURLFunction,
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
     hackathonsAttended: noNeitherFunction,
     longAnswers1: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || answer.length > LONG_ANSWER_CHAR_LIMIT,
-        message: answer.length > LONG_ANSWER_CHAR_LIMIT ? '' : NOT_EMPTY,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
+        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+      }
+    },
+    longAnswers2: answer => {
+      return {
+        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
+        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
   },

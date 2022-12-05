@@ -44,11 +44,11 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: 'linear-gradient(to bottom, #52999F, #173351)', // linear-gradient(to bottom, #52999F, #051439)
+    background: '#544D92', //'linear-gradient(to bottom left, #C5ACE5, #454390)', // linear-gradient(to bottom, #52999F, #051439)
     card: '#182B47',
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackgroundTransparent: '#FFB72Cbb', // before: #1D1B24bb
-    secondaryBackground: '#051439',
+    secondaryBackgroundTransparent: '#10186Cbb', // before: #1D1B24bb
+    secondaryBackground: '#635BA4',
     sidebar: {
       link: '#fff',
     },
@@ -56,24 +56,31 @@ const nwTheme = {
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     foreground: '#4F4A59',
-    primary: '#FFB72C',
+    primary: '#10186C',
     default: '#BEBEBE',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
     highlight: 'rgba(255, 255, 255, 0.5)',
-    text: '#fff',
+    text: '#FFF',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
-    primaryGradient: 'linear-gradient(180deg, #4DE8C2 0%, #18CDCD 100%, #19CBCB 100%)', // button
+    primaryGradient: 'linear-gradient(180deg, #FED9CD 0%, #CDCAEC 100%)', // button
     primaryGradientHover: 'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
     tertiaryHover: '#1EEDC8', // button hover
     selects: {
-      hover: 'rgba(77, 232, 194, 0.2)',
-      focus: 'rgba(77, 232, 194, 0.4)',
+      hover: 'rgba(197, 172, 229, 0.2)',
+      focus: 'rgba(197, 172, 229, 0.4)',
+      border: '#10186C',
+      placeholder: '#10186C',
+      text: '#fff',
+    },
+    button: {
+      text: 'white',
+      background: '#959AFB',
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
-    banner: 'rgba(75, 65, 130, 0.2)',
+    banner: 'rgba(0,0,0,0)',
     login: {
       googleBg: '#fff',
       googleText: '#000',
@@ -192,7 +199,7 @@ const cmdfTheme = {
 }
 
 const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
-let selectedTheme = hackcampTheme
+let selectedTheme = nwTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')
