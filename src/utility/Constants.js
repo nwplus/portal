@@ -139,6 +139,10 @@ export const EVENTS_ATTENDED = Object.freeze({
   cmdf2019: 'cmd-f 2019',
   cmdf2020: 'cmd-f 2020',
   cmdf2021: 'cmd-f 2021',
+  hackCamp2021: 'HackCamp 2021',
+  hackCamp2022: 'HackCamp 2022',
+  nwHacks2021: 'nwHacks 2021',
+  nwHacks2022: 'nwHacks 2022',
 })
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({

@@ -53,6 +53,7 @@ const StyledH1 = styled(H1)`
 `
 
 const StyledBanner = styled(Banner)`
+  background-color: ${p => p.theme.colors.secondaryBackground};
   && {
     top: 18em;
     padding: 0;
@@ -128,8 +129,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </CenterH1>
       </FormSpacing>
 
-      {/* Commenting out for cmd-f 2022 */}
-      {/* <ReviewContainer>
+      <ReviewContainer>
         <JohnDiv>
           <QuestionHeading>Vaccination Status</QuestionHeading>
           <Button
@@ -154,7 +154,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             />
           </ContentWrapper>
         </StyledBanner>
-      </ReviewContainer> */}
+      </ReviewContainer>
 
       <ReviewContainer>
         <JohnDiv>
@@ -231,8 +231,12 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
             <InfoGroup
-              heading="How do you intend to grow at cmd-f?"
+              heading="In your own words, describe your definition of a hackathon, and what it means to you."
               data={formInputs.skills.longAnswers1}
+            />
+            <InfoGroup
+              heading="How would you like to challenge yourself during this hackathon? / What should technology be used for?"
+              data={formInputs.skills.longAnswers2}
             />
           </ContentWrapper>
         </StyledBanner>
@@ -260,13 +264,14 @@ export default ({ formInputs, handleEdit, onChange }) => {
               }
             />
             <InfoGroup
-              heading="Previous cmd-f events attended:"
+              heading="Previous events attended:"
               data={attendedValues.length ? attendedValues : 'None'}
             />
-            <InfoGroup
+            {/* Commenting out for nwHacks 2023 */}
+            {/* <InfoGroup
               heading="Email of friend you're applying with:"
               data={formInputs.questionnaire.friendEmail}
-            />
+            /> */}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>

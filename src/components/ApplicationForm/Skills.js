@@ -246,10 +246,9 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           and sufficient.
         </P>
         <SubHeading size="1.25em">
-          Please answer one of below two questions (max 200 words) <br />
+          Please answer one of below two questions (max 200 words) <Required /> <br />
           Option 1: How would you like to challenge yourself during this hackathon? <br />
           Option 2: What should technology be used for?
-          <Required />
         </SubHeading>
         <StyledTextArea
           maxWords="200"

@@ -87,13 +87,13 @@ export default ({ errors, formInputs, onChange }) => {
         <Select
           type="checkbox"
           label="HackCamp 2021"
-          checked={formInputs.eventsAttended.mentorship}
+          checked={formInputs.eventsAttended.hackCamp2021}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                hackCamp2021: !formInputs.eventsAttended.mentorship,
+                hackCamp2021: !formInputs.eventsAttended.hackCamp2021,
               },
             })
           }
@@ -101,13 +101,13 @@ export default ({ errors, formInputs, onChange }) => {
         <Select
           type="checkbox"
           label="HackCamp 2022"
-          checked={formInputs.eventsAttended.phase1}
+          checked={formInputs.eventsAttended.hackCamp2022}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                hackCamp2022: !formInputs.eventsAttended.phase1,
+                hackCamp2022: !formInputs.eventsAttended.hackCamp2022,
               },
             })
           }
@@ -115,13 +115,13 @@ export default ({ errors, formInputs, onChange }) => {
         <Select
           type="checkbox"
           label="nwHacks 2021"
-          checked={formInputs.eventsAttended.phase2}
+          checked={formInputs.eventsAttended.nwHacks2021}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                nwHacks2021: !formInputs.eventsAttended.phase2,
+                nwHacks2021: !formInputs.eventsAttended.nwHacks2021,
               },
             })
           }
@@ -129,13 +129,13 @@ export default ({ errors, formInputs, onChange }) => {
         <Select
           type="checkbox"
           label="nwHacks 2022"
-          checked={formInputs.eventsAttended.cmdf2019}
+          checked={formInputs.eventsAttended.nwHacks2022}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                nwHacks2022: !formInputs.eventsAttended.cmdf2019,
+                nwHacks2022: !formInputs.eventsAttended.nwHacks2022,
               },
             })
           }
