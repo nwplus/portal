@@ -45,10 +45,10 @@ const StyledButton = styled.a`
     `}
   ${p =>
     (p.color === 'primary' || !p.color) && // primary color (gradient button) or not specified color
-    `color: ${p.theme.colors.secondaryBackground};
-    background: ${p.theme.colors.primary};
+    `color: ${p.theme.colors.button.text};
+    background: ${p.theme.colors.button.background};
     :hover {
-      ${p.disabled ? `cursor: not-allowed;` : `background: ${p.theme.colors.tertiaryHover};`}
+      ${p.disabled ? `cursor: not-allowed;` : `filter: brightness(0.85);`}
     }
     :focus {
       box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};

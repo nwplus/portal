@@ -45,7 +45,7 @@ const AppLinks = styled.div`
 `
 
 const HackerAppText = styled.p`
-  color: ${p => p.theme.colors.default};
+  color: ${p => p.theme.colors.text};
   margin-top: 1.55em;
 `
 
@@ -67,14 +67,14 @@ const StatusContainer = styled.div`
 `
 
 const AppStatusText = styled.p`
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.text};
   font-size: 1.25em;
   font-weight: 700;
   margin-top: 0;
 `
 
 const StatusBlurbText = styled.p`
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.text};
   font-weight: 700;
   line-height: 2em;
   margin-top: 0.75em;
@@ -189,7 +189,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   },
 })
 
-const SocialMediaLinks = () => {
+export const SocialMediaLinks = () => {
   // TODO: Color of icons for HackCamp TBD
   const UpdateAnalytics = socialName => {
     analytics.logEvent(ANALYTICS_EVENTS.SocialMediaConversion, { socialMedia: socialName })

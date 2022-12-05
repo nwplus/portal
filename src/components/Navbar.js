@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { P } from './Typography'
-import icon from '../assets/nwplus_icon.svg'
+import icon from '../assets/nwhacks_logo_white.svg'
+import poweredBy from '../assets/powered_by_livepeer.svg'
 import { Button } from './Input'
 import { withTheme } from 'styled-components'
 
@@ -20,14 +21,22 @@ const NavContainer = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     height: 3em;
   }
+  background: linear-gradient(to bottom, #544d92, rgba(33, 30, 57, 0));
 `
 
 const Icon = styled.img`
-  margin-inline-start: auto;
   width: 30px;
   height: 42px;
   ${p => p.theme.mediaQueries.mobile} {
     width: 15px;
+    height: 21px;
+  }
+`
+const SponsorIcon = styled.img`
+  width: 100px;
+  height: 42px;
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 35px;
     height: 21px;
   }
 `
@@ -41,6 +50,12 @@ const Greeting = styled(P)`
     font-weight: 700;
     font-size: 14px;
   }
+`
+
+const LogoContainer = styled.div`
+  margin-inline-start: auto;
+  display: flex;
+  gap: 0.5rem;
 `
 
 const NavBar = ({ name, handleLogout, children, theme }) => {
@@ -60,7 +75,12 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
             <Greeting>Hi, {name}</Greeting>
           </>
         )}
-        {theme.name === 'nwHacks' && <Icon src={icon} alt={theme.name} />}
+        {theme.name === 'nwHacks' && (
+          <LogoContainer>
+            <SponsorIcon src={poweredBy} alt="powered by Livepeer" />
+            <Icon src={icon} alt={theme.name} />
+          </LogoContainer>
+        )}
       </NavContainer>
       {children}
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike, TextInputLike } from '../Common.js'
 import { ErrorMessage, Message } from '../Typography'
@@ -17,6 +18,7 @@ export const TextArea = ({
   value,
   onChange,
   maxLength,
+  maxWords,
   placeholder,
   invalid,
   errorMsg,
@@ -26,16 +28,33 @@ export const TextArea = ({
   ...rest
 }) => {
   const [isLengthExceeded, setIsLengthExceeded] = useState(false)
+  const getWords = useCallback(() => {
+    const split = value?.split(' ')
+    if (split.length === 1) {
+      if (split[0] === '') {
+        return 0
+      } else {
+        return 1
+      }
+    }
+    const cleanedSplit = []
+    for (let i = 0; i < split.length; i++) {
+      if (split[i] !== '') cleanedSplit.push(split[i])
+    }
+    return cleanedSplit.length || 0
+  }, [value])
   useEffect(() => {
     // debounced with setTimeout
     const handler = setTimeout(() => {
-      setIsLengthExceeded(maxLength && value && value.length > maxLength)
+      setIsLengthExceeded(
+        maxLength ? value && value.length > maxLength : maxWords ? getWords() > maxWords : false
+      )
     }, 500)
 
     return () => {
       clearTimeout(handler)
     }
-  }, [maxLength, value])
+  }, [maxLength, value, maxWords, getWords])
 
   return (
     <div className={className}>
@@ -45,7 +64,11 @@ export const TextArea = ({
         onChange={val => onChange(val.target.value)}
         invalid={invalid || isLengthExceeded}
         placeholder={`${placeholder !== null || placeholder !== undefined ? '' : placeholder} ${
-          maxLength == null ? '' : `Maximum of ${maxLength} characters`
+          maxLength == null
+            ? maxWords == null
+              ? ''
+              : `Maximum of ${maxWords} words`
+            : `Maximum of ${maxLength} characters`
         }`}
         ref={customRef}
         {...rest}
@@ -54,11 +77,20 @@ export const TextArea = ({
       {isLengthExceeded && (
         <ErrorMessage>
           {' '}
-          Sorry! It looks like your answer is {value.length - maxLength} character(s) over the
-          limit.{' '}
+          Sorry! It looks like your answer is{' '}
+          {maxLength
+            ? `${value.length - maxLength}  character(s)`
+            : `${getWords() - maxWords} word(s)`}{' '}
+          over the limit.{' '}
         </ErrorMessage>
       )}
-      {maxLength != null && <Message> {value.length} characters. </Message>}
+      {maxLength ? (
+        <Message> {value.length} characters.</Message>
+      ) : maxWords ? (
+        <Message> {`${getWords()} word${getWords() === 1 ? '' : 's'}.`}</Message>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

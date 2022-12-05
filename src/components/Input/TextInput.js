@@ -36,11 +36,11 @@ const TextInputBox = styled.input.attrs({
     height: 2em;
     :hover {
       ${TextInputNoOutline}
-      border-bottom-color: ${p => p.theme.colors.primary};
+      border-bottom-color: ${p => p.theme.colors.text};
     }
     :focus {
       ${TextInputNoOutline}
-      border-bottom-color: ${p => p.theme.colors.primary};
+      border-bottom-color: ${p => p.theme.colors.text};
     }
     `}
 `

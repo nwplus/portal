@@ -10,7 +10,7 @@ import {
   MAX_RESUME_FILE_SIZE_MB,
 } from '../../utility/Validation'
 
-const questionsByOrder = ['resume', 'portfolio', 'github', 'longAnswers']
+const questionsByOrder = ['resume', 'portfolio', 'github', 'longAnswers1', 'longAnswers2']
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -79,7 +79,8 @@ export default () => {
     resumeRef: useRef(null),
     githubRef: useRef(null),
     portfolioRef: useRef(null),
-    longAnswersRef: useRef(null),
+    longAnswers1Ref: useRef(null),
+    longAnswers2Ref: useRef(null),
   }
 
   return (
@@ -92,7 +93,7 @@ export default () => {
         handleResume={handleResume}
         errors={errors}
       />
-      <VerticalProgressBar percent={66} />
+      <VerticalProgressBar percent={75} />
       <NavigationButtons
         firstButtonText="Back"
         firstButtonOnClick={() => handleNavigation('/application/part-1')}

@@ -3,7 +3,10 @@ import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { QuestionHeading } from '../../components/Typography'
 import { FormSpacing, SubHeading } from './'
-import { CenteredH1, P } from '../Typography'
+import {
+  CenteredH1,
+  // P
+} from '../Typography'
 import { findElement } from '../../utility/utilities'
 import { copyText } from '../../utility/Constants'
 
@@ -13,9 +16,9 @@ const StyledDropdown = styled(Dropdown)`
   }
 `
 
-const StyledTextInput = styled(TextInput)`
-  margin: 0.5em 1em 1em 0;
-`
+// const StyledTextInput = styled(TextInput)`
+//   margin: 0.5em 1em 1em 0;
+// `
 
 export const options = [
   { value: '1', label: 'MLH' },
@@ -41,7 +44,7 @@ export default ({ errors, formInputs, onChange }) => {
         </CenteredH1>
       </FormSpacing>
       <FormSpacing>
-        <QuestionHeading>Question 15</QuestionHeading>
+        <QuestionHeading>Question 17</QuestionHeading>
         <SubHeading>How did you hear about {copyText.hackathonName}?</SubHeading>
         <StyledDropdown
           options={options}
@@ -74,65 +77,65 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>Question 16</QuestionHeading>
+        <QuestionHeading>Question 18</QuestionHeading>
         <SubHeading>
           <span role="img" aria-label="Grinning face with star eyes emoji">
             🤩
           </span>{' '}
-          Have you previously attended any cmd-f organized events? (select all that apply)
+          Have you previously attended any nwPlus organized events? (select all that apply)
         </SubHeading>
         <Select
           type="checkbox"
-          label="connect-f Mentorship Program"
-          checked={formInputs.eventsAttended.mentorship}
+          label="HackCamp 2021"
+          checked={formInputs.eventsAttended.hackCamp2021}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                mentorship: !formInputs.eventsAttended.mentorship,
+                hackCamp2021: !formInputs.eventsAttended.hackCamp2021,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f Phase 1: Resume Review &amp; Networking"
-          checked={formInputs.eventsAttended.phase1}
+          label="HackCamp 2022"
+          checked={formInputs.eventsAttended.hackCamp2022}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                phase1: !formInputs.eventsAttended.phase1,
+                hackCamp2022: !formInputs.eventsAttended.hackCamp2022,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f Phase 2: Intro to LinkedIn &amp; Networking Workshop"
-          checked={formInputs.eventsAttended.phase2}
+          label="nwHacks 2021"
+          checked={formInputs.eventsAttended.nwHacks2021}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                phase2: !formInputs.eventsAttended.phase2,
+                nwHacks2021: !formInputs.eventsAttended.nwHacks2021,
               },
             })
           }
         />
         <Select
           type="checkbox"
-          label="cmd-f 2019"
-          checked={formInputs.eventsAttended.cmdf2019}
+          label="nwHacks 2022"
+          checked={formInputs.eventsAttended.nwHacks2022}
           onChange={() =>
             onChange({
               ...formInputs,
               eventsAttended: {
                 ...formInputs.eventsAttended,
-                cmdf2019: !formInputs.eventsAttended.cmdf2019,
+                nwHacks2022: !formInputs.eventsAttended.nwHacks2022,
               },
             })
           }
@@ -167,8 +170,8 @@ export default ({ errors, formInputs, onChange }) => {
         />
       </FormSpacing>
 
-      <FormSpacing>
-        <QuestionHeading>question 17</QuestionHeading>
+      {/* <FormSpacing>
+        <QuestionHeading>question 19</QuestionHeading>
         <SubHeading>
           Are you registering with a friend? If so, insert their email here for a chance to win a
           small prize!
@@ -188,7 +191,7 @@ export default ({ errors, formInputs, onChange }) => {
             })
           }
         />
-      </FormSpacing>
+      </FormSpacing> */}
     </>
   )
 }

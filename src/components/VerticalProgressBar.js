@@ -5,7 +5,7 @@ const ProgressBarContainer = styled.div`
   width: 11px;
   height: ${p => p.vHeight || 50}vh;
   border-radius: 17px;
-  background-color: ${p => p.theme.colors.default};
+  background-color: ${p => p.theme.colors.secondaryBackground};
   position: fixed;
   top: 50%;
   margin-top: ${p => (p.vHeight ? -p.vHeight / 2 : -25)}vh;
