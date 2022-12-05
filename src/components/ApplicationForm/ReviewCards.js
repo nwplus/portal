@@ -331,7 +331,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               <A
                 bolded
                 color="primary"
-                href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md"
+                href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                 target="_blank"
               >
                 MLH Contest Terms and Conditions
