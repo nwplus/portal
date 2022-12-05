@@ -25,6 +25,10 @@ export const validateURL = thing => {
   return typeof thing === 'string' && !!pattern.test(thing)
 }
 
+export const validateGithubURL = thing => {
+  return validateURL(thing) && thing.includes('github.com')
+}
+
 export const validateDevpostURL = thing => {
   return validateURL(thing) && thing.includes('devpost.com')
 }
@@ -156,7 +160,7 @@ export const validateFormSection = (change, section) => {
 }
 
 export const validateEntireForm = application => {
-  // const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
+  const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
@@ -166,7 +170,7 @@ export const validateEntireForm = application => {
   )
 
   return {
-    // ...vaccineInfoErrors,
+    ...vaccineInfoErrors,
     ...basicInfoErrors,
     ...skillsErrors,
     ...questionnaireErrors,
@@ -208,7 +212,19 @@ const validators = {
   skills: {
     resume: noEmptyFunction,
     portfolio: optionalURLFunction,
-    github: optionalURLFunction,
+    github: answer => {
+      return typeof answer === 'string'
+        ? optionalURLFunction
+        : answer.required
+        ? {
+            error: !validateGithubURL(answer.link),
+            message: MANDATORY_URL,
+          }
+        : {
+            error: answer.link ? !validateURL(answer.link) : false,
+            message: OPTIONAL_URL,
+          }
+    },
     linkedin: optionalURLFunction,
     hackathonsAttended: noNeitherFunction,
     longAnswers1: answer => {

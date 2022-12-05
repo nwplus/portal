@@ -148,29 +148,44 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                 <TextInput
                   placeholder="Optional"
                   size="large"
-                  value={formInputs.github}
+                  value={
+                    typeof formInputs.github === 'string'
+                      ? formInputs.github
+                      : formInputs.github.link
+                  }
                   invalid={!!errors.github}
                   errorMsg={errors.github}
                   onChange={e =>
                     onChange({
-                      github: e.target.value,
+                      github: {
+                        required: false,
+                        link: e.target.value,
+                      },
                     })
                   }
+                  customRef={refs['githubRef']}
                 />
               </FormRow>
             </>
           ) : (
             <>
-              <FormRow fieldValue="GitHub/BitBucket/GitLab">
+              <FormRow fieldValue="GitHub/BitBucket/GitLab" required={role === 'developer'}>
                 <TextInput
-                  placeholder="Optional"
+                  placeholder={role === 'developer' ? 'Required' : 'Optional'}
                   size="large"
-                  value={formInputs.github}
+                  value={
+                    typeof formInputs.github === 'string'
+                      ? formInputs.github
+                      : formInputs.github.link
+                  }
                   invalid={!!errors.github}
                   errorMsg={errors.github}
                   onChange={e =>
                     onChange({
-                      github: e.target.value,
+                      github: {
+                        required: true,
+                        link: e.target.value,
+                      },
                     })
                   }
                   customRef={refs['githubRef']}
@@ -183,6 +198,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
                   value={formInputs.portfolio}
                   invalid={!!errors.portfolio}
                   errorMsg={errors.portfolio}
+                  customRef={refs['portfolioRef']}
                   onChange={e =>
                     onChange({
                       portfolio: e.target.value,

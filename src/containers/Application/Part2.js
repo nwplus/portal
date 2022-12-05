@@ -64,6 +64,7 @@ export default () => {
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
           if (newErrors[question]) {
+            console.log(newErrors)
             refs[`${question}Ref`].current.focus()
             break
           }

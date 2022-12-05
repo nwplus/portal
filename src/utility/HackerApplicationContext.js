@@ -40,8 +40,18 @@ export function HackerApplicationProvider({ children }) {
   useEffect(() => {
     const retrieveApplication = async () => {
       if (!user) return
-      const app = await getUserApplication(user.uid)
+      let app = await getUserApplication(user.uid)
       fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
+      app = {
+        ...app,
+        skills: {
+          ...app.skills,
+          github: {
+            required: app.basicInfo.contributionRole === 'developer',
+            link: app.skills.github,
+          },
+        },
+      }
       setApplication(app)
       setUpdated(false)
       analytics.logEvent(ANALYTICS_EVENTS.AccessApplication, { userId: user.uid })
@@ -55,11 +65,16 @@ export function HackerApplicationProvider({ children }) {
     if (!user || !applicationRef.current) return
     const updatedApp = {
       ...applicationRef.current,
+      skills: {
+        ...applicationRef.current.skills,
+        github: applicationRef.current.skills.github,
+      },
       submission: {
         lastUpdated: firebase.firestore.Timestamp.now(),
         submitted: false,
       },
     }
+    console.log(updatedApp)
     await updateUserApplication(user.uid, updatedApp)
     setApplication(updatedApp)
     applicationRef.current = updatedApp
