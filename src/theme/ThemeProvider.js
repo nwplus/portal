@@ -47,8 +47,9 @@ const nwTheme = {
     background: '#3C4BA5', // Background
     card: '#0A1361', // BG Accent
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackgroundTransparent: '#10186Cbb', // before: #1D1B24bb
-    secondaryBackground: '#5667CF', // Primary 1
+    secondaryBackgroundTransparent: '#253281', // before: #10186Cbb (hover animation for side bar buttons)
+    secondaryBackgroundTransparentHover: '#0A1361',
+    secondaryBackground: '#5667CF', // Side bar background
     sidebar: {
       link: '#fff',
     },
@@ -56,8 +57,8 @@ const nwTheme = {
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     foreground: '#4F4A59',
-    primary: '#253281', // Primary
-    default: '#BEBEBE',
+    primary: '#3C4BA5',
+    default: '#FFFFFF',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
     highlight: 'rgba(255, 255, 255, 0.5)',
@@ -70,13 +71,19 @@ const nwTheme = {
     selects: {
       hover: 'rgba(197, 172, 229, 0.2)',
       focus: 'rgba(197, 172, 229, 0.4)',
-      border: '#253281',
-      placeholder: '#253281',
+      border: '#0B1361', //  Text input form
+      placeholder: '#CFD6FF', // Placeholder text in form
       text: '#fff',
     },
     button: {
-      text: 'white',
-      background: '#959AFB',
+      // Application form buttons
+      text: '#8486E4',
+      background: '#FEF4F0', //'#959AFB',
+      border: '#9AD4DE',
+      hoverbg: '#ECDDD7',
+      hoverborder: '#A4A9F1',
+      outlineBackground: 'transparent',
+      outlineBorder: '#9AD4DE',
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
@@ -111,7 +118,7 @@ const hackcampTheme = {
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
     primary: '#FFBC96',
-    default: '#BEBEBE',
+    default: '#FFFFFF',
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',

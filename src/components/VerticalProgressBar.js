@@ -18,7 +18,7 @@ const ProgressBarContainer = styled.div`
 const ProgressBarFill = styled.div`
   height: ${p => p.percent}%;
   width: 100%;
-  background-color: ${p => p.theme.colors.primary};
+  background-color: ${p => p.theme.colors.card};
   border-radius: inherit;
   transition: height 0.3s ease-in;
 `

@@ -52,6 +52,15 @@ const HackerAppText = styled.p`
 const EditAppButton = styled(Button)`
   width: 250px;
   margin-right: 0;
+  float: right;
+  margin-top: 0px;
+
+  ${p => p.theme.mediaQueries.desktop} {
+    position: relative;
+    left: -10px;
+    float: left;
+    margin-top: 20px;
+  }
 `
 
 const StatusContainer = styled.div`
@@ -98,6 +107,7 @@ const SocialIconContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 180px;
+  float: left;
 `
 
 const RSVPButton = styled(Button)`
@@ -246,18 +256,6 @@ const Dashboard = ({
       </WelcomeHeader>
       <AppLinks>
         <HackerAppText>YOUR HACKER REGISTRATION</HackerAppText>
-        <EditAppButton
-          color="secondary"
-          height="short"
-          onClick={
-            isApplicationOpen &&
-            hackerStatus === APPLICATION_STATUS.inProgress &&
-            (() => editApplication())
-          }
-          disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
-        >
-          Complete Your Registration
-        </EditAppButton>
       </AppLinks>
       <StatusContainer>
         <div>
@@ -268,7 +266,22 @@ const Dashboard = ({
             {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}
           </StatusBlurbText>
         </div>
-        <SocialMediaLinks />
+        <div>
+          <SocialMediaLinks />
+          <EditAppButton
+            color="secondary"
+            height="short"
+            onClick={
+              isApplicationOpen &&
+              hackerStatus === APPLICATION_STATUS.inProgress &&
+              (() => editApplication())
+            }
+            disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
+          >
+            Complete Your Registration
+          </EditAppButton>
+        </div>
+        {/* <SocialMediaLinks /> */}
         <FooterContainer>
           <RSVPButton
             width="flex"

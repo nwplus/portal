@@ -2,11 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledIcon = styled.i`
-  color: ${p => p.color || p.theme.colors.primary};
+  color: ${p => p.color || p.theme.colors.link};
   transition: color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   &:hover {
-    color: ${p => p.color || p.theme.colors.secondary};
+    color: ${p => p.color || p.theme.colors.secondaryBackgroundTransparent};
   }
 `
 

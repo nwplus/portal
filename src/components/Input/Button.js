@@ -47,23 +47,30 @@ const StyledButton = styled.a`
     (p.color === 'primary' || !p.color) && // primary color (gradient button) or not specified color
     `color: ${p.theme.colors.button.text};
     background: ${p.theme.colors.button.background};
+    border: solid ${p.theme.colors.button.border} 2px;
+    border-radius: 10px;
     :hover {
-      ${p.disabled ? `cursor: not-allowed;` : `filter: brightness(0.85);`}
+      // ${p.disabled ? `cursor: not-allowed;` : `filter: brightness(0.85);`}
+      background: ${p.theme.colors.button.hoverbg};
+      border: solid ${p.theme.colors.button.hoverborder} 2px;
     }
     :focus {
       box-shadow: 0 0 0 .2rem ${hexToRgba(p.theme.colors.primary, 0.5)};
   }`}
   ${p =>
     p.color === 'secondary' && // secondary color (outline button)
-    `color: ${p.theme.colors.primary};
-    background: ${hexToRgba(p.theme.colors.primary, 0)};
-    border: 1px solid ${p.theme.colors.primary};
+    `color: ${p.theme.colors.button.text};
+    border-radius: 10px;
+    background: ${p.theme.colors.button.outlineBackground};
+    border: 2px solid ${p.theme.colors.button.outlineBorder};
     :hover {
       ${
         p.disabled
           ? `cursor: not-allowed;`
           : `background: ${hexToRgba(p.theme.colors.primary, 0.2)};`
       }
+      color: ${p.theme.colors.text};
+      background: ${p.theme.colors.secondaryBackground};
     }
     :focus {
       background: ${hexToRgba(p.theme.colors.primary, 0.5)};

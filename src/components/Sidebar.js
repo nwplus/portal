@@ -85,29 +85,30 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 50px 1em 2rem;
   border-bottom: none;
+  background: ${p => p.theme.colors.secondaryBackgroundTransparent};
 
   color: ${p => p.theme.colors.sidebar.link};
 
   ${p =>
     p.selected &&
     `
-    background: ${p.theme.colors.primary};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
 
     &:hover {
       color: #ffffff;
-      background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+      background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
       border-bottom: none;
     }
   `}
 
   &:hover {
     color: #ffffff;
-    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
     border-bottom: none;
   }
   &:focus {
     color: #ffffff;
-    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
     border-bottom: none;
   }
 `
@@ -115,7 +116,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.secondaryBackground};
+  background: ${p => p.theme.colors.default};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -128,8 +129,8 @@ const LiveLabel = styled.p`
   font-weight: 600;
   font-size: 0.9em;
   border-radius: 7px;
-  background: linear-gradient(to bottom left, #cfcdf0, #f3d5d5);
-  color: ${p => p.theme.colors.secondaryBackground};
+  background: ${p => p.theme.colors.primaryGradient};
+  color: ${p => p.theme.colors.default};
   width: 4em;
   padding: 5px;
 `
@@ -301,7 +302,7 @@ export default ({
         )}
       </ItemsContainer>
       {isAuthed && (
-        <StyledButton color="secondary" onClick={logout}>
+        <StyledButton color="primary" onClick={logout}>
           Logout
         </StyledButton>
       )}
