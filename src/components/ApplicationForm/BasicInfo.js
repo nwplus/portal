@@ -11,10 +11,10 @@ import { findElement, creatableDropdownValue } from '../../utility/utilities'
 import { copyText, ETHNICITY_OPTIONS } from '../../utility/Constants'
 
 const genderOptions = [
-  { value: 'female', label: 'Female' },
-  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Woman' },
+  { value: 'male', label: 'Man' },
   { value: 'non-binary', label: 'Non-binary' },
-  { value: 'other', label: 'Other' },
+  { value: 'other', label: 'Prefer to self-describe' },
   { value: 'prefer not to say', label: 'Prefer not to say' },
 ]
 
@@ -28,10 +28,14 @@ const pronounOptions = [
 ]
 
 const educationOptions = [
-  { value: 'high school', label: 'High school' },
-  { value: 'undergraduate', label: 'Undergraduate' },
-  { value: 'graduate', label: 'Graduate or Post-Graduate' },
-  { value: 'recent-graduate', label: 'Recently graduated' },
+  { value: 'high school', label: 'Secondary/High school' },
+  {
+    value: 'undergraduate college',
+    label: 'Undergraduate University (2 year - community college or similar)',
+  },
+  { value: 'undergraduate full', label: 'Undergraduate University (3+ year)' },
+  { value: 'graduate', label: 'Graduate University (Masters, Professional, Doctoral, etc)' },
+  { value: 'not-a-student', label: `I'm not currently a student` },
   { value: 'other', label: 'Other' },
 ]
 
