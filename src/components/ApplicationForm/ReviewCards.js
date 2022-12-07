@@ -90,6 +90,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
+  const countryOfResidence = capitalizeFirstLetter(formInputs.basicInfo.countryOfResidence)
   const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
 
   const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ETHNICITY_OPTIONS[e])
@@ -184,13 +185,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="Gender:" data={gender} />
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
             <InfoGroup
-              heading="19 Years Old or Older:"
+              heading="Age by January 14th, 2023:"
               data={
-                formInputs.basicInfo.isOfLegalAge
-                  ? 'Yes'
-                  : formInputs.basicInfo.isOfLegalAge === null
-                  ? ''
-                  : 'No'
+                formInputs.basicInfo.ageByHackathon === 'other'
+                  ? formInputs.basicInfo.otherAgeByHackathon
+                  : formInputs.basicInfo.ageByHackathon
               }
             />
             <InfoGroup heading="Phone Number:" data={formInputs.basicInfo.phoneNumber} />
@@ -205,6 +204,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               heading={`Contribution at ${copyText.hackathonName}:`}
               data={contributionRole}
             />
+            <InfoGroup heading="Country of Residence:" data={countryOfResidence} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -322,8 +322,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
           >
             <span>
               I authorize nwPlus to share my application/registration information for event
-              administration, ranking, MLH administration, pre- and post-event informational
-              e-mails, and occasional messages about hackathons in-line with the{' '}
+              administration, ranking, MLH administration, in-line with the{' '}
               <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
                 MLH Privacy Policy
               </A>
@@ -338,6 +337,20 @@ export default ({ formInputs, handleEdit, onChange }) => {
               </A>{' '}
               and the MLH Privacy Policy.
               <Required />
+            </span>
+          </Checkbox>
+          <Checkbox
+            flex
+            checked={formInputs.termsAndConditions.MLHEmailSubscription}
+            onChange={() =>
+              onChange({
+                MLHEmailSubscription: !formInputs.termsAndConditions.MLHEmailSubscription,
+              })
+            }
+          >
+            <span>
+              I authorize MLH to send me pre- and post-event informational emails, which contain
+              free credit and opportunities from their partners. and the MLH Privacy Policy.
             </span>
           </Checkbox>
         </ContentWrapper>

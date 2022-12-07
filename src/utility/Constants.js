@@ -167,13 +167,14 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       other: false,
       preferNot: false,
     },
-    isOfLegalAge: null,
+    ageByHackathon: null,
     phoneNumber: '',
     school: '',
     major: '',
     educationLevel: '',
     graduation: null,
     contributionRole: '',
+    countryOfResidence: '',
   },
   skills: {
     hackathonsAttended: null,
@@ -202,6 +203,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   termsAndConditions: {
     MLHCodeOfConduct: false,
     MLHPrivacyPolicy: false,
+    MLHEmailSubscription: false,
     shareWithnwPlus: false,
     shareWithSponsors: false,
   },
