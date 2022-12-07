@@ -692,7 +692,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
-        What is your expected graduation year?
+        What is your (expected) graduation year?
         <Required />
       </SubHeading>
       {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}

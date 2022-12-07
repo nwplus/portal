@@ -351,7 +351,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <span>
               I authorize MLH to send me pre- and post-event informational emails, which contain
               free credit and opportunities from their partners. and the MLH Privacy Policy.
-              <Required />
             </span>
           </Checkbox>
         </ContentWrapper>
