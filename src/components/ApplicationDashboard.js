@@ -54,6 +54,9 @@ const EditAppButton = styled(Button)`
   margin-right: 0;
   float: right;
   margin-top: 0px;
+  background: ${p => p.theme.colors.button.grey600};
+  border: solid 2px ${p => p.theme.colors.button.grey700};
+  color: ${p => p.theme.colors.button.grey700};
 
   ${p => p.theme.mediaQueries.desktop} {
     position: relative;
@@ -269,7 +272,6 @@ const Dashboard = ({
         <div>
           <SocialMediaLinks />
           <EditAppButton
-            color="secondary"
             height="short"
             onClick={
               isApplicationOpen &&
