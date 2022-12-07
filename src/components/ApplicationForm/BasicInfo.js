@@ -23,7 +23,7 @@ const pronounOptions = [
   { value: 'they/them', label: 'they/them' },
   { value: 'ze/zir', label: 'ze/zir' },
   { value: 'he/him', label: 'he/him' },
-  { value: 'other', label: 'Prefer to self describe' },
+  { value: 'other', label: 'Prefer to self-describe' },
   { value: 'prefer not to say', label: 'Prefer not to say' },
 ]
 
