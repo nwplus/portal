@@ -202,6 +202,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   termsAndConditions: {
     MLHCodeOfConduct: false,
     MLHPrivacyPolicy: false,
+    MLHEmailSubscription: false,
     shareWithnwPlus: false,
     shareWithSponsors: false,
   },

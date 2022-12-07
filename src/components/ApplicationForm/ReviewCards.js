@@ -322,8 +322,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
           >
             <span>
               I authorize nwPlus to share my application/registration information for event
-              administration, ranking, MLH administration, pre- and post-event informational
-              e-mails, and occasional messages about hackathons in-line with the{' '}
+              administration, ranking, MLH administration, in-line with the{' '}
               <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
                 MLH Privacy Policy
               </A>
@@ -337,6 +336,21 @@ export default ({ formInputs, handleEdit, onChange }) => {
                 MLH Contest Terms and Conditions
               </A>{' '}
               and the MLH Privacy Policy.
+              <Required />
+            </span>
+          </Checkbox>
+          <Checkbox
+            flex
+            checked={formInputs.termsAndConditions.MLHEmailSubscription}
+            onChange={() =>
+              onChange({
+                MLHEmailSubscription: !formInputs.termsAndConditions.MLHEmailSubscription,
+              })
+            }
+          >
+            <span>
+              I authorize MLH to send me pre- and post-event informational emails, which contain
+              free credit and opportunities from their partners. and the MLH Privacy Policy.
               <Required />
             </span>
           </Checkbox>

@@ -230,6 +230,7 @@ const validators = {
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,
     MLHPrivacyPolicy: validateTrueFunction,
+    MLHEmailSubscription: validateTrueFunction,
     shareWithnwPlus: validateTrueFunction,
   },
 }
