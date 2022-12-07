@@ -14,12 +14,13 @@ const questionsByOrder = [
   'gender',
   'pronouns',
   'ethnicity',
-  'isOfLegalAge',
+  'ageByHackathon',
   'educationLevel',
   'school',
   'major',
   'graduation',
   'contributionRole',
+  'countryOfResidence',
 ]
 
 export default () => {
@@ -56,7 +57,7 @@ export default () => {
     genderRef: useRef(null),
     pronounsRef: useRef(null),
     ethnicityRef: useRef(null),
-    isOfLegalAgeRef: useRef(null),
+    ageByHackathonRef: useRef(null),
     phoneNumberRef: useRef(null),
     schoolRef: useRef(null),
     majorRef: useRef(null),
@@ -64,6 +65,7 @@ export default () => {
     graduationRef: useRef(null),
     hackathonsAttendedRef: useRef(null),
     contributionRoleRef: useRef(null),
+    countryOfResidenceRef: useRef(null),
     locationRef: useRef(null),
   }
 

@@ -191,13 +191,14 @@ const validators = {
     gender: noEmptyFunction,
     pronouns: noEmptyFunction,
     ethnicity: noNoneFunction,
-    isOfLegalAge: noNeitherFunction,
+    ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
     otherEducationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     contributionRole: noEmptyFunction,
+    countryOfResidence: noEmptyFunction,
     phoneNumber: number => {
       return {
         error: !validatePhoneNumber(number),
@@ -230,6 +231,7 @@ const validators = {
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,
     MLHPrivacyPolicy: validateTrueFunction,
+    // MLHEmailSubscription: validateTrueFunction,
     shareWithnwPlus: validateTrueFunction,
   },
 }

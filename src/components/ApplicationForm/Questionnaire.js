@@ -44,7 +44,7 @@ export default ({ errors, formInputs, onChange }) => {
         </CenteredH1>
       </FormSpacing>
       <FormSpacing>
-        <QuestionHeading>Question 17</QuestionHeading>
+        <QuestionHeading>Question 18</QuestionHeading>
         <SubHeading>How did you hear about {copyText.hackathonName}?</SubHeading>
         <StyledDropdown
           options={options}
@@ -77,7 +77,7 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>Question 18</QuestionHeading>
+        <QuestionHeading>Question 19</QuestionHeading>
         <SubHeading>
           <span role="img" aria-label="Grinning face with star eyes emoji">
             🤩
