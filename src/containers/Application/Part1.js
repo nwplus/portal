@@ -20,6 +20,7 @@ const questionsByOrder = [
   'major',
   'graduation',
   'contributionRole',
+  'countryOfResidence',
 ]
 
 export default () => {
@@ -64,6 +65,7 @@ export default () => {
     graduationRef: useRef(null),
     hackathonsAttendedRef: useRef(null),
     contributionRoleRef: useRef(null),
+    countryOfResidenceRef: useRef(null),
     locationRef: useRef(null),
   }
 

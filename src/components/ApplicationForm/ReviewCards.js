@@ -90,6 +90,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
+  const countryOfResidence = capitalizeFirstLetter(formInputs.basicInfo.countryOfResidence)
   const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
 
   const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ETHNICITY_OPTIONS[e])
@@ -205,6 +206,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               heading={`Contribution at ${copyText.hackathonName}:`}
               data={contributionRole}
             />
+            <InfoGroup heading="Country of Residence:" data={countryOfResidence} />
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>

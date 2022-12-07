@@ -174,6 +174,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     educationLevel: '',
     graduation: null,
     contributionRole: '',
+    countryOfResidence: '',
   },
   skills: {
     hackathonsAttended: null,

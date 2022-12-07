@@ -198,6 +198,7 @@ const validators = {
     otherEducationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     contributionRole: noEmptyFunction,
+    countryOfResidence: noEmptyFunction,
     phoneNumber: number => {
       return {
         error: !validatePhoneNumber(number),
