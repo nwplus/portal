@@ -167,7 +167,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       other: false,
       preferNot: false,
     },
-    isOfLegalAge: null,
+    ageByHackathon: null,
     phoneNumber: '',
     school: '',
     major: '',

@@ -185,13 +185,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="Gender:" data={gender} />
             <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
             <InfoGroup
-              heading="19 Years Old or Older:"
+              heading="Age by January 14th, 2023:"
               data={
-                formInputs.basicInfo.isOfLegalAge
-                  ? 'Yes'
-                  : formInputs.basicInfo.isOfLegalAge === null
-                  ? ''
-                  : 'No'
+                formInputs.basicInfo.ageByHackathon === 'other'
+                  ? formInputs.basicInfo.otherAgeByHackathon
+                  : formInputs.basicInfo.ageByHackathon
               }
             />
             <InfoGroup heading="Phone Number:" data={formInputs.basicInfo.phoneNumber} />

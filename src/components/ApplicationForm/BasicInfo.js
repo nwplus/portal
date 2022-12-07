@@ -48,6 +48,21 @@ const graduationOptions = [
   { value: 2027, label: '2027+' },
 ]
 
+const ageOptions = [
+  { value: 15, label: '15' },
+  { value: 16, label: '16' },
+  { value: 17, label: '17' },
+  { value: 18, label: '18' },
+  { value: 19, label: '19' },
+  { value: 20, label: '20' },
+  { value: 21, label: '21' },
+  { value: 22, label: '22' },
+  { value: 23, label: '23' },
+  { value: 24, label: '24' },
+  { value: 25, label: '25' },
+  { value: 'other', label: 'Other' },
+]
+
 const countryOptions = [
   { value: 'Afghanistan', label: 'Afghanistan' },
   { value: 'Åland Islands', label: 'Åland Islands' },
@@ -542,24 +557,38 @@ export default ({ refs, errors, formInputs, onChange }) => (
         <span role="img" aria-label="Baby chick emoji">
           🐥
         </span>{' '}
-        Will you be 19 years of age or older by Jan 14th, 2023?
+        How old will you be by Jan 14th, 2023?
         <Required />
       </SubHeading>
       <P>We accept hackers currently in high school but require this for consent purposes.</P>
-      {errors?.isOfLegalAge && <ErrorMessage>{errors?.isOfLegalAge}</ErrorMessage>}
-      <Select
-        type="radio"
-        label="Yes"
-        checked={formInputs.isOfLegalAge}
-        onChange={() => onChange({ isOfLegalAge: true })}
-        customRef={refs['isOfLegalAgeRef']}
-      ></Select>
-      <Select
-        type="radio"
-        label="No"
-        checked={formInputs.isOfLegalAge === false}
-        onChange={() => onChange({ isOfLegalAge: false })}
+      {errors?.ageByHackathon && <ErrorMessage>{errors?.ageByHackathon}</ErrorMessage>}
+      <Dropdown
+        options={ageOptions}
+        placeholder="Age"
+        isSearchable={false}
+        value={findElement(ageOptions, 'value', formInputs.ageByHackathon)}
+        onChange={e =>
+          onChange({
+            ageByHackathon: e.value,
+            otherAgeByHackathon: null,
+          })
+        }
+        isValid={!errors?.ageByHackathon}
+        customRef={refs['ageByHackathonRef']}
       />
+      {formInputs.ageByHackathon === 'other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs.otherAgeByHackathon}
+          onChange={e =>
+            onChange({
+              otherAgeByHackathon: e.target.value,
+            })
+          }
+        />
+      )}
     </FormSpacing>
 
     <FormSpacing>

@@ -191,7 +191,7 @@ const validators = {
     gender: noEmptyFunction,
     pronouns: noEmptyFunction,
     ethnicity: noNoneFunction,
-    isOfLegalAge: noNeitherFunction,
+    ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
