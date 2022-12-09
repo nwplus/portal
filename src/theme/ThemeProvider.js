@@ -83,6 +83,7 @@ const nwTheme = {
       hoverbg: '#ECDDD7',
       hoverborder: '#A4A9F1',
       outlineBackground: 'transparent',
+      outlineBorder: '#9AD4DE',
       grey600: '#8C898F',
       grey700: '#55525B',
     },
