@@ -222,7 +222,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            <InfoGroup heading="Prior Hackathons" data={formInputs.skills.hackathonsAttended} />
+            {/* TODO: Change hackathonsAttended to attendedHackathons and make sure the value is an accurate representation */}
+            <InfoGroup
+              heading="First Time Hacker"
+              data={formInputs.skills.hackathonsAttended ? 'Yes' : 'No'}
+            />
             <InfoGroup heading="Resume" data={formInputs.skills.resume} />
             <InfoGroup
               heading="Personal Website/Portfolio Link"

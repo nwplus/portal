@@ -86,6 +86,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           <Required />
         </SubHeading>
         {errors?.hackathonsAttended && <ErrorMessage>{errors?.hackathonsAttended}</ErrorMessage>}
+        {/* TODO: Change hackathonsAttended to attendedHackathons and make sure the value is an accurate representation */}
         <Select
           type="radio"
           label="Yes"
