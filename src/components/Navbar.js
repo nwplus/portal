@@ -64,7 +64,7 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
     <div>
       <NavContainer>
         {handleLogout && (
-          <Button onClick={handleLogout} color="primary" nav>
+          <Button onClick={handleLogout} color="secondary" nav>
             Logout
           </Button>
         )}

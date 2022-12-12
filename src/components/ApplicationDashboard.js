@@ -54,9 +54,15 @@ const EditAppButton = styled(Button)`
   margin-right: 0;
   float: right;
   margin-top: 0px;
-  background: ${p => p.theme.colors.button.grey600};
-  border: solid 2px ${p => p.theme.colors.button.grey700};
+  background: ${p => p.theme.colors.button.grey500};
   color: ${p => p.theme.colors.button.grey700};
+  border: 2px solid ${p => p.theme.colors.button.grey500};
+
+  &:hover {
+    background: transparent;
+    color: ${p => p.theme.colors.button.grey500};
+    border: 2px solid ${p => p.theme.colors.button.grey700};
+  }
 
   ${p => p.theme.mediaQueries.desktop} {
     position: relative;

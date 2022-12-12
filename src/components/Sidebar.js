@@ -116,7 +116,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.default};
+  background: ${p => p.theme.colors.card};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -126,11 +126,11 @@ background-color: ${p => p.theme.colors.primary};
 */
 const LiveLabel = styled.p`
   margin: 1em 0 2em 2rem;
-  font-weight: 600;
+  font-weight: bold;
   font-size: 0.9em;
   border-radius: 7px;
   background: ${p => p.theme.colors.primaryGradient};
-  color: ${p => p.theme.colors.default};
+  color: ${p => p.theme.colors.card};
   width: 4em;
   padding: 5px;
 `
@@ -145,7 +145,7 @@ const ApplicationText = styled.div`
 
 const StatusText = styled.div`
   font-size: 0.8em;
-  color: ${p => p.theme.colors.secondaryBackground};
+  color: ${p => p.theme.colors.sidebar.statusText};
   margin-top: 5px;
 `
 
@@ -302,7 +302,7 @@ export default ({
         )}
       </ItemsContainer>
       {isAuthed && (
-        <StyledButton color="primary" onClick={logout}>
+        <StyledButton color="secondary" onClick={logout}>
           Logout
         </StyledButton>
       )}

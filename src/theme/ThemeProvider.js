@@ -52,6 +52,7 @@ const nwTheme = {
     secondaryBackground: '#5667CF', // Side bar background
     sidebar: {
       link: '#fff',
+      statusText: '#97A4F7',
     },
     error: '#ff0033',
     success: '#629F5D',
@@ -69,7 +70,7 @@ const nwTheme = {
     primaryGradientHover: 'linear-gradient(263.82deg, #E9C3CB 38.58%, #A4A9F1 78.17%)', //'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
     tertiaryHover: '#1EEDC8', // button hover
     selects: {
-      hover: 'rgba(197, 172, 229, 0.2)',
+      hover: '#5667CF',
       focus: 'rgba(197, 172, 229, 0.4)',
       border: '#0B1361', //  Text input form
       placeholder: '#CFD6FF', // Placeholder text in form
@@ -77,14 +78,16 @@ const nwTheme = {
     },
     button: {
       // Application form buttons
-      text: '#8486E4',
-      background: '#FEF4F0', //'#959AFB',
+      text: '#0A1361', // For primary button
+      background: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', // Primary button
       border: '#9AD4DE',
-      hoverbg: '#ECDDD7',
+      hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
+      outlineText: '#CFD6FF', // Secondary button
       outlineBackground: 'transparent',
-      outlineBorder: '#9AD4DE',
-      grey600: '#8C898F',
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
+      outlineBorder: '#CFD6FF',
+      grey500: '#BDBAC3',
       grey700: '#55525B',
     },
     hover: '#D9FFF9',
