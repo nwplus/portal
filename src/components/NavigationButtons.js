@@ -57,7 +57,7 @@ export default ({
         ) : (
           <div></div>
         )}
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <MoonLoader css={{ margin: '0 10px' }} color="#fff" size="30" loading={loading} />
           <StyledButton width="flex" onClick={secondButtonOnClick}>
             {secondButtonText}
