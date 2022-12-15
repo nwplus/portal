@@ -24,17 +24,18 @@ const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${p => (p.checked ? p.theme.colors.primary : 'transparent')};
+  background: ${p => (p.checked ? p.theme.colors.secondaryBackgroundTransparent : 'transparent')};
   border-radius: 3px;
-  border: 2px solid ${p => (p.checked ? p.theme.colors.primary : p.theme.colors.default)};
+  border: 2px solid ${p => (p.checked ? p.theme.colors.default : p.theme.colors.default)};
   transition: all 150ms;
 
   ${HiddenCheckbox}:focus + & {
-    box-shadow: 0 0 0 2px ${p => p.theme.colors.default};
+    box-shadow: 0 0 0 0px ${p => p.theme.colors.default};
   }
 
   :hover {
-    border: 2px solid ${p => p.theme.colors.primary};
+    border: 2px solid
+      ${p => (p.checked ? p.theme.colors.default : p.theme.colors.secondaryBackgroundTransparent)};
   }
 
   ${Icon} {

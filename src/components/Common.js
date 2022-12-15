@@ -85,6 +85,7 @@ export const HR = styled.hr`
 `
 
 export const TextInputLike = css`
+  font-weight: bold;
   max-width: 100%;
   background-color: transparent;
   padding: 10px;
@@ -122,6 +123,7 @@ export const TextInputLike = css`
 `
 
 export const TextInputNoOutline = css`
+  font-weight: bold;
   box-sizing: border-box;
   border-radius: 0;
   border-style: none;
@@ -135,9 +137,9 @@ export const ScrollbarLike = css`
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: transparent;
+    background-color: ${p => p.theme.colors.card};
     border-radius: 10px;
-    border: 1px solid ${p => p.theme.colors.highlight};
+    border: 1px solid ${p => p.theme.colors.card};
   }
   ::-webkit-scrollbar-track {
     background-color: transparent;

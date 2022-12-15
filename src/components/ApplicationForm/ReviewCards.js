@@ -222,7 +222,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            <InfoGroup heading="Prior Hackathons" data={formInputs.skills.hackathonsAttended} />
+            {/* TODO: Change hackathonsAttended to attendedHackathons and make sure the value is an accurate representation */}
+            <InfoGroup
+              heading="First Time Hacker"
+              data={formInputs.skills.hackathonsAttended ? 'Yes' : 'No'}
+            />
             <InfoGroup heading="Resume" data={formInputs.skills.resume} />
             <InfoGroup
               heading="Personal Website/Portfolio Link"
@@ -283,7 +287,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
             share certain application/registration information for event administration, ranking,
             MLH administration, and occasional messages about hackathons in line with the{' '}
-            <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
+            <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
               MLH Privacy Policy
             </A>
             .
@@ -302,7 +306,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               I have read and agree to the{' '}
               <A
                 bolded
-                color="primary"
+                color="#FFF"
                 href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                 target="_blank"
               >
@@ -323,13 +327,13 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <span>
               I authorize nwPlus to share my application/registration information for event
               administration, ranking, MLH administration, in-line with the{' '}
-              <A bolded color="primary" href="https://mlh.io/privacy" target="_blank">
+              <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
                 MLH Privacy Policy
               </A>
               . I further agree to the terms of both the{' '}
               <A
                 bolded
-                color="primary"
+                color="#FFF"
                 href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
                 target="_blank"
               >

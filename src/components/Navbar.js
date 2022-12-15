@@ -21,7 +21,8 @@ const NavContainer = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     height: 3em;
   }
-  background: linear-gradient(to bottom, #544d92, rgba(33, 30, 57, 0));
+  //background: linear-gradient(to bottom, #544d92, rgba(33, 30, 57, 0));
+  background: ${p => p.theme.colors.primary};
 `
 
 const Icon = styled.img`
@@ -63,7 +64,7 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
     <div>
       <NavContainer>
         {handleLogout && (
-          <Button onClick={handleLogout} color="primary" nav>
+          <Button onClick={handleLogout} color="secondary" nav>
             Logout
           </Button>
         )}

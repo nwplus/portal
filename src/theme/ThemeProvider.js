@@ -44,39 +44,51 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: '#544D92', //'linear-gradient(to bottom left, #C5ACE5, #454390)', // linear-gradient(to bottom, #52999F, #051439)
-    card: '#182B47',
+    background: '#3C4BA5', // Background
+    card: '#0A1361', // BG Accent
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackgroundTransparent: '#10186Cbb', // before: #1D1B24bb
-    secondaryBackground: '#635BA4',
+    secondaryBackgroundTransparent: '#253281', // before: #10186Cbb (hover animation for side bar buttons)
+    secondaryBackgroundTransparentHover: '#0A1361',
+    secondaryBackground: '#5667CF', // Side bar background
     sidebar: {
       link: '#fff',
+      statusText: '#97A4F7',
     },
     error: '#ff0033',
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     foreground: '#4F4A59',
-    primary: '#10186C',
-    default: '#BEBEBE',
+    primary: '#3C4BA5',
+    default: '#FFFFFF',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
     highlight: 'rgba(255, 255, 255, 0.5)',
     text: '#FFF',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
-    primaryGradient: 'linear-gradient(180deg, #FED9CD 0%, #CDCAEC 100%)', // button
-    primaryGradientHover: 'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
+    primaryGradient: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', //'linear-gradient(180deg, #FED9CD 0%, #CDCAEC 100%)', // button
+    primaryGradientHover: 'linear-gradient(263.82deg, #E9C3CB 38.58%, #A4A9F1 78.17%)', //'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
     tertiaryHover: '#1EEDC8', // button hover
     selects: {
-      hover: 'rgba(197, 172, 229, 0.2)',
+      hover: '#5667CF',
       focus: 'rgba(197, 172, 229, 0.4)',
-      border: '#10186C',
-      placeholder: '#10186C',
+      border: '#0B1361', //  Text input form
+      placeholder: '#CFD6FF', // Placeholder text in form
       text: '#fff',
     },
     button: {
-      text: 'white',
-      background: '#959AFB',
+      // Application form buttons
+      text: '#0A1361', // For primary button
+      background: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', // Primary button
+      border: '#9AD4DE',
+      hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
+      hoverborder: '#A4A9F1',
+      outlineText: '#CFD6FF', // Secondary button
+      outlineBackground: 'transparent',
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
+      outlineBorder: '#CFD6FF',
+      grey500: '#BDBAC3',
+      grey700: '#55525B',
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
@@ -111,7 +123,7 @@ const hackcampTheme = {
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
     primary: '#FFBC96',
-    default: '#BEBEBE',
+    default: '#FFFFFF',
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',
