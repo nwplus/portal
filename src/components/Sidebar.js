@@ -85,29 +85,30 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 50px 1em 2rem;
   border-bottom: none;
+  background: ${p => p.theme.colors.secondaryBackgroundTransparent};
 
   color: ${p => p.theme.colors.sidebar.link};
 
   ${p =>
     p.selected &&
     `
-    background: ${p.theme.colors.primary};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
 
     &:hover {
       color: #ffffff;
-      background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+      background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
       border-bottom: none;
     }
   `}
 
   &:hover {
     color: #ffffff;
-    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
     border-bottom: none;
   }
   &:focus {
     color: #ffffff;
-    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
     border-bottom: none;
   }
 `
@@ -115,7 +116,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.secondaryBackground};
+  background: ${p => p.theme.colors.card};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -125,11 +126,11 @@ background-color: ${p => p.theme.colors.primary};
 */
 const LiveLabel = styled.p`
   margin: 1em 0 2em 2rem;
-  font-weight: 600;
+  font-weight: bold;
   font-size: 0.9em;
   border-radius: 7px;
-  background: linear-gradient(to bottom left, #cfcdf0, #f3d5d5);
-  color: ${p => p.theme.colors.secondaryBackground};
+  background: ${p => p.theme.colors.primaryGradient};
+  color: ${p => p.theme.colors.card};
   width: 4em;
   padding: 5px;
 `
@@ -144,7 +145,7 @@ const ApplicationText = styled.div`
 
 const StatusText = styled.div`
   font-size: 0.8em;
-  color: ${p => p.theme.colors.secondaryBackground};
+  color: ${p => p.theme.colors.sidebar.statusText};
   margin-top: 5px;
 `
 

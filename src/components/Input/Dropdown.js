@@ -41,7 +41,7 @@ const sharedStyle = css`
   }
 
   .react-select__menu {
-    background-color: ${p => p.theme.colors.primary};
+    background-color: ${p => p.theme.colors.secondaryBackground};
     border-radius: 7px;
     margin-top: 0px;
     max-width: ${p => (p.isSearchable ? dropdownWidth.searchable : dropdownWidth.normal)};
@@ -66,7 +66,7 @@ const sharedStyle = css`
 
   .react-select__option:hover,
   .react-select__option--is-selected {
-    background-color: ${p => p.theme.colors.secondaryBackground};
+    background-color: ${p => p.theme.colors.primary};
     border-radius: 5px;
     font-weight: bold;
   }
@@ -103,7 +103,8 @@ const StyledAsyncCreatableDropdown = styled(AsyncCreatableSelect)`
 `
 
 const StyledUserMessage = styled.div`
-  color: ${p => p.theme.colors.background};
+  // color: ${p => p.theme.colors.background};
+  color: ${p => p.theme.colors.selects.text};
   font-weight: bold;
   padding: 8px 12px;
 `

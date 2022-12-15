@@ -17,7 +17,7 @@ const StyledButton = styled(Button)`
 
 const UploadButton = ({ handleClick, customRef }) => {
   return (
-    <StyledButton color="primary" onClick={handleClick} customRef={customRef}>
+    <StyledButton color="secondary" onClick={handleClick} customRef={customRef}>
       Upload
     </StyledButton>
   )
