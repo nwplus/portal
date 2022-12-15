@@ -194,7 +194,6 @@ export default ({
   const links = {
     // General
     general: [
-      { location: '/getting-started', text: 'Getting Started' },
       { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/sponsors', text: 'Sponsors' },
@@ -208,6 +207,7 @@ export default ({
     ],
     // Information
     information: [
+      { location: '/getting-started', text: 'Getting Started' },
       // { location: '/discord-bot', text: 'Discord Bot' },
       { location: '/faq', text: 'FAQ' },
     ],
@@ -220,6 +220,7 @@ export default ({
       // const filteredDocs = docs
       //   .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
       //   .map(doc => doc.data())
+      // console.log(filteredDocs)
       // setSponsors(filteredDocs)
       // TODO: Revert this change
       // For cmd-f 2022 the logos in the sidebar should be light variants

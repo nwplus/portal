@@ -5,6 +5,8 @@ import { CommonLinks } from '../containers/Quicklinks'
 import Livestream from '../components/Livestream'
 import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
+import QrCode from '../components/QrCode'
+import { useAuth } from '../utility/Auth'
 
 const HomeContainer = styled.div`
   height: 100%;
@@ -20,6 +22,8 @@ const TopDecal = styled.img`
 `
 
 export default withTheme(({ announcements, theme }) => {
+  const { user, isAuthed } = useAuth()
+
   return (
     <HomeContainer>
       {theme.name === 'cmdf' && <TopDecal src={head_decal} />}
@@ -27,6 +31,7 @@ export default withTheme(({ announcements, theme }) => {
       <CommonLinks />
       <Livestream />
       <Announcements announcements={announcements} />
+      {isAuthed && user.uid && <QrCode userId={user.uid} />}
     </HomeContainer>
   )
 })
