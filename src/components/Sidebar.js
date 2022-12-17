@@ -85,7 +85,7 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 50px 1em 2rem;
   border-bottom: none;
-  background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+  background: ${p => p.theme.colors.secondaryBackground};
 
   color: ${p => p.theme.colors.sidebar.link};
 
@@ -103,12 +103,12 @@ const StyledA = styled(A)`
 
   &:hover {
     color: #ffffff;
-    background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
+    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
   &:focus {
     color: #ffffff;
-    background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
+    // background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
     border-bottom: none;
   }
 `
