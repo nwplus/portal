@@ -11,6 +11,9 @@ import { useAuth } from '../utility/Auth'
 const HomeContainer = styled.div`
   height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 `
 
 const TopDecal = styled.img`
@@ -28,9 +31,9 @@ export default withTheme(({ announcements, theme }) => {
     <HomeContainer>
       {theme.name === 'cmdf' && <TopDecal src={head_decal} />}
       <HackerCountdown />
-      <CommonLinks />
+      {/* <CommonLinks />
       <Livestream />
-      <Announcements announcements={announcements} />
+      <Announcements announcements={announcements} /> */}
       {isAuthed && user.uid && <QrCode userId={user.uid} />}
     </HomeContainer>
   )

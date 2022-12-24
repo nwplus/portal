@@ -85,7 +85,7 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 50px 1em 2rem;
   border-bottom: none;
-  background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+  background: #5667cf;
 
   color: ${p => p.theme.colors.sidebar.link};
 
@@ -194,7 +194,7 @@ export default ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'Home' },
+      { location: '/', text: 'Check-In Code' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
