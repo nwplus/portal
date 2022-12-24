@@ -194,7 +194,7 @@ export default ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'Check-In Code' },
+      { location: '/', text: 'Check-In' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
