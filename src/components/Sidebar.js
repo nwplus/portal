@@ -207,7 +207,7 @@ export default ({
     ],
     // Information
     information: [
-      { location: '/getting-started', text: 'Getting Started' },
+      // { location: '/getting-started', text: 'Getting Started' },
       // { location: '/discord-bot', text: 'Discord Bot' },
       { location: '/faq', text: 'FAQ' },
     ],
