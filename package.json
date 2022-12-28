@@ -9,6 +9,7 @@
     "cross-env": "^7.0.2",
     "firebase": "^7.17.1",
     "husky": "^4.3.0",
+    "next-qrcode": "^2.4.0",
     "react": "^16.13.1",
     "react-csv": "^2.2.1",
     "react-dom": "^16.13.1",
