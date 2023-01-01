@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { H1, A } from './Typography'
 import { Button } from './Input/Button'
@@ -6,6 +6,7 @@ import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '..
 import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { analytics } from '../utility/firebase'
+import { TextInput } from './Input'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -99,6 +100,7 @@ const StatusBlurbText = styled.p`
 `
 
 const FooterContainer = styled.div`
+  padding-top: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -125,6 +127,11 @@ const RSVPButton = styled(Button)`
     margin: 1em;
   }
   ${p => !p.shouldDisplay && 'display: none'}
+`
+
+const DietaryNoteContainer = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
@@ -252,11 +259,15 @@ const Dashboard = ({
   isApplicationOpen,
   canRSVP,
   setRSVP,
+  dietaryNote,
+  setDietaryRestrictions,
   username,
   editApplication,
   relevantDates,
   isRsvpOpen,
 }) => {
+  const [dietaryInput, setDietaryInput] = useState(dietaryNote || '')
+
   return (
     <Container>
       <WelcomeHeader>
@@ -277,20 +288,31 @@ const Dashboard = ({
         </div>
         <div>
           <SocialMediaLinks />
-          <EditAppButton
-            height="short"
-            onClick={
-              isApplicationOpen &&
-              hackerStatus === APPLICATION_STATUS.inProgress &&
-              (() => editApplication())
-            }
-            disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
-          >
-            Complete Your Registration
-          </EditAppButton>
+          {isApplicationOpen && (
+            <EditAppButton
+              height="short"
+              onClick={
+                isApplicationOpen &&
+                hackerStatus === APPLICATION_STATUS.inProgress &&
+                (() => editApplication())
+              }
+              disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
+            >
+              Complete Your Registration
+            </EditAppButton>
+          )}
         </div>
         {/* <SocialMediaLinks /> */}
         <FooterContainer>
+          <DietaryNoteContainer>
+            <TextInput
+              value={dietaryInput}
+              onChange={e => setDietaryInput(e.target.value)}
+              placeholder="Dietary Restrictions/Notes"
+              color="primary"
+            />
+            <Button onClick={() => setDietaryRestrictions(dietaryInput)}>Save</Button>
+          </DietaryNoteContainer>
           <RSVPButton
             width="flex"
             onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
