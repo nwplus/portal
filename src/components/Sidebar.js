@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link, useLocation } from 'wouter'
+import { Link, useLocation, useRouter } from 'wouter'
 import { A } from './Typography'
 import logo from '../assets/logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
@@ -301,9 +301,13 @@ export default ({
           </Link>
         )}
       </ItemsContainer>
-      {isAuthed && (
+      {isAuthed ? (
         <StyledButton color="secondary" onClick={logout}>
           Logout
+        </StyledButton>
+      ) : (
+        <StyledButton color="secondary" href="/login">
+          Log In
         </StyledButton>
       )}
       <SponsorContainer>
