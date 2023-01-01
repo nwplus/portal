@@ -301,9 +301,13 @@ export default ({
           </Link>
         )}
       </ItemsContainer>
-      {isAuthed && (
+      {isAuthed ? (
         <StyledButton color="secondary" onClick={logout}>
           Logout
+        </StyledButton>
+      ) : (
+        <StyledButton color="secondary" href="/login">
+          Log In
         </StyledButton>
       )}
       <SponsorContainer>

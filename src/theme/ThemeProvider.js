@@ -90,6 +90,11 @@ const nwTheme = {
       grey500: '#BDBAC3',
       grey700: '#55525B',
     },
+    schedule: {
+      background: 'transparent',
+      event: 'white',
+      text: '#476C6E',
+    },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
     banner: 'rgba(0,0,0,0)',
