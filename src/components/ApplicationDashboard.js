@@ -6,7 +6,7 @@ import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '..
 import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { analytics } from '../utility/firebase'
-import { TextInput } from './Input'
+import { Checkbox, TextInput } from './Input'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -127,6 +127,13 @@ const RSVPButton = styled(Button)`
     margin: 1em;
   }
   ${p => !p.shouldDisplay && 'display: none'}
+`
+
+const SafeWalkContainer = styled.div`
+  display: flex;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: -10px;
 `
 
 const DietaryNoteContainer = styled.div`
@@ -260,6 +267,8 @@ const Dashboard = ({
   isApplicationOpen,
   canRSVP,
   setRSVP,
+  safewalkNote,
+  setSafewalkInput,
   dietaryNote,
   setDietaryRestrictions,
   username,
@@ -268,6 +277,11 @@ const Dashboard = ({
   isRsvpOpen,
 }) => {
   const [dietaryInput, setDietaryInput] = useState(dietaryNote || '')
+  const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  const handleChange = () => {
+    setSafewalkCheckbox(!safewalk)
+    setSafewalkInput(!safewalkNote)
+  }
 
   return (
     <Container>
@@ -304,6 +318,13 @@ const Dashboard = ({
           )}
         </div>
         {/* <SocialMediaLinks /> */}
+        <SafeWalkContainer>
+          <Checkbox
+            checked={safewalk}
+            onChange={handleChange}
+            label="If you are planning to walk home alone on campus on the night of the 21st, would you like organizers to accompany you to your destination?"
+          />
+        </SafeWalkContainer>
         <FooterContainer>
           <DietaryNoteContainer>
             <TextInput
