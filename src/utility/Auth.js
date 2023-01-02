@@ -59,6 +59,7 @@ export function AuthProvider({ children }) {
 const handleUser = async (setUser, setLocation) => {
   const user = firebase.auth().currentUser
   const { redirect, status } = await getUserStatus(user)
+  // alert(redirect, status)
   user.status = status
   user.redirect = redirect
   const admin = await checkAdminClaim(user)
@@ -66,7 +67,7 @@ const handleUser = async (setUser, setLocation) => {
   setUser(user)
   analytics.setUserId(user.uid)
   analytics.logEvent(ANALYTICS_EVENTS.Login, { userId: user.uid })
-  // await handleRedirect(redirect, setLocation)
+  await handleRedirect(redirect, setLocation)
 }
 
 export const getRedirectUrl = redirect => {
@@ -84,6 +85,7 @@ export const getRedirectUrl = redirect => {
 }
 
 export const handleRedirect = async (redirect, setLocationCallback) => {
+  // alert(redirect, getRedirectUrl(redirect))
   const submissionOpen = (await livesiteDocRef.get()).data().submissionsOpen
   setLocationCallback(submissionOpen ? '/submission' : getRedirectUrl(redirect))
 }
