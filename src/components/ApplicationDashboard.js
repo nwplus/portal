@@ -141,6 +141,39 @@ const DietaryNoteContainer = styled.div`
   align-items: center;
 `
 
+const UnRSVPModelContainer = styled.div`
+  position: absolute;
+`
+
+const UnRSVPModelTint = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.6;
+  z-index: 1;
+`
+
+const UnRSVPModel = styled.div`
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  margin-top: -300px;
+  width: 40vw;
+  border-radius: 20px;
+  padding: 10px;
+  background: ${p => p.theme.colors.secondaryBackground};
+  z-index: 2;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 70vw;
+    top: -400px;
+    margin: 0;
+  }
+`
+
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {
     sidebarText: 'In Review',
@@ -282,6 +315,8 @@ const Dashboard = ({
     setSafewalkCheckbox(!safewalk)
     setSafewalkInput(!safewalkNote)
   }
+  const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
+  const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
 
   return (
     <Container>
@@ -317,33 +352,81 @@ const Dashboard = ({
             </EditAppButton>
           )}
         </div>
-        {/* <SocialMediaLinks /> */}
-        <SafeWalkContainer>
-          <Checkbox
-            checked={safewalk}
-            onChange={handleChange}
-            label="If you are planning to walk home alone on campus on the night of the 21st, would you like organizers to accompany you to your destination?"
-          />
-        </SafeWalkContainer>
-        <FooterContainer>
-          <DietaryNoteContainer>
-            <TextInput
-              value={dietaryInput}
-              onChange={e => setDietaryInput(e.target.value)}
-              placeholder="Dietary Restrictions/Notes"
-              color="primary"
+
+        {/* Hides this option if a user unRSVP'd */}
+        {hackerRSVPStatus !== "Un-RSVP'd" && (
+          <SafeWalkContainer>
+            <Checkbox
+              checked={safewalk}
+              onChange={handleChange}
+              label="If you are planning to walk home alone on campus on the night of the 21st, would you like organizers to accompany you to your destination?"
             />
-            <Button onClick={() => setDietaryRestrictions(dietaryInput)}>Save</Button>
-          </DietaryNoteContainer>
-          <RSVPButton
-            width="flex"
-            onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
-            shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
-            color={canRSVP ? 'primary' : 'secondary'}
-            disabled={!isRsvpOpen}
-          >
-            {canRSVP ? 'RSVP' : 'un-RSVP'}
-          </RSVPButton>
+          </SafeWalkContainer>
+        )}
+
+        <FooterContainer>
+          {/* Hides this option if a user unRSVP'd */}
+          {hackerRSVPStatus !== "Un-RSVP'd" && (
+            <DietaryNoteContainer>
+              <TextInput
+                value={dietaryInput}
+                onChange={e => setDietaryInput(e.target.value)}
+                placeholder="Dietary Restrictions/Notes"
+                color="primary"
+              />
+              <Button onClick={() => setDietaryRestrictions(dietaryInput)}>Save</Button>
+            </DietaryNoteContainer>
+          )}
+
+          {/* Only show button if a user hasn't unRSVPed yet and can still RSVP*/}
+          {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
+            <RSVPButton
+              width="flex"
+              onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
+              shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+              color={canRSVP ? 'primary' : 'secondary'}
+              disabled={!isRsvpOpen}
+            >
+              RSVP
+            </RSVPButton>
+          )}
+
+          {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
+          {hackerRSVPStatus !== "Un-RSVP'd" && !canRSVP && (
+            <>
+              <Button
+                width="flex"
+                color={canRSVP ? 'primary' : 'secondary'}
+                onClick={() => setdisplayUnRSVPModel('block')}
+              >
+                un-RSVP
+              </Button>
+
+              {displayUnRSVPModel === 'block' && (
+                <UnRSVPModelContainer>
+                  <UnRSVPModelTint onClick={() => setdisplayUnRSVPModel('none')} />
+                  <UnRSVPModel>
+                    <p style={{ marginTop: '30px', marginLeft: '10px' }}>
+                      Are you sure that you want to un-RSVP? You won’t be able to RSVP again.
+                    </p>
+
+                    <Button width="flex" onClick={() => setdisplayUnRSVPModel('none')}>
+                      Cancel
+                    </Button>
+                    <RSVPButton
+                      width="flex"
+                      onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
+                      shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+                      color={canRSVP ? 'primary' : 'secondary'}
+                      disabled={!isRsvpOpen}
+                    >
+                      Yes, I would like to un-RSVP
+                    </RSVPButton>
+                  </UnRSVPModel>
+                </UnRSVPModelContainer>
+              )}
+            </>
+          )}
         </FooterContainer>
       </StatusContainer>
     </Container>
