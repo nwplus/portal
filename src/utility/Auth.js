@@ -69,7 +69,7 @@ const handleUser = async (setUser, setLocation) => {
   analytics.logEvent(ANALYTICS_EVENTS.Login, { userId: user.uid })
   await handleRedirect(redirect, setLocation)
 }
-
+// hi
 export const getRedirectUrl = redirect => {
   switch (redirect) {
     case REDIRECT_STATUS.AttendingEvent:
