@@ -27,7 +27,7 @@ const QrCode = ({ userId }) => {
             width: 200,
             color: {
               dark: '#0A1361',
-              light: '#5667CF',
+              light: '#ffffff',
             },
           }}
         />
