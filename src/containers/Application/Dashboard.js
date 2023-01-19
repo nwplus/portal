@@ -70,6 +70,27 @@ const ApplicationDashboardContainer = () => {
       status: {
         responded: true,
         attending: rsvpStatus,
+        applicationStatus: rsvpStatus ? 'acceptedAndAttending' : 'acceptedUnRSVP',
+      },
+    })
+    forceSave()
+  }
+
+  const setSafewalkInput = safewalkNote => {
+    console.log(safewalkNote)
+    updateApplication({
+      basicInfo: {
+        safewalkNote,
+      },
+    })
+    forceSave()
+  }
+
+  const setDietaryRestriction = dietaryNote => {
+    console.log(dietaryNote)
+    updateApplication({
+      basicInfo: {
+        dietaryNote,
       },
     })
     forceSave()
@@ -91,6 +112,10 @@ const ApplicationDashboardContainer = () => {
         isApplicationOpen={livesiteDoc.applicationsOpen}
         setRSVP={rsvpStatus => setRSVP(rsvpStatus)}
         canRSVP={canRSVP}
+        safewalkNote={application.basicInfo.safewalkNote || false}
+        setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
+        dietaryNote={application.basicInfo.dietaryNote || ''}
+        setDietaryRestrictions={dietaryNote => setDietaryRestriction(dietaryNote)}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
       />

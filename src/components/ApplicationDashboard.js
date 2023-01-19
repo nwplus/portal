@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { H1, A } from './Typography'
 import { Button } from './Input/Button'
@@ -6,6 +6,7 @@ import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '..
 import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { analytics } from '../utility/firebase'
+import { Checkbox, TextInput } from './Input'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -99,6 +100,7 @@ const StatusBlurbText = styled.p`
 `
 
 const FooterContainer = styled.div`
+  padding-top: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -125,6 +127,51 @@ const RSVPButton = styled(Button)`
     margin: 1em;
   }
   ${p => !p.shouldDisplay && 'display: none'}
+`
+
+const SafeWalkContainer = styled.div`
+  display: flex;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: -10px;
+`
+
+const DietaryNoteContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const UnRSVPModelContainer = styled.div`
+  position: absolute;
+`
+
+const UnRSVPModelTint = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.6;
+  z-index: 1;
+`
+
+const UnRSVPModel = styled.div`
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  margin-top: -300px;
+  width: 40vw;
+  border-radius: 20px;
+  padding: 10px;
+  background: ${p => p.theme.colors.secondaryBackground};
+  z-index: 2;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 70vw;
+    top: -400px;
+    margin: 0;
+  }
 `
 
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
@@ -158,7 +205,8 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   acceptedNoResponseYet: {
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
+    // blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of January 21st-22nd, 2023! Please RSVP before 11:59 PM PST, January 6th to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -252,11 +300,24 @@ const Dashboard = ({
   isApplicationOpen,
   canRSVP,
   setRSVP,
+  safewalkNote,
+  setSafewalkInput,
+  dietaryNote,
+  setDietaryRestrictions,
   username,
   editApplication,
   relevantDates,
   isRsvpOpen,
 }) => {
+  const [dietaryInput, setDietaryInput] = useState(dietaryNote || '')
+  const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  const handleChange = () => {
+    setSafewalkCheckbox(!safewalk)
+    setSafewalkInput(!safewalkNote)
+  }
+  const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
+  const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
+
   return (
     <Container>
       <WelcomeHeader>
@@ -277,29 +338,95 @@ const Dashboard = ({
         </div>
         <div>
           <SocialMediaLinks />
-          <EditAppButton
-            height="short"
-            onClick={
-              isApplicationOpen &&
-              hackerStatus === APPLICATION_STATUS.inProgress &&
-              (() => editApplication())
-            }
-            disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
-          >
-            Complete Your Registration
-          </EditAppButton>
+          {isApplicationOpen && (
+            <EditAppButton
+              height="short"
+              onClick={
+                isApplicationOpen &&
+                hackerStatus === APPLICATION_STATUS.inProgress &&
+                (() => editApplication())
+              }
+              disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
+            >
+              Complete Your Registration
+            </EditAppButton>
+          )}
         </div>
-        {/* <SocialMediaLinks /> */}
+
+        {/* Hides this option if a user unRSVP'd */}
+        {hackerRSVPStatus !== "Un-RSVP'd" && (
+          <SafeWalkContainer>
+            <Checkbox
+              checked={safewalk}
+              onChange={handleChange}
+              label="If you are planning to walk home alone on campus on the night of the 21st, would you like organizers to accompany you to your destination?"
+            />
+          </SafeWalkContainer>
+        )}
+
         <FooterContainer>
-          <RSVPButton
-            width="flex"
-            onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
-            shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
-            color={canRSVP ? 'primary' : 'secondary'}
-            disabled={!isRsvpOpen}
-          >
-            {canRSVP ? 'RSVP' : 'un-RSVP'}
-          </RSVPButton>
+          {/* Hides this option if a user unRSVP'd */}
+          {hackerRSVPStatus !== "Un-RSVP'd" && (
+            <DietaryNoteContainer>
+              <TextInput
+                value={dietaryInput}
+                onChange={e => setDietaryInput(e.target.value)}
+                placeholder="Dietary Restrictions/Notes"
+                color="primary"
+              />
+              <Button onClick={() => setDietaryRestrictions(dietaryInput)}>Save</Button>
+            </DietaryNoteContainer>
+          )}
+
+          {/* Only show button if a user hasn't unRSVPed yet and can still RSVP*/}
+          {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
+            <RSVPButton
+              width="flex"
+              onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
+              shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+              color={canRSVP ? 'primary' : 'secondary'}
+              disabled={!isRsvpOpen}
+            >
+              RSVP
+            </RSVPButton>
+          )}
+
+          {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
+          {hackerRSVPStatus !== "Un-RSVP'd" && !canRSVP && (
+            <>
+              <Button
+                width="flex"
+                color={canRSVP ? 'primary' : 'secondary'}
+                onClick={() => setdisplayUnRSVPModel('block')}
+              >
+                un-RSVP
+              </Button>
+
+              {displayUnRSVPModel === 'block' && (
+                <UnRSVPModelContainer>
+                  <UnRSVPModelTint onClick={() => setdisplayUnRSVPModel('none')} />
+                  <UnRSVPModel>
+                    <p style={{ marginTop: '30px', marginLeft: '10px' }}>
+                      Are you sure that you want to un-RSVP? You won’t be able to RSVP again.
+                    </p>
+
+                    <Button width="flex" onClick={() => setdisplayUnRSVPModel('none')}>
+                      Cancel
+                    </Button>
+                    <RSVPButton
+                      width="flex"
+                      onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
+                      shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+                      color={canRSVP ? 'primary' : 'secondary'}
+                      disabled={!isRsvpOpen}
+                    >
+                      Yes, I would like to un-RSVP
+                    </RSVPButton>
+                  </UnRSVPModel>
+                </UnRSVPModelContainer>
+              )}
+            </>
+          )}
         </FooterContainer>
       </StatusContainer>
     </Container>
