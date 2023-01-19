@@ -108,11 +108,20 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
 
           // set duration of event
           const duration = msToHours(new Date(event.endTime) - new Date(event.startTime))
-          event.duration = duration
+          const isZeroDurationEvent = duration === 0
+
+          // if zero duration event, set event duration to be 0.5 (30 minutes) because 0 duration events end up being too tall
+          event.duration = isZeroDurationEvent ? 0.5 : duration
 
           accumulator.push(event)
           usedEvents.push(event)
-          latestTime = new Date(event.endTime)
+
+          let newLatestTime = new Date(event.endTime)
+
+          // if zero duration event, set new latestTime = latestTime + 30 to avoid overlaps
+          latestTime = isZeroDurationEvent
+            ? new Date(newLatestTime.setMinutes(newLatestTime.getMinutes() + 30))
+            : newLatestTime
         }
         return accumulator
       }, [])
