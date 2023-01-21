@@ -193,7 +193,7 @@ export default ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'Check-In' },
+      { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
