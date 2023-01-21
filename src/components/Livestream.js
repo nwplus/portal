@@ -59,7 +59,7 @@ const Livestream = () => {
     <Container>
       <TwitchContainer>
         <TwitchFrame
-          src="https://player.twitch.tv/?channel=nwplus&parent=localhost&parent=portal.nwplus.io&parent=nwplus-ubc.web.app"
+          src="https://player.twitch.tv/?channel=nwplus2023&parent=localhost&parent=portal.nwplus.io&parent=nwplus-ubc.web.app"
           frameborder="0"
           scrolling="no"
           allowfullscreen="true"
