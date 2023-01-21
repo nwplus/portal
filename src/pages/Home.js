@@ -2,7 +2,7 @@ import React from 'react'
 import HackerCountdown from '../containers/HackerCountdown'
 // import Announcements from '../components/Announcements'
 // import { CommonLinks } from '../containers/Quicklinks'
-// import Livestream from '../components/Livestream'
+import Livestream from '../components/Livestream'
 import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
 import QrCode from '../components/QrCode'
@@ -31,8 +31,9 @@ export default withTheme(({ announcements, theme }) => {
     <HomeContainer>
       {theme.name === 'cmdf' && <TopDecal src={head_decal} />}
       <HackerCountdown />
-      {/* <CommonLinks />
       <Livestream />
+      {/* 
+      <CommonLinks />
       <Announcements announcements={announcements} /> */}
       {isAuthed && user.uid && <QrCode userId={user.uid} />}
     </HomeContainer>
