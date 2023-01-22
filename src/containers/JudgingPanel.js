@@ -257,10 +257,12 @@ export default () => {
         let newHackers = []
 
         for (let j = 0; j < projects[i].teamMembers.length; j++) {
-          const hacker = await getUserApplication(project.teamMembers[j].id)
+          if (project.teamMembers[j].id) {
+            const hacker = await getUserApplication(project.teamMembers[j].id)
 
-          if (hacker.skills.hackathonsAttended) {
-            newHackers.push(`${hacker.basicInfo.firstName} ${hacker.basicInfo.lastName}`)
+            if (hacker.skills.hackathonsAttended) {
+              newHackers.push(`${hacker.basicInfo.firstName} ${hacker.basicInfo.lastName}`)
+            }
           }
         }
 
