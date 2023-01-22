@@ -14,7 +14,7 @@ import Toast from '../Toast'
 import {
   validateDiscord,
   validateEmail,
-  validateYoutubeURL,
+  // validateYoutubeURL,
   // validateDevpostURL,
   validateURL,
 } from '../../utility/Validation'
@@ -225,11 +225,11 @@ export default ({
     // }
 
     // Validate YouTube link
-    if (!links.youtube) {
-      newErrors.youtube = 'Please enter a URL'
-    } else if (!validateYoutubeURL(links.youtube)) {
-      newErrors.youtube = 'Please enter a valid YouTube URL'
-    }
+    // if (!links.youtube) {
+    //   newErrors.youtube = 'Please enter a URL'
+    // } else if (!validateYoutubeURL(links.youtube)) {
+    //   newErrors.youtube = 'Please enter a valid YouTube URL'
+    // }
 
     // Validate source code link
     if (!links.sourceCode) {
@@ -304,14 +304,14 @@ export default ({
           errorMsg={errors?.devpost}
           onChange={e => setLinks({ ...links, devpost: e.target.value })}
         />
-        <TextInputWithField
+        {/* <TextInputWithField
           fieldName="YouTube URL"
           value={links?.youtube}
           required
           invalid={errors?.youtube}
           errorMsg={errors?.youtube}
           onChange={e => setLinks({ ...links, youtube: e.target.value })}
-        />
+        /> */}
         <TextInputWithField
           fieldName="Source code (GitHub/BitBucket/GitLab)"
           value={links?.sourceCode}
