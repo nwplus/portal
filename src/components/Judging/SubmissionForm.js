@@ -15,7 +15,7 @@ import {
   validateDiscord,
   validateEmail,
   validateYoutubeURL,
-  validateDevpostURL,
+  // validateDevpostURL,
   validateURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
