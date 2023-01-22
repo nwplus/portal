@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
 import styled from 'styled-components'
 import { CSVLink } from 'react-csv'
-import { projectsRef, submitGrade } from '../utility/firebase'
+import { getSponsorPrizes, projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P } from '../components/Typography'
 import { Card } from '../components/Common'
 import { ProjectGradeTable, GradeTable } from '../components/Judging/Admin/Table'
 import ProgressBar from '../components/ProgressBar'
 import { JUDGING_RUBRIC, calculateGrade, PROJECTS_TO_JUDGE_COUNT } from '../utility/Constants'
+import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
 
 const Columns = styled.div`
   display: flex;
@@ -173,6 +174,7 @@ const getGradedProjects = async (dropOutliers = 2) => {
 }
 
 export default () => {
+  const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [gradedProjects, setGradedProjects] = useState([])
   const [CSVProjectData, setCSVProjectData] = useState([])
   const [grades, setGrades] = useState([]) // Individual "grade" objects
@@ -197,16 +199,47 @@ export default () => {
     await setProjectsAndStats()
   }
 
+  const parseSponsorPrizes = async () => {
+    const sponsorPrizes = await getSponsorPrizes()
+    const projects = await getProjectData()
+
+    const prizesToProjectsMap = {}
+
+    for (let i = 0; i < sponsorPrizes.length; i++) {
+      prizesToProjectsMap[sponsorPrizes[i]] = []
+    }
+
+    for (let i = 0; i < projects.length; i++) {
+      const project = projects[i]
+
+      // if a project added sponsor prize consideration
+      if (project.sponsorPrizes && project.sponsorPrizes.length > 0) {
+        // for each sponsor prize consideration, add this project to the map of projects
+        for (let j = 0; j < project.sponsorPrizes.length; j++) {
+          let currentProjectsOfPrize = JSON.parse(
+            JSON.stringify(prizesToProjectsMap[project.sponsorPrizes[j]])
+          )
+          currentProjectsOfPrize.push(project)
+          prizesToProjectsMap[project.sponsorPrizes[j]] = currentProjectsOfPrize
+        }
+      }
+    }
+
+    return prizesToProjectsMap
+  }
+
   const setProjectsAndStats = async () => {
     setLoading(true)
     setGradedProjects(await getGradedProjects())
     setGrades(await getGrades())
+    setSponsorPrizes(await parseSponsorPrizes())
     getStats().then(data => setStats(data))
     setLoading(false)
   }
 
   useEffect(() => {
     setProjectsAndStats()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -245,6 +278,7 @@ export default () => {
   return (
     <>
       <H1>Submissions</H1>
+      <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
       <H1>Grades</H1>
       <H3>{percentageAssigned}% of projects assigned</H3>
       <ProgressBar percent={percentageAssigned} />
