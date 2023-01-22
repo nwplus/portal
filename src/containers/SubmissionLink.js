@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
+import { APPLICATION_STATUS } from '../utility/Constants'
 import { projectsRef, applicantsRef, createProject, updateProject } from '../utility/firebase'
 
 // Redirect for successful submissions + leaving of project
@@ -70,7 +71,7 @@ export default ({ user, refreshCallback }) => {
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
 
-              if (applicationStatus !== 'acceptedAndAttending' || !attending || !responded) {
+              if (applicationStatus !== APPLICATION_STATUS.accepted || !attending || !responded) {
                 error = new Error(member.email + ' is not a registered hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject && userData.submittedProject !== projectId) {
@@ -119,7 +120,7 @@ export default ({ user, refreshCallback }) => {
               const userData = res.docs[0].data()
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
-              if (applicationStatus !== 'acceptedAndAttending' || !attending || !responded) {
+              if (applicationStatus !== APPLICATION_STATUS.accepted || !attending || !responded) {
                 error = new Error(member.email + ' is not a registered hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject) {
