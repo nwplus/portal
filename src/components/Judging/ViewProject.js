@@ -28,11 +28,11 @@ const JudgingColumn = styled(Column)`
   }
 `
 
-const StyledYoutube = styled(Youtube)`
-  width: 500px;
-  height: 300px;
-  border-radius: 3px;
-`
+// const StyledYoutube = styled(Youtube)`
+//   width: 500px;
+//   height: 300px;
+//   border-radius: 3px;
+// `
 
 const StyledP = styled(P)`
   margin: 1em 0;
