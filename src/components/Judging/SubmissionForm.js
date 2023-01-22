@@ -111,7 +111,8 @@ export default ({
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
   const [links, setLinks] = useState(project.links || {})
   const [sponsorPrizes, setSponsorPrizes] = useState([])
-  const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
+  const [mentorNomination, setMentorNomination] = useState(project.mentorNomination || '')
+  // const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
@@ -139,7 +140,8 @@ export default ({
     setTitle(project.title || '')
     setDescription(project.description || '')
     setLinks(project.links || {})
-    setCharityChoice(project.charityChoice || '')
+    setMentorNomination(project.mentorNomination || '')
+    // setCharityChoice(project.charityChoice || '')
     setSelectedPrizes(project.sponsorPrizes || [])
     setDraftStatus(project.draftStatus || 'draft')
 
@@ -257,7 +259,8 @@ export default ({
         teamMembers: filteredMembers,
         links,
         sponsorPrizes: selectedPrizes,
-        charityChoice,
+        // charityChoice,
+        mentorNomination,
         uid: project.uid,
         draftStatus,
       })
@@ -269,7 +272,7 @@ export default ({
       <H1>Project Submission</H1>
       <FormSection>
         <div>
-          <Label>Project title</Label>
+          <Label color="white">Project title</Label>
           <Required />
         </div>
         <StyledTextInput
@@ -281,7 +284,7 @@ export default ({
       </FormSection>
       <FormSection>
         <div>
-          <Label>Project description</Label>
+          <Label color="white">Project description</Label>
           <Required />
         </div>
         <TextArea
@@ -293,7 +296,7 @@ export default ({
         />
       </FormSection>
       <FormSection>
-        <Label>Links</Label>
+        <Label color="white">Links</Label>
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
@@ -326,10 +329,18 @@ export default ({
           onChange={e => setLinks({ ...links, other: e.target.value })}
         />
       </FormSection>
+      <FormSection>
+        <Label color="white">Mentor Nomination</Label>
+        <TextInputWithField
+          fieldName="Nominate the most helpful mentor that assisted you or your team"
+          value={mentorNomination}
+          onChange={e => setMentorNomination(e.target.value)}
+        />
+      </FormSection>
       {/* Charities for CMD-F */}
       {/* <FormSection>
         <div>
-          <Label>Charity Choice</Label>
+          <Label color="white">Charity Choice</Label>
           <Required />
           <P>
             Every project submitted at cmd-f 2022, regardless of completion, will be eligible for a
@@ -352,7 +363,7 @@ export default ({
       </FormSection> */}
       {sponsorPrizes && (
         <FormSection>
-          <Label>Sponsor Prizes</Label>
+          <Label color="white">Sponsor Prizes</Label>
           <div>
             {sponsorPrizes.map(prize => {
               return (
@@ -370,7 +381,7 @@ export default ({
       )}
       <StyledHr />
       <FormSection>
-        <Label>Add up to 4 team members</Label>
+        <Label color="white">Add up to 4 team members</Label>
         <MemberList>
           {members.map((member, index) => (
             <TeamMember>

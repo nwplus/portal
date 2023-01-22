@@ -38,7 +38,7 @@ export const REDIRECT_STATUS = Object.freeze({
 
 export const APPLICATION_STATUS = Object.freeze({
   applied: 'applied',
-  accepted: 'accepted',
+  accepted: 'acceptedAndAttending',
   rejected: 'rejected',
   waitlisted: 'waitlisted',
   inProgress: 'inProgress',

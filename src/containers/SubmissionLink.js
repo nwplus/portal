@@ -69,7 +69,8 @@ export default ({ user, refreshCallback }) => {
               const userData = res.docs[0].data()
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
-              if (applicationStatus !== 'accepted' || !attending || !responded) {
+
+              if (applicationStatus !== 'acceptedAndAttending' || !attending || !responded) {
                 error = new Error(member.email + ' is not a registered hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject && userData.submittedProject !== projectId) {
@@ -118,7 +119,7 @@ export default ({ user, refreshCallback }) => {
               const userData = res.docs[0].data()
               const { applicationStatus, attending, responded } = userData.status
               // Check that the person is an accepted hacker
-              if (applicationStatus !== 'accepted' || !attending || !responded) {
+              if (applicationStatus !== 'acceptedAndAttending' || !attending || !responded) {
                 error = new Error(member.email + ' is not a registered hacker.')
                 // Check that the hacker isn't already associated with another project
               } else if (userData.submittedProject) {

@@ -124,7 +124,7 @@ export const QuestionHeading = styled.p`
 `
 
 export const Label = styled.label`
-  color: ${p => p.theme.colors.primary};
+  color: ${p => (p.color ? p.color : p.theme.colors.primary)};
   font-weight: 600;
   text-transform: uppercase;
 `
