@@ -218,11 +218,11 @@ export default ({
     }
 
     // Validate Devpost
-    if (!links.devpost) {
-      newErrors.devpost = 'Please enter a URL'
-    } else if (!validateDevpostURL(links.devpost)) {
-      newErrors.devpost = 'Please enter a valid Devpost URL'
-    }
+    // if (!links.devpost) {
+    //   newErrors.devpost = 'Please enter a URL'
+    // } else if (!validateDevpostURL(links.devpost)) {
+    //   newErrors.devpost = 'Please enter a valid Devpost URL'
+    // }
 
     // Validate YouTube link
     if (!links.youtube) {
@@ -300,7 +300,6 @@ export default ({
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
-          required
           invalid={errors?.devpost}
           errorMsg={errors?.devpost}
           onChange={e => setLinks({ ...links, devpost: e.target.value })}
