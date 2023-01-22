@@ -244,37 +244,37 @@ export default () => {
     setSponsorPrizes(await parseSponsorPrizes())
   }
 
-  const [firstTimeStats, setFirstTimeStats] = useState(null)
-  const getFirstTimeHackers = async () => {
-    const projects = await getProjectData()
+  // const [firstTimeStats, setFirstTimeStats] = useState(null)
+  // const getFirstTimeHackers = async () => {
+  //   const projects = await getProjectData()
 
-    const projectsToStat = {}
+  //   const projectsToStat = {}
 
-    for (let i = 0; i < projects.length; i++) {
-      const project = projects[i]
+  //   for (let i = 0; i < projects.length; i++) {
+  //     const project = projects[i]
 
-      if (project.teamMembers && project.teamMembers.length > 0) {
-        let newHackers = []
+  //     if (project.teamMembers && project.teamMembers.length > 0) {
+  //       let newHackers = []
 
-        for (let j = 0; j < projects[i].teamMembers.length; j++) {
-          if (project.teamMembers[j].id) {
-            const hacker = await getUserApplication(project.teamMembers[j].id)
+  //       for (let j = 0; j < projects[i].teamMembers.length; j++) {
+  //         if (project.teamMembers[j].id) {
+  //           const hacker = await getUserApplication(project.teamMembers[j].id)
 
-            if (hacker.skills.hackathonsAttended) {
-              newHackers.push(`${hacker.basicInfo.firstName} ${hacker.basicInfo.lastName}`)
-            }
-          }
-        }
+  //           if (hacker.skills.hackathonsAttended) {
+  //             newHackers.push(`${hacker.basicInfo.firstName} ${hacker.basicInfo.lastName}`)
+  //           }
+  //         }
+  //       }
 
-        projectsToStat[project.title] = {
-          ratio: `${newHackers.length}/${project.teamMembers.length}`,
-          newHackers: newHackers,
-        }
-      }
-    }
-    setFirstTimeStats(projectsToStat)
-    console.log(projectsToStat)
-  }
+  //       projectsToStat[project.title] = {
+  //         ratio: `${newHackers.length}/${project.teamMembers.length}`,
+  //         newHackers: newHackers,
+  //       }
+  //     }
+  //   }
+  //   setFirstTimeStats(projectsToStat)
+  //   console.log(projectsToStat)
+  // }
 
   useEffect(() => {
     getProjectsByPrizes()
@@ -317,14 +317,14 @@ export default () => {
   return (
     <>
       <H1>Submissions</H1>
-      <div onClick={getFirstTimeHackers}>stats</div>
+      {/* <div onClick={getFirstTimeHackers}>stats</div>
       {firstTimeStats &&
         Object.keys(firstTimeStats).map(project => (
           <div>
             {project}: {firstTimeStats[project].ratio} (
             {JSON.stringify(firstTimeStats[project].newHackers)})
           </div>
-        ))}
+        ))} */}
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
       <H1>Grades</H1>
       <H3>{percentageAssigned}% of projects assigned</H3>
