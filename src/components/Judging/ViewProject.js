@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H2, P, A, Label, ErrorMessage, Message } from '../Typography'
 import { Select, Button, TextArea } from '../Input'
-import Youtube from '../Youtube'
+// import Youtube from '../Youtube'
 import { Card } from '../Common'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
 
