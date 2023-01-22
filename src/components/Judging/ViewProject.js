@@ -90,18 +90,24 @@ const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
 
 export default ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
   const cleanedUpLink = project.links.sourceCode.replace(/https?:\/\//, '')
-  const cleanedUpDevpostLink = project.links.devpost.replace(/https?:\/\//, '')
+  const cleanedUpDevpostLink = project.links.devpost
+    ? project.links.devpost.replace(/https?:\/\//, '')
+    : ''
   return (
     <Container>
       <JudgingColumn>
         <H2>Judging "{project.title}"</H2>
         <Card>
-          <StyledYoutube src={project.links.youtube} />
+          {/* <StyledYoutube src={project.links.youtube} /> */}
           <StyledP>{project.description}</StyledP>
           <StyledP>
-            <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpDevpostLink}`}>
-              View Devpost
-            </StyledA>
+            {cleanedUpDevpostLink ? (
+              <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpDevpostLink}`}>
+                View Devpost
+              </StyledA>
+            ) : (
+              ''
+            )}
           </StyledP>
           <StyledP>
             <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpLink}`}>

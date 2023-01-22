@@ -298,6 +298,14 @@ export default ({
       <FormSection>
         <Label color="white">Links</Label>
         <TextInputWithField
+          fieldName="Source code (GitHub/BitBucket/GitLab)"
+          value={links?.sourceCode}
+          required
+          invalid={errors?.sourceCode}
+          errorMsg={errors?.sourceCode}
+          onChange={e => setLinks({ ...links, sourceCode: e.target.value })}
+        />
+        <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
           invalid={errors?.devpost}
@@ -312,14 +320,6 @@ export default ({
           errorMsg={errors?.youtube}
           onChange={e => setLinks({ ...links, youtube: e.target.value })}
         /> */}
-        <TextInputWithField
-          fieldName="Source code (GitHub/BitBucket/GitLab)"
-          value={links?.sourceCode}
-          required
-          invalid={errors?.sourceCode}
-          errorMsg={errors?.sourceCode}
-          onChange={e => setLinks({ ...links, sourceCode: e.target.value })}
-        />
         <TextInputWithField
           fieldName="Other"
           value={links?.other}

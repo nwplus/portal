@@ -241,9 +241,9 @@ export default ({
     })
   }, [setSponsors])
 
-  if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
-    links.tools.push({ location: '/projects', text: 'Project Gallery' })
-  }
+  // if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
+  //   links.tools.push({ location: '/projects', text: 'Project Gallery' })
+  // }
 
   if (isSubmissionsOpen || isJudgingReleased) {
     links.tools.push({ location: '/submission', text: 'Project Submission' })
