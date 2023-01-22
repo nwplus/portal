@@ -59,6 +59,13 @@ const StyledA = styled.a`
   margin-bottom: 21px;
 `
 
+const Bolded = styled(P)`
+  color: inherit;
+  margin-bottom: 21px;
+  color: white;
+  font-weight: bold;
+`
+
 const StyledP = styled(P)`
   color: inherit;
   margin-bottom: 21px;
@@ -239,7 +246,7 @@ const Project = ({ project }) => {
         <StyledH1>{project.title}</StyledH1>
         <StyledP>Created By: {teamMembers.join(' | ')}</StyledP>
         {arr.indexOf(project.title) !== -1 ? (
-          <StyledP>{arr.indexOf(project.title)}</StyledP>
+          <Bolded>Find this team at table #{arr.indexOf(project.title)}</Bolded>
         ) : (
           <StyledA
             href="https://docs.google.com/spreadsheets/d/1ZuFZ6tSdY-c8Iui_CH99hZDqbt_K-Aqf5f6Pmho08fU"
