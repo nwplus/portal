@@ -5,7 +5,7 @@ import { H1, H2, P } from '../components/Typography'
 
 import { getSubmission } from '../utility/firebase'
 import { Loading } from '../components/HeroPage'
-import Youtube from '../components/Youtube'
+// import Youtube from '../components/Youtube'
 import { Button } from '../components/Input'
 import { NotFound } from '.'
 
@@ -29,11 +29,12 @@ const LinkContainer = styled.div`
   justify-contents: center;
 `
 
-const StyledYoutube = styled(Youtube)`
-  width: 600px;
-  height: 350px;
-  border-radius: 3px;
-`
+// const StyledYoutube = styled(Youtube)`
+//   width: 600px;
+//   height: 350px;
+//   border-radius: 3px;
+// `
+
 const StyledBanner = styled.div`
   ${p => `
     color: ${p.theme.colors.text};
@@ -94,7 +95,7 @@ const Project = ({ project }) => {
         <StyledH1>{project.title}</StyledH1>
         <StyledP>Created By: {teamMembers.join(' | ')}</StyledP>
       </StyledBanner>
-      <StyledYoutube src={project.links.youtube} />
+      {/* <StyledYoutube src={project.links.youtube} /> */}
       <StyledDiv>
         <StyledH2>Description</StyledH2>
         <P>{project.description}</P>

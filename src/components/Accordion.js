@@ -5,7 +5,7 @@ import { H3 } from './Typography'
 const Accordion = styled.details`
   display: inline-block;
   width: 100%;
-  cursor: pointer;
+  cursor: ${p => (p?.cursor ? p.cursor : 'pointer')};
 
   & > summary:focus {
     outline: 0;
@@ -20,9 +20,9 @@ const StyledH3 = styled(H3)`
   opacity: 1;
 `
 
-export default ({ heading, children }) => {
+export default ({ heading, children, cursor }) => {
   return (
-    <Accordion>
+    <Accordion cursor={cursor}>
       <summary>
         <StyledH3>{heading}</StyledH3>
       </summary>
