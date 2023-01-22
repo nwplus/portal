@@ -18,7 +18,7 @@ const Columns = styled.div`
 const Column = styled.div`
   margin: 1em;
 `
-const StyledCSVLink = styled(CSVLink)`
+export const StyledCSVLink = styled(CSVLink)`
   color: ${p => p.theme.colors.primary};
   text-decoration: none;
 `
@@ -232,13 +232,20 @@ export default () => {
     setLoading(true)
     setGradedProjects(await getGradedProjects())
     setGrades(await getGrades())
-    setSponsorPrizes(await parseSponsorPrizes())
     getStats().then(data => setStats(data))
     setLoading(false)
   }
 
   useEffect(() => {
     setProjectsAndStats()
+  }, [])
+
+  const getProjectsByPrizes = async () => {
+    setSponsorPrizes(await parseSponsorPrizes())
+  }
+
+  useEffect(() => {
+    getProjectsByPrizes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
