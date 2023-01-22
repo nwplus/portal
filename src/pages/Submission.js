@@ -23,6 +23,7 @@ export default () => {
 
   const getProject = async () => {
     const d = await getUserApplication(user.uid)
+
     if (!d.submittedProject) {
       setSubmission(false)
       return
