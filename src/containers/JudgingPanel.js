@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
 import styled from 'styled-components'
 import { CSVLink } from 'react-csv'
-import { getSponsorPrizes, projectsRef, submitGrade } from '../utility/firebase'
+import { getSponsorPrizes, getUserApplication, projectsRef, submitGrade } from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P } from '../components/Typography'
 import { Card } from '../components/Common'
@@ -244,6 +244,35 @@ export default () => {
     setSponsorPrizes(await parseSponsorPrizes())
   }
 
+  const getFirstTimeHackers = async () => {
+    const projects = await getProjectData()
+
+    const projectsToStat = {}
+
+    for (let i = 0; i < projects.length; i++) {
+      const project = projects[i]
+
+      if (project.teamMembers && project.teamMembers.length > 0) {
+        let newHackers = []
+
+        for (let j = 0; j < projects.teamMembers.length; j++) {
+          const hacker = getUserApplication(project.teamMembers[j].id)
+
+          if (hacker.skills.hackathonsAttended) {
+            newHackers.push(`${hacker.basicInfo.firstName} ${hacker.basicInfo.lastName}`)
+          }
+        }
+
+        projectsToStat[project.title] = {
+          ratio: `${newHackers.length}/${project.teamMembers.length}`,
+          newHackers: newHackers,
+        }
+      }
+    }
+
+    console.log(projectsToStat)
+  }
+
   useEffect(() => {
     getProjectsByPrizes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -285,6 +314,7 @@ export default () => {
   return (
     <>
       <H1>Submissions</H1>
+      <div onClick={getFirstTimeHackers}>stats</div>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
       <H1>Grades</H1>
       <H3>{percentageAssigned}% of projects assigned</H3>
