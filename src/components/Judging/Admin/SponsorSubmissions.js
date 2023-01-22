@@ -16,17 +16,20 @@ const EntriesList = styled.ul`
 
 export default ({ sponsorPrizes }) => (
   <div>
-    <H1>Sponsor Judging</H1>
-    {Object.keys(sponsorPrizes).map((prize, i) => (
-      <SponsorPrize key={i}>
-        <Accordion heading={prize} key={prize}>
-          <EntriesList>
-            {sponsorPrizes[prize].map((submission, i) => (
-              <li key={i}>{submission}</li>
-            ))}
-          </EntriesList>
-        </Accordion>
-      </SponsorPrize>
-    ))}
+    <H1>Projects by Sponsor Prizes</H1>
+    {Object.keys(sponsorPrizes).map(
+      (prize, i) =>
+        sponsorPrizes[prize].length > 0 && (
+          <SponsorPrize key={i}>
+            <Accordion heading={prize} key={prize}>
+              <EntriesList>
+                {sponsorPrizes[prize].map((submission, i) => (
+                  <li key={i}>{submission.title}</li>
+                ))}
+              </EntriesList>
+            </Accordion>
+          </SponsorPrize>
+        )
+    )}
   </div>
 )
