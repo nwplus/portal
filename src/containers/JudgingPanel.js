@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { MoonLoader } from 'react-spinners'
 import styled from 'styled-components'
 import { CSVLink } from 'react-csv'
-import { getSponsorPrizes, projectsRef, submitGrade } from '../utility/firebase'
+import {
+  applicantsRef,
+  getSponsorPrizes,
+  projectsRef,
+  storage,
+  submitGrade,
+} from '../utility/firebase'
 import { Button, ToggleSwitch } from '../components/Input'
 import { H1, H3, P } from '../components/Typography'
 import { Card } from '../components/Common'
@@ -173,6 +179,63 @@ const getGradedProjects = async (dropOutliers = 2) => {
   return projectData
 }
 
+const getResumeDownloadLinksOfApplicantsThatCheckedIn = async () => {
+  const applicants = await applicantsRef
+    .where('dayOf.checkedIn', '==', true)
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    })
+  const storageRef = storage.ref()
+
+  const displayArr = []
+  for (let i = 0; i < applicants.length; i++) {
+    const id = applicants[i].id
+    const applicant = applicants[i].data()
+
+    const name = `${applicant.basicInfo?.lastName || ''}, ${applicant.basicInfo?.firstName || ''}`
+    const email = applicant.basicInfo?.email || ''
+
+    const didSubmitProject =
+      applicant.submittedProject !== undefined && applicant.submittedProject !== ''
+    let link = await storageRef
+      .child(`applicantResumes/${id}`)
+      .getDownloadURL()
+      .then(url => {
+        return url
+        // let blob = null
+
+        // // This can be downloaded directly:
+        // var xhr = new XMLHttpRequest();
+        // xhr.responseType = 'blob';
+        // xhr.onload = (event) => {
+        //   blob = xhr.response;
+        // };
+        // xhr.open('GET', url);
+        // xhr.send();
+
+        // // `url` is the download URL for 'images/stars.jpg'
+        // return {
+        //   url,
+        //   blob
+        // }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+
+    displayArr.push({
+      id,
+      name,
+      email,
+      projectSubmitted: didSubmitProject,
+      resumeDownload: link,
+    })
+  }
+
+  console.log(displayArr)
+}
+
 export default () => {
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [gradedProjects, setGradedProjects] = useState([])
@@ -285,6 +348,7 @@ export default () => {
   return (
     <>
       <H1>Submissions</H1>
+      <div onClick={getResumeDownloadLinksOfApplicantsThatCheckedIn}>click me</div>
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
       <H1>Grades</H1>
       <H3>{percentageAssigned}% of projects assigned</H3>
