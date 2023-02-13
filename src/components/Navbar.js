@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { P } from './Typography'
-import icon from '../assets/nwhacks_logo_white.svg'
+import nwHacksIcon from '../assets/nwhacks_logo_white.svg'
+import cmdfIcon from '../assets/cmdf_logo.png'
 import poweredBy from '../assets/powered_by_livepeer.svg'
 import { Button } from './Input'
 import { withTheme } from 'styled-components'
@@ -12,6 +13,7 @@ const NavContainer = styled.div`
   display: flex;
   box-sizing: border-box;
   width: 100vw;
+  top: 0;
   height: 5em;
   padding: 3vh 10vw;
   margin-right: auto;
@@ -22,14 +24,13 @@ const NavContainer = styled.div`
     height: 3em;
   }
   //background: linear-gradient(to bottom, #544d92, rgba(33, 30, 57, 0));
-  background: ${p => p.theme.colors.primary};
+  background: ${p => p.theme.colors.secondaryBackground};
 `
 
 const Icon = styled.img`
-  width: 30px;
+  object-fit: cover;
   height: 42px;
   ${p => p.theme.mediaQueries.mobile} {
-    width: 15px;
     height: 21px;
   }
 `
@@ -59,9 +60,13 @@ const LogoContainer = styled.div`
   gap: 0.5rem;
 `
 
+const Wrapper = styled.div`
+  padding-top: 1rem;
+`
+
 const NavBar = ({ name, handleLogout, children, theme }) => {
   return (
-    <div>
+    <Wrapper>
       <NavContainer>
         {handleLogout && (
           <Button onClick={handleLogout} color="secondary" nav>
@@ -79,12 +84,18 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
         {theme.name === 'nwHacks' && (
           <LogoContainer>
             <SponsorIcon src={poweredBy} alt="powered by Livepeer" />
-            <Icon src={icon} alt={theme.name} />
+            <Icon src={nwHacksIcon} alt={theme.name} />
+          </LogoContainer>
+        )}
+        {theme.name === 'cmdf' && (
+          <LogoContainer>
+            {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
+            <Icon src={cmdfIcon} alt={theme.name} />
           </LogoContainer>
         )}
       </NavContainer>
       {children}
-    </div>
+    </Wrapper>
   )
 }
 
