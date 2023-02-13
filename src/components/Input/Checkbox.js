@@ -16,7 +16,7 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 
 const Icon = styled.svg`
   fill: none;
-  stroke: white;
+  stroke: ${p => p.theme.colors.secondaryBackground};
   stroke-width: 4px;
 `
 

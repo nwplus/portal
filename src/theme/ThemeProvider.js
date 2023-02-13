@@ -162,12 +162,12 @@ const cmdfTheme = {
   name: 'cmdf',
   colors: {
     background: '#FFF6D8',
-    card: '#2C3933',
+    card: '#847064',
     cardText: '#ffffff',
     border: 'rgba(0, 0, 0, 0.3)',
     cardSecondary: '#C8BFB6',
-    secondaryBackground: '#2C3933',
-    secondaryBackgroundTransparent: '#EBC029',
+    secondaryBackground: '#C0A68B',
+    secondaryBackgroundTransparent: '#EBC02910',
     sidebar: {
       link: '#fff',
     },
@@ -194,14 +194,28 @@ const cmdfTheme = {
     selects: {
       border: '#2C3933',
       text: '#2C3933',
-      hover: '#EBC029',
+      hover: '#C0A68B',
       disabled: 'rgba(0, 0, 0, 0.4)',
-      selected: '#EBC029',
+      selected: '#847064',
       placeholder: 'rgba(0, 0, 0, 0.4)',
     },
+    button: {
+      // Application form buttons
+      text: '#0A1361', // For primary button
+      background: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', // Primary button
+      border: '#9AD4DE',
+      hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
+      hoverborder: '#A4A9F1',
+      outlineText: '#CFD6FF', // Secondary button
+      outlineBackground: 'transparent',
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
+      outlineBorder: '#CFD6FF',
+      grey500: '#BDBAC3',
+      grey700: '#55525B',
+    },
     hover: '#A0B9C0',
-    scrollbar: '#80959B',
-    banner: '#EBC029',
+    scrollbar: '#847064',
+    banner: 'transparent',
     login: {
       background: '#2C3933',
       text: '#fff',
@@ -216,7 +230,7 @@ const cmdfTheme = {
 }
 
 const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
-let selectedTheme = nwTheme
+let selectedTheme = cmdfTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   const localTheme = window.localStorage.getItem('localTheme')

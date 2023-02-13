@@ -15,8 +15,6 @@ export default ({ formInputs, onChange, error }) => {
             💉
           </span>
         </CenteredH1>
-      </FormSpacing>
-      <FormSpacing>
         <SubHeading>
           This year, {copyText.hackathonName} is back in-person! Due to MLH{`'`}s regulations and to
           ensure everyone{`'`}s safety, we will only be accepting hackers who are/will be
