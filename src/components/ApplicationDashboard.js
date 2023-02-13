@@ -6,7 +6,7 @@ import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '..
 import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { analytics } from '../utility/firebase'
-import { Checkbox, TextInput } from './Input'
+import { Checkbox } from './Input'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -136,10 +136,10 @@ const SafeWalkContainer = styled.div`
   margin-bottom: -10px;
 `
 
-const DietaryNoteContainer = styled.div`
-  display: flex;
-  align-items: center;
-`
+// const DietaryNoteContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+// `
 
 const UnRSVPModelContainer = styled.div`
   position: absolute;
@@ -206,7 +206,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
     // blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of January 21st-22nd, 2023! Please RSVP before 11:59 PM PST, January 6th to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -302,14 +302,11 @@ const Dashboard = ({
   setRSVP,
   safewalkNote,
   setSafewalkInput,
-  dietaryNote,
-  setDietaryRestrictions,
   username,
   editApplication,
   relevantDates,
   isRsvpOpen,
 }) => {
-  const [dietaryInput, setDietaryInput] = useState(dietaryNote || '')
   const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
   const handleChange = () => {
     setSafewalkCheckbox(!safewalk)
@@ -354,7 +351,7 @@ const Dashboard = ({
         </div>
 
         {/* Hides this option if a user unRSVP'd */}
-        {hackerRSVPStatus !== "Un-RSVP'd" && (
+        {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
           <SafeWalkContainer>
             <Checkbox
               checked={safewalk}
@@ -365,19 +362,6 @@ const Dashboard = ({
         )}
 
         <FooterContainer>
-          {/* Hides this option if a user unRSVP'd */}
-          {hackerRSVPStatus !== "Un-RSVP'd" && (
-            <DietaryNoteContainer>
-              <TextInput
-                value={dietaryInput}
-                onChange={e => setDietaryInput(e.target.value)}
-                placeholder="Dietary Restrictions/Notes"
-                color="primary"
-              />
-              <Button onClick={() => setDietaryRestrictions(dietaryInput)}>Save</Button>
-            </DietaryNoteContainer>
-          )}
-
           {/* Only show button if a user hasn't unRSVPed yet and can still RSVP*/}
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
             <RSVPButton
@@ -392,7 +376,7 @@ const Dashboard = ({
           )}
 
           {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
-          {hackerRSVPStatus !== "Un-RSVP'd" && !canRSVP && (
+          {hackerRSVPStatus !== "Un-RSVP'd" && (canRSVP || hackerRSVPStatus === 'acceptedNoRSVP') && (
             <>
               <Button
                 width="flex"

@@ -190,14 +190,11 @@ const validators = {
     preferredName: noEmptyFunction,
     gender: noEmptyFunction,
     pronouns: noEmptyFunction,
-    ethnicity: noNoneFunction,
+    dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
-    otherEducationLevel: noEmptyFunction,
-    graduation: noEmptyFunction,
-    contributionRole: noEmptyFunction,
     countryOfResidence: noEmptyFunction,
     phoneNumber: number => {
       return {
@@ -207,11 +204,12 @@ const validators = {
     },
   },
   skills: {
+    contributionRole: noNoneFunction,
     resume: noEmptyFunction,
     portfolio: optionalURLFunction,
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
-    hackathonsAttended: noNeitherFunction,
+    firstTimeHacker: noNeitherFunction,
     longAnswers1: answer => {
       return {
         error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
