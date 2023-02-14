@@ -178,7 +178,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
-    blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and workshops!`,
+    blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
   },
   waitlisted: {
     sidebarText: 'Waitlisted',
@@ -264,18 +264,18 @@ export const SocialMediaLinks = () => {
   return (
     <SocialIconContainer>
       <Icon
-        href={SOCIAL_LINKS.FB}
-        icon="facebook"
-        brand
-        size="2x"
-        onClick={() => UpdateAnalytics('facebook')}
-      />
-      <Icon
         href={SOCIAL_LINKS.IG}
         icon="instagram"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('instagram')}
+      />
+      <Icon
+        href={SOCIAL_LINKS.FB}
+        icon="facebook"
+        brand
+        size="2x"
+        onClick={() => UpdateAnalytics('facebook')}
       />
       <Icon
         href={SOCIAL_LINKS.MEDIUM}

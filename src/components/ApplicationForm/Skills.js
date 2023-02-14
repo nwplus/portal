@@ -58,6 +58,10 @@ const StyledTextArea = styled(TextArea)`
   margin: 1em 0;
 `
 
+const FormGroup = styled.div`
+  padding-top: 1rem;
+`
+
 const FormRow = ({ fieldValue, required, children }) => (
   <div>
     <QuestionRow>
@@ -105,8 +109,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       <FormSpacing>
         <QuestionHeading>question 14</QuestionHeading>
         <SubHeading>
-          How do you want to contribute at {copyText.hackathonName}? Please select the category that
-          you're strongest in.
+          What role(s) would you like to take on at {copyText.hackathonName}?
           <Required />
         </SubHeading>
         {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
@@ -215,52 +218,49 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </QuestionForm>
       </FormSpacing>
 
-      <FormSpacing>
-        <QuestionHeading>question 16</QuestionHeading>
-        <SubHeading>General question</SubHeading>
-        <P>
-          Although many come to hackathons to work together to build a software project, we
-          recognize that there may be other reasons for attending an hackathon, such as attending
-          workshops, or connecting with sponsors.
-        </P>
-        <SubHeading size="1.25em">
-          Why do you want to attend cmd-f 2023? (max 200 words)
-          <Required />
-        </SubHeading>
-        <StyledTextArea
-          maxWords="200"
-          width="100%"
-          value={formInputs.longAnswers1}
-          invalid={!!errors.longAnswers1}
-          errorMsg={errors.longAnswers1}
-          onChange={val =>
-            onChange({
-              longAnswers1: val,
-            })
-          }
-          customRef={refs['longAnswers1Ref']}
-        />
-      </FormSpacing>
+      <SubHeading>Long answer questions</SubHeading>
 
       <FormSpacing>
-        <QuestionHeading>question 17</QuestionHeading>
-        <SubHeading size="1.25em">
-          How would you make tech a more welcoming space to underrepresented demographics?
-          <Required />
-        </SubHeading>
-        <StyledTextArea
-          maxWords="200"
-          width="100%"
-          value={formInputs.longAnswers2}
-          invalid={!!errors.longAnswers2}
-          errorMsg={errors.longAnswers2}
-          onChange={val =>
-            onChange({
-              longAnswers2: val,
-            })
-          }
-          customRef={refs['longAnswers2Ref']}
-        />
+        <FormGroup>
+          <QuestionHeading>question 16</QuestionHeading>
+          <SubHeading size="1.25em">
+            Why do you want to attend cmd-f 2023? (max 200 words)
+            <Required />
+          </SubHeading>
+          <StyledTextArea
+            maxWords="200"
+            width="100%"
+            value={formInputs.longAnswers1}
+            invalid={!!errors.longAnswers1}
+            errorMsg={errors.longAnswers1}
+            onChange={val =>
+              onChange({
+                longAnswers1: val,
+              })
+            }
+            customRef={refs['longAnswers1Ref']}
+          />
+        </FormGroup>
+        <FormGroup>
+          <QuestionHeading>question 17</QuestionHeading>
+          <SubHeading size="1.25em">
+            How would you make tech a more welcoming space for underrepresented demographics?
+            <Required />
+          </SubHeading>
+          <StyledTextArea
+            maxWords="200"
+            width="100%"
+            value={formInputs.longAnswers2}
+            invalid={!!errors.longAnswers2}
+            errorMsg={errors.longAnswers2}
+            onChange={val =>
+              onChange({
+                longAnswers2: val,
+              })
+            }
+            customRef={refs['longAnswers2Ref']}
+          />
+        </FormGroup>
       </FormSpacing>
 
       <FormSpacing>

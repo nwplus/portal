@@ -677,7 +677,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         <span role="img" aria-label="Person raising one hand emoji">
           🙋
         </span>{' '}
-        Which gender do you identify as?
+        What is your gender identity?
         <Required />
       </SubHeading>
       {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>}
