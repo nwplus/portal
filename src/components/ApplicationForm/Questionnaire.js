@@ -44,7 +44,7 @@ export default ({ errors, formInputs, onChange }) => {
         </CenteredH1>
       </FormSpacing>
       <FormSpacing>
-        <QuestionHeading>Question 18</QuestionHeading>
+        <QuestionHeading>Question 20</QuestionHeading>
         <SubHeading>How did you hear about {copyText.hackathonName}?</SubHeading>
         <StyledDropdown
           options={options}
@@ -77,7 +77,7 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>Question 19</QuestionHeading>
+        <QuestionHeading>Question 21</QuestionHeading>
         <SubHeading>
           <span role="img" aria-label="Grinning face with star eyes emoji">
             🤩
@@ -136,6 +136,20 @@ export default ({ errors, formInputs, onChange }) => {
               eventsAttended: {
                 ...formInputs.eventsAttended,
                 nwHacks2022: !formInputs.eventsAttended.nwHacks2022,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="nwHacks 2022"
+          checked={formInputs.eventsAttended.nwHacks2023}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                nwHacks2023: !formInputs.eventsAttended.nwHacks2023,
               },
             })
           }

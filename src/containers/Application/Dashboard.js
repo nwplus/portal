@@ -86,16 +86,6 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
-  const setDietaryRestriction = dietaryNote => {
-    console.log(dietaryNote)
-    updateApplication({
-      basicInfo: {
-        dietaryNote,
-      },
-    })
-    forceSave()
-  }
-
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(setLivesiteDoc)
     return unsubscribe
@@ -114,8 +104,6 @@ const ApplicationDashboardContainer = () => {
         canRSVP={canRSVP}
         safewalkNote={application.basicInfo.safewalkNote || false}
         setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
-        dietaryNote={application.basicInfo.dietaryNote || ''}
-        setDietaryRestrictions={dietaryNote => setDietaryRestriction(dietaryNote)}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
       />

@@ -76,11 +76,15 @@ export default () => {
   }
 
   const refs = {
+    firstTimeHackerRef: useRef(null),
+    contributionRoleRef: useRef(null),
     resumeRef: useRef(null),
     githubRef: useRef(null),
     portfolioRef: useRef(null),
     longAnswers1Ref: useRef(null),
     longAnswers2Ref: useRef(null),
+    longAnswers3Ref: useRef(null),
+    longAnswers4Ref: useRef(null),
   }
 
   return (

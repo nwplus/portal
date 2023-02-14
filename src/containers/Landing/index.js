@@ -17,8 +17,8 @@ const LandingContainer = styled.div`
 `
 
 const FlexLandingContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 98vh;
   overflow-x: hidden;
   display: flex;
   align-items: center;
@@ -96,6 +96,9 @@ const StyledBanner = styled(Banner)`
 
 const StyledP = styled(P)`
   color: ${p => p.theme.colors.login.text};
+  font-weight: 600;
+  padding-top: 1rem;
+  font-size: 1.5rem;
 `
 
 // TODO: add sponsors if footer is shown
@@ -118,7 +121,7 @@ export default ({ heading, description, showFooter, hackathon, children, backgro
           <Flex>
             <img src={cmdf_logo} alt="cmd-f 2022 logo" />
             <StyledP>{heading}</StyledP>
-            <StyledP>{description}</StyledP>
+            {description && <StyledP>{description}</StyledP>}
             {children}
           </Flex>
         </FlexLandingContainer>

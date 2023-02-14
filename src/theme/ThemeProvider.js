@@ -181,7 +181,7 @@ const cmdfTheme = {
     secondary: '#FE800B',
     default: '#2C3933',
     highlight: '#192825',
-    text: '#192825',
+    text: '#4D4B4F',
     link: '#3D995F',
     linkHover: '#2C3933',
     tertiaryHover: '#FE800B', // button hover
@@ -196,7 +196,7 @@ const cmdfTheme = {
       text: '#2C3933',
       hover: '#C0A68B',
       disabled: 'rgba(0, 0, 0, 0.4)',
-      selected: '#847064',
+      selected: '#C0A68B',
       placeholder: 'rgba(0, 0, 0, 0.4)',
     },
     button: {
@@ -214,10 +214,10 @@ const cmdfTheme = {
       grey700: '#55525B',
     },
     hover: '#A0B9C0',
-    scrollbar: '#847064',
+    scrollbar: '#4D4B4F',
     banner: 'transparent',
     login: {
-      background: '#2C3933',
+      background: '#C0A68B',
       text: '#fff',
       googleBg: '#fff',
       googleText: '#000',

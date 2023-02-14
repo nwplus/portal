@@ -4,7 +4,12 @@ import Banner from '../Banner'
 import { H1, P, QuestionHeading, A, ErrorSpan as Required } from '../Typography'
 import { Button, Checkbox } from '../Input'
 import { FormSpacing, SubHeading } from './'
-import { copyText, EVENTS_ATTENDED, ETHNICITY_OPTIONS } from '../../utility/Constants'
+import {
+  copyText,
+  EVENTS_ATTENDED,
+  DIETARY_RESTRICTION_OPTIONS,
+  CONTRIBUTION_ROLE_OPTIONS,
+} from '../../utility/Constants'
 import { SocialMediaLinks } from '../ApplicationDashboard'
 
 const ReviewContainer = styled.div`
@@ -82,29 +87,32 @@ const InfoGroup = ({ heading, data }) => (
   </InfoGroupWrapper>
 )
 
-const getEthnicities = obj => Object.keys(obj).filter(key => obj[key])
+const getDietaryRestrictions = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
+const getContribution = obj => Object.keys(obj).filter(key => obj[key])
 const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
 export default ({ formInputs, handleEdit, onChange }) => {
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
-  const contributionRole = capitalizeFirstLetter(formInputs.basicInfo.contributionRole)
   const countryOfResidence = capitalizeFirstLetter(formInputs.basicInfo.countryOfResidence)
   const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
 
-  const ethnicities = getEthnicities(formInputs.basicInfo.ethnicity).map(e => ETHNICITY_OPTIONS[e])
-  var ethnicitiesValues = []
+  const dietaryRestrictions = getDietaryRestrictions(formInputs.basicInfo.dietaryRestriction).map(
+    e => DIETARY_RESTRICTION_OPTIONS[e]
+  )
+  var dietaryRestrictionValues = []
 
-  for (var i = 0; i < ethnicities.length; i++) {
-    if (ethnicities[i] === 'Multiple ethnicity/Other') {
-      ethnicitiesValues.push(formInputs.basicInfo?.otherEthnicity || 'Multiple ethnicity/Other')
+  for (var i = 0; i < dietaryRestrictions.length; i++) {
+    if (dietaryRestrictions[i] === 'Multiple restrictions/other') {
+      dietaryRestrictionValues.push(
+        formInputs.basicInfo?.otherDietaryRestriction || 'Multiple restrictions/other'
+      )
     } else {
-      ethnicitiesValues.push(ethnicities[i])
+      dietaryRestrictionValues.push(dietaryRestrictions[i])
     }
-
-    if (i < ethnicities.length - 1) {
-      ethnicitiesValues.push(', ')
+    if (i < dietaryRestrictions.length - 1) {
+      dietaryRestrictionValues.push(', ')
     }
   }
 
@@ -116,6 +124,19 @@ export default ({ formInputs, handleEdit, onChange }) => {
 
     if (j < events.length - 1) {
       attendedValues.push(', ')
+    }
+  }
+
+  const contribution = getContribution(formInputs.skills.contributionRole).map(
+    e => CONTRIBUTION_ROLE_OPTIONS[e]
+  )
+  var contributionValues = []
+
+  for (var k = 0; k < contribution.length; k++) {
+    contributionValues.push(contribution[k])
+
+    if (k < contribution.length - 1) {
+      contributionValues.push(', ')
     }
   }
 
@@ -183,9 +204,9 @@ export default ({ formInputs, handleEdit, onChange }) => {
               }
             />
             <InfoGroup heading="Gender:" data={gender} />
-            <InfoGroup heading="Race/Ethnicity:" data={ethnicitiesValues} />
+            <InfoGroup heading="Dietary restriction:" data={dietaryRestrictionValues} />
             <InfoGroup
-              heading="Age by January 14th, 2023:"
+              heading="Current age:"
               data={
                 formInputs.basicInfo.ageByHackathon === 'other'
                   ? formInputs.basicInfo.otherAgeByHackathon
@@ -199,10 +220,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup
               heading="Graduation Year:"
               data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
-            />
-            <InfoGroup
-              heading={`Contribution at ${copyText.hackathonName}:`}
-              data={contributionRole}
             />
             <InfoGroup heading="Country of Residence:" data={countryOfResidence} />
           </ContentWrapper>
@@ -225,7 +242,11 @@ export default ({ formInputs, handleEdit, onChange }) => {
             {/* TODO: Change hackathonsAttended to attendedHackathons and make sure the value is an accurate representation */}
             <InfoGroup
               heading="First Time Hacker"
-              data={formInputs.skills.hackathonsAttended ? 'Yes' : 'No'}
+              data={formInputs.skills.firstTimeHacker ? 'Yes' : 'No'}
+            />
+            <InfoGroup
+              heading={`Contribution at ${copyText.hackathonName}:`}
+              data={contributionValues}
             />
             <InfoGroup heading="Resume" data={formInputs.skills.resume} />
             <InfoGroup
@@ -235,12 +256,20 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
             <InfoGroup
-              heading="In your own words, describe your definition of a hackathon, and what it means to you."
+              heading="Why do you want to attend cmd-f 2023?"
               data={formInputs.skills.longAnswers1}
             />
             <InfoGroup
-              heading="How would you like to challenge yourself during this hackathon? / What should technology be used for?"
+              heading="How would you make tech a more welcoming space to underrepresented demographics?"
               data={formInputs.skills.longAnswers2}
+            />
+            <InfoGroup
+              heading="In the past, have there been reasons deterring you from attending hackathons or other tech events? (optional)"
+              data={formInputs.skills.longAnswers3}
+            />
+            <InfoGroup
+              heading="Is there anything you want to let us know to ensure that we can help you feel comfortable throughout the event? (optional)"
+              data={formInputs.skills.longAnswers4}
             />
           </ContentWrapper>
         </StyledBanner>

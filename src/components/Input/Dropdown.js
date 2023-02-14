@@ -66,7 +66,8 @@ const sharedStyle = css`
 
   .react-select__option:hover,
   .react-select__option--is-selected {
-    background-color: ${p => p.theme.colors.primary};
+    background-color: ${p => p.theme.colors.card};
+    color: white;
     border-radius: 5px;
     font-weight: bold;
   }

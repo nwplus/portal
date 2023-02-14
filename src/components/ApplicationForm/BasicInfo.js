@@ -8,21 +8,12 @@ import { FormSpacing, SubHeading } from './'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
 import { findElement, creatableDropdownValue } from '../../utility/utilities'
-import { copyText, ETHNICITY_OPTIONS } from '../../utility/Constants'
+import { DIETARY_RESTRICTION_OPTIONS, PRONOUN_OPTIONS } from '../../utility/Constants'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },
   { value: 'male', label: 'Man' },
   { value: 'non-binary', label: 'Non-binary' },
-  { value: 'other', label: 'Prefer to self-describe' },
-  { value: 'prefer not to say', label: 'Prefer not to say' },
-]
-
-const pronounOptions = [
-  { value: 'she/her', label: 'she/her' },
-  { value: 'they/them', label: 'they/them' },
-  { value: 'ze/zir', label: 'ze/zir' },
-  { value: 'he/him', label: 'he/him' },
   { value: 'other', label: 'Prefer to self-describe' },
   { value: 'prefer not to say', label: 'Prefer not to say' },
 ]
@@ -39,17 +30,23 @@ const educationOptions = [
   { value: 'other', label: 'Other' },
 ]
 
-const graduationOptions = [
-  { value: 2022, label: '2022' },
-  { value: 2023, label: '2023' },
-  { value: 2024, label: '2024' },
-  { value: 2025, label: '2025' },
-  { value: 2026, label: '2026' },
-  { value: 2027, label: '2027+' },
+const identifyAsUnderrepresentedOptions = [
+  { value: 'yes', label: 'Yes' },
+  { value: 'no', label: 'No' },
+  { value: 'unsure', label: 'Unsure' },
+  { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
 ]
 
+// const graduationOptions = [
+//   { value: 2022, label: '2022' },
+//   { value: 2023, label: '2023' },
+//   { value: 2024, label: '2024' },
+//   { value: 2025, label: '2025' },
+//   { value: 2026, label: '2026' },
+//   { value: 2027, label: '2027+' },
+// ]
+
 const ageOptions = [
-  { value: 15, label: '15' },
   { value: 16, label: '16' },
   { value: 17, label: '17' },
   { value: 18, label: '18' },
@@ -59,7 +56,6 @@ const ageOptions = [
   { value: 22, label: '22' },
   { value: 23, label: '23' },
   { value: 24, label: '24' },
-  { value: 25, label: '25' },
   { value: 'other', label: 'Other' },
 ]
 
@@ -415,6 +411,46 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>
+        <span role="img" aria-label="Baby chick emoji">
+          🐥
+        </span>{' '}
+        What is your current age?
+        <Required />
+      </SubHeading>
+      <P>We accept hackers currently in high school but require this for consent purposes.</P>
+      {errors?.ageByHackathon && <ErrorMessage>{errors?.ageByHackathon}</ErrorMessage>}
+      <Dropdown
+        options={ageOptions}
+        placeholder="Age"
+        isSearchable={false}
+        value={findElement(ageOptions, 'value', formInputs.ageByHackathon)}
+        onChange={e =>
+          onChange({
+            ageByHackathon: e.value,
+            otherAgeByHackathon: null,
+          })
+        }
+        isValid={!errors?.ageByHackathon}
+        customRef={refs['ageByHackathonRef']}
+      />
+      {formInputs.ageByHackathon === 'other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs.otherAgeByHackathon}
+          onChange={e =>
+            onChange({
+              otherAgeByHackathon: e.target.value,
+            })
+          }
+        />
+      )}
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 04</QuestionHeading>
+      <SubHeading>
         <span role="img" aria-label="Telephone emoji">
           ☎️
         </span>{' '}
@@ -436,7 +472,207 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 04</QuestionHeading>
+      <QuestionHeading>question 05</QuestionHeading>
+      <SubHeading>
+        What school do you currently attend?
+        <Required />
+      </SubHeading>
+      <P>If you have graduated, please specify the school you most recently attended.</P>
+      {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
+      <Dropdown
+        options={schools}
+        placeholder="Enter your school"
+        isSearchable
+        formatCreateLabel={inputValue => `${inputValue}`}
+        label={formInputs.school}
+        value={creatableDropdownValue(schools, 'label', formInputs.school)}
+        onChange={e =>
+          onChange({
+            school: e.label,
+          })
+        }
+        emptySearchDefaultOption="Start typing to search"
+        canCreateNewOption
+        debounceEnabled
+        throttleTime={1000}
+        isValid={!errors?.school}
+        customRef={refs['schoolRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 06</QuestionHeading>
+      <SubHeading>
+        What level of education are you currently studying at?
+        <Required />
+      </SubHeading>
+      {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
+      <Dropdown
+        options={educationOptions}
+        placeholder="Level of Education"
+        isSearchable={false}
+        value={findElement(educationOptions, 'value', formInputs.educationLevel)}
+        onChange={inputValue =>
+          onChange({
+            educationLevel: inputValue.value,
+          })
+        }
+        isValid={!errors?.educationLevel}
+        customRef={refs['educationLevelRef']}
+      />
+      {formInputs.educationLevel === 'other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs.otherEducationLevel}
+          errorMsg={errors?.otherEducationLevel}
+          invalid={!!errors?.otherEducationLevel}
+          onChange={e =>
+            onChange({
+              otherEducationLevel: e.target.value,
+            })
+          }
+        />
+      )}
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 07</QuestionHeading>
+      <SubHeading>
+        What is your country of residence?
+        <Required />
+      </SubHeading>
+      {errors?.countryOfResidence && <ErrorMessage>{errors?.countryOfResidence}</ErrorMessage>}
+      <Dropdown
+        options={countryOptions}
+        placeholder="country..."
+        isSearchable
+        value={findElement(countryOptions, 'value', formInputs.countryOfResidence)}
+        onChange={inputValue =>
+          onChange({
+            countryOfResidence: inputValue.value,
+          })
+        }
+        isValid={!errors?.countryOfResidence}
+        customRef={refs['countryOfResidenceRef']}
+        emptySearchDefaultOption="Start typing to search"
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 08</QuestionHeading>
+      <SubHeading>
+        Dietary restrictions
+        <Required />
+      </SubHeading>
+      {errors?.dietaryRestriction && <ErrorMessage>{errors?.dietaryRestriction}</ErrorMessage>}
+      {formInputs &&
+        Object.entries(formInputs?.dietaryRestriction)
+          .sort()
+          .map(([key, val]) => (
+            <Select
+              key={key}
+              type="checkbox"
+              label={DIETARY_RESTRICTION_OPTIONS[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
+                })
+              }
+              customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
+            />
+          ))}
+      <br />
+      {formInputs?.dietaryRestriction?.other && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs?.otherDietaryRestriction}
+          onChange={e =>
+            onChange({
+              otherDietaryRestriction: e.target.value,
+            })
+          }
+        />
+      )}
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 09</QuestionHeading>
+      <SubHeading>
+        Do you identify as part of an underrepresented group in the technology industry?
+        <Required />
+      </SubHeading>
+      {errors?.identifyAsUnderrepresented && (
+        <ErrorMessage>{errors?.identifyAsUnderrepresented}</ErrorMessage>
+      )}
+      <Dropdown
+        options={identifyAsUnderrepresentedOptions}
+        placeholder="Answer"
+        isSearchable={false}
+        value={findElement(
+          identifyAsUnderrepresentedOptions,
+          'value',
+          formInputs.identifyAsUnderrepresented
+        )}
+        onChange={inputValue =>
+          onChange({
+            identifyAsUnderrepresented: inputValue.value,
+          })
+        }
+        isValid={!errors?.identifyAsUnderrepresented}
+        customRef={refs['identifyAsUnderrepresentedRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 10</QuestionHeading>
+      <SubHeading>
+        <span role="img" aria-label="Mushroom emoji">
+          🍄
+        </span>{' '}
+        What are your pronouns?
+        <Required />
+      </SubHeading>
+      {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>}
+      {formInputs &&
+        Object.entries(formInputs?.pronouns)
+          .sort()
+          .map(([key, val]) => (
+            <Select
+              key={key}
+              type="checkbox"
+              label={PRONOUN_OPTIONS[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  pronouns: { ...formInputs.pronouns, [key]: !val },
+                })
+              }
+              customRef={key === 'vegetarian' ? refs['pronounsRef'] : null}
+            />
+          ))}
+      <br />
+      {formInputs?.pronouns?.other && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs?.otherPronoun}
+          onChange={e =>
+            onChange({
+              otherPronoun: e.target.value,
+            })
+          }
+        />
+      )}
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Person raising one hand emoji">
           🙋
@@ -474,191 +710,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 05</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Mushroom emoji">
-          🍄
-        </span>{' '}
-        What are your pronouns?
-        <Required />
-      </SubHeading>
-      {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>}
-      <Dropdown
-        options={pronounOptions}
-        placeholder="Pronouns"
-        isSearchable={false}
-        value={findElement(pronounOptions, 'value', formInputs.pronouns)}
-        onChange={e =>
-          onChange({
-            pronouns: e.value,
-          })
-        }
-        isValid={!errors?.pronouns}
-        customRef={refs['pronounsRef']}
-      />
-      {formInputs.pronouns === 'other' && (
-        <TextInput
-          placeholder="Please Specify"
-          size="small"
-          noOutline
-          value={formInputs.otherPronoun}
-          onChange={e =>
-            onChange({
-              otherPronoun: e.target.value,
-            })
-          }
-        />
-      )}
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 06</QuestionHeading>
-      <SubHeading>
-        What is your race/ethnicity? (Select all that apply)
-        <Required />
-      </SubHeading>
-      {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
-      {formInputs &&
-        Object.entries(formInputs?.ethnicity)
-          .sort()
-          .map(([key, val]) => (
-            <Select
-              key={key}
-              type="checkbox"
-              label={ETHNICITY_OPTIONS[key]}
-              checked={val}
-              onChange={() =>
-                onChange({
-                  ethnicity: { ...formInputs.ethnicity, [key]: !val },
-                })
-              }
-              customRef={key === 'africanAmerican' ? refs['ethnicityRef'] : null}
-            />
-          ))}
-      <br />
-      {formInputs.ethnicity.other && (
-        <TextInput
-          placeholder="Please Specify"
-          size="small"
-          noOutline
-          value={formInputs.otherEthnicity}
-          onChange={e =>
-            onChange({
-              otherEthnicity: e.target.value,
-            })
-          }
-        />
-      )}
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 07</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Baby chick emoji">
-          🐥
-        </span>{' '}
-        How old will you be by Jan 14th, 2023?
-        <Required />
-      </SubHeading>
-      <P>We accept hackers currently in high school but require this for consent purposes.</P>
-      {errors?.ageByHackathon && <ErrorMessage>{errors?.ageByHackathon}</ErrorMessage>}
-      <Dropdown
-        options={ageOptions}
-        placeholder="Age"
-        isSearchable={false}
-        value={findElement(ageOptions, 'value', formInputs.ageByHackathon)}
-        onChange={e =>
-          onChange({
-            ageByHackathon: e.value,
-            otherAgeByHackathon: null,
-          })
-        }
-        isValid={!errors?.ageByHackathon}
-        customRef={refs['ageByHackathonRef']}
-      />
-      {formInputs.ageByHackathon === 'other' && (
-        <TextInput
-          placeholder="Please Specify"
-          size="small"
-          noOutline
-          value={formInputs.otherAgeByHackathon}
-          onChange={e =>
-            onChange({
-              otherAgeByHackathon: e.target.value,
-            })
-          }
-        />
-      )}
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 08</QuestionHeading>
-      <SubHeading>
-        What level of education are you currently studying at?
-        <Required />
-      </SubHeading>
-      {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
-      <Dropdown
-        options={educationOptions}
-        placeholder="Level of Education"
-        isSearchable={false}
-        value={findElement(educationOptions, 'value', formInputs.educationLevel)}
-        onChange={inputValue =>
-          onChange({
-            educationLevel: inputValue.value,
-          })
-        }
-        isValid={!errors?.educationLevel}
-        customRef={refs['educationLevelRef']}
-      />
-      {formInputs.educationLevel === 'other' && (
-        <TextInput
-          placeholder="Please Specify"
-          size="small"
-          noOutline
-          value={formInputs.otherEducationLevel}
-          errorMsg={errors?.otherEducationLevel}
-          invalid={!!errors?.otherEducationLevel}
-          onChange={e =>
-            onChange({
-              otherEducationLevel: e.target.value,
-            })
-          }
-        />
-      )}
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 09</QuestionHeading>
-      <SubHeading>
-        What school do you currently attend?
-        <Required />
-      </SubHeading>
-      <P>If you have graduated, please specify the school you most recently attended.</P>
-      {errors?.school && <ErrorMessage>{errors?.school}</ErrorMessage>}
-      <Dropdown
-        options={schools}
-        placeholder="Enter your school"
-        isSearchable
-        formatCreateLabel={inputValue => `${inputValue}`}
-        label={formInputs.school}
-        value={creatableDropdownValue(schools, 'label', formInputs.school)}
-        onChange={e =>
-          onChange({
-            school: e.label,
-          })
-        }
-        emptySearchDefaultOption="Start typing to search"
-        canCreateNewOption
-        debounceEnabled
-        throttleTime={1000}
-        isValid={!errors?.school}
-        customRef={refs['schoolRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
+      <QuestionHeading>question 12</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Book emoji">
           📖
@@ -686,74 +738,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
         canCreateNewOption
         isValid={!errors?.major}
         customRef={refs['majorRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
-      <SubHeading>
-        What is your (expected) graduation year?
-        <Required />
-      </SubHeading>
-      {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
-      <Dropdown
-        options={graduationOptions}
-        placeholder="Graduation Year"
-        isSearchable={false}
-        value={findElement(graduationOptions, 'value', formInputs.graduation)}
-        onChange={inputValue =>
-          onChange({
-            graduation: inputValue.value,
-          })
-        }
-        isValid={!errors?.graduation}
-        customRef={refs['graduationRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 12</QuestionHeading>
-      <SubHeading>
-        How do you want to contribute at {copyText.hackathonName}? Please select the category that
-        you're strongest in.
-        <Required />
-      </SubHeading>
-      {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
-      <Select
-        type="radio"
-        label="Developer"
-        checked={formInputs.contributionRole === 'developer'}
-        onChange={() => onChange({ contributionRole: 'developer' })}
-        customRef={refs['contributionRoleRef']}
-      />
-      <Select
-        type="radio"
-        label="Designer"
-        checked={formInputs.contributionRole === 'designer'}
-        onChange={() => onChange({ contributionRole: 'designer' })}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 13</QuestionHeading>
-      <SubHeading>
-        What is your country of residence?
-        <Required />
-      </SubHeading>
-      {errors?.countryOfResidence && <ErrorMessage>{errors?.countryOfResidence}</ErrorMessage>}
-      <Dropdown
-        options={countryOptions}
-        placeholder="country..."
-        isSearchable
-        value={findElement(countryOptions, 'value', formInputs.countryOfResidence)}
-        onChange={inputValue =>
-          onChange({
-            countryOfResidence: inputValue.value,
-          })
-        }
-        isValid={!errors?.countryOfResidence}
-        customRef={refs['countryOfResidenceRef']}
-        emptySearchDefaultOption="Start typing to search"
       />
     </FormSpacing>
   </>
