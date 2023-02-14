@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
-import { QuestionHeading } from '../../components/Typography'
+import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../../components/Typography'
 import { FormSpacing, SubHeading } from './'
 import {
   CenteredH1,
@@ -21,6 +21,7 @@ const StyledDropdown = styled(Dropdown)`
 // `
 
 export const options = [
+  { value: '0', label: 'LinkedIn' },
   { value: '1', label: 'MLH' },
   { value: '2', label: 'Social media' },
   { value: '3', label: 'Website' },
@@ -45,7 +46,11 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
       <FormSpacing>
         <QuestionHeading>Question 20</QuestionHeading>
-        <SubHeading>How did you hear about {copyText.hackathonName}?</SubHeading>
+        <SubHeading>
+          How did you hear about {copyText.hackathonName}?
+          <Required />
+        </SubHeading>
+        {errors?.engagementSource && <ErrorMessage>{errors?.resume}</ErrorMessage>}
         <StyledDropdown
           options={options}
           placeholder="Select an option"
@@ -83,6 +88,7 @@ export default ({ errors, formInputs, onChange }) => {
             🤩
           </span>{' '}
           Have you previously attended any nwPlus organized events? (select all that apply)
+          <Required />
         </SubHeading>
         <Select
           type="checkbox"
@@ -178,6 +184,20 @@ export default ({ errors, formInputs, onChange }) => {
               eventsAttended: {
                 ...formInputs.eventsAttended,
                 cmdf2021: !formInputs.eventsAttended.cmdf2021,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="None"
+          checked={formInputs.eventsAttended.none}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                none: !formInputs.eventsAttended.none,
               },
             })
           }

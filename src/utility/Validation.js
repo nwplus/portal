@@ -224,7 +224,8 @@ const validators = {
     },
   },
   questionnaire: {
-    friendEmail: validateOptionalEmail,
+    engagementSource: noEmptyFunction,
+    eventsAttended: noNoneFunction,
   },
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,

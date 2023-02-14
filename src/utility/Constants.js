@@ -171,6 +171,7 @@ export const EVENTS_ATTENDED = Object.freeze({
   nwHacks2021: 'nwHacks 2021',
   nwHacks2022: 'nwHacks 2022',
   nwHacks2023: 'nwHacks 2023',
+  none: 'None',
 })
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
