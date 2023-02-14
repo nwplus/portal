@@ -8,21 +8,12 @@ import { FormSpacing, SubHeading } from './'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
 import { findElement, creatableDropdownValue } from '../../utility/utilities'
-import { DIETARY_RESTRICTION_OPTIONS } from '../../utility/Constants'
+import { DIETARY_RESTRICTION_OPTIONS, PRONOUN_OPTIONS } from '../../utility/Constants'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },
   { value: 'male', label: 'Man' },
   { value: 'non-binary', label: 'Non-binary' },
-  { value: 'other', label: 'Prefer to self-describe' },
-  { value: 'prefer not to say', label: 'Prefer not to say' },
-]
-
-const pronounOptions = [
-  { value: 'she/her', label: 'she/her' },
-  { value: 'they/them', label: 'they/them' },
-  { value: 'ze/zir', label: 'ze/zir' },
-  { value: 'he/him', label: 'he/him' },
   { value: 'other', label: 'Prefer to self-describe' },
   { value: 'prefer not to say', label: 'Prefer not to say' },
 ]
@@ -647,25 +638,30 @@ export default ({ refs, errors, formInputs, onChange }) => (
         <Required />
       </SubHeading>
       {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>}
-      <Dropdown
-        options={pronounOptions}
-        placeholder="Pronouns"
-        isSearchable={false}
-        value={findElement(pronounOptions, 'value', formInputs.pronouns)}
-        onChange={e =>
-          onChange({
-            pronouns: e.value,
-          })
-        }
-        isValid={!errors?.pronouns}
-        customRef={refs['pronounsRef']}
-      />
-      {formInputs.pronouns === 'other' && (
+      {formInputs &&
+        Object.entries(formInputs?.pronouns)
+          .sort()
+          .map(([key, val]) => (
+            <Select
+              key={key}
+              type="checkbox"
+              label={PRONOUN_OPTIONS[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  pronouns: { ...formInputs.pronouns, [key]: !val },
+                })
+              }
+              customRef={key === 'vegetarian' ? refs['pronounsRef'] : null}
+            />
+          ))}
+      <br />
+      {formInputs?.pronouns?.other && (
         <TextInput
           placeholder="Please Specify"
           size="small"
           noOutline
-          value={formInputs.otherPronoun}
+          value={formInputs?.otherPronoun}
           onChange={e =>
             onChange({
               otherPronoun: e.target.value,

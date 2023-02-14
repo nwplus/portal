@@ -217,7 +217,7 @@ const cmdfTheme = {
     scrollbar: '#4D4B4F',
     banner: 'transparent',
     login: {
-      background: '#2C3933',
+      background: '#C0A68B',
       text: '#fff',
       googleBg: '#fff',
       googleText: '#000',
