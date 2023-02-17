@@ -189,6 +189,7 @@ const validators = {
     lastName: noEmptyFunction,
     preferredName: noEmptyFunction,
     gender: noEmptyFunction,
+    identifyAsUnderrepresented: noEmptyFunction,
     pronouns: noNoneFunction,
     dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
