@@ -148,7 +148,7 @@ export default ({ errors, formInputs, onChange }) => {
         />
         <Select
           type="checkbox"
-          label="nwHacks 2022"
+          label="nwHacks 2023"
           checked={formInputs.eventsAttended.nwHacks2023}
           onChange={() =>
             onChange({
