@@ -10,7 +10,7 @@ import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
-import poweredBy from '../assets/powered_by_livepeer.svg'
+// import poweredBy from '../assets/powered_by_livepeer.svg'
 // import covalent from '../assets/sponsors/covalent.png'
 // import hootsuite from '../assets/sponsors/hootsuite.png'
 // import tttStudios from '../assets/sponsors/ttt-studios.png'
@@ -174,10 +174,10 @@ const LogoContainer = styled.div`
   align-items: flex-end;
 `
 
-const SponsorIcon = styled.img`
-  width: 100px;
-  height: 42px;
-`
+// const SponsorIcon = styled.img`
+//   width: 100px;
+//   height: 42px;
+// `
 
 export default ({
   showMobileSidebar,
@@ -270,7 +270,7 @@ export default ({
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
       <LogoContainer>
         <Logo alt="logo" />
-        <SponsorIcon src={poweredBy} alt="powered by Livepeer" />
+        {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
       </LogoContainer>
       <LiveLabel>
         <LiveDot />

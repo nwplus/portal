@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Dashboard from '../../components/ApplicationDashboard'
-import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import { uploadWaiverToStorage, useHackerApplication } from '../../utility/HackerApplicationContext'
 import { useAuth } from '../../utility/Auth'
 import { useLocation } from 'wouter'
 import { getLivesiteDoc, livesiteDocRef, currentHackathonRef } from '../../utility/firebase'
 import Page from '../../components/Page'
 import Spinner from '../../components/Loading'
+import { MAX_WAIVER_FILE_SIZE_MB } from '../../utility/Validation'
 
 const ApplicationDashboardContainer = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -13,6 +14,7 @@ const ApplicationDashboardContainer = () => {
   const [relevantDates, setRelevantDates] = useState({})
   const [isRsvpOpen, setIsRsvpOpen] = useState(false)
   const [isLoadingAppStatus, setIsLoadingAppStatus] = useState(true)
+  const [isLoadingWaiverUpload, setIsLoadingWaiverUpload] = useState(false)
   const { user } = useAuth()
   const [, setLocation] = useLocation()
 
@@ -61,10 +63,7 @@ const ApplicationDashboardContainer = () => {
     hackerStatus = applicationStatus
   }
 
-  const canRSVP =
-    hackerStatus === 'acceptedNoResponseYet' ||
-    hackerStatus === 'acceptedUnRSVP' ||
-    hackerStatus === 'acceptedNoRSVP'
+  const canRSVP = hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNoRSVP'
   const setRSVP = rsvpStatus => {
     updateApplication({
       status: {
@@ -77,7 +76,6 @@ const ApplicationDashboardContainer = () => {
   }
 
   const setSafewalkInput = safewalkNote => {
-    console.log(safewalkNote)
     updateApplication({
       basicInfo: {
         safewalkNote,
@@ -86,11 +84,18 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
-  const setDietaryRestriction = dietaryNote => {
-    console.log(dietaryNote)
+  const handleWaiver = async waiver => {
+    // check to make sure its under 2mb
+    const size = (waiver.size / 1024 / 1024).toFixed(2)
+    if (size > MAX_WAIVER_FILE_SIZE_MB) return
+
+    // upload the waiver and update the application on success.
+    setIsLoadingWaiverUpload(true)
+    await uploadWaiverToStorage(application._id, waiver)
+    setIsLoadingWaiverUpload(false)
     updateApplication({
       basicInfo: {
-        dietaryNote,
+        waiver: waiver.name,
       },
     })
     forceSave()
@@ -114,10 +119,11 @@ const ApplicationDashboardContainer = () => {
         canRSVP={canRSVP}
         safewalkNote={application.basicInfo.safewalkNote || false}
         setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
-        dietaryNote={application.basicInfo.dietaryNote || ''}
-        setDietaryRestrictions={dietaryNote => setDietaryRestriction(dietaryNote)}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
+        handleWaiver={handleWaiver}
+        waiverName={application.basicInfo.waiver}
+        waiverLoading={isLoadingWaiverUpload}
       />
     </Page>
   )

@@ -6,7 +6,8 @@ import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '..
 import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { analytics } from '../utility/firebase'
-import { Checkbox, TextInput } from './Input'
+import { Checkbox } from './Input'
+import ResumeUploadBtn from './ResumeUploadBtn'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -131,14 +132,9 @@ const RSVPButton = styled(Button)`
 
 const SafeWalkContainer = styled.div`
   display: flex;
-  position: relative;
-  margin-top: 20px;
-  margin-bottom: -10px;
-`
-
-const DietaryNoteContainer = styled.div`
-  display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 2rem;
 `
 
 const UnRSVPModelContainer = styled.div`
@@ -174,11 +170,26 @@ const UnRSVPModel = styled.div`
   }
 `
 
+const QuestionLabel = styled.div`
+  font-weight: bold;
+`
+
+const WaiverUpload = styled.div`
+  padding-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+`
+
+const WaiverUploadContext = styled.div`
+  line-height: 150%;
+`
+
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
-    blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Medium, Twitter, and Facebook to stay up to date with the latest news on sponsors, prizes and workshops!`,
+    blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
   },
   waitlisted: {
     sidebarText: 'Waitlisted',
@@ -206,7 +217,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
     // blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of January 21st-22nd, 2023! Please RSVP before 11:59 PM PST, January 6th to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -264,18 +275,18 @@ export const SocialMediaLinks = () => {
   return (
     <SocialIconContainer>
       <Icon
-        href={SOCIAL_LINKS.FB}
-        icon="facebook"
-        brand
-        size="2x"
-        onClick={() => UpdateAnalytics('facebook')}
-      />
-      <Icon
         href={SOCIAL_LINKS.IG}
         icon="instagram"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('instagram')}
+      />
+      <Icon
+        href={SOCIAL_LINKS.FB}
+        icon="facebook"
+        brand
+        size="2x"
+        onClick={() => UpdateAnalytics('facebook')}
       />
       <Icon
         href={SOCIAL_LINKS.MEDIUM}
@@ -302,21 +313,22 @@ const Dashboard = ({
   setRSVP,
   safewalkNote,
   setSafewalkInput,
-  dietaryNote,
-  setDietaryRestrictions,
   username,
   editApplication,
   relevantDates,
   isRsvpOpen,
+  handleWaiver,
+  waiverName,
+  waiverLoading,
 }) => {
-  const [dietaryInput, setDietaryInput] = useState(dietaryNote || '')
   const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
+
+  const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
   const handleChange = () => {
     setSafewalkCheckbox(!safewalk)
     setSafewalkInput(!safewalkNote)
   }
-  const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
-  const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
 
   return (
     <Container>
@@ -354,45 +366,50 @@ const Dashboard = ({
         </div>
 
         {/* Hides this option if a user unRSVP'd */}
-        {hackerRSVPStatus !== "Un-RSVP'd" && (
-          <SafeWalkContainer>
-            <Checkbox
-              checked={safewalk}
-              onChange={handleChange}
-              label="If you are planning to walk home alone on campus on the night of the 21st, would you like organizers to accompany you to your destination?"
-            />
-          </SafeWalkContainer>
+        {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
+          <>
+            <SafeWalkContainer>
+              <QuestionLabel>Safewalk option</QuestionLabel>
+              <Checkbox
+                checked={safewalk}
+                onChange={handleChange}
+                label="If you are planning to walk home alone on campus on the night of the 11th, would you like organizers to accompany you to your destination?"
+              />
+            </SafeWalkContainer>
+            <WaiverUpload>
+              <QuestionLabel>Waiver upload</QuestionLabel>
+              <WaiverUploadContext>
+                Please upload the signed copies of your waivers here. They pages must be contained
+                in a single document. Waivers are required before you can RSVP.
+              </WaiverUploadContext>
+              <ResumeUploadBtn
+                onChange={e => {
+                  if (e.target.files[0]) {
+                    handleWaiver(e.target.files[0])
+                  }
+                }}
+                hint={waiverName || ''}
+              />
+            </WaiverUpload>
+          </>
         )}
 
         <FooterContainer>
-          {/* Hides this option if a user unRSVP'd */}
-          {hackerRSVPStatus !== "Un-RSVP'd" && (
-            <DietaryNoteContainer>
-              <TextInput
-                value={dietaryInput}
-                onChange={e => setDietaryInput(e.target.value)}
-                placeholder="Dietary Restrictions/Notes"
-                color="primary"
-              />
-              <Button onClick={() => setDietaryRestrictions(dietaryInput)}>Save</Button>
-            </DietaryNoteContainer>
-          )}
-
           {/* Only show button if a user hasn't unRSVPed yet and can still RSVP*/}
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
             <RSVPButton
               width="flex"
-              onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
+              onClick={isRsvpOpen && canRSVP && waiverName && (() => setRSVP(canRSVP))}
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
-              disabled={!isRsvpOpen}
+              disabled={!(isRsvpOpen && waiverName)}
             >
               RSVP
             </RSVPButton>
           )}
 
           {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
-          {hackerRSVPStatus !== "Un-RSVP'd" && !canRSVP && (
+          {hackerStatus !== 'acceptedUnRSVP' && hackerStatus === 'acceptedAndAttending' && (
             <>
               <Button
                 width="flex"

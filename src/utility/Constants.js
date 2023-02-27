@@ -132,6 +132,33 @@ export const ETHNICITY_OPTIONS = Object.freeze({
   preferNot: 'Prefer not to say',
 })
 
+export const PRONOUN_OPTIONS = Object.freeze({
+  sheher: 'she/her',
+  hehim: 'he/him',
+  theythem: 'they/them',
+  preferNot: 'Prefer not to answer',
+  other: 'Other',
+})
+
+export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
+  none: 'None',
+  vegetarian: 'Vegetarian',
+  vegan: 'Vegan',
+  celiacDisease: 'Celiac Disease',
+  allergies: 'Allergies',
+  kosher: 'Kosher',
+  halal: 'Halal',
+  other: 'Multiple restrictions/other',
+})
+
+export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
+  beginner: 'Beginner',
+  designer: 'Designer',
+  developer: 'Developer',
+  pm: 'Product/project manager',
+  other: 'Other',
+})
+
 export const EVENTS_ATTENDED = Object.freeze({
   mentorship: 'connect-f Mentorship Program',
   phase1: 'cmd-f Phase 1: Resume Review & Networking',
@@ -143,6 +170,8 @@ export const EVENTS_ATTENDED = Object.freeze({
   hackCamp2022: 'HackCamp 2022',
   nwHacks2021: 'nwHacks 2021',
   nwHacks2022: 'nwHacks 2022',
+  nwHacks2023: 'nwHacks 2023',
+  none: 'None',
 })
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
@@ -157,7 +186,13 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     lastName: '',
     preferredName: '',
     gender: '',
-    pronouns: '',
+    pronouns: {
+      sheher: false,
+      hehim: false,
+      theythem: false,
+      preferNot: false,
+      other: false,
+    },
     ethnicity: {
       africanAmerican: false,
       americanIndian: false,
@@ -167,23 +202,41 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       other: false,
       preferNot: false,
     },
+    dietaryRestriction: {
+      none: false,
+      vegetarian: false,
+      vegan: false,
+      celiacDisease: false,
+      allergies: false,
+      kosher: false,
+      halal: false,
+      other: false,
+    },
     ageByHackathon: null,
     phoneNumber: '',
     school: '',
     major: '',
     educationLevel: '',
     graduation: null,
-    contributionRole: '',
     countryOfResidence: '',
   },
   skills: {
-    hackathonsAttended: null,
+    firstTimeHacker: null,
+    contributionRole: {
+      beginner: false,
+      designer: false,
+      developer: false,
+      pm: false,
+      other: false,
+    },
     resume: '',
     portfolio: '',
     linkedin: '',
     github: '',
     longAnswers1: '',
     longAnswers2: '',
+    longAnswers3: '',
+    longAnswers4: '',
   },
   questionnaire: {
     engagementSource: '',

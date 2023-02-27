@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
       - run: yarn install --frozen-lockfile && yarn build:staging
         env:
           REACT_APP_FIREBASE_API_KEY: ${{ secrets.DEV_FIREBASE_API_KEY }}

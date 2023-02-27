@@ -11,6 +11,7 @@ const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it 
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
+export const MAX_WAIVER_FILE_SIZE_MB = 3
 const LONG_ANSWER_WORD_LIMIT = 200
 export const validateURL = thing => {
   const pattern = new RegExp(
@@ -42,12 +43,12 @@ const validateStringNotEmpty = thing => {
 export const validateEmail = thing => {
   return validateStringNotEmpty(thing) && thing.includes('@')
 }
-const validateOptionalEmail = email => {
-  return {
-    error: email ? !validateEmail(email) : false,
-    message: EMAIL_MESSAGE,
-  }
-}
+// const validateOptionalEmail = email => {
+//   return {
+//     error: email ? !validateEmail(email) : false,
+//     message: EMAIL_MESSAGE,
+//   }
+// }
 const validatePhoneNumber = thing => {
   const phoneno = /^([0-9]+-)*[0-9]+$/
   return thing.match(phoneno)
@@ -189,15 +190,13 @@ const validators = {
     lastName: noEmptyFunction,
     preferredName: noEmptyFunction,
     gender: noEmptyFunction,
-    pronouns: noEmptyFunction,
-    ethnicity: noNoneFunction,
+    identifyAsUnderrepresented: noEmptyFunction,
+    pronouns: noNoneFunction,
+    dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
-    otherEducationLevel: noEmptyFunction,
-    graduation: noEmptyFunction,
-    contributionRole: noEmptyFunction,
     countryOfResidence: noEmptyFunction,
     phoneNumber: number => {
       return {
@@ -207,11 +206,12 @@ const validators = {
     },
   },
   skills: {
+    contributionRole: noNoneFunction,
     resume: noEmptyFunction,
     portfolio: optionalURLFunction,
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
-    hackathonsAttended: noNeitherFunction,
+    firstTimeHacker: noNeitherFunction,
     longAnswers1: answer => {
       return {
         error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
@@ -226,7 +226,8 @@ const validators = {
     },
   },
   questionnaire: {
-    friendEmail: validateOptionalEmail,
+    engagementSource: noEmptyFunction,
+    eventsAttended: noNoneFunction,
   },
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,
