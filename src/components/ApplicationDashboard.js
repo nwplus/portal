@@ -373,7 +373,7 @@ const Dashboard = ({
               <Checkbox
                 checked={safewalk}
                 onChange={handleChange}
-                label="If you are planning to walk home alone on campus on the night of the 21st, would you like organizers to accompany you to your destination?"
+                label="If you are planning to walk home alone on campus on the night of the 11th, would you like organizers to accompany you to your destination?"
               />
             </SafeWalkContainer>
             <WaiverUpload>
