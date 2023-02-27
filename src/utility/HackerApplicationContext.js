@@ -29,6 +29,16 @@ export const uploadResumeToStorage = async (userId, file) => {
   }
 }
 
+export const uploadWaiverToStorage = async (userId, file) => {
+  try {
+    const ref = storage.ref(`hackerWaivers/${userId}`)
+    const uploadData = await ref.put(file)
+    return uploadData.ref.getDownloadURL()
+  } catch (e) {
+    return null
+  }
+}
+
 export function HackerApplicationProvider({ children }) {
   const { user } = useAuth()
   const [application, setApplication] = useState({})
