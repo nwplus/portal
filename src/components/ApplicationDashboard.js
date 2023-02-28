@@ -7,6 +7,7 @@ import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
 import { analytics } from '../utility/firebase'
 import { Checkbox } from './Input'
+import ResumeUploadBtn from './ResumeUploadBtn'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -131,15 +132,10 @@ const RSVPButton = styled(Button)`
 
 const SafeWalkContainer = styled.div`
   display: flex;
-  position: relative;
-  margin-top: 20px;
-  margin-bottom: -10px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 2rem;
 `
-
-// const DietaryNoteContainer = styled.div`
-//   display: flex;
-//   align-items: center;
-// `
 
 const UnRSVPModelContainer = styled.div`
   position: absolute;
@@ -172,6 +168,21 @@ const UnRSVPModel = styled.div`
     top: -400px;
     margin: 0;
   }
+`
+
+const QuestionLabel = styled.div`
+  font-weight: bold;
+`
+
+const WaiverUpload = styled.div`
+  padding-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+`
+
+const WaiverUploadContext = styled.div`
+  line-height: 150%;
 `
 
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
@@ -306,14 +317,18 @@ const Dashboard = ({
   editApplication,
   relevantDates,
   isRsvpOpen,
+  handleWaiver,
+  waiverName,
+  waiverLoading,
 }) => {
   const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
+
+  const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
   const handleChange = () => {
     setSafewalkCheckbox(!safewalk)
     setSafewalkInput(!safewalkNote)
   }
-  const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
-  const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
 
   return (
     <Container>
@@ -352,13 +367,31 @@ const Dashboard = ({
 
         {/* Hides this option if a user unRSVP'd */}
         {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
-          <SafeWalkContainer>
-            <Checkbox
-              checked={safewalk}
-              onChange={handleChange}
-              label="If you are planning to walk home alone on campus on the night of the 21st, would you like organizers to accompany you to your destination?"
-            />
-          </SafeWalkContainer>
+          <>
+            <SafeWalkContainer>
+              <QuestionLabel>Safewalk option</QuestionLabel>
+              <Checkbox
+                checked={safewalk}
+                onChange={handleChange}
+                label="If you are planning to walk home alone on campus on the night of the 11th, would you like organizers to accompany you to your destination?"
+              />
+            </SafeWalkContainer>
+            <WaiverUpload>
+              <QuestionLabel>Waiver upload</QuestionLabel>
+              <WaiverUploadContext>
+                Please upload the signed copies of your waivers here. They pages must be contained
+                in a single document. Waivers are required before you can RSVP.
+              </WaiverUploadContext>
+              <ResumeUploadBtn
+                onChange={e => {
+                  if (e.target.files[0]) {
+                    handleWaiver(e.target.files[0])
+                  }
+                }}
+                hint={waiverName || ''}
+              />
+            </WaiverUpload>
+          </>
         )}
 
         <FooterContainer>
@@ -366,17 +399,17 @@ const Dashboard = ({
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
             <RSVPButton
               width="flex"
-              onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
+              onClick={isRsvpOpen && canRSVP && waiverName && (() => setRSVP(canRSVP))}
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
-              disabled={!isRsvpOpen}
+              disabled={!(isRsvpOpen && waiverName)}
             >
               RSVP
             </RSVPButton>
           )}
 
           {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
-          {hackerRSVPStatus !== "Un-RSVP'd" && (canRSVP || hackerRSVPStatus === 'acceptedNoRSVP') && (
+          {hackerStatus !== 'acceptedUnRSVP' && hackerStatus === 'acceptedAndAttending' && (
             <>
               <Button
                 width="flex"

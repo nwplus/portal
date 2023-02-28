@@ -11,6 +11,7 @@ const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it 
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
+export const MAX_WAIVER_FILE_SIZE_MB = 3
 const LONG_ANSWER_WORD_LIMIT = 200
 export const validateURL = thing => {
   const pattern = new RegExp(
