@@ -92,7 +92,8 @@ const StyledA = styled(A)`
   ${p =>
     p.selected &&
     `
-    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+    background: #F1E9DF;
+    color: #4D4B4F;
 
     &:hover {
       color: #ffffff;
@@ -102,12 +103,12 @@ const StyledA = styled(A)`
   `}
 
   &:hover {
-    color: #ffffff;
+    color: ${p => p.theme.colors.text};
     background: ${p => p.theme.colors.secondaryBackgroundTransparent};
     border-bottom: none;
   }
   &:focus {
-    color: #ffffff;
+    color: #4d4b4f;
     border-bottom: none;
   }
 `
@@ -115,7 +116,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.card};
+  background: ${p => p.theme.colors.cardText};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -129,7 +130,7 @@ const LiveLabel = styled.p`
   font-size: 0.9em;
   border-radius: 7px;
   background: ${p => p.theme.colors.primaryGradient};
-  color: ${p => p.theme.colors.card};
+  color: ${p => p.theme.colors.cardText};
   width: 4em;
   padding: 5px;
 `
@@ -166,7 +167,7 @@ const CategoryHeader = styled.h4`
   padding: 1em 50px 0 2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: ${p => p.theme.colors.secondaryBackgroundTransparent};
 `
 
 const LogoContainer = styled.div`
