@@ -382,8 +382,8 @@ const Dashboard = ({
             <WaiverUpload>
               <QuestionLabel>Waiver upload</QuestionLabel>
               <WaiverUploadContext>
-                Please upload the signed copies of your waivers here. They pages must be contained
-                in a single document. Waivers are required before you can RSVP.
+                Please upload the signed copies of your waivers here. The pages must be contained in
+                a single document. Waivers are required before you can RSVP.
               </WaiverUploadContext>
               <ResumeUploadBtn
                 onChange={e => {
