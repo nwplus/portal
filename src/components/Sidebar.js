@@ -22,7 +22,7 @@ const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
   transition: opacity 1s ease-out;
-  z-index: 1;
+  z-index: 2;
   background: ${p => p.theme.colors.secondaryBackground};
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};

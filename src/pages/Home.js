@@ -4,7 +4,7 @@ import HackerCountdown from '../containers/HackerCountdown'
 // import { CommonLinks } from '../containers/Quicklinks'
 import Livestream from '../components/Livestream'
 import styled, { withTheme } from 'styled-components'
-import head_decal from '../assets/cmdf_bannerdecal.svg'
+import head_decal from '../assets/cmdf2023_bannerdecal.svg'
 import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 
@@ -22,6 +22,7 @@ const TopDecal = styled.img`
   top: -3em;
   pointer-events: none;
   width: calc(100vw - 256px + 2em);
+  z-index: 1;
 `
 
 export default withTheme(({ announcements, theme }) => {
