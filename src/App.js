@@ -232,9 +232,9 @@ function App() {
           <PageRoute path="/faq">
             <Faq />
           </PageRoute>
-          <Route path="/schedule">
+          <PageRoute path="/schedule">
             <Schedule />
-          </Route>
+          </PageRoute>
           <PageRoute path="/sponsors">
             <Sponsors />
           </PageRoute>
