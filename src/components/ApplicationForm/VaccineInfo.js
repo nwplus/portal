@@ -1,5 +1,5 @@
 import React from 'react'
-import { CenteredH1, ErrorMessage, ErrorSpan as Required } from '../Typography'
+import { CenteredH1, ErrorMessage, ErrorSpan as Required, P } from '../Typography'
 import { Checkbox } from '../../components/Input'
 import { FormSpacing, SubHeading } from './'
 import { copyText } from '../../utility/Constants'
@@ -37,6 +37,16 @@ export default ({ formInputs, onChange, error }) => {
           </span>
         </Checkbox>
         {error?.willBeDoubleVaxed && <ErrorMessage>{error?.willBeDoubleVaxed}</ErrorMessage>}
+        <P>
+          <br />
+          <br />
+          cmd-f is a hackathon focused on addressing gender inequality in technology. Our main
+          purpose is to create a safe, dedicated space for people who face gender inequalities to
+          hack together. Thus, cmd-f is only open to individuals that identify as an
+          underrepresented gender in technology. For more information on who is an underrepresented
+          gender in technology, please email us at cmd-f@nwplus.io. If you would like to support
+          cmd-f as an ally, our mentor, media, and volunteer roles are open to all genders!
+        </P>
       </FormSpacing>
     </>
   )
