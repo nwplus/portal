@@ -192,12 +192,15 @@ const validators = {
     gender: noEmptyFunction,
     identifyAsUnderrepresented: noEmptyFunction,
     pronouns: noNoneFunction,
+    ethnicity: noNoneFunction,
     dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
+    graduation: noEmptyFunction,
     countryOfResidence: noEmptyFunction,
+    willBeAgeOfMajority: noNeitherFunction,
     phoneNumber: number => {
       return {
         error: !validatePhoneNumber(number),

@@ -8,17 +8,22 @@ import { FormSpacing, SubHeading } from './'
 import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
 import { findElement, creatableDropdownValue } from '../../utility/utilities'
-import { DIETARY_RESTRICTION_OPTIONS, PRONOUN_OPTIONS } from '../../utility/Constants'
+import {
+  DIETARY_RESTRICTION_OPTIONS,
+  PRONOUN_OPTIONS,
+  ETHNICITY_OPTIONS,
+} from '../../utility/Constants'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },
   { value: 'male', label: 'Man' },
   { value: 'non-binary', label: 'Non-binary' },
   { value: 'other', label: 'Prefer to self-describe' },
-  { value: 'prefer not to say', label: 'Prefer not to say' },
+  { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
 
 const educationOptions = [
+  { value: 'less than high school', label: 'Less than Secondary / High School' },
   { value: 'high school', label: 'Secondary/High school' },
   {
     value: 'undergraduate college',
@@ -26,8 +31,18 @@ const educationOptions = [
   },
   { value: 'undergraduate full', label: 'Undergraduate University (3+ year)' },
   { value: 'graduate', label: 'Graduate University (Masters, Professional, Doctoral, etc)' },
-  { value: 'not-a-student', label: `I'm not currently a student` },
+  { value: 'code school or bootcamp', label: `Code School / Bootcamp` },
+  {
+    value: 'vocational or trade program or apprenticeship',
+    label: `Other Vocational / Trade Program or Apprenticeship`,
+  },
+  {
+    value: 'post doctorate',
+    label: `Post Doctorate`,
+  },
   { value: 'other', label: 'Other' },
+  { value: 'not-a-student', label: `I'm not currently a student` },
+  { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
 
 const identifyAsUnderrepresentedOptions = [
@@ -37,14 +52,12 @@ const identifyAsUnderrepresentedOptions = [
   { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
 ]
 
-// const graduationOptions = [
-//   { value: 2022, label: '2022' },
-//   { value: 2023, label: '2023' },
-//   { value: 2024, label: '2024' },
-//   { value: 2025, label: '2025' },
-//   { value: 2026, label: '2026' },
-//   { value: 2027, label: '2027+' },
-// ]
+const graduationOptions = [
+  { value: 2024, label: '2024' },
+  { value: 2025, label: '2025' },
+  { value: 2026, label: '2026' },
+  { value: 2027, label: '2027+' },
+]
 
 const ageOptions = [
   { value: 16, label: '16' },
@@ -540,6 +553,28 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 07</QuestionHeading>
       <SubHeading>
+        What is your (expected) graduation year?
+        <Required />
+      </SubHeading>
+      {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
+      <Dropdown
+        options={graduationOptions}
+        placeholder="Grad Year"
+        isSearchable={false}
+        value={findElement(graduationOptions, 'value', formInputs.graduation)}
+        onChange={inputValue =>
+          onChange({
+            graduation: inputValue.value,
+          })
+        }
+        isValid={!errors?.graduation}
+        customRef={refs['graduation']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 08</QuestionHeading>
+      <SubHeading>
         What is your country of residence?
         <Required />
       </SubHeading>
@@ -561,7 +596,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 08</QuestionHeading>
+      <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>
         Dietary restrictions
         <Required />
@@ -601,7 +636,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 09</QuestionHeading>
+      <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
         Do you identify as part of an underrepresented group in the technology industry?
         <Required />
@@ -629,7 +664,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Mushroom emoji">
           🍄
@@ -672,7 +707,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
+      <QuestionHeading>question 12</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Person raising one hand emoji">
           🙋
@@ -710,7 +745,47 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 12</QuestionHeading>
+      <QuestionHeading>question 13</QuestionHeading>
+      <SubHeading>
+        What is your race/ethnicity?
+        <Required />
+      </SubHeading>
+      {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
+      {formInputs &&
+        Object.entries(formInputs?.ethnicity)
+          .sort()
+          .map(([key, val]) => (
+            <Select
+              key={key}
+              type="checkbox"
+              label={ETHNICITY_OPTIONS[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  ethnicity: { ...formInputs.ethnicity, [key]: !val },
+                })
+              }
+              customRef={key === 'ethnicity' ? refs['ethnicityRef'] : null}
+            />
+          ))}
+      <br />
+      {formInputs?.ethnicity?.other && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs?.otherEthnicity}
+          onChange={e =>
+            onChange({
+              otherEthnicity: e.target.value,
+            })
+          }
+        />
+      )}
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 14</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Book emoji">
           📖
@@ -738,6 +813,28 @@ export default ({ refs, errors, formInputs, onChange }) => (
         canCreateNewOption
         isValid={!errors?.major}
         customRef={refs['majorRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 15</QuestionHeading>
+      <SubHeading>
+        Will you be 19 years of age or older by January 13th, 2024?
+        <Required />
+      </SubHeading>
+      {errors?.willBeAgeOfMajority && <ErrorMessage>{errors?.willBeAgeOfMajority}</ErrorMessage>}
+      <Select
+        type="radio"
+        label="Yes"
+        checked={formInputs.willBeAgeOfMajority}
+        onChange={() => onChange({ willBeAgeOfMajority: true })}
+        customRef={refs['willBeAgeOfMajorityRef']}
+      />
+      <Select
+        type="radio"
+        label="No"
+        checked={formInputs.willBeAgeOfMajority === false}
+        onChange={() => onChange({ willBeAgeOfMajority: false })}
       />
     </FormSpacing>
   </>
