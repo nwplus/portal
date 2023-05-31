@@ -86,7 +86,6 @@ export default () => {
         for (let question of questionsByOrder) {
           if (newErrors[question]) {
             // redirects the user to the question
-            console.log(question + 'Ref')
             refs[`${question}Ref`].current.focus()
             break
           }
