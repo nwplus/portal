@@ -568,7 +568,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
           })
         }
         isValid={!errors?.graduation}
-        customRef={refs['graduation']}
+        customRef={refs['graduationRef']}
       />
     </FormSpacing>
 
