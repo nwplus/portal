@@ -765,7 +765,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
                   ethnicity: { ...formInputs.ethnicity, [key]: !val },
                 })
               }
-              customRef={key === 'ethnicity' ? refs['ethnicityRef'] : null}
+              customRef={refs['ethnicityRef']}
             />
           ))}
       <br />
