@@ -80,10 +80,12 @@ export default () => {
   const handleNavigation = async href => {
     await save()
     if (href === '/application/part-2') {
+      // question is false if it is filled out
       const newErrors = validate(application.basicInfo)
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
           if (newErrors[question]) {
+            // redirects the user to the question
             refs[`${question}Ref`].current.focus()
             break
           }
