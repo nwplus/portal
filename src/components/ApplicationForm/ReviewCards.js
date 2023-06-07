@@ -256,20 +256,13 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
             <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
             <InfoGroup
-              heading="Why do you want to attend cmd-f 2023?"
+              heading="In your own words, describe your definition of a hackathon, and what it means to you."
               data={formInputs.skills.longAnswers1}
             />
             <InfoGroup
-              heading="How would you make tech a more welcoming space to underrepresented demographics?"
+              heading="One of 'How would you like to challenge yourself during this hackathon?' or 
+              'What should technology be used for?'"
               data={formInputs.skills.longAnswers2}
-            />
-            <InfoGroup
-              heading="In the past, have there been reasons deterring you from attending hackathons or other tech events? (optional)"
-              data={formInputs.skills.longAnswers3}
-            />
-            <InfoGroup
-              heading="Is there anything you want to let us know to ensure that we can help you feel comfortable throughout the event? (optional)"
-              data={formInputs.skills.longAnswers4}
             />
           </ContentWrapper>
         </StyledBanner>
@@ -313,13 +306,9 @@ export default ({ formInputs, handleEdit, onChange }) => {
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
         <ContentWrapper textBlock>
           <P>
-            We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to
-            share certain application/registration information for event administration, ranking,
-            MLH administration, and occasional messages about hackathons in line with the{' '}
-            <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
-              MLH Privacy Policy
-            </A>
-            .
+            We are currently in the process of partnering with MLH. The following 3 checkboxes are
+            for this partnership. If we do not end up partnering with MLH, your information will not
+            be shared.
           </P>
           <Checkbox
             flex
@@ -354,8 +343,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
             }
           >
             <span>
-              I authorize nwPlus to share my application/registration information for event
-              administration, ranking, MLH administration, in-line with the{' '}
+              I authorize nwPlus to share application/registration information with Major League
+              Hacking for event administration, ranking, MLH administration, in-line with the{' '}
               <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
                 MLH Privacy Policy
               </A>
@@ -368,7 +357,10 @@ export default ({ formInputs, handleEdit, onChange }) => {
               >
                 MLH Contest Terms and Conditions
               </A>{' '}
-              and the MLH Privacy Policy.
+              and the{' '}
+              <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
+                MLH Privacy Policy
+              </A>{' '}
               <Required />
             </span>
           </Checkbox>
@@ -382,8 +374,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
             }
           >
             <span>
-              I authorize MLH to send me pre- and post-event informational emails, which contain
-              free credit and opportunities from their partners. and the MLH Privacy Policy.
+              I authorize MLH to send me occasional emails about relevant events, career
+              opportunities, and community announcements.
             </span>
           </Checkbox>
         </ContentWrapper>

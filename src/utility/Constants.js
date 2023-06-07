@@ -1,15 +1,15 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'cmd-f2023'
+export const DB_HACKATHON = 'nwHacks2024'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'cmd-f 2023',
-  hackathonNameShort: 'cmd-f',
+  hackathonName: 'nwHacks 2024',
+  hackathonNameShort: 'nwHacks',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 4
@@ -123,19 +123,32 @@ export const calculateGrade = score => {
 }
 
 export const ETHNICITY_OPTIONS = Object.freeze({
-  africanAmerican: 'African American or Black',
-  americanIndian: 'American Indian or Alaskan Native',
-  asian: 'Asian or Pacific Islander',
-  caucasian: 'Caucasian or White',
-  hispanic: 'Hispanic or Latinx',
-  other: 'Multiple ethnicity/Other',
-  preferNot: 'Prefer not to say',
+  asianIndian: 'Asian Indian',
+  blackOrAfrican: 'Black or African',
+  chinese: 'Chinese',
+  filipino: 'Filipino',
+  guamanianChamorro: 'Guamanian or Chamorro',
+  hispanicLatinoSpanishOrigin: 'Hispanic / Latino / Spanish Origin',
+  japanese: 'Japanese',
+  korean: 'Korean',
+  middleEastern: 'Middle Eastern',
+  nativeAmericanOrAlaskanNative: 'Native American or Alaskan Native',
+  nativeHawaiian: 'Native Hawaiian',
+  samoan: 'Samoan',
+  vietnamese: 'Vietnamese',
+  white: 'White',
+  otherAsian: 'Other Asian (Thai, Cambodian, etc)',
+  otherPacificIslander: 'Other Pacific Islander',
+  other: 'Other (Please Specify)',
+  preferNot: 'Prefer not to answer',
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
   sheher: 'she/her',
   hehim: 'he/him',
   theythem: 'they/them',
+  shethey: 'she/they',
+  hethey: 'he/they',
   preferNot: 'Prefer not to answer',
   other: 'Other',
 })
@@ -160,12 +173,10 @@ export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
 })
 
 export const EVENTS_ATTENDED = Object.freeze({
-  mentorship: 'connect-f Mentorship Program',
-  phase1: 'cmd-f Phase 1: Resume Review & Networking',
-  phase2: 'cmd-f Phase 2: Intro to LinkedIn & Networking Workshop',
-  cmdf2019: 'cmd-f 2019',
   cmdf2020: 'cmd-f 2020',
   cmdf2021: 'cmd-f 2021',
+  cmdf2022: 'cmd-f 2022',
+  cmdf2023: 'cmd-f 2023',
   hackCamp2021: 'HackCamp 2021',
   hackCamp2022: 'HackCamp 2022',
   nwHacks2021: 'nwHacks 2021',
@@ -189,16 +200,29 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     pronouns: {
       sheher: false,
       hehim: false,
+      hethey: false,
+      shethey: false,
       theythem: false,
       preferNot: false,
       other: false,
     },
     ethnicity: {
-      africanAmerican: false,
-      americanIndian: false,
-      asian: false,
-      caucasian: false,
-      hispanic: false,
+      asianIndian: false,
+      blackOrAfrican: false,
+      chinese: false,
+      filipino: false,
+      guamanianChamorro: false,
+      hispanicLatinoSpanishOrigin: false,
+      japanese: false,
+      korean: false,
+      middleEastern: false,
+      nativeAmericanOrAlaskanNative: false,
+      nativeHawaiian: false,
+      samoan: false,
+      vietnamese: false,
+      white: false,
+      otherAsian: false,
+      otherPacificIslander: false,
       other: false,
       preferNot: false,
     },
@@ -219,6 +243,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     educationLevel: '',
     graduation: null,
     countryOfResidence: '',
+    willBeAgeOfMajority: null,
   },
   skills: {
     firstTimeHacker: null,
@@ -235,8 +260,6 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     github: '',
     longAnswers1: '',
     longAnswers2: '',
-    longAnswers3: '',
-    longAnswers4: '',
   },
   questionnaire: {
     engagementSource: '',

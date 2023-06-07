@@ -190,6 +190,34 @@ export default ({ errors, formInputs, onChange }) => {
         />
         <Select
           type="checkbox"
+          label="cmd-f 2022"
+          checked={formInputs.eventsAttended.cmdf2022}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                cmdf2022: !formInputs.eventsAttended.cmdf2022,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="cmd-f 2023"
+          checked={formInputs.eventsAttended.cmdf2023}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                cmdf2023: !formInputs.eventsAttended.cmdf2023,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
           label="None"
           checked={formInputs.eventsAttended.none}
           onChange={() =>
