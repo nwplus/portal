@@ -819,7 +819,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 15</QuestionHeading>
       <SubHeading>
-        Will you be 19 years of age or older by January 13th, 2024?
+        Will you be 19 years of age or older by January 20th, 2024?
         <Required />
       </SubHeading>
       {errors?.willBeAgeOfMajority && <ErrorMessage>{errors?.willBeAgeOfMajority}</ErrorMessage>}

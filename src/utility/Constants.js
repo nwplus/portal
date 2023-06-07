@@ -173,12 +173,10 @@ export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
 })
 
 export const EVENTS_ATTENDED = Object.freeze({
-  mentorship: 'connect-f Mentorship Program',
-  phase1: 'cmd-f Phase 1: Resume Review & Networking',
-  phase2: 'cmd-f Phase 2: Intro to LinkedIn & Networking Workshop',
-  cmdf2019: 'cmd-f 2019',
   cmdf2020: 'cmd-f 2020',
   cmdf2021: 'cmd-f 2021',
+  cmdf2022: 'cmd-f 2022',
+  cmdf2023: 'cmd-f 2023',
   hackCamp2021: 'HackCamp 2021',
   hackCamp2022: 'HackCamp 2022',
   nwHacks2021: 'nwHacks 2021',
