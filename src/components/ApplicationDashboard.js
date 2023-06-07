@@ -342,6 +342,9 @@ const Dashboard = ({
       <StatusContainer>
         <div>
           <AppStatusText>
+            cmd-f 2023 is a hackathon celebrating underrepresented genders in tech
+          </AppStatusText>
+          <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
           <StatusBlurbText>
@@ -379,8 +382,8 @@ const Dashboard = ({
             <WaiverUpload>
               <QuestionLabel>Waiver upload</QuestionLabel>
               <WaiverUploadContext>
-                Please upload the signed copies of your waivers here. They pages must be contained
-                in a single document. Waivers are required before you can RSVP.
+                Please upload the signed copies of your waivers here. The pages must be contained in
+                a single document. Waivers are required before you can RSVP.
               </WaiverUploadContext>
               <ResumeUploadBtn
                 onChange={e => {

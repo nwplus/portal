@@ -638,7 +638,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
-        Do you identify as part of an underrepresented group in the technology industry?
+        Do you identify as part of an underrepresented gender in the technology industry?
         <Required />
       </SubHeading>
       {errors?.identifyAsUnderrepresented && (
