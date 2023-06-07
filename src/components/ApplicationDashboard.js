@@ -341,9 +341,9 @@ const Dashboard = ({
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>
+          {/* <AppStatusText>
             cmd-f 2023 is a hackathon celebrating underrepresented genders in tech
-          </AppStatusText>
+          </AppStatusText> */}
           <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>

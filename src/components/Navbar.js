@@ -83,7 +83,7 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
         )}
         {theme.name === 'nwHacks' && (
           <LogoContainer>
-            <SponsorIcon src={poweredBy} alt="powered by Livepeer" />
+            {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
             <Icon src={nwHacksIcon} alt={theme.name} />
           </LogoContainer>
         )}
