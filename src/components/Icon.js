@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledIcon = styled.i`
-  color: #4d4b4f;
+  color: ${p => (p.color ? p.color : '#4d4b4f')};
   transition: color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   &:hover {

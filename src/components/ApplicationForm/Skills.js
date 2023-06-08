@@ -85,7 +85,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 13</QuestionHeading>
+        <QuestionHeading>question 16</QuestionHeading>
         <SubHeading>
           Is this your first hackathon?
           <Required />
@@ -107,7 +107,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 14</QuestionHeading>
+        <QuestionHeading>question 17</QuestionHeading>
         <SubHeading>
           What role(s) would you like to take on at {copyText.hackathonName}?
           <Required />
@@ -146,7 +146,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 15</QuestionHeading>
+        <QuestionHeading>question 18</QuestionHeading>
         <SubHeading>
           Help us get to know you better by providing as many links as you feel will support your
           registration!
@@ -218,13 +218,19 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </QuestionForm>
       </FormSpacing>
 
-      <SubHeading>Long answer questions</SubHeading>
+      <SubHeading>Short Answer Questions</SubHeading>
 
       <FormSpacing>
         <FormGroup>
-          <QuestionHeading>question 16</QuestionHeading>
+          <QuestionHeading>question 19</QuestionHeading>
           <SubHeading size="1.25em">
-            Why do you want to attend cmd-f 2023? (max 200 words)
+            Although many come to hackathons to work together to build a software project, we
+            recognize that there may be other reasons for attending a hackathon, such as attending
+            workshops, or connecting with sponsors.
+          </SubHeading>
+          <SubHeading size="1.25em">
+            In your own words, describe your definition of a hackathon, and what it means to you.
+            (max 200 words)
             <Required />
           </SubHeading>
           <StyledTextArea
@@ -242,11 +248,19 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           />
         </FormGroup>
         <FormGroup>
-          <QuestionHeading>question 17</QuestionHeading>
+          <QuestionHeading>question 20</QuestionHeading>
           <SubHeading size="1.25em">
-            How would you make tech a more welcoming space for underrepresented demographics?
+            Open ended question! We recommend to not write more than a paragraph, your response
+            should be concise, sweet and sufficient.
+          </SubHeading>
+          <SubHeading size="1.25em">
+            Please answer one of below two questions (max 200 words):
             <Required />
           </SubHeading>
+          <SubHeading size="1.25em">
+            - Option 1: How would you like to challenge yourself during this hackathon?
+          </SubHeading>
+          <SubHeading size="1.25em">- Option 2: What should technology be used for?</SubHeading>
           <StyledTextArea
             maxWords="200"
             width="100%"
@@ -261,48 +275,6 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             customRef={refs['longAnswers2Ref']}
           />
         </FormGroup>
-      </FormSpacing>
-
-      <FormSpacing>
-        <QuestionHeading>question 18</QuestionHeading>
-        <SubHeading size="1.25em">
-          In the past, have there been reasons deterring you from attending hackathons or other tech
-          events? (optional)
-        </SubHeading>
-        <StyledTextArea
-          maxWords="200"
-          width="100%"
-          value={formInputs.longAnswers3}
-          invalid={!!errors.longAnswers3}
-          errorMsg={errors.longAnswers3}
-          onChange={val =>
-            onChange({
-              longAnswers3: val,
-            })
-          }
-          customRef={refs['longAnswers3Ref']}
-        />
-      </FormSpacing>
-
-      <FormSpacing>
-        <QuestionHeading>question 19</QuestionHeading>
-        <SubHeading size="1.25em">
-          Is there anything you want to let us know to ensure that we can help you feel comfortable
-          throughout the event? (optional)
-        </SubHeading>
-        <StyledTextArea
-          maxWords="200"
-          width="100%"
-          value={formInputs.longAnswers4}
-          invalid={!!errors.longAnswers4}
-          errorMsg={errors.longAnswers4}
-          onChange={val =>
-            onChange({
-              longAnswers4: val,
-            })
-          }
-          customRef={refs['longAnswers4Ref']}
-        />
       </FormSpacing>
     </>
   )

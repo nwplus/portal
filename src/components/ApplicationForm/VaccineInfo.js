@@ -1,5 +1,5 @@
 import React from 'react'
-import { CenteredH1, ErrorMessage, ErrorSpan as Required, P } from '../Typography'
+import { CenteredH1, ErrorMessage, ErrorSpan as Required } from '../Typography'
 import { Checkbox } from '../../components/Input'
 import { FormSpacing, SubHeading } from './'
 import { copyText } from '../../utility/Constants'
@@ -10,16 +10,19 @@ export default ({ formInputs, onChange, error }) => {
     <>
       <FormSpacing>
         <CenteredH1>
-          First things first
-          <span role="img" aria-label="Vaccine emoji">
-            💉
+          Western Canada’s largest hackathon is here
+          <span role="img" aria-label="Party emoji">
+            🎉
           </span>
+          !
         </CenteredH1>
         <SubHeading>
-          This year, {copyText.hackathonName} is back in-person! Due to MLH{`'`}s regulations and to
-          ensure everyone{`'`}s safety, we will only be accepting hackers who are/will be
-          double-vaccinated by the day of {copyText.hackathonName}. We will be checking your proof
-          of vaccination and ID at sign-in. Thank you for your cooperation!
+          We’re excited to have you join us in January 2024 for a 24-hour long hackathon filled with
+          workshops and exciting new events. This year, we’re also giving you the opportunity to
+          showcase your project live in front of a panel of judges and hundreds of hackers from
+          around North America! We focus on creating a quality hackathon experience for all of our
+          attendees, so please fill out the form so we can get a better idea of the amount of people
+          attending, and of course, craft the best 24-hour hacker experience for you!
         </SubHeading>
         <Checkbox
           flex
@@ -37,16 +40,6 @@ export default ({ formInputs, onChange, error }) => {
           </span>
         </Checkbox>
         {error?.willBeDoubleVaxed && <ErrorMessage>{error?.willBeDoubleVaxed}</ErrorMessage>}
-        <P>
-          <br />
-          <br />
-          cmd-f is a hackathon focused on addressing gender inequality in technology. Our main
-          purpose is to create a safe, dedicated space for people who face gender inequalities to
-          hack together. Thus, cmd-f is only open to individuals that identify as an
-          underrepresented gender in technology. For more information on who is an underrepresented
-          gender in technology, please email us at cmd-f@nwplus.io. If you would like to support
-          cmd-f as an ally, our mentor, media, and volunteer roles are open to all genders!
-        </P>
       </FormSpacing>
     </>
   )

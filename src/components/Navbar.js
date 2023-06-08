@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { P } from './Typography'
 import nwHacksIcon from '../assets/nwhacks_logo_white.svg'
 import cmdfIcon from '../assets/cmdf_logo.png'
-import poweredBy from '../assets/powered_by_livepeer.svg'
 import { Button } from './Input'
 import { withTheme } from 'styled-components'
 
@@ -31,14 +30,6 @@ const Icon = styled.img`
   object-fit: cover;
   height: 42px;
   ${p => p.theme.mediaQueries.mobile} {
-    height: 21px;
-  }
-`
-const SponsorIcon = styled.img`
-  width: 100px;
-  height: 42px;
-  ${p => p.theme.mediaQueries.mobile} {
-    width: 35px;
     height: 21px;
   }
 `
@@ -83,7 +74,7 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
         )}
         {theme.name === 'nwHacks' && (
           <LogoContainer>
-            <SponsorIcon src={poweredBy} alt="powered by Livepeer" />
+            {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
             <Icon src={nwHacksIcon} alt={theme.name} />
           </LogoContainer>
         )}

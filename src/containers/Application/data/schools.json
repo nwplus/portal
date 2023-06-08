@@ -1,15 +1,6 @@
 [
   {
-    "label": "Acharya Institute of Technology (AIT)"
-  },
-  {
     "label": "21st Century Cyber Charter School"
-  },
-  {
-    "label": "Alagappa Chettiar Government College of Engineering and Technology"
-  },
-  {
-    "label": "Alagappa College of Technology, Anna University"
   },
   {
     "label": "Aalto University"
@@ -39,9 +30,6 @@
     "label": "Abraham Lincoln High School - Philadelphia"
   },
   {
-    "label": "Atal Bihari Vajpayee Indian Institute of Information Technology and Management, Gwalior (ABV-IIITM Gwalior)"
-  },
-  {
     "label": "Academy at Palumbo"
   },
   {
@@ -55,6 +43,9 @@
   },
   {
     "label": "Acharya Institute of Technology"
+  },
+  {
+    "label": "Acharya Institute of Technology (AIT)"
   },
   {
     "label": "Acharya Narendra Dev College, University Of Delhi"
@@ -91,6 +82,12 @@
   },
   {
     "label": "Agora Cyber Charter School"
+  },
+  {
+    "label": "Alagappa Chettiar Government College of Engineering and Technology"
+  },
+  {
+    "label": "Alagappa College of Technology, Anna University"
   },
   {
     "label": "Alameda High School"
@@ -177,6 +174,9 @@
     "label": "Angadi Institute of Technology & Management (AITM)"
   },
   {
+    "label": "Anil Neerukonda Institute of Technology and Sciences"
+  },
+  {
     "label": "Anjalai Ammal Mahalingam Engineering College"
   },
   {
@@ -222,13 +222,16 @@
     "label": "Arya College of Engineering & I.T."
   },
   {
+    "label": "Asansol Engineering College"
+  },
+  {
     "label": "Ashoka Institute of Technology and Management"
   },
   {
-    "label": "Asia Pacific University of Information & Technology, Kuala Lumpur"
+    "label": "Asia Pacific Institute of Information Technology, Panipat"
   },
   {
-    "label": "Asia Pacific Institute of Information Technology, Panipat"
+    "label": "Asia Pacific University of Information & Technology, Kuala Lumpur"
   },
   {
     "label": "Asian School of Business Management (ASBM University)"
@@ -247,6 +250,9 @@
   },
   {
     "label": "Aston University"
+  },
+  {
+    "label": "Atal Bihari Vajpayee Indian Institute of Information Technology and Management, Gwalior (ABV-IIITM Gwalior)"
   },
   {
     "label": "Atlanta Metropolitan State College"
@@ -282,22 +288,16 @@
     "label": "Avon High School"
   },
   {
-    "label": "BMS Institute of Technology and Management"
-  },
-  {
-    "label": "B.N.M Institute of Technology"
+    "label": "B. P. Poddar Institute of Management and Technology"
   },
   {
     "label": "B. V. Bhoomaraddi College of Engineering and Technology (KLE Tech)"
   },
   {
-    "label": "B. P. Poddar Institute of Management and Technology"
-  },
-  {
-    "label": "BLDEA’s V.P. Dr P. G. Halakatti College of Engineering & Technology"
-  },
-  {
     "label": "B.M.S College Of Engineering"
+  },
+  {
+    "label": "B.N.M Institute of Technology"
   },
   {
     "label": "Babaria Institute of Technology"
@@ -316,6 +316,9 @@
   },
   {
     "label": "Badruka Educational Society"
+  },
+  {
+    "label": "Bahria University Lahore Campus"
   },
   {
     "label": "Ball State University"
@@ -378,16 +381,16 @@
     "label": "Benha University"
   },
   {
-    "label": "Bennett University (Times of India Group)"
+    "label": "Benjamin Franklin High School - Baltimore"
+  },
+  {
+    "label": "Benjamin Franklin High School - Philadelphia"
   },
   {
     "label": "Bennett College"
   },
   {
-    "label": "Benjamin Franklin High School - Baltimore"
-  },
-  {
-    "label": "Benjamin Franklin High School - Philadelphia"
+    "label": "Bennett University (Times of India Group)"
   },
   {
     "label": "Bentley University"
@@ -417,10 +420,13 @@
     "label": "Bhagwan Parshuram Institute of Technology"
   },
   {
+    "label": "Bharat Institute of Engineering and Technology (BIET)"
+  },
+  {
     "label": "Bharathiar University"
   },
   {
-    "label": "Bharat Institute of Engineering and Technology (BIET)"
+    "label": "Bharati Vidyapeeth's College of Engineering"
   },
   {
     "label": "Bilkent University"
@@ -453,10 +459,13 @@
     "label": "Birsa Institute of Technology (BIT), SINDRI"
   },
   {
+    "label": "BITS Pilani, Hyderabad Campus"
+  },
+  {
     "label": "BITS Pilani, K K Birla Goa Campus"
   },
   {
-    "label": "BITS Pilani, Hyderabad Campus"
+    "label": "BLDEA’s V.P. Dr P. G. Halakatti College of Engineering & Technology"
   },
   {
     "label": "Blinn College"
@@ -477,13 +486,16 @@
     "label": "Bluevale Collegiate Institute"
   },
   {
-    "label": "BMIIT, Uka Tarsadia University, Bardoli, Surat"
-  },
-  {
     "label": "BMIET, Sonipat"
   },
   {
+    "label": "BMIIT, Uka Tarsadia University, Bardoli, Surat"
+  },
+  {
     "label": "BML Munjal University (BMU)"
+  },
+  {
+    "label": "BMS Institute of Technology and Management"
   },
   {
     "label": "Boca Raton Community High School"
@@ -492,10 +504,10 @@
     "label": "Boise State University"
   },
   {
-    "label": "Borough of Manhattan Community College, CUNY"
+    "label": "Bordentown Regional High School"
   },
   {
-    "label": "Bordentown Regional High School"
+    "label": "Borough of Manhattan Community College, CUNY"
   },
   {
     "label": "Boston College"
@@ -534,10 +546,10 @@
     "label": "Brentsville High School"
   },
   {
-    "label": "Briarcliff High School"
+    "label": "Briar Cliff University"
   },
   {
-    "label": "Briar Cliff University"
+    "label": "Briarcliff High School"
   },
   {
     "label": "Bridgewater State University"
@@ -573,6 +585,9 @@
     "label": "Brown University"
   },
   {
+    "label": "Brunel University London"
+  },
+  {
     "label": "Bryn Athyn College"
   },
   {
@@ -585,10 +600,10 @@
     "label": "Bucks County Community College"
   },
   {
-    "label": "Burlington Township High School"
+    "label": "Bundelkhand Institute Of Engineering & Technology (BIET Jhansi)"
   },
   {
-    "label": "Bundelkhand Institute Of Engineering & Technology (BIET Jhansi)"
+    "label": "Burlington Township High School"
   },
   {
     "label": "Business Academy Aarhus"
@@ -933,16 +948,22 @@
     "label": "CMR Engineering College"
   },
   {
-    "label": "CMR Technical Campus"
+    "label": "CMR Institute of Technology (CMRIT)"
   },
   {
-    "label": "CMR Institute of Technology (CMRIT)"
+    "label": "CMR Technical Campus"
   },
   {
     "label": "Cochin College of Engineering and Technology"
   },
   {
+    "label": "Cochin University College of Engineering Kuttanad"
+  },
+  {
     "label": "Cochin University of Science and Technology"
+  },
+  {
+    "label": "Cochin University of Science And Technology"
   },
   {
     "label": "CODE University of Applied Sciences Berlin"
@@ -1083,6 +1104,27 @@
     "label": "Concordia University"
   },
   {
+    "label": "Concordia University Ann Arbor"
+  },
+  {
+    "label": "Concordia University Chicago"
+  },
+  {
+    "label": "Concordia University Irvine"
+  },
+  {
+    "label": "Concordia University Nebraska"
+  },
+  {
+    "label": "Concordia University St. Paul"
+  },
+  {
+    "label": "Concordia University Texas"
+  },
+  {
+    "label": "Concordia University Wisconsin"
+  },
+  {
     "label": "Conestoga College"
   },
   {
@@ -1096,6 +1138,9 @@
   },
   {
     "label": "Constitution High School - Philadelphia"
+  },
+  {
+    "label": "Cooch Behar Government Engineering College"
   },
   {
     "label": "Cooper Union"
@@ -1170,13 +1215,13 @@
     "label": "Dayananda Sagar University"
   },
   {
-    "label": "Deenbandhu Chhotu Ram University of Science and Technology, Murthal"
-  },
-  {
     "label": "DCS,  Ganpat University"
   },
   {
     "label": "De Anza College"
+  },
+  {
+    "label": "Deenbandhu Chhotu Ram University of Science and Technology, Murthal"
   },
   {
     "label": "Deerfield High School"
@@ -1299,6 +1344,9 @@
     "label": "Dr. Harisingh Gour University, Sagar University"
   },
   {
+    "label": "Dr. K.N. Modi Engineering College"
+  },
+  {
     "label": "Dr. MGR Educational Research Institute University"
   },
   {
@@ -1365,10 +1413,10 @@
     "label": "East Los Angeles College"
   },
   {
-    "label": "East Stroudsburg High School"
+    "label": "East Point College of Engineering and Technology"
   },
   {
-    "label": "East Point College of Engineering and Technology"
+    "label": "East Stroudsburg High School"
   },
   {
     "label": "East West Institute of Technology"
@@ -1644,9 +1692,6 @@
     "label": "G.H. Raisoni College of Engineering"
   },
   {
-    "label": "GL Bajaj Institute of Technology and Management"
-  },
-  {
     "label": "Galgotias College of Engineering & Technology"
   },
   {
@@ -1743,7 +1788,7 @@
     "label": "Gitam School of Technology"
   },
   {
-    "label": "Guru Jambheshwar University of Science and Technology (GJUS&T), HISAR"
+    "label": "GL Bajaj Institute of Technology and Management"
   },
   {
     "label": "Glassboro High School"
@@ -1818,22 +1863,22 @@
     "label": "Government College of Technology, Coimbatore"
   },
   {
+    "label": "Government Engineering College Palakkad, Sreekrishnapuram"
+  },
+  {
     "label": "Government Engineering College, Ajmer"
   },
   {
-    "label": "Government Engineering College, Hassan"
+    "label": "Government Engineering College, Banswara"
   },
   {
-    "label": "Government Engineering College, Banswara"
+    "label": "Government Engineering College, Hassan"
   },
   {
     "label": "Government Engineering College, Kozhikode"
   },
   {
     "label": "Government Engineering College, Thrissur"
-  },
-  {
-    "label": "Government Engineering College Palakkad, Sreekrishnapuram"
   },
   {
     "label": "Government Model Engineering College, Thrikkakara"
@@ -1860,10 +1905,10 @@
     "label": "Grand Valley State University"
   },
   {
-    "label": "Great Neck South High School"
+    "label": "Graphic Era University"
   },
   {
-    "label": "Graphic Era University"
+    "label": "Great Neck South High School"
   },
   {
     "label": "Greater Lowell Technical High School"
@@ -1879,9 +1924,6 @@
   },
   {
     "label": "GSSS Institute of Engineering & Technology for Women"
-  },
-  {
-    "label": "Guru Tegh Bahadur Institute of Technology (GTBIT)"
   },
   {
     "label": "Guelph Collegiate Vocational Institute"
@@ -1902,10 +1944,19 @@
     "label": "Guru Gobind Singh Indraprastha University"
   },
   {
+    "label": "Guru Jambheshwar University of Science and Technology (GJUS&T), HISAR"
+  },
+  {
     "label": "Guru Jambheshwar University of Science and Technology, Hisar"
   },
   {
     "label": "Guru Nanak Dev Engineering College"
+  },
+  {
+    "label": "Guru Nanak Institutions"
+  },
+  {
+    "label": "Guru Tegh Bahadur Institute of Technology (GTBIT)"
   },
   {
     "label": "Gurukula Kangri University"
@@ -1915,6 +1966,9 @@
   },
   {
     "label": "Gwalior Engineering College"
+  },
+  {
+    "label": "Gwinnett Technical College"
   },
   {
     "label": "Gwynedd Mercy University"
@@ -1933,6 +1987,9 @@
   },
   {
     "label": "Hamilton College"
+  },
+  {
+    "label": "Hamline University"
   },
   {
     "label": "Hampshire College"
@@ -1954,6 +2011,9 @@
   },
   {
     "label": "Harper College"
+  },
+  {
+    "label": "Harrisburg Area Community College"
   },
   {
     "label": "Harrisburg University - Harrisburg Campus"
@@ -2115,13 +2175,13 @@
     "label": "Hussian School of Art"
   },
   {
+    "label": "I.K. Gujral Punjab Technical University Jalandhar (IKGPTU)"
+  },
+  {
     "label": "I.T.S Engineering College"
   },
   {
     "label": "IAN Mentoring and Incubation Services"
-  },
-  {
-    "label": "IIMT College of Pharmacy, Greater Noida"
   },
   {
     "label": "IIMT College of Engineering, Greater Noida"
@@ -2130,10 +2190,10 @@
     "label": "IIMT College Of Medical Sciences, Meerut"
   },
   {
-    "label": "IIMT Engineering College, Meerut"
+    "label": "IIMT College of Pharmacy, Greater Noida"
   },
   {
-    "label": "I.K. Gujral Punjab Technical University Jalandhar (IKGPTU)"
+    "label": "IIMT Engineering College, Meerut"
   },
   {
     "label": "IKP Knowledge Park Erstwhile ICICI Knowledge Park"
@@ -2172,19 +2232,19 @@
     "label": "Indian Institute of Engineering Science and Technology (IIEST), Shibpur"
   },
   {
-    "label": "Indian Institute of Information Technology, Vadodara"
+    "label": "Indian Institute of Information Technology Design & Manufacturing, Jabalpur"
   },
   {
     "label": "Indian Institute of Information Technology, Allahabad"
   },
   {
-    "label": "Indian Institute of Information Technology, Pune"
-  },
-  {
-    "label": "Indian Institute of Information Technology Design & Manufacturing, Jabalpur"
-  },
-  {
     "label": "Indian Institute of Information Technology, Kalyani"
+  },
+  {
+    "label": "Indian Institute of Information Technology, Kottayam"
+  },
+  {
+    "label": "Indian Institute of Information Technology, Pune"
   },
   {
     "label": "Indian Institute of Information Technology, Sri City"
@@ -2193,7 +2253,13 @@
     "label": "Indian Institute of Information Technology, Una"
   },
   {
+    "label": "Indian Institute of Information Technology, Vadodara"
+  },
+  {
     "label": "Indian Institute of Space Science and Technology (IIST)"
+  },
+  {
+    "label": "Indian Institute of Technology (ISM), Dhanbad"
   },
   {
     "label": "Indian Institute of Technology, BHU"
@@ -2242,9 +2308,6 @@
   },
   {
     "label": "Indian Institute of Technology, Ropar"
-  },
-  {
-    "label": "Indian Institute of Technology (ISM), Dhanbad"
   },
   {
     "label": "Indiana State University"
@@ -2296,6 +2359,9 @@
   },
   {
     "label": "Institute of Engineering and Rural Technology Allahabad"
+  },
+  {
+    "label": "Institute of Engineering and Technology, DAVV"
   },
   {
     "label": "Institute of Infrastructure Technology Research and Management, Ahmedabad"
@@ -2427,13 +2493,13 @@
     "label": "Instytut Pamięci Narodowej"
   },
   {
+    "label": "International Institute of Information Technology,  Hyderabad"
+  },
+  {
     "label": "International Institute of Information Technology, Bangalore"
   },
   {
     "label": "International Institute Of Information Technology, Naya Raipur"
-  },
-  {
-    "label": "International Institute of Information Technology,  Hyderabad"
   },
   {
     "label": "International Leadership Charter High School"
@@ -2472,16 +2538,19 @@
     "label": "ITMO University"
   },
   {
-    "label": "Jackson Memorial High School"
-  },
-  {
     "label": "J.C. Bose University of Science and Technology, YMCA"
   },
   {
-    "label": "JSS Academy of Technical Education"
+    "label": "J.N.N College of Engineering"
   },
   {
     "label": "Jabalpur Engineering College"
+  },
+  {
+    "label": "Jackson Memorial High School"
+  },
+  {
+    "label": "Jackson State University"
   },
   {
     "label": "Jacobs University Bremen"
@@ -2544,9 +2613,6 @@
     "label": "Jnanavikas Institute of Technology"
   },
   {
-    "label": "J.N.N College of Engineering"
-  },
-  {
     "label": "JNTUA College of Engineering,  Pulivendula"
   },
   {
@@ -2595,6 +2661,9 @@
     "label": "Jorhat Institute of Science and Technology"
   },
   {
+    "label": "JSS Academy of Technical Education"
+  },
+  {
     "label": "Jules E. Mastbaum Technical High School"
   },
   {
@@ -2607,10 +2676,13 @@
     "label": "K S School of Engineering and Management"
   },
   {
-    "label": "K.L. College of Engineering"
+    "label": "K. J. Somaiya College of Engineering"
   },
   {
-    "label": "KLN College of Engineering"
+    "label": "K. S Institute of Technology (KSIT), Bengaluru"
+  },
+  {
+    "label": "K.L. College of Engineering"
   },
   {
     "label": "K.L.S Gogte Institute of Technology"
@@ -2688,16 +2760,19 @@
     "label": "Keshav Memorial Institute of Technology,  Hyderabad"
   },
   {
+    "label": "Khan Lab School"
+  },
+  {
     "label": "King Edward VI Five Ways School"
   },
   {
     "label": "King's College London"
   },
   {
-    "label": "Kingsway Regional High School"
+    "label": "Kingsborough Community College, CUNY"
   },
   {
-    "label": "Kingsborough Community College, CUNY"
+    "label": "Kingsway Regional High School"
   },
   {
     "label": "KIPP DuBois Charter School"
@@ -2712,10 +2787,10 @@
     "label": "KLE Dr. M.S. Sheshgiri College of Engineering and Technology"
   },
   {
-    "label": "KLS Gogte Institute of Technology"
+    "label": "KLN College of Engineering"
   },
   {
-    "label": "Dr. K.N. Modi Engineering College"
+    "label": "KLS Gogte Institute of Technology"
   },
   {
     "label": "Knox College"
@@ -2742,16 +2817,19 @@
     "label": "Krishna Engineering College"
   },
   {
-    "label": "Kshatriya College of Engineering"
+    "label": "Kristu Jayanti College"
   },
   {
-    "label": "K. S Institute of Technology (KSIT), Bengaluru"
+    "label": "Kshatriya College of Engineering"
   },
   {
     "label": "KTH Royal Institute of Technology"
   },
   {
     "label": "Kumaraguru College Of Technology"
+  },
+  {
+    "label": "Kutztown University of Pennsylvania"
   },
   {
     "label": "L D College Of Engineering Library"
@@ -2910,6 +2988,9 @@
     "label": "Luther College"
   },
   {
+    "label": "Lyallpur Khalsa College of Engineering, Jalandhar"
+  },
+  {
     "label": "Lynbrook High School"
   },
   {
@@ -2917,9 +2998,6 @@
   },
   {
     "label": "M.S. Ramaiah School of Advance Studies"
-  },
-  {
-    "label": "MVJ College of Engineering"
   },
   {
     "label": "M.V.Jayaraman College of Engineering"
@@ -2932,6 +3010,9 @@
   },
   {
     "label": "Macaulay Honors College, CUNY"
+  },
+  {
+    "label": "MacEwan University"
   },
   {
     "label": "Macomb Community College"
@@ -2985,31 +3066,31 @@
     "label": "Maine South High School"
   },
   {
-    "label": "Malvern Preparatory School"
-  },
-  {
     "label": "Maitreyi College, University of Delhi"
   },
   {
     "label": "Majhighariani Institute Of technology & Science (MITS)"
   },
   {
-    "label": "Malaviya National Institute of Technology"
+    "label": "Malaviya National Institute of Technology Jaipur"
   },
   {
     "label": "Malineni Lakshmaiah Women's Engineering College"
   },
   {
-    "label": "Malla Reddy Engineering College (MREC)"
+    "label": "Malla Reddy College of Engineering Technology"
   },
   {
-    "label": "Malla Reddy College of Engineering Technology"
+    "label": "Malla Reddy Engineering College (MREC)"
   },
   {
     "label": "Malla Reddy Institute Of Engineering And Technology (MRIET)"
   },
   {
     "label": "Malnad College of Engineering"
+  },
+  {
+    "label": "Malvern Preparatory School"
   },
   {
     "label": "Malvern Preparatory School"
@@ -3252,6 +3333,12 @@
     "label": "Milwaukee School of Engineering"
   },
   {
+    "label": "Minerva University"
+  },
+  {
+    "label": "Minnesota State University, Mankato"
+  },
+  {
     "label": "Misrimal Navajee Munoth Jain Engineering College"
   },
   {
@@ -3399,7 +3486,7 @@
     "label": "Muzaffarpur Institute of Technology"
   },
   {
-    "label": "NSS College of Engineering"
+    "label": "MVJ College of Engineering"
   },
   {
     "label": "Nagaland University, Dimapur Campus"
@@ -3411,10 +3498,10 @@
     "label": "Nanyang Technological University"
   },
   {
-    "label": "Narsihma Reddy Engineering College"
+    "label": "Narsee Monjee College of Commerce and Economics"
   },
   {
-    "label": "Narsee Monjee College of Commerce and Economics"
+    "label": "Narsihma Reddy Engineering College"
   },
   {
     "label": "Nashua High School South"
@@ -3429,6 +3516,12 @@
     "label": "National Institute of Science and Technology, Odisha"
   },
   {
+    "label": "National Institute of Technology, Agartala"
+  },
+  {
+    "label": "National Institute of Technology, Calicut"
+  },
+  {
     "label": "National Institute of Technology, Delhi"
   },
   {
@@ -3436,30 +3529,6 @@
   },
   {
     "label": "National Institute of Technology, Goa"
-  },
-  {
-    "label": "National Institute of Technology, Kurukshetra"
-  },
-  {
-    "label": "National Institute of Technology, Patna"
-  },
-  {
-    "label": "National Institute of Technology, Surat"
-  },
-  {
-    "label": "National Institute of Technology, Trichy"
-  },
-  {
-    "label": "National Institute of Technology, Uttarakhand"
-  },
-  {
-    "label": "National Institute of Technology, Warangal"
-  },
-  {
-    "label": "National Institute of Technology, Agartala"
-  },
-  {
-    "label": "National Institute of Technology, Calicut"
   },
   {
     "label": "National Institute of Technology, Hamirpur"
@@ -3471,19 +3540,37 @@
     "label": "National Institute of Technology, Karnataka"
   },
   {
-    "label": "National Institute of Technology, Rourkela"
+    "label": "National Institute of Technology, Kurukshetra"
   },
   {
-    "label": "National Institute of Technology, Tiruchirappalli"
+    "label": "National Institute of Technology, Patna"
   },
   {
     "label": "National Institute of Technology, Raipur"
+  },
+  {
+    "label": "National Institute of Technology, Rourkela"
   },
   {
     "label": "National Institute of Technology, Silchar"
   },
   {
     "label": "National Institute of Technology, Srinagar"
+  },
+  {
+    "label": "National Institute of Technology, Surat"
+  },
+  {
+    "label": "National Institute of Technology, Tiruchirappalli"
+  },
+  {
+    "label": "National Institute of Technology, Trichy"
+  },
+  {
+    "label": "National Institute of Technology, Uttarakhand"
+  },
+  {
+    "label": "National Institute of Technology, Warangal"
   },
   {
     "label": "National Institute of Technology, Warangal"
@@ -3582,13 +3669,16 @@
     "label": "Noakhali Science and Technology University"
   },
   {
-    "label": "Noor-ul-Iman"
-  },
-  {
     "label": "Noida Institute of Engineering and Technology"
   },
   {
+    "label": "Noor-ul-Iman"
+  },
+  {
     "label": "Norco College"
+  },
+  {
+    "label": "Norfolk State University"
   },
   {
     "label": "North American University"
@@ -3601,6 +3691,9 @@
   },
   {
     "label": "North Carolina Agricultural and Technical (A&T) State University"
+  },
+  {
+    "label": "North Carolina Central University"
   },
   {
     "label": "North Carolina School of Science and Mathematics"
@@ -3628,6 +3721,9 @@
   },
   {
     "label": "Northeastern University"
+  },
+  {
+    "label": "Northern Alberta Institute of Technology (NAIT)"
   },
   {
     "label": "Northern Arizona University"
@@ -3681,6 +3777,9 @@
     "label": "NRI Institute of information Science and Technology (NIIST)"
   },
   {
+    "label": "NSS College of Engineering"
+  },
+  {
     "label": "Oakland Community College"
   },
   {
@@ -3723,7 +3822,13 @@
     "label": "Olney High School"
   },
   {
+    "label": "Onalaska High School"
+  },
+  {
     "label": "Onondaga Community College"
+  },
+  {
+    "label": "Ontario Tech University"
   },
   {
     "label": "Opolska University of Technology"
@@ -3762,7 +3867,7 @@
     "label": "Oxford Brookes University"
   },
   {
-    "label": "PDM College of Engineering"
+    "label": "P.D.A. College of Engineering"
   },
   {
     "label": "Pace University"
@@ -3828,7 +3933,7 @@
     "label": "Paul Robeson High School (formerly John Bartram High School)"
   },
   {
-    "label": "P.D.A. College of Engineering"
+    "label": "PDM College of Engineering"
   },
   {
     "label": "Peirce College"
@@ -3864,13 +3969,13 @@
     "label": "Pennsylvania Virtual Charter School"
   },
   {
+    "label": "Periyar Maniammai Institute of Science & Technology (PMU)"
+  },
+  {
     "label": "Perth Amboy High School"
   },
   {
     "label": "Perth Amboy Vocational Technical School"
-  },
-  {
-    "label": "Periyar Maniammai Institute of Science & Technology (PMU)"
   },
   {
     "label": "PES College of Engineering, Mandya"
@@ -3916,6 +4021,9 @@
   },
   {
     "label": "Pittsburgh Technical Institute"
+  },
+  {
+    "label": "Plaksha University"
   },
   {
     "label": "Plano East Senior High School"
@@ -3987,9 +4095,6 @@
     "label": "Preston High School"
   },
   {
-    "label": "Princeton International School Of Mathematics And Science"
-  },
-  {
     "label": "Preston University"
   },
   {
@@ -3997,6 +4102,9 @@
   },
   {
     "label": "Princeton High School"
+  },
+  {
+    "label": "Princeton International School Of Mathematics And Science"
   },
   {
     "label": "Princeton University"
@@ -4008,10 +4116,10 @@
     "label": "Proudhadevaraya Institute Of Technology"
   },
   {
-    "label": "PSG-Science & Technology Entrepreneurial Park (PSG-STEP)"
+    "label": "PSG College of Technology,  Coimbatore"
   },
   {
-    "label": "PSG College of Technology,  Coimbatore"
+    "label": "PSG-Science & Technology Entrepreneurial Park (PSG-STEP)"
   },
   {
     "label": "Pune Institute of Computer Technology"
@@ -4059,6 +4167,9 @@
     "label": "R.V. College Of Engineering"
   },
   {
+    "label": "R.V. College of Engineering (RVCE)"
+  },
+  {
     "label": "R.V.R. & J.C. College of Engineering"
   },
   {
@@ -4071,9 +4182,6 @@
     "label": "Radnor High School"
   },
   {
-    "label": "Ramrao Adik Institute of Technology (RAIT), DY Patil University"
-  },
-  {
     "label": "Raj Kumar Goel Engineering College"
   },
   {
@@ -4081,6 +4189,9 @@
   },
   {
     "label": "Rajarajeswari College of Engineering (RRCE)"
+  },
+  {
+    "label": "Rajasthan Institute Of Engineering and Technology"
   },
   {
     "label": "Rajdhani College of Engineering & Management"
@@ -4093,6 +4204,9 @@
   },
   {
     "label": "Rajiv Gandhi Institute of Technology (RIT), Kottayam"
+  },
+  {
+    "label": "Rajiv Gandhi University of Knowledge Technologies (RGUKT), Basar"
   },
   {
     "label": "Rajkiya Engineering College, Ambedkar Nagar"
@@ -4113,6 +4227,12 @@
     "label": "Ramapo High School"
   },
   {
+    "label": "Ramrao Adik Institute of Technology (RAIT), DY Patil University"
+  },
+  {
+    "label": "Randolph-Macon College"
+  },
+  {
     "label": "Rani Laxmi Bai Public School"
   },
   {
@@ -4120,6 +4240,9 @@
   },
   {
     "label": "Raritan Valley Community College"
+  },
+  {
+    "label": "Rasmussen University"
   },
   {
     "label": "Ravenscroft School"
@@ -4147,9 +4270,6 @@
   },
   {
     "label": "REVA University"
-  },
-  {
-    "label": "Rajiv Gandhi University of Knowledge Technologies (RGUKT), Basar"
   },
   {
     "label": "Rheinisch-Westfälische Technische Hochschule Aachen (RWTH)"
@@ -4206,10 +4326,10 @@
     "label": "RNS Institute of Technology"
   },
   {
-    "label": "Robert Gordon University"
+    "label": "Robbinsville High School"
   },
   {
-    "label": "Robbinsville High School"
+    "label": "Robert Gordon University"
   },
   {
     "label": "Rochester Institute of Technology"
@@ -4266,13 +4386,13 @@
     "label": "Rudbecksgymnasiet"
   },
   {
-    "label": "Rutgers Preparatory School"
-  },
-  {
     "label": "Rungta College of Engineering and Technology, Bhilai"
   },
   {
     "label": "Rustamji Institute of Technology"
+  },
+  {
+    "label": "Rutgers Preparatory School"
   },
   {
     "label": "Rutgers University - Newark"
@@ -4284,9 +4404,6 @@
     "label": "Rutgers, The State University of New Jersey"
   },
   {
-    "label": "R.V. College of Engineering (RVCE)"
-  },
-  {
     "label": "Ryde School"
   },
   {
@@ -4296,10 +4413,10 @@
     "label": "Ryerson University"
   },
   {
-    "label": "S G Balekundri Institute of Technology"
+    "label": "S A Engineering College"
   },
   {
-    "label": "S A Engineering College"
+    "label": "S G Balekundri Institute of Technology"
   },
   {
     "label": "Sachdeva Institute of Technology"
@@ -4347,6 +4464,9 @@
     "label": "Salem State University"
   },
   {
+    "label": "Sambalpur University Institute of Information Technology (SUIIT)"
+  },
+  {
     "label": "Sambhram Institute of Technology"
   },
   {
@@ -4390,6 +4510,9 @@
   },
   {
     "label": "Santa Rosa Junior College"
+  },
+  {
+    "label": "Sapthagiri College of Engineering "
   },
   {
     "label": "Saratoga High School"
@@ -4473,6 +4596,9 @@
     "label": "Shelton High School"
   },
   {
+    "label": "Sheridan College"
+  },
+  {
     "label": "Sherwood Convent School"
   },
   {
@@ -4480,9 +4606,6 @@
   },
   {
     "label": "Shiv Nadar University"
-  },
-  {
-    "label": "Shri Ramswaroop Memorial Group of Professional Colleges (SRMGPC)"
   },
   {
     "label": "Shri Dharmasthala Manjunatheshwara College of Engineering and Technology (SDM)"
@@ -4503,6 +4626,9 @@
     "label": "Shri Ramswaroop College Of Engineering and Management"
   },
   {
+    "label": "Shri Ramswaroop Memorial Group of Professional Colleges (SRMGPC)"
+  },
+  {
     "label": "Shri Sant Gajanan Maharaj College of Engineering, Shegaon (SSGMCE)"
   },
   {
@@ -4519,9 +4645,6 @@
   },
   {
     "label": "Shriram Institute for Industrial Research"
-  },
-  {
-    "label": "Startup Incubation and Innovation Centre, IIT Kanpur"
   },
   {
     "label": "Siddaganga Institute Of Technology, Tumakuru"
@@ -4602,16 +4725,13 @@
     "label": "Smith College"
   },
   {
-    "label": "Spelman College"
-  },
-  {
     "label": "SOAS University of London"
   },
   {
-    "label": "Solebury School"
+    "label": "Society for Development of Composites"
   },
   {
-    "label": "Society for Development of Composites"
+    "label": "Solebury School"
   },
   {
     "label": "Sona College of Technology"
@@ -4671,6 +4791,9 @@
     "label": "Spelman College"
   },
   {
+    "label": "Spelman College"
+  },
+  {
     "label": "Spotswood High School"
   },
   {
@@ -4713,6 +4836,9 @@
     "label": "Sri Sivasubramaniya Nadar College of Engineering"
   },
   {
+    "label": "Sri Venkateshwara College of Engineering"
+  },
+  {
     "label": "Sri Vishnu Educational Society"
   },
   {
@@ -4722,10 +4848,10 @@
     "label": "SRM Easwari Engineering College, Chennai"
   },
   {
-    "label": "SRM University, Sonepat"
+    "label": "SRM University"
   },
   {
-    "label": "SRM University"
+    "label": "SRM University, Sonepat"
   },
   {
     "label": "SS College of Engineering"
@@ -4740,9 +4866,6 @@
     "label": "St Joseph Engineering College"
   },
   {
-    "label": "St.Martin's Engineering College"
-  },
-  {
     "label": "St Mary's Catholic High School – Croydon"
   },
   {
@@ -4750,9 +4873,6 @@
   },
   {
     "label": "St Paul's Catholic College – Sunbury-on-Thames"
-  },
-  {
-    "label": "St. Peter's Institute of Higher Education and Research"
   },
   {
     "label": "St. Charles Borromeo Seminary"
@@ -4767,6 +4887,9 @@
     "label": "St. John's University, New York"
   },
   {
+    "label": "St. Joseph's College of Engineering and Technology, Palai"
+  },
+  {
     "label": "St. Mark's School, Hong Kong"
   },
   {
@@ -4777,6 +4900,9 @@
   },
   {
     "label": "St. Michael College of Engineering & Technology"
+  },
+  {
+    "label": "St. Peter's Institute of Higher Education and Research"
   },
   {
     "label": "St. Pious X Degree & PG College for women"
@@ -4791,6 +4917,9 @@
     "label": "St. Xavier's Senior Secondary School, Jaipur"
   },
   {
+    "label": "St.Martin's Engineering College"
+  },
+  {
     "label": "Stanford University"
   },
   {
@@ -4798,6 +4927,9 @@
   },
   {
     "label": "Star Technical Institute"
+  },
+  {
+    "label": "Startup Incubation and Innovation Centre, IIT Kanpur"
   },
   {
     "label": "Staten Island Technical High School"
@@ -4953,9 +5085,6 @@
     "label": "Teesside University"
   },
   {
-    "label": "Tezpur University"
-  },
-  {
     "label": "Temple University"
   },
   {
@@ -5005,6 +5134,9 @@
   },
   {
     "label": "Texas Tech University"
+  },
+  {
+    "label": "Tezpur University"
   },
   {
     "label": "Thadomal Shahani Engineering College"
@@ -5163,7 +5295,7 @@
     "label": "The University of Bristol"
   },
   {
-    "label": "The University of British Columbia (UBC)"
+    "label": "The University of British Columbia"
   },
   {
     "label": "The University of Calgary"
@@ -5418,9 +5550,6 @@
     "label": "The University of Oklahoma"
   },
   {
-    "label": "The University of Ontario Institute of Technology"
-  },
-  {
     "label": "The University of Oregon"
   },
   {
@@ -5520,9 +5649,6 @@
     "label": "The University of Tampa"
   },
   {
-    "label": "The University of the District of Columbia"
-  },
-  {
     "label": "The University of Tennessee"
   },
   {
@@ -5556,10 +5682,16 @@
     "label": "The University of the District of Columbia"
   },
   {
+    "label": "The University of the District of Columbia"
+  },
+  {
     "label": "The University of the Pacific"
   },
   {
     "label": "The University of the South - Sewanee"
+  },
+  {
+    "label": "The University of the West Indies"
   },
   {
     "label": "The University of Toledo"
@@ -5820,10 +5952,10 @@
     "label": "Universidad de Guanajuato"
   },
   {
-    "label": "Universidad de La Salle Bajío"
+    "label": "Universidad de La Laguna"
   },
   {
-    "label": "Universidad de La Laguna"
+    "label": "Universidad de La Salle Bajío"
   },
   {
     "label": "Universidad de Monterrey"
@@ -5866,6 +5998,9 @@
   },
   {
     "label": "Universidad Tecnológica de Torreón"
+  },
+  {
+    "label": "Universidad Tecnológica Nacional"
   },
   {
     "label": "Universidad Veracruzana"
@@ -5958,6 +6093,9 @@
     "label": "University of Białystok"
   },
   {
+    "label": "University of Cape Coast, Ghana"
+  },
+  {
     "label": "University of Cincinnati"
   },
   {
@@ -6003,6 +6141,9 @@
     "label": "University of Queensland"
   },
   {
+    "label": "University of Regina"
+  },
+  {
     "label": "University of Roehampton"
   },
   {
@@ -6022,6 +6163,9 @@
   },
   {
     "label": "University of Tartu"
+  },
+  {
+    "label": "University of Technology, Jamaica"
   },
   {
     "label": "University of the Arts - Philadelphia"
@@ -6186,13 +6330,25 @@
     "label": "Virginia Commonwealth University"
   },
   {
+    "label": "Virginia State University"
+  },
+  {
     "label": "Virginia Tech"
+  },
+  {
+    "label": "Virginia Union University"
+  },
+  {
+    "label": "Virginia University of Lynchburg"
   },
   {
     "label": "Virtual High School @ PWCS"
   },
   {
     "label": "Vishwakarma Government Engineering College"
+  },
+  {
+    "label": "Vishwakarma Institute of Technology"
   },
   {
     "label": "Visvesvaraya National Institute of Technology"
@@ -6204,13 +6360,13 @@
     "label": "Vivekanand Education Society's Institute of Technology (VESIT)"
   },
   {
-    "label": "Vivekananda Institute of Biotechnology"
-  },
-  {
     "label": "Vivekanand Institute of Technology & Sciences"
   },
   {
     "label": "Vivekananda College for BCA"
+  },
+  {
+    "label": "Vivekananda Institute of Biotechnology"
   },
   {
     "label": "Vivekananda Institute of Technology"
@@ -6226,6 +6382,9 @@
   },
   {
     "label": "Wake Forest University"
+  },
+  {
+    "label": "Wake Technical Community College"
   },
   {
     "label": "Walchand College of Engineering"
@@ -6322,6 +6481,9 @@
   },
   {
     "label": "Westdale Secondary School"
+  },
+  {
+    "label": "Western Carolina University"
   },
   {
     "label": "Western Connecticut State University"
@@ -6453,6 +6615,9 @@
     "label": "Wrocław University of Technology"
   },
   {
+    "label": "Wuhan University"
+  },
+  {
     "label": "Wyższa Szkoła Biznesu – National-Louis University"
   },
   {
@@ -6505,8 +6670,5 @@
   },
   {
     "label": "Zespół Szkół Nr.2 im. Jana Pawła II w Miechowie"
-  },
-  {
-    "label": "Langara College"
   }
 ]

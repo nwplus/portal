@@ -161,13 +161,14 @@ const cmdfTheme = {
   ...base,
   name: 'cmdf',
   colors: {
-    background: '#FFF6D8',
-    card: '#847064',
+    background: '#F1E9DF',
+    card: '#847064', // BG Accent
     cardText: '#ffffff',
     border: 'rgba(0, 0, 0, 0.3)',
     cardSecondary: '#C8BFB6',
     secondaryBackground: '#C0A68B',
-    secondaryBackgroundTransparent: '#EBC02910',
+    // secondaryBackgroundTransparent: '#EBC02910',
+    secondaryBackgroundTransparent: '#F1E9DF',
     sidebar: {
       link: '#fff',
     },
@@ -177,8 +178,10 @@ const cmdfTheme = {
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
-    primary: '#EBC029',
+    primary: '#F1E9DF',
     secondary: '#FE800B',
+    primaryGradient: '#82B185',
+    primaryGradientHover: 'linear-gradient(263.82deg, #E9C3CB 38.58%, #A4A9F1 78.17%)', //'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
     default: '#2C3933',
     highlight: '#192825',
     text: '#4D4B4F',
@@ -187,7 +190,7 @@ const cmdfTheme = {
     tertiaryHover: '#FE800B', // button hover
     // Styling for schedule page
     schedule: {
-      background: '#FFF6D8',
+      background: '#F4FEF7',
       event: '#2C3933',
       text: '#FFFFFF',
     },
@@ -233,7 +236,8 @@ const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
 let selectedTheme = nwTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
-  const localTheme = window.localStorage.getItem('localTheme')
+  // const localTheme = window.localStorage.getItem('localTheme')
+  const localTheme = null
   selectedTheme = localTheme ? THEMES[localTheme] : selectedTheme
 }
 
