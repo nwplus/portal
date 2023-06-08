@@ -158,10 +158,9 @@ export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
   vegetarian: 'Vegetarian',
   vegan: 'Vegan',
   celiacDisease: 'Celiac Disease',
-  allergies: 'Allergies',
   kosher: 'Kosher',
   halal: 'Halal',
-  other: 'Multiple restrictions/other',
+  other: 'Allergies/other',
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
@@ -231,7 +230,6 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       vegetarian: false,
       vegan: false,
       celiacDisease: false,
-      allergies: false,
       kosher: false,
       halal: false,
       other: false,

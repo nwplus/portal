@@ -225,7 +225,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           <QuestionHeading>question 19</QuestionHeading>
           <SubHeading size="1.25em">
             Although many come to hackathons to work together to build a software project, we
-            recognize that there may be other reasons for attending an hackathon, such as attending
+            recognize that there may be other reasons for attending a hackathon, such as attending
             workshops, or connecting with sponsors.
           </SubHeading>
           <SubHeading size="1.25em">

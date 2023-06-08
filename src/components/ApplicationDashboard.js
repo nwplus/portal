@@ -189,7 +189,8 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
-    blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
+    // blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
+    blurb: `We will send out all acceptances by January 2024. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
   },
   waitlisted: {
     sidebarText: 'Waitlisted',
@@ -263,7 +264,8 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   inProgress: {
     sidebarText: 'Not Submitted',
     cardText: 'Not Submitted',
-    blurb: `Your application has not been submitted. Please complete your application and submit before the deadline on ${relevantDates?.applicationDeadline} in order to join us at ${copyText.hackathonName}!`,
+    // blurb: `Your application has not been submitted. Please complete your application and submit before the deadline on ${relevantDates?.applicationDeadline} in order to join us at ${copyText.hackathonName}!`,
+    blurb: `Your application has not been submitted. Please complete your application and submit before December in order to join us at ${copyText.hackathonName}!`,
   },
 })
 
@@ -277,6 +279,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.IG}
         icon="instagram"
+        color="#FFF"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('instagram')}
@@ -284,6 +287,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.FB}
         icon="facebook"
+        color="#FFF"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('facebook')}
@@ -291,6 +295,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.MEDIUM}
         icon="medium"
+        color="#FFF"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('medium')}
@@ -298,6 +303,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.TW}
         icon="twitter"
+        color="#FFF"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('twitter')}
@@ -341,9 +347,7 @@ const Dashboard = ({
       </AppLinks>
       <StatusContainer>
         <div>
-          {/* <AppStatusText>
-            cmd-f 2023 is a hackathon celebrating underrepresented genders in tech
-          </AppStatusText> */}
+          <AppStatusText>nwHacks 2024 is Western Canada’s largest 24 hour hackathon!</AppStatusText>
           <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
