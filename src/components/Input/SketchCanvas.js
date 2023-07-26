@@ -7,6 +7,89 @@ import colorpickerIcon from '../../assets/icons/colorpicker.svg'
 import undoIcon from '../../assets/icons/undo.svg'
 import redoIcon from '../../assets/icons/redo.svg'
 import { mergeRefs } from '../../utility/utilities'
+import styled from 'styled-components'
+
+const CanvasContainer = styled.div`
+  background: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`
+
+const ErrorMessage = styled.p`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin: 0px;
+  background: #ffaaaa;
+  color: red;
+  z-index: 10;
+  box-sizing: border-box;
+`
+
+const Stroke4Button = styled.div`
+  background: #333333;
+  border-radius: 999px;
+  cursor: pointer;
+  width: 8px;
+  height: 8px;
+`
+
+const Stroke6Button = styled.div`
+  background: #333333;
+  border-radius: 999px;
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+`
+
+const Stroke8Button = styled.div`
+  background: #333333;
+  border-radius: 999px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+`
+
+const CanvasIcon = styled.img`
+  width: 20px;
+  height: 25px;
+  cursor: pointer;
+`
+
+const HistoryIcons = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+`
+
+const ColorPickerWrapper = styled.div`
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+`
+
+const LeftIcons = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+`
+
+const ToolBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+  justify-content: space-between;
+  user-select: none;
+`
 
 export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
   const [strokeWidth, setStrokeWidth] = useState(4)
@@ -50,12 +133,8 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
   }
 
   return (
-    <div
+    <CanvasContainer
       style={{
-        background: '#f3f3f3',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
         width: width,
         height: height,
         border: invalid ? '3px solid red' : '',
@@ -64,26 +143,7 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
         setShowPicker(false)
       }}
     >
-      {errorMsg && (
-        <p
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: width,
-            padding: 5,
-            paddingLeft: 8,
-            paddingRight: 8,
-            background: '#ffaaaa',
-            color: 'red',
-            zIndex: 10,
-            margin: 0,
-            boxSizing: 'border-box',
-          }}
-        >
-          {errorMsg}
-        </p>
-      )}
+      {errorMsg && <ErrorMessage style={{ width: width }}>{errorMsg}</ErrorMessage>}
 
       <ReactSketchCanvas
         width={'100%'}
@@ -95,25 +155,8 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
         style={{ border: 'none' }}
       />
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          padding: 3,
-          paddingLeft: 7,
-          paddingRight: 7,
-          justifyContent: 'space-between',
-          userSelect: 'none',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 5,
-          }}
-        >
+      <ToolBar>
+        <LeftIcons>
           <img
             src={colorpickerIcon}
             style={{
@@ -131,80 +174,31 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
               setShowPicker(!showPicker)
             }}
           />
-          <div
-            style={{
-              background: '#333333',
-              borderRadius: 999,
-              cursor: 'pointer',
-              width: 8,
-              height: 8,
-            }}
+          <Stroke4Button
             onClick={() => {
               setStrokeWidth(4)
             }}
           />
-          <div
-            style={{
-              background: '#333333',
-              borderRadius: 999,
-              cursor: 'pointer',
-              width: 12,
-              height: 12,
-            }}
+          <Stroke6Button
             onClick={() => {
               setStrokeWidth(6)
             }}
           />
-          <div
-            style={{
-              background: '#333333',
-              borderRadius: 999,
-              cursor: 'pointer',
-              width: 16,
-              height: 16,
-            }}
+          <Stroke8Button
             onClick={() => {
               setStrokeWidth(8)
             }}
           />
-        </div>
+        </LeftIcons>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 5,
-            alignItems: 'center',
-          }}
-        >
-          <img
-            src={undoIcon}
-            style={{
-              width: 20,
-              height: 25,
-              cursor: 'pointer',
-            }}
-            alt="Undo Icon"
-            onClick={handleUndo}
-          />
-          <img
-            src={redoIcon}
-            style={{
-              width: 20,
-              height: 25,
-              cursor: 'pointer',
-            }}
-            alt="Redo Icon"
-            onClick={handleRedo}
-          />
-        </div>
+        <HistoryIcons>
+          <CanvasIcon src={undoIcon} alt="Undo Icon" onClick={handleUndo} />
+          <CanvasIcon src={redoIcon} alt="Redo Icon" onClick={handleRedo} />
+        </HistoryIcons>
 
-        <img
+        <CanvasIcon
           src={trashcanIcon}
           style={{
-            width: 20,
-            height: 25,
-            cursor: 'pointer',
             filter:
               'invert(61%) sepia(100%) saturate(6853%) hue-rotate(344deg) brightness(124%) contrast(108%)',
           }}
@@ -213,8 +207,7 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
         />
 
         {showPicker && (
-          <div
-            style={{ position: 'absolute', zIndex: 100, top: 0, right: 0 }}
+          <ColorPickerWrapper
             onClick={e => {
               e.stopPropagation()
             }}
@@ -225,9 +218,9 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
                 setStrokeColor(e.hex)
               }}
             />
-          </div>
+          </ColorPickerWrapper>
         )}
-      </div>
-    </div>
+      </ToolBar>
+    </CanvasContainer>
   )
 }
