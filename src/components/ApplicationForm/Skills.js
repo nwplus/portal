@@ -280,11 +280,11 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           <QuestionHeading>question 21</QuestionHeading>
           <SubHeading size="1.25em">Draw your favourite character!</SubHeading>
           <SketchCanvas
-            width={500}
-            height={300}
-            value={formInputs.longAnswers2}
-            invalid={!!errors.longAnswers2}
-            errorMsg={errors.longAnswers2}
+            width={600}
+            height={400}
+            value={formInputs.longAnswers3}
+            invalid={!!errors.longAnswers3}
+            errorMsg={errors.longAnswers3}
             onChange={val =>
               onChange({
                 longAnswers3: val,

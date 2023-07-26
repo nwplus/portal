@@ -1,22 +1,52 @@
-import React, { useRef, useState } from 'react'
+/* eslint-disable import/no-anonymous-default-export */
+import React, { useEffect, useRef, useState } from 'react'
 import { ReactSketchCanvas } from 'react-sketch-canvas'
 import { SketchPicker } from 'react-color'
 import trashcanIcon from '../../assets/icons/trashcan.svg'
 import colorpickerIcon from '../../assets/icons/colorpicker.svg'
+import undoIcon from '../../assets/icons/undo.svg'
+import redoIcon from '../../assets/icons/redo.svg'
+import { mergeRefs } from '../../utility/utilities'
 
-export default ({ width, height, value, invalid, errorMsg, onChange, customRef }) => {
+export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
   const [strokeWidth, setStrokeWidth] = useState(4)
   const [strokeColor, setStrokeColor] = useState('black')
   const [showPicker, setShowPicker] = useState(false)
   const canvasRef = useRef()
 
-  const handleChange = async () => {
-    const newSVG = await canvasRef.current.exportSvg()
-    onChange(newSVG)
+  const [debounceTimerId, setDebounceTimerId] = useState(null)
+  const loadedRef = useRef(false)
+
+  useEffect(() => {
+    loadedRef.current = true
+    return () => {
+      loadedRef.current = false
+    }
+  }, [])
+
+  const handleChange = e => {
+    if (!onChange) return
+
+    if (debounceTimerId) clearTimeout(debounceTimerId)
+    const newTimerId = setTimeout(async () => {
+      if (!loadedRef.current) return
+      const newSVG = await canvasRef.current.exportSvg()
+      onChange(newSVG)
+    }, 500)
+
+    setDebounceTimerId(newTimerId)
   }
 
   const handleClear = () => {
     if (canvasRef.current) canvasRef.current.clearCanvas()
+  }
+
+  const handleUndo = () => {
+    if (canvasRef.current) canvasRef.current.undo()
+  }
+
+  const handleRedo = () => {
+    if (canvasRef.current) canvasRef.current.redo()
   }
 
   return (
@@ -28,12 +58,37 @@ export default ({ width, height, value, invalid, errorMsg, onChange, customRef }
         position: 'relative',
         width: width,
         height: height,
+        border: invalid ? '3px solid red' : '',
+      }}
+      onClick={() => {
+        setShowPicker(false)
       }}
     >
+      {errorMsg && (
+        <p
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: width,
+            padding: 5,
+            paddingLeft: 8,
+            paddingRight: 8,
+            background: '#ffaaaa',
+            color: 'red',
+            zIndex: 10,
+            margin: 0,
+            boxSizing: 'border-box',
+          }}
+        >
+          {errorMsg}
+        </p>
+      )}
+
       <ReactSketchCanvas
         width={'100%'}
         height={'100%'}
-        ref={canvasRef}
+        ref={mergeRefs(canvasRef, customRef)}
         strokeWidth={strokeWidth}
         strokeColor={strokeColor}
         onChange={handleChange}
@@ -51,7 +106,14 @@ export default ({ width, height, value, invalid, errorMsg, onChange, customRef }
           userSelect: 'none',
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 5,
+          }}
+        >
           <img
             src={colorpickerIcon}
             style={{
@@ -59,11 +121,13 @@ export default ({ width, height, value, invalid, errorMsg, onChange, customRef }
               width: 20,
               height: 25,
               cursor: 'pointer',
-              filter:
-                'invert(72%) sepia(0%) saturate(237%) hue-rotate(137deg) brightness(86%) contrast(87%)',
+              filter: showPicker
+                ? 'invert(31%) sepia(79%) saturate(7412%) hue-rotate(241deg) brightness(84%) contrast(127%)'
+                : 'invert(72%) sepia(0%) saturate(237%) hue-rotate(137deg) brightness(86%) contrast(87%)',
             }}
             alt="Color Picker Icon"
-            onClick={() => {
+            onClick={e => {
+              e.stopPropagation()
               setShowPicker(!showPicker)
             }}
           />
@@ -104,6 +168,37 @@ export default ({ width, height, value, invalid, errorMsg, onChange, customRef }
             }}
           />
         </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 5,
+            alignItems: 'center',
+          }}
+        >
+          <img
+            src={undoIcon}
+            style={{
+              width: 20,
+              height: 25,
+              cursor: 'pointer',
+            }}
+            alt="Undo Icon"
+            onClick={handleUndo}
+          />
+          <img
+            src={redoIcon}
+            style={{
+              width: 20,
+              height: 25,
+              cursor: 'pointer',
+            }}
+            alt="Redo Icon"
+            onClick={handleRedo}
+          />
+        </div>
+
         <img
           src={trashcanIcon}
           style={{
@@ -118,7 +213,12 @@ export default ({ width, height, value, invalid, errorMsg, onChange, customRef }
         />
 
         {showPicker && (
-          <div style={{ position: 'absolute', zIndex: 100, top: 0, right: 0 }}>
+          <div
+            style={{ position: 'absolute', zIndex: 100, top: 0, right: 0 }}
+            onClick={e => {
+              e.stopPropagation()
+            }}
+          >
             <SketchPicker
               color={strokeColor}
               onChange={e => {
