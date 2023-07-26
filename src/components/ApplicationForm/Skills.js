@@ -6,6 +6,7 @@ import { Select } from '../Input'
 import { FormSpacing, SubHeading } from './'
 import { CONTRIBUTION_ROLE_OPTIONS, copyText } from '../../utility/Constants'
 import styled from 'styled-components'
+import SketchCanvas from '../Input/SketchCanvas'
 
 const QuestionForm = styled.form`
   display: flex;
@@ -273,6 +274,23 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
               })
             }
             customRef={refs['longAnswers2Ref']}
+          />
+        </FormGroup>
+        <FormGroup>
+          <QuestionHeading>question 21</QuestionHeading>
+          <SubHeading size="1.25em">Draw your favourite character!</SubHeading>
+          <SketchCanvas
+            width={500}
+            height={300}
+            value={formInputs.longAnswers2}
+            invalid={!!errors.longAnswers2}
+            errorMsg={errors.longAnswers2}
+            onChange={val =>
+              onChange({
+                longAnswers3: val,
+              })
+            }
+            customRef={refs['longAnswers3Ref']}
           />
         </FormGroup>
       </FormSpacing>
