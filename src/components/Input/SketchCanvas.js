@@ -157,13 +157,10 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
 
       <ToolBar>
         <LeftIcons>
-          <img
+          <CanvasIcon
             src={colorpickerIcon}
             style={{
               marginRight: 10,
-              width: 20,
-              height: 25,
-              cursor: 'pointer',
               filter: showPicker
                 ? 'invert(31%) sepia(79%) saturate(7412%) hue-rotate(241deg) brightness(84%) contrast(127%)'
                 : 'invert(72%) sepia(0%) saturate(237%) hue-rotate(137deg) brightness(86%) contrast(87%)',
