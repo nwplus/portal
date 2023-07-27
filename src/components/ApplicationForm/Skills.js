@@ -291,6 +291,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
               })
             }
             customRef={refs['longAnswers3Ref']}
+            exportAsBase64
           />
         </FormGroup>
       </FormSpacing>

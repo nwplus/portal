@@ -90,8 +90,16 @@ const ToolBar = styled.div`
   justify-content: space-between;
   user-select: none;
 `
-
-export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
+/**
+ * @param width number, width of the entire component
+ * @param height number, height of the entire component
+ * @param invalid boolean, indicates dissatisfaction with current value
+ * @param errorMsg string, indicates some error
+ * @param onChange (result: string) => void, triggers with result (SVG or Base64) on change. Has debouncing.
+ * @param customRef a ref directly to the canvas component
+ * @param exportAsBase64 boolean, onChange() will return a base64 string instead of svg if true
+ */
+export default ({ width, height, invalid, errorMsg, onChange, customRef, exportAsBase64 }) => {
   const [strokeWidth, setStrokeWidth] = useState(4)
   const [strokeColor, setStrokeColor] = useState('black')
   const [showPicker, setShowPicker] = useState(false)
@@ -113,8 +121,14 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef }) => {
     if (debounceTimerId) clearTimeout(debounceTimerId)
     const newTimerId = setTimeout(async () => {
       if (!loadedRef.current) return
-      const newSVG = await canvasRef.current.exportSvg()
-      onChange(newSVG)
+
+      if (exportAsBase64) {
+        const newBase64 = await canvasRef.current.exportImage('jpeg')
+        onChange(newBase64)
+      } else {
+        const newSVG = await canvasRef.current.exportSvg()
+        onChange(newSVG)
+      }
     }, 500)
 
     setDebounceTimerId(newTimerId)
