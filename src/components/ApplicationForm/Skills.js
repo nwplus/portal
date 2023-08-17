@@ -280,7 +280,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           <QuestionHeading>question 21</QuestionHeading>
           <SubHeading size="1.25em">Draw your favourite character!</SubHeading>
           <SketchCanvas
-            width={600}
+            width={'100%'}
             height={400}
             value={formInputs.longAnswers3}
             invalid={!!errors.longAnswers3}
