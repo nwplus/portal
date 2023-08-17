@@ -144,3 +144,11 @@ export const cutString = (string, maxLength) => {
   }
   return `${string.substring(0, cut)}...`
 }
+
+export const mergeRefs = (...refs) => {
+  return node => {
+    for (const ref of refs) {
+      ref.current = node
+    }
+  }
+}
