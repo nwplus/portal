@@ -6,7 +6,7 @@ import trashcanIcon from '../../assets/icons/trashcan.svg'
 import colorpickerIcon from '../../assets/icons/colorpicker.svg'
 import undoIcon from '../../assets/icons/undo.svg'
 import redoIcon from '../../assets/icons/redo.svg'
-import { mergeRefs } from '../../utility/utilities'
+import { mergeRefs, useDebounce } from '../../utility/utilities'
 import styled from 'styled-components'
 
 const CanvasContainer = styled.div`
@@ -105,7 +105,6 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef, exportA
   const [showPicker, setShowPicker] = useState(false)
   const canvasRef = useRef()
 
-  const [debounceTimerId, setDebounceTimerId] = useState(null)
   const loadedRef = useRef(false)
 
   useEffect(() => {
@@ -115,23 +114,22 @@ export default ({ width, height, invalid, errorMsg, onChange, customRef, exportA
     }
   }, [])
 
+  const debounceUpdate = useDebounce(async () => {
+    if (!loadedRef.current) return
+
+    if (exportAsBase64) {
+      const newBase64 = await canvasRef.current.exportImage('jpeg')
+      onChange(newBase64)
+    } else {
+      const newSVG = await canvasRef.current.exportSvg()
+      onChange(newSVG)
+    }
+  }, 500)
+
   const handleChange = e => {
     if (!onChange) return
 
-    if (debounceTimerId) clearTimeout(debounceTimerId)
-    const newTimerId = setTimeout(async () => {
-      if (!loadedRef.current) return
-
-      if (exportAsBase64) {
-        const newBase64 = await canvasRef.current.exportImage('jpeg')
-        onChange(newBase64)
-      } else {
-        const newSVG = await canvasRef.current.exportSvg()
-        onChange(newSVG)
-      }
-    }, 500)
-
-    setDebounceTimerId(newTimerId)
+    debounceUpdate()
   }
 
   const handleClear = () => {
