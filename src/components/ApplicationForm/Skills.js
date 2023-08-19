@@ -276,7 +276,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             <Required />
           </SubHeading>
           <StyledTextArea
-            maxWords="200"
+            maxWords="50"
             width="100%"
             value={formInputs.longAnswers3}
             invalid={!!errors.longAnswers3}
