@@ -250,17 +250,10 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         <FormGroup>
           <QuestionHeading>question 20</QuestionHeading>
           <SubHeading size="1.25em">
-            Open ended question! We recommend to not write more than a paragraph, your response
-            should be concise, sweet and sufficient.
-          </SubHeading>
-          <SubHeading size="1.25em">
-            Please answer one of below two questions (max 200 words):
+            Describe a project (does not need to be a technical project) that you worked on and a
+            useful skill that you learned from it. (max 200 words)
             <Required />
           </SubHeading>
-          <SubHeading size="1.25em">
-            - Option 1: How would you like to challenge yourself during this hackathon?
-          </SubHeading>
-          <SubHeading size="1.25em">- Option 2: What should technology be used for?</SubHeading>
           <StyledTextArea
             maxWords="200"
             width="100%"
@@ -273,6 +266,27 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
               })
             }
             customRef={refs['longAnswers2Ref']}
+          />
+        </FormGroup>
+        <FormGroup>
+          <QuestionHeading>question 21</QuestionHeading>
+          <SubHeading size="1.25em">
+            What character (from a movie, show, book, etc.) do you relate to most and why? (max 50
+            words)
+            <Required />
+          </SubHeading>
+          <StyledTextArea
+            maxWords="50"
+            width="100%"
+            value={formInputs.longAnswers3}
+            invalid={!!errors.longAnswers3}
+            errorMsg={errors.longAnswers3}
+            onChange={val =>
+              onChange({
+                longAnswers3: val,
+              })
+            }
+            customRef={refs['longAnswers3Ref']}
           />
         </FormGroup>
       </FormSpacing>
