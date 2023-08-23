@@ -10,7 +10,14 @@ import {
   MAX_RESUME_FILE_SIZE_MB,
 } from '../../utility/Validation'
 
-const questionsByOrder = ['resume', 'portfolio', 'github', 'longAnswers1', 'longAnswers2']
+const questionsByOrder = [
+  'resume',
+  'portfolio',
+  'github',
+  'longAnswers1',
+  'longAnswers2',
+  'longAnswers3',
+]
 
 export default () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
