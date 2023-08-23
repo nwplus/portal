@@ -230,7 +230,7 @@ const validators = {
     },
     longAnswers3: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > SHORT_ANSWER_WORD_LIMIT,
         message: answer.length > SHORT_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
