@@ -260,9 +260,12 @@ export default ({ formInputs, handleEdit, onChange }) => {
               data={formInputs.skills.longAnswers1}
             />
             <InfoGroup
-              heading="One of 'How would you like to challenge yourself during this hackathon?' or 
-              'What should technology be used for?'"
+              heading="Describe a project (does not need to be a technical project) that you worked on and a useful skill that you learned from it."
               data={formInputs.skills.longAnswers2}
+            />
+            <InfoGroup
+              heading="What character (from a movie, show, book, etc.) do you relate to most and why?"
+              data={formInputs.skills.longAnswers3}
             />
           </ContentWrapper>
         </StyledBanner>
