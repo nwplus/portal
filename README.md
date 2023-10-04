@@ -26,6 +26,7 @@ We hope for Portal to
 
 ## dev
 
+0. Please use `node v16`, 17+ doesn't work.
 1. Setup `.env` file to contain
    ```bash
    REACT_APP_FIREBASE_API_KEY=...
@@ -37,7 +38,7 @@ We hope for Portal to
    REACT_APP_FIREBASE_APP_ID=...
    REACT_APP_FIREBASE_MEASUREMENT_ID=...
    ```
-1. run `yarn && yarn start` to start the development server on `http://localhost:3000/`
+2. run `yarn && yarn start` to start the development server on `http://localhost:3000/`
 
 <hr>
 
