@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'wouter'
-import VaccineInfo from '../../components/ApplicationForm/VaccineInfo'
+import HackathonInfo from '../../components/ApplicationForm/HackathonInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
@@ -12,59 +12,24 @@ export default () => {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
-  const validate = change => {
-    const newErrors = validateFormSection(change, 'vaccineInfo')
-    setErrors({ ...errors, ...newErrors })
-    return { ...errors, ...newErrors }
-  }
-
   const save = async () => {
     setLoading(true)
     await forceSave()
     setLoading(false)
   }
 
-  const updateVaccineInfo = change => {
-    validate(change)
-
-    updateApplication({
-      vaccineInfo: {
-        ...change,
-      },
-    })
-  }
-
-  useEffect(() => {
-    if (!application.vaccineInfo) {
-      updateVaccineInfo({ willBeDoubleVaxed: false })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   /**
    * Saves and moves to next page
    */
   const handleNavigation = async href => {
     await save()
-    if (href === '/application/part-1') {
-      const newErrors = validate(application.vaccineInfo)
-      if (checkForError(newErrors)) {
-        return
-      }
-    }
     setLocation(href)
     window.scrollTo(0, 0)
   }
 
   return (
     <>
-      {application.vaccineInfo && (
-        <VaccineInfo
-          error={errors}
-          formInputs={application.vaccineInfo}
-          onChange={updateVaccineInfo}
-        />
-      )}
+      <HackathonInfo error={errors} />
       <VerticalProgressBar percent={25} />
       <NavigationButtons
         secondButtonText="Next"

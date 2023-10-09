@@ -1,6 +1,5 @@
 import { copyText } from './Constants'
 
-const MUST_BE_VACCINATED = `You can only participate in ${copyText.hackathonName} if you are double-vaccinated by then!`
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
@@ -68,12 +67,6 @@ const validateResume = thing => {
 }
 
 // eslint-disable-next-line no-unused-vars
-const mustBeVaccinatedFunction = thing => {
-  return {
-    error: !thing,
-    message: MUST_BE_VACCINATED,
-  }
-}
 
 const noEmptyFunction = thing => {
   return {
@@ -158,7 +151,6 @@ export const validateFormSection = (change, section) => {
 }
 
 export const validateEntireForm = application => {
-  // const vaccineInfoErrors = validateFormSection(application.vaccineInfo, 'vaccineInfo')
   const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
   const skillsErrors = validateFormSection(application.skills, 'skills')
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
@@ -168,7 +160,6 @@ export const validateEntireForm = application => {
   )
 
   return {
-    // ...vaccineInfoErrors,
     ...basicInfoErrors,
     ...skillsErrors,
     ...questionnaireErrors,
@@ -177,9 +168,6 @@ export const validateEntireForm = application => {
 }
 
 const validators = {
-  vaccineInfo: {
-    willBeDoubleVaxed: mustBeVaccinatedFunction,
-  },
   basicInfo: {
     email: email => {
       return {

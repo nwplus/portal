@@ -186,9 +186,6 @@ export const EVENTS_ATTENDED = Object.freeze({
 
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
-  vaccineInfo: {
-    willBeDoubleVaxed: false,
-  },
   basicInfo: {
     email: '',
     firstName: '',

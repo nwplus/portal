@@ -112,7 +112,6 @@ export function HackerApplicationProvider({ children }) {
      Keep the ref up to date with the latest application
      Handles merging of the current app with the new one */
   const updateApplication = ({
-    vaccineInfo,
     basicInfo,
     skills,
     questionnaire,
@@ -122,10 +121,6 @@ export function HackerApplicationProvider({ children }) {
   }) => {
     const mergedApp = {
       ...application,
-      vaccineInfo: {
-        ...application.vaccineInfo,
-        ...vaccineInfo,
-      },
       basicInfo: {
         ...application.basicInfo,
         ...basicInfo,
