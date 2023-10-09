@@ -2,7 +2,7 @@ import React from 'react'
 import { CenteredH1 } from '../Typography'
 import { FormSpacing, SubHeading } from '.'
 
-export default ({ error }) => {
+export default () => {
   return (
     <>
       <FormSpacing>

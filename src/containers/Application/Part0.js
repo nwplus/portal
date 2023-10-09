@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'wouter'
 import HackathonInfo from '../../components/ApplicationForm/HackathonInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
-import { checkForError, validateFormSection } from '../../utility/Validation'
 
 export default () => {
-  const { application, updateApplication, forceSave } = useHackerApplication()
+  const { application, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
-  const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
   const save = async () => {
@@ -29,7 +27,7 @@ export default () => {
 
   return (
     <>
-      <HackathonInfo error={errors} />
+      <HackathonInfo />
       <VerticalProgressBar percent={25} />
       <NavigationButtons
         secondButtonText="Next"
