@@ -1,5 +1,3 @@
-import { copyText } from './Constants'
-
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
