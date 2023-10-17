@@ -153,33 +153,6 @@ export default ({ formInputs, handleEdit, onChange }) => {
 
       <ReviewContainer>
         <JohnDiv>
-          <QuestionHeading>Vaccination Status</QuestionHeading>
-          <Button
-            onClick={() => handleEdit('/application/part-0')}
-            height="short"
-            color="secondary"
-          >
-            Edit
-          </Button>
-        </JohnDiv>
-        <StyledBanner wide={true} blur>
-          <ContentWrapper grid>
-            <InfoGroup
-              heading="Will be double-vaccinated"
-              data={
-                formInputs.vaccineInfo.willBeDoubleVaxed
-                  ? 'Yes'
-                  : formInputs.vaccineInfo.willBeDoubleVaxed === null
-                  ? ''
-                  : 'No'
-              }
-            />
-          </ContentWrapper>
-        </StyledBanner>
-      </ReviewContainer>
-
-      <ReviewContainer>
-        <JohnDiv>
           <QuestionHeading>Tell us about yourself</QuestionHeading>
           <Button
             onClick={() => handleEdit('/application/part-1')}
