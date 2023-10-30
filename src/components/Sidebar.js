@@ -92,8 +92,8 @@ const StyledA = styled(A)`
   ${p =>
     p.selected &&
     `
-    background: #F1E9DF;
-    color: #4D4B4F;
+    background: #433860;
+    color: #ffffff;
 
     &:hover {
       color: #ffffff;
@@ -104,11 +104,11 @@ const StyledA = styled(A)`
 
   &:hover {
     color: ${p => p.theme.colors.text};
-    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+    background: ${p => p.theme.colors.card};
     border-bottom: none;
   }
   &:focus {
-    color: #4d4b4f;
+    color: ${p => p.theme.colors.text};
     border-bottom: none;
   }
 `
@@ -116,7 +116,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.cardText};
+  background: ${p => p.theme.colors.accent};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -129,7 +129,7 @@ const LiveLabel = styled.p`
   font-weight: bold;
   font-size: 0.9em;
   border-radius: 7px;
-  background: ${p => p.theme.colors.primaryGradient};
+  background: ${p => p.theme.colors.primary};
   color: ${p => p.theme.colors.cardText};
   width: 4em;
   padding: 5px;

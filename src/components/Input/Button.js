@@ -58,24 +58,23 @@ const StyledButton = styled.a`
     :focus {
       background: ${p.theme.colors.button.hoverbg};
   }`}
-  ${p =>
+  ${(
+    p // old style:       border: 2px solid transparent;
+  ) =>
     p.color === 'secondary' && // secondary color (outline button)
     `color: ${p.theme.colors.button.outlineText};
     border-radius: 10px;
     background: ${p.theme.colors.button.outlineBackground};
-    border: 2px solid ${p.theme.colors.button.outlineBorder};
     :hover {
       ${
         p.disabled
           ? `cursor: not-allowed;`
           : `background: ${hexToRgba(p.theme.colors.primary, 0.2)};`
       }
-      border: 2px solid transparent;  
       color: ${p.theme.colors.button.text};
       background: ${p.theme.colors.button.outlineBackgroundHover};
     }
     :focus {
-      border: 2px solid transparent;  
       color: ${p.theme.colors.button.text};
       background: ${p.theme.colors.button.outlineBackgroundHover};
     }`}
