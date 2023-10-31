@@ -128,7 +128,7 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
         <H2>Scorecard</H2>
         <StyledP>
           For a full break-down on the rubric, please refer to the Judging Guide on the{' '}
-          <ExternalLink href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42">
+          <ExternalLink target="_blank" rel="noreferrer noopener" href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42">
             Hacker Package
           </ExternalLink>
           !
