@@ -200,8 +200,8 @@ export default () => {
   }
 
   const parseSponsorPrizes = async () => {
-    const sponsorPrizes = await getSponsorPrizes()
-    const projects = await getProjectData()
+    const sponsorPrizes = (await getSponsorPrizes()) || []
+    const projects = (await getProjectData()) || []
 
     const prizesToProjectsMap = {}
 
