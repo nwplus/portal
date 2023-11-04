@@ -342,14 +342,14 @@ export default ({
         <div>
           <Label color="white">Charity Choice</Label>
           <Required />
+        </div>
+        <div>
           <P>
             Every project submitted at HackCamp 2023, regardless of completion, will be eligible for
             a $10 donation to the charity of your choice from a curated list by the HackCamp team!
             This is done so as to emphasize HackCamp's mission of focusing on the learning and
             growth aspect of hackathons!
           </P>
-        </div>
-        <div>
           <Dropdown
             options={charities}
             placeholder={
