@@ -11,10 +11,10 @@ const QRContainer = styled(CardWithHeader)`
   display: flex;
 `
 
-const QRContainerInner = styled.div`
-  padding-top: 1rem;
-  display: flex;
-`
+// const QRContainerInner = styled.div`
+//   padding-top: 1rem;
+//   display: flex;
+// `
 
 const QRCodeDesignContainer = styled.div``
 
@@ -49,15 +49,15 @@ const QRTags = styled.div`
   display: inline-block;
 `
 
-const SafeWalk = styled.p`
-  background: #e17505;
-`
-const ShirtSize = styled.p`
-  background: #0383fe;
-`
-const Allergies = styled.p`
-  background: #ec4bfc;
-`
+// const SafeWalk = styled.p`
+//   background: #e17505;
+// `
+// const ShirtSize = styled.p`
+//   background: #0383fe;
+// `
+// const Allergies = styled.p`
+//   background: #ec4bfc;
+// `
 
 const QRInstructions = styled.p`
   color: #fff;
