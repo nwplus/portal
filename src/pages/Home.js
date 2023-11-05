@@ -35,7 +35,7 @@ export default withTheme(({ announcements, theme }) => {
       {/* 
       <CommonLinks />
       <Announcements announcements={announcements} /> */}
-      {isAuthed && user.uid && <QrCode userId={user.uid} />}
+      {isAuthed && user.uid && <QrCode userInfo={user} userId={user.uid} />}
     </HomeContainer>
   )
 })
