@@ -245,7 +245,7 @@ const Project = ({ project }) => {
       <StyledBanner>
         <StyledH1>{project.title}</StyledH1>
         <StyledP>Created By: {teamMembers.join(' | ')}</StyledP>
-        {arr.indexOf(project.title) !== -1 ? (
+        {/* {arr.indexOf(project.title) !== -1 ? (
           <Bolded>Find this team at table #{arr.indexOf(project.title)}</Bolded>
         ) : (
           <StyledA
@@ -255,7 +255,7 @@ const Project = ({ project }) => {
           >
             View project seating table numbers
           </StyledA>
-        )}
+        )} */}
       </StyledBanner>
       {/* <StyledYoutube src={project.links.youtube} /> */}
       <StyledDiv>
