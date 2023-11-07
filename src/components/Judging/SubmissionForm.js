@@ -2,14 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
-import {
-  ErrorSpan as Required,
-  ErrorMessage,
-  H1,
-  H3,
-  // P,
-  Label,
-} from '../Typography'
+import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label, A } from '../Typography'
 import Toast from '../Toast'
 import {
   validateDiscord,
@@ -19,7 +12,7 @@ import {
   validateURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
-// import { findElement } from '../../utility/utilities' // to fix no-unused-vars; commented out charities
+import { findElement } from '../../utility/utilities'
 
 const FormSection = styled.div`
   display: flex;
@@ -50,6 +43,15 @@ const StyledH3 = styled(H3)`
   text-transform: uppercase;
 `
 
+const StyledA = styled(A)`
+  color: white;
+  border-color: white;
+
+  &:hover {
+    color: ${p => p.theme.colors.tertiaryHover};
+  }
+`
+
 const FieldName = styled.div`
   margin-bottom: 4px;
 `
@@ -62,6 +64,15 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `
+
+const charities = [
+  { value: "GiveWell's Top Charities Fund", label: "GiveWell's Top Charities Fund" },
+  {
+    value: 'British Columbia Centre for Ability Association',
+    label: 'British Columbia Centre for Ability Association',
+  },
+  { value: 'Covenant House', label: 'Covenant House' },
+]
 
 const TextInputWithField = ({
   fieldName,
@@ -112,7 +123,7 @@ export default ({
   const [links, setLinks] = useState(project.links || {})
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [mentorNomination, setMentorNomination] = useState(project.mentorNomination || '')
-  // const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
+  const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
@@ -141,7 +152,7 @@ export default ({
     setDescription(project.description || '')
     setLinks(project.links || {})
     setMentorNomination(project.mentorNomination || '')
-    // setCharityChoice(project.charityChoice || '')
+    setCharityChoice(project.charityChoice || '')
     setSelectedPrizes(project.sponsorPrizes || [])
     setDraftStatus(project.draftStatus || 'draft')
 
@@ -239,9 +250,9 @@ export default ({
     }
 
     // Validate charity selection
-    // if (!charityChoice) {
-    //   newErrors.charity = 'Please select a charity'
-    // }
+    if (!charityChoice) {
+      newErrors.charity = 'Please select a charity'
+    }
 
     setErrors(newErrors)
 
@@ -259,7 +270,7 @@ export default ({
         teamMembers: filteredMembers,
         links,
         sponsorPrizes: selectedPrizes,
-        // charityChoice,
+        charityChoice,
         mentorNomination,
         uid: project.uid,
         draftStatus,
@@ -336,18 +347,29 @@ export default ({
           onChange={e => setMentorNomination(e.target.value)}
         />
       </FormSection>
-      {/* Charities for CMD-F */}
-      {/* <FormSection>
+      <FormSection>
         <div>
           <Label color="white">Charity Choice</Label>
           <Required />
+        </div>
+        <div>
           <P>
-            Every project submitted at cmd-f 2022, regardless of completion, will be eligible for a
-            $20 donation to the charity of your choice from a curated list by the cmd-f team! This
-            is done so as to emphasize cmd-f's mission of focusing on the learning and growth aspect
-            of hackathons!
+            Every project submitted at HackCamp 2023, regardless of completion, will be eligible for
+            a $10 donation to the charity of your choice from a curated list by the HackCamp team!
+            This is done so as to emphasize HackCamp's mission of focusing on the learning and
+            growth aspect of hackathons!
           </P>
-        </div> <div>
+          <P style={{ marginTop: '8px' }}>
+            Click &#8202;
+            <StyledA
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://nwplus.notion.site/PUBLIC-Charities-2716e8e72c7742b082ec06c8c463965f?pvs=4"
+            >
+              here
+            </StyledA>
+            &#8202; to learn more about each charity.
+          </P>
           <Dropdown
             options={charities}
             placeholder={
@@ -356,10 +378,11 @@ export default ({
             value={findElement(charities, 'value', charityChoice)}
             isSearchable={false}
             onChange={inputValue => setCharityChoice(inputValue.value)}
-            isValid
+            isValid={!errors?.charity}
+            errorMessage={errors?.charity}
           />
         </div>
-      </FormSection> */}
+      </FormSection>
       {sponsorPrizes && (
         <FormSection>
           <Label color="white">Sponsor Prizes</Label>
