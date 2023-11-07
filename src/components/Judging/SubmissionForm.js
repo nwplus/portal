@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
-import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label } from '../Typography'
+import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label, A } from '../Typography'
 import Toast from '../Toast'
 import {
   validateDiscord,
@@ -41,6 +41,15 @@ const TeamMember = styled.div`
 const StyledH3 = styled(H3)`
   margin: 0;
   text-transform: uppercase;
+`
+
+const StyledA = styled(A)`
+  color: white;
+  border-color: white;
+
+  &:hover {
+    color: ${p => p.theme.colors.tertiaryHover};
+  }
 `
 
 const FieldName = styled.div`
@@ -349,6 +358,17 @@ export default ({
             a $10 donation to the charity of your choice from a curated list by the HackCamp team!
             This is done so as to emphasize HackCamp's mission of focusing on the learning and
             growth aspect of hackathons!
+          </P>
+          <P style={{ marginTop: '8px' }}>
+            Click &#8202;
+            <StyledA
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://nwplus.notion.site/PUBLIC-Charities-2716e8e72c7742b082ec06c8c463965f?pvs=4"
+            >
+              here
+            </StyledA>
+            &#8202; to learn more about each charity.
           </P>
           <Dropdown
             options={charities}
