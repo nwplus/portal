@@ -1,14 +1,14 @@
+import 'firebase/analytics'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import 'firebase/analytics'
 import 'firebase/storage'
 import {
+  ANALYTICS_EVENTS,
+  APPLICATION_STATUS,
+  DB_COLLECTION,
+  DB_HACKATHON,
   HACKER_APPLICATION_TEMPLATE,
   REDIRECT_STATUS,
-  DB_COLLECTION,
-  APPLICATION_STATUS,
-  DB_HACKATHON,
-  ANALYTICS_EVENTS,
 } from '../utility/Constants'
 
 if (!firebase.apps.length) {
@@ -41,6 +41,49 @@ export const getLivesiteDoc = callback => {
     callback(doc.data())
   })
 }
+
+// -----------------------------------------------------
+// TODO: Delete temporary code that whitelists users that have RSVP'd (all the commented bars)
+export const setWhitelist = async () => {
+  let batch = db.batch()
+
+  let whitelistedArr = [
+    'mthteo@gmail.com',
+    'melvin@nwplus.io',
+    'dev-test@nwplus.io',
+    'portaltest432@gmail.com',
+  ]
+
+  for (let i = 0; i < whitelistedArr.length; i++) {
+    batch.set(
+      db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Whitelist').doc(whitelistedArr[i]),
+      {}
+    )
+  }
+
+  batch.commit().then(() => {
+    alert('uploaded successfully')
+  })
+}
+// -----------------------------------------------------
+
+// -----------------------------------------------------
+export const getWhitelisted = async () => {
+  // db.collection('Hackathons').doc('HackCamp2023').collection('Whitelist')
+  const whitelisted = []
+  await db
+    .collection(DB_COLLECTION)
+    .doc(DB_HACKATHON)
+    .collection('Whitelist')
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        whitelisted.push(doc.id)
+      })
+    })
+  return whitelisted
+}
+// -----------------------------------------------------
 
 const createNewApplication = async user => {
   analytics.logEvent(ANALYTICS_EVENTS.signup, { userId: user.uid })
@@ -81,6 +124,23 @@ const createNewApplication = async user => {
     ...userId,
     ...judging,
   }
+
+  // -----------------------------------------------------
+  // If not whitelisted, no
+  const whitelisted = await getWhitelisted()
+  if (whitelisted.includes(user.email)) {
+    // good to go
+    newApplication = {
+      ...newApplication,
+      status: {
+        applicationStatus: 'acceptedAndAttending',
+        responded: true,
+        attending: true,
+      },
+    }
+    // else, the default application template will block them from submissions -> redirect to "Applications for this hackathon are closed"
+  }
+  // -----------------------------------------------------
 
   await applicantsRef.doc(user.uid).set(newApplication)
 }
