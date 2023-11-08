@@ -47,6 +47,14 @@ const StyledA = styled(A)`
   }
 `
 
+const ExternalLink = styled(A)`
+  color: ${p => 'white'};
+
+  &:hover {
+    color: ${p => p.theme.colors.tertiaryHover};
+  }
+`
+
 const StyledLabel = styled(Label)`
   display: block;
   margin: 1em 0 0.25em 0;
@@ -119,8 +127,11 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
       <Column>
         <H2>Scorecard</H2>
         <StyledP>
-          For a full break-down on the rubric, please refer to the Judging Guide on the Hacker
-          Package!
+          For a full break-down on the rubric, please refer to the Judging Guide on the{' '}
+          <ExternalLink target="_blank" rel="noreferrer noopener" href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42">
+            Hacker Package
+          </ExternalLink>
+          !
         </StyledP>
         {JUDGING_RUBRIC.map(entry => (
           <ScoreInput
