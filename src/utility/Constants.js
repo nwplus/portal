@@ -10,7 +10,6 @@ export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
   hackathonName: 'HackCamp 2023',
   hackathonNameShort: 'HackCamp',
-  hackathonLandingName: 'hackCamp',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 4
