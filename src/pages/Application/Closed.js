@@ -19,5 +19,6 @@ export default () => (
       </>
     }
     showFooter
+    hackathon={copyText.hackathonLandingName}
   />
 )

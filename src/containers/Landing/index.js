@@ -117,6 +117,7 @@ export default ({ heading, description, showFooter, hackathon, children, backgro
             <P>{description}</P>
             {children}
           </StyledBanner>
+          {showFooter && <Footer />}
         </LandingContainer>
       )
     case 'cmdf':

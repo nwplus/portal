@@ -119,6 +119,7 @@ const hackcampTheme = {
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackground: '#150C27',
     secondaryBackgroundTransparent: '#fff',
+    link: '#fff',
     sidebar: {
       link: '#F0EEF299',
     },
