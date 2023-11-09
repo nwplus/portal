@@ -20,7 +20,7 @@ export const CardLike = css`
   h2,
   h3,
   p {
-    color: ${p => p.theme.colors.cardText};
+    color: ${p => p.theme.colors.text};
   }
 `
 

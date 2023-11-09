@@ -6,14 +6,18 @@ import nwhacks_logo from '../../assets/nwhacks_logo.svg'
 import cmdf_logo from '../../assets/cmdf_logo.png'
 import Footer from './Footer'
 import { H1, P } from '../../components/Typography'
+import hcloginbc from '../../assets/hc2023login.svg'
 
 const LandingContainer = styled.div`
-  position: relative;
+  position: absolute;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-  ${p => p.background && `background: ${p.background};`}
-  ${p => !p.showFooter && 'overflow-y: hidden;'}
+  background-image: url(${hcloginbc});
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 0;
+  z-index: 101;
 `
 
 const FlexLandingContainer = styled.div`
@@ -46,7 +50,7 @@ const StyledLogoLockup = styled.img`
     p.theme.name !== 'nwPlus' &&
     `
       top: 15em;
-      width: 60px;
+      width: 160px;
   `}
   ${p =>
     p.theme.name === 'cmdf' &&
@@ -113,6 +117,7 @@ export default ({ heading, description, showFooter, hackathon, children, backgro
             <P>{description}</P>
             {children}
           </StyledBanner>
+          {showFooter && <Footer />}
         </LandingContainer>
       )
     case 'cmdf':

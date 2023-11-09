@@ -90,7 +90,7 @@ export const A = styled.a`
   text-decoration: none;
   font-weight: ${p => (p.bolded ? 600 : 400)};
   border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
-  color: black;
+  color: #fff;
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
     color: ${p => p.theme.colors.linkHover};

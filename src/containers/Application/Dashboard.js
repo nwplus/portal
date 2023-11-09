@@ -63,6 +63,11 @@ const ApplicationDashboardContainer = () => {
     hackerStatus = applicationStatus
   }
 
+  const shareQRCode = (hackerEmail, hackerName) => {
+    // alert("rsvp")
+    // Display QR code
+  }
+
   const canRSVP = hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNoRSVP'
   const setRSVP = rsvpStatus => {
     updateApplication({
@@ -73,6 +78,11 @@ const ApplicationDashboardContainer = () => {
       },
     })
     forceSave()
+
+    if (rsvpStatus) {
+      // hacker RSVP'd for the hackathon -> send email
+      shareQRCode(user.email, user.displayName)
+    }
   }
 
   const setSafewalkInput = safewalkNote => {
