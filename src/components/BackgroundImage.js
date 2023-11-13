@@ -39,7 +39,7 @@ const Hackcamp2023NoObjectsBackground = styled.div`
 `
 
 const Hackcamp2023BG = ({ version }) => {
-  if (version == 'noObjects') {
+  if (version === 'noObjects') {
     return <Hackcamp2023NoObjectsBackground />
   } else {
     return <Hackcamp2023Background />
