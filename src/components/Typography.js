@@ -29,6 +29,7 @@ export const H3 = styled.h3`
   font-weight: ${p => p.theme.typography.h3.weight};
   font-size: ${p => p.theme.typography.h3.size};
   opacity: ${p => p.theme.typography.h3.opacity};
+  color: #ffbf76;
 `
 
 export const P = styled.p`
