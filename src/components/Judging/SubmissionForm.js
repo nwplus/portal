@@ -315,6 +315,10 @@ export default ({
           errorMsg={errors?.sourceCode}
           onChange={e => setLinks({ ...links, sourceCode: e.target.value })}
         />
+        <P>
+          <b>Please note</b>: only code projects can be eligible for prizes. If you built a no-code
+          project, please enter your prototype link.
+        </P>
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
