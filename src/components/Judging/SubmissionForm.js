@@ -13,6 +13,7 @@ import {
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 import { findElement } from '../../utility/utilities'
+import Hackcamp2023BG from '../../components/BackgroundImage'
 
 const FormSection = styled.div`
   display: flex;
@@ -280,6 +281,8 @@ export default ({
 
   return (
     <div>
+      <Hackcamp2023BG />
+
       <H1>Project Submission</H1>
       <FormSection>
         <div>
