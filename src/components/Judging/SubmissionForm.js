@@ -12,6 +12,7 @@ import { findElement } from '../../utility/utilities'
 import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
 import Toast from '../Toast'
 import { A, ErrorMessage, H1, H3, Label, P, ErrorSpan as Required } from '../Typography'
+import Hackcamp2023BG from '../../components/BackgroundImage'
 
 const FormSection = styled.div`
   display: flex;
@@ -279,6 +280,8 @@ export default ({
 
   return (
     <div>
+      <Hackcamp2023BG version="noObjects" />
+
       <H1>Project Submission</H1>
       <FormSection>
         <div>

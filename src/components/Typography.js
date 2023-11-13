@@ -29,6 +29,7 @@ export const H3 = styled.h3`
   font-weight: ${p => p.theme.typography.h3.weight};
   font-size: ${p => p.theme.typography.h3.size};
   opacity: ${p => p.theme.typography.h3.opacity};
+  color: #ffbf76;
 `
 
 export const P = styled.p`
@@ -121,11 +122,12 @@ export const QuestionHeading = styled.p`
   font-weight: 600;
   text-transform: uppercase;
 `
-
+// old style   color: ${p => (p.color ? p.color : p.theme.colors.primary)};
 export const Label = styled.label`
-  color: ${p => (p.color ? p.color : p.theme.colors.primary)};
+  color: #ffbf76;
   font-weight: 600;
   text-transform: uppercase;
+  font-weight: bold;
 `
 
 export const CenteredH1 = styled(H1)`

@@ -10,6 +10,7 @@ import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
+import sidebarBackground from '../assets/hc2023sidebarbg.png'
 // import poweredBy from '../assets/powered_by_livepeer.svg'
 // import covalent from '../assets/sponsors/covalent.png'
 // import hootsuite from '../assets/sponsors/hootsuite.png'
@@ -28,6 +29,18 @@ const SidebarContainer = styled.div`
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
 `
+
+const SidebarBackGroundImage = styled.div`
+  position: fixed;
+  background-image: URL(${sidebarBackground});
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 280px;
+  min-height: 100%;
+  z-index: -1;
+  left: -2px;
+`
+
 const chooseLogo = hackathon => {
   switch (hackathon) {
     case 'hackCamp':
@@ -68,6 +81,7 @@ const ItemsContainer = styled.div`
 `
 
 /* Old styles
+  background: ${p => p.theme.colors.secondaryBackground};
   color: ${p =>
     p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
   ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
@@ -85,7 +99,7 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 50px 1em 2rem;
   border-bottom: none;
-  background: ${p => p.theme.colors.secondaryBackground};
+  background: transparent;
 
   color: ${p => p.theme.colors.sidebar.link};
 
@@ -269,6 +283,8 @@ export default ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
+      <SidebarBackGroundImage />
+
       <LogoContainer>
         <Logo alt="logo" />
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
