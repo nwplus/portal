@@ -281,7 +281,7 @@ export default ({
 
   return (
     <div>
-      <Hackcamp2023BG />
+      <Hackcamp2023BG version="noObjects" />
 
       <H1>Project Submission</H1>
       <FormSection>
