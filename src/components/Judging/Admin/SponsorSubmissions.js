@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Accordion from '../../Accordion'
-import { H1 } from '../../Typography'
-import { CardLike } from '../../Common'
 import { StyledCSVLink } from '../../../containers/JudgingPanel'
+import Accordion from '../../Accordion'
+import { CardLike } from '../../Common'
+import { Button } from '../../Input'
+import { H1 } from '../../Typography'
 
 const SponsorPrize = styled.div`
   ${CardLike};
@@ -12,6 +13,7 @@ const SponsorPrize = styled.div`
 `
 
 const EntriesList = styled.ul`
+  color: ${p => p.theme.colors.foreground};
   margin-top: 0;
   cursor: default;
 `
@@ -22,7 +24,6 @@ const LinkContainer = styled.div`
 
 export default ({ sponsorPrizes }) => {
   const getCsvFriendlyData = projects => {
-    console.log('hi')
     const formattedProjects = projects.map(project => {
       const portalLink = window.location.origin // to support local development as well
       const projectInfo = {
@@ -57,15 +58,17 @@ export default ({ sponsorPrizes }) => {
                     </li>
                   ))}
                 </EntriesList>
-                <LinkContainer>
-                  <StyledCSVLink
-                    data={getCsvFriendlyData(sponsorPrizes[prize])}
-                    filename={`projects_of_${prize.replace(' ', '_')}.csv`}
-                    target="_blank"
-                  >
-                    Download CSV
-                  </StyledCSVLink>
-                </LinkContainer>
+                <Button color="secondary" width="medium">
+                  <LinkContainer>
+                    <StyledCSVLink
+                      data={getCsvFriendlyData(sponsorPrizes[prize])}
+                      filename={`projects_of_${prize.replace(' ', '_')}.csv`}
+                      target="_blank"
+                    >
+                      Download CSV
+                    </StyledCSVLink>
+                  </LinkContainer>
+                </Button>
               </Accordion>
             </SponsorPrize>
           )
