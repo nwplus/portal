@@ -5,6 +5,7 @@ import { Card, CardWithHeader } from '../Common'
 import { Button } from '../Input'
 import JudgingCard from './JudgingCard'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
+import Hackcamp2023BG from '../../components/BackgroundImage'
 
 const ItemList = styled.ul`
   list-style: none;
@@ -102,6 +103,7 @@ export default ({ project, reportCallback }) => {
 
   return (
     <>
+      <Hackcamp2023BG version="noObjects" />
       <H1>Project Submission</H1>
       <H3>Team Members: {project?.teamMembers?.map(member => member.name).join(', ')}</H3>
       {/* <H3>

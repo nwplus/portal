@@ -4,6 +4,7 @@ import JudgingCard from '../components/Judging/JudgingCard'
 import Pagination, { getClickedPageIndex } from '../components/Pagination'
 import { H2 } from '../components/Typography'
 import { getYoutubeThumbnail } from '../utility/utilities'
+import Hackcamp2023BG from '../components/BackgroundImage'
 
 const ProjectPageWrapper = styled.div`
   width: 100%;
@@ -72,6 +73,8 @@ export function GalleryPage({ projects, startingPageIndex = 0 }) {
   }
   return (
     <ProjectPageWrapper>
+      <Hackcamp2023BG version="noObjects" />
+
       {currPageProjects.length === 0 ? (
         <H2>No projects found :(</H2>
       ) : (

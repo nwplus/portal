@@ -8,6 +8,7 @@ import { Loading } from '../components/HeroPage'
 // import Youtube from '../components/Youtube'
 import { Button } from '../components/Input'
 import { NotFound } from '.'
+import Hackcamp2023BG from '../components/BackgroundImage'
 
 const StyledProjectContainer = styled.div`
   display: flex;
@@ -228,6 +229,8 @@ const Project = ({ project }) => {
 
   return (
     <StyledProjectContainer>
+      <Hackcamp2023BG version="noObjects" />
+
       <StyledBanner>
         <StyledH1>{project.title}</StyledH1>
         <StyledP>Created By: {teamMembers.join(' | ')}</StyledP>
