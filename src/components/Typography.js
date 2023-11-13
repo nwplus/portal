@@ -121,11 +121,12 @@ export const QuestionHeading = styled.p`
   font-weight: 600;
   text-transform: uppercase;
 `
-
+// old style   color: ${p => (p.color ? p.color : p.theme.colors.primary)};
 export const Label = styled.label`
-  color: ${p => (p.color ? p.color : p.theme.colors.primary)};
+  color: #ffbf76;
   font-weight: 600;
   text-transform: uppercase;
+  font-weight: bold;
 `
 
 export const CenteredH1 = styled(H1)`
