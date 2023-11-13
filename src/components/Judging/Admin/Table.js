@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { JUDGING_RUBRIC } from '../../../utility/Constants'
-import { A } from '../../Typography'
 import { Button } from '../../Input'
+import { A } from '../../Typography'
 
 const StyledTable = styled.table`
   width: 100%;
   border: none;
   border-collapse: collapse;
+  color: ${p => p.theme.colors.foreground};
 `
 
 const StyledRow = styled.tr`
