@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import Hackcamp2023BG from '../../components/BackgroundImage'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
 import { Card, CardWithHeader } from '../Common'
 import { Button } from '../Input'
 import { H1, H3, P } from '../Typography'
 import JudgingCard from './JudgingCard'
-import { JUDGING_RUBRIC } from '../../utility/Constants'
-import Hackcamp2023BG from '../../components/BackgroundImage'
 
 const ItemList = styled.ul`
   list-style: none;
