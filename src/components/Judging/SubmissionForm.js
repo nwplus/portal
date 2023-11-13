@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
-import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label, A } from '../Typography'
-import Toast from '../Toast'
 import {
   validateDiscord,
   validateEmail,
@@ -13,6 +9,9 @@ import {
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 import { findElement } from '../../utility/utilities'
+import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
+import Toast from '../Toast'
+import { A, ErrorMessage, H1, H3, Label, P, ErrorSpan as Required } from '../Typography'
 
 const FormSection = styled.div`
   display: flex;

@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { H1, H3, P } from '../Typography'
+import { JUDGING_RUBRIC } from '../../utility/Constants'
 import { Card, CardWithHeader } from '../Common'
 import { Button } from '../Input'
+import { H1, H3, P } from '../Typography'
 import JudgingCard from './JudgingCard'
-import { JUDGING_RUBRIC } from '../../utility/Constants'
 
 const ItemList = styled.ul`
   list-style: none;
@@ -104,12 +104,12 @@ export default ({ project, reportCallback }) => {
     <>
       <H1>Project Submission</H1>
       <H3>Team Members: {project?.teamMembers?.map(member => member.name).join(', ')}</H3>
-      {/* <H3>
+      <H3>
         Sponsor Prizes:{' '}
         {project.sponsorPrizes[0]
           ? project.sponsorPrizes.join(', ')
           : "Didn't apply for sponsor prizes"}
-      </H3> */}
+      </H3>
       <Columns>
         <Column>
           <JudgingCard {...project} buttonLabel="View project" href={'projects/' + project.id} />
