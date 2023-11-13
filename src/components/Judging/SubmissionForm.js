@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Button, Select, TextArea, TextInput, Dropdown } from '../Input'
-import { ErrorSpan as Required, ErrorMessage, H1, H3, P, Label, A } from '../Typography'
-import Toast from '../Toast'
 import {
   validateDiscord,
   validateEmail,
@@ -13,6 +9,10 @@ import {
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 import { findElement } from '../../utility/utilities'
+import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
+import Toast from '../Toast'
+import { A, ErrorMessage, H1, H3, Label, P, ErrorSpan as Required } from '../Typography'
+import Hackcamp2023BG from '../../components/BackgroundImage'
 
 const FormSection = styled.div`
   display: flex;
@@ -280,6 +280,8 @@ export default ({
 
   return (
     <div>
+      <Hackcamp2023BG version="noObjects" />
+
       <H1>Project Submission</H1>
       <FormSection>
         <div>
@@ -316,6 +318,10 @@ export default ({
           errorMsg={errors?.sourceCode}
           onChange={e => setLinks({ ...links, sourceCode: e.target.value })}
         />
+        <P>
+          <b>Please note</b>: only code projects can be eligible for prizes. If you built a no-code
+          project, please enter your prototype link.
+        </P>
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}

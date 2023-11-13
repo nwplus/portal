@@ -29,6 +29,7 @@ export const H3 = styled.h3`
   font-weight: ${p => p.theme.typography.h3.weight};
   font-size: ${p => p.theme.typography.h3.size};
   opacity: ${p => p.theme.typography.h3.opacity};
+  color: #ffbf76;
 `
 
 export const P = styled.p`
@@ -90,7 +91,7 @@ export const A = styled.a`
   text-decoration: none;
   font-weight: ${p => (p.bolded ? 600 : 400)};
   border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
-  color: black;
+  color: #fff;
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
     color: ${p => p.theme.colors.linkHover};
@@ -121,11 +122,12 @@ export const QuestionHeading = styled.p`
   font-weight: 600;
   text-transform: uppercase;
 `
-
+// old style   color: ${p => (p.color ? p.color : p.theme.colors.primary)};
 export const Label = styled.label`
-  color: ${p => (p.color ? p.color : p.theme.colors.primary)};
+  color: #ffbf76;
   font-weight: 600;
   text-transform: uppercase;
+  font-weight: bold;
 `
 
 export const CenteredH1 = styled(H1)`

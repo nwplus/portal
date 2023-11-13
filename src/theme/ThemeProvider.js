@@ -113,13 +113,14 @@ const hackcampTheme = {
   ...base,
   name: 'hackCamp',
   colors: {
-    background: '#476C6E',
-    card: '#1E4F5A',
+    background: '#150C27',
+    card: '#433860',
+    cardText: '#191C4F',
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackground: '#1E4F5A',
-    secondaryBackgroundTransparent: '#FFBC9650',
+    secondaryBackground: '#150C27',
+    secondaryBackgroundTransparent: '#fff',
     sidebar: {
-      link: '#fff',
+      link: '#F0EEF299',
     },
     foreground: '#FFBC96',
     error: '#ff0033',
@@ -127,7 +128,8 @@ const hackcampTheme = {
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
-    primary: '#FFBC96',
+    primary: '#FFBF76',
+    accent: '#F6922B',
     default: '#FFFFFF',
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
@@ -136,7 +138,7 @@ const hackcampTheme = {
     tertiaryHover: '#AD795E', // button hover
     // Styling for schedule page
     schedule: {
-      background: 'transparent',
+      background: '#433860',
       event: 'white',
       text: '#476C6E',
     },
@@ -147,12 +149,21 @@ const hackcampTheme = {
       hover: 'rgba(255, 255, 255, 0.2)',
       focus: 'white',
     },
+    button: {
+      outlineText: '#433860', // Secondary button
+      outlineBackground: '#FFBF76',
+      outlineBackgroundHover: '#F6922B',
+    },
     hover: '#A0B9C0',
     scrollbar: '#80959B',
-    banner: '#476C6E',
+    banner: 'transparent',
     login: {
-      googleHover: '#fafafa',
-      githubHover: '#545159',
+      googleBg: '#fff',
+      googleText: '#000',
+      googleBgHover: '#fff',
+      githubBg: '#577079',
+      githubText: '#fff',
+      githubBgHover: '#577079',
     },
   },
 }
@@ -233,7 +244,7 @@ const cmdfTheme = {
 }
 
 const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
-let selectedTheme = nwTheme
+let selectedTheme = hackcampTheme
 
 if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
   // const localTheme = window.localStorage.getItem('localTheme')

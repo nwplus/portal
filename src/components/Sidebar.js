@@ -10,6 +10,7 @@ import { Button } from './Input/index'
 import { useAuth } from '../utility/Auth'
 import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
+import sidebarBackground from '../assets/hc2023sidebarbg.png'
 // import poweredBy from '../assets/powered_by_livepeer.svg'
 // import covalent from '../assets/sponsors/covalent.png'
 // import hootsuite from '../assets/sponsors/hootsuite.png'
@@ -28,6 +29,18 @@ const SidebarContainer = styled.div`
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
 `
+
+const SidebarBackGroundImage = styled.div`
+  position: fixed;
+  background-image: URL(${sidebarBackground});
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 280px;
+  min-height: 100%;
+  z-index: -1;
+  left: -2px;
+`
+
 const chooseLogo = hackathon => {
   switch (hackathon) {
     case 'hackCamp':
@@ -68,6 +81,7 @@ const ItemsContainer = styled.div`
 `
 
 /* Old styles
+  background: ${p => p.theme.colors.secondaryBackground};
   color: ${p =>
     p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
   ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
@@ -85,15 +99,15 @@ const StyledA = styled(A)`
   font-weight: bold;
   padding: 1em 50px 1em 2rem;
   border-bottom: none;
-  background: ${p => p.theme.colors.secondaryBackground};
+  background: transparent;
 
   color: ${p => p.theme.colors.sidebar.link};
 
   ${p =>
     p.selected &&
     `
-    background: #F1E9DF;
-    color: #4D4B4F;
+    background: #433860;
+    color: #ffffff;
 
     &:hover {
       color: #ffffff;
@@ -104,11 +118,11 @@ const StyledA = styled(A)`
 
   &:hover {
     color: ${p => p.theme.colors.text};
-    background: ${p => p.theme.colors.secondaryBackgroundTransparent};
+    background: ${p => p.theme.colors.card};
     border-bottom: none;
   }
   &:focus {
-    color: #4d4b4f;
+    color: ${p => p.theme.colors.text};
     border-bottom: none;
   }
 `
@@ -116,7 +130,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.cardText};
+  background: ${p => p.theme.colors.accent};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -129,7 +143,7 @@ const LiveLabel = styled.p`
   font-weight: bold;
   font-size: 0.9em;
   border-radius: 7px;
-  background: ${p => p.theme.colors.primaryGradient};
+  background: ${p => p.theme.colors.primary};
   color: ${p => p.theme.colors.cardText};
   width: 4em;
   padding: 5px;
@@ -269,6 +283,8 @@ export default ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
+      <SidebarBackGroundImage />
+
       <LogoContainer>
         <Logo alt="logo" />
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}

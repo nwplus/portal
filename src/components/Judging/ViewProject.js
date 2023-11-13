@@ -5,6 +5,7 @@ import { Select, Button, TextArea } from '../Input'
 // import Youtube from '../Youtube'
 import { Card } from '../Common'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
+import Hackcamp2023BG from '../../components/BackgroundImage'
 
 const Container = styled.div`
   display: flex;
@@ -103,6 +104,8 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
     : ''
   return (
     <Container>
+      <Hackcamp2023BG version="noObjects" />
+
       <JudgingColumn>
         <H2>Judging "{project.title}"</H2>
         <Card>
@@ -128,7 +131,11 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
         <H2>Scorecard</H2>
         <StyledP>
           For a full break-down on the rubric, please refer to the Judging Guide on the{' '}
-          <ExternalLink target="_blank" rel="noreferrer noopener" href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42">
+          <ExternalLink
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42"
+          >
             Hacker Package
           </ExternalLink>
           !

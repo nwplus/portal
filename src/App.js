@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Route, Switch } from 'wouter'
-import GlobalStyle from './theme/GlobalStyle'
-import ThemeProvider from './theme/ThemeProvider'
-import Navbar from './components/Navbar'
 import Form from './components/ApplicationForm'
+import Navbar from './components/Navbar'
+import Page from './components/Page'
 import {
-  NotFound,
-  Login,
+  Application,
+  ApplicationConfirmation,
+  ApplicationForm,
+  ApplicationReview,
   Charcuterie,
-  Home,
+  DiscordBot,
   Faq,
-  Sponsors,
+  Gallery,
   GettingStarted,
-  Schedule,
+  Home,
   Judging,
   JudgingAdmin,
   JudgingView,
-  DiscordBot,
-  Submission,
+  Login,
+  NotFound,
   ProjectView,
-  ApplicationForm,
-  ApplicationReview,
-  ApplicationConfirmation,
-  Application,
-  Gallery,
+  Schedule,
+  Sponsors,
+  Submission,
 } from './pages'
-import Page from './components/Page'
-import { db, getLivesiteDoc } from './utility/firebase'
-import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
-import notifications from './utility/notifications'
+import Area51 from './pages/Area51'
+import GlobalStyle from './theme/GlobalStyle'
+import ThemeProvider from './theme/ThemeProvider'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
+import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
+import { db, getLivesiteDoc } from './utility/firebase'
+import notifications from './utility/notifications'
 
 // only notify user if announcement was created within last 5 secs
 const notifyUser = announcement => {
@@ -67,7 +68,11 @@ const AuthPageRoute = ({ path, children }) => {
   }
   return (
     <Route path={path}>
-      {user?.status === APPLICATION_STATUS.accepted ? <Page>{children}</Page> : <Redirect to="/" />}
+      {user?.status === APPLICATION_STATUS.accepted ? (
+        <Page>{children}</Page>
+      ) : (
+        <Redirect to="/application/closed" />
+      )}
     </Route>
   )
 }
@@ -254,6 +259,9 @@ function App() {
           </AuthPageRoute>
           <AdminAuthPageRoute path="/judging/admin">
             <JudgingAdmin />
+          </AdminAuthPageRoute>
+          <AdminAuthPageRoute path="/area51">
+            <Area51 />
           </AdminAuthPageRoute>
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
           <Route path="/projects" component={GalleryContainer} />
