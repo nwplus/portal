@@ -7,6 +7,7 @@ import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
 import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
+import Hackcamp2023BG from '../components/BackgroundImage'
 
 const HomeContainer = styled.div`
   height: 100%;
@@ -30,6 +31,7 @@ export default withTheme(({ announcements, theme }) => {
   return (
     <HomeContainer>
       {theme.name === 'cmdf' && <TopDecal src={head_decal} />}
+      {theme.name === 'hackCamp' && <Hackcamp2023BG />}
       <HackerCountdown />
       <Livestream />
       {/* 
