@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { CSVLink } from 'react-csv'
 import { MoonLoader } from 'react-spinners'
 import styled from 'styled-components'
-import { CSVLink } from 'react-csv'
-import { getSponsorPrizes, projectsRef, submitGrade } from '../utility/firebase'
-import { Button, ToggleSwitch } from '../components/Input'
-import { H1, H3, P } from '../components/Typography'
 import { Card } from '../components/Common'
-import { ProjectGradeTable, GradeTable } from '../components/Judging/Admin/Table'
-import ProgressBar from '../components/ProgressBar'
-import { JUDGING_RUBRIC, calculateGrade, PROJECTS_TO_JUDGE_COUNT } from '../utility/Constants'
+import { Button, ToggleSwitch } from '../components/Input'
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
+import { GradeTable, ProjectGradeTable } from '../components/Judging/Admin/Table'
+import ProgressBar from '../components/ProgressBar'
+import { H1, H3, P } from '../components/Typography'
+import { JUDGING_RUBRIC, PROJECTS_TO_JUDGE_COUNT, calculateGrade } from '../utility/Constants'
+import { getSponsorPrizes, projectsRef, submitGrade } from '../utility/firebase'
 
 const Columns = styled.div`
   display: flex;
@@ -19,7 +19,6 @@ const Column = styled.div`
   margin: 1em;
 `
 export const StyledCSVLink = styled(CSVLink)`
-  color: ${p => p.theme.colors.primary};
   text-decoration: none;
 `
 
@@ -128,7 +127,9 @@ const getGrades = async () => {
 }
 
 const getGradedProjects = async (dropOutliers = 2) => {
-  const projectData = (await getProjectData()).map(project => {
+  const rawProjectData = await getProjectData()
+
+  const projectData = rawProjectData.map(project => {
     if (project.grades) {
       project.countGraded = Object.values(project.grades).length
 
@@ -141,23 +142,25 @@ const getGradedProjects = async (dropOutliers = 2) => {
       JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
       project.grade = calculateGrade(project)
 
-      // sort residuals
-      const residuals = calculateResiduals(project).sort()
-      for (var i = 0; i < dropOutliers; i++) {
-        // remove top dropOutliers
-        const residual = residuals.pop()
-        delete project.grades[residual.id]
-      }
+      if (rawProjectData.length > dropOutliers) {
+        // sort residuals
+        const residuals = calculateResiduals(project).sort()
+        for (var i = 0; i < dropOutliers; i++) {
+          // remove top dropOutliers
+          const residual = residuals.pop()
+          delete project.grades[residual.id]
+        }
 
-      // recalculate if any grades were dropped
-      if (dropOutliers > 0) {
-        // reset to 0 (needed in case after dropping outliers, grades is 0)
-        JUDGING_RUBRIC.forEach(item => (project[item.id] = 0))
+        // recalculate if any grades were dropped
+        if (dropOutliers > 0) {
+          // reset to 0 (needed in case after dropping outliers, grades is 0)
+          JUDGING_RUBRIC.forEach(item => (project[item.id] = 0))
 
-        // repopulate project object
-        project = { ...project, ...calculatePointTotals(project) }
-        JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
-        project.grade = calculateGrade(project)
+          // repopulate project object
+          project = { ...project, ...calculatePointTotals(project) }
+          JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
+          project.grade = calculateGrade(project)
+        }
       }
     } else {
       project.countGraded = 0
@@ -301,11 +304,15 @@ export default () => {
   }, [gradedProjects])
 
   const percentageAssigned = stats.total
-    ? ((stats.assigned * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
+    ? stats.total > PROJECTS_TO_JUDGE_COUNT + 1
+      ? ((stats.assigned * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
+      : ((stats.assigned * 100) / stats.total).toFixed(2)
     : '0'
 
   const percentageGraded = stats.total
-    ? ((stats.graded * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
+    ? stats.total > PROJECTS_TO_JUDGE_COUNT + 1
+      ? ((stats.graded * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
+      : ((stats.graded * 100) / stats.total).toFixed(2)
     : '0'
 
   const filteredGradedProjects = () => {
