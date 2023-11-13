@@ -34,8 +34,8 @@ const SidebarBackGroundImage = styled.div`
   position: fixed;
   background-image: URL(${sidebarBackground});
   background-repeat: no-repeat;
-  background-image: cover;
-  min-width: 100%;
+  background-size: cover;
+  min-width: 280px;
   min-height: 100%;
   z-index: -1;
   left: -2px;
