@@ -24,6 +24,7 @@ export const StyledCSVLink = styled(CSVLink)`
 
 const getStats = async () => {
   const projectDocs = await projectsRef.get()
+  const numProjects = projectDocs.docs.length
   const projectData = projectDocs.docs.map(projectDoc => {
     const project = projectDoc.data()
     project.countGraded = project.grades ? Object.values(project.grades).length : 0
@@ -41,6 +42,7 @@ const getStats = async () => {
       total: 0,
       assigned: 0,
       graded: 0,
+      numProjects: numProjects,
     }
   )
 }
@@ -186,6 +188,7 @@ export default () => {
     total: 0,
     assigned: 0,
     graded: 0,
+    numProjects: 0,
   })
   const [toggle, setToggle] = useState({})
 
@@ -306,13 +309,13 @@ export default () => {
   const percentageAssigned = stats.total
     ? stats.total > PROJECTS_TO_JUDGE_COUNT + 1
       ? ((stats.assigned * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
-      : ((stats.assigned * 100) / stats.total).toFixed(2)
+      : ((stats.assigned * 100) / (stats.total * (stats.numProjects - 1))).toFixed(2)
     : '0'
 
   const percentageGraded = stats.total
     ? stats.total > PROJECTS_TO_JUDGE_COUNT + 1
       ? ((stats.graded * 100) / (stats.total * PROJECTS_TO_JUDGE_COUNT)).toFixed(2)
-      : ((stats.graded * 100) / stats.total).toFixed(2)
+      : ((stats.graded * 100) / (stats.total * (stats.numProjects - 1))).toFixed(2)
     : '0'
 
   const filteredGradedProjects = () => {
