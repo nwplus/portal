@@ -8,11 +8,16 @@ const Hackcamp2023Background = styled.div`
   background-image: URL(${hackcamp2023bg});
   background-repeat: no-repeat;
   background-size: cover;
-  min-width: 100%;
+  min-width: calc(100% - 265px);
   min-height: 100%;
   z-index: -1;
   top: 0;
   left: 270px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    left: 0px;
+    min-width: 100%;
+  }
 `
 
 const Hackcamp2023BG = () => {
