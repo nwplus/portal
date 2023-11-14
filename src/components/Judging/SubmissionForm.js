@@ -467,7 +467,7 @@ export default ({
       <ButtonContainer>
         <Button
           no_margin
-          color="primary"
+          color="secondary"
           onClick={!isSubmitting ? handleSubmit : undefined}
           disabled={isSubmitting}
         >

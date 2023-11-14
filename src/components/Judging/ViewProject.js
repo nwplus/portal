@@ -128,7 +128,11 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
         <H2>Scorecard</H2>
         <StyledP>
           For a full break-down on the rubric, please refer to the Judging Guide on the{' '}
-          <ExternalLink target="_blank" rel="noreferrer noopener" href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42">
+          <ExternalLink
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42"
+          >
             Hacker Package
           </ExternalLink>
           !
@@ -156,7 +160,7 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
         {success && (
           <StyledMessage>Successfully submitted! You will be redirected soon.</StyledMessage>
         )}
-        <RightButton disabled={isSubmitting} onClick={onSubmit}>
+        <RightButton disabled={isSubmitting} onClick={onSubmit} color="secondary">
           Submit Score
         </RightButton>
       </Column>
