@@ -8,7 +8,7 @@ import { PositionedTag } from './Tag'
 const EventDescription = styled(P)`
   opacity: 0.8;
   margin-bottom: 2em;
-  color: ${p => p.theme.colors.schedule.text};
+  color: ${p => p.theme.colors.schedule.description} !important;
 `
 
 const EventCard = styled(Card)`
@@ -53,11 +53,11 @@ const EventCard = styled(Card)`
 `
 
 const TimeStamp = styled(P)`
-  color: ${p => p.theme.colors.schedule.text};
+  color: ${p => p.theme.colors.schedule.timestamp} !important;
 `
 
 const StyledH3 = styled(H3)`
-  color: ${p => p.theme.colors.schedule.text};
+  color: ${p => p.theme.colors.schedule.text} !important;
 `
 
 const formatTime = timeString => {
