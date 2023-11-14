@@ -163,7 +163,7 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
         {success && (
           <StyledMessage>Successfully submitted! You will be redirected soon.</StyledMessage>
         )}
-        <RightButton disabled={isSubmitting} onClick={onSubmit}>
+        <RightButton disabled={isSubmitting} onClick={onSubmit} color="secondary" width="flex">
           Submit Score
         </RightButton>
       </Column>
