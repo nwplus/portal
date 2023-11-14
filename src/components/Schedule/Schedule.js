@@ -66,7 +66,7 @@ const msToHours = ms => ms / 1000 / 60 / 60
 
 const Header = styled(H1)`
   margin: 0 0 0 0;
-  color: ${p => p.theme.colors.schedule.event};
+  color: ${p => p.theme.colors.schedule.text};
 `
 
 const ScheduleContainer = ({ header, children }) => {

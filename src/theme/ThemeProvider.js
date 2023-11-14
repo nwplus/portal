@@ -138,9 +138,11 @@ const hackcampTheme = {
     tertiaryHover: '#AD795E', // button hover
     // Styling for schedule page
     schedule: {
-      background: '#433860',
-      event: 'white',
-      text: '#476C6E',
+      background: '#433860', // schedule container bg
+      event: '#140D30', // event container bg
+      text: '#fff', // title bg
+      description: '#fff', // text description
+      timestamp: '#FFBF76', // timestamp text
     },
     selects: {
       border: 'rgba(255, 255, 255, 0.5)',
