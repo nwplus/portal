@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import Hackcamp2023BG from '../../components/BackgroundImage'
 import {
+  validateDevpostURL,
   validateDiscord,
   validateEmail,
-  // validateYoutubeURL,
-  // validateDevpostURL,
   validateURL,
+  validateYoutubeURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 import { findElement } from '../../utility/utilities'
 import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
 import Toast from '../Toast'
 import { A, ErrorMessage, H1, H3, Label, P, ErrorSpan as Required } from '../Typography'
-import Hackcamp2023BG from '../../components/BackgroundImage'
 
 const FormSection = styled.div`
   display: flex;
@@ -229,18 +229,18 @@ export default ({
     }
 
     // Validate Devpost
-    // if (!links.devpost) {
-    //   newErrors.devpost = 'Please enter a URL'
-    // } else if (!validateDevpostURL(links.devpost)) {
-    //   newErrors.devpost = 'Please enter a valid Devpost URL'
-    // }
+    if (!links.devpost) {
+      newErrors.devpost = 'Please enter a URL'
+    } else if (!validateDevpostURL(links.devpost)) {
+      newErrors.devpost = 'Please enter a valid Devpost URL'
+    }
 
     // Validate YouTube link
-    // if (!links.youtube) {
-    //   newErrors.youtube = 'Please enter a URL'
-    // } else if (!validateYoutubeURL(links.youtube)) {
-    //   newErrors.youtube = 'Please enter a valid YouTube URL'
-    // }
+    if (!links.youtube) {
+      newErrors.youtube = 'Please enter a URL'
+    } else if (!validateYoutubeURL(links.youtube)) {
+      newErrors.youtube = 'Please enter a valid YouTube URL'
+    }
 
     // Validate source code link
     if (!links.sourceCode) {
@@ -325,18 +325,19 @@ export default ({
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
+          required
           invalid={errors?.devpost}
           errorMsg={errors?.devpost}
           onChange={e => setLinks({ ...links, devpost: e.target.value })}
         />
-        {/* <TextInputWithField
+        <TextInputWithField
           fieldName="YouTube URL"
           value={links?.youtube}
           required
           invalid={errors?.youtube}
           errorMsg={errors?.youtube}
           onChange={e => setLinks({ ...links, youtube: e.target.value })}
-        /> */}
+        />
         <TextInputWithField
           fieldName="Other"
           value={links?.other}
