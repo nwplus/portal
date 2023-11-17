@@ -51,7 +51,7 @@ export const hexToRgba = (hex, a = 1) => {
     : `rgba(0, 0, 0, ${a})`
 }
 
-// given youtube video URL, convert to thumnail URL
+// given youtube video URL, convert to thumbnail URL
 export const getYoutubeThumbnail = link => {
   try {
     if (link.includes('youtube')) {
