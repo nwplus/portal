@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Hackcamp2023BG from '../../components/BackgroundImage'
 import {
+  validateDevpostURL,
   validateDiscord,
   validateEmail,
-  validateYoutubeURL,
-  validateDevpostURL,
   validateURL,
+  validateYoutubeURL,
 } from '../../utility/Validation'
 import { getSponsorPrizes } from '../../utility/firebase'
 import { findElement } from '../../utility/utilities'
@@ -325,6 +325,7 @@ export default ({
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
+          required
           invalid={errors?.devpost}
           errorMsg={errors?.devpost}
           onChange={e => setLinks({ ...links, devpost: e.target.value })}
