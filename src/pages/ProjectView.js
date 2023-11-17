@@ -3,12 +3,12 @@ import styled from 'styled-components'
 
 import { H1, H2, P } from '../components/Typography'
 
-import { getSubmission } from '../utility/firebase'
-import { Loading } from '../components/HeroPage'
-// import Youtube from '../components/Youtube'
-import { Button } from '../components/Input'
 import { NotFound } from '.'
 import Hackcamp2023BG from '../components/BackgroundImage'
+import { Loading } from '../components/HeroPage'
+import { Button } from '../components/Input'
+import Youtube from '../components/Youtube'
+import { getSubmission } from '../utility/firebase'
 
 const StyledProjectContainer = styled.div`
   display: flex;
@@ -30,11 +30,11 @@ const LinkContainer = styled.div`
   justify-contents: center;
 `
 
-// const StyledYoutube = styled(Youtube)`
-//   width: 600px;
-//   height: 350px;
-//   border-radius: 3px;
-// `
+const StyledYoutube = styled(Youtube)`
+  width: 600px;
+  height: 350px;
+  border-radius: 3px;
+`
 
 const StyledBanner = styled.div`
   ${p => `
@@ -246,7 +246,7 @@ const Project = ({ project }) => {
           </StyledA>
         )} */}
       </StyledBanner>
-      {/* <StyledYoutube src={project.links.youtube} /> */}
+      <StyledYoutube src={project.links.youtube} />
       <StyledDiv>
         <StyledH2>Description</StyledH2>
         <P>{project.description}</P>

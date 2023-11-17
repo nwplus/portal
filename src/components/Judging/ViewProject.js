@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H2, P, A, Label, ErrorMessage, Message } from '../Typography'
 import { Select, Button, TextArea } from '../Input'
-// import Youtube from '../Youtube'
+import Youtube from '../Youtube'
 import { Card } from '../Common'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
 import Hackcamp2023BG from '../../components/BackgroundImage'
@@ -29,11 +29,11 @@ const JudgingColumn = styled(Column)`
   }
 `
 
-// const StyledYoutube = styled(Youtube)`
-//   width: 500px;
-//   height: 300px;
-//   border-radius: 3px;
-// `
+const StyledYoutube = styled(Youtube)`
+  width: 500px;
+  height: 300px;
+  border-radius: 3px;
+`
 
 const StyledP = styled(P)`
   margin: 1em 0;
@@ -109,7 +109,7 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
       <JudgingColumn>
         <H2>Judging "{project.title}"</H2>
         <Card>
-          {/* <StyledYoutube src={project.links.youtube} /> */}
+          <StyledYoutube src={project.links.youtube} />
           <StyledP>{project.description}</StyledP>
           <StyledP>
             {cleanedUpDevpostLink ? (
