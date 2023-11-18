@@ -85,12 +85,41 @@ export const TimelineColumn = ({ hackathonStart, duration, numCols }) => {
       {[...Array(duration)].map((v, i) => {
         const labelTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
         const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-        return (
-          <TimelineBlock key={i}>
-            <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
-            <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-          </TimelineBlock>
-        )
+
+        if (i === 0) {
+          return (
+            <TimelineBlock key={i}>
+              <TimelineLabel hourOffset={i}>
+                <strong>November 18th, 2023</strong>
+                <br />
+                {label}
+              </TimelineLabel>
+              <br />
+              <TimelineHR hourOffset={i} widthMultiplier={numCols} />
+            </TimelineBlock>
+          )
+        }
+
+        if (label === '12:00 AM') {
+          return (
+            <TimelineBlock key={i}>
+              <TimelineLabel hourOffset={i}>
+                <strong>November 19th, 2023</strong>
+                <br />
+                {label}
+              </TimelineLabel>
+              <br />
+              <TimelineHR hourOffset={i} widthMultiplier={numCols} />
+            </TimelineBlock>
+          )
+        } else {
+          return (
+            <TimelineBlock key={i}>
+              <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
+              <TimelineHR hourOffset={i} widthMultiplier={numCols} />
+            </TimelineBlock>
+          )
+        }
       })}
     </TimelineColumnContainer>
   )
