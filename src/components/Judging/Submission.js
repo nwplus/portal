@@ -101,7 +101,7 @@ export default ({ project, reportCallback }) => {
   const [reviewCounts, setReviewCounts] = useState(0)
 
   useEffect(() => {
-    const rubricItems = JUDGING_RUBRIC.map(item => item.id) // ['creativity', 'design', 'presentation', 'innovation']
+    const rubricItems = JUDGING_RUBRIC.map(item => item.id)
 
     const nonTrollReviews = Object.fromEntries(
       Object.entries(project.grades ?? {}).filter(([_key, value]) => {
