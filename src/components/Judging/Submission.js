@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Hackcamp2023BG from '../../components/BackgroundImage'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
@@ -97,7 +97,27 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
 }
 
 export default ({ project, reportCallback }) => {
-  const gradeCount = Object.keys(project.grades ?? {}).length
+  const [reviews, setReviews] = useState({})
+  const [reviewCounts, setReviewCounts] = useState(0)
+
+  useEffect(() => {
+    const rubricItems = JUDGING_RUBRIC.map(item => item.id) // ['creativity', 'design', 'presentation', 'innovation']
+
+    const nonTrollReviews = Object.fromEntries(
+      Object.entries(project.grades ?? {}).filter(([_key, value]) => {
+        let rubricAreAllOnes = true
+        for (let i = 0; i < rubricItems.length; i++) {
+          if (value[rubricItems[i]] !== 1) {
+            rubricAreAllOnes = false
+          }
+        }
+        return !rubricAreAllOnes
+      })
+    )
+
+    setReviews(nonTrollReviews)
+    setReviewCounts(Object.keys(nonTrollReviews).length)
+  }, [project.grades])
 
   if (!project?.id) return <>No project to view.</>
 
@@ -118,10 +138,10 @@ export default ({ project, reportCallback }) => {
         </Column>
         <Column width="2">
           <CardWithHeader header="Feedback">
-            {gradeCount > 0 ? (
+            {reviewCounts > 0 ? (
               <>
-                <P>Your project has been judged {gradeCount} times.</P>
-                <FeedbackCard feedback={project.grades} reportCallback={reportCallback} />
+                <P>Your project has been judged {reviewCounts} times.</P>
+                <FeedbackCard feedback={reviews} reportCallback={reportCallback} />
               </>
             ) : (
               <P>Check back here when judging ends to review your project feedback.</P>
