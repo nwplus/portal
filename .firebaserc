@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "nwplus-ubc"
+    "default": "nwplus-ubc-dev",
+    "production": "nwplus-ubc"
   },
   "targets": {
     "nwplus-ubc": {
