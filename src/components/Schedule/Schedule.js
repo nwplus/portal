@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike } from '../Common'
-import { EVENT_WIDTH } from './Constants'
-import { TimelineColumn } from './Timeline'
-import { TagLegend } from './Tag'
-import Event from './Event'
 import { H1 } from '../Typography'
-import Hackcamp2023BG from '../../components/BackgroundImage'
+import { EVENT_WIDTH } from './Constants'
+import Event from './Event'
+import { TagLegend } from './Tag'
+import { TimelineColumn } from './Timeline'
 
 // Rotation transformation is done to make the scroll bar on top
 const ScrollableContainer = styled.div`
@@ -141,8 +140,6 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
 
   return (
     <ScheduleContainer header="Day-Of-Events Schedule">
-      <Hackcamp2023BG />
-
       <TagLegend />
       <ScrollableContainer>
         <ScheduleFlexContainer>

@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
-import { A } from './Typography'
-import logo from '../assets/logo.svg'
-import hc_logo from '../assets/hc_logo.svg'
-import nwhacks_logo from '../assets/nwhacks_logo_white.svg'
 import cmdf_logo from '../assets/cmdf_logo.png'
-import { Button } from './Input/index'
+import hc_logo from '../assets/hc_logo.svg'
+import logo from '../assets/logo.svg'
+import nwhacks_logo from '../assets/nwhacks_logo_white.svg'
 import { useAuth } from '../utility/Auth'
-import { hackerStatuses } from './ApplicationDashboard'
 import { getSponsors } from '../utility/firebase'
-import sidebarBackground from '../assets/hc2023sidebarbg.png'
-// import poweredBy from '../assets/powered_by_livepeer.svg'
-// import covalent from '../assets/sponsors/covalent.png'
-// import hootsuite from '../assets/sponsors/hootsuite.png'
-// import tttStudios from '../assets/sponsors/ttt-studios.png'
+import { hackerStatuses } from './ApplicationDashboard'
+import { Button } from './Input/index'
+import { A } from './Typography'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -28,17 +23,6 @@ const SidebarContainer = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
-`
-
-const SidebarBackGroundImage = styled.div`
-  position: fixed;
-  background-image: URL(${sidebarBackground});
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-width: 280px;
-  min-height: 100%;
-  z-index: -1;
-  left: -2px;
 `
 
 const chooseLogo = hackathon => {
@@ -283,8 +267,6 @@ export default ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
-      <SidebarBackGroundImage />
-
       <LogoContainer>
         <Logo alt="logo" />
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
