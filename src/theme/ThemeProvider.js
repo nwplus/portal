@@ -83,8 +83,8 @@ const nwTheme = {
       border: '#9AD4DE',
       hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
-      outlineText: '#CFD6FF', // Secondary button
-      outlineBackground: 'transparent',
+      outlineText: '#FFF', // Secondary button
+      outlineBackground: '#A4A9F1',
       outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       outlineBorder: '#CFD6FF',
       grey500: '#BDBAC3',
