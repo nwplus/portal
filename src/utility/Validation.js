@@ -231,5 +231,6 @@ const validators = {
     MLHPrivacyPolicy: validateTrueFunction,
     // MLHEmailSubscription: validateTrueFunction,
     shareWithnwPlus: validateTrueFunction,
+    nwPlusPrivacyPolicy: validateTrueFunction,
   },
 }
