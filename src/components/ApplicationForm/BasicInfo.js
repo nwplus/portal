@@ -764,7 +764,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         </span>{' '}
         What are your pronouns?
       </SubHeading>
-      {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>}
+      {/* {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>} */}
       {formInputs &&
         Object.entries(formInputs?.pronouns)
           .sort()
@@ -806,7 +806,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         </span>{' '}
         What is your gender do you identify as?
       </SubHeading>
-      {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>}
+      {/* {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>} */}
       <Dropdown
         options={genderOptions}
         placeholder="Gender"
@@ -838,7 +838,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 15</QuestionHeading>
       <SubHeading>What is your race/ethnicity?</SubHeading>
-      {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
+      {/* {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>} */}
       {formInputs &&
         Object.entries(formInputs?.ethnicity)
           .sort()
@@ -879,7 +879,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
         Are you legally authorized to work in Canada?
         <Required />
       </SubHeading>
-      {errors?.willBeAgeOfMajority && <ErrorMessage>{errors?.willBeAgeOfMajority}</ErrorMessage>}
       <Select
         type="radio"
         label="Yes"
