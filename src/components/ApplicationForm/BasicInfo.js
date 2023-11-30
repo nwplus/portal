@@ -7,7 +7,7 @@ import {
   ETHNICITY_OPTIONS,
   PRONOUN_OPTIONS,
 } from '../../utility/Constants'
-import { creatableDropdownValue, findElement } from '../../utility/utilities'
+import { applyCustomSort, creatableDropdownValue, findElement } from '../../utility/utilities'
 import Dropdown from '../Input/Dropdown'
 import Select from '../Input/Select'
 import { TextInput } from '../Input/TextInput'
@@ -358,17 +358,6 @@ const countryOptions = [
 const StyledTextInput = styled(TextInput)`
   margin: 0.5em 1em 1em 0;
 `
-
-const applyCustomSort = (data, sort) => {
-  data.sort((a, b) => {
-    const indexA = sort.indexOf(a[0])
-    const indexB = sort.indexOf(b[0])
-
-    return indexA - indexB
-  })
-
-  return data
-}
 
 // form part 1
 export default ({ refs, errors, formInputs, onChange }) => (

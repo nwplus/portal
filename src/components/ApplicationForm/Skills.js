@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { CONTRIBUTION_ROLE_OPTIONS, copyText } from '../../utility/Constants'
+import { applyCustomSort } from '../../utility/utilities'
 import { Select, TextArea, TextInput } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { CenteredH1, ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
@@ -91,22 +92,23 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </SubHeading>
         {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
         {formInputs &&
-          Object.entries(formInputs?.contributionRole)
-            .sort()
-            .map(([key, val]) => (
-              <Select
-                key={key}
-                type="checkbox"
-                label={CONTRIBUTION_ROLE_OPTIONS[key]}
-                checked={val}
-                onChange={() =>
-                  onChange({
-                    contributionRole: { ...formInputs.contributionRole, [key]: !val },
-                  })
-                }
-                customRef={key === 'vegetarian' ? refs['contributionRoleRef'] : null}
-              />
-            ))}
+          applyCustomSort(
+            Object.entries(formInputs?.contributionRole),
+            Object.keys(CONTRIBUTION_ROLE_OPTIONS)
+          ).map(([key, val]) => (
+            <Select
+              key={key}
+              type="checkbox"
+              label={CONTRIBUTION_ROLE_OPTIONS[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  contributionRole: { ...formInputs.contributionRole, [key]: !val },
+                })
+              }
+              customRef={key === 'vegetarian' ? refs['contributionRoleRef'] : null}
+            />
+          ))}
         {formInputs?.contributionRole?.other && (
           <TextInput
             placeholder="Please Specify"
