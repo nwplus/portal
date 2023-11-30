@@ -52,12 +52,13 @@ const educationOptions = [
   { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
 
-const identifyAsUnderrepresentedOptions = [
-  { value: 'yes', label: 'Yes' },
-  { value: 'no', label: 'No' },
-  { value: 'unsure', label: 'Unsure' },
-  { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
-]
+// Removed as of nwHacks 2024
+// const identifyAsUnderrepresentedOptions = [
+//   { value: 'yes', label: 'Yes' },
+//   { value: 'no', label: 'No' },
+//   { value: 'unsure', label: 'Unsure' },
+//   { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
+// ]
 
 const graduationOptions = [
   { value: 2023, label: '2023' },
