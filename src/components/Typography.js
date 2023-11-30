@@ -36,6 +36,7 @@ export const P = styled.p`
   ${text};
   ${p => p.highlight && `color: ${p.theme.colors.linkHover}`};
   margin: 10px 0;
+  line-height: 1.5;
 `
 
 export const I = styled.i`
