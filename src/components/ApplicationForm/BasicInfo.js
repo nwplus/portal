@@ -523,7 +523,39 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
-        What level of education are you currently studying at?
+        <span role="img" aria-label="Book emoji">
+          📖
+        </span>{' '}
+        {formInputs.educationLevel === 'high school'
+          ? 'What do you plan on studying?'
+          : 'What is your current or intended major?'}
+        <Required />
+      </SubHeading>
+      <P>Enter your intended/current major, or unknown</P>
+      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
+      <Dropdown
+        options={majors}
+        placeholder="Enter your major"
+        isSearchable
+        formatCreateLabel={inputValue => `${inputValue}`}
+        label={formInputs.major}
+        value={creatableDropdownValue(majors, 'label', formInputs.major)}
+        onChange={e =>
+          onChange({
+            major: e.label,
+          })
+        }
+        emptySearchDefaultOption="Start typing to search"
+        canCreateNewOption
+        isValid={!errors?.major}
+        customRef={refs['majorRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 07</QuestionHeading>
+      <SubHeading>
+        What is your level of study?
         <Required />
       </SubHeading>
       {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
@@ -558,7 +590,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 07</QuestionHeading>
+      <QuestionHeading>question 08</QuestionHeading>
       <SubHeading>
         What is your (expected) graduation year?
         <Required />
@@ -579,8 +611,31 @@ export default ({ refs, errors, formInputs, onChange }) => (
       />
     </FormSpacing>
 
+    {/* TODO: add new dropdowns */}
     <FormSpacing>
-      <QuestionHeading>question 08</QuestionHeading>
+      <QuestionHeading>question 09</QuestionHeading>
+      <SubHeading>
+        What is your current academic year?
+        <Required />
+      </SubHeading>
+      {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
+      <Dropdown
+        options={graduationOptions}
+        placeholder="Grad Year"
+        isSearchable={false}
+        value={findElement(graduationOptions, 'value', formInputs.graduation)}
+        onChange={inputValue =>
+          onChange({
+            graduation: inputValue.value,
+          })
+        }
+        isValid={!errors?.graduation}
+        customRef={refs['graduationRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
         What is your country of residence?
         <Required />
@@ -603,7 +658,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 09</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         Dietary restrictions
         <Required />
@@ -643,10 +698,40 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
+      <QuestionHeading>question 12</QuestionHeading>
+      <SubHeading>
+        Will you be 19 years of age or older by January 20th, 2024?
+        <Required />
+      </SubHeading>
+      {errors?.willBeAgeOfMajority && <ErrorMessage>{errors?.willBeAgeOfMajority}</ErrorMessage>}
+      <Select
+        type="radio"
+        label="Yes"
+        checked={formInputs.willBeAgeOfMajority}
+        onChange={() => onChange({ willBeAgeOfMajority: true })}
+        customRef={refs['willBeAgeOfMajorityRef']}
+      />
+      <Select
+        type="radio"
+        label="No"
+        checked={formInputs.willBeAgeOfMajority === false}
+        onChange={() => onChange({ willBeAgeOfMajority: false })}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <CenteredH1>Optional Questions</CenteredH1>
+      <H2>
+        The following questions are completely optional and do not affect your application as a
+        hacker.
+      </H2>
+    </FormSpacing>
+
+    {/* Removed as of nwHacks 2024 */}
+    {/* <FormSpacing>
+      <QuestionHeading>question 13</QuestionHeading>
       <SubHeading>
         Do you identify as part of an underrepresented gender in the technology industry?
-        <Required />
       </SubHeading>
       {errors?.identifyAsUnderrepresented && (
         <ErrorMessage>{errors?.identifyAsUnderrepresented}</ErrorMessage>
@@ -668,16 +753,15 @@ export default ({ refs, errors, formInputs, onChange }) => (
         isValid={!errors?.identifyAsUnderrepresented}
         customRef={refs['identifyAsUnderrepresentedRef']}
       />
-    </FormSpacing>
+    </FormSpacing> */}
 
     <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
+      <QuestionHeading>question 13</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Mushroom emoji">
           🍄
         </span>{' '}
         What are your pronouns?
-        <Required />
       </SubHeading>
       {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>}
       {formInputs &&
@@ -714,13 +798,12 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 12</QuestionHeading>
+      <QuestionHeading>question 14</QuestionHeading>
       <SubHeading>
         <span role="img" aria-label="Person raising one hand emoji">
           🙋
         </span>{' '}
-        What is your gender identity?
-        <Required />
+        What is your gender do you identify as?
       </SubHeading>
       {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>}
       <Dropdown
@@ -752,11 +835,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 13</QuestionHeading>
-      <SubHeading>
-        What is your race/ethnicity?
-        <Required />
-      </SubHeading>
+      <QuestionHeading>question 15</QuestionHeading>
+      <SubHeading>What is your race/ethnicity?</SubHeading>
       {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
       {formInputs &&
         Object.entries(formInputs?.ethnicity)
@@ -791,42 +871,11 @@ export default ({ refs, errors, formInputs, onChange }) => (
       )}
     </FormSpacing>
 
+    {/* ADD legally authorized to work in Canada */}
     <FormSpacing>
-      <QuestionHeading>question 14</QuestionHeading>
+      <QuestionHeading>question 16</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Book emoji">
-          📖
-        </span>{' '}
-        {formInputs.educationLevel === 'high school'
-          ? 'What do you plan on studying?'
-          : 'What is your current or intended major?'}
-        <Required />
-      </SubHeading>
-      <P>Enter your intended/current major, or unknown</P>
-      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
-      <Dropdown
-        options={majors}
-        placeholder="Enter your major"
-        isSearchable
-        formatCreateLabel={inputValue => `${inputValue}`}
-        label={formInputs.major}
-        value={creatableDropdownValue(majors, 'label', formInputs.major)}
-        onChange={e =>
-          onChange({
-            major: e.label,
-          })
-        }
-        emptySearchDefaultOption="Start typing to search"
-        canCreateNewOption
-        isValid={!errors?.major}
-        customRef={refs['majorRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 15</QuestionHeading>
-      <SubHeading>
-        Will you be 19 years of age or older by January 20th, 2024?
+        Are you legally authorized to work in Canada?
         <Required />
       </SubHeading>
       {errors?.willBeAgeOfMajority && <ErrorMessage>{errors?.willBeAgeOfMajority}</ErrorMessage>}
