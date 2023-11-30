@@ -1,18 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import { QuestionHeading, CenteredH1, P, ErrorMessage, ErrorSpan as Required } from '../Typography'
-import { TextInput } from '../Input/TextInput'
-import Dropdown from '../Input/Dropdown'
-import Select from '../Input/Select'
-import { FormSpacing, SubHeading } from './'
-import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
-import { findElement, creatableDropdownValue } from '../../utility/utilities'
+import schools from '../../containers/Application/data/schools.json'
 import {
   DIETARY_RESTRICTION_OPTIONS,
-  PRONOUN_OPTIONS,
   ETHNICITY_OPTIONS,
+  PRONOUN_OPTIONS,
 } from '../../utility/Constants'
+import { creatableDropdownValue, findElement } from '../../utility/utilities'
+import Dropdown from '../Input/Dropdown'
+import Select from '../Input/Select'
+import { TextInput } from '../Input/TextInput'
+import {
+  CenteredH1,
+  ErrorMessage,
+  H2,
+  P,
+  QuestionHeading,
+  ErrorSpan as Required,
+} from '../Typography'
+import { FormSpacing, SubHeading } from './'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },
@@ -344,12 +351,11 @@ const StyledTextInput = styled(TextInput)`
 export default ({ refs, errors, formInputs, onChange }) => (
   <>
     <FormSpacing>
-      <CenteredH1>
-        Tell us about yourself!{' '}
-        <span role="img" aria-label="smile">
-          &#128578;
-        </span>
-      </CenteredH1>
+      <CenteredH1>General Questions</CenteredH1>
+      <H2>
+        First, we’d like to ask a few general questions about you. The information entered here does
+        not affect your application as a hacker.
+      </H2>
     </FormSpacing>
 
     <FormSpacing>
