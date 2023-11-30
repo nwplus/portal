@@ -186,6 +186,7 @@ const validators = {
     major: noEmptyFunction,
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
+    academicYear: noEmptyFunction,
     countryOfResidence: noEmptyFunction,
     willBeAgeOfMajority: noNeitherFunction,
     phoneNumber: number => {

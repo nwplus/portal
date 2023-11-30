@@ -60,6 +60,15 @@ const educationOptions = [
 //   { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
 // ]
 
+const academicYear = [
+  { value: 'Secondary/High School', label: 'Secondary/High School' },
+  { value: '1st year', label: '1st year' },
+  { value: '2nd year', label: '2nd year' },
+  { value: '3rd year', label: '3rd year' },
+  { value: '4th year', label: '4th year' },
+  { value: 'Graduate school', label: 'Graduate school' },
+]
+
 const graduationOptions = [
   { value: 2023, label: '2023' },
   { value: 2024, label: '2024' },
@@ -612,26 +621,25 @@ export default ({ refs, errors, formInputs, onChange }) => (
       />
     </FormSpacing>
 
-    {/* TODO: add new dropdowns */}
     <FormSpacing>
       <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>
         What is your current academic year?
         <Required />
       </SubHeading>
-      {errors?.graduation && <ErrorMessage>{errors?.graduation}</ErrorMessage>}
+      {errors?.academicYear && <ErrorMessage>{errors?.academicYear}</ErrorMessage>}
       <Dropdown
-        options={graduationOptions}
-        placeholder="Grad Year"
+        options={academicYear}
+        placeholder="Academic Year"
         isSearchable={false}
-        value={findElement(graduationOptions, 'value', formInputs.graduation)}
+        value={findElement(graduationOptions, 'value', formInputs.academicYear)}
         onChange={inputValue =>
           onChange({
-            graduation: inputValue.value,
+            academicYear: inputValue.value,
           })
         }
-        isValid={!errors?.graduation}
-        customRef={refs['graduationRef']}
+        isValid={!errors?.academicYear}
+        customRef={refs['academicYearRef']}
       />
     </FormSpacing>
 
