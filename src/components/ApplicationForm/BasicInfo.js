@@ -66,6 +66,7 @@ const academicYear = [
   { value: '2nd year', label: '2nd year' },
   { value: '3rd year', label: '3rd year' },
   { value: '4th year', label: '4th year' },
+  { value: '5th year+', label: '5th year+' },
   { value: 'Graduate school', label: 'Graduate school' },
 ]
 
@@ -659,22 +660,20 @@ export default ({ refs, errors, formInputs, onChange }) => (
       </SubHeading>
       {errors?.dietaryRestriction && <ErrorMessage>{errors?.dietaryRestriction}</ErrorMessage>}
       {formInputs &&
-        Object.entries(formInputs?.dietaryRestriction)
-          .sort()
-          .map(([key, val]) => (
-            <Select
-              key={key}
-              type="checkbox"
-              label={DIETARY_RESTRICTION_OPTIONS[key]}
-              checked={val}
-              onChange={() =>
-                onChange({
-                  dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
-                })
-              }
-              customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
-            />
-          ))}
+        Object.entries(formInputs?.dietaryRestriction).map(([key, val]) => (
+          <Select
+            key={key}
+            type="checkbox"
+            label={DIETARY_RESTRICTION_OPTIONS[key]}
+            checked={val}
+            onChange={() =>
+              onChange({
+                dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
+              })
+            }
+            customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
+          />
+        ))}
       <br />
       {formInputs?.dietaryRestriction?.other && (
         <TextInput
@@ -754,22 +753,20 @@ export default ({ refs, errors, formInputs, onChange }) => (
       <SubHeading>What are your pronouns?</SubHeading>
       {/* {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>} */}
       {formInputs &&
-        Object.entries(formInputs?.pronouns)
-          .sort()
-          .map(([key, val]) => (
-            <Select
-              key={key}
-              type="checkbox"
-              label={PRONOUN_OPTIONS[key]}
-              checked={val}
-              onChange={() =>
-                onChange({
-                  pronouns: { ...formInputs.pronouns, [key]: !val },
-                })
-              }
-              customRef={key === 'vegetarian' ? refs['pronounsRef'] : null}
-            />
-          ))}
+        Object.entries(formInputs?.pronouns).map(([key, val]) => (
+          <Select
+            key={key}
+            type="checkbox"
+            label={PRONOUN_OPTIONS[key]}
+            checked={val}
+            onChange={() =>
+              onChange({
+                pronouns: { ...formInputs.pronouns, [key]: !val },
+              })
+            }
+            customRef={key === 'vegetarian' ? refs['pronounsRef'] : null}
+          />
+        ))}
       <br />
       {formInputs?.pronouns?.other && (
         <TextInput

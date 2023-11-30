@@ -144,8 +144,8 @@ export const ETHNICITY_OPTIONS = Object.freeze({
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
-  sheher: 'she/her',
   hehim: 'he/him',
+  sheher: 'she/her',
   theythem: 'they/them',
   shethey: 'she/they',
   hethey: 'he/they',
@@ -155,11 +155,11 @@ export const PRONOUN_OPTIONS = Object.freeze({
 
 export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
   none: 'None',
+  celiacDisease: 'Celiac Disease',
+  halal: 'Halal',
+  kosher: 'Kosher',
   vegetarian: 'Vegetarian',
   vegan: 'Vegan',
-  celiacDisease: 'Celiac Disease',
-  kosher: 'Kosher',
-  halal: 'Halal',
   other: 'Allergies/other',
 })
 
