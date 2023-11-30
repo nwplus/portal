@@ -139,16 +139,16 @@ export const ETHNICITY_OPTIONS = Object.freeze({
   white: 'White',
   otherAsian: 'Other Asian (Thai, Cambodian, etc)',
   otherPacificIslander: 'Other Pacific Islander',
-  other: 'Other (Please Specify)',
   preferNot: 'Prefer not to answer',
+  other: 'Other (Please Specify)',
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
   hehim: 'he/him',
   sheher: 'she/her',
   theythem: 'they/them',
-  shethey: 'she/they',
   hethey: 'he/they',
+  shethey: 'she/they',
   preferNot: 'Prefer not to answer',
   other: 'Other',
 })
@@ -218,8 +218,8 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       white: false,
       otherAsian: false,
       otherPacificIslander: false,
-      other: false,
       preferNot: false,
+      other: false,
     },
     dietaryRestriction: {
       none: false,

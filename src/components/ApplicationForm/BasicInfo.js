@@ -359,6 +359,17 @@ const StyledTextInput = styled(TextInput)`
   margin: 0.5em 1em 1em 0;
 `
 
+const applyCustomSort = (data, sort) => {
+  data.sort((a, b) => {
+    const indexA = sort.indexOf(a[0])
+    const indexB = sort.indexOf(b[0])
+
+    return indexA - indexB
+  })
+
+  return data
+}
+
 // form part 1
 export default ({ refs, errors, formInputs, onChange }) => (
   <>
@@ -660,22 +671,23 @@ export default ({ refs, errors, formInputs, onChange }) => (
       </SubHeading>
       {errors?.dietaryRestriction && <ErrorMessage>{errors?.dietaryRestriction}</ErrorMessage>}
       {formInputs &&
-        Object.entries(formInputs?.dietaryRestriction)
-          .sort()
-          .map(([key, val]) => (
-            <Select
-              key={key}
-              type="checkbox"
-              label={DIETARY_RESTRICTION_OPTIONS[key]}
-              checked={val}
-              onChange={() =>
-                onChange({
-                  dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
-                })
-              }
-              customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
-            />
-          ))}
+        applyCustomSort(
+          Object.entries(formInputs?.dietaryRestriction),
+          Object.keys(DIETARY_RESTRICTION_OPTIONS)
+        ).map(([key, val]) => (
+          <Select
+            key={key}
+            type="checkbox"
+            label={DIETARY_RESTRICTION_OPTIONS[key]}
+            checked={val}
+            onChange={() =>
+              onChange({
+                dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
+              })
+            }
+            customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
+          />
+        ))}
       <br />
       {formInputs?.dietaryRestriction?.other && (
         <TextInput
@@ -755,9 +767,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
       <SubHeading>What are your pronouns?</SubHeading>
       {/* {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>} */}
       {formInputs &&
-        Object.entries(formInputs?.pronouns)
-          .sort()
-          .map(([key, val]) => (
+        applyCustomSort(Object.entries(formInputs?.pronouns), Object.keys(PRONOUN_OPTIONS)).map(
+          ([key, val]) => (
             <Select
               key={key}
               type="checkbox"
@@ -770,7 +781,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
               }
               customRef={key === 'vegetarian' ? refs['pronounsRef'] : null}
             />
-          ))}
+          )
+        )}
       <br />
       {formInputs?.pronouns?.other && (
         <TextInput
@@ -824,9 +836,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
       <SubHeading>What is your race/ethnicity?</SubHeading>
       {/* {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>} */}
       {formInputs &&
-        Object.entries(formInputs?.ethnicity)
-          .sort()
-          .map(([key, val]) => (
+        applyCustomSort(Object.entries(formInputs?.ethnicity), Object.keys(ETHNICITY_OPTIONS)).map(
+          ([key, val]) => (
             <Select
               key={key}
               type="checkbox"
@@ -839,7 +850,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
               }
               customRef={refs['ethnicityRef']}
             />
-          ))}
+          )
+        )}
       <br />
       {formInputs?.ethnicity?.other && (
         <TextInput
