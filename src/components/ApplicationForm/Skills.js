@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { CONTRIBUTION_ROLE_OPTIONS, copyText } from '../../utility/Constants'
 import { Select, TextArea, TextInput } from '../Input'
 import ResumeUploadBtn from '../ResumeUploadBtn'
-import { CenteredH1, ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../Typography'
+import { CenteredH1, ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './'
 
 const QuestionForm = styled.form`
@@ -237,6 +237,10 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             />
             {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
           </FormRow>
+          <P>
+            This resume is not directly assessed in your application, but will be put in a resume
+            bank to be shared with nwHacks sponsors for internship and new grad opportunities!
+          </P>
           <FormRow fieldValue="GitHub/BitBucket/GitLab">
             <TextInput
               placeholder="Optional"
