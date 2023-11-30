@@ -13,16 +13,17 @@ const questionsByOrder = [
   'ageByHackathon',
   'phoneNumber',
   'school',
+  'major',
   'educationLevel',
   'graduation',
   'countryOfResidence',
   'dietaryRestriction',
+  'willBeAgeOfMajority',
   // 'identifyAsUnderrepresented',
   'pronouns',
   'gender',
   'ethnicity',
-  'major',
-  'willBeAgeOfMajority',
+  'isAuthorizedToWorkInCanada',
 ]
 
 export default () => {
@@ -72,6 +73,7 @@ export default () => {
     contributionRoleRef: useRef(null),
     countryOfResidenceRef: useRef(null),
     locationRef: useRef(null),
+    isAuthorizedToWorkInCanadaRef: useRef(null),
   }
 
   /**

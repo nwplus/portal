@@ -875,22 +875,19 @@ export default ({ refs, errors, formInputs, onChange }) => (
     {/* ADD legally authorized to work in Canada */}
     <FormSpacing>
       <QuestionHeading>question 16</QuestionHeading>
-      <SubHeading>
-        Are you legally authorized to work in Canada?
-        <Required />
-      </SubHeading>
+      <SubHeading>Are you legally authorized to work in Canada?</SubHeading>
       <Select
         type="radio"
         label="Yes"
-        checked={formInputs.willBeAgeOfMajority}
-        onChange={() => onChange({ willBeAgeOfMajority: true })}
-        customRef={refs['willBeAgeOfMajorityRef']}
+        checked={formInputs.isAuthorizedToWorkInCanada}
+        onChange={() => onChange({ isAuthorizedToWorkInCanada: true })}
+        customRef={refs['isAuthorizedToWorkInCanadaRef']}
       />
       <Select
         type="radio"
         label="No"
-        checked={formInputs.willBeAgeOfMajority === false}
-        onChange={() => onChange({ willBeAgeOfMajority: false })}
+        checked={formInputs.isAuthorizedToWorkInCanada === false}
+        onChange={() => onChange({ isAuthorizedToWorkInCanada: false })}
       />
     </FormSpacing>
   </>
