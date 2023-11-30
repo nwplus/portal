@@ -372,9 +372,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Pencil emoji">
-          ✏️
-        </span>{' '}
         What is your full legal name?
         <Required />
       </SubHeading>
@@ -417,9 +414,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Telephone emoji">
-          ✨
-        </span>{' '}
         What is your preferred name?
         <Required />
       </SubHeading>
@@ -441,9 +435,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Baby chick emoji">
-          🐥
-        </span>{' '}
         What is your current age?
         <Required />
       </SubHeading>
@@ -481,9 +472,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Telephone emoji">
-          ☎️
-        </span>{' '}
         What is your phone number?
         <Required />
       </SubHeading>
@@ -533,9 +521,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Book emoji">
-          📖
-        </span>{' '}
         {formInputs.educationLevel === 'high school'
           ? 'What do you plan on studying?'
           : 'What is your current or intended major?'}
@@ -766,12 +751,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 13</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Mushroom emoji">
-          🍄
-        </span>{' '}
-        What are your pronouns?
-      </SubHeading>
+      <SubHeading>What are your pronouns?</SubHeading>
       {/* {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>} */}
       {formInputs &&
         Object.entries(formInputs?.pronouns)
@@ -808,12 +788,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 14</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Person raising one hand emoji">
-          🙋
-        </span>{' '}
-        What is your gender do you identify as?
-      </SubHeading>
+      <SubHeading>What is your gender do you identify as?</SubHeading>
       {/* {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>} */}
       <Dropdown
         options={genderOptions}
