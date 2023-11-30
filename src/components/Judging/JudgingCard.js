@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'wouter'
-import { H2, P } from '../Typography'
-import { CardLike } from '../Common.js'
-import { Button } from '../Input/Button'
 import { MAX_CHARACTERS_IN_DESCRIPTION } from '../../utility/Constants'
 import { cutString } from '../../utility/utilities'
-import Hackcamp2023BG from '../../components/BackgroundImage'
+import { CardLike } from '../Common.js'
+import { Button } from '../Input/Button'
+import { H2, P } from '../Typography'
 
 const StyledCard = styled.div`
   ${CardLike};
@@ -69,7 +68,6 @@ export default ({
 }) => {
   return (
     <StyledCard className={className}>
-      <Hackcamp2023BG version="noObjects" />
       <a href={href}>
         <StyledImg alt={title} src={imgUrl} />
       </a>

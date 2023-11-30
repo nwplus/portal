@@ -24,7 +24,7 @@ import {
   Sponsors,
   Submission,
 } from './pages'
-import Area51 from './pages/Area51'
+// import Area51 from './pages/Area51'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
@@ -260,9 +260,9 @@ function App() {
           <AdminAuthPageRoute path="/judging/admin">
             <JudgingAdmin />
           </AdminAuthPageRoute>
-          <AdminAuthPageRoute path="/area51">
+          {/* <AdminAuthPageRoute path="/area51">
             <Area51 />
-          </AdminAuthPageRoute>
+          </AdminAuthPageRoute> */}
           <Route path="/judging/view/:id" component={JudgingViewContainer} />
           <Route path="/projects" component={GalleryContainer} />
           <Route path="/projects/:id" component={ProjectViewContainer} />

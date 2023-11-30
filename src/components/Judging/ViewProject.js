@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { H2, P, A, Label, ErrorMessage, Message } from '../Typography'
-import { Select, Button, TextArea } from '../Input'
-import Youtube from '../Youtube'
-import { Card } from '../Common'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
-import Hackcamp2023BG from '../../components/BackgroundImage'
+import { Card } from '../Common'
+import { Button, Select, TextArea } from '../Input'
+import { A, ErrorMessage, H2, Label, Message, P } from '../Typography'
+import Youtube from '../Youtube'
 
 const Container = styled.div`
   display: flex;
@@ -104,8 +103,6 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
     : ''
   return (
     <Container>
-      <Hackcamp2023BG version="noObjects" />
-
       <JudgingColumn>
         <H2>Judging "{project.title}"</H2>
         <Card>

@@ -1,9 +1,8 @@
 import React from 'react'
 import Accordion from '../components/Accordion'
-import { H2 } from './Typography'
-import { DetailContainer, DetailColumn, DetailAnswer } from './Common'
 import { chunkify } from '../utility/utilities'
-import Hackcamp2023BG from '../components/BackgroundImage'
+import { DetailAnswer, DetailColumn, DetailContainer } from './Common'
+import { H2 } from './Typography'
 
 const COLUMNS_OF_FAQ = 2
 
@@ -16,7 +15,6 @@ export default ({ faq }) => {
   const createFAQList = entries => {
     return (
       <DetailContainer>
-        <Hackcamp2023BG />
         {chunkify(entries, COLUMNS_OF_FAQ, true).map((half, i) => (
           <DetailColumn key={i}>{half.map(singleEntry)}</DetailColumn>
         ))}

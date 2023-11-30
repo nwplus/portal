@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Hackcamp2023BG from '../../components/BackgroundImage'
 import { JUDGING_RUBRIC } from '../../utility/Constants'
 import { Card, CardWithHeader } from '../Common'
 import { Button } from '../Input'
@@ -123,7 +122,6 @@ export default ({ project, reportCallback }) => {
 
   return (
     <>
-      <Hackcamp2023BG version="noObjects" />
       <H1>Project Submission</H1>
       <H3>Team Members: {project?.teamMembers?.map(member => member.name).join(', ')}</H3>
       <H3>

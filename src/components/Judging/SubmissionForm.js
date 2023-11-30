@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Hackcamp2023BG from '../../components/BackgroundImage'
 import {
   validateDevpostURL,
   validateDiscord,
@@ -127,14 +126,6 @@ export default ({
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
-
-  // const charities = [
-  //   { value: 'CMHA', label: 'Canadian Mental Health Association' },
-  //   { value: 'BCCH', label: "BC Children's Hospital" },
-  //   { value: 'DEWC', label: "Downtown Eastside Women's Centre" },
-  //   { value: 'GWC', label: 'Girls Who Code' },
-  //   { value: 'SRM', label: 'Sunrise Movement' },
-  // ]
 
   // Fetch list of sponsor prizes from Firebase
   useEffect(() => {
@@ -280,8 +271,6 @@ export default ({
 
   return (
     <div>
-      <Hackcamp2023BG version="noObjects" />
-
       <H1>Project Submission</H1>
       <FormSection>
         <div>

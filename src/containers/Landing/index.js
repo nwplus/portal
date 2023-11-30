@@ -1,19 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import Banner from '../../components/Banner'
+import cmdf_logo from '../../assets/cmdf_logo.png'
 import hc_logo from '../../assets/hc_logo.svg'
 import nwhacks_logo from '../../assets/nwhacks_logo.svg'
-import cmdf_logo from '../../assets/cmdf_logo.png'
-import Footer from './Footer'
+import Banner from '../../components/Banner'
 import { H1, P } from '../../components/Typography'
-import hcloginbc from '../../assets/hc2023login.svg'
+import Footer from './Footer'
 
 const LandingContainer = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-  background-image: url(${hcloginbc});
   background-repeat: no-repeat;
   background-size: cover;
   top: 0;
@@ -50,7 +48,7 @@ const StyledLogoLockup = styled.img`
     p.theme.name !== 'nwPlus' &&
     `
       top: 15em;
-      width: 160px;
+      width: 60px;
   `}
   ${p =>
     p.theme.name === 'cmdf' &&
