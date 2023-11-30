@@ -2,7 +2,7 @@
 // "balanced" (subarrays' lengths differ as less as possible) or
 // "even" (all subarrays but the last have the same length):
 
-import { useState, useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 // https://stackoverflow.com/questions/8188548/splitting-a-js-array-into-n-arrays
 export const chunkify = (a, n, balanced) => {
@@ -143,4 +143,16 @@ export const cutString = (string, maxLength) => {
     return string
   }
   return `${string.substring(0, cut)}...`
+}
+
+// for multi-select dropdown hacker app questions
+export const applyCustomSort = (data, sort) => {
+  data.sort((a, b) => {
+    const indexA = sort.indexOf(a[0])
+    const indexB = sort.indexOf(b[0])
+
+    return indexA - indexB
+  })
+
+  return data
 }

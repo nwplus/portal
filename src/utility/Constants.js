@@ -139,32 +139,31 @@ export const ETHNICITY_OPTIONS = Object.freeze({
   white: 'White',
   otherAsian: 'Other Asian (Thai, Cambodian, etc)',
   otherPacificIslander: 'Other Pacific Islander',
-  other: 'Other (Please Specify)',
   preferNot: 'Prefer not to answer',
+  other: 'Other (Please Specify)',
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
-  sheher: 'she/her',
   hehim: 'he/him',
+  sheher: 'she/her',
   theythem: 'they/them',
-  shethey: 'she/they',
   hethey: 'he/they',
+  shethey: 'she/they',
   preferNot: 'Prefer not to answer',
   other: 'Other',
 })
 
 export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
   none: 'None',
+  celiacDisease: 'Celiac Disease',
+  halal: 'Halal',
+  kosher: 'Kosher',
   vegetarian: 'Vegetarian',
   vegan: 'Vegan',
-  celiacDisease: 'Celiac Disease',
-  kosher: 'Kosher',
-  halal: 'Halal',
   other: 'Allergies/other',
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
-  beginner: 'Beginner',
   designer: 'Designer',
   developer: 'Developer',
   pm: 'Product/project manager',
@@ -219,8 +218,8 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       white: false,
       otherAsian: false,
       otherPacificIslander: false,
-      other: false,
       preferNot: false,
+      other: false,
     },
     dietaryRestriction: {
       none: false,
@@ -243,7 +242,6 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   skills: {
     firstTimeHacker: null,
     contributionRole: {
-      beginner: false,
       designer: false,
       developer: false,
       pm: false,

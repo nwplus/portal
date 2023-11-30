@@ -7,7 +7,7 @@ import {
   ETHNICITY_OPTIONS,
   PRONOUN_OPTIONS,
 } from '../../utility/Constants'
-import { creatableDropdownValue, findElement } from '../../utility/utilities'
+import { applyCustomSort, creatableDropdownValue, findElement } from '../../utility/utilities'
 import Dropdown from '../Input/Dropdown'
 import Select from '../Input/Select'
 import { TextInput } from '../Input/TextInput'
@@ -66,6 +66,7 @@ const academicYear = [
   { value: '2nd year', label: '2nd year' },
   { value: '3rd year', label: '3rd year' },
   { value: '4th year', label: '4th year' },
+  { value: '5th year+', label: '5th year+' },
   { value: 'Graduate school', label: 'Graduate school' },
 ]
 
@@ -372,9 +373,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Pencil emoji">
-          ✏️
-        </span>{' '}
         What is your full legal name?
         <Required />
       </SubHeading>
@@ -417,9 +415,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Telephone emoji">
-          ✨
-        </span>{' '}
         What is your preferred name?
         <Required />
       </SubHeading>
@@ -441,9 +436,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Baby chick emoji">
-          🐥
-        </span>{' '}
         What is your current age?
         <Required />
       </SubHeading>
@@ -481,9 +473,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Telephone emoji">
-          ☎️
-        </span>{' '}
         What is your phone number?
         <Required />
       </SubHeading>
@@ -533,9 +522,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Book emoji">
-          📖
-        </span>{' '}
         {formInputs.educationLevel === 'high school'
           ? 'What do you plan on studying?'
           : 'What is your current or intended major?'}
@@ -674,22 +660,23 @@ export default ({ refs, errors, formInputs, onChange }) => (
       </SubHeading>
       {errors?.dietaryRestriction && <ErrorMessage>{errors?.dietaryRestriction}</ErrorMessage>}
       {formInputs &&
-        Object.entries(formInputs?.dietaryRestriction)
-          .sort()
-          .map(([key, val]) => (
-            <Select
-              key={key}
-              type="checkbox"
-              label={DIETARY_RESTRICTION_OPTIONS[key]}
-              checked={val}
-              onChange={() =>
-                onChange({
-                  dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
-                })
-              }
-              customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
-            />
-          ))}
+        applyCustomSort(
+          Object.entries(formInputs?.dietaryRestriction),
+          Object.keys(DIETARY_RESTRICTION_OPTIONS)
+        ).map(([key, val]) => (
+          <Select
+            key={key}
+            type="checkbox"
+            label={DIETARY_RESTRICTION_OPTIONS[key]}
+            checked={val}
+            onChange={() =>
+              onChange({
+                dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
+              })
+            }
+            customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
+          />
+        ))}
       <br />
       {formInputs?.dietaryRestriction?.other && (
         <TextInput
@@ -766,17 +753,11 @@ export default ({ refs, errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 13</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Mushroom emoji">
-          🍄
-        </span>{' '}
-        What are your pronouns?
-      </SubHeading>
+      <SubHeading>What are your pronouns?</SubHeading>
       {/* {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>} */}
       {formInputs &&
-        Object.entries(formInputs?.pronouns)
-          .sort()
-          .map(([key, val]) => (
+        applyCustomSort(Object.entries(formInputs?.pronouns), Object.keys(PRONOUN_OPTIONS)).map(
+          ([key, val]) => (
             <Select
               key={key}
               type="checkbox"
@@ -789,7 +770,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
               }
               customRef={key === 'vegetarian' ? refs['pronounsRef'] : null}
             />
-          ))}
+          )
+        )}
       <br />
       {formInputs?.pronouns?.other && (
         <TextInput
@@ -808,12 +790,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 14</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Person raising one hand emoji">
-          🙋
-        </span>{' '}
-        What is your gender do you identify as?
-      </SubHeading>
+      <SubHeading>What is your gender do you identify as?</SubHeading>
       {/* {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>} */}
       <Dropdown
         options={genderOptions}
@@ -848,9 +825,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
       <SubHeading>What is your race/ethnicity?</SubHeading>
       {/* {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>} */}
       {formInputs &&
-        Object.entries(formInputs?.ethnicity)
-          .sort()
-          .map(([key, val]) => (
+        applyCustomSort(Object.entries(formInputs?.ethnicity), Object.keys(ETHNICITY_OPTIONS)).map(
+          ([key, val]) => (
             <Select
               key={key}
               type="checkbox"
@@ -863,7 +839,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
               }
               customRef={refs['ethnicityRef']}
             />
-          ))}
+          )
+        )}
       <br />
       {formInputs?.ethnicity?.other && (
         <TextInput
