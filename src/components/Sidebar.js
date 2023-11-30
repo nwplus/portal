@@ -114,7 +114,7 @@ const StyledA = styled(A)`
 const LiveDot = styled.span`
   height: 10px;
   width: 10px;
-  background: ${p => p.theme.colors.accent};
+  background: ${p => p.theme.colors.primary};
   border-radius: 50%;
   margin: 0 7px 0 4px;
   display: inline-block;
@@ -127,7 +127,7 @@ const LiveLabel = styled.p`
   font-weight: bold;
   font-size: 0.9em;
   border-radius: 7px;
-  background: ${p => p.theme.colors.primary};
+  background: ${p => p.theme.colors.primaryGradient};
   color: ${p => p.theme.colors.cardText};
   width: 4em;
   padding: 5px;
