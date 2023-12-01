@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { H1, H2, P } from '../components/Typography'
 
 import { NotFound } from '.'
-import Hackcamp2023BG from '../components/BackgroundImage'
+// import Hackcamp2023BG from '../components/BackgroundImage'
 import { Loading } from '../components/HeroPage'
 import { Button } from '../components/Input'
 import Youtube from '../components/Youtube'
@@ -229,7 +229,7 @@ const Project = ({ project }) => {
 
   return (
     <StyledProjectContainer>
-      <Hackcamp2023BG version="noObjects" />
+      {/* <Hackcamp2023BG version="noObjects" /> */}
 
       <StyledBanner>
         <StyledH1>{project.title}</StyledH1>

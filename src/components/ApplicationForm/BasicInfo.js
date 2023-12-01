@@ -1,18 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import { QuestionHeading, CenteredH1, P, ErrorMessage, ErrorSpan as Required } from '../Typography'
-import { TextInput } from '../Input/TextInput'
-import Dropdown from '../Input/Dropdown'
-import Select from '../Input/Select'
-import { FormSpacing, SubHeading } from './'
-import schools from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
-import { findElement, creatableDropdownValue } from '../../utility/utilities'
+import schools from '../../containers/Application/data/schools.json'
 import {
   DIETARY_RESTRICTION_OPTIONS,
-  PRONOUN_OPTIONS,
   ETHNICITY_OPTIONS,
+  PRONOUN_OPTIONS,
 } from '../../utility/Constants'
+import { applyCustomSort, creatableDropdownValue, findElement } from '../../utility/utilities'
+import Dropdown from '../Input/Dropdown'
+import Select from '../Input/Select'
+import { TextInput } from '../Input/TextInput'
+import {
+  CenteredH1,
+  ErrorMessage,
+  H2,
+  P,
+  QuestionHeading,
+  ErrorSpan as Required,
+} from '../Typography'
+import { FormSpacing, SubHeading } from './'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },
@@ -45,14 +52,26 @@ const educationOptions = [
   { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
 
-const identifyAsUnderrepresentedOptions = [
-  { value: 'yes', label: 'Yes' },
-  { value: 'no', label: 'No' },
-  { value: 'unsure', label: 'Unsure' },
-  { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
+// Removed as of nwHacks 2024
+// const identifyAsUnderrepresentedOptions = [
+//   { value: 'yes', label: 'Yes' },
+//   { value: 'no', label: 'No' },
+//   { value: 'unsure', label: 'Unsure' },
+//   { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
+// ]
+
+const academicYearOptions = [
+  { value: 'Secondary/High School', label: 'Secondary/High School' },
+  { value: '1st year', label: '1st year' },
+  { value: '2nd year', label: '2nd year' },
+  { value: '3rd year', label: '3rd year' },
+  { value: '4th year', label: '4th year' },
+  { value: '5th year+', label: '5th year+' },
+  { value: 'Graduate school', label: 'Graduate school' },
 ]
 
 const graduationOptions = [
+  { value: 2023, label: '2023' },
   { value: 2024, label: '2024' },
   { value: 2025, label: '2025' },
   { value: 2026, label: '2026' },
@@ -344,20 +363,16 @@ const StyledTextInput = styled(TextInput)`
 export default ({ refs, errors, formInputs, onChange }) => (
   <>
     <FormSpacing>
-      <CenteredH1>
-        Tell us about yourself!{' '}
-        <span role="img" aria-label="smile">
-          &#128578;
-        </span>
-      </CenteredH1>
+      <CenteredH1>General Questions</CenteredH1>
+      <H2>
+        First, we’d like to ask a few general questions about you. The information entered here does
+        not affect your application as a hacker.
+      </H2>
     </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 01</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Pencil emoji">
-          ✏️
-        </span>{' '}
         What is your full legal name?
         <Required />
       </SubHeading>
@@ -400,9 +415,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Telephone emoji">
-          ✨
-        </span>{' '}
         What is your preferred name?
         <Required />
       </SubHeading>
@@ -424,9 +436,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 03</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Baby chick emoji">
-          🐥
-        </span>{' '}
         What is your current age?
         <Required />
       </SubHeading>
@@ -464,9 +473,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 04</QuestionHeading>
       <SubHeading>
-        <span role="img" aria-label="Telephone emoji">
-          ☎️
-        </span>{' '}
         What is your phone number?
         <Required />
       </SubHeading>
@@ -516,7 +522,36 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
-        What level of education are you currently studying at?
+        {formInputs.educationLevel === 'high school'
+          ? 'What do you plan on studying?'
+          : 'What is your current or intended major?'}
+        <Required />
+      </SubHeading>
+      <P>Enter your intended/current major, or unknown</P>
+      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
+      <Dropdown
+        options={majors}
+        placeholder="Enter your major"
+        isSearchable
+        formatCreateLabel={inputValue => `${inputValue}`}
+        label={formInputs.major}
+        value={creatableDropdownValue(majors, 'label', formInputs.major)}
+        onChange={e =>
+          onChange({
+            major: e.label,
+          })
+        }
+        emptySearchDefaultOption="Start typing to search"
+        canCreateNewOption
+        isValid={!errors?.major}
+        customRef={refs['majorRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 07</QuestionHeading>
+      <SubHeading>
+        What is your level of study?
         <Required />
       </SubHeading>
       {errors?.educationLevel && <ErrorMessage>{errors?.educationLevel}</ErrorMessage>}
@@ -551,7 +586,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 07</QuestionHeading>
+      <QuestionHeading>question 08</QuestionHeading>
       <SubHeading>
         What is your (expected) graduation year?
         <Required />
@@ -573,7 +608,29 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 08</QuestionHeading>
+      <QuestionHeading>question 09</QuestionHeading>
+      <SubHeading>
+        What is your current academic year?
+        <Required />
+      </SubHeading>
+      {errors?.academicYear && <ErrorMessage>{errors?.academicYear}</ErrorMessage>}
+      <Dropdown
+        options={academicYearOptions}
+        placeholder="Academic Year"
+        isSearchable={false}
+        value={findElement(academicYearOptions, 'value', formInputs.academicYear)}
+        onChange={inputValue =>
+          onChange({
+            academicYear: inputValue.value,
+          })
+        }
+        isValid={!errors?.academicYear}
+        customRef={refs['academicYearRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
         What is your country of residence?
         <Required />
@@ -596,29 +653,30 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 09</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         Dietary restrictions
         <Required />
       </SubHeading>
       {errors?.dietaryRestriction && <ErrorMessage>{errors?.dietaryRestriction}</ErrorMessage>}
       {formInputs &&
-        Object.entries(formInputs?.dietaryRestriction)
-          .sort()
-          .map(([key, val]) => (
-            <Select
-              key={key}
-              type="checkbox"
-              label={DIETARY_RESTRICTION_OPTIONS[key]}
-              checked={val}
-              onChange={() =>
-                onChange({
-                  dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
-                })
-              }
-              customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
-            />
-          ))}
+        applyCustomSort(
+          Object.entries(formInputs?.dietaryRestriction),
+          Object.keys(DIETARY_RESTRICTION_OPTIONS)
+        ).map(([key, val]) => (
+          <Select
+            key={key}
+            type="checkbox"
+            label={DIETARY_RESTRICTION_OPTIONS[key]}
+            checked={val}
+            onChange={() =>
+              onChange({
+                dietaryRestriction: { ...formInputs.dietaryRestriction, [key]: !val },
+              })
+            }
+            customRef={key === 'vegetarian' ? refs['dietaryRestrictionRef'] : null}
+          />
+        ))}
       <br />
       {formInputs?.dietaryRestriction?.other && (
         <TextInput
@@ -636,10 +694,40 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
+      <QuestionHeading>question 12</QuestionHeading>
+      <SubHeading>
+        Will you be 19 years of age or older by January 20th, 2024?
+        <Required />
+      </SubHeading>
+      {errors?.willBeAgeOfMajority && <ErrorMessage>{errors?.willBeAgeOfMajority}</ErrorMessage>}
+      <Select
+        type="radio"
+        label="Yes"
+        checked={formInputs.willBeAgeOfMajority}
+        onChange={() => onChange({ willBeAgeOfMajority: true })}
+        customRef={refs['willBeAgeOfMajorityRef']}
+      />
+      <Select
+        type="radio"
+        label="No"
+        checked={formInputs.willBeAgeOfMajority === false}
+        onChange={() => onChange({ willBeAgeOfMajority: false })}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
+      <CenteredH1>Optional Questions</CenteredH1>
+      <H2>
+        The following questions are completely optional and do not affect your application as a
+        hacker.
+      </H2>
+    </FormSpacing>
+
+    {/* Removed as of nwHacks 2024 */}
+    {/* <FormSpacing>
+      <QuestionHeading>question 13</QuestionHeading>
       <SubHeading>
         Do you identify as part of an underrepresented gender in the technology industry?
-        <Required />
       </SubHeading>
       {errors?.identifyAsUnderrepresented && (
         <ErrorMessage>{errors?.identifyAsUnderrepresented}</ErrorMessage>
@@ -661,22 +749,15 @@ export default ({ refs, errors, formInputs, onChange }) => (
         isValid={!errors?.identifyAsUnderrepresented}
         customRef={refs['identifyAsUnderrepresentedRef']}
       />
-    </FormSpacing>
+    </FormSpacing> */}
 
     <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Mushroom emoji">
-          🍄
-        </span>{' '}
-        What are your pronouns?
-        <Required />
-      </SubHeading>
-      {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>}
+      <QuestionHeading>question 13</QuestionHeading>
+      <SubHeading>What are your pronouns?</SubHeading>
+      {/* {errors?.pronouns && <ErrorMessage>{errors?.pronouns}</ErrorMessage>} */}
       {formInputs &&
-        Object.entries(formInputs?.pronouns)
-          .sort()
-          .map(([key, val]) => (
+        applyCustomSort(Object.entries(formInputs?.pronouns), Object.keys(PRONOUN_OPTIONS)).map(
+          ([key, val]) => (
             <Select
               key={key}
               type="checkbox"
@@ -689,7 +770,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
               }
               customRef={key === 'vegetarian' ? refs['pronounsRef'] : null}
             />
-          ))}
+          )
+        )}
       <br />
       {formInputs?.pronouns?.other && (
         <TextInput
@@ -707,15 +789,9 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 12</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Person raising one hand emoji">
-          🙋
-        </span>{' '}
-        What is your gender identity?
-        <Required />
-      </SubHeading>
-      {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>}
+      <QuestionHeading>question 14</QuestionHeading>
+      <SubHeading>What is your gender do you identify as?</SubHeading>
+      {/* {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>} */}
       <Dropdown
         options={genderOptions}
         placeholder="Gender"
@@ -745,16 +821,12 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 13</QuestionHeading>
-      <SubHeading>
-        What is your race/ethnicity?
-        <Required />
-      </SubHeading>
-      {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>}
+      <QuestionHeading>question 15</QuestionHeading>
+      <SubHeading>What is your race/ethnicity?</SubHeading>
+      {/* {errors?.ethnicity && <ErrorMessage>{errors?.ethnicity}</ErrorMessage>} */}
       {formInputs &&
-        Object.entries(formInputs?.ethnicity)
-          .sort()
-          .map(([key, val]) => (
+        applyCustomSort(Object.entries(formInputs?.ethnicity), Object.keys(ETHNICITY_OPTIONS)).map(
+          ([key, val]) => (
             <Select
               key={key}
               type="checkbox"
@@ -767,7 +839,8 @@ export default ({ refs, errors, formInputs, onChange }) => (
               }
               customRef={refs['ethnicityRef']}
             />
-          ))}
+          )
+        )}
       <br />
       {formInputs?.ethnicity?.other && (
         <TextInput
@@ -784,57 +857,22 @@ export default ({ refs, errors, formInputs, onChange }) => (
       )}
     </FormSpacing>
 
+    {/* ADD legally authorized to work in Canada */}
     <FormSpacing>
-      <QuestionHeading>question 14</QuestionHeading>
-      <SubHeading>
-        <span role="img" aria-label="Book emoji">
-          📖
-        </span>{' '}
-        {formInputs.educationLevel === 'high school'
-          ? 'What do you plan on studying?'
-          : 'What is your current or intended major?'}
-        <Required />
-      </SubHeading>
-      <P>Enter your intended/current major, or unknown</P>
-      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
-      <Dropdown
-        options={majors}
-        placeholder="Enter your major"
-        isSearchable
-        formatCreateLabel={inputValue => `${inputValue}`}
-        label={formInputs.major}
-        value={creatableDropdownValue(majors, 'label', formInputs.major)}
-        onChange={e =>
-          onChange({
-            major: e.label,
-          })
-        }
-        emptySearchDefaultOption="Start typing to search"
-        canCreateNewOption
-        isValid={!errors?.major}
-        customRef={refs['majorRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 15</QuestionHeading>
-      <SubHeading>
-        Will you be 19 years of age or older by January 20th, 2024?
-        <Required />
-      </SubHeading>
-      {errors?.willBeAgeOfMajority && <ErrorMessage>{errors?.willBeAgeOfMajority}</ErrorMessage>}
+      <QuestionHeading>question 16</QuestionHeading>
+      <SubHeading>Are you legally authorized to work in Canada?</SubHeading>
       <Select
         type="radio"
         label="Yes"
-        checked={formInputs.willBeAgeOfMajority}
-        onChange={() => onChange({ willBeAgeOfMajority: true })}
-        customRef={refs['willBeAgeOfMajorityRef']}
+        checked={formInputs.isAuthorizedToWorkInCanada}
+        onChange={() => onChange({ isAuthorizedToWorkInCanada: true })}
+        customRef={refs['isAuthorizedToWorkInCanadaRef']}
       />
       <Select
         type="radio"
         label="No"
-        checked={formInputs.willBeAgeOfMajority === false}
-        onChange={() => onChange({ willBeAgeOfMajority: false })}
+        checked={formInputs.isAuthorizedToWorkInCanada === false}
+        onChange={() => onChange({ isAuthorizedToWorkInCanada: false })}
       />
     </FormSpacing>
   </>

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Hackcamp2023BG from '../components/BackgroundImage'
+// import Hackcamp2023BG from '../components/BackgroundImage'
 
 const SponsorListContainer = styled.div`
   display: flex;
@@ -53,7 +53,7 @@ export default ({ sponsors }) => {
     const imgWidth = maxSponsorWidth * (1 - 0.1 * tierRanks[entry.tier.toLowerCase()])
     return (
       <SponsorContainer key={i}>
-        <Hackcamp2023BG />
+        {/* <Hackcamp2023BG /> */}
         <a href={entry.link}>
           <SponsorImage src={entry.imgURL} alt={entry.imgName} width={imgWidth} />
         </a>

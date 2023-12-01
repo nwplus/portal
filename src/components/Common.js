@@ -85,7 +85,6 @@ export const HR = styled.hr`
 `
 
 export const TextInputLike = css`
-  font-weight: bold;
   max-width: 100%;
   background-color: transparent;
   padding: 10px;

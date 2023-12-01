@@ -1,15 +1,15 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'HackCamp2023'
+export const DB_HACKATHON = 'nwHacks2024'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'HackCamp 2023',
-  hackathonNameShort: 'HackCamp',
+  hackathonName: 'nwHacks 2024',
+  hackathonNameShort: 'nwHacks',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 4
@@ -139,32 +139,31 @@ export const ETHNICITY_OPTIONS = Object.freeze({
   white: 'White',
   otherAsian: 'Other Asian (Thai, Cambodian, etc)',
   otherPacificIslander: 'Other Pacific Islander',
-  other: 'Other (Please Specify)',
   preferNot: 'Prefer not to answer',
+  other: 'Other (Please Specify)',
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
-  sheher: 'she/her',
   hehim: 'he/him',
+  sheher: 'she/her',
   theythem: 'they/them',
-  shethey: 'she/they',
   hethey: 'he/they',
+  shethey: 'she/they',
   preferNot: 'Prefer not to answer',
   other: 'Other',
 })
 
 export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
   none: 'None',
+  celiacDisease: 'Celiac Disease',
+  halal: 'Halal',
+  kosher: 'Kosher',
   vegetarian: 'Vegetarian',
   vegan: 'Vegan',
-  celiacDisease: 'Celiac Disease',
-  kosher: 'Kosher',
-  halal: 'Halal',
   other: 'Allergies/other',
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
-  beginner: 'Beginner',
   designer: 'Designer',
   developer: 'Developer',
   pm: 'Product/project manager',
@@ -219,8 +218,8 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       white: false,
       otherAsian: false,
       otherPacificIslander: false,
-      other: false,
       preferNot: false,
+      other: false,
     },
     dietaryRestriction: {
       none: false,
@@ -237,13 +236,13 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     major: '',
     educationLevel: '',
     graduation: null,
+    academicYear: '',
     countryOfResidence: '',
     willBeAgeOfMajority: null,
   },
   skills: {
     firstTimeHacker: null,
     contributionRole: {
-      beginner: false,
       designer: false,
       developer: false,
       pm: false,
@@ -277,6 +276,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     MLHPrivacyPolicy: false,
     MLHEmailSubscription: false,
     shareWithnwPlus: false,
+    nwPlusPrivacyPolicy: false,
     shareWithSponsors: false,
   },
   team: '',

@@ -2,13 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../../components/Typography'
-import { FormSpacing, SubHeading } from './'
-import {
-  CenteredH1,
-  // P
-} from '../Typography'
-import { findElement } from '../../utility/utilities'
 import { copyText } from '../../utility/Constants'
+import { findElement } from '../../utility/utilities'
+import { CenteredH1 } from '../Typography'
+import { FormSpacing, SubHeading } from './'
 
 const StyledDropdown = styled(Dropdown)`
   .react-select__control {
@@ -39,8 +36,8 @@ export default ({ errors, formInputs, onChange }) => {
       <FormSpacing>
         <CenteredH1>
           Almost there...{' '}
-          <span role="img" aria-label="Ghost emoji">
-            👻
+          <span role="img" aria-label="Grinning face with star eyes emoji">
+            🤩
           </span>
         </CenteredH1>
       </FormSpacing>
@@ -84,9 +81,6 @@ export default ({ errors, formInputs, onChange }) => {
       <FormSpacing>
         <QuestionHeading>Question 21</QuestionHeading>
         <SubHeading>
-          <span role="img" aria-label="Grinning face with star eyes emoji">
-            🤩
-          </span>{' '}
           Have you previously attended any nwPlus organized events? (select all that apply)
           <Required />
         </SubHeading>

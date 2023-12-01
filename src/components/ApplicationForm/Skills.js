@@ -1,11 +1,11 @@
 import React from 'react'
-import { CenteredH1, P, QuestionHeading, ErrorMessage, ErrorSpan as Required } from '../Typography'
-import { TextInput, TextArea } from '../Input'
-import ResumeUploadBtn from '../ResumeUploadBtn'
-import { Select } from '../Input'
-import { FormSpacing, SubHeading } from './'
-import { CONTRIBUTION_ROLE_OPTIONS, copyText } from '../../utility/Constants'
 import styled from 'styled-components'
+import { CONTRIBUTION_ROLE_OPTIONS, copyText } from '../../utility/Constants'
+import { applyCustomSort } from '../../utility/utilities'
+import { Select, TextArea, TextInput } from '../Input'
+import ResumeUploadBtn from '../ResumeUploadBtn'
+import { CenteredH1, ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
+import { FormSpacing, SubHeading } from './'
 
 const QuestionForm = styled.form`
   display: flex;
@@ -85,51 +85,30 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 16</QuestionHeading>
-        <SubHeading>
-          Is this your first hackathon?
-          <Required />
-        </SubHeading>
-        {errors?.firstTimeHacker && <ErrorMessage>{errors?.firstTimeHacker}</ErrorMessage>}
-        <Select
-          type="radio"
-          label="Yes"
-          checked={formInputs.firstTimeHacker}
-          onChange={() => onChange({ firstTimeHacker: true })}
-          customRef={refs['firstTimeHackerRef']}
-        />
-        <Select
-          type="radio"
-          label="No"
-          checked={formInputs.firstTimeHacker === false}
-          onChange={() => onChange({ firstTimeHacker: false })}
-        />
-      </FormSpacing>
-
-      <FormSpacing>
         <QuestionHeading>question 17</QuestionHeading>
         <SubHeading>
-          What role(s) would you like to take on at {copyText.hackathonName}?
+          What is your intended role at {copyText.hackathonName}?
           <Required />
         </SubHeading>
         {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
         {formInputs &&
-          Object.entries(formInputs?.contributionRole)
-            .sort()
-            .map(([key, val]) => (
-              <Select
-                key={key}
-                type="checkbox"
-                label={CONTRIBUTION_ROLE_OPTIONS[key]}
-                checked={val}
-                onChange={() =>
-                  onChange({
-                    contributionRole: { ...formInputs.contributionRole, [key]: !val },
-                  })
-                }
-                customRef={key === 'vegetarian' ? refs['contributionRoleRef'] : null}
-              />
-            ))}
+          applyCustomSort(
+            Object.entries(formInputs?.contributionRole),
+            Object.keys(CONTRIBUTION_ROLE_OPTIONS)
+          ).map(([key, val]) => (
+            <Select
+              key={key}
+              type="checkbox"
+              label={CONTRIBUTION_ROLE_OPTIONS[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  contributionRole: { ...formInputs.contributionRole, [key]: !val },
+                })
+              }
+              customRef={key === 'vegetarian' ? refs['contributionRoleRef'] : null}
+            />
+          ))}
         {formInputs?.contributionRole?.other && (
           <TextInput
             placeholder="Please Specify"
@@ -148,74 +127,23 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       <FormSpacing>
         <QuestionHeading>question 18</QuestionHeading>
         <SubHeading>
-          Help us get to know you better by providing as many links as you feel will support your
-          registration!
+          Is this your first hackathon?
+          <Required />
         </SubHeading>
-        <P>
-          We will be looking at your resume and GitHub if you're a developer, and we will be looking
-          at your resume and portfolio if you're a designer. Please ensure the links are publicly
-          accessible by opening them in an incognito browser. Resume cannot exceed 2MB and must be a
-          PDF document.
-        </P>
-
-        <QuestionForm>
-          <FormRow fieldValue="resume" required>
-            <ResumeUploadBtn
-              onChange={e => {
-                if (e.target.files[0]) {
-                  handleResume(e.target.files[0])
-                }
-              }}
-              hint={formInputs.resume}
-              customRef={refs['resumeRef']}
-            />
-            {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
-          </FormRow>
-          <FormRow fieldValue="Personal website/portfolio link">
-            <TextInput
-              placeholder="Optional"
-              size="large"
-              value={formInputs.portfolio}
-              invalid={!!errors.portfolio}
-              errorMsg={errors.portfolio}
-              onChange={e =>
-                onChange({
-                  portfolio: e.target.value,
-                })
-              }
-              customRef={refs['portfolioRef']}
-            />
-          </FormRow>
-          <FormRow fieldValue="GitHub/BitBucket/GitLab">
-            <TextInput
-              placeholder="Optional"
-              size="large"
-              value={formInputs.github}
-              invalid={!!errors.github}
-              errorMsg={errors.github}
-              onChange={e =>
-                onChange({
-                  github: e.target.value,
-                })
-              }
-            />
-          </FormRow>
-
-          <FormRow fieldValue="linkedin">
-            <TextInput
-              placeholder="Optional"
-              size="large"
-              value={formInputs.linkedin}
-              invalid={!!errors.linkedin}
-              errorMsg={errors.linkedin}
-              onChange={e =>
-                onChange({
-                  linkedin: e.target.value,
-                })
-              }
-            />
-          </FormRow>
-        </QuestionForm>
+        {errors?.firstTimeHacker && <ErrorMessage>{errors?.firstTimeHacker}</ErrorMessage>}
+        <Select
+          type="radio"
+          label="Yes"
+          checked={formInputs.firstTimeHacker}
+          onChange={() => onChange({ firstTimeHacker: true })}
+          customRef={refs['firstTimeHackerRef']}
+        />
+        <Select
+          type="radio"
+          label="No"
+          checked={formInputs.firstTimeHacker === false}
+          onChange={() => onChange({ firstTimeHacker: false })}
+        />
       </FormSpacing>
 
       <SubHeading>Short Answer Questions</SubHeading>
@@ -289,6 +217,77 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             customRef={refs['longAnswers3Ref']}
           />
         </FormGroup>
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 22</QuestionHeading>
+        <SubHeading>
+          Help us get to know you better by providing as many links as you feel will support your
+          registration!
+        </SubHeading>
+
+        <QuestionForm>
+          <FormRow fieldValue="resume" required>
+            <ResumeUploadBtn
+              onChange={e => {
+                if (e.target.files[0]) {
+                  handleResume(e.target.files[0])
+                }
+              }}
+              hint={formInputs.resume}
+              customRef={refs['resumeRef']}
+            />
+            {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
+          </FormRow>
+          <P>
+            This resume is not directly assessed in your application, but will be put in a resume
+            bank to be shared with nwHacks sponsors for internship and new grad opportunities!
+          </P>
+          <FormRow fieldValue="GitHub/BitBucket/GitLab">
+            <TextInput
+              placeholder="Optional"
+              size="large"
+              value={formInputs.github}
+              invalid={!!errors.github}
+              errorMsg={errors.github}
+              onChange={e =>
+                onChange({
+                  github: e.target.value,
+                })
+              }
+            />
+          </FormRow>
+          <FormRow fieldValue="Personal website/portfolio link">
+            <TextInput
+              placeholder="Optional"
+              size="large"
+              value={formInputs.portfolio}
+              invalid={!!errors.portfolio}
+              errorMsg={errors.portfolio}
+              onChange={e =>
+                onChange({
+                  portfolio: e.target.value,
+                })
+              }
+              customRef={refs['portfolioRef']}
+            />
+          </FormRow>
+
+          <FormRow fieldValue="linkedin">
+            <TextInput
+              placeholder="Optional"
+              size="large"
+              value={formInputs.linkedin}
+              invalid={!!errors.linkedin}
+              errorMsg={errors.linkedin}
+              onChange={e =>
+                onChange({
+                  linkedin: e.target.value,
+                })
+              }
+            />
+          </FormRow>
+        </QuestionForm>
       </FormSpacing>
     </>
   )
