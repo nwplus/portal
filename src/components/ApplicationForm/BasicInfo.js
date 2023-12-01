@@ -60,7 +60,7 @@ const educationOptions = [
 //   { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
 // ]
 
-const academicYear = [
+const academicYearOptions = [
   { value: 'Secondary/High School', label: 'Secondary/High School' },
   { value: '1st year', label: '1st year' },
   { value: '2nd year', label: '2nd year' },
@@ -615,10 +615,10 @@ export default ({ refs, errors, formInputs, onChange }) => (
       </SubHeading>
       {errors?.academicYear && <ErrorMessage>{errors?.academicYear}</ErrorMessage>}
       <Dropdown
-        options={academicYear}
+        options={academicYearOptions}
         placeholder="Academic Year"
         isSearchable={false}
-        value={findElement(graduationOptions, 'value', formInputs.academicYear)}
+        value={findElement(academicYearOptions, 'value', formInputs.academicYear)}
         onChange={inputValue =>
           onChange({
             academicYear: inputValue.value,
