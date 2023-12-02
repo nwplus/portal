@@ -177,6 +177,7 @@ export const EVENTS_ATTENDED = Object.freeze({
   cmdf2023: 'cmd-f 2023',
   hackCamp2021: 'HackCamp 2021',
   hackCamp2022: 'HackCamp 2022',
+  hackCamp2023: 'HackCamp 2023',
   nwHacks2021: 'nwHacks 2021',
   nwHacks2022: 'nwHacks 2022',
   nwHacks2023: 'nwHacks 2023',

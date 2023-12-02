@@ -42,7 +42,7 @@ export default ({ errors, formInputs, onChange }) => {
         </CenteredH1>
       </FormSpacing>
       <FormSpacing>
-        <QuestionHeading>Question 20</QuestionHeading>
+        <QuestionHeading>Question 23</QuestionHeading>
         <SubHeading>
           How did you hear about {copyText.hackathonName}?
           <Required />
@@ -79,7 +79,7 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>Question 21</QuestionHeading>
+        <QuestionHeading>Question 24</QuestionHeading>
         <SubHeading>
           Have you previously attended any nwPlus organized events? (select all that apply)
           <Required />
@@ -108,6 +108,20 @@ export default ({ errors, formInputs, onChange }) => {
               eventsAttended: {
                 ...formInputs.eventsAttended,
                 hackCamp2022: !formInputs.eventsAttended.hackCamp2022,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="HackCamp 2023"
+          checked={formInputs.eventsAttended.hackCamp2023}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                hackCamp2023: !formInputs.eventsAttended.hackCamp2023,
               },
             })
           }
