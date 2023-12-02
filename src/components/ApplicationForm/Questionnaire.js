@@ -114,6 +114,20 @@ export default ({ errors, formInputs, onChange }) => {
         />
         <Select
           type="checkbox"
+          label="HackCamp 2023"
+          checked={formInputs.eventsAttended.hackCamp2023}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                hackCamp2023: !formInputs.eventsAttended.hackCamp2023,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
           label="nwHacks 2021"
           checked={formInputs.eventsAttended.nwHacks2021}
           onChange={() =>
