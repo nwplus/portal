@@ -790,7 +790,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 14</QuestionHeading>
-      <SubHeading>What is your gender do you identify as?</SubHeading>
+      <SubHeading>What gender do you identify as?</SubHeading>
       {/* {errors?.gender && <ErrorMessage>{errors?.gender}</ErrorMessage>} */}
       <Dropdown
         options={genderOptions}
