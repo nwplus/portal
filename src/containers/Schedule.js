@@ -11,10 +11,10 @@ export default () => {
 
   useEffect(() => {
     const unsubscribe = livesiteDocRef.onSnapshot(doc => {
-      const d = doc.data()
-      if (d) {
-        setStart(new Date(d.hackathonStart))
-        setEnd(new Date(d.hackathonEnd))
+      const data = doc.data()
+      if (data) {
+        setStart(new Date(data.hackathonStart))
+        setEnd(new Date(data.hackathonEnd))
       }
     })
     return unsubscribe
