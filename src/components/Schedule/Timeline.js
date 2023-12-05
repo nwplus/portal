@@ -79,6 +79,19 @@ const CurrentTime = ({ start, duration, numCols }) => {
 
 export const TimelineColumn = ({ hackathonStart, duration, numCols }) => {
   duration = Math.floor(Math.max(0, duration))
+  const dayOneDate = hackathonStart.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+  const dayTwoDate = new Date(hackathonStart.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString(
+    'en-US',
+    {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    }
+  )
   return (
     <TimelineColumnContainer duration={duration}>
       <CurrentTime start={hackathonStart} duration={duration} numCols={numCols} />
@@ -90,7 +103,7 @@ export const TimelineColumn = ({ hackathonStart, duration, numCols }) => {
           return (
             <TimelineBlock key={i}>
               <TimelineLabel hourOffset={i}>
-                <strong>November 18th, 2023</strong>
+                <strong>{dayOneDate}</strong>
                 <br />
                 {label}
               </TimelineLabel>
@@ -104,7 +117,7 @@ export const TimelineColumn = ({ hackathonStart, duration, numCols }) => {
           return (
             <TimelineBlock key={i}>
               <TimelineLabel hourOffset={i}>
-                <strong>November 19th, 2023</strong>
+                <strong>{dayTwoDate}</strong>
                 <br />
                 {label}
               </TimelineLabel>
