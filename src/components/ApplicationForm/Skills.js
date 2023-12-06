@@ -239,10 +239,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             />
             {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
           </FormRow>
-          <P>
-            This resume is not directly assessed in your application, but will be put in a resume
-            bank to be shared with nwHacks sponsors for internship and new grad opportunities!
-          </P>
+          <P>Maximum file size of 2MB</P>
           <FormRow fieldValue="GitHub/BitBucket/GitLab">
             <TextInput
               placeholder="Optional"
