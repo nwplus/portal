@@ -23,12 +23,15 @@ jobs:
 
       - name: Choose dev firebase project
         if: ${{ env.IS_PRODUCTION == 'false' }}
-        run: firebase use nwplus-ubc-dev --token ${{ secrets.FIREBASE_TOKEN }}
-        uses: firebase-tools@12.9.1
+        run: |
+          npm install -g firebase-tools@12.9.1
+          firebase use nwplus-ubc-dev --token ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Choose prod firebase project
         if: ${{ env.IS_PRODUCTION == 'true' }}
-        run: firebase use nwplus-ubc --token ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          npm install -g firebase-tools@12.9.1
+          firebase use nwplus-ubc --token ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Install dependencies
         run: npm install --force
