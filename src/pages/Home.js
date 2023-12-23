@@ -8,6 +8,7 @@ import head_decal from '../assets/cmdf_bannerdecal.svg'
 import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
+import { APPLICATION_STATUS } from '../utility/Constants'
 
 const HomeContainer = styled.div`
   height: 100%;
@@ -37,7 +38,10 @@ export default withTheme(({ announcements, theme }) => {
       {/* 
       <CommonLinks />
       <Announcements announcements={announcements} /> */}
-      {isAuthed && user.uid && <QrCode userInfo={user} userId={user.uid} />}
+
+      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid && (
+        <QrCode userInfo={user} userId={user.uid} />
+      )}
     </HomeContainer>
   )
 })
