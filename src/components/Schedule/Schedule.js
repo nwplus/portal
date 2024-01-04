@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike } from '../Common'
-import { H1 } from '../Typography'
+import { H1, H2 } from '../Typography'
 import { EVENT_WIDTH } from './Constants'
 import Event from './Event'
 import { TagLegend } from './Tag'
@@ -63,7 +63,7 @@ const OverflowContainer = styled.div`
 
 const msToHours = ms => ms / 1000 / 60 / 60
 
-const Header = styled(H1)`
+const Header = styled(H2)`
   margin: 0 0 0 0;
   color: ${p => p.theme.colors.schedule.text};
 `

@@ -99,7 +99,7 @@ const nwTheme = {
     schedule: {
       background: 'transparent',
       event: 'white',
-      text: '#476C6E',
+      text: '#F0EEF2', //greyscale
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',
