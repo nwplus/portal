@@ -4,7 +4,7 @@ import { Link, useLocation } from 'wouter'
 import cmdf_logo from '../assets/cmdf_logo.png'
 import hc_logo from '../assets/hc_logo.svg'
 import logo from '../assets/logo.svg'
-import nwhacks_logo from '../assets/nwhacks_logo_white.svg'
+import nwhacks_logo from '../assets/logo2024.svg'
 import { useAuth } from '../utility/Auth'
 import { getSponsors } from '../utility/firebase'
 import { hackerStatuses } from './ApplicationDashboard'
@@ -19,7 +19,7 @@ const SidebarContainer = styled.div`
   min-height: 100%;
   transition: opacity 1s ease-out;
   z-index: 1;
-  background: ${p => p.theme.colors.secondaryBackground};
+  background: ${p => p.theme.colors.primaryGradient};
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
@@ -41,8 +41,9 @@ const chooseLogo = hackathon => {
 const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
-  height: 6em;
-  margin: 30px 0 0px 2rem;
+  height: 10em;
+  margin: auto;
+  display: block;
 
   ${p =>
     p.theme.name === 'hackCamp' &&
@@ -111,30 +112,32 @@ const StyledA = styled(A)`
   }
 `
 
-const LiveDot = styled.span`
-  height: 10px;
-  width: 10px;
-  background: ${p => p.theme.colors.primary};
-  border-radius: 50%;
-  margin: 0 7px 0 4px;
-  display: inline-block;
-`
+// const LiveDot = styled.span`
+//   height: 10px;
+//   width: 10px;
+//   background: ${p => p.theme.colors.primary};
+//   border-radius: 50%;
+//   margin: 0 7px 0 4px;
+//   display: inline-block;
+// `
 /* Old styles
 background-color: ${p => p.theme.colors.primary};
 */
-const LiveLabel = styled.p`
-  margin: 1em 0 2em 2rem;
-  font-weight: bold;
-  font-size: 0.9em;
-  border-radius: 7px;
-  background: ${p => p.theme.colors.primaryGradient};
-  color: ${p => p.theme.colors.cardText};
-  width: 4em;
-  padding: 5px;
-`
+// const LiveLabel = styled.p`
+//   margin: 1em 0 2em 2rem;
+//   font-weight: bold;
+//   font-size: 0.9em;
+//   border-radius: 7px;
+//   background: ${p => p.theme.colors.primaryGradient};
+//   color: ${p => p.theme.colors.cardText};
+//   width: 4em;
+//   padding: 5px;
+// `
 
 const StyledButton = styled(Button)`
   margin: 1em 0 1em 2rem;
+  display: inline-block;
+  text-transform: capitalize;
 `
 
 const ApplicationText = styled.div`
@@ -143,7 +146,7 @@ const ApplicationText = styled.div`
 
 const StatusText = styled.div`
   font-size: 0.8em;
-  color: ${p => p.theme.colors.sidebar.statusText};
+  color: ${p => p.theme.colors.secondary};
   margin-top: 5px;
 `
 
@@ -163,9 +166,9 @@ const SponsorLogo = styled.img`
 const CategoryHeader = styled.h4`
   text-transform: uppercase;
   padding: 1em 50px 0 2rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
-  color: ${p => p.theme.colors.secondaryBackgroundTransparent};
+  color: ${p => p.theme.colors.primary};
 `
 
 const LogoContainer = styled.div`
@@ -192,8 +195,9 @@ export default ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'Home' },
+      { location: '/', text: 'My Ticket' },
       { location: '/schedule', text: 'Schedule' },
+      { location: '/livestream', text: 'Livestream' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
     // Tools
@@ -271,10 +275,6 @@ export default ({
         <Logo alt="logo" />
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
       </LogoContainer>
-      <LiveLabel>
-        <LiveDot />
-        LIVE
-      </LiveLabel>
       <ItemsContainer>
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
           Object.entries(links).map((t, k) => {
@@ -302,7 +302,7 @@ export default ({
       </ItemsContainer>
       {isAuthed ? (
         <StyledButton color="secondary" onClick={logout}>
-          Logout
+          Log out
         </StyledButton>
       ) : (
         <StyledButton color="secondary" href="/login">

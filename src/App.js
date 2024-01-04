@@ -14,6 +14,7 @@ import {
   Gallery,
   GettingStarted,
   Home,
+  Livestream,
   Judging,
   JudgingAdmin,
   JudgingView,
@@ -239,6 +240,9 @@ function App() {
           </PageRoute>
           <PageRoute path="/schedule">
             <Schedule />
+          </PageRoute>
+          <PageRoute path="/livestream">
+            <Livestream />
           </PageRoute>
           <PageRoute path="/sponsors">
             <Sponsors />

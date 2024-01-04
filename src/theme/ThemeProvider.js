@@ -44,21 +44,22 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: '#3C4BA5', // Background
-    card: '#0A1361', // BG Accent
+    background: '#150C27', // Background
+    card: '#433860', // BG Accent
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackgroundTransparent: '#253281', // before: #10186Cbb (hover animation for side bar buttons)
-    secondaryBackgroundTransparentHover: '#0A1361',
+    secondaryBackgroundTransparent: '#F0EEF299', // before: #10186Cbb (hover animation for side bar buttons)
+    secondaryBackgroundTransparentHover: '#9D9FAD',
     secondaryBackground: '#5667CF', // Side bar background
+    secondary: '#9D9FAD',
     sidebar: {
-      link: '#fff',
-      statusText: '#97A4F7',
+      link: '#9D9FAD',
+      statusText: '#9D9FAD',
     },
     error: '#ff0033',
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     foreground: '#4F4A59',
-    primary: '#3C4BA5',
+    primary: '#FFBF76',
     default: '#FFFFFF',
     warning: '#F18383',
     secondaryWarning: '#EF6C6C',
@@ -66,7 +67,7 @@ const nwTheme = {
     text: '#FFF',
     link: '#fff',
     linkHover: '#31E0E0', //TODO
-    primaryGradient: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', //'linear-gradient(180deg, #FED9CD 0%, #CDCAEC 100%)', // button
+    primaryGradient: 'linear-gradient(180deg, #150C27 0%, #150C27 100%)', //'linear-gradient(180deg, #FED9CD 0%, #CDCAEC 100%)', // button
     primaryGradientHover: 'linear-gradient(263.82deg, #E9C3CB 38.58%, #A4A9F1 78.17%)', //'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
     tertiaryHover: '#1EEDC8', // button hover
     selects: {
@@ -78,14 +79,15 @@ const nwTheme = {
     },
     button: {
       // Application form buttons
-      text: '#0A1361', // For primary button
+      text: '#191C4F', // For primary button
       background: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', // Primary button
       border: '#9AD4DE',
       hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
-      outlineText: '#FFF', // Secondary button
-      outlineBackground: '#A4A9F1',
-      outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
+      outlineText: '#191C4F', // Secondary button
+      outlineHover: '#FFFFFF', // secondary
+      outlineBackground: '#FFBF76', //secondary button
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #433860 3.67%, #433860 78.93%)',
       outlineBorder: '#CFD6FF',
       grey500: '#BDBAC3',
       grey700: '#55525B',

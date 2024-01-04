@@ -9,6 +9,7 @@ import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 
+//My Ticket
 const HomeContainer = styled.div`
   height: 100%;
   overflow: hidden;
@@ -33,7 +34,6 @@ export default withTheme(({ announcements, theme }) => {
       {theme.name === 'cmdf' && <TopDecal src={head_decal} />}
       {/* {theme.name === 'hackCamp' && <Hackcamp2023BG />} */}
       <HackerCountdown />
-      <Livestream />
       {/* 
       <CommonLinks />
       <Announcements announcements={announcements} /> */}
