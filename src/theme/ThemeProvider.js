@@ -44,14 +44,18 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: '#150C27', // Background
-    card: '#433860', // BG Accent
+    background: '#193545', // Background
+    card: '#244556', // BG Accent
     border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackgroundTransparent: '#F0EEF299', // before: #10186Cbb (hover animation for side bar buttons)
+    secondaryBackgroundTransparent: '#F0EEF299',
     secondaryBackgroundTransparentHover: '#9D9FAD',
     secondaryBackground: '#5667CF', // Side bar background
-    secondary: '#9D9FAD',
     sidebar: {
+      background: '#193545',
+      hover: '#244556',
+      selected: '#244556',
+      primary: '#DCB551',
+      secondary: '#9D9FAD',
       link: '#9D9FAD',
       statusText: '#9D9FAD',
     },
@@ -86,8 +90,8 @@ const nwTheme = {
       hoverborder: '#A4A9F1',
       outlineText: '#191C4F', // Secondary button
       outlineHover: '#FFFFFF', // secondary
-      outlineBackground: '#FFBF76', //secondary button
-      outlineBackgroundHover: 'linear-gradient(265.48deg, #433860 3.67%, #433860 78.93%)',
+      outlineBackground: '#DCB551', //secondary button
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #244556 3.67%, #244556 78.93%)',
       outlineBorder: '#CFD6FF',
       grey500: '#BDBAC3',
       grey700: '#55525B',

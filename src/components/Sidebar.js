@@ -19,7 +19,7 @@ const SidebarContainer = styled.div`
   min-height: 100%;
   transition: opacity 1s ease-out;
   z-index: 1;
-  background: ${p => p.theme.colors.primaryGradient};
+  background: ${p => p.theme.colors.sidebar.background};
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
@@ -88,28 +88,29 @@ const StyledA = styled(A)`
 
   color: ${p => p.theme.colors.sidebar.link};
 
-  ${p =>
-    p.selected &&
-    `
-    background: #433860;
-    color: #ffffff;
-
-    &:hover {
-      color: #ffffff;
-      background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
-      border-bottom: none;
-    }
-  `}
-
   &:hover {
     color: ${p => p.theme.colors.text};
-    background: ${p => p.theme.colors.card};
+    background: ${p => p.theme.colors.sidebar.hover};
     border-bottom: none;
   }
+
   &:focus {
     color: ${p => p.theme.colors.text};
     border-bottom: none;
   }
+
+  ${p =>
+    p.selected &&
+    `
+    background: ${p.theme.colors.sidebar.selected};
+    color: #ffffff;
+
+    &:hover, &:focus {
+      color: #ffffff;
+      background: ${p.theme.colors.sidebar.hover};
+      border-bottom: none;
+    }
+  `}
 `
 
 // const LiveDot = styled.span`
@@ -146,7 +147,7 @@ const ApplicationText = styled.div`
 
 const StatusText = styled.div`
   font-size: 0.8em;
-  color: ${p => p.theme.colors.secondary};
+  color: ${p => p.theme.colors.sidebar.secondary};
   margin-top: 5px;
 `
 
@@ -168,7 +169,7 @@ const CategoryHeader = styled.h4`
   padding: 1em 50px 0 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.sidebar.primary};
 `
 
 const LogoContainer = styled.div`
