@@ -337,6 +337,8 @@ const Dashboard = ({
   setReleaseLiabilityCheck,
   mediaConsentCheck,
   setMediaConsentCheck,
+  ageOfMajoritySelect,
+  setAgeOfMajoritySelect,
   username,
   editApplication,
   relevantDates,
@@ -349,6 +351,7 @@ const Dashboard = ({
   const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
   const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
   const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
+  const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
@@ -371,6 +374,11 @@ const Dashboard = ({
   const handleMediaConsentChange = () => {
     setMediaConsent(!mediaConsent)
     setMediaConsentCheck(!mediaConsentCheck)
+  }
+
+  const handleAgeOfMajoritySelectChange = e => {
+    setAgeOfMajority(e.target.value)
+    setAgeOfMajoritySelect(e.target.value)
   }
 
   return (
@@ -470,6 +478,40 @@ const Dashboard = ({
               />
             </CheckboxContainer>
 
+            <div style={{ marginTop: '30px' }}>
+              <QuestionLabel>For Minors (Under 19) - REQUIRED IF YOU ARE UNDER 19</QuestionLabel>
+              <Required />
+              <P>
+                If you are under 19, please download the waivers, and have them signed by your
+                parent or legal guardian. Bring the signed forms with you to the event.
+              </P>
+              <div>
+                <input
+                  type="radio"
+                  id="under19"
+                  name="under19"
+                  value="under19"
+                  checked={ageOfMajority === 'under19'}
+                  onChange={handleAgeOfMajoritySelectChange}
+                />
+                <label htmlFor="under19">
+                  I am under 19 and will bring the signed waivers on the day of the event.
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type="radio"
+                  id="over19"
+                  name="over19"
+                  value="over19"
+                  checked={ageOfMajority === 'over19'}
+                  onChange={handleAgeOfMajoritySelectChange}
+                />
+                <label htmlFor="over19">I am over the age of 19.</label>
+              </div>
+            </div>
+
             {/* <WaiverUpload>
               <QuestionLabel>Waiver upload</QuestionLabel>
               <WaiverUploadContext>
@@ -494,11 +536,16 @@ const Dashboard = ({
             <RSVPButton
               width="flex"
               onClick={
-                isRsvpOpen && canRSVP && covidWaiver && releaseLiability && (() => setRSVP(canRSVP))
+                isRsvpOpen &&
+                canRSVP &&
+                covidWaiver &&
+                releaseLiability &&
+                ageOfMajority &&
+                (() => setRSVP(canRSVP))
               }
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
-              disabled={!(isRsvpOpen && covidWaiver && releaseLiability)}
+              disabled={!(isRsvpOpen && covidWaiver && releaseLiability && ageOfMajority)}
             >
               RSVP
             </RSVPButton>
