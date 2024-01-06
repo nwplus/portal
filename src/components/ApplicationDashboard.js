@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { H1, A } from './Typography'
-import { Button } from './Input/Button'
-import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '../utility/Constants'
-import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
+import Icon from '../components/Icon'
+import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '../utility/Constants'
 import { analytics } from '../utility/firebase'
-import { Checkbox } from './Input'
+import { Button } from './Input/Button'
 import ResumeUploadBtn from './ResumeUploadBtn'
+import { A, H1 } from './Typography'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -375,14 +374,14 @@ const Dashboard = ({
         {/* Hides this option if a user unRSVP'd */}
         {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
           <>
-            <SafeWalkContainer>
+            {/* <SafeWalkContainer>
               <QuestionLabel>Safewalk option</QuestionLabel>
               <Checkbox
                 checked={safewalk}
                 onChange={handleChange}
                 label="If you are planning to walk home alone on campus on the night of the 11th, would you like organizers to accompany you to your destination?"
               />
-            </SafeWalkContainer>
+            </SafeWalkContainer> */}
             <WaiverUpload>
               <QuestionLabel>Waiver upload</QuestionLabel>
               <WaiverUploadContext>
