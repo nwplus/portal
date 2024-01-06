@@ -2,13 +2,11 @@ import React from 'react'
 import HackerCountdown from '../containers/HackerCountdown'
 // import Announcements from '../components/Announcements'
 // import { CommonLinks } from '../containers/Quicklinks'
-import Livestream from '../components/Livestream'
 import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
-import QrCode from '../components/QrCode'
+import Livestream from '../components/Livestream'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
-import { APPLICATION_STATUS } from '../utility/Constants'
 
 const HomeContainer = styled.div`
   height: 100%;
@@ -39,9 +37,9 @@ export default withTheme(({ announcements, theme }) => {
       <CommonLinks />
       <Announcements announcements={announcements} /> */}
 
-      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid && (
+      {/* {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid && (
         <QrCode userInfo={user} userId={user.uid} />
-      )}
+      )} */}
     </HomeContainer>
   )
 })
