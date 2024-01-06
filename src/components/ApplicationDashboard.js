@@ -186,16 +186,16 @@ const QuestionLabel = styled.div`
   font-weight: bold;
 `
 
-const WaiverUpload = styled.div`
-  padding-top: 2rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
-`
+// const WaiverUpload = styled.div`
+//   padding-top: 2rem;
+//   display: flex;
+//   gap: 0.5rem;
+//   flex-direction: column;
+// `
 
-const WaiverUploadContext = styled.div`
-  line-height: 150%;
-`
+// const WaiverUploadContext = styled.div`
+//   line-height: 150%;
+// `
 
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {

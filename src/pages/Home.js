@@ -5,7 +5,6 @@ import HackerCountdown from '../containers/HackerCountdown'
 import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
 import Livestream from '../components/Livestream'
-import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 
 const HomeContainer = styled.div`
@@ -25,7 +24,7 @@ const TopDecal = styled.img`
 `
 
 export default withTheme(({ announcements, theme }) => {
-  const { user, isAuthed } = useAuth()
+  // const { user, isAuthed } = useAuth()
 
   return (
     <HomeContainer>
