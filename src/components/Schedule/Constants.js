@@ -1,4 +1,4 @@
-export const HOUR_HEIGHT = 150
+export const HOUR_WIDTH = 350
 export const EVENT_GAP = 5
 export const EVENT_WIDTH = 400
 

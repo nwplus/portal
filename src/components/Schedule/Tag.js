@@ -4,26 +4,29 @@ import { EVENT_TYPES } from './Constants'
 import { ReactComponent as Icon } from '../../assets/scheduleTag.svg'
 
 export const TagLegendContainer = styled.div`
-  margin-bottom: 1.5em;
-  text-align: right;
+  display: flex;
+  align-items: center; /* Center items vertically in the flex container */
+  justify-content: flex-end; /* Align items to the right */
+  padding-right: 25px;
 
   & > span {
-    margin-right: 5px;
+    margin-right: 15px;
   }
 `
 
 export const Tag = styled.span`
   color: ${p => p.theme.colors.schedule.text};
-  font-weight: ${p => p.theme.typography.h2.weight};
-  margin: 0;
+  font-weight: ${p => p.theme.typography.h3.weight};
+  font-size: ${p => p.theme.typography.h3.size};
   padding: 3px 6px;
   border-radius: 4px;
 `
 
-export const PositionedTag = styled(Tag)`
+export const PositionedTag = styled(Icon)`
   position: absolute;
   right: 15px;
   top: 15px;
+  fill: ${props => props.color};
 `
 
 export const StyledSVG = styled(Icon)`
@@ -33,14 +36,12 @@ export const StyledSVG = styled(Icon)`
 export const TagLegend = () => {
   return (
     <TagLegendContainer>
-      {Object.entries(EVENT_TYPES).map((entry, i) => {
-        const event_type = entry[1]
-        console.log('Event Type Color:', event_type.colour)
+      {Object.entries(EVENT_TYPES).map(([key, event_type], i) => {
         return (
-          <span key={i}>
+          <React.Fragment key={key}>
             <StyledSVG color={event_type.colour} />
             <Tag>{event_type.label}</Tag>
-          </span>
+          </React.Fragment>
         )
       })}
     </TagLegendContainer>

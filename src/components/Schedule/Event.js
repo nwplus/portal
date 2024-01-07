@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { P, H3 } from '../Typography'
 import { Card, ScrollbarLike } from '../Common'
-import { HOUR_HEIGHT, EVENT_GAP, EVENT_WIDTH, EVENT_TYPES } from './Constants'
+import { HOUR_WIDTH, EVENT_GAP, EVENT_WIDTH, EVENT_TYPES } from './Constants'
 import { PositionedTag } from './Tag'
 
 const EventDescription = styled(P)`
@@ -13,7 +13,6 @@ const EventDescription = styled(P)`
 
 const EventCard = styled(Card)`
   position: absolute;
-  background-color: ${p => p.theme.colors.schedule.event};
   color: ${p => p.theme.colors.schedule.text};
 
   ${p =>
@@ -28,16 +27,16 @@ const EventCard = styled(Card)`
     }
   `};
 
-  margin: 5px;
+  margin: 5em;
   width: ${EVENT_WIDTH - 50}px;
 
   &&& {
     padding: ${EVENT_GAP}px 15px;
-    margin-top: ${props => props.timeStart * HOUR_HEIGHT}px;
-    height: ${props => props.duration * HOUR_HEIGHT - EVENT_GAP * 4}px;
+    margin-left: ${props => props.timeStart * HOUR_WIDTH}px;
+    width: ${props => props.duration * HOUR_WIDTH - EVENT_GAP * 4}px;
   }
 
-  overflow-y: scroll;
+  // overflow-x: scroll;
 
   ${ScrollbarLike};
 
@@ -47,7 +46,7 @@ const EventCard = styled(Card)`
 
   & > h3 {
     opacity: 1;
-    width: 65%;
+    height: 65%;
     color: ${p => p.theme.colors.schedule.text};
   }
 `
@@ -73,13 +72,16 @@ const formatTime = timeString => {
 }
 
 export default ({ event }) => {
+  console.log('Formatted Start Time:', formatTime(event.startTime))
+  console.log('Original Start Time:', event.startTime)
+  console.log('Calculated MarginLeft:', event.startTime * HOUR_WIDTH)
   return (
     <EventCard timeStart={event.timeStart} duration={event.duration} delayed={event.delayed}>
       <StyledH3>
         {event.name}
         {event.delayed && ' (DELAYED)'}
       </StyledH3>
-      <PositionedTag colour={EVENT_TYPES[event.type].colour}>
+      <PositionedTag color={EVENT_TYPES[event.type].colour}>
         {EVENT_TYPES[event.type].label}
       </PositionedTag>
       <TimeStamp>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike } from '../Common'
 import { H1, H2 } from '../Typography'
@@ -11,71 +11,87 @@ import { TimelineColumn } from './Timeline'
 const ScrollableContainer = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
-  transform: rotateX(180deg);
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: ${p => p.theme.colors.secondaryBackground};
-    border-radius: 10px;
-    border: none;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  ::-webkit-scrollbar-corner {
-    background-color: ${p => p.theme.colors.secondaryBackground};
-  }
-  ::-webkit-resizer {
-    background-color: ${p => p.theme.colors.secondaryBackground};
+  max-width: 150vh;
+  padding: 15px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin-top: 1em;
+  border-radius: 10px;
+  background: linear-gradient(to right, #244556 85%, #33515e 100%);
+  &:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent 50%, #193545 100%);
   }
 `
+
 // Content is upside down due to transformation in ScrollableContainer,
 // which needs to be flipped back
 const ScheduleFlexContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  transform: rotateX(180deg);
-  padding-top: 30px;
+  flex-direction: column;
+  padding: 1em;
+  position: relative;
 `
 
 const FlexColumn = styled.div`
+  position: absolute;
   flex: 0 0 ${EVENT_WIDTH}px;
+  // max-width: 100%;
 `
 
 // These styles are a copy of what's in Common.js
 // I'm doing this because we're styling Schedule uniquely for cmd-f 2022
 // TODO: We should change this back to what it was before this PR
 const OverflowContainer = styled.div`
-  padding: 2em;
+  padding: 1em;
   border-radius: 3px;
-  background-color: ${p => p.theme.colors?.schedule?.background};
+  // background-color: ${p => p.theme.colors?.schedule?.background};
   margin: 1em 0;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
     margin: 0.75em 0;
   }
-  overflow-x: scroll;
-  position: relative;
-  ${ScrollbarLike};
+  max-width: 100vw;
 `
 
 const msToHours = ms => ms / 1000 / 60 / 60
 
 const Header = styled(H2)`
-  margin: 0 0 0 0;
+  margin: 0 0 1.5px 0;
   color: ${p => p.theme.colors.schedule.text};
 `
 
-const ScheduleContainer = ({ header, children }) => {
-  return (
-    <OverflowContainer>
-      <Header>{header ?? '\u00A0'}</Header>
-      {children}
-    </OverflowContainer>
-  )
-}
+const HeaderContainer = styled.div`
+  justify-content: space-between;
+  display: flex;
+  align-items: flex-end;
+`
+
+const ScheduleContainer = styled.div`
+  padding: 2em;
+  border-radius: 10px;
+  background-color: #244556;
+  margin: 1em 0;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 1em;
+    margin: 0.75em 0;
+  }
+`
+
+const RelativeContainer = styled.div`
+  position: relative;
+  max-width: 100vw;
+  height: auto;
+  // height: 100%;
+  // width: 100%;
+`
 
 const ScheduleColumn = ({ column }) => {
   return (
@@ -138,21 +154,39 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   const schedule = produceOptimalSchedule(events)
   const durationOfHackathon = Math.min(msToHours(hackathonEnd - hackathonStart), 48)
 
+  // track scroll position for timeline label fade
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const handleScroll = e => {
+    setScrollPosition(e.currentTarget.scrollLeft)
+  }
+  const [midnightPosition, setMidnightPosition] = useState(0)
+  const handleMidnightPositionChange = position => {
+    setMidnightPosition(position)
+  }
+
   return (
-    <ScheduleContainer header="Day-Of-Events Schedule">
-      <TagLegend />
-      <ScrollableContainer>
-        <ScheduleFlexContainer>
-          <TimelineColumn
-            hackathonStart={hackathonStart}
-            duration={durationOfHackathon}
-            numCols={schedule.length}
-          />
-          {schedule.map((column, i) => (
-            <ScheduleColumn key={i} column={column} />
-          ))}
-        </ScheduleFlexContainer>
-      </ScrollableContainer>
-    </ScheduleContainer>
+    <RelativeContainer>
+      <OverflowContainer>
+        <HeaderContainer>
+          <Header>Day-Of-Events Schedule</Header>
+          <TagLegend />
+        </HeaderContainer>
+        <ScrollableContainer onScroll={handleScroll}>
+          <ScheduleFlexContainer>
+            <TimelineColumn
+              hackathonStart={hackathonStart}
+              duration={durationOfHackathon}
+              numCols={schedule.length}
+              onMidnightPositionChange={handleMidnightPositionChange}
+              scrollPosition={scrollPosition}
+              midnightPosition={midnightPosition}
+            />
+            {schedule.map((column, i) => (
+              <ScheduleColumn key={i} column={column} />
+            ))}
+          </ScheduleFlexContainer>
+        </ScrollableContainer>
+      </OverflowContainer>
+    </RelativeContainer>
   )
 }

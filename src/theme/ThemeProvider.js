@@ -45,7 +45,7 @@ const nwTheme = {
   name: 'nwHacks',
   colors: {
     background: '#193545', // Background
-    card: '#244556', // BG Accent
+    card: '#0A1C27', // BG Accent
     border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#F0EEF299',
     secondaryBackgroundTransparentHover: '#9D9FAD',
@@ -66,7 +66,7 @@ const nwTheme = {
     primary: '#FFBF76',
     default: '#FFFFFF',
     warning: '#F18383',
-    secondaryWarning: '#EF6C6C',
+    secondaryWarning: '#E03131',
     highlight: 'rgba(255, 255, 255, 0.5)',
     text: '#FFF',
     link: '#fff',
@@ -85,7 +85,7 @@ const nwTheme = {
       // Application form buttons
       text: '#191C4F', // For primary button
       background: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', // Primary button
-      border: '#9AD4DE',
+      border: '#8E7EB4',
       hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
       outlineText: '#191C4F', // Secondary button
@@ -97,9 +97,10 @@ const nwTheme = {
       grey700: '#55525B',
     },
     schedule: {
-      background: 'transparent',
+      background: 'linear-gradient(0deg, #244556 100%, #33515E 80%, #244556 20%)',
       event: 'white',
       text: '#F0EEF2', //greyscale
+      timestamp: '#DCB551',
     },
     hover: '#D9FFF9',
     scrollbar: '#4F4A59',

@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled, { css } from 'styled-components'
-import { HOUR_HEIGHT, EVENT_GAP, EVENT_WIDTH } from './Constants'
+import { EVENT_GAP, EVENT_WIDTH, HOUR_WIDTH } from './Constants'
 
 const TimelineColumnContainer = styled.div`
   flex: 0 0 100px;
-  height: ${props => props.duration * HOUR_HEIGHT - 20}px;
-`
-
-const TimelineBlock = styled.div`
-  position: absolute;
-  transform: translateY(-${EVENT_GAP}px);
+  display: flex;
+  flex-direction: row;
+  height: 75vh;
 `
 
 const ScheduleHR = css`
+  height: max(${props => props.widthMultiplier * EVENT_WIDTH + EVENT_GAP * 2}px, 70vw);
   display: inline-block;
-  width: max(${props => props.widthMultiplier * EVENT_WIDTH + EVENT_GAP * 2}px, 70vw);
-  margin-left: 5em;
-  margin-top: ${props => props.hourOffset * HOUR_HEIGHT}px;
+  width: ${HOUR_WIDTH}px;
+`
+const TimelineBlock = styled.div`
+  ${ScheduleHR}
+  margin-top: 1.5em;
 `
 
 const TimelineHR = styled.hr`
   ${ScheduleHR}
   border: 0;
-  border-bottom: 1px dashed ${p => p.theme.colors.text};
-  opacity: 35%;
+  border-top: 1px solid #8e7eb4;
+  border-right: 1px solid #8e7eb4;
+  opacity: 50%;
 `
 
 const CurrentTimeHR = styled.hr`
@@ -31,14 +32,21 @@ const CurrentTimeHR = styled.hr`
   position: absolute;
   border: 0;
   border-bottom: 2px solid ${p => p.theme.colors.error};
+  height: 100%;
   opacity: 50%;
 `
 
 const TimelineLabel = styled.span`
-  padding-right: 1em;
-  position: absolute;
-  width: 5em;
-  margin-top: ${props => props.hourOffset * HOUR_HEIGHT - EVENT_GAP * 1.5}px;
+  position: relative;
+  font-weight: 600;
+`
+
+const DayLabel = styled.span`
+  position: fixed;
+  font-weight: ${p => p.theme.typography.h1.weight};
+  font-size: 1.2em;
+  margin-top: -0.5em;
+  transition: opacity 0.5s ease;
 `
 
 const CurrentTime = ({ start, duration, numCols }) => {
@@ -60,7 +68,7 @@ const CurrentTime = ({ start, duration, numCols }) => {
   useEffect(() => {
     if (!scrolled && hoursBetweenNowAndStart > 1) {
       const timeout = setTimeout(() => {
-        const scrollHeight = 72 + hoursBetweenNowAndStart * HOUR_HEIGHT
+        const scrollHeight = 72 + hoursBetweenNowAndStart * HOUR_WIDTH
         window.scrollTo({ top: scrollHeight, behavior: 'smooth' })
         setScrolled(true)
       }, 500)
@@ -77,49 +85,39 @@ const CurrentTime = ({ start, duration, numCols }) => {
   )
 }
 
-export const TimelineColumn = ({ hackathonStart, duration, numCols }) => {
+export const TimelineColumn = ({
+  hackathonStart,
+  duration,
+  numCols,
+  onMidnightPositionChange,
+  scrollPosition,
+  midnightPosition,
+}) => {
   duration = Math.floor(Math.max(0, duration))
+  //ref for Saturday -> Sunday fade.
+  const midnightRef = useRef(null)
+  useEffect(() => {
+    if (midnightRef.current) {
+      const position = midnightRef.current.offsetLeft
+      onMidnightPositionChange(position)
+    }
+  }, [midnightRef, onMidnightPositionChange])
+  const isSunday = scrollPosition >= midnightPosition - 150
   return (
     <TimelineColumnContainer duration={duration}>
+      <DayLabel style={{ opacity: isSunday ? 0 : 1 }}>Saturday</DayLabel>
+      <DayLabel style={{ opacity: isSunday ? 1 : 0 }}>Sunday</DayLabel>
       <CurrentTime start={hackathonStart} duration={duration} numCols={numCols} />
       {[...Array(duration)].map((v, i) => {
         const labelTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
         const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 
-        if (i === 0) {
-          return (
-            <TimelineBlock key={i}>
-              <TimelineLabel hourOffset={i}>
-                <strong>November 18th, 2023</strong>
-                <br />
-                {label}
-              </TimelineLabel>
-              <br />
-              <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-            </TimelineBlock>
-          )
-        }
-
-        if (label === '12:00 AM') {
-          return (
-            <TimelineBlock key={i}>
-              <TimelineLabel hourOffset={i}>
-                <strong>November 19th, 2023</strong>
-                <br />
-                {label}
-              </TimelineLabel>
-              <br />
-              <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-            </TimelineBlock>
-          )
-        } else {
-          return (
-            <TimelineBlock key={i}>
-              <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
-              <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-            </TimelineBlock>
-          )
-        }
+        return (
+          <TimelineBlock key={i} ref={label === '12:00 AM' ? midnightRef : null}>
+            <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
+            <TimelineHR hourOffset={i} widthMultiplier={numCols} />
+          </TimelineBlock>
+        )
       })}
     </TimelineColumnContainer>
   )
