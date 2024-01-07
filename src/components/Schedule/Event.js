@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { P, H3 } from '../Typography'
 import { Card, ScrollbarLike } from '../Common'
@@ -7,8 +7,23 @@ import { PositionedTag } from './Tag'
 
 const EventDescription = styled(P)`
   opacity: 0.8;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   color: ${p => p.theme.colors.schedule.description} !important;
+`
+
+const EventLocation = styled(P)`
+  opacity: 0.5;
+  margin: 0;
+  margin-bottom: 0.5em;
+  font-style: italic;
+  color: ${p => p.theme.colors.schedule.description} !important;
+`
+
+const ToggleButton = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
 `
 
 const EventCard = styled(Card)`
@@ -38,11 +53,11 @@ const EventCard = styled(Card)`
 
   // overflow-x: scroll;
 
-  ${ScrollbarLike};
+  // ${ScrollbarLike};
 
-  ::-webkit-scrollbar-thumb {
-    background-color: ${p => p.theme.colors.primary};
-  }
+  // ::-webkit-scrollbar-thumb {
+  //   background-color: ${p => p.theme.colors.primary};
+  // }
 
   & > h3 {
     opacity: 1;
@@ -53,10 +68,13 @@ const EventCard = styled(Card)`
 
 const TimeStamp = styled(P)`
   color: ${p => p.theme.colors.schedule.timestamp} !important;
+  margin: 0;
 `
 
 const StyledH3 = styled(H3)`
   color: ${p => p.theme.colors.schedule.text} !important;
+  margin: 0;
+  margin-top: 1em;
 `
 
 const formatTime = timeString => {
@@ -72,6 +90,10 @@ const formatTime = timeString => {
 }
 
 export default ({ event }) => {
+  const [expanded, setExpanded] = useState(false)
+  const toggleExpanded = () => {
+    setExpanded(!expanded)
+  }
   console.log('Formatted Start Time:', formatTime(event.startTime))
   console.log('Original Start Time:', event.startTime)
   console.log('Calculated MarginLeft:', event.startTime * HOUR_WIDTH)
@@ -87,7 +109,18 @@ export default ({ event }) => {
       <TimeStamp>
         {formatTime(event.startTime)} - {formatTime(event.endTime)}
       </TimeStamp>
-      <EventDescription>{event.description}</EventDescription>
+      <EventLocation>{event.location}</EventLocation>
+      <EventDescription
+        style={{
+          display: '-webkit-box',
+          WebkitLineClamp: expanded ? 'none' : '3',
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+        }}
+      >
+        {event.description}
+      </EventDescription>
+      <ToggleButton onClick={toggleExpanded}>{expanded ? '▲' : '▼'}</ToggleButton>
     </EventCard>
   )
 }

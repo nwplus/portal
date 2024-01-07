@@ -46,10 +46,10 @@ const nwTheme = {
   colors: {
     background: '#193545', // Background
     card: '#0A1C27', // BG Accent
-    border: 'rgba(255, 255, 255, 0.3)',
+    border: '#8E7EB4',
     secondaryBackgroundTransparent: '#F0EEF299',
     secondaryBackgroundTransparentHover: '#9D9FAD',
-    secondaryBackground: '#5667CF', // Side bar background
+    secondaryBackground: '#244556', // Side bar background
     sidebar: {
       background: '#193545',
       hover: '#244556',
@@ -62,7 +62,7 @@ const nwTheme = {
     error: '#ff0033',
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
-    foreground: '#4F4A59',
+    foreground: '#F0EEF2',
     primary: '#FFBF76',
     default: '#FFFFFF',
     warning: '#F18383',
@@ -85,7 +85,7 @@ const nwTheme = {
       // Application form buttons
       text: '#191C4F', // For primary button
       background: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', // Primary button
-      border: '#8E7EB4',
+      border: '#9AD4DE',
       hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
       outlineText: '#191C4F', // Secondary button
