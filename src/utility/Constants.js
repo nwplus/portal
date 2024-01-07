@@ -21,6 +21,15 @@ export const NOTIFICATION_PERMISSIONS = Object.freeze({
   DENIED: 'denied',
 })
 
+export const WAIVER_LINKS = Object.freeze({
+  COVID:
+    'https://docs.google.com/document/d/1td2BgcwRT2CTYdUrzHji7onxpoVl8UjMiEuqIIUK7CM/edit?usp=sharing%5C',
+  RELEASE_LIABILITY:
+    'https://docs.google.com/document/d/1uqFssK4ScnbTysw0ppQKQYhZ6M-kja3R23xg8qNxf1E/edit?usp=sharing',
+  MEDIA:
+    'https://docs.google.com/document/d/1fMVtLTLnE-4awnXLl0YY6VAVvF_9xH0b250FGLbdOkI/edit?usp=sharing',
+})
+
 export const SOCIAL_LINKS = Object.freeze({
   FB: 'https://www.facebook.com/nwplusubc',
   IG: 'https://www.instagram.com/nwplusubc',

@@ -90,6 +90,7 @@ export const PortalLink = styled(Link)`
 export const A = styled.a`
   cursor: pointer;
   text-decoration: none;
+  width: ${p => p.width || 'auto'};
   font-weight: ${p => (p.bolded ? 600 : 400)};
   border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
   color: #fff;
