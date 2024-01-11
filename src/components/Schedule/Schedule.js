@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike } from '../Common'
 import { H1, H2 } from '../Typography'
@@ -19,6 +19,11 @@ const ScrollableContainer = styled.div`
   margin-top: 1em;
   border-radius: 10px;
   background: linear-gradient(to right, #244556 85%, #33515e 100%);
+  ${p => p.theme.mediaQueries.mobile} {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 75vh;
+  }
   &:before {
     content: '';
     position: fixed;
@@ -38,12 +43,14 @@ const ScheduleFlexContainer = styled.div`
   flex-direction: column;
   padding: 1em;
   position: relative;
+  ${p => p.theme.mediaQueries.mobile} {
+    flex-direction: row;
+  }
 `
 
 const FlexColumn = styled.div`
   position: absolute;
   flex: 0 0 ${EVENT_WIDTH}px;
-  // max-width: 100%;
 `
 
 // These styles are a copy of what's in Common.js
@@ -57,8 +64,11 @@ const OverflowContainer = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
     margin: 0.75em 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
   max-width: 100vw;
+  overflow-x: scroll;
 `
 
 const msToHours = ms => ms / 1000 / 60 / 60
@@ -72,17 +82,25 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   display: flex;
   align-items: flex-end;
+  ${p => p.theme.mediaQueries.mobile} {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
-const ScheduleContainer = styled.div`
-  padding: 2em;
-  border-radius: 10px;
-  background-color: #244556;
-  margin: 1em 0;
-  ${p => p.theme.mediaQueries.mobile} {
-    padding: 1em;
-    margin: 0.75em 0;
-  }
+const DayLabel = styled.span`
+  position: sticky;
+  font-weight: ${p => p.theme.typography.h1.weight};
+  font-size: 1.2em;
+  transition: opacity 0.5s ease;
+  position: absolute;
+`
+
+const DayLabelContainer = styled.div`
+  position: absolute;
+  z-index: 99;
+  bottom: -1em;
+  left: 2em;
 `
 
 const RelativeContainer = styled.div`
@@ -163,6 +181,19 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   const handleMidnightPositionChange = position => {
     setMidnightPosition(position)
   }
+  const isSunday = scrollPosition >= midnightPosition
+
+  // track mobile view
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Define a breakpoint for mobile (e.g., 768px)
+  const isMobile = windowWidth <= 768
 
   return (
     <RelativeContainer>
@@ -171,6 +202,12 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
           <Header>Day-Of-Events Schedule</Header>
           <TagLegend />
         </HeaderContainer>
+        {!isMobile && (
+          <DayLabelContainer>
+            <DayLabel style={{ opacity: isSunday ? 0 : 1 }}>Saturday</DayLabel>
+            <DayLabel style={{ opacity: isSunday ? 1 : 0 }}>Sunday</DayLabel>
+          </DayLabelContainer>
+        )}
         <ScrollableContainer onScroll={handleScroll}>
           <ScheduleFlexContainer>
             <TimelineColumn

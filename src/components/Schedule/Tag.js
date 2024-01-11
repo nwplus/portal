@@ -12,6 +12,9 @@ export const TagLegendContainer = styled.div`
   & > span {
     margin-right: 15px;
   }
+  ${p => p.theme.mediaQueries.mobile} {
+    justify-content: center;
+  }
 `
 
 export const Tag = styled.span`
