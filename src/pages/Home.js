@@ -39,7 +39,6 @@ export default withTheme(({ announcements, theme }) => {
       <Announcements announcements={announcements} /> */}
 
       {/* Only display QR Code if logged in */}
-      {/* {isAuthed && user.uid && <QrCode userInfo={user} userId={user.uid} />} */}
       {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
         <QrCode userInfo={user} userId={user.uid} />
       ) : (
