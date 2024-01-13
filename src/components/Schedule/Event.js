@@ -65,7 +65,7 @@ const EventCard = styled(Card)`
       margin-top: ${props => props.cumulativeOffset * HOUR_WIDTH}px;
       margin-left: 0;
       width: 100%;
-      height: ${HOUR_WIDTH} px;
+      max-height: ${HOUR_WIDTH} px;
     }
   }
 

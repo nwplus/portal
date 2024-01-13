@@ -35,7 +35,7 @@ const MobileScrollableContainer = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   max-width: 150vh;
-  max-height: 75vh;
+  min-height: 75vh;
   padding: 15px;
   position: absolute;
   right: 0;
@@ -227,9 +227,21 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   }
 
   const produceOptimalScheduleMobile = events => {
-    // Implement the logic for mobile view
-    // Probably a simpler, single-column layout
-    // ...
+    const sortedEvents = events.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+
+    // Calculate and assign timeStart and duration for each event
+    sortedEvents.forEach(event => {
+      const eventStart = new Date(event.startTime)
+      const eventEnd = new Date(event.endTime)
+      const duration = msToHours(eventEnd - eventStart) || 0.5 // Default to 0.5 hours if duration is 0
+      const timeStart = msToHours(eventStart - hackathonStart)
+
+      event.timeStart = timeStart
+      event.duration = duration
+    })
+
+    // Since it's a single-column layout, all events can be in one column
+    return [sortedEvents] // Wrapping sortedEvents in an array to match the expected format
   }
 
   const schedule = isMobile

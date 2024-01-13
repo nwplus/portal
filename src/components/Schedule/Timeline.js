@@ -77,7 +77,6 @@ const MobileCurrentTimeHR = styled.hr`
   ${MobileScheduleHR}
   position: absolute;
   border: 0;
-  border-right: 2px solid ${p => p.theme.colors.error};
   height: 100%;
   opacity: 50%;
   border-bottom: 2px solid ${p => p.theme.colors.error};
