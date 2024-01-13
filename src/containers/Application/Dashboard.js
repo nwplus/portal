@@ -68,7 +68,7 @@ const ApplicationDashboardContainer = () => {
     // Display QR code
   }
 
-  const canRSVP = hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNoRSVP'
+  const canRSVP = hackerStatus === 'acceptedNoResponseYet'
   const setRSVP = rsvpStatus => {
     updateApplication({
       status: {
