@@ -32,7 +32,6 @@ const QRCodeDesign = styled.div`
   margin: 0 auto;
   display: block;
   margin-top: 30px;
-  margin-bottom: -30px;
 `
 
 const HackerName = styled.h1`
@@ -177,8 +176,8 @@ const QrCode = ({ userInfo, userId }) => {
               options={{
                 level: 'M',
                 margin: 2,
-                scale: 5,
-                width: 120,
+                scale: 3,
+                width: 140,
                 color: {
                   dark: '#000000',
                   light: '#FFFFFF',
