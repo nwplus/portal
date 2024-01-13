@@ -6,6 +6,7 @@ import JsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import { Button } from './Input'
 import qrcodeBackground from '../assets/nwhacks2024qrcode.png'
+import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
 
 const QRContainer = styled(CardWithHeader)`
   display: flex;
@@ -19,6 +20,7 @@ const QRContainer = styled(CardWithHeader)`
 const QRCodeDesignContainer = styled.div``
 
 const QRCodeDesign = styled.div`
+  position: relative;
   width: 300px;
   height: 500px;
   background-size: 100% auto;
@@ -111,6 +113,20 @@ const QRInfoName = styled.h1`
 `
 const QRInfoDes = styled.p``
 
+const AppleWalletButton = styled.button`
+  position: absolute;
+  left: 40px;
+  bottom: 100px;
+  width: 110px;
+  height: 35px;
+  padding: 10px;
+  border: none;
+  background-image: url(${AppleWalletButtonImage});
+  background-size: auto auto;
+  background-color: transparent;
+  cursor: pointer;
+`
+
 const generatePDF = () => {
   // const report = new JsPDF('portrait', 'pt', [300, 500.01])
 
@@ -130,6 +146,15 @@ const generatePDF = () => {
 
 const QrCode = ({ userInfo, userId }) => {
   const { Canvas } = useQRCode()
+
+  const downloadAppleWalletPass = () => {
+    const userId = userInfo.uid
+    const name = userInfo.displayName
+    const email = userInfo.email
+    console.log(userId, name, email)
+    const url = `https://us-central1-wallet-cloud-func.cloudfunctions.net/getAppleWalletPass?userId=${userId}&name=${name}&email=${email}`
+    window.location.href = url
+  }
 
   return (
     <QRContainer>
@@ -162,6 +187,7 @@ const QrCode = ({ userInfo, userId }) => {
             />
 
             {/* <QRInstructions>Please hold onto this QR Code for check-in, meals, etc</QRInstructions> */}
+            <AppleWalletButton onClick={() => downloadAppleWalletPass()} />
           </QRCodeDesign>
         </QRCodeDesignContainer>
 
