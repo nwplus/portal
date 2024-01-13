@@ -5,6 +5,8 @@ import HackerCountdown from '../containers/HackerCountdown'
 import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
 import Livestream from '../components/Livestream'
+import AppleWalletButton from '../assets/apple_wallet_button.svg'
+
 // import Hackcamp2023BG from '../components/BackgroundImage'
 
 const HomeContainer = styled.div`
@@ -24,13 +26,23 @@ const TopDecal = styled.img`
 `
 
 export default withTheme(({ announcements, theme }) => {
-  // const { user, isAuthed } = useAuth()
+  const downloadAppleWalletPass = () => {
+    const url =
+      'https://us-central1-wallet-cloud-func.cloudfunctions.net/signAndSendPassFile?userId=https%3A%2F%2Fgoogle.com'
+    window.location.href = url
+  }
 
   return (
     <HomeContainer>
       {theme.name === 'cmdf' && <TopDecal src={head_decal} />}
       {/* {theme.name === 'hackCamp' && <Hackcamp2023BG />} */}
       <HackerCountdown />
+      <button
+        onClick={() => downloadAppleWalletPass()}
+        style={{ border: 'none', background: 'none' }}
+      >
+        <img src={AppleWalletButton} alt="Icon" />
+      </button>
       <Livestream />
       {/* 
       <CommonLinks />
