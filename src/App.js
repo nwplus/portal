@@ -9,7 +9,7 @@ import {
   ApplicationForm,
   ApplicationReview,
   Charcuterie,
-  DiscordBot,
+  // DiscordBot,
   Faq,
   Gallery,
   // GettingStarted,
@@ -250,9 +250,9 @@ function App() {
           {/* <PageRoute path="/getting-started">
             <GettingStarted />
           </PageRoute> */}
-          <PageRoute path="/discord-bot">
+          {/* <PageRoute path="/discord-bot">
             <DiscordBot />
-          </PageRoute>
+          </PageRoute> */}
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />
