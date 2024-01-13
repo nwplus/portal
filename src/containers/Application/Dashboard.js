@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import Dashboard from '../../components/ApplicationDashboard'
-import { uploadWaiverToStorage, useHackerApplication } from '../../utility/HackerApplicationContext'
-import { useAuth } from '../../utility/Auth'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
-import { getLivesiteDoc, livesiteDocRef, currentHackathonRef } from '../../utility/firebase'
-import Page from '../../components/Page'
+import Dashboard from '../../components/ApplicationDashboard'
 import Spinner from '../../components/Loading'
+import Page from '../../components/Page'
+import { useAuth } from '../../utility/Auth'
+import { uploadWaiverToStorage, useHackerApplication } from '../../utility/HackerApplicationContext'
 import { MAX_WAIVER_FILE_SIZE_MB } from '../../utility/Validation'
+import { currentHackathonRef, getLivesiteDoc, livesiteDocRef } from '../../utility/firebase'
 
 const ApplicationDashboardContainer = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -68,7 +68,7 @@ const ApplicationDashboardContainer = () => {
     // Display QR code
   }
 
-  const canRSVP = hackerStatus === 'acceptedNoResponseYet' || hackerStatus === 'acceptedNoRSVP'
+  const canRSVP = hackerStatus === 'acceptedNoResponseYet'
   const setRSVP = rsvpStatus => {
     updateApplication({
       status: {
@@ -89,6 +89,42 @@ const ApplicationDashboardContainer = () => {
     updateApplication({
       basicInfo: {
         safewalkNote,
+      },
+    })
+    forceSave()
+  }
+
+  const setCovidWaiverCheck = covidWaiverCheck => {
+    updateApplication({
+      basicInfo: {
+        covidWaiverCheck,
+      },
+    })
+    forceSave()
+  }
+
+  const setReleaseLiabilityCheck = releaseLiabilityCheck => {
+    updateApplication({
+      basicInfo: {
+        releaseLiabilityCheck,
+      },
+    })
+    forceSave()
+  }
+
+  const setMediaConsentCheck = mediaConsentCheck => {
+    updateApplication({
+      basicInfo: {
+        mediaConsentCheck,
+      },
+    })
+    forceSave()
+  }
+
+  const setAgeOfMajoritySelect = ageOfMajoritySelect => {
+    updateApplication({
+      basicInfo: {
+        ageOfMajoritySelect,
       },
     })
     forceSave()
@@ -129,6 +165,16 @@ const ApplicationDashboardContainer = () => {
         canRSVP={canRSVP}
         safewalkNote={application.basicInfo.safewalkNote || false}
         setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
+        covidWaiverCheck={application.basicInfo.covidWaiverCheck || undefined}
+        setCovidWaiverCheck={covidWaiverCheck => setCovidWaiverCheck(covidWaiverCheck)}
+        releaseLiabilityCheck={application.basicInfo.releaseLiabilityCheck || undefined}
+        setReleaseLiabilityCheck={releaseLiabilityCheck =>
+          setReleaseLiabilityCheck(releaseLiabilityCheck)
+        }
+        mediaConsentCheck={application.basicInfo.mediaConsentCheck || false}
+        setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
+        ageOfMajoritySelect={application.basicInfo.ageOfMajoritySelect || undefined}
+        setAgeOfMajoritySelect={ageOfMajoritySelect => setAgeOfMajoritySelect(ageOfMajoritySelect)}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
         handleWaiver={handleWaiver}

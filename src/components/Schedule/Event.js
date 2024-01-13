@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { P, H3 } from '../Typography'
 import { Card, ScrollbarLike } from '../Common'
-import { HOUR_WIDTH, EVENT_GAP, EVENT_WIDTH, EVENT_TYPES, MOBILE_HOUR_HEIGHT } from './Constants'
+import { HOUR_WIDTH, EVENT_GAP, EVENT_TYPES, MOBILE_HOUR_HEIGHT } from './Constants'
 import { PositionedTag } from './Tag'
 import expandButton from '../../assets/expand_icon.svg'
 

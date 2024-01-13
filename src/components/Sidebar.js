@@ -215,6 +215,14 @@ export default ({
       // { location: '/discord-bot', text: 'Discord Bot' },
       { location: '/faq', text: 'FAQ' },
     ],
+    useful_links: [
+      {
+        location:
+          'https://nwplus.notion.site/PUBLIC-nwHacks-2024-Hacker-Info-Package-c22183ec8a0f4ccc9900a8200db4fd86',
+        text: 'Hacker Package',
+      },
+      { location: 'https://discord.gg/U3SgBJUHsV', text: 'Discord' },
+    ],
   }
   const [sponsors, setSponsors] = useState([])
 
@@ -283,7 +291,7 @@ export default ({
             return (
               t[1].length > 0 && (
                 <>
-                  <CategoryHeader>{t[0]}</CategoryHeader>
+                  <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                   {t[1].map((v, i) => (
                     <Link key={i} href={v.location} onClick={hideSidebarCallback}>
                       <StyledA selected={location === v.location}>{v.text}</StyledA>

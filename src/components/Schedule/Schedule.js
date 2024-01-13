@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
-import { ScrollbarLike } from '../Common'
+// import { ScrollbarLike } from '../Common'
 import { H2 } from '../Typography'
 import { EVENT_GAP, MOBILE_HOUR_HEIGHT } from './Constants'
 import Event from './Event'

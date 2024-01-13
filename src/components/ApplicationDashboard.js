@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { H1, A } from './Typography'
-import { Button } from './Input/Button'
-import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '../utility/Constants'
-import Icon from '../components/Icon'
 import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
+import Icon from '../components/Icon'
+import {
+  ANALYTICS_EVENTS,
+  APPLICATION_STATUS,
+  SOCIAL_LINKS,
+  WAIVER_LINKS,
+  copyText,
+} from '../utility/Constants'
 import { analytics } from '../utility/firebase'
 import { Checkbox } from './Input'
-import ResumeUploadBtn from './ResumeUploadBtn'
+import { Button } from './Input/Button'
+import { A, H1, P, ErrorSpan as Required } from './Typography'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -130,7 +135,14 @@ const RSVPButton = styled(Button)`
   ${p => !p.shouldDisplay && 'display: none'}
 `
 
-const SafeWalkContainer = styled.div`
+// const SafeWalkContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.5rem;
+//   padding-top: 2rem;
+// `
+
+const CheckboxContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -174,16 +186,16 @@ const QuestionLabel = styled.div`
   font-weight: bold;
 `
 
-const WaiverUpload = styled.div`
-  padding-top: 2rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
-`
+// const WaiverUpload = styled.div`
+//   padding-top: 2rem;
+//   display: flex;
+//   gap: 0.5rem;
+//   flex-direction: column;
+// `
 
-const WaiverUploadContext = styled.div`
-  line-height: 150%;
-`
+// const WaiverUploadContext = styled.div`
+//   line-height: 150%;
+// `
 
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {
@@ -319,6 +331,14 @@ const Dashboard = ({
   setRSVP,
   safewalkNote,
   setSafewalkInput,
+  covidWaiverCheck,
+  setCovidWaiverCheck,
+  releaseLiabilityCheck,
+  setReleaseLiabilityCheck,
+  mediaConsentCheck,
+  setMediaConsentCheck,
+  ageOfMajoritySelect,
+  setAgeOfMajoritySelect,
   username,
   editApplication,
   relevantDates,
@@ -327,13 +347,38 @@ const Dashboard = ({
   waiverName,
   waiverLoading,
 }) => {
-  const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  // const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
+  const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
+  const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
+  const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
+
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
   const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
-  const handleChange = () => {
-    setSafewalkCheckbox(!safewalk)
-    setSafewalkInput(!safewalkNote)
+  // const handleChange = () => {
+  //   setSafewalkCheckbox(!safewalk)
+  //   setSafewalkInput(!safewalkNote)
+  // }
+
+  const handleCovidWaiverChange = () => {
+    setCovidWaiver(!covidWaiver)
+    setCovidWaiverCheck(!covidWaiverCheck)
+  }
+
+  const handleReleaseLiabilityChange = () => {
+    setReleaseLiability(!releaseLiability)
+    setReleaseLiabilityCheck(!releaseLiabilityCheck)
+  }
+
+  const handleMediaConsentChange = () => {
+    setMediaConsent(!mediaConsent)
+    setMediaConsentCheck(!mediaConsentCheck)
+  }
+
+  const handleAgeOfMajoritySelectChange = e => {
+    setAgeOfMajority(e.target.value)
+    setAgeOfMajoritySelect(e.target.value)
   }
 
   return (
@@ -375,15 +420,100 @@ const Dashboard = ({
         {/* Hides this option if a user unRSVP'd */}
         {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
           <>
-            <SafeWalkContainer>
+            {/* <SafeWalkContainer>
               <QuestionLabel>Safewalk option</QuestionLabel>
               <Checkbox
                 checked={safewalk}
                 onChange={handleChange}
                 label="If you are planning to walk home alone on campus on the night of the 11th, would you like organizers to accompany you to your destination?"
               />
-            </SafeWalkContainer>
-            <WaiverUpload>
+            </SafeWalkContainer> */}
+
+            <CheckboxContainer>
+              <QuestionLabel>
+                Release of Liability <Required />
+              </QuestionLabel>
+              <P>
+                This waiver allows nwPlus to use any photos or videos taken during the event for
+                promotional purposes.
+              </P>
+              <A bolded color="primary" width="130px" href={WAIVER_LINKS.RELEASE_LIABILITY}>
+                Read Full Waiver.
+              </A>{' '}
+              <Checkbox
+                checked={releaseLiability}
+                onChange={handleReleaseLiabilityChange}
+                label="I have read the Release of Liability Waiver and agree to its terms."
+              />
+            </CheckboxContainer>
+
+            <CheckboxContainer>
+              <QuestionLabel>
+                COVID Liability <Required />
+              </QuestionLabel>
+              <P>This waiver clarifies that nwPlus is not liable for any COVID-19 related risks.</P>
+              <A bolded color="primary" width="130px" href={WAIVER_LINKS.COVID}>
+                Read Full Waiver.
+              </A>{' '}
+              <Checkbox
+                checked={covidWaiver}
+                onChange={handleCovidWaiverChange}
+                label="I have read the COVID Liability Waiver and agree to its terms."
+              />
+            </CheckboxContainer>
+
+            <CheckboxContainer>
+              <QuestionLabel>Media Consent</QuestionLabel>
+              <P>
+                This waiver allows nwPlus to use any photos or videos taken during the event for
+                promotional purposes.
+              </P>
+              <A bolded color="primary" width="130px" href={WAIVER_LINKS.MEDIA}>
+                Read Full Waiver.
+              </A>{' '}
+              <Checkbox
+                checked={mediaConsent}
+                onChange={handleMediaConsentChange}
+                label="I have read the Media Consent Waiver and agree to its terms."
+              />
+            </CheckboxContainer>
+
+            <div style={{ marginTop: '30px' }}>
+              <QuestionLabel>
+                For Minors (Under 19) - REQUIRED IF YOU ARE UNDER 19 <Required />
+              </QuestionLabel>
+              <P>
+                If you are under 19, please download the waivers, and have them signed by your
+                parent or legal guardian. Bring the signed forms with you to the event.
+              </P>
+              <div>
+                <input
+                  type="radio"
+                  id="under19"
+                  name="under19"
+                  value="under19"
+                  checked={ageOfMajority === 'under19'}
+                  onChange={handleAgeOfMajoritySelectChange}
+                />
+                <label htmlFor="under19">
+                  I am under 19 and will bring the signed waivers on the day of the event.
+                </label>
+              </div>
+
+              <div>
+                <input
+                  type="radio"
+                  id="over19"
+                  name="over19"
+                  value="over19"
+                  checked={ageOfMajority === 'over19'}
+                  onChange={handleAgeOfMajoritySelectChange}
+                />
+                <label htmlFor="over19">I am over the age of 19.</label>
+              </div>
+            </div>
+
+            {/* <WaiverUpload>
               <QuestionLabel>Waiver upload</QuestionLabel>
               <WaiverUploadContext>
                 Please upload the signed copies of your waivers here. The pages must be contained in
@@ -397,7 +527,7 @@ const Dashboard = ({
                 }}
                 hint={waiverName || ''}
               />
-            </WaiverUpload>
+            </WaiverUpload> */}
           </>
         )}
 
@@ -406,10 +536,17 @@ const Dashboard = ({
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
             <RSVPButton
               width="flex"
-              onClick={isRsvpOpen && canRSVP && waiverName && (() => setRSVP(canRSVP))}
+              onClick={
+                isRsvpOpen &&
+                canRSVP &&
+                covidWaiver &&
+                releaseLiability &&
+                ageOfMajority &&
+                (() => setRSVP(canRSVP))
+              }
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
-              disabled={!(isRsvpOpen && waiverName)}
+              disabled={!(isRsvpOpen && covidWaiver && releaseLiability && ageOfMajority)}
             >
               RSVP
             </RSVPButton>
