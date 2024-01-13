@@ -5,7 +5,7 @@ import { ReactComponent as Icon } from '../../assets/scheduleTag.svg'
 
 export const TagLegendContainer = styled.div`
   display: flex;
-  align-items: center; /* Center items vertically in the flex container */
+  align-items: center;
   justify-content: flex-end; /* Align items to the right */
   padding-right: 25px;
 

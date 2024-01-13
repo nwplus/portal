@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike } from '../Common'
-import { H1, H2 } from '../Typography'
-import { EVENT_WIDTH } from './Constants'
+import { H2 } from '../Typography'
+import { EVENT_GAP, HOUR_WIDTH } from './Constants'
 import Event from './Event'
 import { TagLegend } from './Tag'
 import { TimelineColumn } from './Timeline'
 
-// Rotation transformation is done to make the scroll bar on top
 const ScrollableContainer = styled.div`
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   max-width: 150vh;
+  min-height: 80vh;
   padding: 15px;
   position: absolute;
   right: 0;
@@ -19,11 +19,6 @@ const ScrollableContainer = styled.div`
   margin-top: 1em;
   border-radius: 10px;
   background: linear-gradient(to right, #244556 85%, #33515e 100%);
-  ${p => p.theme.mediaQueries.mobile} {
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 75vh;
-  }
   &:before {
     content: '';
     position: fixed;
@@ -36,21 +31,49 @@ const ScrollableContainer = styled.div`
   }
 `
 
-// Content is upside down due to transformation in ScrollableContainer,
-// which needs to be flipped back
+const MobileScrollableContainer = styled.div`
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-width: 150vh;
+  max-height: 75vh;
+  padding: 15px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin-top: 1em;
+  border-radius: 10px;
+  background: #244556;
+  &:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent 50%, #193545 100%);
+  }
+`
+
 const ScheduleFlexContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
   padding: 1em;
   position: relative;
   ${p => p.theme.mediaQueries.mobile} {
-    flex-direction: row;
+    flex-direction: column;
+    // align-items: center;
   }
 `
 
 const FlexColumn = styled.div`
+  margin-top: 2.5em;
+  flexdirection: row;
   position: absolute;
-  flex: 0 0 ${EVENT_WIDTH}px;
+  left: 0;
+  flex: 0 0 ${EVENT_GAP}px;
+  // flex-grow: 1;
 `
 
 // These styles are a copy of what's in Common.js
@@ -59,16 +82,18 @@ const FlexColumn = styled.div`
 const OverflowContainer = styled.div`
   padding: 1em;
   border-radius: 3px;
-  // background-color: ${p => p.theme.colors?.schedule?.background};
   margin: 1em 0;
-  ${p => p.theme.mediaQueries.mobile} {
-    padding: 1em;
-    margin: 0.75em 0;
-    overflow-y: hidden;
-    overflow-x: hidden;
-  }
+  overflow-y: scroll;
   max-width: 100vw;
-  overflow-x: scroll;
+`
+
+const MobileOverflowContainer = styled.div`
+  padding: 1em;
+  border-radius: 3px;
+  margin: 0.75em 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  max-width: 100vw;
 `
 
 const msToHours = ms => ms / 1000 / 60 / 60
@@ -107,8 +132,6 @@ const RelativeContainer = styled.div`
   position: relative;
   max-width: 100vw;
   height: auto;
-  // height: 100%;
-  // width: 100%;
 `
 
 const ScheduleColumn = ({ column }) => {
@@ -122,57 +145,100 @@ const ScheduleColumn = ({ column }) => {
 }
 
 export default ({ events, hackathonStart, hackathonEnd }) => {
-  const produceOptimalSchedule = events => {
-    const columns = []
-    let unusedEvents = events
+  console.log('hackathonStart prop in Schedule:', hackathonStart)
+  console.log('hackathonEnd prop in Schedule:', hackathonEnd)
+  // track mobile view
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  // Define a breakpoint for mobile (e.g., 768px)
+  const isMobile = windowWidth <= 768
 
-    // build optimal columns list while there are still events that
-    // are not in the schedule
-    while (unusedEvents.length > 0) {
-      let latestTime = new Date(0) // epoch time lmao
-      let usedEvents = []
+  const doEventsOverlap = (event1, event2) => {
+    const event1Start = new Date(event1.startTime)
+    const event1End = new Date(event1.endTime)
+    const event2Start = new Date(event2.startTime)
+    const event2End = new Date(event2.endTime)
 
-      // produce optimal schedule and track which events are used
-      const sched = unusedEvents.reduce((accumulator, event, i) => {
-        const curTime = new Date(event.startTime)
-        if (curTime.getTime() >= latestTime.getTime()) {
-          // set offset as number of hours between start of hackathon and this event
-          const hoursFromStart = msToHours(curTime - hackathonStart)
-          event.timeStart = hoursFromStart
+    // Check if event2 starts within event1 and ends before event1 ends
+    const startsDuringEvent1 = event2Start >= event1Start && event2End < event1End
 
-          // set duration of event
-          const duration = msToHours(new Date(event.endTime) - new Date(event.startTime))
-          const isZeroDurationEvent = duration === 0
+    // Check if event2 is completely within event1
+    const withinEvent1 = event2Start >= event1Start && event2End <= event1End
 
-          // if zero duration event, set event duration to be 0.5 (30 minutes) because 0 duration events end up being too tall
-          event.duration = isZeroDurationEvent ? 0.5 : duration
+    // Check if event2 starts before event1 and ends during it
+    const endsDuringEvent1 =
+      event2Start < event1Start && event2End > event1Start && event2End <= event1End
 
-          accumulator.push(event)
-          usedEvents.push(event)
+    // Check if event2 encompasses event1
+    const encompassesEvent1 = event2Start <= event1Start && event2End >= event1End
+    // Check if event2 starts during event1 but ends after event1
+    const startsWithinButEndsAfter =
+      event2Start > event1Start && event2Start < event1End && event2End > event1End
 
-          let newLatestTime = new Date(event.endTime)
+    // Combine all checks
+    return (
+      startsDuringEvent1 ||
+      endsDuringEvent1 ||
+      encompassesEvent1 ||
+      withinEvent1 ||
+      startsWithinButEndsAfter
+    )
+  }
 
-          // if zero duration event, set new latestTime = latestTime + 30 to avoid overlaps
-          latestTime = isZeroDurationEvent
-            ? new Date(newLatestTime.setMinutes(newLatestTime.getMinutes() + 30))
-            : newLatestTime
-        }
-        return accumulator
-      }, [])
-
-      // update unused by removing used events
-      unusedEvents = unusedEvents.filter(event => !usedEvents.includes(event))
-
-      // add schedule to columns list
-      columns.push(sched)
+  const findColumnForEvent = (columns, event) => {
+    for (let i = 0; i < columns.length; i++) {
+      if (columns[i].some(existingEvent => doEventsOverlap(existingEvent, event))) {
+        return i
+      }
     }
+    return -1 // Return -1 to indicate a new column is needed
+  }
+
+  const produceOptimalScheduleDesktop = events => {
+    const sortedEvents = events.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+
+    const columns = sortedEvents.reduce((acc, event) => {
+      // Determine the column for the event
+      const columnIndex = findColumnForEvent(acc, event)
+
+      // Place the event in the appropriate column or create a new column
+      if (columnIndex !== -1) {
+        acc[columnIndex].push(event)
+      } else {
+        acc.push([event])
+      }
+
+      // Calculate and assign timeStart and duration for the event
+      const eventStart = new Date(event.startTime)
+      const duration = msToHours(new Date(event.endTime) - eventStart) || 0.5 // Default to 0.5 hours if duration is 0
+      const timeStart = msToHours(eventStart - hackathonStart)
+
+      event.timeStart = timeStart
+      event.duration = duration
+
+      return acc
+    }, []) // Start with an empty array of columns
+
     return columns
   }
 
-  const schedule = produceOptimalSchedule(events)
+  const produceOptimalScheduleMobile = events => {
+    // Implement the logic for mobile view
+    // Probably a simpler, single-column layout
+    // ...
+  }
+
+  const schedule = isMobile
+    ? produceOptimalScheduleMobile(events)
+    : produceOptimalScheduleDesktop(events)
+  console.log('Scheduled Events:', schedule)
   const durationOfHackathon = Math.min(msToHours(hackathonEnd - hackathonStart), 48)
 
-  // track scroll position for timeline label fade
+  // track scroll position for timeline label fade (!isMobile)
   const [scrollPosition, setScrollPosition] = useState(0)
   const handleScroll = e => {
     setScrollPosition(e.currentTarget.scrollLeft)
@@ -183,47 +249,54 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
   }
   const isSunday = scrollPosition >= midnightPosition
 
-  // track mobile view
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  // Define a breakpoint for mobile (e.g., 768px)
-  const isMobile = windowWidth <= 768
-
   return (
     <RelativeContainer>
-      <OverflowContainer>
-        <HeaderContainer>
-          <Header>Day-Of-Events Schedule</Header>
-          <TagLegend />
-        </HeaderContainer>
-        {!isMobile && (
+      {!isMobile ? (
+        <OverflowContainer>
+          <HeaderContainer>
+            <Header>Day-Of-Events Schedule</Header>
+            <TagLegend />
+          </HeaderContainer>
           <DayLabelContainer>
             <DayLabel style={{ opacity: isSunday ? 0 : 1 }}>Saturday</DayLabel>
             <DayLabel style={{ opacity: isSunday ? 1 : 0 }}>Sunday</DayLabel>
           </DayLabelContainer>
-        )}
-        <ScrollableContainer onScroll={handleScroll}>
-          <ScheduleFlexContainer>
-            <TimelineColumn
-              hackathonStart={hackathonStart}
-              duration={durationOfHackathon}
-              numCols={schedule.length}
-              onMidnightPositionChange={handleMidnightPositionChange}
-              scrollPosition={scrollPosition}
-              midnightPosition={midnightPosition}
-            />
-            {schedule.map((column, i) => (
-              <ScheduleColumn key={i} column={column} />
-            ))}
-          </ScheduleFlexContainer>
-        </ScrollableContainer>
-      </OverflowContainer>
+          <ScrollableContainer onScroll={handleScroll}>
+            <ScheduleFlexContainer>
+              <TimelineColumn
+                hackathonStart={hackathonStart}
+                duration={durationOfHackathon}
+                numCols={schedule.length}
+                onMidnightPositionChange={handleMidnightPositionChange}
+                scrollPosition={scrollPosition}
+                midnightPosition={midnightPosition}
+              />
+              {schedule.map((column, i) => (
+                <ScheduleColumn key={i} column={column} />
+              ))}
+            </ScheduleFlexContainer>
+          </ScrollableContainer>
+        </OverflowContainer>
+      ) : (
+        <MobileOverflowContainer>
+          <HeaderContainer>
+            <Header>Day-Of-Events Schedule</Header>
+            <TagLegend />
+          </HeaderContainer>
+          <MobileScrollableContainer>
+            <ScheduleFlexContainer>
+              <TimelineColumn
+                hackathonStart={hackathonStart}
+                duration={durationOfHackathon}
+                numCols={schedule.length}
+              />
+              {schedule.map((column, i) => (
+                <ScheduleColumn key={i} column={column} />
+              ))}
+            </ScheduleFlexContainer>
+          </MobileScrollableContainer>
+        </MobileOverflowContainer>
+      )}
     </RelativeContainer>
   )
 }

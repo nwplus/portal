@@ -36,14 +36,14 @@ const ToggleButton = styled.button`
   background-repeat: no-repeat;
   transform: ${props => (props.expanded ? 'rotate(180deg)' : 'rotate(0deg)')};
   transition: transform 0.3s ease;
-  margin-left: 23em;
 `
 
 const EventCard = styled(Card)`
-  position: absolute;
+  position: relative;
   color: ${p => p.theme.colors.schedule.text};
   transition: max-height 0.3s ease;
   max-height: ${props => (props.isExpanded ? '1000px' : '200px')};
+  margin: 1em 0;
 
   ${p =>
     p.delayed &&
@@ -56,28 +56,18 @@ const EventCard = styled(Card)`
       color: ${p.theme.colors.secondaryWarning};
     }
   `};
-
-  margin: 5em;
-  width: ${EVENT_WIDTH - 50}px;
-
   &&& {
     padding: ${EVENT_GAP}px 15px;
-    margin-left: ${props => props.timeStart * HOUR_WIDTH}px;
+    margin-left: ${props => props.timeStart * HOUR_WIDTH + EVENT_GAP * 2}px;
     width: ${props => props.duration * HOUR_WIDTH - EVENT_GAP * 4}px;
     ${p => p.theme.mediaQueries.mobile} {
-      position: relative; // Use relative positioning for mobile
-      padding: ${EVENT_GAP}px 15px;
-      margin-top: ${props => props.timeStart * HOUR_WIDTH}px;
+      position: relative;
+      margin-top: ${props => props.cumulativeOffset * HOUR_WIDTH}px;
+      margin-left: 0;
+      width: 100%;
+      height: ${HOUR_WIDTH} px;
     }
   }
-
-  // overflow-x: scroll;
-
-  // ${ScrollbarLike};
-
-  // ::-webkit-scrollbar-thumb {
-  //   background-color: ${p => p.theme.colors.primary};
-  // }
 
   & > h3 {
     opacity: 1;
@@ -112,13 +102,16 @@ const formatTime = timeString => {
 export default ({ event }) => {
   const [expanded, setExpanded] = useState(false)
   const [maxHeight, setMaxHeight] = useState(0)
+  const [showToggleButton, setShowToggleButton] = useState(false)
   const descriptionRef = useRef(null)
 
   useEffect(() => {
     if (descriptionRef.current) {
-      setMaxHeight(descriptionRef.current.scrollHeight)
+      const isOverflowing =
+        descriptionRef.current.scrollHeight > descriptionRef.current.clientHeight
+      setShowToggleButton(isOverflowing)
     }
-  }, [descriptionRef])
+  }, [descriptionRef, event.description])
 
   const toggleExpanded = () => {
     setExpanded(!expanded)
@@ -128,7 +121,9 @@ export default ({ event }) => {
   }
   console.log('Formatted Start Time:', formatTime(event.startTime))
   console.log('Original Start Time:', event.startTime)
-  console.log('Calculated MarginLeft:', event.startTime * HOUR_WIDTH)
+  console.log('Calculated MarginLeft:', event.timeStart * HOUR_WIDTH)
+  console.log('ORIGINAL duration:', event.duration)
+  console.log('Calculated duration:', event.duration * HOUR_WIDTH)
   return (
     <EventCard
       timeStart={event.timeStart}
@@ -150,7 +145,7 @@ export default ({ event }) => {
       <EventDescription ref={descriptionRef} expanded={expanded} maxHeight={maxHeight}>
         {event.description}
       </EventDescription>
-      <ToggleButton onClick={toggleExpanded} expanded={expanded} />
+      {showToggleButton && <ToggleButton onClick={toggleExpanded} expanded={expanded} />}
     </EventCard>
   )
 }

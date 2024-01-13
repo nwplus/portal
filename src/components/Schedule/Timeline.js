@@ -7,6 +7,7 @@ const TimelineColumnContainer = styled.div`
   display: flex;
   flex-direction: row;
   height: 75vh;
+  position: absolute;
   ${p => p.theme.mediaQueries.mobile} {
     flex-direction: column; // vertical layout for mobile
     height: auto;
@@ -18,9 +19,6 @@ const ScheduleHR = css`
   height: max(${props => props.widthMultiplier * EVENT_WIDTH + EVENT_GAP * 2}px, 70vw);
   display: inline-block;
   width: ${HOUR_WIDTH}px;
-  ${p => p.theme.mediaQueries.mobile} {
-    height: ${HOUR_WIDTH}px;
-  }
 `
 const TimelineBlock = styled.div`
   ${ScheduleHR}
@@ -33,9 +31,6 @@ const TimelineHR = styled.hr`
   border-top: 1px solid #8e7eb4;
   border-right: 1px solid #8e7eb4;
   opacity: 50%;
-  ${p => p.theme.mediaQueries.mobile} {
-    border-right: 0;
-  }
 `
 
 const CurrentTimeHR = styled.hr`
@@ -45,12 +40,50 @@ const CurrentTimeHR = styled.hr`
   border-right: 2px solid ${p => p.theme.colors.error};
   height: 100%;
   opacity: 50%;
-  ${p => p.theme.mediaQueries.mobile} {
-    border-bottom: 2px solid ${p => p.theme.colors.error};
-  }
 `
 
 const TimelineLabel = styled.span`
+  position: relative;
+  font-weight: 600;
+`
+
+const MobileTimelineColumnContainer = styled.div`
+  flex: 0 0 100px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  position: absolute;
+  width: 100%;
+`
+
+const MobileScheduleHR = css`
+  height: ${HOUR_WIDTH}px;
+  display: inline-block;
+`
+const MobileTimelineBlock = styled.div`
+  ${MobileScheduleHR}
+  margin-top: 1.5em;
+`
+
+const MobileTimelineHR = styled.hr`
+  ${MobileScheduleHR}
+  border: 0;
+  border-top: 1px solid #8e7eb4;
+  width: 100%;
+  opacity: 50%;
+`
+
+const MobileCurrentTimeHR = styled.hr`
+  ${MobileScheduleHR}
+  position: absolute;
+  border: 0;
+  border-right: 2px solid ${p => p.theme.colors.error};
+  height: 100%;
+  opacity: 50%;
+  border-bottom: 2px solid ${p => p.theme.colors.error};
+`
+
+const MobileTimelineLabel = styled.span`
   position: relative;
   font-weight: 600;
 `
@@ -97,14 +130,7 @@ const CurrentTime = ({ start, duration, numCols }) => {
   )
 }
 
-export const TimelineColumn = ({
-  hackathonStart,
-  duration,
-  numCols,
-  onMidnightPositionChange,
-  scrollPosition,
-  midnightPosition,
-}) => {
+export const TimelineColumn = ({ hackathonStart, duration, numCols, onMidnightPositionChange }) => {
   duration = Math.floor(Math.max(0, duration))
   //ref for Saturday -> Sunday fade.
   const midnightRef = useRef(null)
@@ -126,40 +152,34 @@ export const TimelineColumn = ({
 
   // Define a breakpoint for mobile (e.g., 768px)
   const isMobile = windowWidth <= 768
-  return (
+  return isMobile ? (
+    <MobileTimelineColumnContainer>
+      <MobileCurrentTimeHR start={hackathonStart} duration={duration} numCols={numCols} />
+      {[...Array(duration)].map((v, i) => {
+        const labelTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
+        const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+        return (
+          <MobileTimelineBlock key={i}>
+            <MobileTimelineLabel hourOffset={i}>
+              {i === 0 && <MobileDayLabel>January 20th, 2024</MobileDayLabel>}
+              {label === '12:00 AM' && <MobileDayLabel>January 21, 2024</MobileDayLabel>}
+              <br />
+              {label}
+            </MobileTimelineLabel>
+            <br />
+            <MobileTimelineHR hourOffset={i} widthMultiplier={numCols} />
+          </MobileTimelineBlock>
+        )
+      })}
+    </MobileTimelineColumnContainer>
+  ) : (
     <TimelineColumnContainer duration={duration}>
       <CurrentTime start={hackathonStart} duration={duration} numCols={numCols} />
       {[...Array(duration)].map((v, i) => {
         const labelTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
         const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-        return !isMobile ? (
+        return (
           <TimelineBlock key={i} ref={label === '12:00 AM' ? midnightRef : null}>
-            <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
-            <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-          </TimelineBlock>
-        ) : // Nested conditional rendering for mobile layout
-        i === 0 ? (
-          <TimelineBlock key={i}>
-            <TimelineLabel hourOffset={i}>
-              <MobileDayLabel>January 20th, 2024</MobileDayLabel>
-              <br />
-              {label}
-            </TimelineLabel>
-            <br />
-            <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-          </TimelineBlock>
-        ) : label === '12:00 AM' ? (
-          <TimelineBlock key={i}>
-            <TimelineLabel hourOffset={i}>
-              <MobileDayLabel>January 21, 2024</MobileDayLabel>
-              <br />
-              {label}
-            </TimelineLabel>
-            <br />
-            <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-          </TimelineBlock>
-        ) : (
-          <TimelineBlock key={i}>
             <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
             <TimelineHR hourOffset={i} widthMultiplier={numCols} />
           </TimelineBlock>
