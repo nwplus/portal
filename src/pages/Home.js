@@ -8,6 +8,7 @@ import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 import { APPLICATION_STATUS } from '../utility/Constants'
+import { P } from '../../src/components/Typography'
 
 //My Ticket
 const HomeContainer = styled.div`
@@ -26,6 +27,10 @@ const TopDecal = styled.img`
   width: calc(100vw - 256px + 2em);
 `
 
+const StyledP = styled(P)`
+  text-align: center;
+`
+
 export default withTheme(({ announcements, theme }) => {
   const { user, isAuthed } = useAuth()
 
@@ -42,9 +47,7 @@ export default withTheme(({ announcements, theme }) => {
       {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
         <QrCode userInfo={user} userId={user.uid} />
       ) : (
-        <p style={{ textAlign: 'center' }}>
-          Please login with the account accepted into nwHacks 2024
-        </p>
+        <StyledP>Please login with the email you used to apply to nwHacks 2024.</StyledP>
       )}
     </HomeContainer>
   )
