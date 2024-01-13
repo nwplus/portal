@@ -59,10 +59,10 @@ const QRTags = styled.div`
 //   background: #ec4bfc;
 // `
 
-const QRInstructions = styled.p`
-  color: #fff;
-  padding-right: 20px;
-`
+// const QRInstructions = styled.p`
+//   color: #fff;
+//   padding-right: 20px;
+// `
 
 const SavePDFBtn = styled(Button)`
   width: 150px;

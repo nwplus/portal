@@ -12,7 +12,7 @@ import {
   DiscordBot,
   Faq,
   Gallery,
-  GettingStarted,
+  // GettingStarted,
   Home,
   Livestream,
   Judging,
