@@ -247,9 +247,9 @@ function App() {
           <PageRoute path="/sponsors">
             <Sponsors />
           </PageRoute>
-          <PageRoute path="/getting-started">
+          {/* <PageRoute path="/getting-started">
             <GettingStarted />
-          </PageRoute>
+          </PageRoute> */}
           <PageRoute path="/discord-bot">
             <DiscordBot />
           </PageRoute>

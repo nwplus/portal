@@ -2,10 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import cmdf_logo from '../../assets/cmdf_logo.png'
 import hc_logo from '../../assets/hc_logo.svg'
-import nwhacks_logo from '../../assets/nwhacks_logo.svg'
+import nwhacks_logo from '../../assets/nwhacks2024logo.png'
 import Banner from '../../components/Banner'
 import { H1, P } from '../../components/Typography'
 import Footer from './Footer'
+import nwHacksLoginBackground from '../../../src/assets/nwHacksLogin.svg'
 
 const LandingContainer = styled.div`
   position: absolute;
@@ -47,8 +48,8 @@ const StyledLogoLockup = styled.img`
   ${p =>
     p.theme.name !== 'nwPlus' &&
     `
-      top: 15em;
-      width: 60px;
+      top: 7em;
+      width: 80px;
   `}
   ${p =>
     p.theme.name === 'cmdf' &&
@@ -79,6 +80,10 @@ const StyledBanner = styled(Banner)`
     padding: 56px 24px 24px;
     text-align: center;
     z-index: 0;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+
     ${p => p.theme.mediaQueries.tabletLarge} {
       top: 37%;
       width: 45%;
@@ -91,7 +96,7 @@ const StyledBanner = styled(Banner)`
     ${p => p.theme.mediaQueries.xs} {
       padding: 12% 3% 5%;
       width: 85%;
-      top: 31%;
+      top: 45%;
     }
   }
 `
@@ -101,6 +106,20 @@ const StyledP = styled(P)`
   font-weight: 600;
   padding-top: 1rem;
   font-size: 1.5rem;
+`
+
+const NwHacksLoginBackgroundContainer = styled.img`
+  height: auto;
+  width: 100vw;
+  z-index: -1;
+  background: red;
+  position: fixed;
+  left: 0;
+  top: 0;
+  ${p => p.theme.mediaQueries.xs} {
+    height: 100vh;
+    width: auto;
+  }
 `
 
 // TODO: add sponsors if footer is shown
@@ -133,6 +152,8 @@ export default ({ heading, description, showFooter, hackathon, children, backgro
     case 'nwHacks':
       return (
         <LandingContainer showFooter={showFooter}>
+          <NwHacksLoginBackgroundContainer src={nwHacksLoginBackground} />
+
           <StyledLogoLockup src={nwhacks_logo} />
           <StyledBanner>
             <H1 size="1.5em">{heading}</H1>
