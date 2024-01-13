@@ -36,6 +36,8 @@ export default withTheme(({ announcements, theme }) => {
       {/* 
       <CommonLinks />
       <Announcements announcements={announcements} /> */}
+
+      {/* Only display QR Code if logged in */}
       {isAuthed && user.uid && <QrCode userInfo={user} userId={user.uid} />}
     </HomeContainer>
   )

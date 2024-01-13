@@ -5,7 +5,7 @@ import { useQRCode } from 'next-qrcode'
 import JsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import { Button } from './Input'
-import qrcodeBackground from '../assets/hackcamp2023qrcode.png'
+import qrcodeBackground from '../assets/nwhacks2024qrcode.png'
 
 const QRContainer = styled(CardWithHeader)`
   display: flex;
@@ -70,6 +70,47 @@ const SavePDFBtn = styled(Button)`
   display: block;
 `
 
+const QRTicketContainer = styled.div`
+  float: left;
+  width: 50%;
+`
+const QRInfo = styled.div`
+  float: right;
+  width: 45%;
+  margin-top: 10%;
+  padding-left: 20px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    float: left;
+    width: 100%;
+    padding-left: 0px;
+  }
+`
+
+const QRInfoMobileWelcome = styled.h2`
+  display: none;
+  ${p => p.theme.mediaQueries.mobile} {
+    display: block;
+    text-align: center;
+  }
+`
+
+const QRInfoWelcome = styled.h2`
+  padding: 0;
+  ${p => p.theme.mediaQueries.mobile} {
+    display: none;
+  }
+`
+const QRInfoName = styled.h1`
+  padding: 0;
+  margin-top: -10px;
+  font-size: 40px;
+  ${p => p.theme.mediaQueries.mobile} {
+    display: none;
+  }
+`
+const QRInfoDes = styled.p``
+
 const generatePDF = () => {
   // const report = new JsPDF('portrait', 'pt', [300, 500.01])
 
@@ -91,60 +132,53 @@ const QrCode = ({ userInfo, userId }) => {
   const { Canvas } = useQRCode()
 
   return (
-    <QRContainer header="Check-In Code">
-      {/*
-      <QRContainerInner>
-        <Canvas
-          text={userId}
-          options={{
-            level: 'M',
-            margin: 3,
-            scale: 4,
-            width: 200,
-            color: {
-              dark: '#000000',
-              light: '#FFFFFF',
-            },
-          }}
-        />
-        </QRContainerInner> */}
+    <QRContainer>
+      <QRInfoMobileWelcome>Welcome, {userInfo.displayName}!</QRInfoMobileWelcome>
 
-      {/* <button>Save to Google Wallet</button>
-      <button>Save to Apple Wallet</button> */}
+      <QRTicketContainer>
+        <QRCodeDesignContainer>
+          <QRCodeDesign id="QRCodeContainer">
+            <HackerName>{userInfo.displayName}</HackerName>
+            <HackerEmail>{userInfo.email}</HackerEmail>
 
-      <QRCodeDesignContainer>
-        <QRCodeDesign id="QRCodeContainer">
-          <HackerName>{userInfo.displayName}</HackerName>
-          <HackerEmail>{userInfo.email}</HackerEmail>
+            <QRTags>
+              {/* {userInfo.safewalkNote ? <SafeWalk>SafeWalk: Yes</SafeWalk> : <SafeWalk >SafeWalk: No</SafeWalk>}
+              <ShirtSize></ShirtSize>
+              <Allergies></Allergies> */}
+            </QRTags>
 
-          <QRTags>
-            {/* {userInfo.safewalkNote ? <SafeWalk>SafeWalk: Yes</SafeWalk> : <SafeWalk >SafeWalk: No</SafeWalk>}
-            <ShirtSize></ShirtSize>
-            <Allergies></Allergies> */}
-          </QRTags>
+            <Canvas
+              text={userId}
+              options={{
+                level: 'M',
+                margin: 2,
+                scale: 5,
+                width: 120,
+                color: {
+                  dark: '#000000',
+                  light: '#FFFFFF',
+                },
+              }}
+            />
 
-          <Canvas
-            text={userId}
-            options={{
-              level: 'M',
-              margin: 1,
-              scale: 4,
-              width: 120,
-              color: {
-                dark: '#000000',
-                light: '#FFFFFF',
-              },
-            }}
-          />
+            {/* <QRInstructions>Please hold onto this QR Code for check-in, meals, etc</QRInstructions> */}
+          </QRCodeDesign>
+        </QRCodeDesignContainer>
 
-          <QRInstructions>Please hold onto this QR Code for check-in, meals, etc</QRInstructions>
-        </QRCodeDesign>
-      </QRCodeDesignContainer>
+        <SavePDFBtn color="secondary" onClick={generatePDF}>
+          {' '}
+          Save as PDF
+        </SavePDFBtn>
+      </QRTicketContainer>
 
-      <SavePDFBtn color="secondary" onClick={generatePDF}>
-        {' '}
-        Save as PDF
-      </SavePDFBtn>
+      <QRInfo>
+        <QRInfoWelcome>Welcome,</QRInfoWelcome>
+        <QRInfoName>{userInfo.displayName}!</QRInfoName>
+        <QRInfoDes>
+          This ticket contains your personal QR code which will be scanned throughout the event.
+          Please add this ticket to your mobile wallet or take a screenshot.
+        </QRInfoDes>
+      </QRInfo>
     </QRContainer>
   )
 }
