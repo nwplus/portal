@@ -103,7 +103,7 @@ const nwTheme = {
       timestamp: '#DCB551',
     },
     hover: '#D9FFF9',
-    scrollbar: '#4F4A59',
+    scrollbar: '#2B4A59',
     banner: 'rgba(0,0,0,0)',
     login: {
       googleBg: '#fff',

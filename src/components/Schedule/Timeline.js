@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled, { css } from 'styled-components'
-import { EVENT_GAP, EVENT_WIDTH, HOUR_WIDTH } from './Constants'
+import { EVENT_GAP, EVENT_WIDTH, HOUR_WIDTH, MOBILE_HOUR_HEIGHT } from './Constants'
 
 const TimelineColumnContainer = styled.div`
   flex: 0 0 100px;
@@ -11,7 +11,7 @@ const TimelineColumnContainer = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     flex-direction: column; // vertical layout for mobile
     height: auto;
-    width: 100%;
+    width: auto;
   }
 `
 
@@ -57,20 +57,22 @@ const MobileTimelineColumnContainer = styled.div`
 `
 
 const MobileScheduleHR = css`
-  height: ${HOUR_WIDTH}px;
+  height: ${MOBILE_HOUR_HEIGHT + EVENT_GAP}px;
   display: inline-block;
 `
 const MobileTimelineBlock = styled.div`
   ${MobileScheduleHR}
-  margin-top: 1.5em;
+  margin-top: 0;
+  height: ${props => props.height}px;
 `
 
 const MobileTimelineHR = styled.hr`
   ${MobileScheduleHR}
   border: 0;
   border-top: 1px solid #8e7eb4;
-  width: 100%;
+  width: 75%;
   opacity: 50%;
+  margin-left: 4em;
 `
 
 const MobileCurrentTimeHR = styled.hr`
@@ -84,12 +86,13 @@ const MobileCurrentTimeHR = styled.hr`
 
 const MobileTimelineLabel = styled.span`
   position: relative;
+  font-size: 0.75em;
   font-weight: 600;
+  top: 1.5em;
 `
 
 const MobileDayLabel = styled.span`
   font-weight: ${p => p.theme.typography.h1.weight};
-  font-size: 1.2em;
   display: inline;
 `
 
@@ -129,7 +132,13 @@ const CurrentTime = ({ start, duration, numCols }) => {
   )
 }
 
-export const TimelineColumn = ({ hackathonStart, duration, numCols, onMidnightPositionChange }) => {
+export const TimelineColumn = ({
+  hackathonStart,
+  duration,
+  numCols,
+  onMidnightPositionChange,
+  schedule,
+}) => {
   duration = Math.floor(Math.max(0, duration))
   //ref for Saturday -> Sunday fade.
   const midnightRef = useRef(null)
@@ -148,25 +157,42 @@ export const TimelineColumn = ({ hackathonStart, duration, numCols, onMidnightPo
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-
   // Define a breakpoint for mobile (e.g., 768px)
   const isMobile = windowWidth <= 768
   return isMobile ? (
     <MobileTimelineColumnContainer>
       <MobileCurrentTimeHR start={hackathonStart} duration={duration} numCols={numCols} />
       {[...Array(duration)].map((v, i) => {
+        // Calculate the start time for each hour block
+        let hourStartTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
+        hourStartTime.setMinutes(0, 0, 0) // Reset minutes and seconds to align with hour blocks
+
+        // Find the matching hour block in mobileSchedule
+        const hourBlock = schedule.find(
+          block => block.hourBlock.getTime() === hourStartTime.getTime()
+        )
+
+        console.log(hourBlock)
+
+        // Calculate the height based on the number of events
+        const blockHeight = hourBlock
+          ? MOBILE_HOUR_HEIGHT * hourBlock.eventCount
+          : MOBILE_HOUR_HEIGHT
+
+        console.log(blockHeight) // correct
+
         const labelTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
         const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
         return (
-          <MobileTimelineBlock key={i}>
+          <MobileTimelineBlock key={i} height={blockHeight}>
             <MobileTimelineLabel hourOffset={i}>
-              {i === 0 && <MobileDayLabel>January 20th, 2024</MobileDayLabel>}
-              {label === '12:00 AM' && <MobileDayLabel>January 21, 2024</MobileDayLabel>}
+              {i === 0 && <MobileDayLabel>Saturday</MobileDayLabel>}
+              {label === '12:00 AM' && <MobileDayLabel>Sunday</MobileDayLabel>}
               <br />
               {label}
             </MobileTimelineLabel>
             <br />
-            <MobileTimelineHR hourOffset={i} widthMultiplier={numCols} />
+            <MobileTimelineHR hourOffset={i} />
           </MobileTimelineBlock>
         )
       })}

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike } from '../Common'
 import { H2 } from '../Typography'
-import { EVENT_GAP, HOUR_WIDTH } from './Constants'
+import { EVENT_GAP, MOBILE_HOUR_HEIGHT } from './Constants'
 import Event from './Event'
 import { TagLegend } from './Tag'
 import { TimelineColumn } from './Timeline'
@@ -32,7 +32,7 @@ const ScrollableContainer = styled.div`
 `
 
 const MobileScrollableContainer = styled.div`
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
   max-width: 150vh;
   min-height: 75vh;
@@ -43,7 +43,7 @@ const MobileScrollableContainer = styled.div`
   margin-top: 1em;
   border-radius: 10px;
   background: #244556;
-  &:before {
+  &:after {
     content: '';
     position: fixed;
     top: 0;
@@ -51,7 +51,7 @@ const MobileScrollableContainer = styled.div`
     right: 0;
     bottom: 0;
     pointer-events: none;
-    background: linear-gradient(to bottom, transparent 50%, #193545 100%);
+    background: linear-gradient(to bottom, transparent 80%, #193545 100%);
   }
 `
 
@@ -69,11 +69,18 @@ const ScheduleFlexContainer = styled.div`
 
 const FlexColumn = styled.div`
   margin-top: 2.5em;
-  flexdirection: row;
+  flex-direction: row;
   position: absolute;
   left: 0;
   flex: 0 0 ${EVENT_GAP}px;
-  // flex-grow: 1;
+`
+
+const MobileFlexColumn = styled.div`
+  flex-direction: row;
+  position: absolute;
+  left: 0;
+  flex: 0 0 ${EVENT_GAP}px;
+  align-items: center;
 `
 
 // These styles are a copy of what's in Common.js
@@ -88,7 +95,6 @@ const OverflowContainer = styled.div`
 `
 
 const MobileOverflowContainer = styled.div`
-  padding: 1em;
   border-radius: 3px;
   margin: 0.75em 0;
   overflow-y: hidden;
@@ -141,6 +147,25 @@ const ScheduleColumn = ({ column }) => {
         <Event key={i} event={event} />
       ))}
     </FlexColumn>
+  )
+}
+
+const MobileScheduleColumn = ({ column, hackathonStart, cumulativeHeight }) => {
+  // Memoize the calculation of topMargin
+  const topMargin = useMemo(() => {
+    const baseMargin =
+      column.events.length > 0
+        ? msToHours(new Date(column.events[0].startTime) - hackathonStart) * MOBILE_HOUR_HEIGHT + 50
+        : 0
+    return baseMargin + cumulativeHeight + EVENT_GAP * 2
+  }, [column.events, hackathonStart, cumulativeHeight]) // Dependencies
+
+  return (
+    <MobileFlexColumn style={{ marginTop: `${topMargin}px` }}>
+      {column.events.map((event, i) => (
+        <Event key={i} event={event} />
+      ))}
+    </MobileFlexColumn>
   )
 }
 
@@ -228,25 +253,47 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
 
   const produceOptimalScheduleMobile = events => {
     const sortedEvents = events.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
-
-    // Calculate and assign timeStart and duration for each event
-    sortedEvents.forEach(event => {
+    const columns = sortedEvents.reduce((acc, event) => {
+      // Get the start hour block for the event
       const eventStart = new Date(event.startTime)
-      const eventEnd = new Date(event.endTime)
-      const duration = msToHours(eventEnd - eventStart) || 0.5 // Default to 0.5 hours if duration is 0
+      eventStart.setMinutes(0, 0, 0) // Reset minutes and seconds to zero for the hour block
+      // Find a column for the same hour block or create a new one
+      let column = acc.find(col => col.hourBlock.getTime() === eventStart.getTime())
+
+      if (!column) {
+        // Create a new column block if none exist for this hour block
+        column = {
+          hourBlock: eventStart,
+          events: [],
+          topMargin: msToHours(eventStart - hackathonStart) * MOBILE_HOUR_HEIGHT,
+          eventCount: 0,
+        }
+        acc.push(column)
+      }
+
+      // Add the event to the column and update the event count
+      column.events.push(event)
+      column.eventCount += 1
+
+      // Calculate and assign timeStart and duration for the event
       const timeStart = msToHours(eventStart - hackathonStart)
 
       event.timeStart = timeStart
-      event.duration = duration
-    })
 
-    // Since it's a single-column layout, all events can be in one column
-    return [sortedEvents] // Wrapping sortedEvents in an array to match the expected format
+      return acc
+    }, []) // Start with an empty array for columns
+    // After all events are processed, map to the structure we want to return
+    return columns.map(col => ({
+      hourBlock: col.hourBlock,
+      topMargin: col.topMargin,
+      eventCount: col.eventCount,
+      events: col.events,
+    }))
   }
 
-  const schedule = isMobile
-    ? produceOptimalScheduleMobile(events)
-    : produceOptimalScheduleDesktop(events)
+  const mobileSchedule = produceOptimalScheduleMobile(events)
+  const schedule = produceOptimalScheduleDesktop(events)
+  console.log('mobile Events:', mobileSchedule)
   console.log('Scheduled Events:', schedule)
   const durationOfHackathon = Math.min(msToHours(hackathonEnd - hackathonStart), 48)
 
@@ -260,7 +307,7 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
     setMidnightPosition(position)
   }
   const isSunday = scrollPosition >= midnightPosition
-
+  let cumulativeHeight = 0
   return (
     <RelativeContainer>
       {!isMobile ? (
@@ -301,10 +348,23 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
                 hackathonStart={hackathonStart}
                 duration={durationOfHackathon}
                 numCols={schedule.length}
+                schedule={mobileSchedule}
               />
-              {schedule.map((column, i) => (
-                <ScheduleColumn key={i} column={column} />
-              ))}
+
+              {mobileSchedule.map((column, i) => {
+                const topMargin = cumulativeHeight
+                const columnHeight = (column.eventCount - 1) * MOBILE_HOUR_HEIGHT
+                cumulativeHeight += columnHeight
+
+                return (
+                  <MobileScheduleColumn
+                    key={i}
+                    column={column}
+                    hackathonStart={hackathonStart}
+                    cumulativeHeight={topMargin}
+                  />
+                )
+              })}
             </ScheduleFlexContainer>
           </MobileScrollableContainer>
         </MobileOverflowContainer>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { P, H3 } from '../Typography'
 import { Card, ScrollbarLike } from '../Common'
-import { HOUR_WIDTH, EVENT_GAP, EVENT_WIDTH, EVENT_TYPES } from './Constants'
+import { HOUR_WIDTH, EVENT_GAP, EVENT_WIDTH, EVENT_TYPES, MOBILE_HOUR_HEIGHT } from './Constants'
 import { PositionedTag } from './Tag'
 import expandButton from '../../assets/expand_icon.svg'
 
@@ -15,6 +15,10 @@ const EventDescription = styled(P)`
   display: ${props => (props.expanded ? 'block' : '-webkit-box')};
   webkitlineclamp: ${props => (props.expanded ? 'none' : '3')};
   webkitboxorient: 'vertical';
+  ${p => p.theme.mediaQueries.mobile} {
+    overflow-y: scroll;
+    ${ScrollbarLike}
+  }
 `
 
 const EventLocation = styled(P)`
@@ -29,6 +33,7 @@ const ToggleButton = styled.button`
   background-image: url(${expandButton});
   background-color: transparent;
   border: none;
+  position: absolute;
   cursor: pointer;
   width: 15px;
   height: 15px;
@@ -36,6 +41,11 @@ const ToggleButton = styled.button`
   background-repeat: no-repeat;
   transform: ${props => (props.expanded ? 'rotate(180deg)' : 'rotate(0deg)')};
   transition: transform 0.3s ease;
+  right: 15px;
+  bottom: 15px;
+  ${p => p.theme.mediaQueries.mobile} {
+    display: none;
+  }
 `
 
 const EventCard = styled(Card)`
@@ -43,7 +53,7 @@ const EventCard = styled(Card)`
   color: ${p => p.theme.colors.schedule.text};
   transition: max-height 0.3s ease;
   max-height: ${props => (props.isExpanded ? '1000px' : '200px')};
-  margin: 1em 0;
+  margin: 1em;
 
   ${p =>
     p.delayed &&
@@ -62,10 +72,11 @@ const EventCard = styled(Card)`
     width: ${props => props.duration * HOUR_WIDTH - EVENT_GAP * 4}px;
     ${p => p.theme.mediaQueries.mobile} {
       position: relative;
-      margin-top: ${props => props.cumulativeOffset * HOUR_WIDTH}px;
       margin-left: 0;
+      margin-right: 0;
+      margin-top: -0.5em;
       width: 100%;
-      max-height: ${HOUR_WIDTH} px;
+      height: ${MOBILE_HOUR_HEIGHT - EVENT_GAP} px;
     }
   }
 
@@ -130,6 +141,7 @@ export default ({ event }) => {
       duration={event.duration}
       delayed={event.delayed}
       isExpanded={expanded}
+      cumulativeOffset={event.cumulativeOffset}
     >
       <StyledH3>
         {event.name}

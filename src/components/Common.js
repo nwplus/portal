@@ -136,9 +136,9 @@ export const ScrollbarLike = css`
     height: 10px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: ${p => p.theme.colors.card};
+    background-color: ${p => p.theme.colors.scrollbar};
     border-radius: 10px;
-    border: 1px solid ${p => p.theme.colors.card};
+    border: 1px solid ${p => p.theme.colors.scrollbar};
   }
   ::-webkit-scrollbar-track {
     background-color: transparent;

@@ -13,6 +13,7 @@ export const TagLegendContainer = styled.div`
     margin-right: 15px;
   }
   ${p => p.theme.mediaQueries.mobile} {
+    padding-right: 0;
     justify-content: center;
   }
 `
@@ -23,6 +24,10 @@ export const Tag = styled.span`
   font-size: ${p => p.theme.typography.h3.size};
   padding: 3px 6px;
   border-radius: 4px;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 1px 3px;
+    font-size: 0.75em;
+  }
 `
 
 export const PositionedTag = styled(Icon)`
@@ -34,6 +39,10 @@ export const PositionedTag = styled(Icon)`
 
 export const StyledSVG = styled(Icon)`
   fill: ${props => props.color};
+  ${p => p.theme.mediaQueries.mobile} {
+    height: 0.75em;
+    width: 0.75em;
+  }
 `
 
 export const TagLegend = () => {
