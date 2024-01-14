@@ -28,6 +28,9 @@ const TimeFlex = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 0.5em;
+  }
 `
 
 const TimeDisplay = ({ days, hours, minutes, seconds }) => {
