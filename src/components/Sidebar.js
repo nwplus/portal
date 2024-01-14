@@ -178,6 +178,11 @@ const LogoContainer = styled.div`
   align-items: flex-end;
 `
 
+const ExternalLink = styled.a`
+  color: ${p => p.theme.colors.sidebar.primary};
+  text-decoration: none;
+`
+
 // const SponsorIcon = styled.img`
 //   width: 100px;
 //   height: 42px;
@@ -221,7 +226,10 @@ export default ({
           'https://nwplus.notion.site/PUBLIC-nwHacks-2024-Hacker-Info-Package-c22183ec8a0f4ccc9900a8200db4fd86',
         text: 'Hacker Package',
       },
-      { location: 'https://discord.gg/U3SgBJUHsV', text: 'Discord' },
+      {
+        location: 'https://discord.gg/U3SgBJUHsV',
+        text: 'Discord',
+      },
     ],
   }
   const [sponsors, setSponsors] = useState([])
@@ -289,7 +297,8 @@ export default ({
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
           Object.entries(links).map((t, k) => {
             return (
-              t[1].length > 0 && (
+              t[1].length > 0 &&
+              t[0] !== 'useful_links' && (
                 <>
                   <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                   {t[1].map((v, i) => (
@@ -310,6 +319,16 @@ export default ({
           </Link>
         )}
       </ItemsContainer>
+
+      <ItemsContainer>
+        <CategoryHeader>Useful Links</CategoryHeader>
+        {links.useful_links.map((v, i) => (
+          <ExternalLink key={i} href={v.location} target="_blank" rel="noopener noreferrer">
+            <StyledA>{v.text}</StyledA>
+          </ExternalLink>
+        ))}
+      </ItemsContainer>
+
       {isAuthed ? (
         <StyledButton color="secondary" onClick={logout}>
           Log out

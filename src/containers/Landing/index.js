@@ -10,13 +10,14 @@ import nwHacksLoginBackground from '../../../src/assets/nwHacksLogin.svg'
 
 const LandingContainer = styled.div`
   position: absolute;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow-x: hidden;
   background-repeat: no-repeat;
   background-size: cover;
   top: 0;
   z-index: 101;
+  padding: 0;
 `
 
 const FlexLandingContainer = styled.div`
@@ -62,7 +63,6 @@ const StyledLogoLockup = styled.img`
     ${p => p.theme.name !== 'nwHacks' && `top: 15%; width: 20%;`}
   }
   ${p => p.theme.mediaQueries.tablet} {
-    top: 30%;
     width: 60px;
     ${p => p.theme.name !== 'nwHacks' && `top:22%; width: 20%; `}
   }
@@ -77,25 +77,14 @@ const StyledBanner = styled(Banner)`
   && {
     position: absolute;
     top: 18em;
-    padding: 56px 24px 24px;
     text-align: center;
     z-index: 0;
     display: block;
     margin: 0 auto;
+    padding: 0;
     width: 100%;
 
-    ${p => p.theme.mediaQueries.tabletLarge} {
-      top: 37%;
-      width: 45%;
-    }
-    ${p => p.theme.mediaQueries.tablet} {
-      padding: 15% 3% 5%;
-      top: 30%;
-      width: 45%;
-    }
     ${p => p.theme.mediaQueries.xs} {
-      padding: 12% 3% 5%;
-      width: 85%;
       top: 45%;
     }
   }
@@ -109,10 +98,10 @@ const StyledP = styled(P)`
 `
 
 const NwHacksLoginBackgroundContainer = styled.img`
-  height: auto;
+  height: 100%;
   width: 100vw;
+  object-fit: cover;
   z-index: -1;
-  background: red;
   position: fixed;
   left: 0;
   top: 0;
