@@ -124,7 +124,6 @@ const CurrentTime = ({ start, duration, numCols }) => {
       }
     }
   }, [scrolled, hoursBetweenNowAndStart])
-  console.log(hoursBetweenNowAndStart)
   return (
     renderCurrentTime && (
       <CurrentTimeHR hourOffset={hoursBetweenNowAndStart} widthMultiplier={numCols} />
@@ -172,14 +171,10 @@ export const TimelineColumn = ({
           block => block.hourBlock.getTime() === hourStartTime.getTime()
         )
 
-        console.log(hourBlock)
-
         // Calculate the height based on the number of events
         const blockHeight = hourBlock
           ? MOBILE_HOUR_HEIGHT * hourBlock.eventCount
           : MOBILE_HOUR_HEIGHT
-
-        console.log(blockHeight) // correct
 
         const labelTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
         const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
