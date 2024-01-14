@@ -58,7 +58,7 @@ const StyledLogoLockup = styled.img`
       top: 15em;
     `}
   ${p => p.theme.mediaQueries.tabletLarge} {
-    top: 18%;
+    top: 10%;
     width: 60px;
     ${p => p.theme.name !== 'nwHacks' && `top: 15%; width: 20%;`}
   }
@@ -67,7 +67,7 @@ const StyledLogoLockup = styled.img`
     ${p => p.theme.name !== 'nwHacks' && `top:22%; width: 20%; `}
   }
   ${p => p.theme.mediaQueries.xs} {
-    top: 25%;
+    top: 20%;
     width: 60px;
     ${p => p.theme.name !== 'nwHacks' && `top: 15%; width: 35%;`}
   }
