@@ -9,11 +9,12 @@ import {
   ApplicationForm,
   ApplicationReview,
   Charcuterie,
-  DiscordBot,
+  // DiscordBot,
   Faq,
   Gallery,
-  GettingStarted,
+  // GettingStarted,
   Home,
+  Livestream,
   Judging,
   JudgingAdmin,
   JudgingView,
@@ -240,15 +241,18 @@ function App() {
           <PageRoute path="/schedule">
             <Schedule />
           </PageRoute>
+          <PageRoute path="/livestream">
+            <Livestream />
+          </PageRoute>
           <PageRoute path="/sponsors">
             <Sponsors />
           </PageRoute>
-          <PageRoute path="/getting-started">
+          {/* <PageRoute path="/getting-started">
             <GettingStarted />
-          </PageRoute>
-          <PageRoute path="/discord-bot">
+          </PageRoute> */}
+          {/* <PageRoute path="/discord-bot">
             <DiscordBot />
-          </PageRoute>
+          </PageRoute> */}
           <NoAuthRoute path="/login">
             <Navbar>
               <Login />
