@@ -36,10 +36,10 @@ const TimelineHR = styled.hr`
 const CurrentTimeHR = styled.hr`
   ${ScheduleHR}
   position: absolute;
+  margin-top: 3.5em;
   border: 0;
   border-right: 2px solid ${p => p.theme.colors.error};
-  height: 100%;
-  opacity: 50%;
+  height: 200%;
 `
 
 const TimelineLabel = styled.span`
@@ -116,7 +116,7 @@ const CurrentTime = ({ start, duration, numCols }) => {
     if (!scrolled && hoursBetweenNowAndStart > 1) {
       const timeout = setTimeout(() => {
         const scrollHeight = 72 + hoursBetweenNowAndStart * HOUR_WIDTH
-        window.scrollTo({ top: scrollHeight, behavior: 'smooth' })
+        window.scrollTo({ left: scrollHeight, behavior: 'smooth' })
         setScrolled(true)
       }, 500)
       return () => {
@@ -124,7 +124,7 @@ const CurrentTime = ({ start, duration, numCols }) => {
       }
     }
   }, [scrolled, hoursBetweenNowAndStart])
-
+  console.log(hoursBetweenNowAndStart)
   return (
     renderCurrentTime && (
       <CurrentTimeHR hourOffset={hoursBetweenNowAndStart} widthMultiplier={numCols} />

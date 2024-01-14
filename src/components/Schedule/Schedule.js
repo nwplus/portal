@@ -329,6 +329,7 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
                 onMidnightPositionChange={handleMidnightPositionChange}
                 scrollPosition={scrollPosition}
                 midnightPosition={midnightPosition}
+                schedule={mobileSchedule}
               />
               {schedule.map((column, i) => (
                 <ScheduleColumn key={i} column={column} />
