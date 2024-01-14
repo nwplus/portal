@@ -21,7 +21,7 @@ const StyledButton = styled.a`
   box-shadow: 0 14px 28px rgba(27, 33, 48, 0.12), 0 10px 10px rgba(27, 33, 48, 0.08);
   text-decoration: none;
   font-family: ${p => p.theme};
-  font-weight: ${p => p.theme.typography.h2.weight};
+  font-weight: ${p => p.theme.typography.h1.weight};
   border: transparent;
   transition: all 250ms;
   max-width: 100%;
@@ -71,7 +71,7 @@ const StyledButton = styled.a`
           ? `cursor: not-allowed;`
           : `background: ${hexToRgba(p.theme.colors.primary, 0.2)};`
       }
-      color: ${p.theme.colors.button.text};
+      color: ${p.theme.colors.button.outlineHover};
       background: ${p.theme.colors.button.outlineBackgroundHover};
     }
     :focus {

@@ -4,12 +4,13 @@ import { Link, useLocation } from 'wouter'
 import cmdf_logo from '../assets/cmdf_logo.png'
 import hc_logo from '../assets/hc_logo.svg'
 import logo from '../assets/logo.svg'
-import nwhacks_logo from '../assets/nwhacks_logo_white.svg'
+import nwhacks_logo from '../assets/logo2024.svg'
 import { useAuth } from '../utility/Auth'
 import { getSponsors } from '../utility/firebase'
 import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
 import { A } from './Typography'
+import { APPLICATION_STATUS } from '../utility/Constants'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -19,7 +20,8 @@ const SidebarContainer = styled.div`
   min-height: 100%;
   transition: opacity 1s ease-out;
   z-index: 1;
-  background: ${p => p.theme.colors.secondaryBackground};
+  border-right: 2px solid ${p => p.theme.colors.sidebar.secondary};
+  background: ${p => p.theme.colors.sidebar.background};
   ${p => p.theme.mediaQueries.mobile} {
     ${p => (p.showMobileSidebar ? 'visibility: visible' : 'visibility: hidden; display: none')};
   }
@@ -41,8 +43,9 @@ const chooseLogo = hackathon => {
 const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
-  height: 6em;
-  margin: 30px 0 0px 2rem;
+  height: 10em;
+  margin: auto;
+  display: block;
 
   ${p =>
     p.theme.name === 'hackCamp' &&
@@ -87,54 +90,57 @@ const StyledA = styled(A)`
 
   color: ${p => p.theme.colors.sidebar.link};
 
-  ${p =>
-    p.selected &&
-    `
-    background: #433860;
-    color: #ffffff;
-
-    &:hover {
-      color: #ffffff;
-      background: ${p => p.theme.colors.secondaryBackgroundTransparentHover};
-      border-bottom: none;
-    }
-  `}
-
   &:hover {
     color: ${p => p.theme.colors.text};
-    background: ${p => p.theme.colors.card};
+    background: ${p => p.theme.colors.sidebar.hover};
     border-bottom: none;
   }
+
   &:focus {
     color: ${p => p.theme.colors.text};
     border-bottom: none;
   }
+
+  ${p =>
+    p.selected &&
+    `
+    background: ${p.theme.colors.sidebar.selected};
+    color: #ffffff;
+
+    &:hover, &:focus {
+      color: #ffffff;
+      background: ${p.theme.colors.sidebar.hover};
+      border-bottom: none;
+    }
+  `}
 `
 
-const LiveDot = styled.span`
-  height: 10px;
-  width: 10px;
-  background: ${p => p.theme.colors.primary};
-  border-radius: 50%;
-  margin: 0 7px 0 4px;
-  display: inline-block;
-`
+// const LiveDot = styled.span`
+//   height: 10px;
+//   width: 10px;
+//   background: ${p => p.theme.colors.primary};
+//   border-radius: 50%;
+//   margin: 0 7px 0 4px;
+//   display: inline-block;
+// `
 /* Old styles
 background-color: ${p => p.theme.colors.primary};
 */
-const LiveLabel = styled.p`
-  margin: 1em 0 2em 2rem;
-  font-weight: bold;
-  font-size: 0.9em;
-  border-radius: 7px;
-  background: ${p => p.theme.colors.primaryGradient};
-  color: ${p => p.theme.colors.cardText};
-  width: 4em;
-  padding: 5px;
-`
+// const LiveLabel = styled.p`
+//   margin: 1em 0 2em 2rem;
+//   font-weight: bold;
+//   font-size: 0.9em;
+//   border-radius: 7px;
+//   background: ${p => p.theme.colors.primaryGradient};
+//   color: ${p => p.theme.colors.cardText};
+//   width: 4em;
+//   padding: 5px;
+// `
 
 const StyledButton = styled(Button)`
   margin: 1em 0 1em 2rem;
+  display: inline-block;
+  text-transform: capitalize;
 `
 
 const ApplicationText = styled.div`
@@ -143,7 +149,7 @@ const ApplicationText = styled.div`
 
 const StatusText = styled.div`
   font-size: 0.8em;
-  color: ${p => p.theme.colors.sidebar.statusText};
+  color: ${p => p.theme.colors.sidebar.secondary};
   margin-top: 5px;
 `
 
@@ -163,14 +169,19 @@ const SponsorLogo = styled.img`
 const CategoryHeader = styled.h4`
   text-transform: uppercase;
   padding: 1em 50px 0 2rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
-  color: ${p => p.theme.colors.secondaryBackgroundTransparent};
+  color: ${p => p.theme.colors.sidebar.primary};
 `
 
 const LogoContainer = styled.div`
   display: flex;
   align-items: flex-end;
+`
+
+const ExternalLink = styled.a`
+  color: ${p => p.theme.colors.sidebar.primary};
+  text-decoration: none;
 `
 
 // const SponsorIcon = styled.img`
@@ -192,8 +203,9 @@ export default ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'Home' },
+      { location: '/', text: 'My Ticket' },
       { location: '/schedule', text: 'Schedule' },
+      { location: '/livestream', text: 'Livestream' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
     // Tools
@@ -208,6 +220,17 @@ export default ({
       // { location: '/getting-started', text: 'Getting Started' },
       // { location: '/discord-bot', text: 'Discord Bot' },
       { location: '/faq', text: 'FAQ' },
+    ],
+    useful_links: [
+      {
+        location:
+          'https://nwplus.notion.site/PUBLIC-nwHacks-2024-Hacker-Info-Package-c22183ec8a0f4ccc9900a8200db4fd86',
+        text: 'Hacker Package',
+      },
+      {
+        location: 'https://discord.gg/U3SgBJUHsV',
+        text: 'Discord',
+      },
     ],
   }
   const [sponsors, setSponsors] = useState([])
@@ -271,17 +294,14 @@ export default ({
         <Logo alt="logo" />
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
       </LogoContainer>
-      <LiveLabel>
-        <LiveDot />
-        LIVE
-      </LiveLabel>
       <ItemsContainer>
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
           Object.entries(links).map((t, k) => {
             return (
-              t[1].length > 0 && (
+              t[1].length > 0 &&
+              t[0] !== 'useful_links' && (
                 <>
-                  <CategoryHeader>{t[0]}</CategoryHeader>
+                  <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                   {t[1].map((v, i) => (
                     <Link key={i} href={v.location} onClick={hideSidebarCallback}>
                       <StyledA selected={location === v.location}>{v.text}</StyledA>
@@ -300,9 +320,23 @@ export default ({
           </Link>
         )}
       </ItemsContainer>
+
+      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
+        <ItemsContainer>
+          <CategoryHeader>Useful Links</CategoryHeader>
+          {links.useful_links.map((v, i) => (
+            <ExternalLink key={i} href={v.location} target="_blank" rel="noopener noreferrer">
+              <StyledA>{v.text}</StyledA>
+            </ExternalLink>
+          ))}
+        </ItemsContainer>
+      ) : (
+        <></>
+      )}
+
       {isAuthed ? (
         <StyledButton color="secondary" onClick={logout}>
-          Logout
+          Log out
         </StyledButton>
       ) : (
         <StyledButton color="secondary" href="/login">

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { P } from './Typography'
-import nwHacksIcon from '../assets/nwhacks_logo_white.svg'
+import nwHacksIcon from '../assets/nwhacks2024logo.png'
 import cmdfIcon from '../assets/cmdf_logo.png'
 import { Button } from './Input'
 import { withTheme } from 'styled-components'

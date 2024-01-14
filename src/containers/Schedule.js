@@ -13,8 +13,12 @@ export default () => {
     const unsubscribe = livesiteDocRef.onSnapshot(doc => {
       const d = doc.data()
       if (d) {
-        setStart(new Date(d.hackathonStart))
-        setEnd(new Date(d.hackathonEnd))
+        // setStart(new Date(d.hackathonStart))
+        // setEnd(new Date(d.hackathonEnd))
+        const start = new Date(d.hackathonStart)
+        const end = new Date(d.hackathonEnd)
+        setStart(start)
+        setEnd(end)
       }
     })
     return unsubscribe
@@ -27,8 +31,12 @@ export default () => {
       .collection(DAYOF_COLLECTION)
       .orderBy('startTime', 'asc')
       .onSnapshot(querySnapshot => {
-        setEvents(Object.values(querySnapshot.docs.map(doc => doc.data())))
+        const events = Object.values(querySnapshot.docs.map(doc => doc.data()))
+        setEvents(events)
       })
+    // .onSnapshot(querySnapshot => {
+    //   setEvents(Object.values(querySnapshot.docs.map(doc => doc.data())))
+    // })
     return unsubscribe
   }, [setEvents])
 

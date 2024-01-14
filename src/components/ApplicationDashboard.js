@@ -479,7 +479,9 @@ const Dashboard = ({
             </CheckboxContainer>
 
             <div style={{ marginTop: '30px' }}>
-              <QuestionLabel>For Minors (Under 19) - REQUIRED IF YOU ARE UNDER 19 <Required /></QuestionLabel>
+              <QuestionLabel>
+                For Minors (Under 19) - REQUIRED IF YOU ARE UNDER 19 <Required />
+              </QuestionLabel>
               <P>
                 If you are under 19, please download the waivers, and have them signed by your
                 parent or legal guardian. Bring the signed forms with you to the event.
