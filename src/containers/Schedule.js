@@ -17,8 +17,6 @@ export default () => {
         // setEnd(new Date(d.hackathonEnd))
         const start = new Date(d.hackathonStart)
         const end = new Date(d.hackathonEnd)
-        console.log('Hackathon Start:', start)
-        console.log('Hackathon End:', end)
         setStart(start)
         setEnd(end)
       }
@@ -34,7 +32,6 @@ export default () => {
       .orderBy('startTime', 'asc')
       .onSnapshot(querySnapshot => {
         const events = Object.values(querySnapshot.docs.map(doc => doc.data()))
-        console.log('Events:', events)
         setEvents(events)
       })
     // .onSnapshot(querySnapshot => {

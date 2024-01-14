@@ -130,11 +130,7 @@ export default ({ event }) => {
       setMaxHeight(descriptionRef.current.scrollHeight)
     }
   }
-  console.log('Formatted Start Time:', formatTime(event.startTime))
-  console.log('Original Start Time:', event.startTime)
-  console.log('Calculated MarginLeft:', event.timeStart * HOUR_WIDTH)
-  console.log('ORIGINAL duration:', event.duration)
-  console.log('Calculated duration:', event.duration * HOUR_WIDTH)
+
   return (
     <EventCard
       timeStart={event.timeStart}

@@ -150,7 +150,6 @@ const QrCode = ({ userInfo, userId }) => {
     const userId = userInfo.uid
     const name = userInfo.displayName
     const email = userInfo.email
-    console.log(userId, name, email)
     const url = `https://us-central1-wallet-cloud-func.cloudfunctions.net/getAppleWalletPass?userId=${userId}&name=${name}&email=${email}`
     window.location.href = url
   }

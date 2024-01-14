@@ -170,8 +170,6 @@ const MobileScheduleColumn = ({ column, hackathonStart, cumulativeHeight }) => {
 }
 
 export default ({ events, hackathonStart, hackathonEnd }) => {
-  console.log('hackathonStart prop in Schedule:', hackathonStart)
-  console.log('hackathonEnd prop in Schedule:', hackathonEnd)
   // track mobile view
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   useEffect(() => {
@@ -293,8 +291,6 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
 
   const mobileSchedule = produceOptimalScheduleMobile(events)
   const schedule = produceOptimalScheduleDesktop(events)
-  console.log('mobile Events:', mobileSchedule)
-  console.log('Scheduled Events:', schedule)
   const durationOfHackathon = Math.min(msToHours(hackathonEnd - hackathonStart), 48)
 
   // track scroll position for timeline label fade (!isMobile)

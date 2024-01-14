@@ -10,6 +10,7 @@ import { getSponsors } from '../utility/firebase'
 import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
 import { A } from './Typography'
+import { APPLICATION_STATUS } from '../utility/Constants'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -320,14 +321,18 @@ export default ({
         )}
       </ItemsContainer>
 
-      <ItemsContainer>
-        <CategoryHeader>Useful Links</CategoryHeader>
-        {links.useful_links.map((v, i) => (
-          <ExternalLink key={i} href={v.location} target="_blank" rel="noopener noreferrer">
-            <StyledA>{v.text}</StyledA>
-          </ExternalLink>
-        ))}
-      </ItemsContainer>
+      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
+        <ItemsContainer>
+          <CategoryHeader>Useful Links</CategoryHeader>
+          {links.useful_links.map((v, i) => (
+            <ExternalLink key={i} href={v.location} target="_blank" rel="noopener noreferrer">
+              <StyledA>{v.text}</StyledA>
+            </ExternalLink>
+          ))}
+        </ItemsContainer>
+      ) : (
+        <></>
+      )}
 
       {isAuthed ? (
         <StyledButton color="secondary" onClick={logout}>
