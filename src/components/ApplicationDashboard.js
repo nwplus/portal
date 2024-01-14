@@ -12,7 +12,7 @@ import {
 import { analytics } from '../utility/firebase'
 import { Checkbox } from './Input'
 import { Button } from './Input/Button'
-import { A, H1, P, ErrorSpan as Required } from './Typography'
+import { A, H1, HR, P, ErrorSpan as Required } from './Typography'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -207,8 +207,31 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   waitlisted: {
     sidebarText: 'Waitlisted',
     cardText: 'Waitlisted',
-    blurb: `Hi ${hackerName}, we had a lovely time reading your application, and were very impressed with your commitment to joining the technology community. We would love to see you at ${copyText.hackathonName} this year, however, at the moment, we can not confirm a spot for you. You have been put in our waitlist, and will be notified ${relevantDates?.offWaitlistNotify} if we found a spot for you, so please check your email then!`,
+    blurb: (
+      <>
+        Hi {hackerName}, we had a lovely time reading your application, and were very impressed with
+        your commitment to joining the technology community. We would love to see you at
+        {copyText.hackathonName} this year; however, at the moment, we cannot confirm a spot for
+        you. You have been put on our waitlist and will be notified{' '}
+        {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
+        then!
+        <HR />
+        We are currently at full capacity, but everyone is welcome to attend our{' '}
+        <A
+          href="https://nwplus.notion.site/PUBLIC-nwHacks-2024-Pre-Hackathon-Workshops-d497fb2d88be4b2082a318753420e5cd"
+          target="_blank"
+          rel="noopener noreferrer"
+          alt="link to nwHacks 2024 pre-hackathon workshops Notion page"
+          bolded
+          color="primary"
+        >
+          pre-hackathon workshops
+        </A>
+        .
+      </>
+    ),
   },
+
   rejected: {
     sidebarText: 'Rejected',
     cardText: 'Rejected',
