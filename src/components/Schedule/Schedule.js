@@ -91,7 +91,6 @@ const OverflowContainer = styled.div`
   padding: 1em;
   border-radius: 3px;
   margin: 1em 0;
-  overflow-y: scroll;
   max-width: 100vw;
 `
 
