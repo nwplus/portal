@@ -51,12 +51,13 @@ const createNewApplication = async user => {
   const basicInfo = user?.displayName?.includes(' ')
     ? {
         email: user.email,
-        firstName: user?.displayName?.split(' ')[0] ?? '',
-        lastName: user?.displayName?.split(' ')[user?.displayName?.split(' ').length - 1] ?? '',
+        legalFirstName: user?.displayName?.split(' ')[0] ?? '',
+        legalLastName:
+          user?.displayName?.split(' ')[user?.displayName?.split(' ').length - 1] ?? '',
       }
     : {
         email: user.email,
-        firstName: user.displayName ?? '',
+        legalFirstName: user.displayName ?? '',
       }
   const submission = {
     submission: {

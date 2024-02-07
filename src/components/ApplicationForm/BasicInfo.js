@@ -381,37 +381,37 @@ export default ({ refs, errors, formInputs, onChange }) => (
       </SubHeading>
       <StyledTextInput
         placeholder="First Name"
-        value={formInputs.firstName}
-        errorMsg={errors?.firstName}
-        invalid={!!errors?.firstName}
+        value={formInputs.legalFirstName}
+        errorMsg={errors?.legalFirstName}
+        invalid={!!errors?.legalFirstName}
         onChange={e =>
           onChange({
-            firstName: e.target.value,
+            legalFirstName: e.target.value,
           })
         }
-        customRef={refs['firstNameRef']}
+        customRef={refs['legalFirstNameRef']}
       />
       <StyledTextInput
         placeholder="Middle Name"
-        value={formInputs.middleName}
-        errorMsg={errors?.middleName}
+        value={formInputs.legalMiddleName}
+        errorMsg={errors?.legalMiddleName}
         onChange={e =>
           onChange({
-            middleName: e.target.value,
+            legalMiddleName: e.target.value,
           })
         }
       />
       <StyledTextInput
         placeholder="Last Name"
-        value={formInputs.lastName}
-        errorMsg={errors?.lastName}
-        invalid={!!errors?.lastName}
+        value={formInputs.legalLastName}
+        errorMsg={errors?.legalLastName}
+        invalid={!!errors?.legalLastName}
         onChange={e =>
           onChange({
-            lastName: e.target.value,
+            legalLastName: e.target.value,
           })
         }
-        customRef={refs['lastNameRef']}
+        customRef={refs['legalLastNameRef']}
       />
     </FormSpacing>
 
