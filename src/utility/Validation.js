@@ -173,8 +173,8 @@ const validators = {
         message: EMAIL_MESSAGE,
       }
     },
-    firstName: noEmptyFunction,
-    lastName: noEmptyFunction,
+    legalFirstName: noEmptyFunction,
+    legalLastName: noEmptyFunction,
     preferredName: noEmptyFunction,
     // gender: noEmptyFunction,
     // identifyAsUnderrepresented: noEmptyFunction,

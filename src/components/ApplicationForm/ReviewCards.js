@@ -167,13 +167,15 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup
               heading="Full Legal Name:"
               data={
-                formInputs.basicInfo.middleName
-                  ? formInputs.basicInfo.firstName.concat(' ').concat(formInputs.basicInfo.lastName)
-                  : formInputs.basicInfo.firstName
+                formInputs.basicInfo.legalMiddleName
+                  ? formInputs.basicInfo.legalFirstName
                       .concat(' ')
-                      .concat(formInputs.basicInfo.middleName)
+                      .concat(formInputs.basicInfo.legalLastName)
+                  : formInputs.basicInfo.legalFirstName
                       .concat(' ')
-                      .concat(formInputs.basicInfo.lastName)
+                      .concat(formInputs.basicInfo.legalMiddleName)
+                      .concat(' ')
+                      .concat(formInputs.basicInfo.legalLastName)
               }
             />
             <InfoGroup heading="Gender:" data={gender} />

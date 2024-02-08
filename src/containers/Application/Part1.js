@@ -7,8 +7,8 @@ import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
 
 const questionsByOrder = [
-  'firstName',
-  'lastName',
+  'legalFirstName',
+  'legalLastName',
   'preferredName',
   'ageByHackathon',
   'phoneNumber',
@@ -55,8 +55,8 @@ export default () => {
   }
 
   const refs = {
-    firstNameRef: useRef(null),
-    lastNameRef: useRef(null),
+    legalFirstNameRef: useRef(null),
+    legalLastNameRef: useRef(null),
     preferredNameRef: useRef(null),
     genderRef: useRef(null),
     pronounsRef: useRef(null),
