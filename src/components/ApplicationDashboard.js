@@ -415,7 +415,10 @@ const Dashboard = ({
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>nwHacks 2024 is Western Canada’s largest 24 hour hackathon!</AppStatusText>
+          <AppStatusText>
+            cmd-f 2024 is Western Canada's largest hackathon celebrating underrepresented genders in
+            tech!
+          </AppStatusText>
           <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
