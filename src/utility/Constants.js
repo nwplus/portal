@@ -194,6 +194,7 @@ export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
+  beginner: 'Beginner',
   designer: 'Designer',
   developer: 'Developer',
   pm: 'Product/project manager',
@@ -296,6 +297,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   skills: {
     firstTimeHacker: null,
     contributionRole: {
+      beginner: false,
       designer: false,
       developer: false,
       pm: false,
@@ -308,6 +310,8 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     longAnswers1: '',
     longAnswers2: '',
     longAnswers3: '',
+    longAnswers4: '',
+    longAnswers5: '',
   },
   questionnaire: {
     engagementSource: '',

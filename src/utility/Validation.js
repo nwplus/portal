@@ -10,6 +10,7 @@ const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
 export const MAX_WAIVER_FILE_SIZE_MB = 3
 const LONG_ANSWER_WORD_LIMIT = 200
+const MED_ANSWER_WORD_LIMIT = 150
 const SHORT_ANSWER_WORD_LIMIT = 50
 export const validateURL = thing => {
   const pattern = new RegExp(
@@ -205,20 +206,32 @@ const validators = {
     firstTimeHacker: noNeitherFunction,
     longAnswers1: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
+        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
     longAnswers2: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
+        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
     longAnswers3: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > SHORT_ANSWER_WORD_LIMIT,
-        message: answer.length > SHORT_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
+        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+      }
+    },
+    longAnswers4: answer => {
+      return {
+        error: getWords(answer) > MED_ANSWER_WORD_LIMIT,
+        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+      }
+    },
+    longAnswers5: answer => {
+      return {
+        error: getWords(answer) > MED_ANSWER_WORD_LIMIT,
+        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
   },

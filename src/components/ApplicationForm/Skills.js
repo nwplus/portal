@@ -85,7 +85,29 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 17</QuestionHeading>
+        <QuestionHeading>question 20</QuestionHeading>
+        <SubHeading>
+          Is this your first hackathon?
+          <Required />
+        </SubHeading>
+        {errors?.firstTimeHacker && <ErrorMessage>{errors?.firstTimeHacker}</ErrorMessage>}
+        <Select
+          type="radio"
+          label="Yes"
+          checked={formInputs.firstTimeHacker}
+          onChange={() => onChange({ firstTimeHacker: true })}
+          customRef={refs['firstTimeHackerRef']}
+        />
+        <Select
+          type="radio"
+          label="No"
+          checked={formInputs.firstTimeHacker === false}
+          onChange={() => onChange({ firstTimeHacker: false })}
+        />
+      </FormSpacing>
+
+      <FormSpacing>
+        <QuestionHeading>question 21</QuestionHeading>
         <SubHeading>
           What is your intended role at {copyText.hackathonName}?
           <Required />
@@ -124,45 +146,17 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         )}
       </FormSpacing>
 
-      <FormSpacing>
-        <QuestionHeading>question 18</QuestionHeading>
-        <SubHeading>
-          Is this your first hackathon?
-          <Required />
-        </SubHeading>
-        {errors?.firstTimeHacker && <ErrorMessage>{errors?.firstTimeHacker}</ErrorMessage>}
-        <Select
-          type="radio"
-          label="Yes"
-          checked={formInputs.firstTimeHacker}
-          onChange={() => onChange({ firstTimeHacker: true })}
-          customRef={refs['firstTimeHackerRef']}
-        />
-        <Select
-          type="radio"
-          label="No"
-          checked={formInputs.firstTimeHacker === false}
-          onChange={() => onChange({ firstTimeHacker: false })}
-        />
-      </FormSpacing>
-
-      <SubHeading>Short Answer Questions</SubHeading>
+      <SubHeading>Long Answer Questions</SubHeading>
 
       <FormSpacing>
         <FormGroup>
-          <QuestionHeading>question 19</QuestionHeading>
+          <QuestionHeading>question 22</QuestionHeading>
           <SubHeading size="1.25em">
-            Although many come to hackathons to work together to build a software project, we
-            recognize that there may be other reasons for attending a hackathon, such as attending
-            workshops, or connecting with sponsors.
-          </SubHeading>
-          <SubHeading size="1.25em">
-            In your own words, describe your definition of a hackathon, and what it means to you.
-            (max 200 words)
+            Why do you want to attend cmd-f 2024? (max 150 words)
             <Required />
           </SubHeading>
           <StyledTextArea
-            maxWords="200"
+            maxWords="150"
             width="100%"
             value={formInputs.longAnswers1}
             invalid={!!errors.longAnswers1}
@@ -176,14 +170,14 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           />
         </FormGroup>
         <FormGroup>
-          <QuestionHeading>question 20</QuestionHeading>
+          <QuestionHeading>question 23</QuestionHeading>
           <SubHeading size="1.25em">
-            Describe a project (does not need to be a technical project) that you worked on and a
-            useful skill that you learned from it. (max 200 words)
+            How would you make tech a more welcoming space for underrepresented demographics? (150
+            words max)
             <Required />
           </SubHeading>
           <StyledTextArea
-            maxWords="200"
+            maxWords="150"
             width="100%"
             value={formInputs.longAnswers2}
             invalid={!!errors.longAnswers2}
@@ -197,14 +191,14 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           />
         </FormGroup>
         <FormGroup>
-          <QuestionHeading>question 21</QuestionHeading>
+          <QuestionHeading>question 24</QuestionHeading>
           <SubHeading size="1.25em">
-            What character (from a movie, show, book, etc.) do you relate to most and why? (max 50
-            words)
+            Tell us about a project you’re really proud of and what you learnt from it. (200 words
+            max)
             <Required />
           </SubHeading>
           <StyledTextArea
-            maxWords="50"
+            maxWords="200"
             width="100%"
             value={formInputs.longAnswers3}
             invalid={!!errors.longAnswers3}
@@ -217,10 +211,53 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             customRef={refs['longAnswers3Ref']}
           />
         </FormGroup>
+
+        <FormGroup>
+          <QuestionHeading>question 25</QuestionHeading>
+          <SubHeading size="1.25em">
+            In the past, have there been reasons deterring you from attending hackathons or other
+            tech events? (optional)
+          </SubHeading>
+          <StyledTextArea
+            maxWords="150"
+            width="100%"
+            value={formInputs.longAnswers4}
+            invalid={!!errors.longAnswers4}
+            errorMsg={errors.longAnswers4}
+            onChange={val =>
+              onChange({
+                longAnswers4: val,
+              })
+            }
+            customRef={refs['longAnswers4Ref']}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <QuestionHeading>question 26</QuestionHeading>
+          <SubHeading size="1.25em">
+            Is there anything you want to let us know to ensure that we can help you feel
+            comfortable throughout the event? (optional)
+            <Required />
+          </SubHeading>
+          <StyledTextArea
+            maxWords="150"
+            width="100%"
+            value={formInputs.longAnswers5}
+            invalid={!!errors.longAnswers5}
+            errorMsg={errors.longAnswers5}
+            onChange={val =>
+              onChange({
+                longAnswers5: val,
+              })
+            }
+            customRef={refs['longAnswers5']}
+          />
+        </FormGroup>
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 22</QuestionHeading>
+        <QuestionHeading>question 27</QuestionHeading>
         <SubHeading>
           Help us get to know you better by providing as many links as you feel will support your
           registration!
