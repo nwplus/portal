@@ -236,7 +236,7 @@ const validators = {
     },
   },
   questionnaire: {
-    engagementSource: noEmptyFunction,
+    engagementSource: noNoneFunction,
     eventsAttended: noNoneFunction,
   },
   termsAndConditions: {

@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Dropdown, Select, TextInput } from '../../components/Input'
 import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../../components/Typography'
 import { copyText } from '../../utility/Constants'
-import { findElement } from '../../utility/utilities'
 import { CenteredH1 } from '../Typography'
 import { FormSpacing, SubHeading } from './'
 
@@ -48,7 +47,8 @@ export default ({ errors, formInputs, onChange }) => {
           <Required />
         </SubHeading>
         {errors?.engagementSource && <ErrorMessage>{errors?.resume}</ErrorMessage>}
-        <StyledDropdown
+
+        {/* <StyledDropdown
           options={options}
           placeholder="Select an option"
           isSearchable={false}
@@ -60,8 +60,164 @@ export default ({ errors, formInputs, onChange }) => {
             })
           }
           isValid
+        /> */}
+
+        <Select
+          type="checkbox"
+          label="Attended Previously"
+          checked={formInputs.engagementSource.attendedPreviously}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                attendedPreviously: !formInputs.engagementSource.attendedPreviously,
+              },
+            })
+          }
         />
-        {formInputs.engagementSource === 'Other' && (
+        <Select
+          type="checkbox"
+          label="MLH"
+          checked={formInputs.engagementSource.MLH}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                MLH: !formInputs.engagementSource.MLH,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="Instagram"
+          checked={formInputs.engagementSource.instagram}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                instagram: !formInputs.engagementSource.instagram,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="Facebook"
+          checked={formInputs.engagementSource.facebook}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                facebook: !formInputs.engagementSource.facebook,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="LinkedIn"
+          checked={formInputs.engagementSource.linkedIn}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                linkedIn: !formInputs.engagementSource.linkedIn,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="Website"
+          checked={formInputs.engagementSource.website}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                website: !formInputs.engagementSource.website,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="Word-of-mouth"
+          checked={formInputs.engagementSource.wordOfMouth}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                wordOfMouth: !formInputs.engagementSource.wordOfMouth,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="nwPlus Newsletter"
+          checked={formInputs.engagementSource.nwPlusNewsletter}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                nwPlusNewsletter: !formInputs.engagementSource.nwPlusNewsletter,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="Faculty Newsletter"
+          checked={formInputs.engagementSource.facultyNewsletter}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                facultyNewsletter: !formInputs.engagementSource.facultyNewsletter,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="Professor/in class"
+          checked={formInputs.engagementSource.professorInClass}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                professorInClass: !formInputs.engagementSource.professorInClass,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="Other (Please Specify)"
+          checked={formInputs.engagementSource.other}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              engagementSource: {
+                ...formInputs.engagementSource,
+                other: !formInputs.engagementSource.other,
+              },
+            })
+          }
+        />
+
+        {formInputs.engagementSource.other && (
           <TextInput
             placeholder="Please Specify"
             size="small"
@@ -164,6 +320,20 @@ export default ({ errors, formInputs, onChange }) => {
               eventsAttended: {
                 ...formInputs.eventsAttended,
                 nwHacks2023: !formInputs.eventsAttended.nwHacks2023,
+              },
+            })
+          }
+        />
+        <Select
+          type="checkbox"
+          label="nwHacks 2024"
+          checked={formInputs.eventsAttended.nwHacks2024}
+          onChange={() =>
+            onChange({
+              ...formInputs,
+              eventsAttended: {
+                ...formInputs.eventsAttended,
+                nwHacks2024: !formInputs.eventsAttended.nwHacks2024,
               },
             })
           }
