@@ -1,10 +1,9 @@
 import React from 'react'
-import ReactSelect from 'react-select'
-import CreatableSelect from 'react-select/creatable'
+import ReactSelect, { components } from 'react-select'
 import AsyncSelect from 'react-select/async'
 import AsyncCreatableSelect from 'react-select/async-creatable'
-import styled, { withTheme, css } from 'styled-components'
-import { components } from 'react-select'
+import CreatableSelect from 'react-select/creatable'
+import styled, { css, withTheme } from 'styled-components'
 import customCursor from '../../assets/custom-cursor.png'
 import Icon from '../Icon'
 

@@ -13,7 +13,6 @@ const questionsByOrder = [
   'ageByHackathon',
   'phoneNumber',
   'school',
-  'major',
   'educationLevel',
   'graduation',
   'academicYear',
@@ -23,8 +22,13 @@ const questionsByOrder = [
   'identifyAsUnderrepresented',
   'pronouns',
   'gender',
-  'ethnicity',
-  'isAuthorizedToWorkInCanada',
+  'major',
+  'race',
+  'indigenousIdentification',
+  'culturalBackground',
+  // 'isAuthorizedToWorkInCanada',
+  'canadianStatus',
+  'disability',
 ]
 
 export default () => {
@@ -62,6 +66,7 @@ export default () => {
     pronounsRef: useRef(null),
     dietaryRestrictionRef: useRef(null),
     identifyAsUnderrepresentedRef: useRef(null),
+    indigenousIdentificationRef: useRef(null),
     ageByHackathonRef: useRef(null),
     phoneNumberRef: useRef(null),
     schoolRef: useRef(null),
@@ -69,13 +74,16 @@ export default () => {
     educationLevelRef: useRef(null),
     graduationRef: useRef(null),
     academicYearRef: useRef(null),
-    ethnicityRef: useRef(null),
+    raceRef: useRef(null),
     // willBeAgeOfMajorityRef: useRef(null),
     hackathonsAttendedRef: useRef(null),
     contributionRoleRef: useRef(null),
     countryOfResidenceRef: useRef(null),
     locationRef: useRef(null),
-    isAuthorizedToWorkInCanadaRef: useRef(null),
+    culturalBackgroundRef: useRef(null),
+    // isAuthorizedToWorkInCanadaRef: useRef(null),
+    canadianStatusRef: useRef(null),
+    disabilityRef: useRef(null),
   }
 
   /**
