@@ -313,7 +313,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
             />
             <InfoGroup heading="Country of Residence:" data={countryOfResidence} />
-            <InfoGroup heading="Dietary restriction:" data={dietaryRestrictionValues} />
+            <InfoGroup heading="Dietary restriction(s):" data={dietaryRestrictionValues} />
             <InfoGroup
               heading="Identify As Underrepresented Gender in Tech:"
               data={identifyAsUnderrepresented}
