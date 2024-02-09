@@ -1,16 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
-import { Dropdown, Select, TextInput } from '../../components/Input'
+import { Select, TextInput } from '../../components/Input'
 import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../../components/Typography'
 import { copyText } from '../../utility/Constants'
 import { CenteredH1 } from '../Typography'
 import { FormSpacing, SubHeading } from './'
 
-const StyledDropdown = styled(Dropdown)`
-  .react-select__control {
-    margin: 0 0 1em;
-  }
-`
+// const StyledDropdown = styled(Dropdown)`
+//   .react-select__control {
+//     margin: 0 0 1em;
+//   }
+// `
 
 // const StyledTextInput = styled(TextInput)`
 //   margin: 0.5em 1em 1em 0;
@@ -24,7 +23,7 @@ export const options = [
   { value: '4', label: 'Word of mouth' },
   { value: '5', label: 'Club newsletter' },
   { value: '6', label: 'Faculty newsletter' },
-  { value: '7', label: 'Professor/in class' },
+  { value: '7', label: 'Professors/In Class' },
   { value: '8', label: 'Other' },
 ]
 
@@ -190,7 +189,7 @@ export default ({ errors, formInputs, onChange }) => {
         />
         <Select
           type="checkbox"
-          label="Professor/in class"
+          label="Professors/In Class"
           checked={formInputs.engagementSource.professorInClass}
           onChange={() =>
             onChange({

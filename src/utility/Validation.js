@@ -11,7 +11,7 @@ export const MAX_RESUME_FILE_SIZE_MB = 2
 export const MAX_WAIVER_FILE_SIZE_MB = 3
 const LONG_ANSWER_WORD_LIMIT = 200
 const MED_ANSWER_WORD_LIMIT = 150
-const SHORT_ANSWER_WORD_LIMIT = 50
+// const SHORT_ANSWER_WORD_LIMIT = 50
 export const validateURL = thing => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol

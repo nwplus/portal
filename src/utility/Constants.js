@@ -201,6 +201,20 @@ export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
   other: 'Other',
 })
 
+export const ENGAGEMENT_SOURCES = Object.freeze({
+  attendedPreviously: 'Attended Previously',
+  MLH: 'MLH',
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+  linkedIn: 'LinkedIn',
+  website: 'Website',
+  wordOfMouth: 'Word-of-mouth',
+  nwPlusNewsletter: 'nwPlus Newsletter',
+  facultyNewsletter: 'Faculty Newsletter',
+  professorInClass: 'Professors/In Class',
+  other: 'Other (Please Specify)',
+})
+
 export const EVENTS_ATTENDED = Object.freeze({
   cmdf2020: 'cmd-f 2020',
   cmdf2021: 'cmd-f 2021',
@@ -212,6 +226,7 @@ export const EVENTS_ATTENDED = Object.freeze({
   nwHacks2021: 'nwHacks 2021',
   nwHacks2022: 'nwHacks 2022',
   nwHacks2023: 'nwHacks 2023',
+  nwHacks2024: 'nwHacks 2024',
   none: 'None',
 })
 
