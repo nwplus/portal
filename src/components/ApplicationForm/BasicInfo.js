@@ -624,7 +624,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
       {errors?.countryOfResidence && <ErrorMessage>{errors?.countryOfResidence}</ErrorMessage>}
       <Dropdown
         options={countryOptions}
-        placeholder="country..."
+        placeholder="Country..."
         isSearchable
         value={findElement(countryOptions, 'value', formInputs.countryOfResidence)}
         onChange={inputValue =>
