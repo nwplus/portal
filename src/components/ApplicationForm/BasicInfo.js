@@ -52,13 +52,12 @@ const educationOptions = [
   { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
 
-// Removed as of nwHacks 2024
-// const identifyAsUnderrepresentedOptions = [
-//   { value: 'yes', label: 'Yes' },
-//   { value: 'no', label: 'No' },
-//   { value: 'unsure', label: 'Unsure' },
-//   { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
-// ]
+const identifyAsUnderrepresentedOptions = [
+  { value: 'yes', label: 'Yes' },
+  { value: 'no', label: 'No' },
+  { value: 'unsure', label: 'Unsure' },
+  { value: 'preferNotToAnswer', label: 'Prefer not to answer' },
+]
 
 const academicYearOptions = [
   { value: 'Secondary/High School', label: 'Secondary/High School' },
@@ -417,16 +416,11 @@ export default ({ refs, errors, formInputs, onChange }) => (
 
     <FormSpacing>
       <QuestionHeading>question 02</QuestionHeading>
-      <SubHeading>
-        What is your preferred name?
-        <Required />
-      </SubHeading>
+      <SubHeading>What is your preferred name?</SubHeading>
 
       <StyledTextInput
         placeholder="Preferred Name"
         value={formInputs.preferredName}
-        errorMsg={errors?.preferredName}
-        invalid={!!errors?.preferredName}
         onChange={e =>
           onChange({
             preferredName: e.target.value,
@@ -525,35 +519,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 06</QuestionHeading>
       <SubHeading>
-        {formInputs.educationLevel === 'high school'
-          ? 'What do you plan on studying?'
-          : 'What is your current or intended major?'}
-        <Required />
-      </SubHeading>
-      <P>Enter your intended/current major, or unknown</P>
-      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
-      <Dropdown
-        options={majors}
-        placeholder="Enter your major"
-        isSearchable
-        formatCreateLabel={inputValue => `${inputValue}`}
-        label={formInputs.major}
-        value={creatableDropdownValue(majors, 'label', formInputs.major)}
-        onChange={e =>
-          onChange({
-            major: e.label,
-          })
-        }
-        emptySearchDefaultOption="Start typing to search"
-        canCreateNewOption
-        isValid={!errors?.major}
-        customRef={refs['majorRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 07</QuestionHeading>
-      <SubHeading>
         What is your level of study?
         <Required />
       </SubHeading>
@@ -589,6 +554,28 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
+      <QuestionHeading>question 07</QuestionHeading>
+      <SubHeading>
+        What is your current academic year?
+        <Required />
+      </SubHeading>
+      {errors?.academicYear && <ErrorMessage>{errors?.academicYear}</ErrorMessage>}
+      <Dropdown
+        options={academicYearOptions}
+        placeholder="Academic Year"
+        isSearchable={false}
+        value={findElement(academicYearOptions, 'value', formInputs.academicYear)}
+        onChange={inputValue =>
+          onChange({
+            academicYear: inputValue.value,
+          })
+        }
+        isValid={!errors?.academicYear}
+        customRef={refs['academicYearRef']}
+      />
+    </FormSpacing>
+
+    <FormSpacing>
       <QuestionHeading>question 08</QuestionHeading>
       <SubHeading>
         What is your (expected) graduation year?
@@ -613,28 +600,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 09</QuestionHeading>
       <SubHeading>
-        What is your current academic year?
-        <Required />
-      </SubHeading>
-      {errors?.academicYear && <ErrorMessage>{errors?.academicYear}</ErrorMessage>}
-      <Dropdown
-        options={academicYearOptions}
-        placeholder="Academic Year"
-        isSearchable={false}
-        value={findElement(academicYearOptions, 'value', formInputs.academicYear)}
-        onChange={inputValue =>
-          onChange({
-            academicYear: inputValue.value,
-          })
-        }
-        isValid={!errors?.academicYear}
-        customRef={refs['academicYearRef']}
-      />
-    </FormSpacing>
-
-    <FormSpacing>
-      <QuestionHeading>question 10</QuestionHeading>
-      <SubHeading>
         What is your country of residence?
         <Required />
       </SubHeading>
@@ -656,7 +621,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 11</QuestionHeading>
+      <QuestionHeading>question 10</QuestionHeading>
       <SubHeading>
         Dietary restrictions
         <Required />
@@ -696,7 +661,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
       )}
     </FormSpacing>
 
-    <FormSpacing>
+    {/* <FormSpacing>
       <QuestionHeading>question 12</QuestionHeading>
       <SubHeading>
         Will you be 19 years of age or older by January 20th, 2024?
@@ -716,21 +681,13 @@ export default ({ refs, errors, formInputs, onChange }) => (
         checked={formInputs.willBeAgeOfMajority === false}
         onChange={() => onChange({ willBeAgeOfMajority: false })}
       />
-    </FormSpacing>
+    </FormSpacing> */}
 
     <FormSpacing>
-      <CenteredH1>Optional Questions</CenteredH1>
-      <H2>
-        The following questions are completely optional and do not affect your application as a
-        hacker.
-      </H2>
-    </FormSpacing>
-
-    {/* Removed as of nwHacks 2024 */}
-    {/* <FormSpacing>
-      <QuestionHeading>question 13</QuestionHeading>
+      <QuestionHeading>question 11</QuestionHeading>
       <SubHeading>
         Do you identify as part of an underrepresented gender in the technology industry?
+        <Required />
       </SubHeading>
       {errors?.identifyAsUnderrepresented && (
         <ErrorMessage>{errors?.identifyAsUnderrepresented}</ErrorMessage>
@@ -752,7 +709,15 @@ export default ({ refs, errors, formInputs, onChange }) => (
         isValid={!errors?.identifyAsUnderrepresented}
         customRef={refs['identifyAsUnderrepresentedRef']}
       />
-    </FormSpacing> */}
+    </FormSpacing>
+
+    <FormSpacing>
+      <CenteredH1>Optional Questions</CenteredH1>
+      <H2>
+        The following questions are completely optional and do not affect your application as a
+        hacker.
+      </H2>
+    </FormSpacing>
 
     <FormSpacing>
       <QuestionHeading>question 13</QuestionHeading>
@@ -821,6 +786,35 @@ export default ({ refs, errors, formInputs, onChange }) => (
           }
         />
       )}
+    </FormSpacing>
+
+    <FormSpacing>
+      <QuestionHeading>question 06</QuestionHeading>
+      <SubHeading>
+        {formInputs.educationLevel === 'high school'
+          ? 'What do you plan on studying?'
+          : 'What is your current or intended major?'}
+        <Required />
+      </SubHeading>
+      <P>Enter your intended/current major, or unknown</P>
+      {/* {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>} */}
+      <Dropdown
+        options={majors}
+        placeholder="Enter your major"
+        isSearchable
+        formatCreateLabel={inputValue => `${inputValue}`}
+        label={formInputs.major}
+        value={creatableDropdownValue(majors, 'label', formInputs.major)}
+        onChange={e =>
+          onChange({
+            major: e.label,
+          })
+        }
+        emptySearchDefaultOption="Start typing to search"
+        canCreateNewOption
+        // isValid={!errors?.major}
+        customRef={refs['majorRef']}
+      />
     </FormSpacing>
 
     <FormSpacing>

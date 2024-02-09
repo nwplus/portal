@@ -240,6 +240,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       halal: false,
       other: false,
     },
+    identifyAsUnderrepresented: '',
     ageByHackathon: null,
     phoneNumber: '',
     school: '',
@@ -248,7 +249,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     graduation: null,
     academicYear: '',
     countryOfResidence: '',
-    willBeAgeOfMajority: null,
+    // willBeAgeOfMajority: null,
   },
   skills: {
     firstTimeHacker: null,
