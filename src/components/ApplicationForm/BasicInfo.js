@@ -644,6 +644,10 @@ export default ({ refs, errors, formInputs, onChange }) => (
         Dietary restrictions
         <Required />
       </SubHeading>
+      <P>
+        Please answer to the best of your abilities so we are able to accommodate your needs! Note
+        that we may be unable to provide accommodations if you do not answer this accurately.
+      </P>
       {errors?.dietaryRestriction && <ErrorMessage>{errors?.dietaryRestriction}</ErrorMessage>}
       {formInputs &&
         applyCustomSort(
@@ -1038,12 +1042,12 @@ export default ({ refs, errors, formInputs, onChange }) => (
           placeholder="Please Specify"
           size="small"
           noOutline
-          value={formInputs.canadianStatus}
-          errorMsg={errors?.canadianStatus}
-          invalid={!!errors?.canadianStatus}
+          value={formInputs.otherCanadianStatus}
+          errorMsg={errors?.otherCanadianStatus}
+          invalid={!!errors?.otherCanadianStatus}
           onChange={e =>
             onChange({
-              canadianStatus: e.target.value,
+              otherCanadianStatus: e.target.value,
             })
           }
         />
@@ -1054,9 +1058,11 @@ export default ({ refs, errors, formInputs, onChange }) => (
       <QuestionHeading>question 19</QuestionHeading>
       <SubHeading>Do you have any visible or invisible disabilities?</SubHeading>
       <StyledTextArea
+        maxWords="200"
         width="100%"
         value={formInputs.disability}
         invalid={!!errors.disability}
+        errorMsg={errors.disability}
         onChange={val =>
           onChange({
             disability: val,

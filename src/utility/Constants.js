@@ -185,12 +185,14 @@ export const PRONOUN_OPTIONS = Object.freeze({
 
 export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
   none: 'None',
-  celiacDisease: 'Celiac Disease',
+  dairy: 'Dairy',
+  glutenFree: 'Gluten Free',
   halal: 'Halal',
   kosher: 'Kosher',
+  nuts: 'Nuts',
   vegetarian: 'Vegetarian',
   vegan: 'Vegan',
-  other: 'Allergies/other',
+  other: 'Other (Please Specify)',
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
@@ -272,11 +274,13 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     },
     dietaryRestriction: {
       none: false,
+      dairy: false,
+      glutenFree: false,
+      halal: false,
+      kosher: false,
+      nuts: false,
       vegetarian: false,
       vegan: false,
-      celiacDisease: false,
-      kosher: false,
-      halal: false,
       other: false,
     },
     identifyAsUnderrepresented: '',

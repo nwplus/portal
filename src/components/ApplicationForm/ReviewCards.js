@@ -110,7 +110,17 @@ export default ({ formInputs, handleEdit, onChange }) => {
   const identifyAsUnderrepresented = capitalizeFirstLetter(
     formInputs.basicInfo.identifyAsUnderrepresented
   )
-  const canadianStatus = capitalizeFirstLetter(formInputs.basicInfo.canadianStatus)
+
+  let canadianStatus = formInputs.basicInfo.canadianStatus
+
+  if (canadianStatus === 'other') {
+    canadianStatus = formInputs.basicInfo.otherCanadianStatus
+      ? formInputs.basicInfo.specifiedIndigenousIdentification
+      : 'Other Canadian Status'
+  } else {
+    canadianStatus = capitalizeFirstLetter(formInputs.basicInfo.canadianStatus)
+  }
+
   let indigenousIdentification = capitalizeFirstLetter(
     formInputs.basicInfo.indigenousIdentification
   )
@@ -127,9 +137,9 @@ export default ({ formInputs, handleEdit, onChange }) => {
   var dietaryRestrictionValues = []
 
   for (var i = 0; i < dietaryRestrictions.length; i++) {
-    if (dietaryRestrictions[i] === 'Multiple restrictions/other') {
+    if (dietaryRestrictions[i] === 'Other (Please Specify)') {
       dietaryRestrictionValues.push(
-        formInputs.basicInfo?.otherDietaryRestriction || 'Multiple restrictions/other'
+        formInputs.basicInfo?.otherDietaryRestriction || 'Other Dietary Restriction'
       )
     } else {
       dietaryRestrictionValues.push(dietaryRestrictions[i])
@@ -177,7 +187,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
   var attendedValues = []
 
   for (var l = 0; l < events.length; l++) {
-    attendedValues.push(events[j])
+    attendedValues.push(events[l])
 
     if (l < events.length - 1) {
       attendedValues.push(', ')
@@ -202,7 +212,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
   var pronounValues = []
 
   for (var n = 0; n < pronouns.length; n++) {
-    if (pronouns[n] === 'Other (Please Specify)') {
+    if (pronouns[n] === 'Other') {
       pronounValues.push(formInputs.basicInfo?.otherPronoun || 'Other Pronoun')
     } else {
       pronounValues.push(pronouns[n])
@@ -308,7 +318,10 @@ export default ({ formInputs, handleEdit, onChange }) => {
               heading="Identify As Underrepresented Gender in Tech:"
               data={identifyAsUnderrepresented}
             />
-            <InfoGroup heading={'Pronouns:'} data={pronouns.length > 0 ? pronouns : 'None'} />
+            <InfoGroup
+              heading={'Pronouns:'}
+              data={pronounValues.length > 0 ? pronounValues : 'None'}
+            />
             <InfoGroup heading="Gender:" data={gender ? gender : 'None'} />
             <InfoGroup
               heading={'Intended Major(s):'}

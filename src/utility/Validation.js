@@ -204,6 +204,12 @@ const validators = {
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
     firstTimeHacker: noNeitherFunction,
+    disability: answer => {
+      return {
+        error: getWords(answer) > LONG_ANSWER_WORD_LIMIT,
+        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+      }
+    },
     longAnswers1: answer => {
       return {
         error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,

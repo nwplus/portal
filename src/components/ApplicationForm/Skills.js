@@ -152,7 +152,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         <FormGroup>
           <QuestionHeading>question 22</QuestionHeading>
           <SubHeading size="1.25em">
-            Why do you want to attend cmd-f 2024? (max 150 words)
+            Why do you want to attend cmd-f 2024? (150 words max)
             <Required />
           </SubHeading>
           <StyledTextArea
@@ -238,7 +238,6 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           <SubHeading size="1.25em">
             Is there anything you want to let us know to ensure that we can help you feel
             comfortable throughout the event? (optional)
-            <Required />
           </SubHeading>
           <StyledTextArea
             maxWords="150"
@@ -260,7 +259,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         <QuestionHeading>question 27</QuestionHeading>
         <SubHeading>
           Help us get to know you better by providing as many links as you feel will support your
-          registration!
+          application!
         </SubHeading>
 
         <QuestionForm>
