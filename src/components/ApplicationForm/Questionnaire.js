@@ -221,7 +221,6 @@ export default ({ errors, formInputs, onChange }) => {
             placeholder="Please Specify"
             size="small"
             noOutline
-            inline
             value={formInputs.otherEngagementSource}
             onChange={e =>
               onChange({

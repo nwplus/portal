@@ -351,6 +351,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     MLHCodeOfConduct: false,
     MLHPrivacyPolicy: false,
     MLHEmailSubscription: false,
+    genderAcknowledgement: false,
     shareWithnwPlus: false,
     nwPlusPrivacyPolicy: false,
     shareWithSponsors: false,

@@ -433,83 +433,10 @@ export default ({ formInputs, handleEdit, onChange }) => {
 
         <ContentWrapper textBlock>
           <P>
-            <span role="img" aria-label="Floppy disk emoji">
-              💾
-            </span>{' '}
-            We use your (anonymized!) data to help you get the best sponsors and continuously
-            improve nwHacks with each iteration.
-          </P>
-        </ContentWrapper>
-
-        <ContentWrapper textBlock>
-          <Checkbox
-            flex
-            checked={formInputs.termsAndConditions.nwPlusPrivacyPolicy}
-            onChange={() =>
-              onChange({
-                nwPlusPrivacyPolicy: !formInputs.termsAndConditions.nwPlusPrivacyPolicy,
-              })
-            }
-            required
-          >
-            <span>
-              I agree to the{' '}
-              <A bolded color="#FFF" href="https://nwplus.io/privacy/" target="_blank">
-                nwPlus Privacy Policy
-              </A>
-              <Required />
-            </span>
-          </Checkbox>
-          <Checkbox
-            flex
-            checked={formInputs.termsAndConditions.shareWithnwPlus}
-            onChange={() =>
-              onChange({
-                shareWithnwPlus: !formInputs.termsAndConditions.shareWithnwPlus,
-              })
-            }
-            required
-          >
-            <span>
-              I authorize nwPlus to use my anonymized data for data reporting.
-              <Required />
-            </span>
-          </Checkbox>
-        </ContentWrapper>
-
-        <ContentWrapper textBlock>
-          <P>
-            <span role="img" aria-label="Suitcase emoji">
-              💼
-            </span>{' '}
-            Our hackathon aims to connect you with industry professionals, recruiters, and career
-            opportunities. In doing so, information about our hackers is needed in order for
-            attending companies to contact you.
-          </P>
-        </ContentWrapper>
-
-        <ContentWrapper textBlock>
-          <Checkbox
-            flex
-            checked={formInputs.termsAndConditions.shareWithSponsors}
-            onChange={() =>
-              onChange({
-                shareWithSponsors: !formInputs.termsAndConditions.shareWithSponsors,
-              })
-            }
-          >
-            I authorize nwPlus to provide my resume and supporting documents (Github, Linkedin, etc)
-            to event sponsors for recruitment purposes upon request.
-          </Checkbox>
-        </ContentWrapper>
-
-        <ContentWrapper textBlock>
-          <P>
             <span role="img" aria-label="Robot emoji">
               🤖
             </span>{' '}
-            nwHacks 2024 is an MLH partner event. The following 3 checkboxes are for this
-            partnership.
+            cmd-f 2024 is an MLH partner event. The following 3 checkboxes are for this partnership.
           </P>
           <Checkbox
             flex
@@ -578,6 +505,104 @@ export default ({ formInputs, handleEdit, onChange }) => {
               I authorize MLH to send me occasional emails about relevant events, career
               opportunities, and community announcements.
             </span>
+          </Checkbox>
+        </ContentWrapper>
+
+        <ContentWrapper textBlock>
+          <P>
+            <span role="img" aria-label="Plant sprout emoji">
+              🌱
+            </span>{' '}
+            Gender is deeply personal and can look different on each individual. We ask all
+            participants to trust that everyone attending belongs.
+          </P>
+
+          <Checkbox
+            flex
+            checked={formInputs.termsAndConditions.genderAcknowledgement}
+            onChange={() =>
+              onChange({
+                genderAcknowledgement: !formInputs.termsAndConditions.genderAcknowledgement,
+              })
+            }
+          >
+            <span>
+              Gender is deeply personal and can look different on each individual. We ask all
+              participants to trust that everyone attending belongs.
+              <Required />
+            </span>
+          </Checkbox>
+        </ContentWrapper>
+
+        <ContentWrapper textBlock>
+          <P>
+            <span role="img" aria-label="Floppy disk emoji">
+              💾
+            </span>{' '}
+            We use your (anonymized!) data to help you get the best sponsors and continuously
+            improve nwHacks with each iteration.
+          </P>
+        </ContentWrapper>
+
+        <ContentWrapper textBlock>
+          <Checkbox
+            flex
+            checked={formInputs.termsAndConditions.nwPlusPrivacyPolicy}
+            onChange={() =>
+              onChange({
+                nwPlusPrivacyPolicy: !formInputs.termsAndConditions.nwPlusPrivacyPolicy,
+              })
+            }
+            required
+          >
+            <span>
+              I agree to the{' '}
+              <A bolded color="#FFF" href="https://nwplus.io/privacy/" target="_blank">
+                nwPlus Privacy Policy
+              </A>
+              <Required />
+            </span>
+          </Checkbox>
+          <Checkbox
+            flex
+            checked={formInputs.termsAndConditions.shareWithnwPlus}
+            onChange={() =>
+              onChange({
+                shareWithnwPlus: !formInputs.termsAndConditions.shareWithnwPlus,
+              })
+            }
+            required
+          >
+            <span>
+              I authorize nwPlus to use my anonymized data for data reporting.
+              <Required />
+            </span>
+          </Checkbox>
+        </ContentWrapper>
+
+        <ContentWrapper textBlock>
+          <P>
+            <span role="img" aria-label="Suitcase emoji">
+              💼
+            </span>{' '}
+            Our hackathon aims to connect you with industry professionals, recruiters, and career
+            opportunities. In doing so, information about our hackers is needed in order for
+            attending companies to contact you.
+          </P>
+        </ContentWrapper>
+
+        <ContentWrapper textBlock>
+          <Checkbox
+            flex
+            checked={formInputs.termsAndConditions.shareWithSponsors}
+            onChange={() =>
+              onChange({
+                shareWithSponsors: !formInputs.termsAndConditions.shareWithSponsors,
+              })
+            }
+          >
+            I authorize nwPlus to provide my resume and supporting documents (Github, Linkedin, etc)
+            to event sponsors for recruitment purposes upon request.
           </Checkbox>
         </ContentWrapper>
       </ReviewContainer>

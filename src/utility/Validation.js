@@ -249,6 +249,7 @@ const validators = {
     MLHCodeOfConduct: validateTrueFunction,
     MLHPrivacyPolicy: validateTrueFunction,
     // MLHEmailSubscription: validateTrueFunction,
+    genderAcknowledgement: validateTrueFunction,
     shareWithnwPlus: validateTrueFunction,
     nwPlusPrivacyPolicy: validateTrueFunction,
   },
