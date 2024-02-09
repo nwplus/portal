@@ -131,6 +131,24 @@ export const calculateGrade = score => {
   }, 0).toFixed(2)
 }
 
+export const MAJOR_OPTIONS = Object.freeze({
+  computerScience: 'Computer science, computer engineering, or software engineering',
+  otherEngineering: 'Another engineering discipline (such as civil, electrical, mechanical, etc.)',
+  informationTech: 'Information systems, information technology, or system administration',
+  naturalScience: 'A natural science (such as biology, chemistry, physics, etc.)',
+  mathOrStats: 'Mathematics or statistics',
+  webDevOrDesign: 'Web development or web design',
+  business: 'Business discipline (such as accounting, finance, marketing, etc.)',
+  humanities: 'Humanities discipline (such as literature, history, philosophy, etc.)',
+  socialScience: 'Social science (such as anthropology, psychology, political science, etc.)',
+  arts: 'Fine arts or performing arts (such as graphic design, music, studio art, etc.)',
+  healthScience: 'Health science (such as nursing, pharmacy, radiology, etc.)',
+  other: 'Other (Please Specify)',
+  undecidedOrUndeclared: 'Undecided / No Declared Major',
+  schoolDoesNotOfferMajors: 'My school does not offer majors / primary areas of study',
+  preferNotToAnswer: 'Prefer not to answer',
+})
+
 export const RACE_OPTIONS = Object.freeze({
   asian: 'Asian',
   black: 'Black',
@@ -251,7 +269,23 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     canadianStatus: '',
     phoneNumber: '',
     school: '',
-    major: '',
+    major: {
+      computerScience: false,
+      otherEngineering: false,
+      informationTech: false,
+      naturalScience: false,
+      mathOrStats: false,
+      webDevOrDesign: false,
+      business: false,
+      humanities: false,
+      socialScience: false,
+      arts: false,
+      healthScience: false,
+      other: false,
+      undecidedOrUndeclared: false,
+      schoolDoesNotOfferMajors: false,
+      preferNotToAnswer: false,
+    },
     educationLevel: '',
     graduation: null,
     academicYear: '',

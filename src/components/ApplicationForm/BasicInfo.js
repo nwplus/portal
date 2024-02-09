@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import majors from '../../containers/Application/data/majors.json'
 import schools from '../../containers/Application/data/schools.json'
 import {
   CULTURAL_BG_OPTIONS,
   DIETARY_RESTRICTION_OPTIONS,
+  MAJOR_OPTIONS,
   PRONOUN_OPTIONS,
   RACE_OPTIONS,
 } from '../../utility/Constants'
@@ -806,7 +806,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
       )}
     </FormSpacing>
 
-    <FormSpacing>
+    {/* <FormSpacing>
       <QuestionHeading>question 14</QuestionHeading>
       <SubHeading>
         {formInputs.educationLevel === 'high school'
@@ -814,7 +814,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
           : 'What is your current or intended major?'}
       </SubHeading>
       <P>Enter your intended/current major, or unknown</P>
-      {/* {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>} */}
+      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
       <Dropdown
         options={majors}
         placeholder="Enter your major"
@@ -832,6 +832,46 @@ export default ({ refs, errors, formInputs, onChange }) => (
         isValid={true}
         customRef={refs['majorRef']}
       />
+    </FormSpacing> */}
+
+    <FormSpacing>
+      <QuestionHeading>question 14</QuestionHeading>
+      <SubHeading>
+        {formInputs.educationLevel === 'high school'
+          ? 'What do you plan on studying?'
+          : 'What is your current or intended major?'}
+      </SubHeading>
+      {formInputs &&
+        applyCustomSort(Object.entries(formInputs?.major), Object.keys(MAJOR_OPTIONS)).map(
+          ([key, val]) => (
+            <Select
+              key={key}
+              type="checkbox"
+              label={MAJOR_OPTIONS[key]}
+              checked={val}
+              onChange={() =>
+                onChange({
+                  major: { ...formInputs.major, [key]: !val },
+                })
+              }
+              customRef={refs['majorRef']}
+            />
+          )
+        )}
+      <br />
+      {formInputs?.major?.other && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs?.otherMajor}
+          onChange={e =>
+            onChange({
+              otherMajor: e.target.value,
+            })
+          }
+        />
+      )}
     </FormSpacing>
 
     <FormSpacing>
@@ -1013,7 +1053,6 @@ export default ({ refs, errors, formInputs, onChange }) => (
     <FormSpacing>
       <QuestionHeading>question 19</QuestionHeading>
       <SubHeading>Do you have any visible or invisible disabilities?</SubHeading>
-      <QuestionHeading>question 20</QuestionHeading>
       <StyledTextArea
         width="100%"
         value={formInputs.disability}
