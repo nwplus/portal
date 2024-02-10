@@ -160,9 +160,7 @@ export function HackerApplicationProvider({ children }) {
    * Applications are closed ? show message
    * Applications are open ? Show application
    */
-  return applicationOpen === null ||
-    application === undefined ||
-    Object.keys(application).length === 0 ? (
+  return applicationOpen === null || application === undefined ? (
     <Spinner />
   ) : !applicationOpen && window.location.pathname !== '/application' ? (
     <Closed />
