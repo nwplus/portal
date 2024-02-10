@@ -300,7 +300,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'Not Submitted',
     cardText: 'Not Submitted',
     // blurb: `Your application has not been submitted. Please complete your application and submit before the deadline on ${relevantDates?.applicationDeadline} in order to join us at ${copyText.hackathonName}!`,
-    blurb: `Your application has not been submitted. Please complete your application and submit before December in order to join us at ${copyText.hackathonName}!`,
+    blurb: `Your application has not been submitted. Please complete your application and submit before February 22, 2024 in order to join us at ${copyText.hackathonName}!`,
   },
 })
 
