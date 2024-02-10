@@ -4,13 +4,13 @@ import { Link, useLocation } from 'wouter'
 import cmdf_logo from '../assets/cmdf_logo.png'
 import hc_logo from '../assets/hc_logo.svg'
 import logo from '../assets/logo.svg'
-import nwhacks_logo from '../assets/logo2024.svg'
+import nwplus_logo from '../assets/nwplus_icon.svg'
 import { useAuth } from '../utility/Auth'
+import { APPLICATION_STATUS } from '../utility/Constants'
 import { getSponsors } from '../utility/firebase'
 import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
 import { A } from './Typography'
-import { APPLICATION_STATUS } from '../utility/Constants'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -34,7 +34,7 @@ const chooseLogo = hackathon => {
     case 'cmdf':
       return cmdf_logo
     case 'nwHacks':
-      return nwhacks_logo
+      return nwplus_logo
     default:
       return logo
   }
@@ -59,6 +59,13 @@ const Logo = styled.img.attrs(p => ({
     `
         width: 120px;
         margin: 86px 0 24px 48px;
+      `}
+
+      ${p =>
+    p.theme.name === 'nwHacks' &&
+    `
+        margin-top: 20px;
+        margin-bottom: 20px;
       `}
 `
 

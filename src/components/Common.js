@@ -153,5 +153,5 @@ export const ScrollbarLike = css`
 
 export const CenterHorizontally = css`
   margin: 0 50%;
-  transform: translateY(-50%);
+  transform: translateX(-50%);
 `

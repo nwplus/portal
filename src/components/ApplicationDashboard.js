@@ -202,7 +202,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
     // blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
-    blurb: `We will send out all acceptances by January 2024. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
+    blurb: `We will send out all acceptances by late Feb 2024. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
   },
   waitlisted: {
     sidebarText: 'Waitlisted',
@@ -300,7 +300,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'Not Submitted',
     cardText: 'Not Submitted',
     // blurb: `Your application has not been submitted. Please complete your application and submit before the deadline on ${relevantDates?.applicationDeadline} in order to join us at ${copyText.hackathonName}!`,
-    blurb: `Your application has not been submitted. Please complete your application and submit before December in order to join us at ${copyText.hackathonName}!`,
+    blurb: `Your application has not been submitted. Please complete your application and submit before February 22, 2024 in order to join us at ${copyText.hackathonName}!`,
   },
 })
 
@@ -415,7 +415,10 @@ const Dashboard = ({
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>nwHacks 2024 is Western Canada’s largest 24 hour hackathon!</AppStatusText>
+          <AppStatusText>
+            cmd-f 2024 is Western Canada's largest hackathon celebrating underrepresented genders in
+            tech!
+          </AppStatusText>
           <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>

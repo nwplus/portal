@@ -1,15 +1,15 @@
 export const DB_COLLECTION = 'Hackathons'
 
 // CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'nwHacks2024'
+export const DB_HACKATHON = 'cmd-f2024'
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'nwHacks 2024',
-  hackathonNameShort: 'nwHacks',
+  hackathonName: 'cmd-f 2024',
+  hackathonNameShort: 'cmd-f',
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 4
@@ -131,52 +131,90 @@ export const calculateGrade = score => {
   }, 0).toFixed(2)
 }
 
-export const ETHNICITY_OPTIONS = Object.freeze({
-  asianIndian: 'Asian Indian',
-  blackOrAfrican: 'Black or African',
-  chinese: 'Chinese',
-  filipino: 'Filipino',
-  guamanianChamorro: 'Guamanian or Chamorro',
-  hispanicLatinoSpanishOrigin: 'Hispanic / Latino / Spanish Origin',
-  japanese: 'Japanese',
-  korean: 'Korean',
+export const MAJOR_OPTIONS = Object.freeze({
+  computerScience: 'Computer science, computer engineering, or software engineering',
+  otherEngineering: 'Another engineering discipline (such as civil, electrical, mechanical, etc.)',
+  informationTech: 'Information systems, information technology, or system administration',
+  naturalScience: 'A natural science (such as biology, chemistry, physics, etc.)',
+  mathOrStats: 'Mathematics or statistics',
+  webDevOrDesign: 'Web development or web design',
+  business: 'Business discipline (such as accounting, finance, marketing, etc.)',
+  humanities: 'Humanities discipline (such as literature, history, philosophy, etc.)',
+  socialScience: 'Social science (such as anthropology, psychology, political science, etc.)',
+  arts: 'Fine arts or performing arts (such as graphic design, music, studio art, etc.)',
+  healthScience: 'Health science (such as nursing, pharmacy, radiology, etc.)',
+  other: 'Other (Please Specify)',
+  undecidedOrUndeclared: 'Undecided / No Declared Major',
+  schoolDoesNotOfferMajors: 'My school does not offer majors / primary areas of study',
+  preferNotToAnswer: 'Prefer not to answer',
+})
+
+export const RACE_OPTIONS = Object.freeze({
+  asian: 'Asian',
+  black: 'Black',
+  white: 'European/White',
+  hispanic: 'Hispanic',
+  pacificIslander: 'Pacific Islander',
+  dontKnow: "Don't Know",
+  preferNot: 'Prefer not to answer',
+  other: 'Other (Please Specify)',
+})
+
+export const CULTURAL_BG_OPTIONS = Object.freeze({
+  black: 'Black',
+  european: 'European',
+  eastAsian: 'East Asian',
+  southAsian: 'South Asian',
+  southEastAsian: 'South East Asian',
+  firstNationsOrIndigenous: 'First Nations or Indigenous (Please Specify)',
+  hispanicOrLatinx: 'Hispanic or Latinx',
   middleEastern: 'Middle Eastern',
-  nativeAmericanOrAlaskanNative: 'Native American or Alaskan Native',
-  nativeHawaiian: 'Native Hawaiian',
-  samoan: 'Samoan',
-  vietnamese: 'Vietnamese',
-  white: 'White',
-  otherAsian: 'Other Asian (Thai, Cambodian, etc)',
-  otherPacificIslander: 'Other Pacific Islander',
   preferNot: 'Prefer not to answer',
   other: 'Other (Please Specify)',
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
-  hehim: 'he/him',
   sheher: 'she/her',
   theythem: 'they/them',
   hethey: 'he/they',
   shethey: 'she/they',
+  hehim: 'he/him',
   preferNot: 'Prefer not to answer',
   other: 'Other',
 })
 
 export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
   none: 'None',
-  celiacDisease: 'Celiac Disease',
+  dairy: 'Dairy',
+  glutenFree: 'Gluten Free',
   halal: 'Halal',
   kosher: 'Kosher',
+  nuts: 'Nuts',
   vegetarian: 'Vegetarian',
   vegan: 'Vegan',
-  other: 'Allergies/other',
+  other: 'Other (Please Specify)',
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
+  beginner: 'Beginner',
   designer: 'Designer',
   developer: 'Developer',
   pm: 'Product/project manager',
   other: 'Other',
+})
+
+export const ENGAGEMENT_SOURCES = Object.freeze({
+  attendedPreviously: 'Attended Previously',
+  MLH: 'MLH',
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+  linkedIn: 'LinkedIn',
+  website: 'Website',
+  wordOfMouth: 'Word-of-mouth',
+  nwPlusNewsletter: 'nwPlus Newsletter',
+  facultyNewsletter: 'Faculty Newsletter',
+  professorInClass: 'Professors/In Class',
+  other: 'Other (Please Specify)',
 })
 
 export const EVENTS_ATTENDED = Object.freeze({
@@ -190,6 +228,7 @@ export const EVENTS_ATTENDED = Object.freeze({
   nwHacks2021: 'nwHacks 2021',
   nwHacks2022: 'nwHacks 2022',
   nwHacks2023: 'nwHacks 2023',
+  nwHacks2024: 'nwHacks 2024',
   none: 'None',
 })
 
@@ -197,11 +236,12 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {
     email: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
+    legalFirstName: '',
+    legalMiddleName: '',
+    legalLastName: '',
     preferredName: '',
     gender: '',
+    haveTransExperience: null,
     pronouns: {
       sheher: false,
       hehim: false,
@@ -211,48 +251,73 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       preferNot: false,
       other: false,
     },
-    ethnicity: {
-      asianIndian: false,
-      blackOrAfrican: false,
-      chinese: false,
-      filipino: false,
-      guamanianChamorro: false,
-      hispanicLatinoSpanishOrigin: false,
-      japanese: false,
-      korean: false,
-      middleEastern: false,
-      nativeAmericanOrAlaskanNative: false,
-      nativeHawaiian: false,
-      samoan: false,
-      vietnamese: false,
+    race: {
+      asian: false,
+      black: false,
       white: false,
-      otherAsian: false,
-      otherPacificIslander: false,
+      hispanic: false,
+      pacificIslander: false,
+      dontKnow: false,
+      preferNot: false,
+      other: false,
+    },
+    culturalBackground: {
+      black: false,
+      european: false,
+      eastAsian: false,
+      southAsian: false,
+      southEastAsian: false,
+      firstNationsOrIndigenous: false,
+      hispanicOrLatinx: false,
+      middleEastern: false,
       preferNot: false,
       other: false,
     },
     dietaryRestriction: {
       none: false,
+      dairy: false,
+      glutenFree: false,
+      halal: false,
+      kosher: false,
+      nuts: false,
       vegetarian: false,
       vegan: false,
-      celiacDisease: false,
-      kosher: false,
-      halal: false,
       other: false,
     },
+    identifyAsUnderrepresented: '',
+    indigenousIdentification: '',
     ageByHackathon: null,
+    canadianStatus: '',
     phoneNumber: '',
     school: '',
-    major: '',
+    major: {
+      computerScience: false,
+      otherEngineering: false,
+      informationTech: false,
+      naturalScience: false,
+      mathOrStats: false,
+      webDevOrDesign: false,
+      business: false,
+      humanities: false,
+      socialScience: false,
+      arts: false,
+      healthScience: false,
+      other: false,
+      undecidedOrUndeclared: false,
+      schoolDoesNotOfferMajors: false,
+      preferNotToAnswer: false,
+    },
     educationLevel: '',
     graduation: null,
     academicYear: '',
     countryOfResidence: '',
-    willBeAgeOfMajority: null,
+    // willBeAgeOfMajority: null,
+    disability: '',
   },
   skills: {
-    firstTimeHacker: null,
+    numHackathonsAttended: '',
     contributionRole: {
+      beginner: false,
       designer: false,
       developer: false,
       pm: false,
@@ -265,9 +330,11 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     longAnswers1: '',
     longAnswers2: '',
     longAnswers3: '',
+    longAnswers4: '',
+    longAnswers5: '',
   },
   questionnaire: {
-    engagementSource: '',
+    engagementSource: [],
     eventsAttended: [],
     otherEngagementSource: '',
     friendEmail: '',
@@ -285,6 +352,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     MLHCodeOfConduct: false,
     MLHPrivacyPolicy: false,
     MLHEmailSubscription: false,
+    genderAcknowledgement: false,
     shareWithnwPlus: false,
     nwPlusPrivacyPolicy: false,
     shareWithSponsors: false,
