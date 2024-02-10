@@ -1,10 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
-import { P } from './Typography'
-import nwHacksIcon from '../assets/nwhacks2024logo.png'
+import styled, { withTheme } from 'styled-components'
 import cmdfIcon from '../assets/cmdf_logo.png'
+import nwplus_logo from '../assets/nwplus_icon.svg'
 import { Button } from './Input'
-import { withTheme } from 'styled-components'
+import { P } from './Typography'
 
 const NavContainer = styled.div`
   direction: rtl;
@@ -75,7 +74,7 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
         {theme.name === 'nwHacks' && (
           <LogoContainer>
             {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={nwHacksIcon} alt={theme.name} />
+            <Icon src={nwplus_logo} alt={theme.name} />
           </LogoContainer>
         )}
         {theme.name === 'cmdf' && (

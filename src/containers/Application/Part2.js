@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react'
+import { useLocation } from 'wouter'
 import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
-import { useLocation } from 'wouter'
-import { useHackerApplication, uploadResumeToStorage } from '../../utility/HackerApplicationContext'
+import { uploadResumeToStorage, useHackerApplication } from '../../utility/HackerApplicationContext'
 import {
+  MAX_RESUME_FILE_SIZE_MB,
   checkForError,
   validateFormSection,
-  MAX_RESUME_FILE_SIZE_MB,
 } from '../../utility/Validation'
 
 const questionsByOrder = [
@@ -17,6 +17,8 @@ const questionsByOrder = [
   'longAnswers1',
   'longAnswers2',
   'longAnswers3',
+  'longAnswers4',
+  'longAnswers5',
 ]
 
 export default () => {
@@ -83,7 +85,7 @@ export default () => {
   }
 
   const refs = {
-    firstTimeHackerRef: useRef(null),
+    numHackathonsAttendedRef: useRef(null),
     contributionRoleRef: useRef(null),
     resumeRef: useRef(null),
     githubRef: useRef(null),
@@ -92,6 +94,7 @@ export default () => {
     longAnswers2Ref: useRef(null),
     longAnswers3Ref: useRef(null),
     longAnswers4Ref: useRef(null),
+    longAnswers5Ref: useRef(null),
   }
 
   return (

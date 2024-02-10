@@ -2,11 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import cmdf_logo from '../../assets/cmdf_logo.png'
 import hc_logo from '../../assets/hc_logo.svg'
-import nwhacks_logo from '../../assets/nwhacks2024logo.png'
+import nwplus_logo from '../../assets/nwplus_icon.svg'
 import Banner from '../../components/Banner'
 import { H1, P } from '../../components/Typography'
 import Footer from './Footer'
-import nwHacksLoginBackground from '../../../src/assets/nwHacksLogin.svg'
 
 const LandingContainer = styled.div`
   position: absolute;
@@ -80,7 +79,6 @@ const StyledBanner = styled(Banner)`
     text-align: center;
     z-index: 0;
     display: block;
-    margin: 0 auto;
     padding: 0;
     width: 100%;
 
@@ -97,19 +95,19 @@ const StyledP = styled(P)`
   font-size: 1.5rem;
 `
 
-const NwHacksLoginBackgroundContainer = styled.img`
-  height: 100%;
-  width: 100vw;
-  object-fit: cover;
-  z-index: -1;
-  position: fixed;
-  left: 0;
-  top: 0;
-  ${p => p.theme.mediaQueries.xs} {
-    height: 100vh;
-    width: auto;
-  }
-`
+// const NwHacksLoginBackgroundContainer = styled.img`
+//   height: 100%;
+//   width: 100vw;
+//   object-fit: cover;
+//   z-index: -1;
+//   position: fixed;
+//   left: 0;
+//   top: 0;
+//   ${p => p.theme.mediaQueries.xs} {
+//     height: 100vh;
+//     width: auto;
+//   }
+// `
 
 // TODO: add sponsors if footer is shown
 export default ({ heading, description, showFooter, hackathon, children, background }) => {
@@ -141,9 +139,9 @@ export default ({ heading, description, showFooter, hackathon, children, backgro
     case 'nwHacks':
       return (
         <LandingContainer showFooter={showFooter}>
-          <NwHacksLoginBackgroundContainer src={nwHacksLoginBackground} />
+          {/* <NwHacksLoginBackgroundContainer src={nwHacksLoginBackground} /> */}
 
-          <StyledLogoLockup src={nwhacks_logo} />
+          <StyledLogoLockup src={nwplus_logo} />
           <StyledBanner>
             <H1 size="1.5em">{heading}</H1>
             <P>{description}</P>
