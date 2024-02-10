@@ -9,7 +9,7 @@ export default () => {
   return (
     <Landing
       heading="Thanks for Applying!"
-      description="Stay tuned as your application gets assessed. Expect to hear from us soon."
+      description="Stay tuned as we assess your application. Expect to hear from us soon."
       showFooter
     >
       <ButtonContainer>

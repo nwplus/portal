@@ -27,7 +27,7 @@ const genderOptions = [
   { value: 'female', label: 'Woman' },
   { value: 'male', label: 'Man' },
   { value: 'non-binary', label: 'Non-binary/Genderqueer/Gender non-conforming' },
-  { value: 'two-spirit', label: 'Two Spirit' },
+  { value: 'two-spirit', label: 'Two-Spirit' },
   { value: 'other', label: 'Prefer to self-describe' },
   { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
@@ -456,7 +456,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
         What is your current age?
         <Required />
       </SubHeading>
-      <P>We accept hackers currently in high school but require this for consent purposes.</P>
+      <P>We accept hackers currently in high school but require this information for consent purposes.</P>
       {errors?.ageByHackathon && <ErrorMessage>{errors?.ageByHackathon}</ErrorMessage>}
       <Dropdown
         options={ageOptions}

@@ -206,7 +206,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         <FormGroup>
           <QuestionHeading>question 25</QuestionHeading>
           <SubHeading size="1.25em">
-            Tell us about a project you’re really proud of and what you learnt from it. (200 words
+            Tell us about a project you’re really proud of and what you learned from it. (200 words
             max)
             <Required />
           </SubHeading>

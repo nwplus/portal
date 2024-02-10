@@ -391,7 +391,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               data={formInputs.skills.longAnswers2}
             />
             <InfoGroup
-              heading="Tell us about a project you’re really proud of and what you learnt from it."
+              heading="Tell us about a project you’re really proud of and what you learned from it."
               data={formInputs.skills.longAnswers3}
             />
             <InfoGroup
