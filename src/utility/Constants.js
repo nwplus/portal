@@ -174,11 +174,11 @@ export const CULTURAL_BG_OPTIONS = Object.freeze({
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
-  hehim: 'he/him',
   sheher: 'she/her',
   theythem: 'they/them',
   hethey: 'he/they',
   shethey: 'she/they',
+  hehim: 'he/him',
   preferNot: 'Prefer not to answer',
   other: 'Other',
 })
@@ -241,6 +241,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     legalLastName: '',
     preferredName: '',
     gender: '',
+    haveTransExperience: null,
     pronouns: {
       sheher: false,
       hehim: false,
@@ -314,7 +315,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     disability: '',
   },
   skills: {
-    firstTimeHacker: null,
+    numHackathonsAttended: '',
     contributionRole: {
       beginner: false,
       designer: false,

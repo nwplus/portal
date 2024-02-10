@@ -85,7 +85,7 @@ export default () => {
   }
 
   const refs = {
-    firstTimeHackerRef: useRef(null),
+    numHackathonsAttendedRef: useRef(null),
     contributionRoleRef: useRef(null),
     resumeRef: useRef(null),
     githubRef: useRef(null),

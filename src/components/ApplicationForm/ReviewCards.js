@@ -298,6 +298,10 @@ export default ({ formInputs, handleEdit, onChange }) => {
               }
             />
             <InfoGroup
+              heading="Preferred Name:"
+              data={formInputs.basicInfo.preferredName || 'None'}
+            />
+            <InfoGroup
               heading="Current age:"
               data={
                 formInputs.basicInfo.ageByHackathon === 'other'
@@ -308,6 +312,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             <InfoGroup heading="Phone Number:" data={formInputs.basicInfo.phoneNumber} />
             <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
             <InfoGroup heading="Level of Education:" data={educationLevel} />
+            <InfoGroup heading="Academic Year:" data={formInputs.basicInfo.academicYear} />
             <InfoGroup
               heading="Graduation Year:"
               data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
@@ -360,8 +365,8 @@ export default ({ formInputs, handleEdit, onChange }) => {
           <ContentWrapper>
             {/* TODO: Change hackathonsAttended to attendedHackathons and make sure the value is an accurate representation */}
             <InfoGroup
-              heading="First Time Hacker"
-              data={formInputs.skills.firstTimeHacker ? 'Yes' : 'No'}
+              heading="Number of Hackathons Attended"
+              data={formInputs.skills.numHackathonsAttended}
             />
             <InfoGroup
               heading={`Contribution at ${copyText.hackathonName}:`}
@@ -527,8 +532,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
             }
           >
             <span>
-              Gender is deeply personal and can look different on each individual. We ask all
-              participants to trust that everyone attending belongs.
+              I agree
               <Required />
             </span>
           </Checkbox>
@@ -540,7 +544,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               💾
             </span>{' '}
             We use your (anonymized!) data to help you get the best sponsors and continuously
-            improve nwHacks with each iteration.
+            improve cmd-f with each iteration.
           </P>
         </ContentWrapper>
 
@@ -610,7 +614,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
       <ReviewContainer>
         <QuestionHeading>Social Media</QuestionHeading>
         <SubHeading>
-          Connect with the community of nwHacks on Medium, Twitter, and Facebook! Share your story
+          Connect with the community of nwPlus on Medium, Twitter, and Facebook! Share your story
           and excitement with us!
         </SubHeading>
         <ContentWrapper textBlock>

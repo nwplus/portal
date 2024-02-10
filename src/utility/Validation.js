@@ -228,18 +228,6 @@ const validators = {
         message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
-    longAnswers4: answer => {
-      return {
-        error: getWords(answer) > MED_ANSWER_WORD_LIMIT,
-        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers5: answer => {
-      return {
-        error: getWords(answer) > MED_ANSWER_WORD_LIMIT,
-        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
   },
   questionnaire: {
     engagementSource: noNoneFunction,

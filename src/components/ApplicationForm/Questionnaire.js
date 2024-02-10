@@ -40,7 +40,7 @@ export default ({ errors, formInputs, onChange }) => {
         </CenteredH1>
       </FormSpacing>
       <FormSpacing>
-        <QuestionHeading>Question 23</QuestionHeading>
+        <QuestionHeading>Question 29</QuestionHeading>
         <SubHeading>
           How did you hear about {copyText.hackathonName}?
           <Required />
@@ -233,7 +233,7 @@ export default ({ errors, formInputs, onChange }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>Question 24</QuestionHeading>
+        <QuestionHeading>Question 30</QuestionHeading>
         <SubHeading>
           Have you previously attended any nwPlus organized events? (select all that apply)
           <Required />

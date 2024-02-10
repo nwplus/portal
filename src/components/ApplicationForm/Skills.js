@@ -1,11 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
 import { CONTRIBUTION_ROLE_OPTIONS, copyText } from '../../utility/Constants'
-import { applyCustomSort } from '../../utility/utilities'
+import { applyCustomSort, findElement } from '../../utility/utilities'
 import { Select, TextArea, TextInput } from '../Input'
+import Dropdown from '../Input/Dropdown'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { CenteredH1, ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './'
+
+const hackathonsAttendedOptions = [
+  { value: '0', label: '0' },
+  { value: '1', label: '1' },
+  { value: '2', label: '2' },
+  { value: '3', label: '3' },
+  { value: '4', label: '4' },
+  { value: '5', label: '5' },
+  { value: '5+', label: '5+' },
+]
 
 const QuestionForm = styled.form`
   display: flex;
@@ -85,29 +96,31 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 20</QuestionHeading>
+        <QuestionHeading>question 21</QuestionHeading>
         <SubHeading>
-          Is this your first hackathon?
+          How many hackathons have you previously attended?
           <Required />
         </SubHeading>
-        {errors?.firstTimeHacker && <ErrorMessage>{errors?.firstTimeHacker}</ErrorMessage>}
-        <Select
-          type="radio"
-          label="Yes"
-          checked={formInputs.firstTimeHacker}
-          onChange={() => onChange({ firstTimeHacker: true })}
-          customRef={refs['firstTimeHackerRef']}
-        />
-        <Select
-          type="radio"
-          label="No"
-          checked={formInputs.firstTimeHacker === false}
-          onChange={() => onChange({ firstTimeHacker: false })}
+        {errors?.numHackathonsAttended && (
+          <ErrorMessage>{errors?.numHackathonsAttended}</ErrorMessage>
+        )}
+        <Dropdown
+          options={hackathonsAttendedOptions}
+          placeholder="Number of Hackathons Attended"
+          isSearchable={false}
+          value={findElement(hackathonsAttendedOptions, 'value', formInputs.numHackathonsAttended)}
+          onChange={e =>
+            onChange({
+              numHackathonsAttended: e.value,
+            })
+          }
+          isValid={!errors?.numHackathonsAttended}
+          customRef={refs['numHackathonsAttendedRef']}
         />
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 21</QuestionHeading>
+        <QuestionHeading>question 22</QuestionHeading>
         <SubHeading>
           What is your intended role at {copyText.hackathonName}?
           <Required />
@@ -150,7 +163,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
 
       <FormSpacing>
         <FormGroup>
-          <QuestionHeading>question 22</QuestionHeading>
+          <QuestionHeading>question 23</QuestionHeading>
           <SubHeading size="1.25em">
             Why do you want to attend cmd-f 2024? (150 words max)
             <Required />
@@ -170,7 +183,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           />
         </FormGroup>
         <FormGroup>
-          <QuestionHeading>question 23</QuestionHeading>
+          <QuestionHeading>question 24</QuestionHeading>
           <SubHeading size="1.25em">
             How would you make tech a more welcoming space for underrepresented demographics? (150
             words max)
@@ -191,7 +204,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
           />
         </FormGroup>
         <FormGroup>
-          <QuestionHeading>question 24</QuestionHeading>
+          <QuestionHeading>question 25</QuestionHeading>
           <SubHeading size="1.25em">
             Tell us about a project you’re really proud of and what you learnt from it. (200 words
             max)
@@ -213,17 +226,14 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </FormGroup>
 
         <FormGroup>
-          <QuestionHeading>question 25</QuestionHeading>
+          <QuestionHeading>question 26</QuestionHeading>
           <SubHeading size="1.25em">
             In the past, have there been reasons deterring you from attending hackathons or other
             tech events? (optional)
           </SubHeading>
           <StyledTextArea
-            maxWords="150"
             width="100%"
             value={formInputs.longAnswers4}
-            invalid={!!errors.longAnswers4}
-            errorMsg={errors.longAnswers4}
             onChange={val =>
               onChange({
                 longAnswers4: val,
@@ -234,17 +244,14 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </FormGroup>
 
         <FormGroup>
-          <QuestionHeading>question 26</QuestionHeading>
+          <QuestionHeading>question 27</QuestionHeading>
           <SubHeading size="1.25em">
             Is there anything you want to let us know to ensure that we can help you feel
             comfortable throughout the event? (optional)
           </SubHeading>
           <StyledTextArea
-            maxWords="150"
             width="100%"
             value={formInputs.longAnswers5}
-            invalid={!!errors.longAnswers5}
-            errorMsg={errors.longAnswers5}
             onChange={val =>
               onChange({
                 longAnswers5: val,
@@ -256,7 +263,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       </FormSpacing>
 
       <FormSpacing>
-        <QuestionHeading>question 27</QuestionHeading>
+        <QuestionHeading>question 28</QuestionHeading>
         <SubHeading>
           Help us get to know you better by providing as many links as you feel will support your
           application!

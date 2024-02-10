@@ -26,7 +26,7 @@ import { FormSpacing, SubHeading } from './'
 const genderOptions = [
   { value: 'female', label: 'Woman' },
   { value: 'male', label: 'Man' },
-  { value: 'non-binary', label: 'Non-binary' },
+  { value: 'non-binary', label: 'Non-binary/Genderqueer/Gender non-conforming' },
   { value: 'other', label: 'Prefer to self-describe' },
   { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
@@ -39,7 +39,7 @@ const indigenousIdentificationOptions = [
 
 const canadianStatusOptions = [
   { value: 'international student', label: 'International Student' },
-  { value: 'canadian student', label: 'Canadian Student' },
+  { value: 'canadian/on PR student', label: 'Canadian/on PR Student' },
   { value: 'other', label: 'Other (Please Describe)' },
 ]
 
@@ -80,6 +80,7 @@ const academicYearOptions = [
   { value: '3rd year', label: '3rd year' },
   { value: '4th year', label: '4th year' },
   { value: '5th year+', label: '5th year+' },
+  { value: 'New Grad', label: 'New Grad (<= 1 year)' },
   { value: 'Graduate school', label: 'Graduate school' },
 ]
 
@@ -810,6 +811,24 @@ export default ({ refs, errors, formInputs, onChange }) => (
       )}
     </FormSpacing>
 
+    <FormSpacing>
+      <QuestionHeading>question 14</QuestionHeading>
+      <SubHeading>Do you have trans experience?</SubHeading>
+      <Select
+        type="radio"
+        label="Yes"
+        checked={formInputs.haveTransExperience}
+        onChange={() => onChange({ haveTransExperience: true })}
+        customRef={refs['haveTransExperienceRef']}
+      />
+      <Select
+        type="radio"
+        label="No"
+        checked={formInputs.haveTransExperience === false}
+        onChange={() => onChange({ haveTransExperience: false })}
+      />
+    </FormSpacing>
+
     {/* <FormSpacing>
       <QuestionHeading>question 14</QuestionHeading>
       <SubHeading>
@@ -839,7 +858,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing> */}
 
     <FormSpacing>
-      <QuestionHeading>question 14</QuestionHeading>
+      <QuestionHeading>question 15</QuestionHeading>
       <SubHeading>
         {formInputs.educationLevel === 'high school'
           ? 'What do you plan on studying?'
@@ -879,7 +898,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 15</QuestionHeading>
+      <QuestionHeading>question 16</QuestionHeading>
       <SubHeading>Which race(s) best describes you?</SubHeading>
       {formInputs &&
         applyCustomSort(Object.entries(formInputs?.race), Object.keys(RACE_OPTIONS)).map(
@@ -915,7 +934,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 16</QuestionHeading>
+      <QuestionHeading>question 17</QuestionHeading>
       <SubHeading>Do you identify as Indigenous/First Nations?</SubHeading>
       <Dropdown
         options={indigenousIdentificationOptions}
@@ -950,7 +969,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 17</QuestionHeading>
+      <QuestionHeading>question 18</QuestionHeading>
       <SubHeading>What is your cultural background?</SubHeading>
       {formInputs &&
         applyCustomSort(
@@ -1018,7 +1037,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing> */}
 
     <FormSpacing>
-      <QuestionHeading>question 18</QuestionHeading>
+      <QuestionHeading>question 19</QuestionHeading>
       <SubHeading>What is your Canadian status?</SubHeading>
       <P>
         Note: this does not affect your application and is only collected for potential employers at
@@ -1055,7 +1074,7 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
 
     <FormSpacing>
-      <QuestionHeading>question 19</QuestionHeading>
+      <QuestionHeading>question 20</QuestionHeading>
       <SubHeading>Do you have any visible or invisible disabilities?</SubHeading>
       <StyledTextArea
         maxWords="200"
