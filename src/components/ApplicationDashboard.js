@@ -202,7 +202,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
     // blurb: `We will send out all acceptances by ${relevantDates?.sendAcceptancesBy}. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
-    blurb: `We will send out all acceptances by January 2024. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
+    blurb: `We will send out all acceptances by late Feb 2024. In the meantime, get connected with our community of hackers on Instagram, Facebook, Medium, and Twitter to stay up to date with the latest news on sponsors, prizes and workshops!`,
   },
   waitlisted: {
     sidebarText: 'Waitlisted',

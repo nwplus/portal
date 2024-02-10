@@ -522,7 +522,7 @@ export default ({ formInputs, handleEdit, onChange }) => {
               🌱
             </span>{' '}
             Gender is deeply personal and can look different on each individual. We ask all
-            participants to trust that everyone attending belongs.
+            participants to trust that everyone attending belongs at cmd-f.
           </P>
 
           <Checkbox
