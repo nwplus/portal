@@ -24,7 +24,8 @@ export default () => {
     setLoading(false)
   }
 
-  const handleEdit = href => {
+  const handleEdit = async href => {
+    await save()
     setLocation(href)
     window.scrollTo(0, 0)
   }
