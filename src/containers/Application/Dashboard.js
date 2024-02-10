@@ -42,7 +42,7 @@ const ApplicationDashboardContainer = () => {
     return unsubscribe
   }, [setRelevantDates])
 
-  const { applicationStatus, responded, attending } = application.status
+  const { applicationStatus, responded, attending } = application?.status
   let hackerStatus
 
   if (applicationStatus === 'accepted') {
