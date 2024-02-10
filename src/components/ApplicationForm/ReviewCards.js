@@ -107,9 +107,12 @@ export default ({ formInputs, handleEdit, onChange }) => {
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const countryOfResidence = capitalizeFirstLetter(formInputs.basicInfo.countryOfResidence)
   const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
-  const identifyAsUnderrepresented = capitalizeFirstLetter(
+  let identifyAsUnderrepresented = capitalizeFirstLetter(
     formInputs.basicInfo.identifyAsUnderrepresented
   )
+  if (identifyAsUnderrepresented === 'PreferNotToAnswer') {
+    identifyAsUnderrepresented = 'Prefer not to answer'
+  }
 
   let canadianStatus = formInputs.basicInfo.canadianStatus
 
