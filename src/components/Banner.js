@@ -16,10 +16,12 @@ const StyledContainer = styled.div`
   width: ${p => (p.wide ? bannerWidth.wide : bannerWidth.default)};
 `
 
-export default ({ className, wide, blur, children }) => {
+const Banner = ({ className, wide, blur, children }) => {
   return (
     <StyledContainer className={className} wide={wide} blur={blur}>
       {children}
     </StyledContainer>
   )
 }
+
+export default Banner

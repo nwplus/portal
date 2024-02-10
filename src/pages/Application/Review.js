@@ -1,12 +1,14 @@
 import React from 'react'
 import Form from '../../components/ApplicationForm'
-import Review from '../../containers/Application/Review'
+import ReviewC from '../../containers/Application/Review'
 
 // application review page
-export default () => {
+const Review = () => {
   return (
     <Form>
-      <Review />
+      <ReviewC />
     </Form>
   )
 }
+
+export default Review

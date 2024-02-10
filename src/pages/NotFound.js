@@ -3,7 +3,7 @@ import { Link } from 'wouter'
 import HeroPage from '../components/HeroPage'
 import { A } from '../components/Typography'
 
-export default () => (
+const NotFound = () => (
   <HeroPage>
     <h1>Oh no, page not found!</h1>
     Return to{' '}
@@ -12,3 +12,5 @@ export default () => (
     </Link>
   </HeroPage>
 )
+
+export default NotFound

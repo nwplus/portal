@@ -110,7 +110,7 @@ const formatTime = timeString => {
   return time.toLocaleDateString('en-US', options)
 }
 
-export default ({ event }) => {
+const Event = ({ event }) => {
   const [expanded, setExpanded] = useState(false)
   const [maxHeight, setMaxHeight] = useState(0)
   const [showToggleButton, setShowToggleButton] = useState(false)
@@ -157,3 +157,5 @@ export default ({ event }) => {
     </EventCard>
   )
 }
+
+export default Event

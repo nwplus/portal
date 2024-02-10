@@ -60,7 +60,7 @@ export const ButtonContainer = styled.div`
   margin: 0.5em 0;
 `
 
-export default () => {
+const Login = () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
   const [, setLocation] = useLocation()
@@ -111,3 +111,5 @@ export default () => {
     </>
   )
 }
+
+export default Login

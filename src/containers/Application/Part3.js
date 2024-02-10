@@ -7,7 +7,7 @@ import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
 
 // form part 3
-export default () => {
+const Part3 = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
@@ -66,3 +66,5 @@ export default () => {
     </>
   )
 }
+
+export default Part3

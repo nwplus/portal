@@ -27,7 +27,7 @@ const questionsByOrder = [
   'isAuthorizedToWorkInCanada',
 ]
 
-export default () => {
+const Part1 = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
@@ -121,3 +121,5 @@ export default () => {
     </>
   )
 }
+
+export default Part1

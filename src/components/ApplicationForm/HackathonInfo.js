@@ -2,7 +2,7 @@ import React from 'react'
 import { FormSpacing } from '.'
 import { A, CenteredH1, P } from '../Typography'
 
-export default () => {
+const HackathonInfo = () => {
   return (
     <>
       <FormSpacing>
@@ -33,3 +33,5 @@ export default () => {
     </>
   )
 }
+
+export default HackathonInfo

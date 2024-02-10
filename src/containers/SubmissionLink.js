@@ -8,7 +8,7 @@ import { projectsRef, applicantsRef, createProject, updateProject } from '../uti
 // Redirect for successful submissions + leaving of project
 const REDIRECT_TIMEOUT = 3000
 
-export default ({ user, refreshCallback }) => {
+const SubmissionLink = ({ user, refreshCallback }) => {
   const [project, setProject] = useState({})
   const [isSubmitting, setSubmitting] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
@@ -200,3 +200,5 @@ export default ({ user, refreshCallback }) => {
     />
   )
 }
+
+export default SubmissionLink

@@ -106,7 +106,7 @@ const defaultMembers = [{}, {}, {}, {}]
 
 const MAX_CHARS = 10000
 
-export default ({
+const SubmissionForm = ({
   project,
   onSubmit,
   isSubmitting,
@@ -484,3 +484,5 @@ export default ({
     </div>
   )
 }
+
+export default SubmissionForm

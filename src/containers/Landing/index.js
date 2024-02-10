@@ -112,7 +112,7 @@ const NwHacksLoginBackgroundContainer = styled.img`
 `
 
 // TODO: add sponsors if footer is shown
-export default ({ heading, description, showFooter, hackathon, children, background }) => {
+const Landing = ({ heading, description, showFooter, hackathon, children, background }) => {
   switch (hackathon) {
     case 'hackCamp':
       return (
@@ -154,3 +154,5 @@ export default ({ heading, description, showFooter, hackathon, children, backgro
       )
   }
 }
+
+export default Landing

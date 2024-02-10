@@ -4,7 +4,7 @@ import { Button } from '../../components/Input'
 import { ButtonContainer } from '../Login'
 import { useLocation } from 'wouter'
 
-export default () => {
+const Confirmation = () => {
   const [, setLocation] = useLocation()
   return (
     <Landing
@@ -20,3 +20,5 @@ export default () => {
     </Landing>
   )
 }
+
+export default Confirmation

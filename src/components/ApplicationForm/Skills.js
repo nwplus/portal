@@ -72,7 +72,7 @@ const FormRow = ({ fieldValue, required, children }) => (
   </div>
 )
 
-export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
+const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
   return (
     <>
       <FormSpacing>
@@ -289,3 +289,5 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
     </>
   )
 }
+
+export default Skills

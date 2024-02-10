@@ -64,7 +64,7 @@ const CopyrightBlurb = styled(P)`
   }
 `
 
-export default () => {
+const Footer = () => {
   const [sponsors, setSponsors] = useState([])
 
   useEffect(() => {
@@ -101,3 +101,5 @@ export default () => {
     </>
   )
 }
+
+export default Footer

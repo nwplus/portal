@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { H3 } from './Typography'
 
-const Accordion = styled.details`
+const AccordionDetails = styled.details`
   display: inline-block;
   width: 100%;
   cursor: ${p => (p?.cursor ? p.cursor : 'pointer')};
@@ -20,13 +20,15 @@ const StyledH3 = styled(H3)`
   opacity: 1;
 `
 
-export default ({ heading, children, cursor }) => {
+const Accordion = ({ heading, children, cursor }) => {
   return (
-    <Accordion cursor={cursor}>
+    <AccordionDetails cursor={cursor}>
       <summary>
         <StyledH3>{heading}</StyledH3>
       </summary>
       {children}
-    </Accordion>
+    </AccordionDetails>
   )
 }
+
+export default Accordion

@@ -7,7 +7,7 @@ import ReviewCards from '../../components/ApplicationForm/ReviewCards'
 import { APPLICATION_STATUS } from '../../utility/Constants'
 import { validateFormSection, checkForError, validateEntireForm } from '../../utility/Validation'
 
-export default () => {
+const Review = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
@@ -84,3 +84,5 @@ export default () => {
     </>
   )
 }
+
+export default Review
