@@ -106,7 +106,7 @@ export default ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         )}
         <Dropdown
           options={hackathonsAttendedOptions}
-          placeholder="Number of Hackathons Attended"
+          placeholder="Number of Hackathons"
           isSearchable={false}
           value={findElement(hackathonsAttendedOptions, 'value', formInputs.numHackathonsAttended)}
           onChange={e =>

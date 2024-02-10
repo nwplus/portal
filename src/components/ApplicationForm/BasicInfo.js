@@ -27,6 +27,7 @@ const genderOptions = [
   { value: 'female', label: 'Woman' },
   { value: 'male', label: 'Man' },
   { value: 'non-binary', label: 'Non-binary/Genderqueer/Gender non-conforming' },
+  { value: 'two-spirit', label: 'Two Spirit' },
   { value: 'other', label: 'Prefer to self-describe' },
   { value: 'prefer not to answer', label: 'Prefer not to answer' },
 ]
