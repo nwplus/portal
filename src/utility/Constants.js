@@ -26,6 +26,8 @@ export const WAIVER_LINKS = Object.freeze({
   RELEASE_LIABILITY:
     'https://docs.google.com/document/d/1BfDr_S2FNNl7Xfv0fncZLzUV2pq0O91z6k6xwiN4gPw/edit',
   MEDIA: 'https://docs.google.com/document/d/175Rsgz5HXUpfPUqNbRpPrJTmqqxFfhxZJBXNFMDX0SU/edit',
+  NWMENTORSHIP:
+    'https://docs.google.com/forms/d/1kiWu1aHHuDl39k4p2Y3sKKaE-6fAvPxb9z-A0XKDkQs/viewform?edit_requested=true',
 })
 
 export const SOCIAL_LINKS = Object.freeze({

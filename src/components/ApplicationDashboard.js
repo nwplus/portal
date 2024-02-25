@@ -162,7 +162,7 @@ const WaiverLinkContainer = styled.div`
   width: 250px;
 `
 
-const WaiverBlurbContainer = styled.div`
+const QuestionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -519,7 +519,7 @@ const Dashboard = ({
               />
             </SafeWalkContainer>
 
-            <WaiverBlurbContainer>
+            <QuestionContainer>
               <QuestionLabel>
                 Waivers <Required />
               </QuestionLabel>
@@ -527,18 +527,18 @@ const Dashboard = ({
                 If you will be below the age of 19 on March 9, please print out the waivers and
                 bring them in person.
               </P>
-            </WaiverBlurbContainer>
+            </QuestionContainer>
 
-            <WaiverBlurbContainer>
+            <QuestionContainer>
               <WaiverLinkContainer>
                 <A bolded color="primary" width="130px" href={WAIVER_LINKS.COVID}>
                   COVID Liability Form
                 </A>
               </WaiverLinkContainer>
               <P>This waiver clarifies that nwPlus is not liable for any COVID-19 related risks.</P>
-            </WaiverBlurbContainer>
+            </QuestionContainer>
 
-            <WaiverBlurbContainer>
+            <QuestionContainer>
               <WaiverLinkContainer>
                 <A bolded color="primary" width="130px" href={WAIVER_LINKS.MEDIA}>
                   Media Consent Form
@@ -548,9 +548,9 @@ const Dashboard = ({
                 This waiver allows nwPlus to use any photos or videos taken during the event for
                 promotional purposes.
               </P>
-            </WaiverBlurbContainer>
+            </QuestionContainer>
 
-            <WaiverBlurbContainer>
+            <QuestionContainer>
               <WaiverLinkContainer>
                 <A bolded color="primary" href={WAIVER_LINKS.RELEASE_LIABILITY}>
                   Release of Liability Waiver
@@ -560,7 +560,7 @@ const Dashboard = ({
                 This waiver allows nwPlus to use any photos or videos taken during the event for
                 promotional purposes.
               </P>
-            </WaiverBlurbContainer>
+            </QuestionContainer>
 
             {/* <div style={{ marginTop: '30px' }}>
               <QuestionLabel>
@@ -613,6 +613,25 @@ const Dashboard = ({
                 hint={waiverName || ''}
               />
             </WaiverUpload>
+
+            <QuestionContainer>
+              <QuestionLabel>nwMentorship Program</QuestionLabel>
+              <P>
+                Looking to widen your network and find an experienced mentor who can answer your
+                industry and career related questions?
+              </P>
+              <P>
+                Connect with industry mentors from various companies, such as LinkedIn and Bloomberg
+                by participating in the nwMentorship program!
+              </P>
+              <P>
+                Applications are reviewed on a rolling basis so be sure to apply ASAP through this{' '}
+                <A bolded color="primary" href={WAIVER_LINKS.NWMENTORSHIP}>
+                  Google Form
+                </A>{' '}
+                <b>by March 2nd at 11:59pm!</b>
+              </P>
+            </QuestionContainer>
           </>
         )}
 
