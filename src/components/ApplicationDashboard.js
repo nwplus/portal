@@ -238,7 +238,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
         <HR />
         We are currently at full capacity, but everyone is welcome to attend our{' '}
         <A
-          href="https://www.notion.so/nwplus/PUBLIC-cmd-f-2024-Pre-Hackathon-Workshops-b2429635e65a4e79957a63bfd3d8b27d?pvs=4"
+          href="https://nwplus.notion.site/PUBLIC-cmd-f-2024-Pre-Hackathon-Workshops-b2429635e65a4e79957a63bfd3d8b27d?pvs=4"
           target="_blank"
           rel="noopener noreferrer"
           alt="link to cmd-f 2024 pre-hackathon workshops Notion page"
