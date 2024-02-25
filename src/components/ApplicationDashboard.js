@@ -12,6 +12,7 @@ import {
 import { analytics } from '../utility/firebase'
 import { Checkbox } from './Input'
 import { Button } from './Input/Button'
+import ResumeUploadBtn from './ResumeUploadBtn'
 import { A, H1, HR, P, ErrorSpan as Required } from './Typography'
 
 const Container = styled.div`
@@ -135,14 +136,33 @@ const RSVPButton = styled(Button)`
   ${p => !p.shouldDisplay && 'display: none'}
 `
 
-// const SafeWalkContainer = styled.div`
+const SafeWalkContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 2rem;
+`
+
+// const CheckboxContainer = styled.div`
 //   display: flex;
 //   flex-direction: column;
 //   gap: 0.5rem;
 //   padding-top: 2rem;
 // `
 
-const CheckboxContainer = styled.div`
+const SelectContainer = styled.div`
+  margin-top: 30px;
+`
+
+const SelectOptionContainer = styled.div`
+  margin-top: 8px;
+`
+
+const WaiverLinkContainer = styled.div`
+  width: 250px;
+`
+
+const WaiverBlurbContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -186,16 +206,16 @@ const QuestionLabel = styled.div`
   font-weight: bold;
 `
 
-// const WaiverUpload = styled.div`
-//   padding-top: 2rem;
-//   display: flex;
-//   gap: 0.5rem;
-//   flex-direction: column;
-// `
+const WaiverUpload = styled.div`
+  padding-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+`
 
-// const WaiverUploadContext = styled.div`
-//   line-height: 150%;
-// `
+const WaiverUploadContext = styled.div`
+  line-height: 150%;
+`
 
 export const hackerStatuses = (relevantDates, hackerName = null) => ({
   applied: {
@@ -218,10 +238,10 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
         <HR />
         We are currently at full capacity, but everyone is welcome to attend our{' '}
         <A
-          href="https://nwplus.notion.site/PUBLIC-nwHacks-2024-Pre-Hackathon-Workshops-d497fb2d88be4b2082a318753420e5cd"
+          href="https://www.notion.so/nwplus/PUBLIC-cmd-f-2024-Pre-Hackathon-Workshops-b2429635e65a4e79957a63bfd3d8b27d?pvs=4"
           target="_blank"
           rel="noopener noreferrer"
-          alt="link to nwHacks 2024 pre-hackathon workshops Notion page"
+          alt="link to cmd-f 2024 pre-hackathon workshops Notion page"
           bolded
           color="primary"
         >
@@ -362,6 +382,8 @@ const Dashboard = ({
   setMediaConsentCheck,
   ageOfMajoritySelect,
   setAgeOfMajoritySelect,
+  willBeAttendingSelect,
+  setWillBeAttendingSelect,
   username,
   editApplication,
   relevantDates,
@@ -370,38 +392,44 @@ const Dashboard = ({
   waiverName,
   waiverLoading,
 }) => {
-  // const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
-  const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
-  const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
-  const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
-  const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
+  const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  // const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
+  // const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
+  // const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
+  // const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
+  const [willBeAttending, setWillBeAttending] = useState(willBeAttendingSelect || undefined)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
   const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
-  // const handleChange = () => {
-  //   setSafewalkCheckbox(!safewalk)
-  //   setSafewalkInput(!safewalkNote)
+  const handleChange = () => {
+    setSafewalkCheckbox(!safewalk)
+    setSafewalkInput(!safewalkNote)
+  }
+
+  // const handleCovidWaiverChange = () => {
+  //   setCovidWaiver(!covidWaiver)
+  //   setCovidWaiverCheck(!covidWaiverCheck)
   // }
 
-  const handleCovidWaiverChange = () => {
-    setCovidWaiver(!covidWaiver)
-    setCovidWaiverCheck(!covidWaiverCheck)
-  }
+  // const handleReleaseLiabilityChange = () => {
+  //   setReleaseLiability(!releaseLiability)
+  //   setReleaseLiabilityCheck(!releaseLiabilityCheck)
+  // }
 
-  const handleReleaseLiabilityChange = () => {
-    setReleaseLiability(!releaseLiability)
-    setReleaseLiabilityCheck(!releaseLiabilityCheck)
-  }
+  // const handleMediaConsentChange = () => {
+  //   setMediaConsent(!mediaConsent)
+  //   setMediaConsentCheck(!mediaConsentCheck)
+  // }
 
-  const handleMediaConsentChange = () => {
-    setMediaConsent(!mediaConsent)
-    setMediaConsentCheck(!mediaConsentCheck)
-  }
+  // const handleAgeOfMajoritySelectChange = e => {
+  //   setAgeOfMajority(e.target.value)
+  //   setAgeOfMajoritySelect(e.target.value)
+  // }
 
-  const handleAgeOfMajoritySelectChange = e => {
-    setAgeOfMajority(e.target.value)
-    setAgeOfMajoritySelect(e.target.value)
+  const handleWillBeAttendingSelectChange = e => {
+    setWillBeAttending(e.target.value)
+    setWillBeAttendingSelect(e.target.value)
   }
 
   return (
@@ -446,65 +474,95 @@ const Dashboard = ({
         {/* Hides this option if a user unRSVP'd */}
         {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
           <>
-            {/* <SafeWalkContainer>
+            <SelectContainer>
+              <QuestionLabel>
+                Will you be attending the upcoming cmd-f event scheduled for March 9 - March 10?{' '}
+                <Required />
+              </QuestionLabel>
+              <SelectOptionContainer>
+                <input
+                  type="radio"
+                  id="willBeAttendingYes"
+                  name="willBeAttendingYes"
+                  value="willBeAttendingYes"
+                  checked={willBeAttending === 'willBeAttendingYes'}
+                  onChange={handleWillBeAttendingSelectChange}
+                />
+                <label htmlFor="willBeAttendingYes">Yes</label>
+              </SelectOptionContainer>
+
+              <SelectOptionContainer>
+                <input
+                  type="radio"
+                  id="willBeAttendingNo"
+                  name="willBeAttendingNo"
+                  value="willBeAttendingNo"
+                  checked={willBeAttending === 'willBeAttendingNo'}
+                  onChange={handleWillBeAttendingSelectChange}
+                />
+                <label htmlFor="willBeAttendingNo">No</label>
+              </SelectOptionContainer>
+            </SelectContainer>
+
+            <SafeWalkContainer>
               <QuestionLabel>Safewalk option</QuestionLabel>
+              <P>
+                While cmd-f is a 24 hour hackathon, you are not required to sleep there. If you live
+                closeby, we recommend that you sleep at home on the night of March 9. For safety, we
+                are offering a service where cmd-f organizers or volunteers walk hackers anywhere on
+                campus.
+              </P>
               <Checkbox
                 checked={safewalk}
                 onChange={handleChange}
-                label="If you are planning to walk home alone on campus on the night of the 11th, would you like organizers to accompany you to your destination?"
+                label="Would you like to request this service?"
               />
-            </SafeWalkContainer> */}
+            </SafeWalkContainer>
 
-            <CheckboxContainer>
+            <WaiverBlurbContainer>
               <QuestionLabel>
-                Release of Liability <Required />
+                Waivers <Required />
               </QuestionLabel>
               <P>
-                This waiver allows nwPlus to use any photos or videos taken during the event for
-                promotional purposes.
+                If you will be below the age of 19 on March 9, please print out the waivers and
+                bring them in person.
               </P>
-              <A bolded color="primary" width="130px" href={WAIVER_LINKS.RELEASE_LIABILITY}>
-                Read Full Waiver.
-              </A>{' '}
-              <Checkbox
-                checked={releaseLiability}
-                onChange={handleReleaseLiabilityChange}
-                label="I have read the Release of Liability Waiver and agree to its terms."
-              />
-            </CheckboxContainer>
+            </WaiverBlurbContainer>
 
-            <CheckboxContainer>
-              <QuestionLabel>
-                COVID Liability <Required />
-              </QuestionLabel>
+            <WaiverBlurbContainer>
+              <WaiverLinkContainer>
+                <A bolded color="primary" width="130px" href={WAIVER_LINKS.COVID}>
+                  COVID Liability Form
+                </A>
+              </WaiverLinkContainer>
               <P>This waiver clarifies that nwPlus is not liable for any COVID-19 related risks.</P>
-              <A bolded color="primary" width="130px" href={WAIVER_LINKS.COVID}>
-                Read Full Waiver.
-              </A>{' '}
-              <Checkbox
-                checked={covidWaiver}
-                onChange={handleCovidWaiverChange}
-                label="I have read the COVID Liability Waiver and agree to its terms."
-              />
-            </CheckboxContainer>
+            </WaiverBlurbContainer>
 
-            <CheckboxContainer>
-              <QuestionLabel>Media Consent</QuestionLabel>
+            <WaiverBlurbContainer>
+              <WaiverLinkContainer>
+                <A bolded color="primary" width="130px" href={WAIVER_LINKS.MEDIA}>
+                  Media Consent Form
+                </A>
+              </WaiverLinkContainer>
               <P>
                 This waiver allows nwPlus to use any photos or videos taken during the event for
                 promotional purposes.
               </P>
-              <A bolded color="primary" width="130px" href={WAIVER_LINKS.MEDIA}>
-                Read Full Waiver.
-              </A>{' '}
-              <Checkbox
-                checked={mediaConsent}
-                onChange={handleMediaConsentChange}
-                label="I have read the Media Consent Waiver and agree to its terms."
-              />
-            </CheckboxContainer>
+            </WaiverBlurbContainer>
 
-            <div style={{ marginTop: '30px' }}>
+            <WaiverBlurbContainer>
+              <WaiverLinkContainer>
+                <A bolded color="primary" href={WAIVER_LINKS.RELEASE_LIABILITY}>
+                  Release of Liability Waiver
+                </A>
+              </WaiverLinkContainer>
+              <P>
+                This waiver allows nwPlus to use any photos or videos taken during the event for
+                promotional purposes.
+              </P>
+            </WaiverBlurbContainer>
+
+            {/* <div style={{ marginTop: '30px' }}>
               <QuestionLabel>
                 For Minors (Under 19) - REQUIRED IF YOU ARE UNDER 19 <Required />
               </QuestionLabel>
@@ -537,14 +595,15 @@ const Dashboard = ({
                 />
                 <label htmlFor="over19">I am over the age of 19.</label>
               </div>
-            </div>
+            </div> */}
 
-            {/* <WaiverUpload>
+            <WaiverUpload>
               <QuestionLabel>Waiver upload</QuestionLabel>
               <WaiverUploadContext>
                 Please upload the signed copies of your waivers here. The pages must be contained in
                 a single document. Waivers are required before you can RSVP.
               </WaiverUploadContext>
+              <P>File size must be max 2 MB</P>
               <ResumeUploadBtn
                 onChange={e => {
                   if (e.target.files[0]) {
@@ -553,7 +612,7 @@ const Dashboard = ({
                 }}
                 hint={waiverName || ''}
               />
-            </WaiverUpload> */}
+            </WaiverUpload>
           </>
         )}
 
@@ -562,17 +621,10 @@ const Dashboard = ({
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
             <RSVPButton
               width="flex"
-              onClick={
-                isRsvpOpen &&
-                canRSVP &&
-                covidWaiver &&
-                releaseLiability &&
-                ageOfMajority &&
-                (() => setRSVP(canRSVP))
-              }
+              onClick={isRsvpOpen && canRSVP && waiverName && (() => setRSVP(canRSVP))}
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
-              disabled={!(isRsvpOpen && covidWaiver && releaseLiability && ageOfMajority)}
+              disabled={!(isRsvpOpen && waiverName)}
             >
               RSVP
             </RSVPButton>

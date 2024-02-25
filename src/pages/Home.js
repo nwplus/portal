@@ -7,8 +7,8 @@ import head_decal from '../assets/cmdf_bannerdecal.svg'
 import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
-import { APPLICATION_STATUS } from '../utility/Constants'
 import { P } from '../../src/components/Typography'
+import { APPLICATION_STATUS, copyText } from '../utility/Constants'
 
 //My Ticket
 const HomeContainer = styled.div`
@@ -47,7 +47,9 @@ export default withTheme(({ announcements, theme }) => {
       {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
         <QrCode userInfo={user} userId={user.uid} />
       ) : (
-        <StyledP>Please login with the email you used to apply to nwHacks 2024.</StyledP>
+        <StyledP>
+          Please login with the email you used to apply to {copyText.hackathonName}.
+        </StyledP>
       )}
     </HomeContainer>
   )

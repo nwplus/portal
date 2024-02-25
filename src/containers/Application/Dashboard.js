@@ -130,6 +130,15 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
+  const setWillBeAttendingSelect = willBeAttendingSelect => {
+    updateApplication({
+      basicInfo: {
+        willBeAttendingSelect,
+      },
+    })
+    forceSave()
+  }
+
   const handleWaiver = async waiver => {
     // check to make sure its under 2mb
     const size = (waiver.size / 1024 / 1024).toFixed(2)
@@ -175,6 +184,10 @@ const ApplicationDashboardContainer = () => {
         setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
         ageOfMajoritySelect={application.basicInfo.ageOfMajoritySelect || undefined}
         setAgeOfMajoritySelect={ageOfMajoritySelect => setAgeOfMajoritySelect(ageOfMajoritySelect)}
+        willBeAttendingSelect={application.basicInfo.willBeAttendingSelect || undefined}
+        setWillBeAttendingSelect={willBeAttendingSelect =>
+          setWillBeAttendingSelect(willBeAttendingSelect)
+        }
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
         handleWaiver={handleWaiver}
