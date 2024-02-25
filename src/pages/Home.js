@@ -27,12 +27,12 @@ const TopDecal = styled.img`
   width: calc(100vw - 256px + 2em);
 `
 
-const StyledP = styled(P)`
-  text-align: center;
-`
+// const StyledP = styled(P)`
+//   text-align: center;
+// `
 
 export default withTheme(({ announcements, theme }) => {
-  const { user, isAuthed } = useAuth()
+  // const { user, isAuthed } = useAuth()
 
   return (
     <HomeContainer>
@@ -44,13 +44,13 @@ export default withTheme(({ announcements, theme }) => {
       <Announcements announcements={announcements} /> */}
 
       {/* Only display QR Code if logged in */}
-      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
+      {/* {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
         <QrCode userInfo={user} userId={user.uid} />
       ) : (
         <StyledP>
           Please login with the email you used to apply to {copyText.hackathonName}.
         </StyledP>
-      )}
+      )} */}
     </HomeContainer>
   )
 })
