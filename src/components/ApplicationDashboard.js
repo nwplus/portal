@@ -497,18 +497,6 @@ const Dashboard = ({
                 />
                 <label htmlFor="willBeAttendingYes">Yes</label>
               </SelectOptionContainer>
-
-              <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="willBeAttendingNo"
-                  name="willBeAttendingNo"
-                  value="willBeAttendingNo"
-                  checked={willBeAttending === 'willBeAttendingNo'}
-                  onChange={handleWillBeAttendingSelectChange}
-                />
-                <label htmlFor="willBeAttendingNo">No</label>
-              </SelectOptionContainer>
             </SelectContainer>
 
             <SelectContainer>
