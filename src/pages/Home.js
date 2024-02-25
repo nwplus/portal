@@ -4,11 +4,7 @@ import HackerCountdown from '../containers/HackerCountdown'
 // import { CommonLinks } from '../containers/Quicklinks'
 import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
-import QrCode from '../components/QrCode'
-import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
-import { P } from '../../src/components/Typography'
-import { APPLICATION_STATUS, copyText } from '../utility/Constants'
 
 //My Ticket
 const HomeContainer = styled.div`
