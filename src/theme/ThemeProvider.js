@@ -217,7 +217,7 @@ const cmdfTheme = {
       background: 'linear-gradient(0deg, #404871 100%, #58618C 80%, #949ABA 20%)',
       event: 'white',
       text: '#F0EEF2', //greyscale
-      timestamp: '#DCB551',
+      timestamp: '#48FFF4',
     },
     selects: {
       border: '#CAD1F7',

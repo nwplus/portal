@@ -11,6 +11,10 @@ import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
 const QRContainer = styled.div`
   display: flex;
   z-index: 98;
+  ${p => p.theme.mediaQueries.mobile} {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 // const QRContainerInner = styled.div`
@@ -77,6 +81,10 @@ const SavePDFBtn = styled(Button)`
 const QRTicketContainer = styled.div`
   float: left;
   width: 50%;
+  ${p => p.theme.mediaQueries.mobile} {
+    float: none;
+    width: 100%;
+  }
 `
 const QRInfo = styled.div`
   float: right;
@@ -85,7 +93,8 @@ const QRInfo = styled.div`
   padding-left: 20px;
 
   ${p => p.theme.mediaQueries.mobile} {
-    float: left;
+    float: none;
+    margin-top: 0;
     width: 100%;
     padding-left: 0px;
   }

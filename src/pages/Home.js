@@ -10,6 +10,7 @@ import { useAuth } from '../utility/Auth'
 import { APPLICATION_STATUS } from '../utility/Constants'
 import { P } from '../../src/components/Typography'
 import backgroundImage from '../assets/cmdf_homebg.svg'
+import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
 
 //My Ticket
 const HomeContainer = styled.div`
@@ -19,6 +20,9 @@ const HomeContainer = styled.div`
   flex-direction: column;
   gap: 1.5em;
   z-index: 3;
+  ${p => p.theme.mediaQueries.mobile} {
+    gap: 1em;
+  }
 `
 const HomeContainerBackground = styled.div`
   position: fixed;
@@ -31,6 +35,12 @@ const HomeContainerBackground = styled.div`
   background-image: url(${backgroundImage});
   background-size: 120%;
   background-position: right bottom;
+  ${p => p.theme.mediaQueries.mobile} {
+    background-image: url(${mobileBackgroundImage});
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
 `
 
 const TopDecal = styled.img`
