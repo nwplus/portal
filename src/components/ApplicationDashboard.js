@@ -10,7 +10,6 @@ import {
   copyText,
 } from '../utility/Constants'
 import { analytics } from '../utility/firebase'
-import { Checkbox } from './Input'
 import { Button } from './Input/Button'
 import ResumeUploadBtn from './ResumeUploadBtn'
 import { A, H1, HR, P, ErrorSpan as Required } from './Typography'
@@ -136,12 +135,12 @@ const RSVPButton = styled(Button)`
   ${p => !p.shouldDisplay && 'display: none'}
 `
 
-const SafeWalkContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-top: 2rem;
-`
+// const SafeWalkContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.5rem;
+//   padding-top: 2rem;
+// `
 
 // const CheckboxContainer = styled.div`
 //   display: flex;
@@ -372,8 +371,8 @@ const Dashboard = ({
   isApplicationOpen,
   canRSVP,
   setRSVP,
-  safewalkNote,
-  setSafewalkInput,
+  // safewalkNote,
+  // setSafewalkInput,
   covidWaiverCheck,
   setCovidWaiverCheck,
   releaseLiabilityCheck,
@@ -384,6 +383,8 @@ const Dashboard = ({
   setAgeOfMajoritySelect,
   willBeAttendingSelect,
   setWillBeAttendingSelect,
+  safewalkSelect,
+  setSafewalkSelect,
   username,
   editApplication,
   relevantDates,
@@ -392,20 +393,21 @@ const Dashboard = ({
   waiverName,
   waiverLoading,
 }) => {
-  const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
+  // const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
   // const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
   // const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
   // const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
   // const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
   const [willBeAttending, setWillBeAttending] = useState(willBeAttendingSelect || undefined)
+  const [safewalk, setSafewalk] = useState(safewalkSelect || undefined)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
   const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
-  const handleChange = () => {
-    setSafewalkCheckbox(!safewalk)
-    setSafewalkInput(!safewalkNote)
-  }
+  // const handleChange = () => {
+  //   setSafewalkCheckbox(!safewalk)
+  //   setSafewalkInput(!safewalkNote)
+  // }
 
   // const handleCovidWaiverChange = () => {
   //   setCovidWaiver(!covidWaiver)
@@ -430,6 +432,11 @@ const Dashboard = ({
   const handleWillBeAttendingSelectChange = e => {
     setWillBeAttending(e.target.value)
     setWillBeAttendingSelect(e.target.value)
+  }
+
+  const handleSafewalkSelectChange = e => {
+    setSafewalk(e.target.value)
+    setSafewalkSelect(e.target.value)
   }
 
   return (
@@ -504,7 +511,43 @@ const Dashboard = ({
               </SelectOptionContainer>
             </SelectContainer>
 
-            <SafeWalkContainer>
+            <SelectContainer>
+              <QuestionLabel>
+                Safewalk option <Required />
+              </QuestionLabel>
+              <P>
+                While cmd-f is a 24 hour hackathon, you are not required to sleep there. If you live
+                closeby, we recommend that you sleep at home on the night of March 9. For safety, we
+                are offering a service where cmd-f organizers or volunteers walk hackers anywhere on
+                campus.
+              </P>
+              <P>Would you like to request this service?</P>
+              <SelectOptionContainer>
+                <input
+                  type="radio"
+                  id="safewalkYes"
+                  name="safewalkYes"
+                  value="safewalkYes"
+                  checked={safewalk === 'safewalkYes'}
+                  onChange={handleSafewalkSelectChange}
+                />
+                <label htmlFor="safewalkYes">Yes</label>
+              </SelectOptionContainer>
+
+              <SelectOptionContainer>
+                <input
+                  type="radio"
+                  id="safewalkNo"
+                  name="safewalkNo"
+                  value="safewalkNo"
+                  checked={safewalk === 'safewalkNo'}
+                  onChange={handleSafewalkSelectChange}
+                />
+                <label htmlFor="safewalkNo">No</label>
+              </SelectOptionContainer>
+            </SelectContainer>
+
+            {/* <SafeWalkContainer>
               <QuestionLabel>Safewalk option</QuestionLabel>
               <P>
                 While cmd-f is a 24 hour hackathon, you are not required to sleep there. If you live
@@ -517,7 +560,7 @@ const Dashboard = ({
                 onChange={handleChange}
                 label="Would you like to request this service?"
               />
-            </SafeWalkContainer>
+            </SafeWalkContainer> */}
 
             <QuestionContainer>
               <QuestionLabel>
@@ -600,8 +643,8 @@ const Dashboard = ({
             <WaiverUpload>
               <QuestionLabel>Waiver upload</QuestionLabel>
               <WaiverUploadContext>
-                Please upload the signed copies of your waivers here. The pages must be contained in
-                a single document. Waivers are required before you can RSVP.
+                Please upload the signed copies of your waivers here. Merge all three waivers into a
+                single document. Waivers are required before you can RSVP.
               </WaiverUploadContext>
               <P>File size must be max 2 MB</P>
               <ResumeUploadBtn
@@ -640,10 +683,17 @@ const Dashboard = ({
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
             <RSVPButton
               width="flex"
-              onClick={isRsvpOpen && canRSVP && waiverName && (() => setRSVP(canRSVP))}
+              onClick={
+                isRsvpOpen &&
+                canRSVP &&
+                waiverName &&
+                willBeAttending &&
+                safewalk &&
+                (() => setRSVP(canRSVP))
+              }
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
-              disabled={!(isRsvpOpen && waiverName)}
+              disabled={!(isRsvpOpen && waiverName && willBeAttending && safewalk)}
             >
               RSVP
             </RSVPButton>

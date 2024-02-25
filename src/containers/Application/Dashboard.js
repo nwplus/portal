@@ -139,6 +139,15 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
+  const setSafewalkSelect = safewalkSelect => {
+    updateApplication({
+      basicInfo: {
+        safewalkSelect,
+      },
+    })
+    forceSave()
+  }
+
   const handleWaiver = async waiver => {
     // check to make sure its under 2mb
     const size = (waiver.size / 1024 / 1024).toFixed(2)
@@ -172,8 +181,8 @@ const ApplicationDashboardContainer = () => {
         isApplicationOpen={livesiteDoc.applicationsOpen}
         setRSVP={rsvpStatus => setRSVP(rsvpStatus)}
         canRSVP={canRSVP}
-        safewalkNote={application.basicInfo.safewalkNote || false}
-        setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
+        // safewalkNote={application.basicInfo.safewalkNote || false}
+        // setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
         covidWaiverCheck={application.basicInfo.covidWaiverCheck || undefined}
         setCovidWaiverCheck={covidWaiverCheck => setCovidWaiverCheck(covidWaiverCheck)}
         releaseLiabilityCheck={application.basicInfo.releaseLiabilityCheck || undefined}
@@ -188,6 +197,8 @@ const ApplicationDashboardContainer = () => {
         setWillBeAttendingSelect={willBeAttendingSelect =>
           setWillBeAttendingSelect(willBeAttendingSelect)
         }
+        safewalkSelect={application.basicInfo.safewalkSelect || undefined}
+        setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
         handleWaiver={handleWaiver}
