@@ -5,11 +5,12 @@ import { useQRCode } from 'next-qrcode'
 import JsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import { Button } from './Input'
-import qrcodeBackground from '../assets/nwhacks2024qrcode.png'
+import qrcodeBackground from '../assets/cmdf2024qrcode.svg'
 import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
 
-const QRContainer = styled(CardWithHeader)`
+const QRContainer = styled.div`
   display: flex;
+  z-index: 98;
 `
 
 // const QRContainerInner = styled.div`
@@ -35,14 +36,16 @@ const QRCodeDesign = styled.div`
 `
 
 const HackerName = styled.h1`
-  color: #fff;
+  color: #2e2e2e;
   font-weight: bold;
   margin-top: 60px;
   position: relative;
 `
 
 const HackerEmail = styled.p`
-  color: #fff;
+  color: #2e2e2e !important;
+  font-size: 1.2em;
+  margin-top: -10px;
 `
 
 const QRTags = styled.div`
@@ -189,10 +192,10 @@ const QrCode = ({ userInfo, userId }) => {
           </QRCodeDesign>
         </QRCodeDesignContainer>
 
-        <SavePDFBtn color="secondary" onClick={generatePDF}>
+        {/* <SavePDFBtn color="secondary" onClick={generatePDF}>
           {' '}
           Save as PDF
-        </SavePDFBtn>
+        </SavePDFBtn> */}
       </QRTicketContainer>
 
       <QRInfo>

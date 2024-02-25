@@ -7,6 +7,7 @@ import Banner from '../../components/Banner'
 import { H1, P } from '../../components/Typography'
 import Footer from './Footer'
 import nwHacksLoginBackground from '../../../src/assets/nwHacksLogin.svg'
+import cmdfLoginBackground from '../../../src/assets/cmdf_loginbg.svg'
 
 const LandingContainer = styled.div`
   position: absolute;
@@ -50,7 +51,7 @@ const StyledLogoLockup = styled.img`
     p.theme.name !== 'nwPlus' &&
     `
       top: 7em;
-      width: 80px;
+      width: 120px;
   `}
   ${p =>
     p.theme.name === 'cmdf' &&
@@ -76,7 +77,7 @@ const StyledLogoLockup = styled.img`
 const StyledBanner = styled(Banner)`
   && {
     position: absolute;
-    top: 18em;
+    top: 30em;
     text-align: center;
     z-index: 0;
     display: block;
@@ -97,7 +98,7 @@ const StyledP = styled(P)`
   font-size: 1.5rem;
 `
 
-const NwHacksLoginBackgroundContainer = styled.img`
+const BackgroundContainer = styled.img`
   height: 100%;
   width: 100vw;
   object-fit: cover;
@@ -128,20 +129,22 @@ export default ({ heading, description, showFooter, hackathon, children, backgro
       )
     case 'cmdf':
       return (
-        <FlexLandingContainer background={background}>
-          <Flex>
-            <img src={cmdf_logo} alt="cmd-f 2022 logo" />
-            <StyledP>{heading}</StyledP>
-            {description && <StyledP>{description}</StyledP>}
+        <LandingContainer showFooter={showFooter}>
+          <BackgroundContainer src={cmdfLoginBackground} />
+          <StyledLogoLockup src={cmdf_logo} />
+          <StyledBanner>
+            <H1 size="1.5em">{heading}</H1>
+            <P>{description}</P>
             {children}
-          </Flex>
-        </FlexLandingContainer>
+          </StyledBanner>
+          {showFooter && <Footer />}
+        </LandingContainer>
       )
     default:
     case 'nwHacks':
       return (
         <LandingContainer showFooter={showFooter}>
-          <NwHacksLoginBackgroundContainer src={nwHacksLoginBackground} />
+          <BackgroundContainer src={nwHacksLoginBackground} />
 
           <StyledLogoLockup src={nwhacks_logo} />
           <StyledBanner>

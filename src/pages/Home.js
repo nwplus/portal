@@ -9,14 +9,28 @@ import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 import { APPLICATION_STATUS } from '../utility/Constants'
 import { P } from '../../src/components/Typography'
+import backgroundImage from '../assets/cmdf_homebg.svg'
 
 //My Ticket
 const HomeContainer = styled.div`
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5em;
+  z-index: 3;
+`
+const HomeContainerBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background-image: url(${backgroundImage});
+  background-size: 120%;
+  background-position: right bottom;
 `
 
 const TopDecal = styled.img`
@@ -35,20 +49,23 @@ export default withTheme(({ announcements, theme }) => {
   const { user, isAuthed } = useAuth()
 
   return (
-    <HomeContainer>
-      {theme.name === 'cmdf' && <TopDecal src={head_decal} />}
-      {/* {theme.name === 'hackCamp' && <Hackcamp2023BG />} */}
-      <HackerCountdown />
-      {/* 
+    <>
+      <HomeContainerBackground />
+      <HomeContainer>
+        {theme.name === 'cmdf'}
+        {/* {theme.name === 'hackCamp' && <Hackcamp2023BG />} */}
+        <HackerCountdown />
+        {/* 
       <CommonLinks />
       <Announcements announcements={announcements} /> */}
 
-      {/* Only display QR Code if logged in */}
-      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
-        <QrCode userInfo={user} userId={user.uid} />
-      ) : (
-        <StyledP>Please login with the email you used to apply to nwHacks 2024.</StyledP>
-      )}
-    </HomeContainer>
+        {/* Only display QR Code if logged in */}
+        {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
+          <QrCode userInfo={user} userId={user.uid} />
+        ) : (
+          <StyledP>Please login with the email you used to apply to nwHacks 2024.</StyledP>
+        )}
+      </HomeContainer>
+    </>
   )
 })
