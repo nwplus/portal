@@ -85,14 +85,14 @@ const ApplicationDashboardContainer = () => {
     }
   }
 
-  const setSafewalkInput = safewalkNote => {
-    updateApplication({
-      basicInfo: {
-        safewalkNote,
-      },
-    })
-    forceSave()
-  }
+  // const setSafewalkInput = safewalkNote => {
+  //   updateApplication({
+  //     basicInfo: {
+  //       safewalkNote,
+  //     },
+  //   })
+  //   forceSave()
+  // }
 
   const setCovidWaiverCheck = covidWaiverCheck => {
     updateApplication({
