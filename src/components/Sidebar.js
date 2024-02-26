@@ -6,7 +6,6 @@ import hc_logo from '../assets/hc_logo.svg'
 import logo from '../assets/logo.svg'
 import nwplus_logo from '../assets/nwplus_icon.svg'
 import { useAuth } from '../utility/Auth'
-import { APPLICATION_STATUS } from '../utility/Constants'
 import { getSponsors } from '../utility/firebase'
 import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
@@ -186,10 +185,10 @@ const LogoContainer = styled.div`
   align-items: flex-end;
 `
 
-const ExternalLink = styled.a`
-  color: ${p => p.theme.colors.sidebar.primary};
-  text-decoration: none;
-`
+// const ExternalLink = styled.a`
+//   color: ${p => p.theme.colors.sidebar.primary};
+//   text-decoration: none;
+// `
 
 // const SponsorIcon = styled.img`
 //   width: 100px;
@@ -328,7 +327,7 @@ export default ({
         )}
       </ItemsContainer>
 
-      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
+      {/* {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
         <ItemsContainer>
           <CategoryHeader>Useful Links</CategoryHeader>
           {links.useful_links.map((v, i) => (
@@ -339,7 +338,7 @@ export default ({
         </ItemsContainer>
       ) : (
         <></>
-      )}
+      )} */}
 
       {isAuthed ? (
         <StyledButton color="secondary" onClick={logout}>
