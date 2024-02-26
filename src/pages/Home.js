@@ -4,11 +4,7 @@ import HackerCountdown from '../containers/HackerCountdown'
 // import { CommonLinks } from '../containers/Quicklinks'
 import styled, { withTheme } from 'styled-components'
 import head_decal from '../assets/cmdf_bannerdecal.svg'
-import QrCode from '../components/QrCode'
-import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
-import { APPLICATION_STATUS } from '../utility/Constants'
-import { P } from '../../src/components/Typography'
 
 //My Ticket
 const HomeContainer = styled.div`
@@ -27,12 +23,12 @@ const TopDecal = styled.img`
   width: calc(100vw - 256px + 2em);
 `
 
-const StyledP = styled(P)`
-  text-align: center;
-`
+// const StyledP = styled(P)`
+//   text-align: center;
+// `
 
 export default withTheme(({ announcements, theme }) => {
-  const { user, isAuthed } = useAuth()
+  // const { user, isAuthed } = useAuth()
 
   return (
     <HomeContainer>
@@ -44,11 +40,13 @@ export default withTheme(({ announcements, theme }) => {
       <Announcements announcements={announcements} /> */}
 
       {/* Only display QR Code if logged in */}
-      {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
+      {/* {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
         <QrCode userInfo={user} userId={user.uid} />
       ) : (
-        <StyledP>Please login with the email you used to apply to nwHacks 2024.</StyledP>
-      )}
+        <StyledP>
+          Please login with the email you used to apply to {copyText.hackathonName}.
+        </StyledP>
+      )} */}
     </HomeContainer>
   )
 })

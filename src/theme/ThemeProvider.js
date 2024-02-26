@@ -54,7 +54,7 @@ const nwTheme = {
       background: '#5667CF',
       hover: '#0A1361',
       selected: '#3C4BA5',
-      primary: '#DCB551',
+      primary: '#FFF',
       secondary: '#9D9FAD',
       link: '#9D9FAD',
       statusText: '#9D9FAD',
