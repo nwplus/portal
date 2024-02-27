@@ -10,8 +10,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
       - run: yarn install --frozen-lockfile && yarn build:staging
         env:
           REACT_APP_FIREBASE_API_KEY: ${{ secrets.DEV_FIREBASE_API_KEY }}
@@ -28,6 +26,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NWPLUS_UBC }}'
           projectId: nwplus-ubc
           target: nwplus-ubc
-          firebaseToolsVersion: 12.9.1
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels

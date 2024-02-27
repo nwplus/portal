@@ -1,6 +1,8 @@
 import React from 'react'
-import Faq from '../containers/Faq'
+import FAQ from '../containers/Faq'
 
-export default () => {
-  return <Faq />
+const Faq = () => {
+  return <FAQ />
 }
+
+export default Faq

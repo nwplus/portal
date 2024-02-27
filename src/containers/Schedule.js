@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Schedule from '../components/Schedule/'
+import ScheduleC from '../components/Schedule/'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON, DAYOF_COLLECTION } from '../utility/Constants'
 import { livesiteDocRef } from '../utility/firebase'
 
-export default () => {
+const Schedule = () => {
   const [events, setEvents] = useState([])
   const [start, setStart] = useState(new Date())
   const [end, setEnd] = useState(new Date())
@@ -40,5 +40,7 @@ export default () => {
     return unsubscribe
   }, [setEvents])
 
-  return <Schedule events={events} hackathonStart={start} hackathonEnd={end} />
+  return <ScheduleC events={events} hackathonStart={start} hackathonEnd={end} />
 }
+
+export default Schedule

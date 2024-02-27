@@ -67,7 +67,7 @@ const getProjects = async (userId, projectId) => {
   return await getProjectsData(projectsAssigned, userId)
 }
 
-export default () => {
+const Judging = () => {
   const [isJudgingOpen, setIsJudgingOpen] = useState()
   const [isBlocked, setIsBlocked] = useState()
   const { user } = useAuth()
@@ -125,3 +125,5 @@ export default () => {
     </ProjectPageContainer>
   )
 }
+
+export default Judging

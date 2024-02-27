@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider as TP } from 'styled-components'
 
 const SCREEN_BREAKPOINTS = {
   xs: 576,
@@ -266,4 +266,6 @@ if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAG
   selectedTheme = localTheme ? THEMES[localTheme] : selectedTheme
 }
 
-export default ({ children }) => <ThemeProvider theme={selectedTheme}>{children}</ThemeProvider>
+const ThemeProvider = ({ children }) => <TP theme={selectedTheme}>{children}</TP>
+
+export default ThemeProvider

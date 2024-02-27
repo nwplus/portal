@@ -4,7 +4,7 @@ import { Button } from '../../components/Input'
 import Landing from '../../containers/Landing'
 import { ButtonContainer } from '../Login'
 
-export default () => {
+const Confirmation = () => {
   const [, setLocation] = useLocation()
   return (
     <Landing
@@ -21,3 +21,5 @@ export default () => {
     </Landing>
   )
 }
+
+export default Confirmation

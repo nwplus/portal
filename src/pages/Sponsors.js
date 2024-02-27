@@ -2,7 +2,7 @@ import React from 'react'
 import Prizes from '../containers/Prizes'
 import SponsorLogos from '../containers/SponsorLogos'
 
-export default () => {
+const Sponsors = () => {
   return (
     <div>
       <Prizes />
@@ -10,3 +10,5 @@ export default () => {
     </div>
   )
 }
+
+export default Sponsors

@@ -182,7 +182,7 @@ const LogoContainer = styled.div`
 //   height: 42px;
 // `
 
-export default ({
+const Sidebar = ({
   showMobileSidebar,
   isJudgingOpen,
   isJudgingReleased,
@@ -343,3 +343,5 @@ export default ({
     </SidebarContainer>
   )
 }
+
+export default Sidebar

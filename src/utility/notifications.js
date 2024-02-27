@@ -37,9 +37,11 @@ const trigger = (title, body) => {
   new Notification(title, { body, icon })
 }
 
-export default {
+const exports = {
   requestPermission,
   isCurrentPermission,
   areEnabled,
   trigger,
 }
+
+export default exports

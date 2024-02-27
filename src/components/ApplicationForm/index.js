@@ -32,6 +32,8 @@ export const SubHeading = styled(H1)`
   }
 `
 
-export default ({ children }) => {
+const ApplicationForm = ({ children }) => {
   return <Container>{children}</Container>
 }
+
+export default ApplicationForm

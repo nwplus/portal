@@ -1,7 +1,9 @@
 import React from 'react'
-import Dashboard from '../../containers/Application/Dashboard'
+import DashboardC from '../../containers/Application/Dashboard'
 
 // applicant dashboard
-export default () => {
-  return <Dashboard />
+const Dashboard = () => {
+  return <DashboardC />
 }
+
+export default Dashboard

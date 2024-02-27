@@ -34,7 +34,7 @@ const NavigationButtonsContainer = styled.div`
   text-align: right;
 `
 
-export default ({
+const NavigationButtons = ({
   firstButtonText,
   firstButtonOnClick,
   secondButtonText,
@@ -67,3 +67,5 @@ export default ({
     </NavigationButtonsContainer>
   )
 }
+
+export default NavigationButtons

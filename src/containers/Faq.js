@@ -10,7 +10,7 @@ const StyledTextInput = styled(TextInput)`
   margin: 0;
 `
 
-export default () => {
+const FAQ = () => {
   const [faqs, setFaqs] = useState([])
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
@@ -63,3 +63,5 @@ export default () => {
     </>
   )
 }
+
+export default FAQ

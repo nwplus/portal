@@ -28,7 +28,7 @@ export const options = [
 ]
 
 // form part 3
-export default ({ errors, formInputs, onChange }) => {
+const Questionnaire = ({ errors, formInputs, onChange }) => {
   return (
     <>
       <FormSpacing>
@@ -433,3 +433,5 @@ export default ({ errors, formInputs, onChange }) => {
     </>
   )
 }
+
+export default Questionnaire

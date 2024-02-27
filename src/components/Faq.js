@@ -6,7 +6,7 @@ import { H2 } from './Typography'
 
 const COLUMNS_OF_FAQ = 2
 
-export default ({ faq }) => {
+const Faq = ({ faq }) => {
   const categories = faq.reduce((accumulator, question) => {
     accumulator[question.category] = [...(accumulator[question.category] || []), question]
     return accumulator // group by category
@@ -41,3 +41,5 @@ export default ({ faq }) => {
     )
   })
 }
+
+export default Faq

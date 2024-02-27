@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Countdown from './Countdown'
 import { livesiteDocRef } from '../utility/firebase'
 
-export default () => {
+const HackerCountdown = () => {
   const [start, setStart] = useState(new Date())
   const [end, setEnd] = useState(new Date())
 
@@ -23,3 +23,5 @@ export default () => {
 
   return <Countdown countDownDate={countDownDate} eventName={eventName} />
 }
+
+export default HackerCountdown

@@ -57,7 +57,7 @@ const Title = styled(H2)`
   margin-bottom: 0.5em;
 `
 
-export default ({
+const JudgingCard = ({
   imgUrl,
   title,
   description,
@@ -97,3 +97,5 @@ export default ({
     </StyledCard>
   )
 }
+
+export default JudgingCard

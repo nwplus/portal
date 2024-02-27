@@ -22,7 +22,7 @@ const LinkContainer = styled.div`
   padding: 0.5em;
 `
 
-export default ({ sponsorPrizes }) => {
+const SponsorSubmissions = ({ sponsorPrizes }) => {
   const getCsvFriendlyData = projects => {
     const formattedProjects = projects.map(project => {
       const portalLink = window.location.origin // to support local development as well
@@ -76,3 +76,5 @@ export default ({ sponsorPrizes }) => {
     </div>
   )
 }
+
+export default SponsorSubmissions

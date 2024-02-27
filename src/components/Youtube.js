@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ className, src }) => {
+const Youtube = ({ className, src }) => {
   const getYoutubeEmbedUrl = url => {
     try {
       if (url.includes('youtube')) {
@@ -33,3 +33,5 @@ export default ({ className, src }) => {
     <p>Video not submitted</p>
   )
 }
+
+export default Youtube

@@ -17,7 +17,7 @@ const StyledSearch = styled(TextInput)`
   margin: 0;
 `
 
-export default () => {
+const Gallery = () => {
   const [projects, setProjects] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [selectedFilter, setSelectedFilter] = useState('All projects')
@@ -92,3 +92,5 @@ export default () => {
     </>
   )
 }
+
+export default Gallery

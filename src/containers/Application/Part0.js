@@ -5,7 +5,7 @@ import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
-export default () => {
+const Part0 = () => {
   const { application, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [loading, setLoading] = useState(false)
@@ -38,3 +38,5 @@ export default () => {
     </>
   )
 }
+
+export default Part0

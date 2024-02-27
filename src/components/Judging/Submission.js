@@ -95,7 +95,7 @@ const FeedbackCard = ({ feedback, reportCallback }) => {
   )
 }
 
-export default ({ project, reportCallback }) => {
+const Submission = ({ project, reportCallback }) => {
   const [reviews, setReviews] = useState({})
   const [reviewCounts, setReviewCounts] = useState(0)
 
@@ -150,3 +150,5 @@ export default ({ project, reportCallback }) => {
     </>
   )
 }
+
+export default Submission

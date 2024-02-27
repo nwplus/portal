@@ -1,6 +1,8 @@
 import React from 'react'
 import JudgingPanel from '../../containers/JudgingPanel'
 
-export default () => {
+const Admin = () => {
   return <JudgingPanel />
 }
+
+export default Admin

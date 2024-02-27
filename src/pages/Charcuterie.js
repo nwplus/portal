@@ -55,7 +55,7 @@ const toggleTheme = () => {
   window.location.reload()
 }
 
-export default () => {
+const Charcuterie = () => {
   const [states, setStates] = useState({
     checkbox: false,
     radio: 'selected',
@@ -491,3 +491,5 @@ export default () => {
     </>
   )
 }
+
+export default Charcuterie

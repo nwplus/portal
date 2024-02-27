@@ -23,7 +23,7 @@ const UploadButton = ({ handleClick, customRef }) => {
   )
 }
 
-export default ({ onChange, hint, errorMsg, customRef }) => {
+const ResumeUploadBtn = ({ onChange, hint, errorMsg, customRef }) => {
   const inputFile = useRef()
 
   const handleClick = () => {
@@ -38,3 +38,5 @@ export default ({ onChange, hint, errorMsg, customRef }) => {
     </ResumeContainer>
   )
 }
+
+export default ResumeUploadBtn
