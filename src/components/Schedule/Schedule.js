@@ -19,7 +19,7 @@ const ScrollableContainer = styled.div`
   left: 0;
   margin-top: 1em;
   border-radius: 10px;
-  background: linear-gradient(to right, #244556 85%, #33515e 100%);
+  background: linear-gradient(to right, #404871 85%, #58618c 100%);
   &:before {
     content: '';
     position: fixed;
@@ -28,7 +28,7 @@ const ScrollableContainer = styled.div`
     right: 0;
     bottom: 0;
     pointer-events: none;
-    background: linear-gradient(to bottom, transparent 50%, #193545 100%);
+    background: linear-gradient(to bottom, transparent 60%, #dcc095 300%);
   }
 `
 

@@ -23,11 +23,13 @@ export const NOTIFICATION_PERMISSIONS = Object.freeze({
 
 export const WAIVER_LINKS = Object.freeze({
   COVID:
-    'https://docs.google.com/document/d/1td2BgcwRT2CTYdUrzHji7onxpoVl8UjMiEuqIIUK7CM/edit?usp=sharing%5C',
+    'https://docs.google.com/document/d/1OlcOiEPSjngFKFEndG6wBBOYm02JTpY3KldeJ9GCfIo/edit?usp=sharing',
   RELEASE_LIABILITY:
-    'https://docs.google.com/document/d/1uqFssK4ScnbTysw0ppQKQYhZ6M-kja3R23xg8qNxf1E/edit?usp=sharing',
+    'https://docs.google.com/document/d/1BfDr_S2FNNl7Xfv0fncZLzUV2pq0O91z6k6xwiN4gPw/edit?usp=sharing',
   MEDIA:
-    'https://docs.google.com/document/d/1fMVtLTLnE-4awnXLl0YY6VAVvF_9xH0b250FGLbdOkI/edit?usp=sharing',
+    'https://docs.google.com/document/d/175Rsgz5HXUpfPUqNbRpPrJTmqqxFfhxZJBXNFMDX0SU/edit?usp=sharing',
+  NWMENTORSHIP:
+    'https://docs.google.com/forms/d/1kiWu1aHHuDl39k4p2Y3sKKaE-6fAvPxb9z-A0XKDkQs/viewform?edit_requested=true',
 })
 
 export const SOCIAL_LINKS = Object.freeze({

@@ -5,6 +5,7 @@ import TimeDisplay from '../components/TimeDisplay'
 
 export const Centered = styled.div`
   text-align: center;
+  z-index: 99;
 `
 
 const Countdown = ({ countDownDate, eventName, theme }) => {
