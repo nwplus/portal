@@ -82,31 +82,13 @@ const ApplicationInProgressRoute = ({ name, handleLogout, path, children, theme 
   const { isAuthed, user, logout } = useAuth()
   return isAuthed ? (
     <Route path={path}>
-      <HackerApplicationProvider>
-        <ApplicationInProgressContentContainer>
-          <Navbar
-            name={name ? user.displayName : undefined}
-            handleLogout={handleLogout ? logout : undefined}
-          >
-            {children}
-          </Navbar>
-        </ApplicationInProgressContentContainer>
-      </HackerApplicationProvider>
+      <Navbar
+        name={name ? user.displayName : undefined}
+        handleLogout={handleLogout ? logout : undefined}
+      >
+        {children}
+      </Navbar>
     </Route>
-  ) : (
-    <Redirect to="/login" />
-  )
-}
-
-const ApplicationInProgressContentContainer = ({ children }) => {
-  const {
-    application: {
-      status: { applicationStatus },
-    },
-  } = useHackerApplication()
-
-  return applicationStatus === APPLICATION_STATUS.inProgress ? (
-    <>{children}</>
   ) : (
     <Redirect to="/login" />
   )
@@ -143,15 +125,7 @@ const NavbarSaveOnLogout = ({ name, handleLogout }) => {
 const ApplicationFormContainer = ({ part }) => {
   const { isAuthed, user, logout } = useAuth()
 
-  const {
-    application,
-    // got rid of destructuring in case of null value (not logged in, visits a page on application - maybe it was bookmarked)
-    // {
-    //   status: {
-    //     applicationStatus
-    //   },
-    // },
-  } = useHackerApplication()
+  const { application } = useHackerApplication()
 
   return isAuthed && application.status.applicationStatus === APPLICATION_STATUS.inProgress ? (
     <>
@@ -189,13 +163,7 @@ const ProjectViewContainer = ({ params }) => (
 
 const ApplicationDashboardRoutingContainer = () => {
   const { isAuthed } = useAuth()
-  return isAuthed ? (
-    <HackerApplicationProvider>
-      <Application />
-    </HackerApplicationProvider>
-  ) : (
-    <Redirect to="/login" />
-  )
+  return isAuthed ? <Application /> : <Redirect to="/login" />
 }
 
 function App() {
@@ -273,20 +241,20 @@ function App() {
           <AuthPageRoute path="/submission">
             <Submission />
           </AuthPageRoute>
-          <Route path="/application" component={ApplicationDashboardRoutingContainer} />
-          <ApplicationInProgressRoute path="/application/review" name handleLogout>
-            <ApplicationReview />
-          </ApplicationInProgressRoute>
-          <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
-            <ApplicationConfirmation />
-          </ApplicationInProgressRoute>
-          <Route path="/application/:part">
-            {params => (
-              <HackerApplicationProvider>
-                <ApplicationFormContainer part={params.part} />
-              </HackerApplicationProvider>
-            )}
-          </Route>
+          <HackerApplicationProvider>
+            <Switch>
+              <Route path="/application" component={ApplicationDashboardRoutingContainer} />
+              <ApplicationInProgressRoute path="/application/review" name handleLogout>
+                <ApplicationReview />
+              </ApplicationInProgressRoute>
+              <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
+                <ApplicationConfirmation />
+              </ApplicationInProgressRoute>
+              <Route path="/application/:part" handleLogout>
+                {params => <ApplicationFormContainer part={params.part} />}
+              </Route>
+            </Switch>
+          </HackerApplicationProvider>
           <Route path="/:rest*">
             <NotFound />
           </Route>

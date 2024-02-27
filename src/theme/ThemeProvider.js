@@ -44,17 +44,17 @@ const nwTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
-    background: '#193545', // Background
-    card: '#0A1C27', // BG Accent
-    border: '#8E7EB4',
+    background: '#3C4BA5', // Background
+    card: '#0A1361', // BG Accent
+    border: 'rgba(255, 255, 255, 0.3)',
     secondaryBackgroundTransparent: '#F0EEF299',
     secondaryBackgroundTransparentHover: '#9D9FAD',
-    secondaryBackground: '#244556', // Side bar background
+    secondaryBackground: '#5667CF', // Side bar background
     sidebar: {
-      background: '#193545',
-      hover: '#244556',
-      selected: '#244556',
-      primary: '#DCB551',
+      background: '#5667CF',
+      hover: '#0A1361',
+      selected: '#3C4BA5',
+      primary: '#FFF',
       secondary: '#9D9FAD',
       link: '#9D9FAD',
       statusText: '#9D9FAD',
@@ -88,10 +88,10 @@ const nwTheme = {
       border: '#9AD4DE',
       hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
-      outlineText: '#191C4F', // Secondary button
+      outlineText: '#FFF', // Secondary button
       outlineHover: '#FFFFFF', // secondary
-      outlineBackground: '#DCB551', //secondary button
-      outlineBackgroundHover: 'linear-gradient(265.48deg, #244556 3.67%, #244556 78.93%)',
+      outlineBackground: '#A4A9F1', //secondary button
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       outlineBorder: '#CFD6FF',
       grey500: '#BDBAC3',
       grey700: '#55525B',

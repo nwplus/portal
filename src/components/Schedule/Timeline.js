@@ -38,7 +38,7 @@ const CurrentTimeHR = styled.hr`
   position: absolute;
   margin-top: 3.5em;
   border: 0;
-  border-right: 2px solid ${p => p.theme.colors.error};
+  // border-right: 2px solid ${p => p.theme.colors.error};
   height: 200%;
 `
 
@@ -198,12 +198,44 @@ export const TimelineColumn = ({
       {[...Array(duration)].map((v, i) => {
         const labelTime = new Date(hackathonStart.getTime() + i * 60 * 60 * 1000)
         const label = labelTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-        return (
-          <TimelineBlock key={i} ref={label === '12:00 AM' ? midnightRef : null}>
-            <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
-            <TimelineHR hourOffset={i} widthMultiplier={numCols} />
-          </TimelineBlock>
-        )
+
+        const currentTime = new Date()
+        currentTime.setMinutes(0)
+        currentTime.setSeconds(0)
+
+        const formattedTime = currentTime.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true,
+        })
+
+        const currentDate = new Date()
+          .toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          })
+          .replace(',', '')
+
+        if (labelTime.toString().includes(currentDate.toString()) && label === formattedTime) {
+          return (
+            <TimelineBlock key={i} ref={label === '12:00 AM' ? midnightRef : null}>
+              <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
+              <TimelineHR
+                style={{ borderLeft: '2px solid red' }}
+                hourOffset={i}
+                widthMultiplier={numCols}
+              />
+            </TimelineBlock>
+          )
+        } else {
+          return (
+            <TimelineBlock key={i} ref={label === '12:00 AM' ? midnightRef : null}>
+              <TimelineLabel hourOffset={i}>{label}</TimelineLabel>
+              <TimelineHR hourOffset={i} widthMultiplier={numCols} />
+            </TimelineBlock>
+          )
+        }
       })}
     </TimelineColumnContainer>
   )

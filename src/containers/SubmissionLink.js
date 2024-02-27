@@ -36,7 +36,7 @@ export default ({ user, refreshCallback }) => {
       } else {
         let autoFill = [
           {
-            name: userData.basicInfo.firstName + ' ' + userData.basicInfo.lastName,
+            name: userData.basicInfo.preferredName,
             email: userData.basicInfo.email,
           },
         ]

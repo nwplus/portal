@@ -7,24 +7,29 @@ import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
 
 const questionsByOrder = [
-  'firstName',
-  'lastName',
+  'legalFirstName',
+  'legalLastName',
   'preferredName',
   'ageByHackathon',
   'phoneNumber',
   'school',
-  'major',
   'educationLevel',
   'graduation',
   'academicYear',
   'countryOfResidence',
   'dietaryRestriction',
-  'willBeAgeOfMajority',
-  // 'identifyAsUnderrepresented',
+  // 'willBeAgeOfMajority',
+  'identifyAsUnderrepresented',
   'pronouns',
   'gender',
-  'ethnicity',
-  'isAuthorizedToWorkInCanada',
+  'haveTransExperience',
+  'major',
+  'race',
+  'indigenousIdentification',
+  'culturalBackground',
+  // 'isAuthorizedToWorkInCanada',
+  'canadianStatus',
+  'disability',
 ]
 
 export default () => {
@@ -55,13 +60,14 @@ export default () => {
   }
 
   const refs = {
-    firstNameRef: useRef(null),
-    lastNameRef: useRef(null),
+    legalFirstNameRef: useRef(null),
+    legalLastNameRef: useRef(null),
     preferredNameRef: useRef(null),
     genderRef: useRef(null),
     pronounsRef: useRef(null),
     dietaryRestrictionRef: useRef(null),
-    // identifyAsUnderrepresentedRef: useRef(null),
+    identifyAsUnderrepresentedRef: useRef(null),
+    indigenousIdentificationRef: useRef(null),
     ageByHackathonRef: useRef(null),
     phoneNumberRef: useRef(null),
     schoolRef: useRef(null),
@@ -69,13 +75,17 @@ export default () => {
     educationLevelRef: useRef(null),
     graduationRef: useRef(null),
     academicYearRef: useRef(null),
-    ethnicityRef: useRef(null),
-    willBeAgeOfMajorityRef: useRef(null),
+    raceRef: useRef(null),
+    // willBeAgeOfMajorityRef: useRef(null),
+    haveTransExperienceRef: useRef(null),
     hackathonsAttendedRef: useRef(null),
     contributionRoleRef: useRef(null),
     countryOfResidenceRef: useRef(null),
     locationRef: useRef(null),
-    isAuthorizedToWorkInCanadaRef: useRef(null),
+    culturalBackgroundRef: useRef(null),
+    // isAuthorizedToWorkInCanadaRef: useRef(null),
+    canadianStatusRef: useRef(null),
+    disabilityRef: useRef(null),
   }
 
   /**

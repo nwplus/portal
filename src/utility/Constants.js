@@ -23,11 +23,13 @@ export const NOTIFICATION_PERMISSIONS = Object.freeze({
 
 export const WAIVER_LINKS = Object.freeze({
   COVID:
-    'https://docs.google.com/document/d/1td2BgcwRT2CTYdUrzHji7onxpoVl8UjMiEuqIIUK7CM/edit?usp=sharing%5C',
+    'https://docs.google.com/document/d/1OlcOiEPSjngFKFEndG6wBBOYm02JTpY3KldeJ9GCfIo/edit?usp=sharing',
   RELEASE_LIABILITY:
-    'https://docs.google.com/document/d/1uqFssK4ScnbTysw0ppQKQYhZ6M-kja3R23xg8qNxf1E/edit?usp=sharing',
+    'https://docs.google.com/document/d/1BfDr_S2FNNl7Xfv0fncZLzUV2pq0O91z6k6xwiN4gPw/edit?usp=sharing',
   MEDIA:
-    'https://docs.google.com/document/d/1fMVtLTLnE-4awnXLl0YY6VAVvF_9xH0b250FGLbdOkI/edit?usp=sharing',
+    'https://docs.google.com/document/d/175Rsgz5HXUpfPUqNbRpPrJTmqqxFfhxZJBXNFMDX0SU/edit?usp=sharing',
+  NWMENTORSHIP:
+    'https://docs.google.com/forms/d/1kiWu1aHHuDl39k4p2Y3sKKaE-6fAvPxb9z-A0XKDkQs/viewform?edit_requested=true',
 })
 
 export const SOCIAL_LINKS = Object.freeze({
@@ -131,52 +133,90 @@ export const calculateGrade = score => {
   }, 0).toFixed(2)
 }
 
-export const ETHNICITY_OPTIONS = Object.freeze({
-  asianIndian: 'Asian Indian',
-  blackOrAfrican: 'Black or African',
-  chinese: 'Chinese',
-  filipino: 'Filipino',
-  guamanianChamorro: 'Guamanian or Chamorro',
-  hispanicLatinoSpanishOrigin: 'Hispanic / Latino / Spanish Origin',
-  japanese: 'Japanese',
-  korean: 'Korean',
+export const MAJOR_OPTIONS = Object.freeze({
+  computerScience: 'Computer science, computer engineering, or software engineering',
+  otherEngineering: 'Another engineering discipline (such as civil, electrical, mechanical, etc.)',
+  informationTech: 'Information systems, information technology, or system administration',
+  naturalScience: 'A natural science (such as biology, chemistry, physics, etc.)',
+  mathOrStats: 'Mathematics or statistics',
+  webDevOrDesign: 'Web development or web design',
+  business: 'Business discipline (such as accounting, finance, marketing, etc.)',
+  humanities: 'Humanities discipline (such as literature, history, philosophy, etc.)',
+  socialScience: 'Social science (such as anthropology, psychology, political science, etc.)',
+  arts: 'Fine arts or performing arts (such as graphic design, music, studio art, etc.)',
+  healthScience: 'Health science (such as nursing, pharmacy, radiology, etc.)',
+  other: 'Other (Please Specify)',
+  undecidedOrUndeclared: 'Undecided / No Declared Major',
+  schoolDoesNotOfferMajors: 'My school does not offer majors / primary areas of study',
+  preferNotToAnswer: 'Prefer not to answer',
+})
+
+export const RACE_OPTIONS = Object.freeze({
+  asian: 'Asian',
+  black: 'Black',
+  white: 'European/White',
+  hispanic: 'Hispanic',
+  pacificIslander: 'Pacific Islander',
+  dontKnow: "Don't Know",
+  preferNot: 'Prefer not to answer',
+  other: 'Other (Please Specify)',
+})
+
+export const CULTURAL_BG_OPTIONS = Object.freeze({
+  black: 'Black',
+  european: 'European',
+  eastAsian: 'East Asian',
+  southAsian: 'South Asian',
+  southEastAsian: 'South East Asian',
+  firstNationsOrIndigenous: 'First Nations or Indigenous (Please Specify)',
+  hispanicOrLatinx: 'Hispanic or Latinx',
   middleEastern: 'Middle Eastern',
-  nativeAmericanOrAlaskanNative: 'Native American or Alaskan Native',
-  nativeHawaiian: 'Native Hawaiian',
-  samoan: 'Samoan',
-  vietnamese: 'Vietnamese',
-  white: 'White',
-  otherAsian: 'Other Asian (Thai, Cambodian, etc)',
-  otherPacificIslander: 'Other Pacific Islander',
   preferNot: 'Prefer not to answer',
   other: 'Other (Please Specify)',
 })
 
 export const PRONOUN_OPTIONS = Object.freeze({
-  hehim: 'he/him',
   sheher: 'she/her',
   theythem: 'they/them',
   hethey: 'he/they',
   shethey: 'she/they',
+  hehim: 'he/him',
   preferNot: 'Prefer not to answer',
   other: 'Other',
 })
 
 export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
   none: 'None',
-  celiacDisease: 'Celiac Disease',
+  dairy: 'Dairy',
+  glutenFree: 'Gluten Free',
   halal: 'Halal',
   kosher: 'Kosher',
+  nuts: 'Nuts',
   vegetarian: 'Vegetarian',
   vegan: 'Vegan',
-  other: 'Allergies/other',
+  other: 'Other (Please Specify)',
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
+  beginner: 'Beginner',
   designer: 'Designer',
   developer: 'Developer',
   pm: 'Product/project manager',
   other: 'Other',
+})
+
+export const ENGAGEMENT_SOURCES = Object.freeze({
+  attendedPreviously: 'Attended Previously',
+  MLH: 'MLH',
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+  linkedIn: 'LinkedIn',
+  website: 'Website',
+  wordOfMouth: 'Word-of-mouth',
+  nwPlusNewsletter: 'nwPlus Newsletter',
+  facultyNewsletter: 'Faculty Newsletter',
+  professorInClass: 'Professors/In Class',
+  other: 'Other (Please Specify)',
 })
 
 export const EVENTS_ATTENDED = Object.freeze({
@@ -190,6 +230,7 @@ export const EVENTS_ATTENDED = Object.freeze({
   nwHacks2021: 'nwHacks 2021',
   nwHacks2022: 'nwHacks 2022',
   nwHacks2023: 'nwHacks 2023',
+  nwHacks2024: 'nwHacks 2024',
   none: 'None',
 })
 
@@ -197,11 +238,12 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {
     email: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
+    legalFirstName: '',
+    legalMiddleName: '',
+    legalLastName: '',
     preferredName: '',
     gender: '',
+    haveTransExperience: null,
     pronouns: {
       sheher: false,
       hehim: false,
@@ -211,48 +253,73 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       preferNot: false,
       other: false,
     },
-    ethnicity: {
-      asianIndian: false,
-      blackOrAfrican: false,
-      chinese: false,
-      filipino: false,
-      guamanianChamorro: false,
-      hispanicLatinoSpanishOrigin: false,
-      japanese: false,
-      korean: false,
-      middleEastern: false,
-      nativeAmericanOrAlaskanNative: false,
-      nativeHawaiian: false,
-      samoan: false,
-      vietnamese: false,
+    race: {
+      asian: false,
+      black: false,
       white: false,
-      otherAsian: false,
-      otherPacificIslander: false,
+      hispanic: false,
+      pacificIslander: false,
+      dontKnow: false,
+      preferNot: false,
+      other: false,
+    },
+    culturalBackground: {
+      black: false,
+      european: false,
+      eastAsian: false,
+      southAsian: false,
+      southEastAsian: false,
+      firstNationsOrIndigenous: false,
+      hispanicOrLatinx: false,
+      middleEastern: false,
       preferNot: false,
       other: false,
     },
     dietaryRestriction: {
       none: false,
+      dairy: false,
+      glutenFree: false,
+      halal: false,
+      kosher: false,
+      nuts: false,
       vegetarian: false,
       vegan: false,
-      celiacDisease: false,
-      kosher: false,
-      halal: false,
       other: false,
     },
+    identifyAsUnderrepresented: '',
+    indigenousIdentification: '',
     ageByHackathon: null,
+    canadianStatus: '',
     phoneNumber: '',
     school: '',
-    major: '',
+    major: {
+      computerScience: false,
+      otherEngineering: false,
+      informationTech: false,
+      naturalScience: false,
+      mathOrStats: false,
+      webDevOrDesign: false,
+      business: false,
+      humanities: false,
+      socialScience: false,
+      arts: false,
+      healthScience: false,
+      other: false,
+      undecidedOrUndeclared: false,
+      schoolDoesNotOfferMajors: false,
+      preferNotToAnswer: false,
+    },
     educationLevel: '',
     graduation: null,
     academicYear: '',
     countryOfResidence: '',
-    willBeAgeOfMajority: null,
+    // willBeAgeOfMajority: null,
+    disability: '',
   },
   skills: {
-    firstTimeHacker: null,
+    numHackathonsAttended: '',
     contributionRole: {
+      beginner: false,
       designer: false,
       developer: false,
       pm: false,
@@ -265,9 +332,11 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     longAnswers1: '',
     longAnswers2: '',
     longAnswers3: '',
+    longAnswers4: '',
+    longAnswers5: '',
   },
   questionnaire: {
-    engagementSource: '',
+    engagementSource: [],
     eventsAttended: [],
     otherEngagementSource: '',
     friendEmail: '',
@@ -285,6 +354,7 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     MLHCodeOfConduct: false,
     MLHPrivacyPolicy: false,
     MLHEmailSubscription: false,
+    genderAcknowledgement: false,
     shareWithnwPlus: false,
     nwPlusPrivacyPolicy: false,
     shareWithSponsors: false,
