@@ -34,7 +34,7 @@ export default () => {
           Location: Life Sciences Institute, UBC
         </P>
         <P>
-          Hacker application deadline: <b>February 22, 2024</b>
+          Hacker application deadline: <b>March 1, 2024</b>
         </P>
         <P>
           If you have any questions, feel free to reach out to the team at{' '}
