@@ -206,11 +206,11 @@ const cmdfTheme = {
     secondary: '#CAD1F7',
     primaryGradient: '#82B185',
     primaryGradientHover: '#CAD1F7',
-    default: '#323858',
+    default: '#FFFFFF',
     highlight: '#192825',
     text: '#FFFFFF',
     link: '#3D995F',
-    linkHover: '#2C3933',
+    linkHover: '#CAD1F7',
     tertiaryHover: '#CAD1F7', // button hover
     // Styling for schedule page
     schedule: {
