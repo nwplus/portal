@@ -42,7 +42,7 @@ const chooseLogo = hackathon => {
 const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
-  height: 10em;
+  height: 7em;
   margin: auto;
   display: block;
 
@@ -52,20 +52,6 @@ const Logo = styled.img.attrs(p => ({
       width: 120px;
       margin: 30px 0 0px 2rem;
     `}
-
-  ${p =>
-    p.theme.name === 'cmdf' &&
-    `
-        width: 120px;
-        margin: 86px 0 24px 48px;
-      `}
-
-      ${p =>
-    p.theme.name === 'nwHacks' &&
-    `
-        margin-top: 20px;
-        margin-bottom: 20px;
-      `}
 `
 
 const ItemsContainer = styled.div`
@@ -181,6 +167,7 @@ const CategoryHeader = styled.h4`
 `
 
 const LogoContainer = styled.div`
+  margin-top: 2em;
   display: flex;
   align-items: flex-end;
 `

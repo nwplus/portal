@@ -29,7 +29,7 @@ export const H3 = styled.h3`
   font-weight: ${p => p.theme.typography.h3.weight};
   font-size: ${p => p.theme.typography.h3.size};
   opacity: ${p => p.theme.typography.h3.opacity};
-  color: #ffbf76;
+  color: #ffffff;
 `
 
 export const P = styled.p`
@@ -126,7 +126,7 @@ export const QuestionHeading = styled.p`
 `
 // old style   color: ${p => (p.color ? p.color : p.theme.colors.primary)};
 export const Label = styled.label`
-  color: #ffbf76;
+  color: #ffffff;
   font-weight: 600;
   text-transform: uppercase;
   font-weight: bold;

@@ -1,26 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
+import logo from '../assets/cmdf_logo.png'
 import menu from '../assets/menu.svg'
-import logo from '../assets/nwplus_icon.svg'
 
 const MobileMenuBarContainer = styled.div`
   display: none;
+  z-index: 99;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 15px;
     display: inline-block;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
-    -webkit-box-shadow: 0 6px 8px -8px #000;
-    -moz-box-shadow: 0 6px 8px -8px #000;
-    box-shadow: 0 6px 8px -8px #000;
+    // -webkit-box-shadow: 0 6px 8px -8px #000;
+    // -moz-box-shadow: 0 6px 8px -8px #000;
+    // box-shadow: 0 6px 8px -8px #000;
   }
 `
 
 const Logo = styled.img`
   display: inline-block;
   margin-left: -50px;
-  width: 20px;
+  width: 40px;
 `
 
 const Menu = styled.img`
