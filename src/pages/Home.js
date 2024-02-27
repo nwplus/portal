@@ -3,7 +3,7 @@ import HackerCountdown from '../containers/HackerCountdown'
 // import Announcements from '../components/Announcements'
 // import { CommonLinks } from '../containers/Quicklinks'
 import styled, { withTheme } from 'styled-components'
-import head_decal from '../assets/cmdf_bannerdecal.svg'
+// import head_decal from '../assets/cmdf_bannerdecal.svg'
 import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
@@ -42,14 +42,14 @@ const HomeContainerBackground = styled.div`
     z-index: -1;
   }
 `
-
-const TopDecal = styled.img`
-  position: absolute;
-  left: calc(256px - 2em);
-  top: -3em;
-  pointer-events: none;
-  width: calc(100vw - 256px + 2em);
-`
+// temporary comment out for lint fix
+// const TopDecal = styled.img`
+//   position: absolute;
+//   left: calc(256px - 2em);
+//   top: -3em;
+//   pointer-events: none;
+//   width: calc(100vw - 256px + 2em);
+// `
 
 const StyledP = styled(P)`
   text-align: center;

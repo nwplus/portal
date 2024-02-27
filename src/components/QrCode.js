@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CardWithHeader } from './Common'
 import { useQRCode } from 'next-qrcode'
-import JsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
-import { Button } from './Input'
+// import JsPDF from 'jspdf'
+// import html2canvas from 'html2canvas'
 import qrcodeBackground from '../assets/cmdf2024qrcode.svg'
 import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
 
@@ -72,11 +70,12 @@ const QRTags = styled.div`
 //   padding-right: 20px;
 // `
 
-const SavePDFBtn = styled(Button)`
-  width: 150px;
-  margin: 0 auto;
-  display: block;
-`
+// temporary comment out for lint fix
+// const SavePDFBtn = styled(Button)`
+//   width: 150px;
+//   margin: 0 auto;
+//   display: block;
+// `
 
 const QRTicketContainer = styled.div`
   float: left;
@@ -137,23 +136,23 @@ const AppleWalletButton = styled.button`
   background-color: transparent;
   cursor: pointer;
 `
+// temporary comment out for lint fix
+// const generatePDF = () => {
+//   // const report = new JsPDF('portrait', 'pt', [300, 500.01])
 
-const generatePDF = () => {
-  // const report = new JsPDF('portrait', 'pt', [300, 500.01])
+//   // report.html(document.querySelector('#QRCodeContainer')).then(() => {
+//   //   report.addImage(qrcodeBackground, "JPEG", 0, 0, 300, 500);
+//   //   report.save('Hackcamp2023QRCode.pdf')
+//   // })
 
-  // report.html(document.querySelector('#QRCodeContainer')).then(() => {
-  //   report.addImage(qrcodeBackground, "JPEG", 0, 0, 300, 500);
-  //   report.save('Hackcamp2023QRCode.pdf')
-  // })
-
-  const input = document.getElementById('QRCodeContainer')
-  html2canvas(input).then(canvas => {
-    const imgData = canvas.toDataURL('img/png')
-    const pdf = new JsPDF('portrait', 'pt', [300, 400])
-    pdf.addImage(imgData, 'PNG', 0, 0, 300, 500)
-    pdf.save('Hackcamp2023QRCode.pdf')
-  })
-}
+//   const input = document.getElementById('QRCodeContainer')
+//   html2canvas(input).then(canvas => {
+//     const imgData = canvas.toDataURL('img/png')
+//     const pdf = new JsPDF('portrait', 'pt', [300, 400])
+//     pdf.addImage(imgData, 'PNG', 0, 0, 300, 500)
+//     pdf.save('Hackcamp2023QRCode.pdf')
+//   })
+// }
 
 const QrCode = ({ userInfo, userId }) => {
   const { Canvas } = useQRCode()

@@ -9,7 +9,6 @@ import Footer from './Footer'
 import nwHacksLoginBackground from '../../../src/assets/nwHacksLogin.svg'
 import cmdfLoginBackground from '../../../src/assets/cmdf_loginbg.svg'
 
-
 const LandingContainer = styled.div`
   position: absolute;
   width: 100%;
@@ -22,28 +21,29 @@ const LandingContainer = styled.div`
   padding: 0;
 `
 
-const FlexLandingContainer = styled.div`
-  width: 100%;
-  height: 98vh;
-  overflow-x: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  ${p => p.background && `background: ${p.background};`}
-`
+// temporary comment out for lint fix
+// const FlexLandingContainer = styled.div`
+//   width: 100%;
+//   height: 98vh;
+//   overflow-x: hidden;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+//   ${p => p.background && `background: ${p.background};`}
+// `
 
-const Flex = styled.div`
-  max-width: 50%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-`
+// temporary comment out for lint fix
+// const Flex = styled.div`
+//   max-width: 50%;
+//   display: flex;
+//   align-items: center;
+//   flex-direction: column;
+//   gap: 20px;
+// `
 
 const StyledLogoLockup = styled.img`
   position: absolute;
-  top: 7em;
   margin: 0 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -57,28 +57,26 @@ const StyledLogoLockup = styled.img`
   ${p =>
     p.theme.name === 'cmdf' &&
     `
-      top: 15em;
+      top: 30%;
     `}
   ${p => p.theme.mediaQueries.tabletLarge} {
-    top: 10%;
-    width: 60px;
-    ${p => p.theme.name !== 'nwHacks' && `top: 15%; width: 20%;`}
+    top: 20%;
+    width: 15%;
   }
   ${p => p.theme.mediaQueries.tablet} {
-    width: 60px;
-    ${p => p.theme.name !== 'nwHacks' && `top:22%; width: 20%; `}
+    top: 30%;
+    width: 20%;
   }
   ${p => p.theme.mediaQueries.xs} {
-    top: 20%;
-    width: 60px;
-    ${p => p.theme.name !== 'nwHacks' && `top: 15%; width: 35%;`}
+    top: 30%;
+    width: 30%;
   }
 `
 
 const StyledBanner = styled(Banner)`
   && {
     position: absolute;
-    top: 30em;
+    top: 45%;
     text-align: center;
     z-index: 0;
     display: block;
@@ -90,13 +88,13 @@ const StyledBanner = styled(Banner)`
     }
   }
 `
-
-const StyledP = styled(P)`
-  color: ${p => p.theme.colors.login.text};
-  font-weight: 600;
-  padding-top: 1rem;
-  font-size: 1.5rem;
-`
+// temporary comment out for lint fix
+// const StyledP = styled(P)`
+//   color: ${p => p.theme.colors.login.text};
+//   font-weight: 600;
+//   padding-top: 1rem;
+//   font-size: 1.5rem;
+// `
 
 const BackgroundContainer = styled.img`
   height: 100%;
@@ -111,7 +109,6 @@ const BackgroundContainer = styled.img`
     width: auto;
   }
 `
-
 
 // TODO: add sponsors if footer is shown
 export default ({ heading, description, showFooter, hackathon, children, background }) => {
