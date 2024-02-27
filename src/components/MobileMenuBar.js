@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import logo from '../assets/cmdf_logo.png'
 import menu from '../assets/menu.svg'
-import logo from '../assets/nwplus_icon.svg'
 
 const MobileMenuBarContainer = styled.div`
   display: none;
