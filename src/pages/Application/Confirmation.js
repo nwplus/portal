@@ -10,6 +10,7 @@ export default () => {
     <Landing
       heading="Thanks for Applying!"
       description="Stay tuned as we assess your application. Expect to hear from us soon."
+      hackathon="cmdf"
       showFooter
     >
       <ButtonContainer>

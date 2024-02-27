@@ -148,6 +148,15 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
+  const setNwMentorshipSelect = nwMentorshipSelect => {
+    updateApplication({
+      basicInfo: {
+        nwMentorshipSelect,
+      },
+    })
+    forceSave()
+  }
+
   const handleWaiver = async waiver => {
     // check to make sure its under 2mb
     const size = (waiver.size / 1024 / 1024).toFixed(2)
@@ -199,6 +208,8 @@ const ApplicationDashboardContainer = () => {
         }
         safewalkSelect={application.basicInfo.safewalkSelect || undefined}
         setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}
+        nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
+        setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
         handleWaiver={handleWaiver}
