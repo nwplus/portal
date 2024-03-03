@@ -5,6 +5,7 @@ import { useQRCode } from 'next-qrcode'
 // import html2canvas from 'html2canvas'
 import qrcodeBackground from '../assets/cmdf2024qrcode.svg'
 import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
+import GoogleWalletButtonImage from '../assets/google_wallet_button.svg'
 
 const QRContainer = styled.div`
   display: flex;
@@ -123,6 +124,20 @@ const QRInfoName = styled.h1`
 `
 const QRInfoDes = styled.p``
 
+const GoogleWalletButton = styled.button`
+  position: absolute;
+  left: 40px;
+  bottom: 140px;
+  width: 110px;
+  height: 35px;
+  padding: 10px;
+  border: none;
+  background-image: url(${GoogleWalletButtonImage});
+  background-size: 100% 100%;
+  background-color: transparent;
+  cursor: pointer;
+`
+
 const AppleWalletButton = styled.button`
   position: absolute;
   left: 40px;
@@ -165,6 +180,16 @@ const QrCode = ({ userInfo, userId }) => {
     window.location.href = url
   }
 
+  const downloadGoogleWalletPass = () => {
+    // const userId = userInfo.uid
+    // const name = userInfo.displayName
+    // const email = userInfo.email
+    // const url = `...?userId=${userId}&name=${name}&email=${email}`
+    // window.location.href = url
+
+    alert('google wallet')
+  }
+
   return (
     <QRContainer>
       <QRInfoMobileWelcome>Welcome, {userInfo.displayName}!</QRInfoMobileWelcome>
@@ -196,6 +221,7 @@ const QrCode = ({ userInfo, userId }) => {
             />
 
             {/* <QRInstructions>Please hold onto this QR Code for check-in, meals, etc</QRInstructions> */}
+            <GoogleWalletButton onClick={() => downloadGoogleWalletPass()} />
             <AppleWalletButton onClick={() => downloadAppleWalletPass()} />
           </QRCodeDesign>
         </QRCodeDesignContainer>
