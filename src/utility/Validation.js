@@ -10,7 +10,8 @@ const MUST_BE_TRUE = 'You must agree to the required term/condition.'
 export const MAX_RESUME_FILE_SIZE_MB = 2
 export const MAX_WAIVER_FILE_SIZE_MB = 3
 const LONG_ANSWER_WORD_LIMIT = 200
-const SHORT_ANSWER_WORD_LIMIT = 50
+const MED_ANSWER_WORD_LIMIT = 150
+// const SHORT_ANSWER_WORD_LIMIT = 50
 export const validateURL = thing => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -173,22 +174,22 @@ const validators = {
         message: EMAIL_MESSAGE,
       }
     },
-    firstName: noEmptyFunction,
-    lastName: noEmptyFunction,
-    preferredName: noEmptyFunction,
+    legalFirstName: noEmptyFunction,
+    legalLastName: noEmptyFunction,
+    // preferredName: noEmptyFunction,
     // gender: noEmptyFunction,
-    // identifyAsUnderrepresented: noEmptyFunction,
+    identifyAsUnderrepresented: noEmptyFunction,
     // pronouns: noNoneFunction,
     // ethnicity: noNoneFunction,
     dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
-    major: noEmptyFunction,
+    // major: noEmptyFunction,
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     academicYear: noEmptyFunction,
     countryOfResidence: noEmptyFunction,
-    willBeAgeOfMajority: noNeitherFunction,
+    // willBeAgeOfMajority: noNeitherFunction,
     phoneNumber: number => {
       return {
         error: !validatePhoneNumber(number),
@@ -203,33 +204,40 @@ const validators = {
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
     firstTimeHacker: noNeitherFunction,
+    disability: answer => {
+      return {
+        error: getWords(answer) > LONG_ANSWER_WORD_LIMIT,
+        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+      }
+    },
     longAnswers1: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
+        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
     longAnswers2: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
+        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
     longAnswers3: answer => {
       return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > SHORT_ANSWER_WORD_LIMIT,
-        message: answer.length > SHORT_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
+        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
+        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
       }
     },
   },
   questionnaire: {
-    engagementSource: noEmptyFunction,
+    engagementSource: noNoneFunction,
     eventsAttended: noNoneFunction,
   },
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,
     MLHPrivacyPolicy: validateTrueFunction,
     // MLHEmailSubscription: validateTrueFunction,
+    genderAcknowledgement: validateTrueFunction,
     shareWithnwPlus: validateTrueFunction,
     nwPlusPrivacyPolicy: validateTrueFunction,
   },

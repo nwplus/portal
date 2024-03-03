@@ -92,7 +92,7 @@ export default () => {
             onClick={signInWithGoogle}
           >
             <BoundingBox src={google} />
-            Continue with Google
+            Sign in with Google
           </StyledButton>
           <StyledButton
             width="flex"
@@ -102,7 +102,7 @@ export default () => {
             onClick={signInWithGithub}
           >
             <BoundingBox src={github} />
-            Continue with GitHub
+            Sign in with GitHub
           </StyledButton>
         </ButtonContainer>
         {DB_HACKATHON === 'LHD2021' && <A href="/">Return to Portal</A>}

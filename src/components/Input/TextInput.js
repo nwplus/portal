@@ -15,9 +15,10 @@ const TextInputContainer = styled.div`
   ${p =>
     p.inline &&
     `display: inline-block;
-  margin-left: 0;
-  margin-top: 0.5em;`}
+    margin-left: 0;
+    margin-top: 0.5em;`}
   ${p => p.noOutline && `margin: 0;`}
+  ${p => p.noLeftOutline && `margin-left: 0;`}
 `
 
 const TextInputBox = styled.input.attrs({
@@ -55,12 +56,18 @@ export const TextInput = ({
   invalid,
   errorMsg,
   noOutline,
+  noLeftOutline,
   inline,
   customRef,
   ...rest
 }) => {
   return (
-    <TextInputContainer className={className} inline={inline} noOutline={noOutline}>
+    <TextInputContainer
+      className={className}
+      inline={inline}
+      noLeftOutline={noLeftOutline}
+      noOutline={noOutline}
+    >
       <TextInputBox invalid={invalid} noOutline={noOutline} ref={customRef} {...rest} />
       {invalid && <StyledErrorMessage> {errorMsg} </StyledErrorMessage>}
     </TextInputContainer>

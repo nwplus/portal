@@ -85,14 +85,14 @@ const ApplicationDashboardContainer = () => {
     }
   }
 
-  const setSafewalkInput = safewalkNote => {
-    updateApplication({
-      basicInfo: {
-        safewalkNote,
-      },
-    })
-    forceSave()
-  }
+  // const setSafewalkInput = safewalkNote => {
+  //   updateApplication({
+  //     basicInfo: {
+  //       safewalkNote,
+  //     },
+  //   })
+  //   forceSave()
+  // }
 
   const setCovidWaiverCheck = covidWaiverCheck => {
     updateApplication({
@@ -125,6 +125,33 @@ const ApplicationDashboardContainer = () => {
     updateApplication({
       basicInfo: {
         ageOfMajoritySelect,
+      },
+    })
+    forceSave()
+  }
+
+  const setWillBeAttendingSelect = willBeAttendingSelect => {
+    updateApplication({
+      basicInfo: {
+        willBeAttendingSelect,
+      },
+    })
+    forceSave()
+  }
+
+  const setSafewalkSelect = safewalkSelect => {
+    updateApplication({
+      basicInfo: {
+        safewalkSelect,
+      },
+    })
+    forceSave()
+  }
+
+  const setNwMentorshipSelect = nwMentorshipSelect => {
+    updateApplication({
+      basicInfo: {
+        nwMentorshipSelect,
       },
     })
     forceSave()
@@ -163,8 +190,8 @@ const ApplicationDashboardContainer = () => {
         isApplicationOpen={livesiteDoc.applicationsOpen}
         setRSVP={rsvpStatus => setRSVP(rsvpStatus)}
         canRSVP={canRSVP}
-        safewalkNote={application.basicInfo.safewalkNote || false}
-        setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
+        // safewalkNote={application.basicInfo.safewalkNote || false}
+        // setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
         covidWaiverCheck={application.basicInfo.covidWaiverCheck || undefined}
         setCovidWaiverCheck={covidWaiverCheck => setCovidWaiverCheck(covidWaiverCheck)}
         releaseLiabilityCheck={application.basicInfo.releaseLiabilityCheck || undefined}
@@ -175,6 +202,14 @@ const ApplicationDashboardContainer = () => {
         setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
         ageOfMajoritySelect={application.basicInfo.ageOfMajoritySelect || undefined}
         setAgeOfMajoritySelect={ageOfMajoritySelect => setAgeOfMajoritySelect(ageOfMajoritySelect)}
+        willBeAttendingSelect={application.basicInfo.willBeAttendingSelect || undefined}
+        setWillBeAttendingSelect={willBeAttendingSelect =>
+          setWillBeAttendingSelect(willBeAttendingSelect)
+        }
+        safewalkSelect={application.basicInfo.safewalkSelect || undefined}
+        setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}
+        nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
+        setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
         relevantDates={relevantDates}
         isRsvpOpen={isRsvpOpen}
         handleWaiver={handleWaiver}

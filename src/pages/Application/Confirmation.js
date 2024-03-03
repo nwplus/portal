@@ -1,15 +1,16 @@
 import React from 'react'
-import Landing from '../../containers/Landing'
-import { Button } from '../../components/Input'
-import { ButtonContainer } from '../Login'
 import { useLocation } from 'wouter'
+import { Button } from '../../components/Input'
+import Landing from '../../containers/Landing'
+import { ButtonContainer } from '../Login'
 
 export default () => {
   const [, setLocation] = useLocation()
   return (
     <Landing
       heading="Thanks for Applying!"
-      description="Stay tuned as your application gets assessed. Expect to hear from us by end of December."
+      description="Stay tuned as we assess your application. Expect to hear from us soon."
+      hackathon="cmdf"
       showFooter
     >
       <ButtonContainer>
