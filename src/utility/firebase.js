@@ -35,6 +35,10 @@ export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
 export const currentHackathonRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON)
 export const applicantsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Applicants')
 export const projectsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Projects')
+export const announcementsRef = db
+  .collection(DB_COLLECTION)
+  .doc(DB_HACKATHON)
+  .collection('Announcements')
 
 export const getLivesiteDoc = callback => {
   return livesiteDocRef.onSnapshot(doc => {
@@ -189,4 +193,8 @@ export const updateProject = (author, projectId, data) => {
       email: author,
     },
   })
+}
+
+export const getAnnouncement = async announcementId => {
+  return (await announcementsRef.doc(announcementId).get()).data()
 }
