@@ -154,12 +154,18 @@ const AppleWalletButton = styled.button`
 //   })
 // }
 
-const QrCode = ({ userInfo, userId }) => {
+const QrCode = ({ userInfo, application, userId }) => {
   const { Canvas } = useQRCode()
+  const applicantName =
+    Object.keys(application).length > 0
+      ? application?.basicInfo?.preferredName
+        ? application?.basicInfo?.preferredName
+        : application?.basicInfo?.legalFirstName + ' ' + application?.basicInfo?.legalLastName
+      : ''
 
   const downloadAppleWalletPass = () => {
     const userId = userInfo.uid
-    const name = userInfo.displayName
+    const name = applicantName
     const email = userInfo.email
     const url = `https://us-central1-wallet-cloud-func.cloudfunctions.net/getAppleWalletPass?userId=${userId}&name=${name}&email=${email}`
     window.location.href = url
@@ -167,12 +173,12 @@ const QrCode = ({ userInfo, userId }) => {
 
   return (
     <QRContainer>
-      <QRInfoMobileWelcome>Welcome, {userInfo.displayName}!</QRInfoMobileWelcome>
+      <QRInfoMobileWelcome>Welcome, {applicantName}!</QRInfoMobileWelcome>
 
       <QRTicketContainer>
         <QRCodeDesignContainer>
           <QRCodeDesign id="QRCodeContainer">
-            <HackerName>{userInfo.displayName}</HackerName>
+            <HackerName>{applicantName}</HackerName>
             <HackerEmail>{userInfo.email}</HackerEmail>
 
             <QRTags>
@@ -208,7 +214,7 @@ const QrCode = ({ userInfo, userId }) => {
 
       <QRInfo>
         <QRInfoWelcome>Welcome,</QRInfoWelcome>
-        <QRInfoName>{userInfo.displayName}!</QRInfoName>
+        <QRInfoName>{applicantName}!</QRInfoName>
         <QRInfoDes>
           This ticket contains your personal QR code which will be scanned throughout the event.
           Please add this ticket to your mobile wallet or take a screenshot.
