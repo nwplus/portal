@@ -19,7 +19,7 @@ const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
   transition: opacity 1s ease-out;
-  z-index: 1;
+  z-index: 999;
   border-right: 2px solid ${p => p.theme.colors.sidebar.secondary};
   background: ${p => p.theme.colors.sidebar.background};
   ${p => p.theme.mediaQueries.mobile} {
