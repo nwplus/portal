@@ -11,6 +11,7 @@ import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
 import { A } from './Typography'
 import NotificationToggle from '../containers/NotificationToggle'
+import { IS_DEVICE_IOS } from '../utility/Constants'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -306,7 +307,7 @@ export default ({
                 )
               )
             })}
-            <NotificationToggle />
+            {!IS_DEVICE_IOS ? <NotificationToggle /> : null}
           </>
         ) : (
           <Link href={'/application'}>
