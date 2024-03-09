@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import HackerCountdown from '../containers/HackerCountdown'
 // import Announcements from '../components/Announcements'
 // import { CommonLinks } from '../containers/Quicklinks'
@@ -11,6 +11,7 @@ import { APPLICATION_STATUS } from '../utility/Constants'
 import { P } from '../../src/components/Typography'
 import backgroundImage from '../assets/cmdf_homebg.svg'
 import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
+import { getUserApplication } from '../utility/firebase'
 
 //My Ticket
 const HomeContainer = styled.div`
@@ -56,7 +57,17 @@ const StyledP = styled(P)`
 `
 
 export default withTheme(({ announcements, theme }) => {
+  const [applicantInfo, setApplicantInfo] = useState({})
   const { user, isAuthed } = useAuth()
+
+  useEffect(() => {
+    const getApplicant = async () => {
+      const applicant = await getUserApplication(user.uid)
+      console.log(applicant)
+      setApplicantInfo(applicant)
+    }
+    getApplicant()
+  }, [user])
 
   return (
     <>
@@ -71,7 +82,7 @@ export default withTheme(({ announcements, theme }) => {
 
         {/* Only display QR Code if logged in */}
         {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
-          <QrCode userInfo={user} userId={user.uid} />
+          <QrCode userInfo={user} application={applicantInfo} userId={user.uid} />
         ) : (
           <StyledP>Please login with the email you used to apply to cmd-f 2024.</StyledP>
         )}
