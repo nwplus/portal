@@ -31,16 +31,9 @@ import ThemeProvider from './theme/ThemeProvider'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
-import { db, getLivesiteDoc } from './utility/firebase'
+import { db, getAnnouncement, getLivesiteDoc } from './utility/firebase'
 import notifications from './utility/notifications'
-
-// only notify user if announcement was created within last 5 secs
-const notifyUser = announcement => {
-  const isRecent = new Date() - new Date(announcement.timestamp) < 5000
-  if (isRecent && notifications.areEnabled()) {
-    notifications.trigger('New Announcement', announcement.content)
-  }
-}
+import AnnouncementToast from './components/AnnouncementToast'
 
 const PageRoute = ({ path, children }) => {
   const [livesiteDoc, setLivesiteDoc] = useState(null)
@@ -167,7 +160,23 @@ const ApplicationDashboardRoutingContainer = () => {
 }
 
 function App() {
-  const [announcements, setAnnouncements] = useState([])
+  // const [announcements, setAnnouncements] = useState([])
+  const [announcementText, setAnnouncementText] = useState('')
+
+  const notifyUser = async announcementId => {
+    // grab announcement from firebase to check if removed, if doesn't exist anymore don't send
+    const announcement = await getAnnouncement(announcementId)
+    if (!announcement) return
+    // only notify user if announcement is scheduled within last 5 secs
+    const isRecent = new Date() - new Date(announcement.announcementTime) < 5000
+    if (isRecent) {
+      // don't notify users on IOS devices because Notification API incompatible
+      if (!IS_DEVICE_IOS) {
+        notifications.trigger('New Announcement', announcement.content)
+      }
+      setAnnouncementText(announcement.content)
+    }
+  }
 
   useEffect(() => {
     const unsubscribe = db
@@ -175,17 +184,18 @@ function App() {
       .doc(DB_HACKATHON)
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
-      .limit(6)
       .onSnapshot(querySnapshot => {
-        setAnnouncements(Object.values(querySnapshot.docs.map(doc => doc.data())))
         // firebase doc that triggered db change event
-        const changedDoc = querySnapshot.docChanges()[0]
-
+        const docChanges = querySnapshot.docChanges()
+        const changedDoc = docChanges[0]
+        const id = changedDoc?.doc.id
+        const announcement = changedDoc?.doc.data()
         // don't want to notify on 'remove' + 'modified' db events
-        if (changedDoc && changedDoc.type === 'added') {
-          // don't notify users on IOS devices because Notification API incompatible
-          if (!IS_DEVICE_IOS) {
-            notifyUser(changedDoc.doc.data())
+        if (changedDoc?.type === 'added') {
+          if (announcement.type === 'immediate') {
+            notifyUser(id)
+          } else if (announcement.type === 'scheduled') {
+            setTimeout(() => notifyUser(id), new Date(announcement.announcementTime) - new Date())
           }
         }
       })
@@ -196,9 +206,10 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <GlobalStyle />
+        <AnnouncementToast text={announcementText} />
         <Switch>
           <PageRoute path="/">
-            <Home announcements={announcements} />
+            <Home />
           </PageRoute>
           <PageRoute path="/charcuterie">
             <Charcuterie />
