@@ -10,6 +10,7 @@ import { getSponsors } from '../utility/firebase'
 import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
 import { A } from './Typography'
+import NotificationToggle from '../containers/NotificationToggle'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -289,21 +290,24 @@ export default ({
       </LogoContainer>
       <ItemsContainer>
         {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
-          Object.entries(links).map((t, k) => {
-            return (
-              t[1].length > 0 &&
-              t[0] !== 'useful_links' && (
-                <>
-                  <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
-                  {t[1].map((v, i) => (
-                    <Link key={i} href={v.location} onClick={hideSidebarCallback}>
-                      <StyledA selected={location === v.location}>{v.text}</StyledA>
-                    </Link>
-                  ))}
-                </>
+          <>
+            {Object.entries(links).map((t, k) => {
+              return (
+                t[1].length > 0 &&
+                t[0] !== 'useful_links' && (
+                  <>
+                    <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
+                    {t[1].map((v, i) => (
+                      <Link key={i} href={v.location} onClick={hideSidebarCallback}>
+                        <StyledA selected={location === v.location}>{v.text}</StyledA>
+                      </Link>
+                    ))}
+                  </>
+                )
               )
-            )
-          })
+            })}
+            <NotificationToggle />
+          </>
         ) : (
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>

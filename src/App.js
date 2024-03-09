@@ -171,7 +171,7 @@ function App() {
     const isRecent = new Date() - new Date(announcement.announcementTime) < 5000
     if (isRecent) {
       // don't notify users on IOS devices because Notification API incompatible
-      if (!IS_DEVICE_IOS) {
+      if (!IS_DEVICE_IOS && notifications.areEnabled()) {
         notifications.trigger('New Announcement', announcement.content)
       }
       setAnnouncementText(announcement.content)
