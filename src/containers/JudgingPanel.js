@@ -178,7 +178,7 @@ const getGradedProjects = async (dropOutliers = 2) => {
   return projectData
 }
 
-export default () => {
+const JudgingPanel = () => {
   const [sponsorPrizes, setSponsorPrizes] = useState([])
   const [gradedProjects, setGradedProjects] = useState([])
   const [CSVProjectData, setCSVProjectData] = useState([])
@@ -377,3 +377,5 @@ export default () => {
     </>
   )
 }
+
+export default JudgingPanel

@@ -6,7 +6,7 @@ import { useAuth } from '../utility/Auth'
 import SubmissionLink from '../containers/SubmissionLink'
 import { formatProject } from '../utility/utilities'
 
-export default () => {
+const Submissions = () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState()
   const [isJudgingReleased, setIsJudgingReleased] = useState()
   const { user } = useAuth()
@@ -82,3 +82,5 @@ export default () => {
 
   return <SubmissionLink user={user} refreshCallback={getProject} />
 }
+
+export default Submissions

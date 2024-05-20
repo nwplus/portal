@@ -8,7 +8,7 @@ const CenteredH2 = styled.h2`
   margin-bottom: 1em;
 `
 
-export default () => {
+const SponsorLogos = () => {
   const [sponsors, setSponsors] = useState([])
 
   useEffect(() => {
@@ -28,3 +28,5 @@ export default () => {
     </>
   ) : null
 }
+
+export default SponsorLogos

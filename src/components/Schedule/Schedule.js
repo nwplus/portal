@@ -169,7 +169,7 @@ const MobileScheduleColumn = ({ column, hackathonStart, cumulativeHeight }) => {
   )
 }
 
-export default ({ events, hackathonStart, hackathonEnd }) => {
+const Schedule = ({ events, hackathonStart, hackathonEnd }) => {
   // track mobile view
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   useEffect(() => {
@@ -369,3 +369,5 @@ export default ({ events, hackathonStart, hackathonEnd }) => {
     </RelativeContainer>
   )
 }
+
+export default Schedule

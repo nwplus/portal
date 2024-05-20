@@ -69,7 +69,7 @@ const Label = styled.label`
   }
 `
 
-export default ({ label, customRef, ...rest }) => {
+const Select = ({ label, customRef, ...rest }) => {
   return (
     <Label {...rest}>
       <SelectWrapper tabIndex="0" ref={customRef} {...rest}>
@@ -80,3 +80,5 @@ export default ({ label, customRef, ...rest }) => {
     </Label>
   )
 }
+
+export default Select

@@ -274,7 +274,7 @@ const Project = ({ project }) => {
   )
 }
 
-export default ({ pid }) => {
+const ProjectView = ({ pid }) => {
   const [loading, setLoading] = useState(true)
   const [projectInfo, setProjectInfo] = useState(null)
 
@@ -295,3 +295,5 @@ export default ({ pid }) => {
 
   return loading ? <Loading /> : !!projectInfo ? <Project project={projectInfo} /> : <NotFound />
 }
+
+export default ProjectView

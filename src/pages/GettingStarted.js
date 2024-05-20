@@ -25,7 +25,7 @@ const TodoColumn = styled.div`
   flex-direction: column;
 `
 
-export default () => {
+const GettingStarted = () => {
   const [states, setStates] = useState({
     preHacking: { info: false, discord: false, workshops: false, verify: false, notion: false },
     dayOf: {
@@ -296,3 +296,5 @@ export default () => {
     </>
   )
 }
+
+export default GettingStarted

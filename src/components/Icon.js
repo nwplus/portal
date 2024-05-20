@@ -10,7 +10,7 @@ const StyledIcon = styled.i`
   }
 `
 
-export default ({ className, icon, color, brand, size, href }) => {
+const Icon = ({ className, icon, color, brand, size, href }) => {
   const Elem = () => (
     <StyledIcon
       className={`${brand ? 'fab' : 'fas'} fa-${icon} ${className ? className : ''}${
@@ -28,3 +28,5 @@ export default ({ className, icon, color, brand, size, href }) => {
     <Elem />
   )
 }
+
+export default Icon

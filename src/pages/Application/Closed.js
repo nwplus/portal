@@ -5,7 +5,7 @@ import { SOCIAL_LINKS } from '../../utility/Constants'
 import { copyText } from '../../utility/Constants'
 import { ThemeContext } from 'styled-components'
 
-export default () => {
+const Closed = () => {
   const theme = useContext(ThemeContext)
 
   return (
@@ -27,3 +27,5 @@ export default () => {
     />
   )
 }
+
+export default Closed
