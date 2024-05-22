@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { ReactComponent as HandWave } from '../assets/hand-wave.svg'
-import Icon from '../components/Icon'
+import HandWave from '../assets/hand-wave.svg?react'
+import Icon from './Icon'
 import {
   ANALYTICS_EVENTS,
   APPLICATION_STATUS,

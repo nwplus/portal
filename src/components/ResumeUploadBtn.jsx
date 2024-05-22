@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Button } from '../components/Input'
+import { Button } from './Input'
 import styled from 'styled-components'
 import { ErrorMessage } from './Typography'
 

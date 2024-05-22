@@ -274,7 +274,7 @@ const Sidebar = ({
     links.tools.push({ location: '/judging/admin', text: 'Judging Admin' })
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (import.meta.env.NODE_ENV !== 'production') {
     links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
   }
 

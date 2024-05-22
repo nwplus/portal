@@ -8,7 +8,7 @@ import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 import { APPLICATION_STATUS } from '../utility/Constants'
-import { P } from '../../src/components/Typography'
+import { P } from '../components/Typography'
 import backgroundImage from '../assets/cmdf_homebg.svg'
 import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
 

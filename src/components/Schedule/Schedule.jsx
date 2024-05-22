@@ -84,7 +84,7 @@ const MobileFlexColumn = styled.div`
   align-items: center;
 `
 
-// These styles are a copy of what's in Common.js
+// These styles are a copy of what's in Common.jsx
 // I'm doing this because we're styling Schedule uniquely for cmd-f 2022
 // TODO: We should change this back to what it was before this PR
 const OverflowContainer = styled.div`

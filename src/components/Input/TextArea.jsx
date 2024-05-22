@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useCallback } from 'react'
 import styled from 'styled-components'
-import { ScrollbarLike, TextInputLike } from '../Common.js'
-import { ErrorMessage, Message } from '../Typography'
+import { ScrollbarLike, TextInputLike } from '../Common.jsx'
+import { ErrorMessage, Message } from '../Typography.js'
 
 const TextAreaBox = styled.textarea.attrs({
   type: 'text',

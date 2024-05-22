@@ -6,7 +6,7 @@ import { Select, TextArea, TextInput } from '../Input'
 import Dropdown from '../Input/Dropdown'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { CenteredH1, ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
-import { FormSpacing, SubHeading } from './'
+import { FormSpacing, SubHeading } from '.'
 
 const hackathonsAttendedOptions = [
   { value: '0', label: '0' },

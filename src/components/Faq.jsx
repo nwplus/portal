@@ -1,5 +1,5 @@
 import React from 'react'
-import Accordion from '../components/Accordion'
+import Accordion from './Accordion'
 import { chunkify } from '../utility/utilities'
 import { DetailAnswer, DetailColumn, DetailContainer } from './Common'
 import { H2 } from './Typography'

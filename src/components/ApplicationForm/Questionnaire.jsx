@@ -1,9 +1,9 @@
 import React from 'react'
-import { Select, TextInput } from '../../components/Input'
-import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../../components/Typography'
+import { Select, TextInput } from '../Input'
+import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { copyText } from '../../utility/Constants'
 import { CenteredH1 } from '../Typography'
-import { FormSpacing, SubHeading } from './'
+import { FormSpacing, SubHeading } from '.'
 
 // const StyledDropdown = styled(Dropdown)`
 //   .react-select__control {

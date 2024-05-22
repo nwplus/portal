@@ -21,7 +21,7 @@ import {
   QuestionHeading,
   ErrorSpan as Required,
 } from '../Typography'
-import { FormSpacing, SubHeading } from './'
+import { FormSpacing, SubHeading } from '.'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },
@@ -456,7 +456,10 @@ const BasicInfo = ({ refs, errors, formInputs, onChange }) => (
         What is your current age?
         <Required />
       </SubHeading>
-      <P>We accept hackers currently in high school but require this information for consent purposes.</P>
+      <P>
+        We accept hackers currently in high school but require this information for consent
+        purposes.
+      </P>
       {errors?.ageByHackathon && <ErrorMessage>{errors?.ageByHackathon}</ErrorMessage>}
       <Dropdown
         options={ageOptions}

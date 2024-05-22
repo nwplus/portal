@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'wouter'
-import { MAX_CHARACTERS_IN_DESCRIPTION } from '../../utility/Constants'
-import { cutString } from '../../utility/utilities'
-import { CardLike } from '../Common.js'
-import { Button } from '../Input/Button'
-import { H2, P } from '../Typography'
+import { MAX_CHARACTERS_IN_DESCRIPTION } from '../../utility/Constants.js'
+import { cutString } from '../../utility/utilities.js'
+import { CardLike } from '../Common.jsx'
+import { Button } from '../Input/Button.jsx'
+import { H2, P } from '../Typography.js'
 
 const StyledCard = styled.div`
   ${CardLike};

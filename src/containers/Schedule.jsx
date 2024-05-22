@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ScheduleC from '../components/Schedule/'
+import ScheduleC from '../components/Schedule'
 import { db } from '../utility/firebase'
 import { DB_COLLECTION, DB_HACKATHON, DAYOF_COLLECTION } from '../utility/Constants'
 import { livesiteDocRef } from '../utility/firebase'

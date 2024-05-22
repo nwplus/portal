@@ -1,17 +1,24 @@
 import React, { useState } from 'react'
-import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography'
-import { Card } from '../components/Common.js'
-import { Button, TextInput, TextArea, Checkbox, Select, Dropdown } from '../components/Input'
-import Accordion from '../components/Accordion'
-import Countdown from '../containers/Countdown'
-import Livestream from '../components/Livestream'
-import JudgingCard from '../components/Judging/JudgingCard'
-import FormContainer from '../components/ApplicationForm'
-import VerticalProgressBar from '../components/VerticalProgressBar'
-import ResumeUploadBtn from '../components/ResumeUploadBtn'
+import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography.js'
+import { Card } from '../components/Common.jsx'
+import {
+  Button,
+  TextInput,
+  TextArea,
+  Checkbox,
+  Select,
+  Dropdown,
+} from '../components/Input/index.js'
+import Accordion from '../components/Accordion.jsx'
+import Countdown from '../containers/Countdown.jsx'
+import Livestream from '../components/Livestream.jsx'
+import JudgingCard from '../components/Judging/JudgingCard.jsx'
+import FormContainer from '../components/ApplicationForm/index.jsx'
+import VerticalProgressBar from '../components/VerticalProgressBar.jsx'
+import ResumeUploadBtn from '../components/ResumeUploadBtn.jsx'
 import styled from 'styled-components'
-import NavigationButtons from '../components/NavigationButtons'
-import Loading from '../components/Loading'
+import NavigationButtons from '../components/NavigationButtons.jsx'
+import Loading from '../components/Loading.jsx'
 
 const CustomStyledDropdown = styled(Dropdown)`
   .react-select__control {
