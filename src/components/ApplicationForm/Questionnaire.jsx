@@ -3,7 +3,7 @@ import { Select, TextInput } from '../Input'
 import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { copyText } from '../../utility/Constants'
 import { CenteredH1 } from '../Typography'
-import { FormSpacing, SubHeading } from '.'
+import { FormSpacing, SubHeading } from './index'
 
 // const StyledDropdown = styled(Dropdown)`
 //   .react-select__control {

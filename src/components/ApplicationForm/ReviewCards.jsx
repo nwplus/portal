@@ -15,7 +15,7 @@ import { SocialMediaLinks } from '../ApplicationDashboard'
 import Banner from '../Banner'
 import { Button, Checkbox } from '../Input'
 import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
-import { FormSpacing, SubHeading } from '.'
+import { FormSpacing, SubHeading } from './index'
 
 const ReviewContainer = styled.div`
   position: relative;

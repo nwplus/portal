@@ -21,7 +21,7 @@ import {
   QuestionHeading,
   ErrorSpan as Required,
 } from '../Typography'
-import { FormSpacing, SubHeading } from '.'
+import { FormSpacing, SubHeading } from './index'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },

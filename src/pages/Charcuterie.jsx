@@ -1,19 +1,12 @@
 import React, { useState } from 'react'
-import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography.js'
+import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography'
 import { Card } from '../components/Common'
-import {
-  Button,
-  TextInput,
-  TextArea,
-  Checkbox,
-  Select,
-  Dropdown,
-} from '../components/Input/index.js'
+import { Button, TextInput, TextArea, Checkbox, Select, Dropdown } from '../components/Input'
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'
 import Livestream from '../components/Livestream'
 import JudgingCard from '../components/Judging/JudgingCard'
-import FormContainer from '../components/ApplicationForm/index'
+import FormContainer from '../components/ApplicationForm'
 import VerticalProgressBar from '../components/VerticalProgressBar'
 import ResumeUploadBtn from '../components/ResumeUploadBtn'
 import styled from 'styled-components'

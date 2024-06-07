@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormSpacing } from '.'
+import { FormSpacing } from './index'
 import { A, CenteredH1, P } from '../Typography'
 
 const HackathonInfo = () => {

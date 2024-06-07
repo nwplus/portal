@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 import { CardWithHeader } from './Common'
-import { H2 } from './Typography.js'
+import { H2 } from './Typography'
 
 const Container = styled(CardWithHeader)`
   text-align: center;

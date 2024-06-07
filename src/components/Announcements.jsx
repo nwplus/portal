@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { format } from 'timeago.js'
+import { format } from 'timeago'
 import ReactMarkdown from 'react-markdown'
 import { Card, CardWithHeader } from './Common'
 import { P, A } from './Typography'

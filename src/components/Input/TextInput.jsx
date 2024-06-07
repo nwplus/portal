@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TextInputLike, TextInputNoOutline } from '../Common'
-import { ErrorMessage } from '../Typography.js'
+import { ErrorMessage } from '../Typography'
 
 const inputSize = {
   small: '200px',
