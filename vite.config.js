@@ -9,8 +9,9 @@ export default defineConfig(() => {
     },
     build: {
       outDir: 'build',
+      commonjsOptions: { transformMixedEsModules: true },
     },
     root: '.',
-    plugins: [react(), , svgr()],
+    plugins: [react(), svgr()],
   }
 })
