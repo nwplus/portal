@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Set up firebase
-        run: sudo npm install -g firebase-tools
+        run: yarn global add firebase-tools
 
       - name: Choose dev firebase project
         if: ${{ env.IS_PRODUCTION == 'false' }}
@@ -28,11 +28,11 @@ jobs:
         run: firebase use nwplus-ubc --token ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Install dependencies
-        run: npm install --force
+        run: yarn install --frozen-lockfile
 
       - name: Build with dev env variables
         if: ${{ env.IS_PRODUCTION == 'false' }}
-        run: npm run build:staging
+        run: yarn build:staging
         env:
           VITE_FIREBASE_API_KEY: ${{ secrets.DEV_FIREBASE_API_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.DEV_FIREBASE_AUTH_DOMAIN }}
@@ -54,7 +54,7 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
-        run: npm run build
+        run: yarn build
 
       - name: Deploy to dev firebase project
         if: ${{ env.IS_PRODUCTION == 'false' }}
