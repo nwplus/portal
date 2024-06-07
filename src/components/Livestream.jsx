@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { CardWithHeader } from './Common.jsx'
+import { CardWithHeader } from './Common'
 import { H2 } from './Typography.js'
 
 const Container = styled(CardWithHeader)`
