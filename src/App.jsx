@@ -28,6 +28,7 @@ import {
 // import Area51 from './pages/Area51'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
+import HackathonProvider from './utility/HackathonProvider'
 import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
 import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
 import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
@@ -203,75 +204,77 @@ function App() {
   }, [])
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <GlobalStyle />
-        <AnnouncementToast text={announcementText} />
-        <Switch>
-          <PageRoute path="/">
-            <Home />
-          </PageRoute>
-          <PageRoute path="/charcuterie">
-            <Charcuterie />
-          </PageRoute>
-          <PageRoute path="/faq">
-            <Faq />
-          </PageRoute>
-          <PageRoute path="/schedule">
-            <Schedule />
-          </PageRoute>
-          <PageRoute path="/livestream">
-            <Livestream />
-          </PageRoute>
-          <PageRoute path="/sponsors">
-            <Sponsors />
-          </PageRoute>
-          {/* <PageRoute path="/getting-started">
+    <HackathonProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <GlobalStyle />
+          <AnnouncementToast text={announcementText} />
+          <Switch>
+            <PageRoute path="/">
+              <Home />
+            </PageRoute>
+            <PageRoute path="/charcuterie">
+              <Charcuterie />
+            </PageRoute>
+            <PageRoute path="/faq">
+              <Faq />
+            </PageRoute>
+            <PageRoute path="/schedule">
+              <Schedule />
+            </PageRoute>
+            <PageRoute path="/livestream">
+              <Livestream />
+            </PageRoute>
+            <PageRoute path="/sponsors">
+              <Sponsors />
+            </PageRoute>
+            {/* <PageRoute path="/getting-started">
             <GettingStarted />
           </PageRoute> */}
-          {/* <PageRoute path="/discord-bot">
+            {/* <PageRoute path="/discord-bot">
             <DiscordBot />
           </PageRoute> */}
-          <NoAuthRoute path="/login">
-            <Navbar>
-              <Login />
-            </Navbar>
-          </NoAuthRoute>
-          <AuthPageRoute path="/judging">
-            <Judging />
-          </AuthPageRoute>
-          <AdminAuthPageRoute path="/judging/admin">
-            <JudgingAdmin />
-          </AdminAuthPageRoute>
-          {/* <AdminAuthPageRoute path="/area51">
+            <NoAuthRoute path="/login">
+              <Navbar>
+                <Login />
+              </Navbar>
+            </NoAuthRoute>
+            <AuthPageRoute path="/judging">
+              <Judging />
+            </AuthPageRoute>
+            <AdminAuthPageRoute path="/judging/admin">
+              <JudgingAdmin />
+            </AdminAuthPageRoute>
+            {/* <AdminAuthPageRoute path="/area51">
             <Area51 />
           </AdminAuthPageRoute> */}
-          <Route path="/judging/view/:id" component={JudgingViewContainer} />
-          <Route path="/projects" component={GalleryContainer} />
-          <Route path="/projects/:id" component={ProjectViewContainer} />
-          <AuthPageRoute path="/submission">
-            <Submission />
-          </AuthPageRoute>
-          <HackerApplicationProvider>
-            <Switch>
-              <Route path="/application" component={ApplicationDashboardRoutingContainer} />
-              <ApplicationInProgressRoute path="/application/review" name handleLogout>
-                <ApplicationReview />
-              </ApplicationInProgressRoute>
-              <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
-                <ApplicationConfirmation />
-              </ApplicationInProgressRoute>
-              <Route path="/application/:part" handleLogout>
-                {params => <ApplicationFormContainer part={params.part} />}
-              </Route>
-            </Switch>
-          </HackerApplicationProvider>
-          <Route path="/:rest*">
-            <NotFound />
-          </Route>
-        </Switch>
-      </AuthProvider>
-    </ThemeProvider>
+            <Route path="/judging/view/:id" component={JudgingViewContainer} />
+            <Route path="/projects" component={GalleryContainer} />
+            <Route path="/projects/:id" component={ProjectViewContainer} />
+            <AuthPageRoute path="/submission">
+              <Submission />
+            </AuthPageRoute>
+            <HackerApplicationProvider>
+              <Switch>
+                <Route path="/application" component={ApplicationDashboardRoutingContainer} />
+                <ApplicationInProgressRoute path="/application/review" name handleLogout>
+                  <ApplicationReview />
+                </ApplicationInProgressRoute>
+                <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
+                  <ApplicationConfirmation />
+                </ApplicationInProgressRoute>
+                <Route path="/application/:part" handleLogout>
+                  {params => <ApplicationFormContainer part={params.part} />}
+                </Route>
+              </Switch>
+            </HackerApplicationProvider>
+            <Route path="/:rest*">
+              <NotFound />
+            </Route>
+          </Switch>
+        </AuthProvider>
+      </ThemeProvider>
+    </HackathonProvider>
   )
 }
 
