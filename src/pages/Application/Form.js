@@ -5,7 +5,7 @@ import Part1 from '../../containers/Application/Part1'
 import Part2 from '../../containers/Application/Part2'
 import Part3 from '../../containers/Application/Part3'
 
-export default ({ part }) => {
+const Form = ({ part }) => {
   switch (part) {
     case 'part-0':
       return <Part0 />
@@ -19,3 +19,5 @@ export default ({ part }) => {
       return <Redirect to="/login" />
   }
 }
+
+export default Form

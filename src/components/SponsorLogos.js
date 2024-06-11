@@ -33,7 +33,7 @@ const tierRanks = {
   inkind: 4,
 }
 
-export default ({ sponsors }) => {
+const SponsorLogos = ({ sponsors }) => {
   const tiers = sponsors.reduce((accumulator, sponsor) => {
     const tierLowerCase = sponsor.tier.toLowerCase()
     accumulator[tierLowerCase] = [...(accumulator[tierLowerCase] || []), sponsor]
@@ -65,3 +65,5 @@ export default ({ sponsors }) => {
     return <div key={i}>{createSponsorList(tiers[tier])}</div>
   })
 }
+
+export default SponsorLogos

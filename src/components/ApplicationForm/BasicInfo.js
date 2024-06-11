@@ -382,7 +382,7 @@ const StyledTextArea = styled(TextArea)`
 `
 
 // form part 1
-export default ({ refs, errors, formInputs, onChange }) => (
+const BasicInfo = ({ refs, errors, formInputs, onChange }) => (
   <>
     <FormSpacing>
       <CenteredH1>General Questions</CenteredH1>
@@ -1093,3 +1093,5 @@ export default ({ refs, errors, formInputs, onChange }) => (
     </FormSpacing>
   </>
 )
+
+export default BasicInfo

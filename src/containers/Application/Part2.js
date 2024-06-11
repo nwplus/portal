@@ -21,7 +21,7 @@ const questionsByOrder = [
   'longAnswers5',
 ]
 
-export default () => {
+const Part2 = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
@@ -119,3 +119,5 @@ export default () => {
     </>
   )
 }
+
+export default Part2

@@ -10,7 +10,7 @@ import { defaultScoreFromRubric, isUngraded } from '../../utility/Constants'
 
 const REDIRECT_TIMEOUT = 3000
 
-export default ({ id }) => {
+const View = ({ id }) => {
   const [, setLocation] = useLocation()
   const { user } = useAuth()
   const [pageBlocked, setPageBlocked] = useState()
@@ -98,3 +98,5 @@ export default ({ id }) => {
     </>
   )
 }
+
+export default View

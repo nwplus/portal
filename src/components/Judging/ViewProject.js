@@ -96,7 +96,7 @@ const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
   )
 }
 
-export default ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
+const ViewProject = ({ project, score, error, success, isSubmitting, onChange, onSubmit }) => {
   const cleanedUpLink = project.links.sourceCode.replace(/https?:\/\//, '')
   const cleanedUpDevpostLink = project.links.devpost
     ? project.links.devpost.replace(/https?:\/\//, '')
@@ -167,3 +167,5 @@ export default ({ project, score, error, success, isSubmitting, onChange, onSubm
     </Container>
   )
 }
+
+export default ViewProject

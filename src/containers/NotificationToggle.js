@@ -27,7 +27,7 @@ const StyledH2 = styled(H2)`
   font-weight: 700;
 `
 
-export default () => {
+const NotificationToggle = () => {
   const [toggled, setToggled] = useState(false)
 
   useEffect(() => {
@@ -67,3 +67,5 @@ export default () => {
     </Tooltip>
   )
 }
+
+export default NotificationToggle
