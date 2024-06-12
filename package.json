@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "cross-env": "^7.0.2",
     "firebase": "^7.17.1",
     "html2canvas": "^1.4.1",
@@ -16,7 +13,6 @@
     "react-csv": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-markdown": "^4.3.1",
-    "react-scripts": "5.0.1",
     "react-select": "^3.1.0",
     "react-spinner": "^0.2.7",
     "react-spinners": "^0.9.0",
@@ -25,11 +21,10 @@
     "wouter": "^2.5.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build:staging": "cross-env REACT_APP_ENV=STAGING react-scripts build",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "build:staging": "cross-env VITE_ENV=STAGING vite build",
+    "build": "vite build",
+    "serve": "vite preview",
     "deploy": "yarn build && firebase deploy --only hosting:nwplus-ubc",
     "deploy:dev": "yarn build && firebase deploy --only hosting:nwplus-ubc-dev"
   },
@@ -54,7 +49,12 @@
     }
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "browserslist": "^4.23.0",
+    "browserslist-to-esbuild": "^2.1.1",
     "prettier": "^2.1.2",
-    "pretty-quick": "^3.1.0"
+    "pretty-quick": "^3.1.0",
+    "vite": "^5.2.11",
+    "vite-plugin-svgr": "^4.2.0"
   }
 }

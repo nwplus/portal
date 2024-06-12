@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { H1, H2, H3, P, A, QuestionHeading } from '../components/Typography'
-import { Card } from '../components/Common.js'
+import { Card } from '../components/Common'
 import { Button, TextInput, TextArea, Checkbox, Select, Dropdown } from '../components/Input'
 import Accordion from '../components/Accordion'
 import Countdown from '../containers/Countdown'

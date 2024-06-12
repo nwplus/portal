@@ -1,5 +1,5 @@
 import React from 'react'
-import QuicklinksCard from '../components/QuicklinksCard'
+import QuicklinksCard from './QuicklinksCard'
 import { chunkify } from '../utility/utilities'
 
 import { DetailContainer, DetailColumn } from './Common'

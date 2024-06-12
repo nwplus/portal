@@ -1,6 +1,6 @@
 import React from 'react'
 import { A, UL, LI } from './Typography'
-import { CardWithHeader } from '../components/Common'
+import { CardWithHeader } from './Common'
 
 export default ({ title, links }) => {
   return (

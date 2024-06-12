@@ -260,7 +260,7 @@ const cmdfTheme = {
 const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
 let selectedTheme = cmdfTheme
 
-if (process.env.NODE_ENV !== 'production' || process.env.REACT_APP_ENV === 'STAGING') {
+if (import.meta.env.NODE_ENV !== 'production' || import.meta.env.VITE_ENV === 'STAGING') {
   // const localTheme = window.localStorage.getItem('localTheme')
   const localTheme = null
   selectedTheme = localTheme ? THEMES[localTheme] : selectedTheme

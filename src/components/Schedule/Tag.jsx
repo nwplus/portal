@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { EVENT_TYPES } from './Constants'
-import { ReactComponent as Icon } from '../../assets/scheduleTag.svg'
+import Icon from '../../assets/scheduleTag.svg?react'
 
 export const TagLegendContainer = styled.div`
   display: flex;

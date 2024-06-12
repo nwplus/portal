@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TextInputLike, TextInputNoOutline } from '../Common.js'
+import { TextInputLike, TextInputNoOutline } from '../Common'
 import { ErrorMessage } from '../Typography'
 
 const inputSize = {
