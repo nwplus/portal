@@ -54,11 +54,7 @@ const StyledLogoLockup = styled.img`
       top: 7em;
       width: 120px;
   `}
-  ${p =>
-    p.theme.name === 'cmd-f' &&
-    `
-      top: 30%;
-    `}
+
   ${p => p.theme.mediaQueries.tabletLarge} {
     top: 20%;
     width: 15%;
@@ -113,7 +109,7 @@ const BackgroundContainer = styled.img`
 // TODO: add sponsors if footer is shown
 const Landing = ({ heading, description, showFooter, hackathon, children, background }) => {
   switch (hackathon) {
-    case 'hackCamp':
+    case 'hackcamp':
       return (
         <LandingContainer showFooter={showFooter}>
           <StyledLogoLockup src={hc_logo} />
