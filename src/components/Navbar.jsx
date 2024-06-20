@@ -4,6 +4,7 @@ import cmdfIcon from '../assets/cmdf_logo.png'
 import nwplus_logo from '../assets/nwplus_icon.svg'
 import { Button } from './Input'
 import { P } from './Typography'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const NavContainer = styled.div`
   direction: rtl;
@@ -54,7 +55,9 @@ const Wrapper = styled.div`
   padding-top: 1rem;
 `
 
-const NavBar = ({ name, handleLogout, children, theme }) => {
+const NavBar = ({ name, handleLogout, children }) => {
+  const { activeHackathon } = useHackathon()
+
   return (
     <Wrapper>
       <NavContainer>
@@ -71,16 +74,16 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
             <Greeting>Hi, {name}</Greeting>
           </>
         )}
-        {theme.name === 'nwHacks' && (
+        {activeHackathon === 'nwhacks' && (
           <LogoContainer>
             {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={nwplus_logo} alt={theme.name} />
+            <Icon src={nwplus_logo} alt={activeHackathon} />
           </LogoContainer>
         )}
-        {theme.name === 'cmdf' && (
+        {activeHackathon === 'cmd-f' && (
           <LogoContainer>
             {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={cmdfIcon} alt={theme.name} />
+            <Icon src={cmdfIcon} alt={activeHackathon} />
           </LogoContainer>
         )}
       </NavContainer>

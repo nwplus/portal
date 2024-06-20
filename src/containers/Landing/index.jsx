@@ -55,7 +55,7 @@ const StyledLogoLockup = styled.img`
       width: 120px;
   `}
   ${p =>
-    p.theme.name === 'cmdf' &&
+    p.theme.name === 'cmd-f' &&
     `
       top: 30%;
     `}
@@ -125,7 +125,7 @@ const Landing = ({ heading, description, showFooter, hackathon, children, backgr
           {showFooter && <Footer />}
         </LandingContainer>
       )
-    case 'cmdf':
+    case 'cmd-f':
       return (
         <LandingContainer showFooter={showFooter}>
           <BackgroundContainer src={cmdfLoginBackground} />
@@ -138,8 +138,8 @@ const Landing = ({ heading, description, showFooter, hackathon, children, backgr
           {showFooter && <Footer />}
         </LandingContainer>
       )
+    case 'nwhacks':
     default:
-    case 'nwHacks':
       return (
         <LandingContainer showFooter={showFooter}>
           <BackgroundContainer src={nwHacksLoginBackground} />

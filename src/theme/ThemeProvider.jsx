@@ -1,5 +1,6 @@
 import React from 'react'
 import { ThemeProvider as TP } from 'styled-components'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const SCREEN_BREAKPOINTS = {
   xs: 576,
@@ -40,7 +41,7 @@ const base = {
   },
 }
 
-const nwTheme = {
+const nwHacksTheme = {
   ...base,
   name: 'nwHacks',
   colors: {
@@ -179,7 +180,7 @@ const hackcampTheme = {
 
 const cmdfTheme = {
   ...base,
-  name: 'cmdf',
+  name: 'cmd-f',
   colors: {
     background: '#5968A6',
     card: '#323858', // BG Accent
@@ -257,15 +258,13 @@ const cmdfTheme = {
   },
 }
 
-const THEMES = { nwTheme, hackcampTheme, cmdfTheme }
-let selectedTheme = cmdfTheme
+const THEMES = { 'hackcamp': hackcampTheme, 'nwhacks': nwHacksTheme, 'cmd-f': cmdfTheme }
 
-if (import.meta.env.NODE_ENV !== 'production' || import.meta.env.VITE_ENV === 'STAGING') {
-  // const localTheme = window.localStorage.getItem('localTheme')
-  const localTheme = null
-  selectedTheme = localTheme ? THEMES[localTheme] : selectedTheme
+const ThemeProvider = ({ children }) => {
+  const { activeHackathon } = useHackathon()
+  const selectedTheme = THEMES[activeHackathon]
+
+  return <TP theme={selectedTheme}>{children}</TP>
 }
-
-const ThemeProvider = ({ children }) => <TP theme={selectedTheme}>{children}</TP>
 
 export default ThemeProvider
