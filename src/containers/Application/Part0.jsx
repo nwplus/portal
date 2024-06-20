@@ -32,7 +32,7 @@ const Part0 = () => {
       <NavigationButtons
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-1')}
-        autosaveTime={application.submission.lastUpdated.toDate().toString()}
+        autosaveTime={application.submission.lastUpdated?.toDate().toString() || ''}
         loading={loading}
       />
     </>
