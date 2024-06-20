@@ -32,12 +32,12 @@ const chooseLogo = hackathon => {
   switch (hackathon) {
     case 'hackCamp':
       return hc_logo
-    case 'cmdf':
+    case 'cmd-f':
       return cmdf_logo
     case 'nwHacks':
-      return nwplus_logo
-    default:
       return logo
+    default:
+      return nwplus_logo
   }
 }
 
@@ -52,7 +52,7 @@ const Logo = styled.img.attrs(p => ({
     p.theme.name === 'hackCamp' &&
     `
       width: 120px;
-      margin: 30px 0 0px 2rem;
+      margin: 30px 0 0px 2rem; 
     `}
 `
 
@@ -198,7 +198,7 @@ const Sidebar = ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'My Ticket' },
+      { location: '', text: 'My Ticket' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/livestream', text: 'Livestream' },
       { location: '/sponsors', text: 'Sponsors' },
@@ -296,14 +296,14 @@ const Sidebar = ({
               return (
                 t[1].length > 0 &&
                 t[0] !== 'useful_links' && (
-                  <>
+                  <React.Fragment key={k}>
                     <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                     {t[1].map((v, i) => (
-                      <Link key={i} href={v.location} onClick={hideSidebarCallback}>
+                      <Link key={v.location} href={v.location} onClick={hideSidebarCallback}>
                         <StyledA selected={location === v.location}>{v.text}</StyledA>
                       </Link>
                     ))}
-                  </>
+                  </React.Fragment>
                 )
               )
             })}
@@ -341,6 +341,14 @@ const Sidebar = ({
           Log In
         </StyledButton>
       )}
+      <StyledButton
+        as={Link}
+        href="~/"
+        color="secondary"
+        style={{ textDecoration: 'none', color: 'white' }}
+      >
+        Home
+      </StyledButton>
       <SponsorContainer>
         {sponsors &&
           sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}
