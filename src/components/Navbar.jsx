@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import cmdfIcon from '../assets/cmdf_logo.png'
-import nwplus_logo from '../assets/nwplus_icon.svg'
+import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import { Button } from './Input'
 import { P } from './Typography'
 import { useHackathon } from '../utility/HackathonProvider'
@@ -77,7 +77,7 @@ const NavBar = ({ name, handleLogout, children }) => {
         {activeHackathon === 'nwhacks' && (
           <LogoContainer>
             {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={nwplus_logo} alt={activeHackathon} />
+            <Icon src={nwhacks_logo} alt={activeHackathon} />
           </LogoContainer>
         )}
         {activeHackathon === 'cmd-f' && (

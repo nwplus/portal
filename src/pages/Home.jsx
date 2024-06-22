@@ -34,7 +34,7 @@ const HomeContainerBackground = styled.div`
   display: flex;
   flex-direction: column;
   background-image: url(${backgroundImage});
-  background-size: 120%;
+  background-size: cover;
   background-position: right bottom;
   ${p => p.theme.mediaQueries.mobile} {
     background-image: url(${mobileBackgroundImage});

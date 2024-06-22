@@ -43,7 +43,7 @@ const base = {
 
 const nwHacksTheme = {
   ...base,
-  name: 'nwHacks',
+  name: 'nwhacks',
   colors: {
     background: '#3C4BA5', // Background
     card: '#0A1361', // BG Accent
@@ -119,7 +119,7 @@ const nwHacksTheme = {
 
 const hackcampTheme = {
   ...base,
-  name: 'hackCamp',
+  name: 'hackcamp',
   colors: {
     background: '#150C27',
     card: '#433860',

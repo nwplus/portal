@@ -58,6 +58,7 @@ const PageRoute = ({ path, children }) => {
 
 const AuthPageRoute = ({ path, children }) => {
   const { isAuthed, user } = useAuth()
+
   if (!isAuthed) {
     return (
       <Route path={path}>
@@ -67,7 +68,7 @@ const AuthPageRoute = ({ path, children }) => {
   }
   return (
     <Route path={path}>
-      {user?.status !== APPLICATION_STATUS.accepted ? (
+      {user?.status === APPLICATION_STATUS.accepted ? (
         <Page>{children}</Page>
       ) : (
         <Redirect to="/application/closed" />
@@ -111,7 +112,7 @@ const AdminAuthPageRoute = ({ path, children }) => {
     return <Redirect to="~/login" />
   }
 
-  return <Route path={path}>{user.admin ? <Page>{children}</Page> : <Redirect to="/" />}</Route>
+  return <Route path={path}>{user.admin ? <Page>{children}</Page> : <Redirect to="~/404" />}</Route>
 }
 
 const NavbarSaveOnLogout = ({ name, handleLogout }) => {
@@ -120,12 +121,12 @@ const NavbarSaveOnLogout = ({ name, handleLogout }) => {
     await forceSave()
     handleLogout()
   }
+
   return <Navbar name={name} handleLogout={logout} />
 }
 
 const ApplicationFormContainer = ({ part }) => {
   const { isAuthed, user, logout } = useAuth()
-
   const { application } = useHackerApplication()
 
   return isAuthed && application.status.applicationStatus === APPLICATION_STATUS.inProgress ? (
@@ -142,6 +143,7 @@ const ApplicationFormContainer = ({ part }) => {
 
 const JudgingViewContainer = ({ params }) => {
   const { isAuthed } = useAuth()
+
   return isAuthed ? (
     <Page>
       <JudgingView id={params.id} />
@@ -156,6 +158,7 @@ const GalleryContainer = ({ params }) => (
     <Gallery />
   </Page>
 )
+
 const ProjectViewContainer = ({ params }) => (
   <Page>
     <ProjectView pid={params.id} />
@@ -171,18 +174,18 @@ const NestedRoutes = props => {
   const router = useRouter()
   const [location] = useLocation()
   const { activeHackathon, setActiveHackathon } = useHackathon()
-  const hackathonFromRoute = props.base.split('/')[2].toLowerCase()
+  const hackathonFromURL = props.base.split('/')[2].toLowerCase()
 
   useEffect(() => {
-    if (VALID_HACKATHONS.includes(hackathonFromRoute) && hackathonFromRoute !== activeHackathon) {
-      setActiveHackathon(hackathonFromRoute)
+    if (VALID_HACKATHONS.includes(hackathonFromURL) && hackathonFromURL !== activeHackathon) {
+      setActiveHackathon(hackathonFromURL)
     }
   }, [props.base, activeHackathon, setActiveHackathon])
 
   if (!location.startsWith(props.base)) return null
 
-  if (!VALID_HACKATHONS.includes(hackathonFromRoute)) {
-    return <Redirect to="/404" />
+  if (!VALID_HACKATHONS.includes(hackathonFromURL)) {
+    return <Redirect to="~/404" />
   }
 
   return (
@@ -204,10 +207,13 @@ function App() {
   }, [location])
 
   const notifyUser = async announcementId => {
+    // grab announcement from firebase to check if removed, if doesn't exist anymore don't send
     const announcement = await getAnnouncement(announcementId)
     if (!announcement) return
+    // only notify user if announcement is scheduled within last 5 secs
     const isRecent = new Date() - new Date(announcement.announcementTime) < 5000
     if (isRecent) {
+      // don't notify users on IOS devices because Notification API incompatible
       if (!IS_DEVICE_IOS && notifications.areEnabled()) {
         notifications.trigger('New Announcement', announcement.content)
       }
@@ -222,10 +228,12 @@ function App() {
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
       .onSnapshot(querySnapshot => {
+        // firebase doc that triggered db change event
         const docChanges = querySnapshot.docChanges()
         const changedDoc = docChanges[0]
         const id = changedDoc?.doc.id
         const announcement = changedDoc?.doc.data()
+        // don't want to notify on 'remove' + 'modified' db events
         if (changedDoc?.type === 'added') {
           if (announcement.type === 'immediate') {
             notifyUser(id)
@@ -242,6 +250,7 @@ function App() {
       <ThemeProvider>
         <GlobalStyle />
         <AuthProvider>
+          <AnnouncementToast text={announcementText} />
           <Switch>
             <Route path="/">
               <Landing>
@@ -339,18 +348,3 @@ function App() {
 }
 
 export default App
-
-// <Hacker app provider routes></Hacker>
-
-// {/* <PageRoute path="/getting-started">
-// <GettingStarted />
-// </PageRoute> */}
-// {/* <PageRoute path="/discord-bot">
-// <DiscordBot />
-// </PageRoute> */}
-// {/* <AdminAuthPageRoute path="/area51">
-// <Area51 />
-// </AdminAuthPageRoute> */}
-// {
-//   /* <AnnouncementToast text={announcementText} /> */
-// }

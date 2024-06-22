@@ -30,11 +30,11 @@ const SidebarContainer = styled.div`
 
 const chooseLogo = hackathon => {
   switch (hackathon) {
-    case 'hackCamp':
+    case 'hackcamp':
       return hc_logo
     case 'cmd-f':
       return cmdf_logo
-    case 'nwHacks':
+    case 'nwhacks':
       return logo
     default:
       return nwplus_logo
@@ -49,7 +49,7 @@ const Logo = styled.img.attrs(p => ({
   display: block;
 
   ${p =>
-    p.theme.name === 'hackCamp' &&
+    p.theme.name === 'hackcamp' &&
     `
       width: 120px;
       margin: 30px 0 0px 2rem; 
@@ -211,11 +211,7 @@ const Sidebar = ({
       // (conditional) Judging (Admin)
     ],
     // Information
-    information: [
-      // { location: '/getting-started', text: 'Getting Started' },
-      // { location: '/discord-bot', text: 'Discord Bot' },
-      { location: '/faq', text: 'FAQ' },
-    ],
+    information: [{ location: '/faq', text: 'FAQ' }],
     useful_links: [
       {
         location:
