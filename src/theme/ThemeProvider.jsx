@@ -128,6 +128,7 @@ const hackcampTheme = {
     secondaryBackground: '#150C27',
     secondaryBackgroundTransparent: '#fff',
     sidebar: {
+      background: '#150C27',
       link: '#F0EEF299',
     },
     foreground: '#FFFFFF',
