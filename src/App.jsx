@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, Route, Switch, useLocation, useRouter, Router, Link } from 'wouter'
+import { Link, Redirect, Route, Router, Switch, useLocation, useRouter } from 'wouter'
+import AnnouncementToast from './components/AnnouncementToast'
 import Form from './components/ApplicationForm'
 import Navbar from './components/Navbar'
 import Page from './components/Page'
+import { A } from './components/Typography'
+import Landing from './containers/Landing'
 import {
   Application,
   ApplicationConfirmation,
@@ -12,10 +15,10 @@ import {
   Faq,
   Gallery,
   Home,
-  Livestream,
   Judging,
   JudgingAdmin,
   JudgingView,
+  Livestream,
   Login,
   NotFound,
   ProjectView,
@@ -25,7 +28,7 @@ import {
 } from './pages'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
+import { AuthProvider, useAuth } from './utility/Auth'
 import {
   APPLICATION_STATUS,
   DB_COLLECTION,
@@ -33,87 +36,17 @@ import {
   IS_DEVICE_IOS,
   VALID_HACKATHONS,
 } from './utility/Constants'
-import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
-import { db, getAnnouncement, getLivesiteDoc } from './utility/firebase'
-import notifications from './utility/notifications'
-import AnnouncementToast from './components/AnnouncementToast'
 import HackathonProvider, { useHackathon } from './utility/HackathonProvider'
-import Landing from './containers/Landing'
-import { A } from './components/Typography'
-
-const PageRoute = ({ path, children }) => {
-  const [livesiteDoc, setLivesiteDoc] = useState(null)
-
-  useEffect(() => {
-    const unsubscribe = getLivesiteDoc(setLivesiteDoc)
-    return unsubscribe
-  }, [])
-
-  return (
-    <Route path={path}>
-      {livesiteDoc?.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
-    </Route>
-  )
-}
-
-const AuthPageRoute = ({ path, children }) => {
-  const { isAuthed, user } = useAuth()
-
-  if (!isAuthed) {
-    return (
-      <Route path={path}>
-        <Redirect to="~/login" />
-      </Route>
-    )
-  }
-  return (
-    <Route path={path}>
-      {user?.status === APPLICATION_STATUS.accepted ? (
-        <Page>{children}</Page>
-      ) : (
-        <Redirect to="/application/closed" />
-      )}
-    </Route>
-  )
-}
-
-const ApplicationInProgressRoute = ({ name, handleLogout, path, children }) => {
-  const { isAuthed, user, logout } = useAuth()
-
-  return isAuthed ? (
-    <Route path={path}>
-      <Navbar
-        name={name ? user.displayName : undefined}
-        handleLogout={handleLogout ? logout : undefined}
-      >
-        {children}
-      </Navbar>
-    </Route>
-  ) : (
-    <Redirect to="~/login" />
-  )
-}
-
-const NoAuthRoute = ({ path, children }) => {
-  const { isAuthed, user } = useAuth()
-  const { activeHackathon } = useHackathon()
-
-  return (
-    <Route path={path}>
-      {!isAuthed ? children : <Redirect to={getRedirectUrl(user.redirect, activeHackathon)} />}
-    </Route>
-  )
-}
-
-const AdminAuthPageRoute = ({ path, children }) => {
-  const { isAuthed, user } = useAuth()
-
-  if (!isAuthed) {
-    return <Redirect to="~/login" />
-  }
-
-  return <Route path={path}>{user.admin ? <Page>{children}</Page> : <Redirect to="~/404" />}</Route>
-}
+import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
+import {
+  AdminAuthPageRoute,
+  ApplicationInProgressRoute,
+  AuthPageRoute,
+  NoAuthRoute,
+  PageRoute,
+} from './utility/Routes'
+import { db, getAnnouncement } from './utility/firebase'
+import notifications from './utility/notifications'
 
 const NavbarSaveOnLogout = ({ name, handleLogout }) => {
   const { forceSave } = useHackerApplication()
