@@ -1,13 +1,38 @@
 import { useEffect, useState } from 'react'
-import { Route, Redirect } from 'wouter'
+import { Route, Router, Redirect, useRouter, useLocation } from 'wouter'
 import { getLivesiteDoc } from './firebase'
 import Page from '../components/Page'
 import { useAuth, getRedirectUrl } from './Auth'
-import { APPLICATION_STATUS } from './Constants'
+import { APPLICATION_STATUS, VALID_HACKATHONS } from './Constants'
 import Navbar from '../components/Navbar'
 import { useHackathon } from './HackathonProvider'
 
-export const PageRoute = ({ path, children }) => {
+const NestedRoutes = props => {
+  const router = useRouter()
+  const [location] = useLocation()
+  const { activeHackathon, setActiveHackathon } = useHackathon()
+  const hackathonFromURL = props.base.split('/')[2].toLowerCase()
+
+  useEffect(() => {
+    if (VALID_HACKATHONS.includes(hackathonFromURL) && hackathonFromURL !== activeHackathon) {
+      setActiveHackathon(hackathonFromURL)
+    }
+  }, [props.base, activeHackathon, setActiveHackathon])
+
+  if (!location.startsWith(props.base)) return null
+
+  if (!VALID_HACKATHONS.includes(hackathonFromURL)) {
+    return <Redirect to="~/404" />
+  }
+
+  return (
+    <Router base={props.base} key={props.base} parent={router}>
+      {props.children}
+    </Router>
+  )
+}
+
+const PageRoute = ({ path, children }) => {
   const [livesiteDoc, setLivesiteDoc] = useState(null)
 
   useEffect(() => {
@@ -22,7 +47,7 @@ export const PageRoute = ({ path, children }) => {
   )
 }
 
-export const AuthPageRoute = ({ path, children }) => {
+const AuthPageRoute = ({ path, children }) => {
   const { isAuthed, user } = useAuth()
 
   if (!isAuthed) {
@@ -43,7 +68,7 @@ export const AuthPageRoute = ({ path, children }) => {
   )
 }
 
-export const ApplicationInProgressRoute = ({ name, handleLogout, path, children }) => {
+const ApplicationInProgressRoute = ({ name, handleLogout, path, children }) => {
   const { isAuthed, user, logout } = useAuth()
 
   return isAuthed ? (
@@ -60,7 +85,7 @@ export const ApplicationInProgressRoute = ({ name, handleLogout, path, children 
   )
 }
 
-export const NoAuthRoute = ({ path, children }) => {
+const NoAuthRoute = ({ path, children }) => {
   const { isAuthed, user } = useAuth()
   const { activeHackathon } = useHackathon()
 
@@ -71,7 +96,7 @@ export const NoAuthRoute = ({ path, children }) => {
   )
 }
 
-export const AdminAuthPageRoute = ({ path, children }) => {
+const AdminAuthPageRoute = ({ path, children }) => {
   const { isAuthed, user } = useAuth()
 
   if (!isAuthed) {
@@ -79,4 +104,13 @@ export const AdminAuthPageRoute = ({ path, children }) => {
   }
 
   return <Route path={path}>{user.admin ? <Page>{children}</Page> : <Redirect to="~/404" />}</Route>
+}
+
+export {
+  NestedRoutes,
+  PageRoute,
+  AuthPageRoute,
+  ApplicationInProgressRoute,
+  NoAuthRoute,
+  AdminAuthPageRoute,
 }
