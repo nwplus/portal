@@ -11,17 +11,17 @@ const CenteredH2 = styled.h2`
 
 const SponsorLogos = () => {
   const [sponsors, setSponsors] = useState([])
-  const { activeHackathon } = useHackathon()
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     // Filter out in-kind sponsors
-    getSponsors(activeHackathon).then(docs => {
+    getSponsors(dbHackathonName).then(docs => {
       const filteredDocs = docs.filter(
         doc => doc.data().tier && doc.data().tier.toLowerCase() !== 'inkind'
       )
       setSponsors(filteredDocs.map(doc => doc.data()))
     })
-  }, [activeHackathon])
+  }, [dbHackathonName])
 
   return sponsors.length ? (
     <>

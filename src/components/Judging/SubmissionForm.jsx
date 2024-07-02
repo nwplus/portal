@@ -127,16 +127,16 @@ const SubmissionForm = ({
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
-  const { activeHackathon } = useHackathon()
+  const { dbHackathonName } = useHackathon()
 
   // Fetch list of sponsor prizes from Firebase
   useEffect(() => {
     async function getPrizes() {
-      const prizes = await getSponsorPrizes(activeHackathon)
+      const prizes = await getSponsorPrizes(dbHackathonName)
       setSponsorPrizes(prizes)
     }
     getPrizes()
-  }, [activeHackathon])
+  }, [dbHackathonName])
 
   // Fill the rest of the members array with empty objects
   // Required so that updateMember function doesn't break

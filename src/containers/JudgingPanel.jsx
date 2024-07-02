@@ -192,7 +192,7 @@ const JudgingPanel = () => {
     numProjects: 0,
   })
   const [toggle, setToggle] = useState({})
-  const { activeHackathon } = useHackathon()
+  const { dbHackathonName } = useHackathon()
 
   const removeGrade = async row => {
     const { id, gradeId, ...score } = row
@@ -207,8 +207,8 @@ const JudgingPanel = () => {
     await setProjectsAndStats()
   }
 
-  const parseSponsorPrizes = async activeHackathon => {
-    const sponsorPrizes = (await getSponsorPrizes(activeHackathon)) || []
+  const parseSponsorPrizes = async dbHackathonName => {
+    const sponsorPrizes = (await getSponsorPrizes(dbHackathonName)) || []
     const projects = (await getProjectData()) || []
 
     const prizesToProjectsMap = {}
@@ -249,7 +249,7 @@ const JudgingPanel = () => {
   }, [])
 
   const getProjectsByPrizes = async () => {
-    setSponsorPrizes(await parseSponsorPrizes(activeHackathon))
+    setSponsorPrizes(await parseSponsorPrizes(dbHackathonName))
   }
 
   // const [firstTimeStats, setFirstTimeStats] = useState(null)

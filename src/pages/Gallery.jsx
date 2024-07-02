@@ -25,13 +25,13 @@ const Gallery = () => {
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [searchAndFilteredProjects, setSearchAndFilteredProjects] = useState([])
-  const { activeHackathon } = useHackathon()
+  const { dbHackathonName } = useHackathon()
 
   const prizes = [{ value: 'All projects', label: 'All projects' }]
 
   useEffect(() => {
     async function getPrizes() {
-      const prizes = await getSponsorPrizes(activeHackathon)
+      const prizes = await getSponsorPrizes(dbHackathonName)
       setSponsorPrizes(prizes || [])
     }
     getPrizes()
@@ -44,7 +44,7 @@ const Gallery = () => {
         .filter(project => project.draftStatus === 'public')
       setProjects(newProjects)
     })
-  }, [activeHackathon])
+  }, [dbHackathonName])
 
   useEffect(() => {
     const handler = setTimeout(() => {

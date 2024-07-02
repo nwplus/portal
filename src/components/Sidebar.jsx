@@ -226,10 +226,10 @@ const Sidebar = ({
     ],
   }
   const [sponsors, setSponsors] = useState([])
-  const { activeHackathon } = useHackathon()
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    getSponsors(activeHackathon).then(docs => {
+    getSponsors(dbHackathonName).then(docs => {
       // Only keep platinum tier sponsors for sidebar
       // const filteredDocs = docs
       //   .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
@@ -254,7 +254,7 @@ const Sidebar = ({
       //   },
       // ])
     })
-  }, [activeHackathon])
+  }, [dbHackathonName])
 
   // if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
   //   links.tools.push({ location: '/projects', text: 'Project Gallery' })

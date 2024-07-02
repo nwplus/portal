@@ -151,10 +151,10 @@ export const updateUserApplication = async (uuid, newApp) => {
   return applicantsRef.doc(uuid).set(newApp)
 }
 
-export const getSponsors = activeHackathon => {
+export const getSponsors = dbHackathonName => {
   return db
     .collection(DB_COLLECTION)
-    .doc(activeHackathon)
+    .doc(dbHackathonName)
     .collection('Sponsors')
     .get()
     .then(querySnapshot => {
@@ -168,10 +168,10 @@ export const getProjects = () => {
   })
 }
 // Fetch list of sponsor prizes
-export const getSponsorPrizes = activeHackathon => {
+export const getSponsorPrizes = dbHackathonName => {
   return db
     .collection(DB_COLLECTION)
-    .doc(activeHackathon)
+    .doc(dbHackathonName)
     .get()
     .then(querySnapshot => {
       return querySnapshot.data().sponsorPrizes

@@ -67,17 +67,17 @@ const CopyrightBlurb = styled(P)`
 
 const Footer = () => {
   const [sponsors, setSponsors] = useState([])
-  const { activeHackathon } = useHackathon()
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    getSponsors(activeHackathon).then(docs => {
+    getSponsors(dbHackathonName).then(docs => {
       // only keep non-inkind sponsors
       const filteredDocs = docs.filter(
         doc => doc.data().tier && doc.data().tier.toLowerCase() !== 'inkind'
       )
       setSponsors(filteredDocs.map(doc => doc.data()))
     })
-  }, [activeHackathon])
+  }, [dbHackathonName])
 
   const SponsorList = sponsors.map(sponsor => <SponsorLogo src={sponsor.imgURL} />)
 
