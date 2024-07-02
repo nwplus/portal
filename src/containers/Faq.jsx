@@ -5,6 +5,7 @@ import { H1, H2 } from '../components/Typography'
 import { TextInput } from '../components/Input'
 import { db } from '../utility/firebase'
 import { FAQ_COLLECTION } from '../utility/Constants'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const StyledTextInput = styled(TextInput)`
   margin: 0;
@@ -15,16 +16,17 @@ const FAQ = () => {
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [filtered, setFiltered] = useState([])
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     const unsubscribe = db
       .collection(FAQ_COLLECTION)
-      .where('hackathonIDs', 'array-contains-any', ['Portal'])
+      .where('hackathonIDs', 'array-contains-any', [dbHackathonName])
       .onSnapshot(querySnapshot => {
         setFaqs(Object.values(querySnapshot.docs.map(doc => doc.data())))
       })
     return unsubscribe
-  }, [setFaqs])
+  }, [setFaqs, dbHackathonName])
 
   // debounce search
   useEffect(() => {
