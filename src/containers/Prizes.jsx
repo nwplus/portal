@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { db } from '../utility/firebase'
-import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import { DB_COLLECTION } from '../utility/Constants'
 import { CardWithHeader, DetailContainer, DetailColumn } from '../components/Common'
 import { UL, LI, I } from '../components/Typography'
 import { chunkify } from '../utility/utilities'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const CenteredH1 = styled.h1`
   text-align: center;
 `
 const COLUMNS_OF_PRIZES = 3
 
-const getPrizes = () => {
+const getPrizes = dbHackathonName => {
   return db
     .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
+    .doc(dbHackathonName)
     .collection('Prizes')
     .orderBy('place', 'asc')
     .get()
@@ -49,9 +50,10 @@ const singlePrize = prize => {
 const Prizes = () => {
   const [mainPrizes, setMainPrizes] = useState([])
   const [sponsorPrizes, setSponsorPrizes] = useState([])
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    getPrizes()
+    getPrizes(dbHackathonName)
       .then(docs => {
         let prizes = {}
         prizes.main = Object.values(
