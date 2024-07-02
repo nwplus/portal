@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
 import cmdf_logo from '../assets/cmdf_logo.png'
 import hc_logo from '../assets/hc_logo.svg'
-import logo from '../assets/logo.svg'
+import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import nwplus_logo from '../assets/nwplus_icon.svg'
 import { useAuth } from '../utility/Auth'
 import { getSponsors } from '../utility/firebase'
@@ -35,7 +35,7 @@ const chooseLogo = hackathon => {
     case 'cmd-f':
       return cmdf_logo
     case 'nwhacks':
-      return logo
+      return nwhacks_logo
     default:
       return nwplus_logo
   }
@@ -45,14 +45,13 @@ const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
   height: 7em;
-  margin: auto;
+  margin: 2em auto;
   display: block;
 
   ${p =>
     p.theme.name === 'hackcamp' &&
     `
-      width: 120px;
-      margin: 30px 0 0px 2rem; 
+      width: 150px;
     `}
 `
 
@@ -169,7 +168,6 @@ const CategoryHeader = styled.h4`
 `
 
 const LogoContainer = styled.div`
-  margin-top: 2em;
   display: flex;
   align-items: flex-end;
 `

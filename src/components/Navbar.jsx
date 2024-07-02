@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import cmdfIcon from '../assets/cmdf_logo.png'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
+import hc_logo from '../assets/hc_logo.svg'
 import { Button } from './Input'
 import { P } from './Typography'
 import { useHackathon } from '../utility/HackathonProvider'
@@ -74,16 +75,20 @@ const NavBar = ({ name, handleLogout, children }) => {
             <Greeting>Hi, {name}</Greeting>
           </>
         )}
+        {activeHackathon === 'hackcamp' && (
+          <LogoContainer>
+            <Icon src={hc_logo} alt={'HackCamp'} />
+          </LogoContainer>
+        )}
         {activeHackathon === 'nwhacks' && (
           <LogoContainer>
             {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={nwhacks_logo} alt={activeHackathon} />
+            <Icon src={nwhacks_logo} alt={'nwHacks'} />
           </LogoContainer>
         )}
         {activeHackathon === 'cmd-f' && (
           <LogoContainer>
-            {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={cmdfIcon} alt={activeHackathon} />
+            <Icon src={cmdfIcon} alt={'cmd-f'} />
           </LogoContainer>
         )}
       </NavContainer>
