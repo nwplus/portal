@@ -10,6 +10,7 @@ import ProgressBar from '../components/ProgressBar'
 import { H1, H3, P } from '../components/Typography'
 import { JUDGING_RUBRIC, PROJECTS_TO_JUDGE_COUNT, calculateGrade } from '../utility/Constants'
 import { getSponsorPrizes, projectsRef, submitGrade } from '../utility/firebase'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const Columns = styled.div`
   display: flex;
@@ -191,6 +192,7 @@ const JudgingPanel = () => {
     numProjects: 0,
   })
   const [toggle, setToggle] = useState({})
+  const { activeHackathon } = useHackathon()
 
   const removeGrade = async row => {
     const { id, gradeId, ...score } = row
@@ -205,8 +207,8 @@ const JudgingPanel = () => {
     await setProjectsAndStats()
   }
 
-  const parseSponsorPrizes = async () => {
-    const sponsorPrizes = (await getSponsorPrizes()) || []
+  const parseSponsorPrizes = async activeHackathon => {
+    const sponsorPrizes = (await getSponsorPrizes(activeHackathon)) || []
     const projects = (await getProjectData()) || []
 
     const prizesToProjectsMap = {}
@@ -247,7 +249,7 @@ const JudgingPanel = () => {
   }, [])
 
   const getProjectsByPrizes = async () => {
-    setSponsorPrizes(await parseSponsorPrizes())
+    setSponsorPrizes(await parseSponsorPrizes(activeHackathon))
   }
 
   // const [firstTimeStats, setFirstTimeStats] = useState(null)
@@ -291,9 +293,9 @@ const JudgingPanel = () => {
     const formattedProjects = gradedProjects.map(project => {
       const portalLink = window.location.origin // to support local development as well
       const projectInfo = {
-        Title: project.title,
-        Link: `${portalLink}/projects/${project.id}`,
-        Devpost: project.links.devpost,
+        'Title': project.title,
+        'Link': `${portalLink}/projects/${project.id}`,
+        'Devpost': project.links.devpost,
         'Charity choice': project.charityChoice,
       }
       project.teamMembers.forEach((member, index) => {

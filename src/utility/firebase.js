@@ -10,6 +10,9 @@ import {
   HACKER_APPLICATION_TEMPLATE,
   REDIRECT_STATUS,
 } from '../utility/Constants'
+import { useHackathon } from './HackathonProvider'
+
+// const { activeHackathon } = useHackathon()
 
 if (!firebase.apps.length) {
   const config = {
@@ -148,10 +151,10 @@ export const updateUserApplication = async (uuid, newApp) => {
   return applicantsRef.doc(uuid).set(newApp)
 }
 
-export const getSponsors = () => {
+export const getSponsors = activeHackathon => {
   return db
     .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
+    .doc(activeHackathon)
     .collection('Sponsors')
     .get()
     .then(querySnapshot => {
@@ -165,10 +168,10 @@ export const getProjects = () => {
   })
 }
 // Fetch list of sponsor prizes
-export const getSponsorPrizes = () => {
+export const getSponsorPrizes = activeHackathon => {
   return db
     .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
+    .doc(activeHackathon)
     .get()
     .then(querySnapshot => {
       return querySnapshot.data().sponsorPrizes

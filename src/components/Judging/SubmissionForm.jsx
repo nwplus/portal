@@ -12,6 +12,7 @@ import { findElement } from '../../utility/utilities'
 import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
 import Toast from '../Toast'
 import { A, ErrorMessage, H1, H3, Label, P, ErrorSpan as Required } from '../Typography'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const FormSection = styled.div`
   display: flex;
@@ -126,15 +127,16 @@ const SubmissionForm = ({
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
+  const { activeHackathon } = useHackathon()
 
   // Fetch list of sponsor prizes from Firebase
   useEffect(() => {
     async function getPrizes() {
-      const prizes = await getSponsorPrizes()
+      const prizes = await getSponsorPrizes(activeHackathon)
       setSponsorPrizes(prizes)
     }
     getPrizes()
-  }, [])
+  }, [activeHackathon])
 
   // Fill the rest of the members array with empty objects
   // Required so that updateMember function doesn't break

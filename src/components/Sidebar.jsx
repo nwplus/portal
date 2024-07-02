@@ -12,6 +12,7 @@ import { Button } from './Input/index'
 import { A } from './Typography'
 import NotificationToggle from '../containers/NotificationToggle'
 import { IS_DEVICE_IOS } from '../utility/Constants'
+import { useHackathon } from '../utility/HackathonProvider'
 
 /* Old styles
 border-right: 1px solid ${p => p.theme.colors.border};
@@ -225,9 +226,10 @@ const Sidebar = ({
     ],
   }
   const [sponsors, setSponsors] = useState([])
+  const { activeHackathon } = useHackathon()
 
   useEffect(() => {
-    getSponsors().then(docs => {
+    getSponsors(activeHackathon).then(docs => {
       // Only keep platinum tier sponsors for sidebar
       // const filteredDocs = docs
       //   .filter(doc => doc.data().tier && doc.data().tier.toLowerCase() === 'platinum')
@@ -252,7 +254,7 @@ const Sidebar = ({
       //   },
       // ])
     })
-  }, [setSponsors])
+  }, [activeHackathon])
 
   // if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
   //   links.tools.push({ location: '/projects', text: 'Project Gallery' })

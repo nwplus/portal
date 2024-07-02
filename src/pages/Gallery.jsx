@@ -6,6 +6,7 @@ import { H1, H2, HR } from '../components/Typography'
 import { getProjects, getSponsorPrizes } from '../utility/firebase'
 import { GalleryPage } from '../containers/GalleryPage'
 import { Dropdown, TextInput } from '../components/Input'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const Container = styled.div`
   display: flex;
@@ -24,12 +25,13 @@ const Gallery = () => {
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [searchAndFilteredProjects, setSearchAndFilteredProjects] = useState([])
+  const { activeHackathon } = useHackathon()
 
   const prizes = [{ value: 'All projects', label: 'All projects' }]
 
   useEffect(() => {
     async function getPrizes() {
-      const prizes = await getSponsorPrizes()
+      const prizes = await getSponsorPrizes(activeHackathon)
       setSponsorPrizes(prizes || [])
     }
     getPrizes()
@@ -42,7 +44,7 @@ const Gallery = () => {
         .filter(project => project.draftStatus === 'public')
       setProjects(newProjects)
     })
-  }, [])
+  }, [activeHackathon])
 
   useEffect(() => {
     const handler = setTimeout(() => {
