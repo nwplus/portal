@@ -473,11 +473,11 @@ const Dashboard = ({
           {isApplicationOpen && (
             <EditAppButton
               height="short"
-              onClick={
-                isApplicationOpen &&
-                hackerStatus === APPLICATION_STATUS.inProgress &&
-                (() => editApplication())
-              }
+              onClick={() => {
+                if (isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress) {
+                  editApplication()
+                }
+              }}
               disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
             >
               Complete Your Registration

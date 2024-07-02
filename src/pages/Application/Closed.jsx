@@ -3,10 +3,10 @@ import Landing from '../../containers/Landing'
 import { A } from '../../components/Typography'
 import { SOCIAL_LINKS } from '../../utility/Constants'
 import { copyText } from '../../utility/Constants'
-import { ThemeContext } from 'styled-components'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const Closed = () => {
-  const theme = useContext(ThemeContext)
+  const { activeHackathon } = useHackathon()
 
   return (
     <Landing
@@ -23,7 +23,7 @@ const Closed = () => {
         </>
       }
       showFooter
-      hackathon={theme.name}
+      hackathon={activeHackathon}
     />
   )
 }

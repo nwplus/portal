@@ -11,6 +11,7 @@ import { APPLICATION_STATUS } from '../utility/Constants'
 import { P } from '../components/Typography'
 import backgroundImage from '../assets/cmdf_homebg.svg'
 import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
+import { useHackathon } from '../utility/HackathonProvider'
 
 //My Ticket
 const HomeContainer = styled.div`
@@ -33,7 +34,7 @@ const HomeContainerBackground = styled.div`
   display: flex;
   flex-direction: column;
   background-image: url(${backgroundImage});
-  background-size: 120%;
+  background-size: cover;
   background-position: right bottom;
   ${p => p.theme.mediaQueries.mobile} {
     background-image: url(${mobileBackgroundImage});
@@ -57,13 +58,14 @@ const StyledP = styled(P)`
 
 export default withTheme(({ announcements, theme }) => {
   const { user, isAuthed } = useAuth()
+  const { activeHackathon } = useHackathon()
 
   return (
     <>
       <HomeContainerBackground />
       <HomeContainer>
-        {theme.name === 'cmdf'}
-        {/* {theme.name === 'hackCamp' && <Hackcamp2023BG />} */}
+        {activeHackathon === 'cmd-f'}
+        {/* {activeHackathon === 'hackcamp' && <Hackcamp2023BG />} */}
         <HackerCountdown />
         {/* 
       <CommonLinks />

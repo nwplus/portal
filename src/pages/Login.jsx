@@ -11,6 +11,7 @@ import { useLocation } from 'wouter'
 import Toast from '../components/Toast'
 import { A } from '../components/Typography'
 import { copyText } from '../utility/Constants'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const ErrorMessage = ({ message }) => (
   <>
@@ -65,22 +66,23 @@ const Login = () => {
   const { setUser } = useAuth()
   const [, setLocation] = useLocation()
   const [error, setError] = useState(null)
+  const { activeHackathon } = useHackathon()
 
   const signInWithGoogle = async () => {
-    const error = await googleSignIn(setUser, setLocation)
+    const error = await googleSignIn(setUser, setLocation, activeHackathon)
     setError(error)
   }
 
   const signInWithGithub = async () => {
-    const error = await githubSignIn(setUser, setLocation)
+    const error = await githubSignIn(setUser, setLocation, activeHackathon)
     setError(error)
   }
 
   return (
     <>
       <Landing
-        heading={`Welcome to ${copyText.hackathonName}!`}
-        hackathon={theme.name}
+        heading={`Welcome to nwPlus!`}
+        hackathon={`nwPlus`}
         background={theme.colors.login.background}
       >
         <ButtonContainer>
@@ -105,7 +107,6 @@ const Login = () => {
             Sign in with GitHub
           </StyledButton>
         </ButtonContainer>
-        {DB_HACKATHON === 'LHD2021' && <A href="/">Return to Portal</A>}
       </Landing>
       <Toast>{error ? handleAuthError(error.code, error.message) : null}</Toast>
     </>

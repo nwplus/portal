@@ -28,11 +28,7 @@ const StyledH2 = styled(H2)`
 `
 
 const NotificationToggle = () => {
-  const [toggled, setToggled] = useState(false)
-
-  useEffect(() => {
-    setToggled(notifications.areEnabled())
-  }, [setToggled])
+  const [toggled, setToggled] = useState(() => notifications.areEnabled() || false)
 
   const handleToggle = e => {
     // if user's first time on site, request notification permissions from browser

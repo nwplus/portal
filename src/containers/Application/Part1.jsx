@@ -125,7 +125,7 @@ const Part1 = () => {
         firstButtonOnClick={() => handleNavigation('/application/part-0')}
         secondButtonText="Next"
         secondButtonOnClick={() => handleNavigation('/application/part-2')}
-        autosaveTime={application.submission.lastUpdated.toDate().toString()}
+        autosaveTime={application.submission.lastUpdated?.toDate().toString() || ''}
         loading={loading}
       />
     </>

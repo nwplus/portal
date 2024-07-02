@@ -89,7 +89,7 @@ export function GalleryPage({ projects, startingPageIndex = 0 }) {
                   imgUrl={getYoutubeThumbnail(project.links.youtube)}
                   buttonLabel="See more"
                   buttonDisabled={false}
-                  href={'projects/' + project.uid}
+                  href={'/projects/' + project.uid}
                 />
               </CardContainerWrap>
             ))}

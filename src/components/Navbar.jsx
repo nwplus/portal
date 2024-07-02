@@ -1,9 +1,11 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import cmdfIcon from '../assets/cmdf_logo.png'
-import nwplus_logo from '../assets/nwplus_icon.svg'
+import nwhacks_logo from '../assets/nwhacks_logo.svg'
+import hc_logo from '../assets/hc_logo.svg'
 import { Button } from './Input'
 import { P } from './Typography'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const NavContainer = styled.div`
   direction: rtl;
@@ -54,7 +56,9 @@ const Wrapper = styled.div`
   padding-top: 1rem;
 `
 
-const NavBar = ({ name, handleLogout, children, theme }) => {
+const NavBar = ({ name, handleLogout, children }) => {
+  const { activeHackathon } = useHackathon()
+
   return (
     <Wrapper>
       <NavContainer>
@@ -71,16 +75,20 @@ const NavBar = ({ name, handleLogout, children, theme }) => {
             <Greeting>Hi, {name}</Greeting>
           </>
         )}
-        {theme.name === 'nwHacks' && (
+        {activeHackathon === 'hackcamp' && (
           <LogoContainer>
-            {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={nwplus_logo} alt={theme.name} />
+            <Icon src={hc_logo} alt={'HackCamp'} />
           </LogoContainer>
         )}
-        {theme.name === 'cmdf' && (
+        {activeHackathon === 'nwhacks' && (
           <LogoContainer>
             {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
-            <Icon src={cmdfIcon} alt={theme.name} />
+            <Icon src={nwhacks_logo} alt={'nwHacks'} />
+          </LogoContainer>
+        )}
+        {activeHackathon === 'cmd-f' && (
+          <LogoContainer>
+            <Icon src={cmdfIcon} alt={'cmd-f'} />
           </LogoContainer>
         )}
       </NavContainer>
