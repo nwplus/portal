@@ -40,9 +40,13 @@ const PageRoute = ({ path, children }) => {
     return unsubscribe
   }, [])
 
+  if (livesiteDoc === null) {
+    return null
+  }
+
   return (
     <Route path={path}>
-      {livesiteDoc?.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
+      {livesiteDoc.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
     </Route>
   )
 }
