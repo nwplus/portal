@@ -23,8 +23,8 @@ export const StyledCSVLink = styled(CSVLink)`
   text-decoration: none;
 `
 
-const getStats = async () => {
-  const projectDocs = await projectsRef.get()
+const getStats = async dbHackathonName => {
+  const projectDocs = await projectsRef(dbHackathonName).get()
   const numProjects = projectDocs.docs.length
   const projectData = projectDocs.docs.map(projectDoc => {
     const project = projectDoc.data()
@@ -79,8 +79,8 @@ const calculateResiduals = project => {
   return residuals
 }
 
-const getProjectData = async () => {
-  const projectDocs = await projectsRef.get()
+const getProjectData = async dbHackathonName => {
+  const projectDocs = await projectsRef(dbHackathonName).get()
   return projectDocs.docs.map(projectDoc => {
     if (projectDoc.data().grades) {
       const grades = projectDoc.data().grades
@@ -102,9 +102,9 @@ const getProjectData = async () => {
   })
 }
 
-const getGrades = async () => {
+const getGrades = async dbHackathonName => {
   const gradeData = []
-  const projectData = await getProjectData()
+  const projectData = await getProjectData(dbHackathonName)
   projectData.forEach(project => {
     if (project.grades) {
       Object.entries(project.grades).forEach(([gradeId, grade]) => {
@@ -129,8 +129,8 @@ const getGrades = async () => {
   return gradeData
 }
 
-const getGradedProjects = async (dropOutliers = 2) => {
-  const rawProjectData = await getProjectData()
+const getGradedProjects = async (dropOutliers = 2, dbHackathonName) => {
+  const rawProjectData = await getProjectData(dbHackathonName)
 
   const projectData = rawProjectData.map(project => {
     if (project.grades) {
@@ -196,20 +196,24 @@ const JudgingPanel = () => {
 
   const removeGrade = async row => {
     const { id, gradeId, ...score } = row
-    await submitGrade(id, { ...score, removed: true }, { uid: gradeId, email: score.user }, () =>
-      alert("Error. If there is no 'Submitted by' this error is expected.")
+    await submitGrade(
+      id,
+      { ...score, removed: true },
+      { uid: gradeId, email: score.user },
+      dbHackathonName,
+      () => alert("Error. If there is no 'Submitted by' this error is expected.")
     )
     await setProjectsAndStats()
   }
 
   const onDisqualify = async (projectId, disqualified) => {
-    await projectsRef.doc(projectId).update({ disqualified: !disqualified })
+    await projectsRef(dbHackathonName).doc(projectId).update({ disqualified: !disqualified })
     await setProjectsAndStats()
   }
 
   const parseSponsorPrizes = async dbHackathonName => {
     const sponsorPrizes = (await getSponsorPrizes(dbHackathonName)) || []
-    const projects = (await getProjectData()) || []
+    const projects = (await getProjectData(dbHackathonName)) || []
 
     const prizesToProjectsMap = {}
 
@@ -238,9 +242,9 @@ const JudgingPanel = () => {
 
   const setProjectsAndStats = async () => {
     setLoading(true)
-    setGradedProjects(await getGradedProjects())
-    setGrades(await getGrades())
-    getStats().then(data => setStats(data))
+    setGradedProjects(await getGradedProjects(dbHackathonName))
+    setGrades(await getGrades(dbHackathonName))
+    getStats(dbHackathonName).then(data => setStats(data))
     setLoading(false)
   }
 

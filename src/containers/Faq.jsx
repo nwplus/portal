@@ -26,7 +26,7 @@ const FAQ = () => {
         setFaqs(Object.values(querySnapshot.docs.map(doc => doc.data())))
       })
     return unsubscribe
-  }, [setFaqs, dbHackathonName])
+  }, [dbHackathonName])
 
   // debounce search
   useEffect(() => {

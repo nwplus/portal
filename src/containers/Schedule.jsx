@@ -40,7 +40,7 @@ const Schedule = () => {
     //   setEvents(Object.values(querySnapshot.docs.map(doc => doc.data())))
     // })
     return unsubscribe
-  }, [setEvents, dbHackathonName])
+  }, [dbHackathonName])
 
   return <ScheduleC events={events} hackathonStart={start} hackathonEnd={end} />
 }

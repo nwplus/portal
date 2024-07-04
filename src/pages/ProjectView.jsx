@@ -9,6 +9,7 @@ import { Loading } from '../components/HeroPage'
 import { Button } from '../components/Input'
 import Youtube from '../components/Youtube'
 import { getSubmission } from '../utility/firebase'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const StyledProjectContainer = styled.div`
   display: flex;
@@ -277,9 +278,10 @@ const Project = ({ project }) => {
 const ProjectView = ({ pid }) => {
   const [loading, setLoading] = useState(true)
   const [projectInfo, setProjectInfo] = useState(null)
+  const { dbHackathonName } = useHackathon()
 
   const getProject = async () => {
-    const projectData = await getSubmission(pid)
+    const projectData = await getSubmission(pid, dbHackathonName)
     if (projectData.exists) {
       setProjectInfo(!projectData ? null : projectData)
     } else {

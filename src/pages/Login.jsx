@@ -65,15 +65,15 @@ const Login = () => {
   const { setUser } = useAuth()
   const [, setLocation] = useLocation()
   const [error, setError] = useState(null)
-  const { activeHackathon } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   const signInWithGoogle = async () => {
-    const error = await googleSignIn(setUser, setLocation, activeHackathon)
+    const error = await googleSignIn(setUser, setLocation, activeHackathon, dbHackathonName)
     setError(error)
   }
 
   const signInWithGithub = async () => {
-    const error = await githubSignIn(setUser, setLocation, activeHackathon)
+    const error = await githubSignIn(setUser, setLocation, activeHackathon, dbHackathonName)
     setError(error)
   }
 

@@ -7,6 +7,7 @@ import { useAuth } from '../../utility/Auth'
 import { uploadWaiverToStorage, useHackerApplication } from '../../utility/HackerApplicationContext'
 import { MAX_WAIVER_FILE_SIZE_MB } from '../../utility/Validation'
 import { currentHackathonRef, getLivesiteDoc, livesiteDocRef } from '../../utility/firebase'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const ApplicationDashboardContainer = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
@@ -17,9 +18,10 @@ const ApplicationDashboardContainer = () => {
   const [isLoadingWaiverUpload, setIsLoadingWaiverUpload] = useState(false)
   const { user } = useAuth()
   const [, setLocation] = useLocation()
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    const unsubscribe = currentHackathonRef.onSnapshot(doc => {
+    const unsubscribe = currentHackathonRef(dbHackathonName).onSnapshot(doc => {
       setIsRsvpOpen(doc.data().featureFlags.rsvpOpenFlag)
       setIsLoadingAppStatus(false)
     })

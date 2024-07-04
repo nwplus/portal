@@ -76,7 +76,7 @@ const Prizes = () => {
         setMainPrizes(prizes.main)
         setSponsorPrizes(prizes.sponsor)
       })
-  }, [setMainPrizes, setSponsorPrizes])
+  }, [setMainPrizes, setSponsorPrizes, dbHackathonName])
 
   return (
     <>

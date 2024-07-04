@@ -36,7 +36,7 @@ const Gallery = () => {
     }
     getPrizes()
 
-    getProjects().then(projectsData => {
+    getProjects(dbHackathonName).then(projectsData => {
       const newProjects = projectsData
         .map(project => {
           return { ...project.data(), uid: project.id }
