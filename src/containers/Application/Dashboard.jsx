@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import Dashboard from '../../components/ApplicationDashboard'
-import Spinner from '../../components/Loading'
 import Page from '../../components/Page'
 import { useAuth } from '../../utility/Auth'
 import { uploadWaiverToStorage, useHackerApplication } from '../../utility/HackerApplicationContext'
@@ -179,9 +178,7 @@ const ApplicationDashboardContainer = () => {
     return unsubscribe
   }, [setLivesiteDoc])
 
-  return isLoadingAppStatus ? (
-    <Spinner />
-  ) : (
+  return isLoadingAppStatus ? null : (
     <Page hackerStatus={hackerStatus}>
       <Dashboard
         editApplication={() => setLocation('/application/part-0')}

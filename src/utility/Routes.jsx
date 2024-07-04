@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { Route, Router, Redirect, useRouter, useLocation } from 'wouter'
 import { getLivesiteDoc } from './firebase'
 import Page from '../components/Page'
+import Loading from '../components/Loading'
+import Navbar from '../components/Navbar'
 import { useAuth, getRedirectUrl } from './Auth'
 import { APPLICATION_STATUS, VALID_HACKATHONS } from './Constants'
-import Navbar from '../components/Navbar'
 import { useHackathon } from './HackathonProvider'
 
 const NestedRoutes = props => {
@@ -41,12 +42,12 @@ const PageRoute = ({ path, children }) => {
   }, [])
 
   if (livesiteDoc === null) {
-    return null
+    return <Loading />
   }
 
   return (
     <Route path={path}>
-      {livesiteDoc.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
+      {livesiteDoc?.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
     </Route>
   )
 }
