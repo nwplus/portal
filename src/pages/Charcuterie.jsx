@@ -12,6 +12,8 @@ import ResumeUploadBtn from '../components/ResumeUploadBtn'
 import styled from 'styled-components'
 import NavigationButtons from '../components/NavigationButtons'
 import Loading from '../components/Loading'
+import { useHackathon } from '../utility/HackathonProvider'
+import { useLocation } from 'wouter'
 
 const CustomStyledDropdown = styled(Dropdown)`
   .react-select__control {
@@ -43,19 +45,19 @@ const options = [
   { value: '6', label: 'Van' },
 ]
 
-const toggleTheme = () => {
-  const oldTheme = window.localStorage.getItem('localTheme')
-  if (oldTheme === 'nwTheme') {
-    window.localStorage.setItem('localTheme', 'cmdfTheme')
-  } else if (oldTheme === 'cmdfTheme') {
-    window.localStorage.setItem('localTheme', 'hackcampTheme')
+const toggleTheme = (navigate, activeHackathon) => {
+  if (activeHackathon === 'hackcamp') {
+    navigate('~/app/nwhacks/charcuterie')
+  } else if (activeHackathon === 'nwhacks') {
+    navigate('~/app/cmd-f/charcuterie')
   } else {
-    window.localStorage.setItem('localTheme', 'nwTheme')
+    navigate('~/app/hackcamp/charcuterie')
   }
-  window.location.reload()
 }
 
 const Charcuterie = () => {
+  const { activeHackathon, setActiveHackathon } = useHackathon()
+  const [_, navigate] = useLocation()
   const [states, setStates] = useState({
     checkbox: false,
     radio: 'selected',
@@ -75,7 +77,11 @@ const Charcuterie = () => {
   `
   return (
     <>
-      <Button color="secondary" width="flex" href={`javascript:(${toggleTheme})()`}>
+      <Button
+        color="secondary"
+        width="flex"
+        onClick={() => toggleTheme(navigate, activeHackathon, setActiveHackathon)}
+      >
         Toggle Theme
       </Button>
       <Button color="secondary" width="flex" onClick={() => setIsLoading(!isLoading)}>

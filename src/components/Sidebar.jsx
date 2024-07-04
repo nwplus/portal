@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
 import cmdf_logo from '../assets/cmdf_logo.png'
 import hc_logo from '../assets/hc_logo.svg'
-import logo from '../assets/logo.svg'
+import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import nwplus_logo from '../assets/nwplus_icon.svg'
 import { useAuth } from '../utility/Auth'
 import { getSponsors } from '../utility/firebase'
@@ -30,14 +30,14 @@ const SidebarContainer = styled.div`
 
 const chooseLogo = hackathon => {
   switch (hackathon) {
-    case 'hackCamp':
+    case 'hackcamp':
       return hc_logo
-    case 'cmdf':
+    case 'cmd-f':
       return cmdf_logo
-    case 'nwHacks':
-      return nwplus_logo
+    case 'nwhacks':
+      return nwhacks_logo
     default:
-      return logo
+      return nwplus_logo
   }
 }
 
@@ -45,14 +45,13 @@ const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.theme.name),
 }))`
   height: 7em;
-  margin: auto;
+  margin: 2em auto;
   display: block;
 
   ${p =>
-    p.theme.name === 'hackCamp' &&
+    p.theme.name === 'hackcamp' &&
     `
-      width: 120px;
-      margin: 30px 0 0px 2rem;
+      width: 150px;
     `}
 `
 
@@ -169,7 +168,6 @@ const CategoryHeader = styled.h4`
 `
 
 const LogoContainer = styled.div`
-  margin-top: 2em;
   display: flex;
   align-items: flex-end;
 `
@@ -198,7 +196,7 @@ const Sidebar = ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'My Ticket' },
+      { location: '', text: 'My Ticket' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/livestream', text: 'Livestream' },
       { location: '/sponsors', text: 'Sponsors' },
@@ -211,11 +209,7 @@ const Sidebar = ({
       // (conditional) Judging (Admin)
     ],
     // Information
-    information: [
-      // { location: '/getting-started', text: 'Getting Started' },
-      // { location: '/discord-bot', text: 'Discord Bot' },
-      { location: '/faq', text: 'FAQ' },
-    ],
+    information: [{ location: '/faq', text: 'FAQ' }],
     useful_links: [
       {
         location:
@@ -296,14 +290,14 @@ const Sidebar = ({
               return (
                 t[1].length > 0 &&
                 t[0] !== 'useful_links' && (
-                  <>
+                  <React.Fragment key={k}>
                     <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                     {t[1].map((v, i) => (
-                      <Link key={i} href={v.location} onClick={hideSidebarCallback}>
+                      <Link key={v.location} href={v.location} onClick={hideSidebarCallback}>
                         <StyledA selected={location === v.location}>{v.text}</StyledA>
                       </Link>
                     ))}
-                  </>
+                  </React.Fragment>
                 )
               )
             })}
@@ -341,6 +335,14 @@ const Sidebar = ({
           Log In
         </StyledButton>
       )}
+      <StyledButton
+        as={Link}
+        href="~/"
+        color="secondary"
+        style={{ textDecoration: 'none', color: 'white' }}
+      >
+        Home
+      </StyledButton>
       <SponsorContainer>
         {sponsors &&
           sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}

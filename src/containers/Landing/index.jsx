@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import cmdf_logo from '../../assets/cmdf_logo.png'
 import hc_logo from '../../assets/hc_logo.svg'
+import nwhacks_logo from '../../assets/nwhacks_logo.svg'
 import nwplus_logo from '../../assets/nwplus_icon.svg'
 import Banner from '../../components/Banner'
 import { H1, P } from '../../components/Typography'
@@ -54,11 +55,7 @@ const StyledLogoLockup = styled.img`
       top: 7em;
       width: 120px;
   `}
-  ${p =>
-    p.theme.name === 'cmdf' &&
-    `
-      top: 30%;
-    `}
+
   ${p => p.theme.mediaQueries.tabletLarge} {
     top: 20%;
     width: 15%;
@@ -110,50 +107,28 @@ const BackgroundContainer = styled.img`
   }
 `
 
-// TODO: add sponsors if footer is shown
-const Landing = ({ heading, description, showFooter, hackathon, children, background }) => {
-  switch (hackathon) {
-    case 'hackCamp':
-      return (
-        <LandingContainer showFooter={showFooter}>
-          <StyledLogoLockup src={hc_logo} />
-          <StyledBanner>
-            <H1 size="1.5em">{heading}</H1>
-            <P>{description}</P>
-            {children}
-          </StyledBanner>
-          {showFooter && <Footer />}
-        </LandingContainer>
-      )
-    case 'cmdf':
-      return (
-        <LandingContainer showFooter={showFooter}>
-          <BackgroundContainer src={cmdfLoginBackground} />
-          <StyledLogoLockup src={cmdf_logo} />
-          <StyledBanner>
-            <H1 size="1.5em">{heading}</H1>
-            <P>{description}</P>
-            {children}
-          </StyledBanner>
-          {showFooter && <Footer />}
-        </LandingContainer>
-      )
-    default:
-    case 'nwHacks':
-      return (
-        <LandingContainer showFooter={showFooter}>
-          <BackgroundContainer src={nwHacksLoginBackground} />
-
-          <StyledLogoLockup src={nwplus_logo} />
-          <StyledBanner>
-            <H1 size="1.5em">{heading}</H1>
-            <P>{description}</P>
-            {children}
-          </StyledBanner>
-          {showFooter && <Footer />}
-        </LandingContainer>
-      )
+const Landing = ({ heading, description, showFooter, hackathon, children }) => {
+  const options = {
+    'hackcamp': { logo: hc_logo, background: null },
+    'cmd-f': { logo: cmdf_logo, background: cmdfLoginBackground },
+    'nwhacks': { logo: nwhacks_logo, background: nwHacksLoginBackground },
+    'default': { logo: nwplus_logo, background: nwHacksLoginBackground },
   }
+
+  const { logo, background } = options[hackathon] || options.default
+
+  return (
+    <LandingContainer showFooter={showFooter}>
+      {background && <BackgroundContainer src={background} />}
+      <StyledLogoLockup src={logo} />
+      <StyledBanner>
+        <H1 size="1.5em">{heading}</H1>
+        <P>{description}</P>
+        {children}
+      </StyledBanner>
+      {showFooter && <Footer />}
+    </LandingContainer>
+  )
 }
 
 export default Landing

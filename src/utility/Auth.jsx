@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
   )
 }
 
-const handleUser = async (setUser, setLocation) => {
+const handleUser = async (setUser, setLocation, activeHackathon) => {
   const user = firebase.auth().currentUser
   const { redirect, status } = await getUserStatus(user)
   // alert(redirect, status)
@@ -67,35 +67,40 @@ const handleUser = async (setUser, setLocation) => {
   setUser(user)
   analytics.setUserId(user.uid)
   analytics.logEvent(ANALYTICS_EVENTS.Login, { userId: user.uid })
-  await handleRedirect(redirect, setLocation)
+  await handleRedirect(redirect, setLocation, activeHackathon)
 }
 
-export const getRedirectUrl = redirect => {
+export const getRedirectUrl = (redirect, activeHackathon) => {
   switch (redirect) {
     case REDIRECT_STATUS.AttendingEvent:
-      return '/'
+      return `/app/${activeHackathon}`
     case REDIRECT_STATUS.ApplicationAccepted:
-      return '/'
+      return `/app/${activeHackathon}`
     case REDIRECT_STATUS.ApplicationNotSubmitted:
-      return '/application/part-0'
+      return `/app/${activeHackathon}/application/part-0`
     case REDIRECT_STATUS.ApplicationSubmitted:
+      return `/app/${activeHackathon}`
     default:
-      return '/application'
+      return `/app/${activeHackathon}/application`
   }
 }
 
-export const handleRedirect = async (redirect, setLocationCallback) => {
+export const handleRedirect = async (redirect, setLocationCallback, activeHackathon) => {
   // alert(redirect, getRedirectUrl(redirect))
   const submissionOpen = (await livesiteDocRef.get()).data().submissionsOpen
-  setLocationCallback(submissionOpen ? '/submission' : getRedirectUrl(redirect))
+  setLocationCallback(
+    submissionOpen
+      ? `/app/${activeHackathon}/submission`
+      : getRedirectUrl(redirect, activeHackathon)
+  )
 }
 
-export const googleSignIn = async (setUser, setLocation) => {
+export const googleSignIn = async (setUser, setLocation, activeHackathon) => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   const provider = new firebase.auth.GoogleAuthProvider()
   try {
     await firebase.auth().signInWithPopup(provider)
-    await handleUser(setUser, setLocation)
+    await handleUser(setUser, setLocation, activeHackathon)
     return null
   } catch (e) {
     console.error(e)
@@ -103,12 +108,12 @@ export const googleSignIn = async (setUser, setLocation) => {
   }
 }
 
-export const githubSignIn = async (setUser, setLocation) => {
+export const githubSignIn = async (setUser, setLocation, activeHackathon) => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   const provider = new firebase.auth.GithubAuthProvider()
   try {
     await firebase.auth().signInWithPopup(provider)
-    await handleUser(setUser, setLocation)
+    await handleUser(setUser, setLocation, activeHackathon)
     return null
   } catch (e) {
     return e

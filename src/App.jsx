@@ -1,167 +1,57 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, Route, Switch } from 'wouter'
-import Form from './components/ApplicationForm'
-import Navbar from './components/Navbar'
-import Page from './components/Page'
+import { Link, Redirect, Route, Switch, useLocation } from 'wouter'
+import AnnouncementToast from './components/AnnouncementToast'
+import { A } from './components/Typography'
+import Landing from './containers/Landing'
 import {
-  Application,
   ApplicationConfirmation,
-  ApplicationForm,
   ApplicationReview,
   Charcuterie,
-  // DiscordBot,
   Faq,
-  Gallery,
-  // GettingStarted,
   Home,
-  Livestream,
   Judging,
   JudgingAdmin,
-  JudgingView,
+  Livestream,
   Login,
   NotFound,
-  ProjectView,
   Schedule,
   Sponsors,
   Submission,
 } from './pages'
-// import Area51 from './pages/Area51'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
-import { AuthProvider, getRedirectUrl, useAuth } from './utility/Auth'
-import { APPLICATION_STATUS, DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
-import { HackerApplicationProvider, useHackerApplication } from './utility/HackerApplicationContext'
-import { db, getAnnouncement, getLivesiteDoc } from './utility/firebase'
+import { AuthProvider } from './utility/Auth'
+import { DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
+import HackathonProvider from './utility/HackathonProvider'
+import { HackerApplicationProvider } from './utility/HackerApplicationContext'
+import {
+  AdminAuthPageRoute,
+  ApplicationInProgressRoute,
+  AuthPageRoute,
+  NestedRoutes,
+  NoAuthRoute,
+  PageRoute,
+} from './utility/Routes'
+import {
+  ApplicationDashboardRoutingContainer,
+  ApplicationFormContainer,
+  GalleryContainer,
+  JudgingViewContainer,
+  ProjectViewContainer,
+} from './utility/RoutingContainers'
+import { db, getAnnouncement } from './utility/firebase'
 import notifications from './utility/notifications'
-import AnnouncementToast from './components/AnnouncementToast'
-
-const PageRoute = ({ path, children }) => {
-  const [livesiteDoc, setLivesiteDoc] = useState(null)
-
-  useEffect(() => {
-    const unsubscribe = getLivesiteDoc(setLivesiteDoc)
-    return unsubscribe
-  }, [])
-
-  return (
-    <Route path={path}>
-      {livesiteDoc?.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
-    </Route>
-  )
-}
-
-// Authenticate for only applicants that have been accepted
-const AuthPageRoute = ({ path, children }) => {
-  const { isAuthed, user } = useAuth()
-  if (!isAuthed) {
-    return (
-      <Route path={path}>
-        <Redirect to="/login" />
-      </Route>
-    )
-  }
-  return (
-    <Route path={path}>
-      {user?.status === APPLICATION_STATUS.accepted ? (
-        <Page>{children}</Page>
-      ) : (
-        <Redirect to="/application/closed" />
-      )}
-    </Route>
-  )
-}
-
-const ApplicationInProgressRoute = ({ name, handleLogout, path, children, theme }) => {
-  const { isAuthed, user, logout } = useAuth()
-  return isAuthed ? (
-    <Route path={path}>
-      <Navbar
-        name={name ? user.displayName : undefined}
-        handleLogout={handleLogout ? logout : undefined}
-      >
-        {children}
-      </Navbar>
-    </Route>
-  ) : (
-    <Redirect to="/login" />
-  )
-}
-
-const NoAuthRoute = ({ path, children }) => {
-  const { isAuthed, user } = useAuth()
-  return (
-    <Route path={path}>
-      {!isAuthed ? <>{children}</> : <Redirect to={getRedirectUrl(user.redirect)} />}
-    </Route>
-  )
-}
-
-const AdminAuthPageRoute = ({ path, children }) => {
-  const { isAuthed, user } = useAuth()
-  return (
-    <Route path={path}>
-      {isAuthed && user.admin ? <Page>{children}</Page> : <Redirect to="/login" />}
-    </Route>
-  )
-}
-
-/**Saves the application on logout */
-const NavbarSaveOnLogout = ({ name, handleLogout }) => {
-  const { forceSave } = useHackerApplication()
-  const logout = async () => {
-    await forceSave()
-    handleLogout()
-  }
-  return <Navbar name={name} handleLogout={logout} />
-}
-
-const ApplicationFormContainer = ({ part }) => {
-  const { isAuthed, user, logout } = useAuth()
-
-  const { application } = useHackerApplication()
-
-  return isAuthed && application.status.applicationStatus === APPLICATION_STATUS.inProgress ? (
-    <>
-      <NavbarSaveOnLogout name={user.displayName} handleLogout={logout} />
-      <Form>
-        <ApplicationForm part={part} />
-      </Form>
-    </>
-  ) : (
-    <Redirect to="/login" />
-  )
-}
-
-const JudgingViewContainer = ({ params }) => {
-  const { isAuthed } = useAuth()
-  return isAuthed ? (
-    <Page>
-      <JudgingView id={params.id} />
-    </Page>
-  ) : (
-    <Redirect to="/login" />
-  )
-}
-
-const GalleryContainer = ({ params }) => (
-  <Page>
-    <Gallery />
-  </Page>
-)
-const ProjectViewContainer = ({ params }) => (
-  <Page>
-    <ProjectView pid={params.id} />
-  </Page>
-)
-
-const ApplicationDashboardRoutingContainer = () => {
-  const { isAuthed } = useAuth()
-  return isAuthed ? <Application /> : <Redirect to="/login" />
-}
 
 function App() {
-  // const [announcements, setAnnouncements] = useState([])
   const [announcementText, setAnnouncementText] = useState('')
+  const [location] = useLocation()
+
+  useEffect(() => {
+    if (location === '/') {
+      localStorage.removeItem('activeHackathon')
+      document.title = 'Hacker Portal'
+    }
+  }, [location])
 
   const notifyUser = async announcementId => {
     // grab announcement from firebase to check if removed, if doesn't exist anymore don't send
@@ -203,75 +93,104 @@ function App() {
   }, [])
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
+    <HackathonProvider>
+      <ThemeProvider>
         <GlobalStyle />
-        <AnnouncementToast text={announcementText} />
-        <Switch>
-          <PageRoute path="/">
-            <Home />
-          </PageRoute>
-          <PageRoute path="/charcuterie">
-            <Charcuterie />
-          </PageRoute>
-          <PageRoute path="/faq">
-            <Faq />
-          </PageRoute>
-          <PageRoute path="/schedule">
-            <Schedule />
-          </PageRoute>
-          <PageRoute path="/livestream">
-            <Livestream />
-          </PageRoute>
-          <PageRoute path="/sponsors">
-            <Sponsors />
-          </PageRoute>
-          {/* <PageRoute path="/getting-started">
-            <GettingStarted />
-          </PageRoute> */}
-          {/* <PageRoute path="/discord-bot">
-            <DiscordBot />
-          </PageRoute> */}
-          <NoAuthRoute path="/login">
-            <Navbar>
+        <AuthProvider>
+          <AnnouncementToast text={announcementText} />
+          <Switch>
+            <Route path="/">
+              <Landing>
+                <Link href="/app/hackcamp">
+                  <A>Hackcamp</A>
+                </Link>
+                <br />
+                <Link href="/app/nwhacks">
+                  <A>nwHacks</A>
+                </Link>
+                <br />
+                <Link href="/app/cmd-f">
+                  <A>cmd-f</A>
+                </Link>
+              </Landing>
+            </Route>
+            <NoAuthRoute path="/login">
               <Login />
-            </Navbar>
-          </NoAuthRoute>
-          <AuthPageRoute path="/judging">
-            <Judging />
-          </AuthPageRoute>
-          <AdminAuthPageRoute path="/judging/admin">
-            <JudgingAdmin />
-          </AdminAuthPageRoute>
-          {/* <AdminAuthPageRoute path="/area51">
-            <Area51 />
-          </AdminAuthPageRoute> */}
-          <Route path="/judging/view/:id" component={JudgingViewContainer} />
-          <Route path="/projects" component={GalleryContainer} />
-          <Route path="/projects/:id" component={ProjectViewContainer} />
-          <AuthPageRoute path="/submission">
-            <Submission />
-          </AuthPageRoute>
-          <HackerApplicationProvider>
-            <Switch>
-              <Route path="/application" component={ApplicationDashboardRoutingContainer} />
-              <ApplicationInProgressRoute path="/application/review" name handleLogout>
-                <ApplicationReview />
-              </ApplicationInProgressRoute>
-              <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
-                <ApplicationConfirmation />
-              </ApplicationInProgressRoute>
-              <Route path="/application/:part" handleLogout>
-                {params => <ApplicationFormContainer part={params.part} />}
-              </Route>
-            </Switch>
-          </HackerApplicationProvider>
-          <Route path="/:rest*">
-            <NotFound />
-          </Route>
-        </Switch>
-      </AuthProvider>
-    </ThemeProvider>
+            </NoAuthRoute>
+            <Route path="/app/:hackathon/:any*">
+              {params => (
+                <NestedRoutes base={`/app/${params.hackathon}`}>
+                  <Switch>
+                    <PageRoute path="/">
+                      <Home />
+                    </PageRoute>
+                    <PageRoute path="/charcuterie">
+                      <Charcuterie />
+                    </PageRoute>
+                    <PageRoute path="/faq">
+                      <Faq />
+                    </PageRoute>
+                    <PageRoute path="/schedule">
+                      <Schedule />
+                    </PageRoute>
+                    <PageRoute path="/livestream">
+                      <Livestream />
+                    </PageRoute>
+                    <PageRoute path="/sponsors">
+                      <Sponsors />
+                    </PageRoute>
+
+                    <AuthPageRoute path="/judging">
+                      <Judging />
+                    </AuthPageRoute>
+
+                    <AdminAuthPageRoute path="/judging/admin">
+                      <JudgingAdmin />
+                    </AdminAuthPageRoute>
+
+                    <Route path="/judging/view/:id" component={JudgingViewContainer} />
+                    <Route path="/projects" component={GalleryContainer} />
+                    <Route path="/projects/:id" component={ProjectViewContainer} />
+
+                    <AuthPageRoute path="/submission">
+                      <Submission />
+                    </AuthPageRoute>
+
+                    <HackerApplicationProvider>
+                      <Switch>
+                        <Route
+                          path="/application"
+                          component={ApplicationDashboardRoutingContainer}
+                        />
+                        <ApplicationInProgressRoute path="/application/review" name handleLogout>
+                          <ApplicationReview />
+                        </ApplicationInProgressRoute>
+                        <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
+                          <ApplicationConfirmation />
+                        </ApplicationInProgressRoute>
+                        <Route path="/application/:part" handleLogout>
+                          {params => <ApplicationFormContainer part={params.part} />}
+                        </Route>
+                      </Switch>
+                    </HackerApplicationProvider>
+
+                    <Route>
+                      <Redirect to="~/404" />
+                    </Route>
+                  </Switch>
+                </NestedRoutes>
+              )}
+            </Route>
+            <Route path="/404">
+              <NotFound />
+            </Route>
+            <Route>
+              <Redirect to="/404" />
+            </Route>
+          </Switch>
+        </AuthProvider>
+      </ThemeProvider>
+    </HackathonProvider>
   )
 }
 

@@ -71,7 +71,7 @@ const Input = styled.input`
   }
 `
 
-const ToggleSwitch = ({ checked, disabled, disabledTooltip, onChange }) => {
+const ToggleSwitch = ({ checked = false, disabled, disabledTooltip, onChange }) => {
   return (
     <ToggleSwitchContainer>
       <label>

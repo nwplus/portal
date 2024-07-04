@@ -156,15 +156,15 @@ export function HackerApplicationProvider({ children }) {
     })
   }, [])
 
-  /**applicationOpen hasn't loaded ? show a spinner
-   * Applications are closed ? show message
-   * Applications are open ? Show application
-   */
-  return applicationOpen === null || application === undefined ? (
-    <Spinner />
-  ) : !applicationOpen && window.location.pathname !== '/application' ? (
-    <Closed />
-  ) : (
+  if (applicationOpen === null || application === undefined) {
+    return null
+  }
+
+  if (!applicationOpen && window.location.pathname !== '/application') {
+    return <Closed />
+  }
+
+  return (
     <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
       {children}
     </HackerApplicationContext.Provider>

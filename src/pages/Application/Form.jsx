@@ -16,7 +16,7 @@ const Form = ({ part }) => {
     case 'part-3':
       return <Part3 />
     default:
-      return <Redirect to="/login" />
+      return <Redirect to="~/login" />
   }
 }
 
