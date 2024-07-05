@@ -98,7 +98,8 @@ const nwHacksTheme = {
       grey700: '#55525B',
     },
     schedule: {
-      background: 'linear-gradient(0deg, #244556 100%, #33515E 80%, #244556 20%)',
+      background:
+        'linear-gradient(180deg, #244556 0%, rgba(51, 81, 94, 0.8) 80.88%, rgba(36, 69, 86, 0.2) 100%)',
       event: 'white',
       text: '#F0EEF2', //greyscale
       timestamp: '#DCB551',
