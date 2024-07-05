@@ -43,19 +43,19 @@ const base = {
 
 const nwHacksTheme = {
   ...base,
-  name: 'nwhacks',
+  name: 'nwHacks',
   colors: {
-    background: '#3C4BA5', // Background
-    card: '#0A1361', // BG Accent
-    border: 'rgba(255, 255, 255, 0.3)',
+    background: '#193545', // Background
+    card: '#0A1C27', // BG Accent
+    border: '#8E7EB4',
     secondaryBackgroundTransparent: '#F0EEF299',
     secondaryBackgroundTransparentHover: '#9D9FAD',
-    secondaryBackground: '#5667CF', // Side bar background
+    secondaryBackground: '#244556', // Side bar background
     sidebar: {
-      background: '#5667CF',
-      hover: '#0A1361',
-      selected: '#3C4BA5',
-      primary: '#FFF',
+      background: '#193545',
+      hover: '#244556',
+      selected: '#244556',
+      primary: '#DCB551',
       secondary: '#9D9FAD',
       link: '#9D9FAD',
       statusText: '#9D9FAD',
@@ -89,10 +89,10 @@ const nwHacksTheme = {
       border: '#9AD4DE',
       hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
-      outlineText: '#FFF', // Secondary button
+      outlineText: '#191C4F', // Secondary button
       outlineHover: '#FFFFFF', // secondary
-      outlineBackground: '#A4A9F1', //secondary button
-      outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
+      outlineBackground: '#DCB551', //secondary button
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #244556 3.67%, #244556 78.93%)',
       outlineBorder: '#CFD6FF',
       grey500: '#BDBAC3',
       grey700: '#55525B',
@@ -119,7 +119,7 @@ const nwHacksTheme = {
 
 const hackcampTheme = {
   ...base,
-  name: 'hackcamp',
+  name: 'hackCamp',
   colors: {
     background: '#150C27',
     card: '#433860',
@@ -128,10 +128,9 @@ const hackcampTheme = {
     secondaryBackground: '#150C27',
     secondaryBackgroundTransparent: '#fff',
     sidebar: {
-      background: '#150C27',
       link: '#F0EEF299',
     },
-    foreground: '#FFFFFF',
+    foreground: '#FFBC96',
     error: '#ff0033',
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
@@ -143,7 +142,7 @@ const hackcampTheme = {
     highlight: 'rgba(255, 255, 255, 0.6)',
     text: '#fff',
     link: '#fff',
-    linkHover: '#FFFFFF',
+    linkHover: '#FFBC96',
     tertiaryHover: '#AD795E', // button hover
     // Styling for schedule page
     schedule: {
@@ -181,70 +180,65 @@ const hackcampTheme = {
 
 const cmdfTheme = {
   ...base,
-  name: 'cmd-f',
+  name: 'cmdf',
   colors: {
-    background: '#5968A6',
-    card: '#323858', // BG Accent
+    background: '#F1E9DF',
+    card: '#847064', // BG Accent
     cardText: '#ffffff',
     border: 'rgba(0, 0, 0, 0.3)',
     cardSecondary: '#C8BFB6',
-    secondaryBackground: '#323858',
+    secondaryBackground: '#C0A68B',
     // secondaryBackgroundTransparent: '#EBC02910',
     secondaryBackgroundTransparent: '#F1E9DF',
     sidebar: {
-      background: '#323858',
-      secondary: '#FFFFFF',
-      link: '#CAD1F7',
-      hover: '#5968A6',
-      primary: '#48FFF4',
+      link: '#fff',
     },
-    foreground: '#FFFFFF',
+    foreground: '#FFBC96',
     error: '#ff0033',
     success: '#629F5D',
     toastText: '#fff', // Color for text in toast messages (Toast.js)
     warning: '#FF8989',
     secondaryWarning: '#EF6C6C',
-    primary: '#48FFF4',
-    secondary: '#CAD1F7',
+    primary: '#F1E9DF',
+    secondary: '#FE800B',
     primaryGradient: '#82B185',
-    primaryGradientHover: '#CAD1F7',
-    default: '#FFFFFF',
+    primaryGradientHover: 'linear-gradient(263.82deg, #E9C3CB 38.58%, #A4A9F1 78.17%)', //'linear-gradient(180deg, #76F4D6 0%, #18CDCD 100%, #44D0D0 100%)', // button hover
+    default: '#2C3933',
     highlight: '#192825',
-    text: '#FFFFFF',
+    text: '#4D4B4F',
     link: '#3D995F',
-    linkHover: '#CAD1F7',
-    tertiaryHover: '#CAD1F7', // button hover
+    linkHover: '#2C3933',
+    tertiaryHover: '#FE800B', // button hover
     // Styling for schedule page
     schedule: {
-      background: 'linear-gradient(0deg, #404871 100%, #58618C 80%, #949ABA 20%)',
-      event: 'white',
-      text: '#F0EEF2', //greyscale
-      timestamp: '#48FFF4',
+      background: '#F4FEF7',
+      event: '#2C3933',
+      text: '#FFFFFF',
     },
     selects: {
-      border: '#CAD1F7',
-      text: '#FFFFFF',
-      hover: '#48FFF4',
+      border: '#2C3933',
+      text: '#2C3933',
+      hover: '#C0A68B',
       disabled: 'rgba(0, 0, 0, 0.4)',
-      selected: '#48FFF4',
+      selected: '#C0A68B',
       placeholder: 'rgba(0, 0, 0, 0.4)',
     },
     button: {
       // Application form buttons
       text: '#0A1361', // For primary button
-      background: '#5968A6', // Primary button
+      background: 'linear-gradient(265.48deg, #959AFB 3.67%, #9AD4DE 78.93%)', // Primary button
       border: '#9AD4DE',
-      hoverbg: '#CAD1F7',
+      hoverbg: ' linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       hoverborder: '#A4A9F1',
-      outlineText: '#FFFFFF', // Secondary button
-      outlineBackground: '#5968A6',
-      outlineBackgroundHover: '#48FFF4',
+      outlineText: '#CFD6FF', // Secondary button
+      outlineBackground: 'transparent',
+      outlineBackgroundHover: 'linear-gradient(265.48deg, #D9DBFF 3.67%, #CCF2F9 78.93%)',
       outlineBorder: '#CFD6FF',
       grey500: '#BDBAC3',
       grey700: '#55525B',
     },
     hover: '#A0B9C0',
-    scrollbar: '#5F8CA2',
+    scrollbar: '#4D4B4F',
     banner: 'transparent',
     login: {
       background: '#C0A68B',
