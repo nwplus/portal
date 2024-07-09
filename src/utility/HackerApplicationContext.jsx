@@ -42,7 +42,7 @@ export const uploadWaiverToStorage = async (userId, file) => {
 
 export function HackerApplicationProvider({ children }) {
   const { user } = useAuth()
-  const [application, setApplication] = useState(initialApplication)
+  const [application, setApplication] = useState(null)
   const [, setUpdated] = useState(false)
   const [applicationOpen, setApplicationOpen] = useState(null)
   const applicationRef = useRef()
