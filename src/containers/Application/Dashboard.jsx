@@ -17,7 +17,7 @@ const ApplicationDashboardContainer = () => {
   const [isLoadingWaiverUpload, setIsLoadingWaiverUpload] = useState(false)
   const { user } = useAuth()
   const [, setLocation] = useLocation()
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   useEffect(() => {
     const unsubscribe = currentHackathonRef(dbHackathonName).onSnapshot(doc => {
@@ -32,11 +32,11 @@ const ApplicationDashboardContainer = () => {
       const d = doc.data()
       if (d) {
         setRelevantDates({
-          applicationDeadline: d.applicationDeadline,
-          sendAcceptancesBy: d.sendAcceptancesBy,
-          rsvpBy: d.rsvpBy,
-          offWaitlistNotify: d.offWaitlistNotify,
-          hackathonWeekend: d.hackathonWeekend,
+          applicationDeadline: d.applicationDeadline[activeHackathon],
+          sendAcceptancesBy: d.sendAcceptancesBy[activeHackathon],
+          rsvpBy: d.rsvpBy[activeHackathon],
+          offWaitlistNotify: d.offWaitlistNotify[activeHackathon],
+          hackathonWeekend: d.hackathonWeekend[activeHackathon],
         })
       }
     })

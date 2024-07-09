@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import MobileMenuBar from './MobileMenuBar'
 import { getLivesiteDoc } from '../utility/firebase'
+// import { useHackathon } from '../utility/HackathonProvider'
 
 const Container = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ const Content = styled.div`
 const Page = ({ hackerStatus, children }) => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false)
   const [livesiteDoc, setLivesiteDoc] = useState(false)
+  // const { activeHackathon } = useHackathon();
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(setLivesiteDoc)

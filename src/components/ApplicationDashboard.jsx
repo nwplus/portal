@@ -13,6 +13,7 @@ import { analytics } from '../utility/firebase'
 import { Button } from './Input/Button'
 import Checkbox from './Input/Checkbox'
 import { A, H1, HR, P, ErrorSpan as Required } from './Typography'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -216,7 +217,7 @@ const QuestionLabel = styled.div`
 //   line-height: 150%;
 // `
 
-export const hackerStatuses = (relevantDates, hackerName = null) => ({
+export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
@@ -228,9 +229,9 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     blurb: (
       <>
         Hi {hackerName}, we had a lovely time reading your application, and were very impressed with
-        your commitment to joining the technology community. We would love to see you at
-        {copyText.hackathonName} this year; however, at the moment, we cannot confirm a spot for
-        you. You have been put on our waitlist and will be notified{' '}
+        your commitment to joining the technology community. We would love to see you at{' '}
+        {copyText(activeHackathon).hackathonName} this year; however, at the moment, we cannot
+        confirm a spot for you. You have been put on our waitlist and will be notified{' '}
         {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
         then!
         <HR />
@@ -256,10 +257,10 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     blurb: (
       <>
         Hi {hackerName}, we are sorry to inform you that we won't be able to give you a spot at{' '}
-        {copyText.hackathonName}. We had a lot of amazing applicants this year, and we are very
-        grateful to have gotten yours, but we can't take everyone. We do hope to see your
-        application next year and that this setback isn't the end of your tech career. Please visit
-        our site{' '}
+        {copyText(activeHackathon).hackathonName}. We had a lot of amazing applicants this year, and
+        we are very grateful to have gotten yours, but we can't take everyone. We do hope to see
+        your application next year and that this setback isn't the end of your tech career. Please
+        visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
         </A>{' '}
@@ -271,7 +272,11 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
     // blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${
+      copyText(activeHackathon).hackathonName
+    } over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${
+      relevantDates?.rsvpBy
+    } to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -282,15 +287,19 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
         </span>
       </>
     ),
-    blurb: `We can't wait to see you at ${copyText.hackathonName}! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${copyText.hackathonName} anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
+    blurb: `We can't wait to see you at ${
+      copyText(activeHackathon).hackathonName
+    }! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${
+      copyText(activeHackathon).hackathonName
+    } anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
   },
   acceptedUnRSVP: {
     sidebarText: "Un-RSVP'd",
     cardText: "Un-RSVP'd",
     blurb: (
       <>
-        We're sorry you won't be attending {copyText.hackathonName}. We do hope to see you at our
-        future events, visit our site{' '}
+        We're sorry you won't be attending {copyText(activeHackathon).hackathonName}. We do hope to
+        see you at our future events, visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
         </A>{' '}
@@ -304,8 +313,8 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     cardText: 'No RSVP',
     blurb: (
       <>
-        We're sorry you won't be attending {copyText.hackathonName}. We do hope to see you at our
-        future events, visit our site{' '}
+        We're sorry you won't be attending {copyText(activeHackathon).hackathonName}. We do hope to
+        see you at our future events, visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
         </A>{' '}
@@ -318,7 +327,9 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     sidebarText: 'Not Submitted',
     cardText: 'Not Submitted',
     // blurb: `Your application has not been submitted. Please complete your application and submit before the deadline on ${relevantDates?.applicationDeadline} in order to join us at ${copyText.hackathonName}!`,
-    blurb: `Your application has not been submitted. Please complete your application and submit before February 22, 2024 in order to join us at ${copyText.hackathonName}!`,
+    blurb: `Your application has not been submitted. Please complete your application and submit before ${
+      relevantDates?.applicationDeadline
+    } in order to join us at ${copyText(activeHackathon).hackathonName}!`,
   },
 })
 
@@ -394,6 +405,7 @@ const Dashboard = ({
   waiverName,
   waiverLoading,
 }) => {
+  const { activeHackathon } = useHackathon()
   // const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
   const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
   const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
@@ -446,6 +458,19 @@ const Dashboard = ({
     setNwMentorshipSelect(e.target.value)
   }
 
+  const header = activeHackathon => {
+    switch (activeHackathon) {
+      case 'hackcamp':
+        return 'HackCamp 2024 is the largest beginner-only hackathon in Western Canada!'
+      case 'nwHacks':
+        return 'nwHacks 2025 is the largest hackathon in Western Canada!'
+      case 'cmd-f':
+        return "cmd-f 2025 is Western Canada's largest hackathon celebrating underrepresented genders in tech!"
+      default:
+        return ''
+    }
+  }
+
   return (
     <Container>
       <WelcomeHeader>
@@ -457,15 +482,12 @@ const Dashboard = ({
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>
-            cmd-f 2024 is Western Canada's largest hackathon celebrating underrepresented genders in
-            tech!
-          </AppStatusText>
+          <AppStatusText>{header(activeHackathon)}</AppStatusText>
           <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
           <StatusBlurbText>
-            {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}
+            {hackerStatuses(relevantDates, username, activeHackathon)[hackerStatus]?.blurb}
           </StatusBlurbText>
         </div>
         <div>
