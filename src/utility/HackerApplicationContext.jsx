@@ -56,7 +56,6 @@ export function HackerApplicationProvider({ children }) {
         setIsLoading(false)
         return
       }
-
       const app = await getUserApplication(user.uid, dbHackathonName)
       fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
       setApplication(app)
