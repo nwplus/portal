@@ -163,7 +163,7 @@ export function HackerApplicationProvider({ children }) {
     })
   }, [])
 
-  if (isLoading || applicationOpen === null) {
+  if (isLoading || applicationOpen === null || application === null) {
     return null
   }
 
