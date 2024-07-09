@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Form from '../components/Judging/SubmissionForm'
 import { APPLICATION_STATUS } from '../utility/Constants'
 import { projectsRef, applicantsRef, createProject, updateProject } from '../utility/firebase'
+import { useHackathon } from '../utility/HackathonProvider'
 
 // Redirect for successful submissions + leaving of project
 const REDIRECT_TIMEOUT = 3000
@@ -15,21 +16,22 @@ const SubmissionLink = ({ user, refreshCallback }) => {
   const [error, setError] = useState(null)
   const [successMsg, setSuccessMsg] = useState('')
   const [userData, setUserData] = useState({})
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     const getProject = async () => {
-      const userDoc = await applicantsRef.doc(user.uid).get()
+      const userDoc = await applicantsRef(dbHackathonName).doc(user.uid).get()
       if (!userDoc.exists) {
         return
       }
       const userData = userDoc.data()
       const projectId = userData.submittedProject
       if (projectId) {
-        const projectDoc = await projectsRef.doc(projectId).get()
+        const projectDoc = await projectsRef(dbHackathonName).doc(projectId).get()
         if (projectDoc.exists) {
           setProject({ ...projectDoc.data(), uid: projectDoc.id })
         } else {
-          await applicantsRef.doc(user.uid).update({
+          await applicantsRef(dbHackathonName).doc(user.uid).update({
             submittedProject: '',
           })
         }
@@ -45,7 +47,7 @@ const SubmissionLink = ({ user, refreshCallback }) => {
       setUserData(userData)
     }
     getProject()
-  }, [user.uid])
+  }, [user.uid, dbHackathonName])
 
   const submit = async projectSubmission => {
     if (isSubmitting) {
@@ -65,7 +67,9 @@ const SubmissionLink = ({ user, refreshCallback }) => {
         // Update the submittedProject for each user
         await Promise.all(
           projectSubmission.teamMembers.map(async member => {
-            const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+            const res = await applicantsRef(dbHackathonName)
+              .where('basicInfo.email', '==', member.email)
+              .get()
             if (res.docs.length > 0) {
               const userData = res.docs[0].data()
               const { applicationStatus, attending, responded } = userData.status
@@ -80,7 +84,7 @@ const SubmissionLink = ({ user, refreshCallback }) => {
                 )
               } else {
                 validMembers.push(member)
-                return await applicantsRef
+                return await applicantsRef(dbHackathonName)
                   .doc(res.docs[0].id)
                   .update({ submittedProject: projectId })
               }
@@ -92,10 +96,15 @@ const SubmissionLink = ({ user, refreshCallback }) => {
 
         // If there are no errors, update project with new information
         if (!error) {
-          await updateProject(user.email, projectId, {
-            ...projectSubmission,
-            teamMembers: validMembers,
-          })
+          await updateProject(
+            user.email,
+            projectId,
+            {
+              ...projectSubmission,
+              teamMembers: validMembers,
+            },
+            dbHackathonName
+          )
           setSuccessMsg('Successfully saved project - redirecting soon!')
           setTimeout(() => window.location.reload(), REDIRECT_TIMEOUT)
         } else {
@@ -115,7 +124,9 @@ const SubmissionLink = ({ user, refreshCallback }) => {
         // Update the submittedProject for each user
         await Promise.all(
           projectSubmission.teamMembers.map(async member => {
-            const res = await applicantsRef.where('basicInfo.email', '==', member.email).get()
+            const res = await applicantsRef(dbHackathonName)
+              .where('basicInfo.email', '==', member.email)
+              .get()
             if (res.docs.length > 0) {
               const userData = res.docs[0].data()
               const { applicationStatus, attending, responded } = userData.status
@@ -141,13 +152,19 @@ const SubmissionLink = ({ user, refreshCallback }) => {
 
         // If there are no errors, create a new project with new information (and only valid members)
         if (!error) {
-          const project = await createProject(user.email, {
-            ...projectSubmission,
-            teamMembers: validMembers,
-            countAssigned: 0,
-          })
+          const project = await createProject(
+            user.email,
+            {
+              ...projectSubmission,
+              teamMembers: validMembers,
+              countAssigned: 0,
+            },
+            dbHackathonName
+          )
           validMembers.forEach(async member => {
-            await applicantsRef.doc(member.id).update({ submittedProject: project.id })
+            await applicantsRef(dbHackathonName)
+              .doc(member.id)
+              .update({ submittedProject: project.id })
           })
           setSuccessMsg('Successfully saved project - redirecting soon!')
           setTimeout(() => window.location.reload(), REDIRECT_TIMEOUT)
@@ -170,16 +187,16 @@ const SubmissionLink = ({ user, refreshCallback }) => {
 
     if (project.teamMembers.length === 1) {
       // current member is the last team member on the project
-      await projectsRef.doc(project.uid).delete()
+      await projectsRef(dbHackathonName).doc(project.uid).delete()
     } else {
       // remove current member from the project
       const updatedTeamMember = project.teamMembers.filter(
         teamMember => teamMember.email !== user.email
       )
-      await projectsRef.doc(project.uid).update({ teamMembers: updatedTeamMember })
+      await projectsRef(dbHackathonName).doc(project.uid).update({ teamMembers: updatedTeamMember })
     }
 
-    await applicantsRef.doc(user.uid).update({
+    await applicantsRef(dbHackathonName).doc(user.uid).update({
       submittedProject: '',
     })
     setIsLeaving(false)

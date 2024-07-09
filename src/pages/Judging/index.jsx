@@ -7,14 +7,15 @@ import { formatProject } from '../../utility/utilities'
 import JudgingCard from '../../components/Judging/JudgingCard'
 import { useAuth } from '../../utility/Auth'
 import { PROJECTS_TO_JUDGE_COUNT } from '../../utility/Constants'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const StyledJudgingCard = styled(JudgingCard)`
   max-height: 400px;
 `
 
-const getProjects = async (userId, projectId) => {
+const getProjects = async (userId, projectId, dbHackathonName) => {
   const getAndAssignProjects = async () => {
-    const projectDocs = await projectsRef
+    const projectDocs = await projectsRef(dbHackathonName)
       .where('draftStatus', '==', 'public')
       .orderBy('countAssigned')
       .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
@@ -28,17 +29,19 @@ const getProjects = async (userId, projectId) => {
 
     // increment assigned counters
     projectIds.forEach(projectId => {
-      batch.update(projectsRef.doc(projectId), { countAssigned: firestore.FieldValue.increment(1) })
+      batch.update(projectsRef(dbHackathonName).doc(projectId), {
+        countAssigned: firestore.FieldValue.increment(1),
+      })
     })
 
     // add projects to user
-    batch.update(applicantsRef.doc(userId), { projectsAssigned: projectIds })
+    batch.update(applicantsRef(dbHackathonName).doc(userId), { projectsAssigned: projectIds })
     await batch.commit()
     return projectIds
   }
 
   const queryProjects = async projectIds => {
-    const projectDocs = await projectsRef
+    const projectDocs = await projectsRef(dbHackathonName)
       .where(firestore.FieldPath.documentId(), 'in', projectIds)
       .get()
     if (projectDocs.docs.length < 1) {
@@ -58,7 +61,7 @@ const getProjects = async (userId, projectId) => {
     })
   }
 
-  const applicantDoc = await applicantsRef.doc(userId).get()
+  const applicantDoc = await applicantsRef(dbHackathonName).doc(userId).get()
   const applicantData = applicantDoc.data()
   const projectsAssigned =
     applicantData.projectsAssigned && applicantData.projectsAssigned.length > 0
@@ -72,20 +75,21 @@ const Judging = () => {
   const [isBlocked, setIsBlocked] = useState()
   const { user } = useAuth()
   const [projects, setProjects] = useState([])
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     ;(async () => {
-      const { submittedProject } = (await applicantsRef.doc(user.uid).get()).data()
+      const { submittedProject } = (await applicantsRef(dbHackathonName).doc(user.uid).get()).data()
       const isValidProject = submittedProject
-        ? (await projectsRef.doc(submittedProject).get()).exists
+        ? (await projectsRef(dbHackathonName).doc(submittedProject).get()).exists
         : false
       if (!isValidProject) {
         setIsBlocked(true)
       } else {
-        setProjects(await getProjects(user.uid, submittedProject))
+        setProjects(await getProjects(user.uid, submittedProject, dbHackathonName))
       }
     })()
-  }, [user.uid])
+  }, [user.uid, dbHackathonName])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))

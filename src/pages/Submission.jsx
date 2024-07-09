@@ -5,24 +5,26 @@ import HeroPage, { Loading } from '../components/HeroPage'
 import { useAuth } from '../utility/Auth'
 import SubmissionLink from '../containers/SubmissionLink'
 import { formatProject } from '../utility/utilities'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const Submissions = () => {
   const [isSubmissionsOpen, setIsSubmissionsOpen] = useState()
   const [isJudgingReleased, setIsJudgingReleased] = useState()
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
+  const { dbHackathonName } = useHackathon()
 
   const reportGrade = async id => {
     const score = {
       ...submission.grades[id],
       reported: true,
     }
-    await submitGrade(submission.id, score, { uid: id })
+    await submitGrade(submission.id, score, { uid: id }, dbHackathonName)
     window.location.reload()
   }
 
   const getProject = async () => {
-    const d = await getUserApplication(user.uid)
+    const d = await getUserApplication(user.uid, dbHackathonName)
 
     if (!d.submittedProject) {
       setSubmission(false)
@@ -30,7 +32,7 @@ const Submissions = () => {
     }
 
     const submittedProjectRef = d.submittedProject
-    const submission = await getSubmission(submittedProjectRef)
+    const submission = await getSubmission(submittedProjectRef, dbHackathonName)
     if (!!submittedProjectRef && submission.exists) {
       Object.keys(submission.grades ?? {}).forEach(id => {
         if (submission.grades[id].removed) {

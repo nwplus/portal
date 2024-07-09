@@ -5,6 +5,7 @@ import { getUserStatus, analytics, livesiteDocRef } from './firebase'
 import { REDIRECT_STATUS, ANALYTICS_EVENTS } from './Constants'
 import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
+import { useHackathon } from './HackathonProvider'
 
 const AuthContext = createContext()
 
@@ -21,6 +22,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [, setLocation] = useLocation()
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     return firebase.auth().onAuthStateChanged(async currUser => {
@@ -29,7 +31,7 @@ export function AuthProvider({ children }) {
         analytics.setUserId(null)
         return
       }
-      const { redirect, status } = await getUserStatus(currUser)
+      const { redirect, status } = await getUserStatus(currUser, dbHackathonName)
       currUser.status = status
       currUser.redirect = redirect
       const admin = await checkAdminClaim(currUser)
@@ -38,7 +40,7 @@ export function AuthProvider({ children }) {
       setLoading(false)
       analytics.setUserId(currUser.uid)
     })
-  })
+  }, [dbHackathonName])
 
   const logout = async () => {
     analytics.logEvent(ANALYTICS_EVENTS.Logout, { userId: user.uid })
@@ -56,9 +58,9 @@ export function AuthProvider({ children }) {
   )
 }
 
-const handleUser = async (setUser, setLocation, activeHackathon) => {
+const handleUser = async (setUser, setLocation, activeHackathon, dbHackathonName) => {
   const user = firebase.auth().currentUser
-  const { redirect, status } = await getUserStatus(user)
+  const { redirect, status } = await getUserStatus(user, dbHackathonName)
   // alert(redirect, status)
   user.status = status
   user.redirect = redirect
@@ -95,12 +97,12 @@ export const handleRedirect = async (redirect, setLocationCallback, activeHackat
   )
 }
 
-export const googleSignIn = async (setUser, setLocation, activeHackathon) => {
+export const googleSignIn = async (setUser, setLocation, activeHackathon, dbHackathonName) => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   const provider = new firebase.auth.GoogleAuthProvider()
   try {
     await firebase.auth().signInWithPopup(provider)
-    await handleUser(setUser, setLocation, activeHackathon)
+    await handleUser(setUser, setLocation, activeHackathon, dbHackathonName)
     return null
   } catch (e) {
     console.error(e)
@@ -108,12 +110,12 @@ export const googleSignIn = async (setUser, setLocation, activeHackathon) => {
   }
 }
 
-export const githubSignIn = async (setUser, setLocation, activeHackathon) => {
+export const githubSignIn = async (setUser, setLocation, activeHackathon, dbHackathonName) => {
   await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
   const provider = new firebase.auth.GithubAuthProvider()
   try {
     await firebase.auth().signInWithPopup(provider)
-    await handleUser(setUser, setLocation, activeHackathon)
+    await handleUser(setUser, setLocation, activeHackathon, dbHackathonName)
     return null
   } catch (e) {
     return e

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Sponsors from '../components/SponsorLogos'
 import { getSponsors } from '../utility/firebase'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const CenteredH2 = styled.h2`
   text-align: center;
@@ -10,16 +11,17 @@ const CenteredH2 = styled.h2`
 
 const SponsorLogos = () => {
   const [sponsors, setSponsors] = useState([])
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     // Filter out in-kind sponsors
-    getSponsors().then(docs => {
+    getSponsors(dbHackathonName).then(docs => {
       const filteredDocs = docs.filter(
         doc => doc.data().tier && doc.data().tier.toLowerCase() !== 'inkind'
       )
       setSponsors(filteredDocs.map(doc => doc.data()))
     })
-  }, [setSponsors])
+  }, [dbHackathonName])
 
   return sponsors.length ? (
     <>

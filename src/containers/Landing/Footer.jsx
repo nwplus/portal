@@ -5,6 +5,7 @@ import { SOCIAL_LINKS } from '../../utility/Constants'
 import { CenterHorizontally } from '../../components/Common'
 import Icon from '../../components/Icon'
 import { getSponsors } from '../../utility/firebase'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const SponsorsContainer = styled.div`
   width: 100%;
@@ -66,16 +67,17 @@ const CopyrightBlurb = styled(P)`
 
 const Footer = () => {
   const [sponsors, setSponsors] = useState([])
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    getSponsors().then(docs => {
+    getSponsors(dbHackathonName).then(docs => {
       // only keep non-inkind sponsors
       const filteredDocs = docs.filter(
         doc => doc.data().tier && doc.data().tier.toLowerCase() !== 'inkind'
       )
       setSponsors(filteredDocs.map(doc => doc.data()))
     })
-  }, [setSponsors])
+  }, [dbHackathonName])
 
   const SponsorList = sponsors.map(sponsor => <SponsorLogo src={sponsor.imgURL} />)
 

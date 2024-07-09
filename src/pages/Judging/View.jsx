@@ -7,6 +7,7 @@ import Toast from '../../components/Toast'
 import { getLivesiteDoc, projectsRef, applicantsRef, submitGrade } from '../../utility/firebase'
 import { useAuth } from '../../utility/Auth'
 import { defaultScoreFromRubric, isUngraded } from '../../utility/Constants'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const REDIRECT_TIMEOUT = 3000
 
@@ -21,16 +22,17 @@ const View = ({ id }) => {
   const [success, setSuccess] = useState(false)
   const [score, setScore] = useState(defaultScoreFromRubric())
   const [project, setProject] = useState()
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     ;(async () => {
-      const applicantDoc = await applicantsRef.doc(user.uid).get()
+      const applicantDoc = await applicantsRef(dbHackathonName).doc(user.uid).get()
       const { projectsAssigned } = applicantDoc.data()
       if (!projectsAssigned.includes(id)) {
         setPageBlocked('Project not found')
         return
       }
-      const projectDoc = await projectsRef.doc(id).get()
+      const projectDoc = await projectsRef(dbHackathonName).doc(id).get()
       const data = projectDoc.data()
       if (data.grades && data.grades[user.uid]) {
         setPageBlocked('You already graded this project')
@@ -38,7 +40,7 @@ const View = ({ id }) => {
       }
       setProject(data)
     })()
-  }, [id, user.uid])
+  }, [id, user.uid, dbHackathonName])
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
@@ -51,7 +53,7 @@ const View = ({ id }) => {
     } else if (!isSubmitting) {
       setFormError(false)
       setIsSubmitting(true)
-      await submitGrade(id, score, user, setShowError)
+      await submitGrade(id, score, user, dbHackathonName, setShowError)
       setIsSubmitting(false)
       setSuccess(true)
       setTimeout(() => setLocation('/judging'), REDIRECT_TIMEOUT)
