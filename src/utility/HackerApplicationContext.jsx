@@ -42,20 +42,25 @@ export const uploadWaiverToStorage = async (userId, file) => {
 
 export function HackerApplicationProvider({ children }) {
   const { user } = useAuth()
-  const [application, setApplication] = useState(HACKER_APPLICATION_TEMPLATE)
+  const [application, setApplication] = useState(null)
   const [, setUpdated] = useState(false)
   const [applicationOpen, setApplicationOpen] = useState(null)
   const applicationRef = useRef()
   const { dbHackathonName } = useHackathon()
+  const [isLoading, setIsLoading] = useState(true)
 
   /**Initialize retrieval of hacker application */
   useEffect(() => {
     const retrieveApplication = async () => {
-      if (!user) return
+      if (!user) {
+        setIsLoading(false)
+        return
+      }
       const app = await getUserApplication(user.uid, dbHackathonName)
       fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
       setApplication(app)
       setUpdated(false)
+      setIsLoading(false)
       analytics.logEvent(ANALYTICS_EVENTS.AccessApplication, { userId: user.uid })
     }
     retrieveApplication()
@@ -158,7 +163,7 @@ export function HackerApplicationProvider({ children }) {
     })
   }, [])
 
-  if (applicationOpen === null || application === undefined) {
+  if (isLoading || applicationOpen === null || application === null) {
     return null
   }
 
