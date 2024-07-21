@@ -21,8 +21,8 @@ import {
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
 import { AuthProvider } from './utility/Auth'
-import { DB_COLLECTION, DB_HACKATHON, IS_DEVICE_IOS } from './utility/Constants'
-import HackathonProvider from './utility/HackathonProvider'
+import { DB_COLLECTION, IS_DEVICE_IOS } from './utility/Constants'
+import { useHackathon } from './utility/HackathonProvider'
 import { HackerApplicationProvider } from './utility/HackerApplicationContext'
 import {
   AdminAuthPageRoute,
@@ -45,6 +45,7 @@ import notifications from './utility/notifications'
 function App() {
   const [announcementText, setAnnouncementText] = useState('')
   const [location] = useLocation()
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     if (location === '/') {
@@ -55,7 +56,7 @@ function App() {
 
   const notifyUser = async announcementId => {
     // grab announcement from firebase to check if removed, if doesn't exist anymore don't send
-    const announcement = await getAnnouncement(announcementId)
+    const announcement = await getAnnouncement(announcementId, dbHackathonName)
     if (!announcement) return
     // only notify user if announcement is scheduled within last 5 secs
     const isRecent = new Date() - new Date(announcement.announcementTime) < 5000
@@ -71,7 +72,7 @@ function App() {
   useEffect(() => {
     const unsubscribe = db
       .collection(DB_COLLECTION)
-      .doc(DB_HACKATHON)
+      .doc(dbHackathonName)
       .collection('Announcements')
       .orderBy('timestamp', 'desc')
       .onSnapshot(querySnapshot => {
@@ -90,107 +91,102 @@ function App() {
         }
       })
     return unsubscribe
-  }, [])
+  }, [dbHackathonName])
 
   return (
-    <HackathonProvider>
-      <ThemeProvider>
-        <GlobalStyle />
-        <AuthProvider>
-          <AnnouncementToast text={announcementText} />
-          <Switch>
-            <Route path="/">
-              <Landing>
-                <Link href="/app/hackcamp">
-                  <A>Hackcamp</A>
-                </Link>
-                <br />
-                <Link href="/app/nwhacks">
-                  <A>nwHacks</A>
-                </Link>
-                <br />
-                <Link href="/app/cmd-f">
-                  <A>cmd-f</A>
-                </Link>
-              </Landing>
-            </Route>
-            <NoAuthRoute path="/login">
-              <Login />
-            </NoAuthRoute>
-            <Route path="/app/:hackathon/:any*">
-              {params => (
-                <NestedRoutes base={`/app/${params.hackathon}`}>
-                  <Switch>
-                    <PageRoute path="/">
-                      <Home />
-                    </PageRoute>
-                    <PageRoute path="/charcuterie">
-                      <Charcuterie />
-                    </PageRoute>
-                    <PageRoute path="/faq">
-                      <Faq />
-                    </PageRoute>
-                    <PageRoute path="/schedule">
-                      <Schedule />
-                    </PageRoute>
-                    <PageRoute path="/livestream">
-                      <Livestream />
-                    </PageRoute>
-                    <PageRoute path="/sponsors">
-                      <Sponsors />
-                    </PageRoute>
+    <ThemeProvider>
+      <GlobalStyle />
+      <AuthProvider>
+        <AnnouncementToast text={announcementText} />
+        <Switch>
+          <Route path="/">
+            <Landing>
+              <Link href="/app/hackcamp">
+                <A>Hackcamp</A>
+              </Link>
+              <br />
+              <Link href="/app/nwhacks">
+                <A>nwHacks</A>
+              </Link>
+              <br />
+              <Link href="/app/cmd-f">
+                <A>cmd-f</A>
+              </Link>
+            </Landing>
+          </Route>
+          <NoAuthRoute path="/login">
+            <Login />
+          </NoAuthRoute>
+          <Route path="/app/:hackathon/:any*">
+            {params => (
+              <NestedRoutes base={`/app/${params.hackathon}`}>
+                <Switch>
+                  <PageRoute path="/">
+                    <Home />
+                  </PageRoute>
+                  <PageRoute path="/charcuterie">
+                    <Charcuterie />
+                  </PageRoute>
+                  <PageRoute path="/faq">
+                    <Faq />
+                  </PageRoute>
+                  <PageRoute path="/schedule">
+                    <Schedule />
+                  </PageRoute>
+                  <PageRoute path="/livestream">
+                    <Livestream />
+                  </PageRoute>
+                  <PageRoute path="/sponsors">
+                    <Sponsors />
+                  </PageRoute>
 
-                    <AuthPageRoute path="/judging">
-                      <Judging />
-                    </AuthPageRoute>
+                  <AuthPageRoute path="/judging">
+                    <Judging />
+                  </AuthPageRoute>
 
-                    <AdminAuthPageRoute path="/judging/admin">
-                      <JudgingAdmin />
-                    </AdminAuthPageRoute>
+                  <AdminAuthPageRoute path="/judging/admin">
+                    <JudgingAdmin />
+                  </AdminAuthPageRoute>
 
-                    <Route path="/judging/view/:id" component={JudgingViewContainer} />
-                    <Route path="/projects" component={GalleryContainer} />
-                    <Route path="/projects/:id" component={ProjectViewContainer} />
+                  <Route path="/judging/view/:id" component={JudgingViewContainer} />
+                  <Route path="/projects" component={GalleryContainer} />
+                  <Route path="/projects/:id" component={ProjectViewContainer} />
 
-                    <AuthPageRoute path="/submission">
-                      <Submission />
-                    </AuthPageRoute>
+                  <AuthPageRoute path="/submission">
+                    <Submission />
+                  </AuthPageRoute>
 
-                    <HackerApplicationProvider>
-                      <Switch>
-                        <Route
-                          path="/application"
-                          component={ApplicationDashboardRoutingContainer}
-                        />
-                        <ApplicationInProgressRoute path="/application/review" name handleLogout>
-                          <ApplicationReview />
-                        </ApplicationInProgressRoute>
-                        <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
-                          <ApplicationConfirmation />
-                        </ApplicationInProgressRoute>
-                        <Route path="/application/:part" handleLogout>
-                          {params => <ApplicationFormContainer part={params.part} />}
-                        </Route>
-                      </Switch>
-                    </HackerApplicationProvider>
+                  <HackerApplicationProvider>
+                    <Switch>
+                      <Route path="/application" component={ApplicationDashboardRoutingContainer} />
+                      <ApplicationInProgressRoute path="/application/review" name handleLogout>
+                        <ApplicationReview />
+                      </ApplicationInProgressRoute>
+                      <ApplicationInProgressRoute path="/application/confirmation" handleLogout>
+                        <ApplicationConfirmation />
+                      </ApplicationInProgressRoute>
+                      <Route path="/application/:part" handleLogout>
+                        {params => <ApplicationFormContainer part={params.part} />}
+                      </Route>
+                    </Switch>
+                  </HackerApplicationProvider>
 
-                    <Route>
-                      <Redirect to="~/404" />
-                    </Route>
-                  </Switch>
-                </NestedRoutes>
-              )}
-            </Route>
-            <Route path="/404">
-              <NotFound />
-            </Route>
-            <Route>
-              <Redirect to="/404" />
-            </Route>
-          </Switch>
-        </AuthProvider>
-      </ThemeProvider>
-    </HackathonProvider>
+                  <Route>
+                    <Redirect to="~/404" />
+                  </Route>
+                </Switch>
+              </NestedRoutes>
+            )}
+          </Route>
+          <Route path="/404">
+            <NotFound />
+          </Route>
+          <Route>
+            <Redirect to="/404" />
+          </Route>
+        </Switch>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }
 

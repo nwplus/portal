@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Button } from '../components/Input'
 import { db } from '../utility/firebase'
-import { DB_COLLECTION, DB_HACKATHON } from '../utility/Constants'
+import { DB_COLLECTION } from '../utility/Constants'
 import Quicklinks from '../components/Quicklinks'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const ButtonContainer = styled.div`
   margin: 1em;
@@ -18,10 +19,10 @@ const ButtonContainer = styled.div`
   }
 `
 
-const getCommonLinks = () => {
+const getCommonLinks = dbHackathonName => {
   return db
     .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
+    .doc(dbHackathonName)
     .collection('QuickLinks')
     .where('common', '==', true)
     .orderBy('label')
@@ -33,14 +34,15 @@ const getCommonLinks = () => {
 
 export const CommonLinks = () => {
   const [links, setLinks] = useState([])
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
     ;(async () => {
-      const commonLinkDocs = await getCommonLinks()
+      const commonLinkDocs = await getCommonLinks(dbHackathonName)
       const commonLinks = commonLinkDocs.map(doc => doc.data())
       setLinks(commonLinks)
     })()
-  }, [])
+  }, [dbHackathonName])
 
   return (
     <ButtonContainer>
@@ -53,10 +55,10 @@ export const CommonLinks = () => {
   )
 }
 
-const getAllLinks = () => {
+const getAllLinks = dbHackathonName => {
   return db
     .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
+    .doc(dbHackathonName)
     .collection('QuickLinks')
     .orderBy('label')
     .get()
@@ -67,9 +69,10 @@ const getAllLinks = () => {
 
 export const QuickLinks = () => {
   const [links, setLinks] = useState([])
+  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    getAllLinks()
+    getAllLinks(dbHackathonName)
       .then(docs => {
         // Only keep the uncommon links
         return Object.values(
@@ -83,6 +86,6 @@ export const QuickLinks = () => {
       .then(links => {
         setLinks(links)
       })
-  }, [setLinks])
+  }, [setLinks, dbHackathonName])
   return <Quicklinks links={links} />
 }

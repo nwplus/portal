@@ -6,11 +6,10 @@ import { Button } from '../components/Input'
 import google from '../assets/icons/google.svg'
 import github from '../assets/icons/github.svg'
 import { useAuth, googleSignIn, githubSignIn } from '../utility/Auth'
-import { DB_HACKATHON, FIREBASE_AUTH_ERROR } from '../utility/Constants'
+import { FIREBASE_AUTH_ERROR } from '../utility/Constants'
 import { useLocation } from 'wouter'
 import Toast from '../components/Toast'
 import { A } from '../components/Typography'
-import { copyText } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const ErrorMessage = ({ message }) => (
@@ -66,15 +65,15 @@ const Login = () => {
   const { setUser } = useAuth()
   const [, setLocation] = useLocation()
   const [error, setError] = useState(null)
-  const { activeHackathon } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   const signInWithGoogle = async () => {
-    const error = await googleSignIn(setUser, setLocation, activeHackathon)
+    const error = await googleSignIn(setUser, setLocation, activeHackathon, dbHackathonName)
     setError(error)
   }
 
   const signInWithGithub = async () => {
-    const error = await githubSignIn(setUser, setLocation, activeHackathon)
+    const error = await githubSignIn(setUser, setLocation, activeHackathon, dbHackathonName)
     setError(error)
   }
 
