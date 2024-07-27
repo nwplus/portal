@@ -8,7 +8,6 @@ import {
   getLivesiteDoc,
 } from './firebase'
 import firebase from 'firebase/app'
-import Spinner from '../components/Loading'
 import { ANALYTICS_EVENTS, HACKER_APPLICATION_TEMPLATE } from './Constants'
 import Closed from '../pages/Application/Closed'
 import { fillMissingProperties, useDebounce } from './utilities'
@@ -50,21 +49,21 @@ export function HackerApplicationProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true)
 
   /**Initialize retrieval of hacker application */
-  useEffect(() => {
-    const retrieveApplication = async () => {
-      if (!user) {
-        setIsLoading(false)
-        return
-      }
-      const app = await getUserApplication(user.uid, dbHackathonName)
-      fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
-      setApplication(app)
-      setUpdated(false)
-      setIsLoading(false)
-      analytics.logEvent(ANALYTICS_EVENTS.AccessApplication, { userId: user.uid })
-    }
-    retrieveApplication()
-  }, [user, dbHackathonName])
+  // useEffect(() => {
+  //   const retrieveApplication = async () => {
+  //     if (!user) {
+  //       setIsLoading(false)
+  //       return
+  //     }
+  //     const app = await getUserApplication(user.uid, dbHackathonName)
+  //     fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
+  //     setApplication(app)
+  //     setUpdated(false)
+  //     setIsLoading(false)
+  //     analytics.logEvent(ANALYTICS_EVENTS.AccessApplication, { userId: user.uid })
+  //   }
+  //   retrieveApplication()
+  // }, [user, dbHackathonName])
 
   /**Saves the users application, can be called manually or through interval */
   /**Uses a reference to the application because I don't want all my useEffects triggering every time someone changes the application. */
@@ -84,18 +83,40 @@ export function HackerApplicationProvider({ children }) {
   }, [user, dbHackathonName])
 
   /**Initialize retrieval of hacker application */
+  // useEffect(() => {
+  //   const retrieveApplication = async () => {
+  //     if (!user) return
+  //     const app = await getUserApplication(user.uid, dbHackathonName)
+  //     fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
+  //     setApplication(app)
+  //     applicationRef.current = app
+  //     setUpdated(false)
+  //   }
+  //   retrieveApplication()
+  //   return async () => {
+  //     await forceSave()
+  //   }
+  // }, [forceSave, user, dbHackathonName])
+
   useEffect(() => {
     const retrieveApplication = async () => {
-      if (!user) return
+      if (!user) {
+        setIsLoading(false)
+        return
+      }
       const app = await getUserApplication(user.uid, dbHackathonName)
       fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
       setApplication(app)
       applicationRef.current = app
       setUpdated(false)
+      setIsLoading(false)
     }
     retrieveApplication()
-    return async () => {
-      await forceSave()
+
+    return () => {
+      if (user) {
+        forceSave()
+      }
     }
   }, [forceSave, user, dbHackathonName])
 
@@ -163,7 +184,7 @@ export function HackerApplicationProvider({ children }) {
     })
   }, [])
 
-  if (isLoading || applicationOpen === null || application === null) {
+  if (isLoading || applicationOpen === null) {
     return null
   }
 
