@@ -13,25 +13,25 @@ export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !wi
 export const copyText = activeHackathon => {
   switch (activeHackathon) {
     case 'hackcamp':
-      return {
+      return Object.freeze({
         hackathonName: 'HackCamp 2024',
         hackathonNameShort: 'HackCamp',
-      }
+      })
     case 'nwhacks':
-      return {
+      return Object.freeze({
         hackathonName: 'nwHacks 2025',
         hackathonNameShort: 'nwHacks',
-      }
+      })
     case 'cmd-f':
-      return {
+      return Object.freeze({
         hackathonName: 'cmd-f 2025',
         hackathonNameShort: 'cmd-f',
-      }
+      })
     default:
-      return {
+      return Object.freeze({
         hackathonName: 'undefined',
         hackathonNameShort: 'undefined',
-      }
+      })
   }
 }
 
@@ -42,16 +42,6 @@ export const NOTIFICATION_PERMISSIONS = Object.freeze({
   GRANTED: 'granted',
   DEFAULT: 'default',
   DENIED: 'denied',
-})
-
-export const WAIVER_LINKS = Object.freeze({
-  COVID:
-    'https://docs.google.com/document/d/1OlcOiEPSjngFKFEndG6wBBOYm02JTpY3KldeJ9GCfIo/edit?usp=sharing',
-  RELEASE_LIABILITY:
-    'https://docs.google.com/document/d/1BfDr_S2FNNl7Xfv0fncZLzUV2pq0O91z6k6xwiN4gPw/edit?usp=sharing',
-  MEDIA:
-    'https://docs.google.com/document/d/175Rsgz5HXUpfPUqNbRpPrJTmqqxFfhxZJBXNFMDX0SU/edit?usp=sharing',
-  NWMENTORSHIP: 'https://forms.gle/nG9vwzc5HG5X5jVB8',
 })
 
 export const SOCIAL_LINKS = Object.freeze({
