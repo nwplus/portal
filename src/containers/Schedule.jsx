@@ -9,16 +9,14 @@ const Schedule = () => {
   const [events, setEvents] = useState([])
   const [start, setStart] = useState(new Date())
   const [end, setEnd] = useState(new Date())
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   useEffect(() => {
     const unsubscribe = livesiteDocRef.onSnapshot(doc => {
       const d = doc.data()
       if (d) {
-        // setStart(new Date(d.hackathonStart))
-        // setEnd(new Date(d.hackathonEnd))
-        const start = new Date(d.hackathonStart)
-        const end = new Date(d.hackathonEnd)
+        const start = new Date(d.hackathonStart[activeHackathon])
+        const end = new Date(d.hackathonEnd[activeHackathon])
         setStart(start)
         setEnd(end)
       }

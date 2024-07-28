@@ -589,7 +589,7 @@ const Dashboard = ({
                   width="130px"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={waiversAndForms.RELEASE_LIABILITY}
+                  href={waiversAndForms.releaseLiability}
                 >
                   Read Full Waiver.
                 </A>{' '}
@@ -638,7 +638,7 @@ const Dashboard = ({
                   width="130px"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={waiversAndForms.MEDIA}
+                  href={waiversAndForms.media}
                 >
                   Read Full Waiver.
                 </A>{' '}
@@ -660,7 +660,7 @@ const Dashboard = ({
                   color="primary"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={waiversAndForms.NWMENTORSHIP}
+                  href={waiversAndForms.nwMentorship}
                 >
                   Google Form
                 </A>{' '}
