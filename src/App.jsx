@@ -41,11 +41,12 @@ import {
 } from './utility/RoutingContainers'
 import { db, getAnnouncement } from './utility/firebase'
 import notifications from './utility/notifications'
+import Loading from './components/Loading'
 
 function App() {
   const [announcementText, setAnnouncementText] = useState('')
   const [location] = useLocation()
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   useEffect(() => {
     if (location === '/') {
@@ -92,6 +93,10 @@ function App() {
       })
     return unsubscribe
   }, [dbHackathonName])
+
+  if (!activeHackathon) {
+    return <Loading />
+  }
 
   return (
     <ThemeProvider>

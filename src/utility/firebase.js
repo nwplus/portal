@@ -38,7 +38,7 @@ export const applicantsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Applicants')
 }
 export const projectsRef = dbHackathonName => {
-  db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Projects')
+  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Projects')
 }
 export const announcementsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Announcements')

@@ -12,7 +12,7 @@ const Submissions = () => {
   const [isJudgingReleased, setIsJudgingReleased] = useState()
   const { user } = useAuth()
   const [submission, setSubmission] = useState()
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   const reportGrade = async id => {
     const score = {
@@ -48,8 +48,8 @@ const Submissions = () => {
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(livesiteDoc => {
-      setIsSubmissionsOpen(livesiteDoc.submissionsOpen)
-      setIsJudgingReleased(livesiteDoc.judgingReleased)
+      setIsSubmissionsOpen(livesiteDoc.submissionsOpen[activeHackathon])
+      setIsJudgingReleased(livesiteDoc.judgingReleased[activeHackathon])
     })
     return unsubscribe
   }, [setIsSubmissionsOpen])

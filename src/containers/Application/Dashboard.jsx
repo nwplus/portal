@@ -14,7 +14,7 @@ const ApplicationDashboardContainer = () => {
   const [, setLocation] = useLocation()
 
   const { application, updateApplication, forceSave } = useHackerApplication()
-  const [livesiteDoc, setLivesiteDoc] = useState(false)
+  const [livesiteDoc, setLivesiteDoc] = useState(null)
   const [relevantDates, setRelevantDates] = useState({})
   const [isRsvpOpen, setIsRsvpOpen] = useState(false)
   const [isLoadingAppStatus, setIsLoadingAppStatus] = useState(true)
@@ -43,10 +43,11 @@ const ApplicationDashboardContainer = () => {
         })
         setWaiversAndForms(d.waiversAndForms[activeHackathon])
         setNotionLinks(d.notionLinks[activeHackathon])
+        setLivesiteDoc(d)
       }
     })
     return unsubscribe
-  }, [setRelevantDates])
+  }, [activeHackathon])
 
   const { applicationStatus, responded, attending } = application.status
   let hackerStatus
@@ -180,18 +181,17 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
-  useEffect(() => {
-    const unsubscribe = getLivesiteDoc(setLivesiteDoc)
-    return unsubscribe
-  }, [setLivesiteDoc])
+  if (!livesiteDoc || isLoadingAppStatus) {
+    return null
+  }
 
-  return isLoadingAppStatus ? null : (
+  return (
     <Page hackerStatus={hackerStatus}>
       <Dashboard
         editApplication={() => setLocation('/application/part-0')}
         username={user.displayName}
         hackerStatus={hackerStatus}
-        isApplicationOpen={livesiteDoc.applicationsOpen}
+        isApplicationOpen={livesiteDoc.applicationsOpen[activeHackathon]}
         setRSVP={rsvpStatus => setRSVP(rsvpStatus)}
         canRSVP={canRSVP}
         // safewalkNote={application.basicInfo.safewalkNote || false}

@@ -8,7 +8,7 @@ import {
   getLivesiteDoc,
 } from './firebase'
 import firebase from 'firebase/app'
-import { ANALYTICS_EVENTS, HACKER_APPLICATION_TEMPLATE } from './Constants'
+import { HACKER_APPLICATION_TEMPLATE } from './Constants'
 import Closed from '../pages/Application/Closed'
 import { fillMissingProperties, useDebounce } from './utilities'
 import { useHackathon } from './HackathonProvider'
@@ -45,7 +45,7 @@ export function HackerApplicationProvider({ children }) {
   const [, setUpdated] = useState(false)
   const [applicationOpen, setApplicationOpen] = useState(null)
   const applicationRef = useRef()
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
   const [isLoading, setIsLoading] = useState(true)
 
   /**Initialize retrieval of hacker application */
@@ -180,9 +180,9 @@ export function HackerApplicationProvider({ children }) {
   /**Check if the application is open */
   useEffect(() => {
     return getLivesiteDoc(data => {
-      setApplicationOpen(data.applicationsOpen)
+      setApplicationOpen(data.applicationsOpen[activeHackathon])
     })
-  }, [])
+  }, [activeHackathon])
 
   if (isLoading || applicationOpen === null) {
     return null
