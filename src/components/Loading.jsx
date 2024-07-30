@@ -1,8 +1,8 @@
 import React from 'react'
-import { css } from '@emotion/core'
+import styled from 'styled-components'
 import MoonLoader from 'react-spinners/MoonLoader'
 
-const override = css`
+const LoaderWrapper = styled.div`
   display: block;
   position: fixed;
   top: 50%;
@@ -12,6 +12,10 @@ const override = css`
   z-index: 1031;
 `
 
-export default ({ loading, color = '#78FF96', size = 80 }) => (
-  <MoonLoader css={override} color={color} size={size} loading={loading} />
+const Loading = ({ loading, color = '#78FF96', size = 80 }) => (
+  <LoaderWrapper>
+    <MoonLoader color={color} size={size} loading={loading} />
+  </LoaderWrapper>
 )
+
+export default Loading

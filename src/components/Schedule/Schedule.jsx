@@ -19,7 +19,7 @@ const ScrollableContainer = styled.div`
   left: 0;
   margin-top: 1em;
   border-radius: 10px;
-  background: linear-gradient(to right, #404871 85%, #58618c 100%);
+  background: ${p => p.theme.colors.schedule.background};
   &:before {
     content: '';
     position: fixed;

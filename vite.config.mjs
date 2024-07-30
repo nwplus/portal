@@ -15,6 +15,20 @@ export default defineConfig(() => {
       target: browserslistToEsbuild(),
     },
     root: '.',
-    plugins: [react(), svgr()],
+    plugins: [
+      react({
+        babel: {
+          plugins: [
+            [
+              'babel-plugin-styled-components',
+              {
+                displayName: true,
+              },
+            ],
+          ],
+        },
+      }),
+      svgr(),
+    ],
   }
 })
