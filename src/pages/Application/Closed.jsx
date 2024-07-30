@@ -10,7 +10,7 @@ const Closed = () => {
 
   return (
     <Landing
-      heading={`Thanks for your interest in ${copyText(activeHackathon).hackathonName}`}
+      heading={`Thanks for your interest in ${copyText[activeHackathon].hackathonName}`}
       description={
         <>
           We are no longer accepting applications, but we do hope to see you at our future events!

@@ -10,30 +10,20 @@ export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
-export const copyText = activeHackathon => {
-  switch (activeHackathon) {
-    case 'hackcamp':
-      return Object.freeze({
-        hackathonName: 'HackCamp 2024',
-        hackathonNameShort: 'HackCamp',
-      })
-    case 'nwhacks':
-      return Object.freeze({
-        hackathonName: 'nwHacks 2025',
-        hackathonNameShort: 'nwHacks',
-      })
-    case 'cmd-f':
-      return Object.freeze({
-        hackathonName: 'cmd-f 2025',
-        hackathonNameShort: 'cmd-f',
-      })
-    default:
-      return Object.freeze({
-        hackathonName: 'undefined',
-        hackathonNameShort: 'undefined',
-      })
-  }
-}
+export const copyText = Object.freeze({
+  'hackcamp': {
+    hackathonName: 'HackCamp 2024',
+    hackathonNameShort: 'HackCamp',
+  },
+  'nwhacks': {
+    hackathonName: 'nwHacks 2025',
+    hackathonNameShort: 'nwHacks',
+  },
+  'cmd-f': {
+    hackathonName: 'cmd-f 2025',
+    hackathonNameShort: 'cmd-f',
+  },
+})
 
 export const PROJECTS_TO_JUDGE_COUNT = 4
 export const MAX_CHARACTERS_IN_DESCRIPTION = 100

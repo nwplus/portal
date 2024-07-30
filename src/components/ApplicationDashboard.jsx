@@ -224,7 +224,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
       <>
         Hi {hackerName}, we had a lovely time reading your application, and were very impressed with
         your commitment to joining the technology community. We would love to see you at{' '}
-        {copyText(activeHackathon).hackathonName} this year; however, at the moment, we cannot
+        {copyText[activeHackathon]?.hackathonName} this year; however, at the moment, we cannot
         confirm a spot for you. You have been put on our waitlist and will be notified{' '}
         {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
         then!
@@ -250,8 +250,8 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
     blurb: (
       <>
         Hi {hackerName}, we are sorry to inform you that we won't be able to give you a spot at{' '}
-        {copyText(activeHackathon).hackathonName}. We had a lot of amazing applicants this year, and
-        we are very grateful to have gotten yours, but we can't take everyone. We do hope to see
+        {copyText[activeHackathon]?.hackathonName}. We had a lot of amazing applicants this year,
+        and we are very grateful to have gotten yours, but we can't take everyone. We do hope to see
         your application next year and that this setback isn't the end of your tech career. Please
         visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
@@ -264,11 +264,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
   acceptedNoResponseYet: {
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${
-      copyText(activeHackathon).hackathonName
-    } over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${
-      relevantDates?.rsvpBy
-    } to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText[activeHackathon]?.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -279,18 +275,14 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
         </span>
       </>
     ),
-    blurb: `We can't wait to see you at ${
-      copyText(activeHackathon).hackathonName
-    }! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${
-      copyText(activeHackathon).hackathonName
-    } anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
+    blurb: `We can't wait to see you at ${copyText[activeHackathon]?.hackathonName}! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${copyText[activeHackathon]?.hackathonName} anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
   },
   acceptedUnRSVP: {
     sidebarText: "Un-RSVP'd",
     cardText: "Un-RSVP'd",
     blurb: (
       <>
-        We're sorry you won't be attending {copyText(activeHackathon).hackathonName}. We do hope to
+        We're sorry you won't be attending {copyText[activeHackathon]?.hackathonName}. We do hope to
         see you at our future events, visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
@@ -305,7 +297,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
     cardText: 'No RSVP',
     blurb: (
       <>
-        We're sorry you won't be attending {copyText(activeHackathon).hackathonName}. We do hope to
+        We're sorry you won't be attending {copyText[activeHackathon]?.hackathonName}. We do hope to
         see you at our future events, visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
@@ -318,11 +310,16 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
   inProgress: {
     sidebarText: 'Not Submitted',
     cardText: 'Not Submitted',
-    blurb: `Your application has not been submitted. Please complete your application and submit before ${
-      relevantDates?.applicationDeadline
-    } in order to join us at ${copyText(activeHackathon).hackathonName}!`,
+    blurb: `Your application has not been submitted. Please complete your application and submit before ${relevantDates?.applicationDeadline} in order to join us at ${copyText[activeHackathon]?.hackathonName}!`,
   },
 })
+
+const headerText = {
+  'hackcamp': 'HackCamp 2024 is the largest beginner-only hackathon in Western Canada!',
+  'nwhacks': 'nwHacks 2025 is the largest hackathon in Western Canada!',
+  'cmd-f':
+    "cmd-f 2025 is Western Canada's largest hackathon celebrating underrepresented genders in tech!",
+}
 
 export const SocialMediaLinks = () => {
   // TODO: Color of icons for HackCamp TBD
@@ -451,19 +448,6 @@ const Dashboard = ({
     setNwMentorshipSelect(e.target.value)
   }
 
-  const header = activeHackathon => {
-    switch (activeHackathon) {
-      case 'hackcamp':
-        return 'HackCamp 2024 is the largest beginner-only hackathon in Western Canada!'
-      case 'nwhacks':
-        return 'nwHacks 2025 is the largest hackathon in Western Canada!'
-      case 'cmd-f':
-        return "cmd-f 2025 is Western Canada's largest hackathon celebrating underrepresented genders in tech!"
-      default:
-        return ''
-    }
-  }
-
   return (
     <Container>
       <WelcomeHeader>
@@ -475,7 +459,7 @@ const Dashboard = ({
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>{header(activeHackathon)}</AppStatusText>
+          <AppStatusText>{headerText[activeHackathon]}</AppStatusText>
           <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
@@ -508,7 +492,7 @@ const Dashboard = ({
           <>
             <SelectContainer>
               <QuestionLabel>
-                Will you be attending {copyText.hackathonName} on the weekend of{' '}
+                Will you be attending {copyText[activeHackathon].hackathonName} on the weekend of{' '}
                 {relevantDates.hackathonWeekend}? <Required />
               </QuestionLabel>
               <SelectOptionContainer>
@@ -530,7 +514,7 @@ const Dashboard = ({
                   Safewalk option <Required />
                 </QuestionLabel>
                 <P>
-                  While {copyText(activeHackathon).hackathonNameShort} is a 24 hour hackathon, you
+                  While {copyText[activeHackathon].hackathonNameShort} is a 24 hour hackathon, you
                   are not required to sleep there. If you live closeby, we recommend that you sleep
                   at home on the night of {relevantDates.hackathonWeekend.split('-')[0]}. For
                   safety, we are offering a service where nwPlus organizers or volunteers walk

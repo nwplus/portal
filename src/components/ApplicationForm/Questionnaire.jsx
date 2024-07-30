@@ -4,6 +4,7 @@ import { ErrorMessage, QuestionHeading, ErrorSpan as Required } from '../Typogra
 import { copyText } from '../../utility/Constants'
 import { CenteredH1 } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 // const StyledDropdown = styled(Dropdown)`
 //   .react-select__control {
@@ -29,6 +30,7 @@ export const options = [
 
 // form part 3
 const Questionnaire = ({ errors, formInputs, onChange }) => {
+  const { activeHackathon } = useHackathon()
   return (
     <>
       <FormSpacing>
@@ -42,7 +44,7 @@ const Questionnaire = ({ errors, formInputs, onChange }) => {
       <FormSpacing>
         <QuestionHeading>Question 29</QuestionHeading>
         <SubHeading>
-          How did you hear about {copyText.hackathonName}?
+          How did you hear about {copyText[activeHackathon].hackathonName}?
           <Required />
         </SubHeading>
         {errors?.engagementSource && <ErrorMessage>{errors?.resume}</ErrorMessage>}
