@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Code, H1, H2, HR } from '../components/Typography'
 import { copyText } from '../utility/Constants'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const StyledH2 = styled(H2)`
   opacity: 1;
@@ -24,6 +25,7 @@ const StyledTable = styled.table`
 `
 
 export default function DiscordBot() {
+  const { activeHackathon } = useHackathon()
   return (
     <>
       <H1>Discord Bot</H1>
@@ -43,8 +45,8 @@ export default function DiscordBot() {
             <p>
               You will get a DM from the bot as soon as you join the server, please read it. After
               you react to the message, the bot will ask you to send it your email. Type the email
-              you used to apply to {copyText.hackathonNameShort} in the message bar, hit send. If
-              the first attempt fails, you can re-react to the message!
+              you used to apply to {copyText[activeHackathon].hackathonNameShort} in the message
+              bar, hit send. If the first attempt fails, you can re-react to the message!
             </p>
             <p>
               If you don’t get the message upon entering the server for whatever reason, you can

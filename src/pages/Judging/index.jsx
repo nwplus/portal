@@ -75,26 +75,43 @@ const Judging = () => {
   const [isBlocked, setIsBlocked] = useState()
   const { user } = useAuth()
   const [projects, setProjects] = useState([])
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   useEffect(() => {
     ;(async () => {
-      const { submittedProject } = (await applicantsRef(dbHackathonName).doc(user.uid).get()).data()
-      const isValidProject = submittedProject
-        ? (await projectsRef(dbHackathonName).doc(submittedProject).get()).exists
-        : false
-      if (!isValidProject) {
+      try {
+        const applicantDoc = await applicantsRef(dbHackathonName).doc(user.uid).get()
+        const { submittedProject } = applicantDoc.data() || {}
+
+        const projectRef = projectsRef(dbHackathonName)
+        if (!projectRef) {
+          console.error('projectsRef returned undefined')
+          setIsBlocked(true)
+          return
+        }
+
+        const isValidProject = submittedProject
+          ? (await projectRef.doc(submittedProject).get()).exists
+          : false
+
+        if (!isValidProject) {
+          setIsBlocked(true)
+        } else {
+          setProjects(await getProjects(user.uid, submittedProject, dbHackathonName))
+        }
+      } catch (error) {
+        console.error('Error in Judging component:', error)
         setIsBlocked(true)
-      } else {
-        setProjects(await getProjects(user.uid, submittedProject, dbHackathonName))
       }
     })()
   }, [user.uid, dbHackathonName])
 
   useEffect(() => {
-    const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
+    const unsubscribe = getLivesiteDoc(livesiteDoc =>
+      setIsJudgingOpen(livesiteDoc.judgingOpen[activeHackathon])
+    )
     return unsubscribe
-  }, [setIsJudgingOpen])
+  }, [activeHackathon])
 
   if (!projects || isJudgingOpen === undefined) {
     return <Loading />

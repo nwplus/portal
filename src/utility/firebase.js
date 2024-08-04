@@ -30,7 +30,7 @@ export const storage = firebase.storage()
 
 export const analytics = firebase.analytics()
 
-export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
+export const livesiteDocRef = db.collection('InternalWebsites').doc('Portal')
 export const currentHackathonRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName)
 }
@@ -38,7 +38,7 @@ export const applicantsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Applicants')
 }
 export const projectsRef = dbHackathonName => {
-  db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Projects')
+  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Projects')
 }
 export const announcementsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Announcements')

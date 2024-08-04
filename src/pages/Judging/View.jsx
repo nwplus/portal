@@ -22,7 +22,7 @@ const View = ({ id }) => {
   const [success, setSuccess] = useState(false)
   const [score, setScore] = useState(defaultScoreFromRubric())
   const [project, setProject] = useState()
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   useEffect(() => {
     ;(async () => {
@@ -43,9 +43,11 @@ const View = ({ id }) => {
   }, [id, user.uid, dbHackathonName])
 
   useEffect(() => {
-    const unsubscribe = getLivesiteDoc(livesiteDoc => setIsJudgingOpen(livesiteDoc.judgingOpen))
+    const unsubscribe = getLivesiteDoc(livesiteDoc =>
+      setIsJudgingOpen(livesiteDoc.judgingOpen[activeHackathon])
+    )
     return unsubscribe
-  }, [setIsJudgingOpen])
+  }, [activeHackathon])
 
   const submit = async () => {
     if (isUngraded(score)) {

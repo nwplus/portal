@@ -16,6 +16,7 @@ import Banner from '../Banner'
 import { Button, Checkbox } from '../Input'
 import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -103,6 +104,7 @@ const getContribution = obj => Object.keys(obj).filter(key => obj[key])
 const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
 const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
+  const { activeHackathon } = useHackathon()
   // since they're lowercase in firebase
   const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
   const countryOfResidence = capitalizeFirstLetter(formInputs.basicInfo.countryOfResidence)
@@ -372,7 +374,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               data={formInputs.skills.numHackathonsAttended}
             />
             <InfoGroup
-              heading={`Contribution at ${copyText.hackathonName}:`}
+              heading={`Contribution at ${copyText[activeHackathon].hackathonName}:`}
               data={contributionValues}
             />
             <InfoGroup heading="Resume" data={formInputs.skills.resume} />
@@ -420,7 +422,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         <StyledBanner wide={true} blur>
           <ContentWrapper>
             <InfoGroup
-              heading={`You heard about ${copyText.hackathonName} from`}
+              heading={`You heard about ${copyText[activeHackathon].hackathonName} from`}
               data={engagementSourcesValues}
             />
             <InfoGroup

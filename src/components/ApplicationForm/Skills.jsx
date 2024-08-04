@@ -7,6 +7,7 @@ import Dropdown from '../Input/Dropdown'
 import ResumeUploadBtn from '../ResumeUploadBtn'
 import { CenteredH1, ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const hackathonsAttendedOptions = [
   { value: '0', label: '0' },
@@ -84,6 +85,7 @@ const FormRow = ({ fieldValue, required, children }) => (
 )
 
 const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
+  const { activeHackathon } = useHackathon()
   return (
     <>
       <FormSpacing>
@@ -122,7 +124,7 @@ const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
       <FormSpacing>
         <QuestionHeading>question 22</QuestionHeading>
         <SubHeading>
-          What is your intended role at {copyText.hackathonName}?
+          What is your intended role at {copyText[activeHackathon].hackathonName}?
           <Required />
         </SubHeading>
         {errors?.contributionRole && <ErrorMessage>{errors?.contributionRole}</ErrorMessage>}
