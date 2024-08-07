@@ -210,3 +210,12 @@ export const updateProject = (author, projectId, data, dbHackathonName) => {
 export const getAnnouncement = async (announcementId, dbHackathonName) => {
   return (await announcementsRef(dbHackathonName).doc(announcementId).get()).data()
 }
+
+export const getHackerAppQuestions = async (selectedHackathon, category) => {
+  const data = await db
+    .collection('HackerAppQuestions')
+    .doc(selectedHackathon.slice(0, -4))
+    .collection(category)
+    .get()
+  return data.docs.map(doc => doc.data())
+}
