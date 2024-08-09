@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { CONTRIBUTION_ROLE_OPTIONS, copyText } from '../../utility/Constants'
 import { applyCustomSort, findElement } from '../../utility/utilities'
@@ -8,6 +8,17 @@ import ResumeUploadBtn from '../ResumeUploadBtn'
 import { CenteredH1, ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import { useHackathon } from '../../utility/HackathonProvider'
+import { getHackerAppQuestions } from '../../utility/firebase'
+import {
+  Country,
+  School,
+  SelectAll,
+  AppDropdown,
+  MultipleChoice,
+  ShortAnswer,
+  LongAnswer,
+  Portfolio,
+} from '../ApplicationQuestions'
 
 const hackathonsAttendedOptions = [
   { value: '0', label: '0' },
@@ -85,7 +96,97 @@ const FormRow = ({ fieldValue, required, children }) => (
 )
 
 const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
-  const { activeHackathon } = useHackathon()
+  const { dbHackathonName } = useHackathon()
+  const [startingIndex, setStartingIndex] = useState(0)
+  const [questions, setQuestions] = useState([
+    { title: '', description: '', type: '', options: [''], other: false, required: false },
+  ])
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Skills')
+      setQuestions(appQuestions)
+    }
+    const setIndex = async () => {
+      const appQuestions = await getHackerAppQuestions(dbHackathonName, 'BasicInfo')
+      setStartingIndex(appQuestions.length)
+    }
+
+    setIndex()
+    fetchQuestions()
+  }, [dbHackathonName])
+
+  const renderQuestion = (question, index) => {
+    switch (question.type) {
+      case 'Multiple Choice':
+        return (
+          <MultipleChoice
+            refs={refs}
+            errors={errors}
+            formInputs={formInputs}
+            onChange={onChange}
+            question={question}
+          />
+        )
+
+      case 'Dropdown':
+        return (
+          <AppDropdown
+            refs={refs}
+            errors={errors}
+            formInputs={formInputs}
+            onChange={onChange}
+            question={question}
+          />
+        )
+
+      case 'Select All':
+        return (
+          <SelectAll
+            refs={refs}
+            errors={errors}
+            formInputs={formInputs}
+            onChange={onChange}
+            question={question}
+          />
+        )
+
+      case 'Short Answer':
+        return (
+          <ShortAnswer
+            refs={refs}
+            errors={errors}
+            formInputs={formInputs}
+            onChange={onChange}
+            question={question}
+          />
+        )
+
+      case 'Long Answer':
+        return (
+          <LongAnswer
+            refs={refs}
+            errors={errors}
+            formInputs={formInputs}
+            onChange={onChange}
+            question={question}
+          />
+        )
+
+      case 'School':
+        return <School refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
+
+      case 'Country':
+        return <Country refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
+
+      case 'Portfolio':
+        return <Portfolio refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
+
+      default:
+        return null
+    }
+  }
+
   return (
     <>
       <FormSpacing>
@@ -97,7 +198,19 @@ const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         </CenteredH1>
       </FormSpacing>
 
-      <FormSpacing>
+      {questions.map((question, index) => (
+        <FormSpacing key={index}>
+          <QuestionHeading>{`question ${index + startingIndex + 1}`}</QuestionHeading>
+          <SubHeading>
+            {question.title}
+            {question.required && <Required />}
+          </SubHeading>
+          {question.description && <P>{question.description}</P>}
+          {renderQuestion(question, index)}
+        </FormSpacing>
+      ))}
+
+      {/* <FormSpacing>
         <QuestionHeading>question 21</QuestionHeading>
         <SubHeading>
           How many hackathons have you previously attended?
@@ -330,7 +443,7 @@ const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             />
           </FormRow>
         </QuestionForm>
-      </FormSpacing>
+      </FormSpacing> */}
     </>
   )
 }

@@ -11,7 +11,7 @@ const LongAnswer = ({ refs, errors, formInputs, onChange, question }) => {
     <>
       {errors?.[question.formInput] && <ErrorMessage>{errors?.[question.formInput]}</ErrorMessage>}
       <StyledTextArea
-        maxWidth={question.maxWidth}
+        maxWords="150"
         width="100%"
         value={formInputs[question.formInput]}
         invalid={!!errors[question.formInput]}

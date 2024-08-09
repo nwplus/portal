@@ -202,6 +202,9 @@ const BasicInfo = ({ refs, errors, formInputs, onChange }) => {
       case 'Country':
         return <Country refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
 
+      case 'Portfolio':
+        return <Portfolio refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
+
       default:
         return null
     }

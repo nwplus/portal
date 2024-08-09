@@ -200,11 +200,11 @@ export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
-  beginner: 'Beginner',
-  designer: 'Designer',
-  developer: 'Developer',
-  pm: 'Product/project manager',
-  other: 'Other',
+  'beginner': 'Beginner',
+  'designer': 'Designer',
+  'developer': 'Developer',
+  'product/projectManager': 'Product/project manager',
+  'other': 'Other',
 })
 
 export const ENGAGEMENT_SOURCES = Object.freeze({
@@ -321,11 +321,11 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   skills: {
     numHackathonsAttended: '',
     contributionRole: {
-      beginner: false,
-      designer: false,
-      developer: false,
-      pm: false,
-      other: false,
+      'beginner': false,
+      'designer': false,
+      'developer': false,
+      'product/projectManager': false,
+      'other': false,
     },
     resume: '',
     portfolio: '',
