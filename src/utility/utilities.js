@@ -147,12 +147,11 @@ export const cutString = (string, maxLength) => {
 
 // for multi-select dropdown hacker app questions
 export const applyCustomSort = (data, sort) => {
-  data.sort((a, b) => {
+  const filteredData = data.filter(([key]) => sort.includes(key))
+  filteredData.sort((a, b) => {
     const indexA = sort.indexOf(a[0])
     const indexB = sort.indexOf(b[0])
-
     return indexA - indexB
   })
-
-  return data
+  return filteredData
 }

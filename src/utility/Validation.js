@@ -139,10 +139,13 @@ export const checkForError = errors => {
   return Object.values(errors).some(val => val !== false)
 }
 
-export const validateFormSection = (change, section) => {
+export const validateFormSection = (change, section, fields) => {
   const newErrors = {}
   Object.entries(change).forEach(([key, value]) => {
+    // if irrelevant / unused key, return
+    if ((section == 'basicInfo' || section == 'skills') && !fields.includes(key)) return
     if (!validators[section][key]) return
+
     const { error: hasError, message: errorMessage } = validators[section][key](value)
     newErrors[key] = hasError ? errorMessage : false
   })

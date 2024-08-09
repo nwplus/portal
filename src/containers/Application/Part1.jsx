@@ -1,47 +1,68 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
+import { useHackathon } from '../../utility/HackathonProvider'
+import { getHackerAppQuestions } from '../../utility/firebase'
 
-const questionsByOrder = [
-  'legalFirstName',
-  'legalLastName',
-  'preferredName',
-  'ageByHackathon',
-  'phoneNumber',
-  'school',
-  'educationLevel',
-  'graduation',
-  'academicYear',
-  'countryOfResidence',
-  'dietaryRestriction',
-  // 'willBeAgeOfMajority',
-  'identifyAsUnderrepresented',
-  'pronouns',
-  'gender',
-  'haveTransExperience',
-  'major',
-  'race',
-  'indigenousIdentification',
-  'culturalBackground',
-  // 'isAuthorizedToWorkInCanada',
-  'canadianStatus',
-  'disability',
-]
+// const questionsByOrder = [
+//   'legalFirstName',
+//   'legalLastName',
+//   'preferredName',
+//   'ageByHackathon',
+//   'phoneNumber',
+//   'school',
+//   'educationLevel',
+//   'graduation',
+//   'academicYear',
+//   'countryOfResidence',
+//   'dietaryRestriction',
+//   // 'willBeAgeOfMajority',
+//   'identifyAsUnderrepresented',
+//   'pronouns',
+//   'gender',
+//   'haveTransExperience',
+//   'major',
+//   'race',
+//   'indigenousIdentification',
+//   'culturalBackground',
+//   // 'isAuthorizedToWorkInCanada',
+//   'canadianStatus',
+//   'disability',
+// ]
 
 const Part1 = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [questionsByOrder, setQuestionsByOrder] = useState([])
+  const { dbHackathonName } = useHackathon()
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const appQuestions = await getHackerAppQuestions(dbHackathonName, 'BasicInfo')
+        const selectedFormInputs = appQuestions.map(q => q.formInput)
+        setQuestionsByOrder(selectedFormInputs)
+      } catch (error) {
+        console.error('Failed to fetch questions:', error)
+      }
+    }
+
+    fetchQuestions()
+  }, [dbHackathonName])
 
   const validate = change => {
-    const newErrors = validateFormSection(change, 'basicInfo')
-    setErrors({ ...errors, ...newErrors })
-    return { ...errors, ...newErrors }
+    const newErrors = validateFormSection(change, 'basicInfo', questionsByOrder)
+
+    // setErrors({ ...errors, ...newErrors })
+    setErrors(newErrors)
+    // return { ...errors, ...newErrors }
+    return newErrors
   }
 
   const save = async () => {

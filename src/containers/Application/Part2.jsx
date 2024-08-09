@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
 import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
@@ -9,28 +9,48 @@ import {
   checkForError,
   validateFormSection,
 } from '../../utility/Validation'
+import { useHackathon } from '../../utility/HackathonProvider'
+import { getHackerAppQuestions } from '../../utility/firebase'
 
-const questionsByOrder = [
-  'resume',
-  'portfolio',
-  'github',
-  'longAnswers1',
-  'longAnswers2',
-  'longAnswers3',
-  'longAnswers4',
-  'longAnswers5',
-]
+// const questionsByOrder = [
+//   'resume',
+//   'portfolio',
+//   'github',
+//   'longAnswers1',
+//   'longAnswers2',
+//   'longAnswers3',
+//   'longAnswers4',
+//   'longAnswers5',
+// ]
 
 const Part2 = () => {
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [questionsByOrder, setQuestionsByOrder] = useState([])
+  const { dbHackathonName } = useHackathon()
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Skills')
+        const selectedFormInputs = appQuestions.map(q => q.formInput)
+        setQuestionsByOrder(selectedFormInputs)
+      } catch (error) {
+        console.error('Failed to fetch questions:', error)
+      }
+    }
+
+    fetchQuestions()
+  }, [dbHackathonName])
 
   const validate = change => {
-    const newErrors = validateFormSection(change, 'skills')
-    setErrors({ ...errors, ...newErrors })
-    return { ...errors, ...newErrors }
+    const newErrors = validateFormSection(change, 'skills', questionsByOrder)
+    // setErrors({ ...errors, ...newErrors })
+    setErrors(newErrors)
+    // return { ...errors, ...newErrors }
+    return newErrors
   }
 
   const save = async () => {
