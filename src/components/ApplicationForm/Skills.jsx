@@ -180,7 +180,15 @@ const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
         return <Country refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
 
       case 'Portfolio':
-        return <Portfolio refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
+        return (
+          <Portfolio
+            refs={refs}
+            errors={errors}
+            formInputs={formInputs}
+            onChange={onChange}
+            handleResume={handleResume}
+          />
+        )
 
       default:
         return null
