@@ -60,7 +60,7 @@ const FormRow = ({ fieldValue, required, children }) => (
   </div>
 )
 
-const Portfolio = ({ refs, errors, formInputs, onChange, question }) => {
+const Portfolio = ({ refs, errors, formInputs, onChange, question, handleResume }) => {
   return (
     <QuestionForm>
       <FormRow fieldValue="resume" required>
