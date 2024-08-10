@@ -219,3 +219,55 @@ export const getHackerAppQuestions = async (selectedHackathon, category) => {
     .get()
   return data.docs.map(doc => doc.data())
 }
+
+const toCamelCase = str => {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map((word, index) => (index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)))
+    .join('')
+}
+
+// make template according to whatever the questions say
+export const fillHackerApplicationTemplate = async selectedHackathon => {
+  const initialTemplate = JSON.parse(JSON.stringify(HACKER_APPLICATION_TEMPLATE)) // create copy
+  const basicInfoQuestions = await getHackerAppQuestions(selectedHackathon, 'BasicInfo')
+  initialTemplate.basicInfo = {}
+  basicInfoQuestions.forEach(question => {
+    if (question.type === 'Select All') {
+      initialTemplate.basicInfo[question.formInput] = {}
+      const transformedOptions = question.options.reduce((acc, option) => {
+        acc[toCamelCase(option)] = false
+        return acc
+      }, {})
+
+      if (question.other) {
+        transformedOptions.other = false
+      }
+      initialTemplate.basicInfo[question.formInput] = transformedOptions
+    } else {
+      initialTemplate.basicInfo[question.formInput] = ''
+    }
+  })
+
+  const skillsQuestions = await getHackerAppQuestions(selectedHackathon, 'Skills')
+  initialTemplate.skills = { ...HACKER_APPLICATION_TEMPLATE.skills }
+  skillsQuestions.forEach(question => {
+    if (question.type === 'Select All') {
+      initialTemplate.skills[question.formInput] = {}
+      const transformedOptions = question.options.reduce((acc, option) => {
+        acc[toCamelCase(option)] = false
+        return acc
+      }, {})
+
+      if (question.other) {
+        transformedOptions.other = false
+      }
+      initialTemplate.skills[question.formInput] = transformedOptions
+    } else {
+      initialTemplate.skills[question.formInput] = ''
+    }
+  })
+
+  return initialTemplate
+}

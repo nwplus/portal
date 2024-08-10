@@ -6,6 +6,7 @@ import {
   getUserApplication,
   updateUserApplication,
   getLivesiteDoc,
+  fillHackerApplicationTemplate,
 } from './firebase'
 import firebase from 'firebase/app'
 import { HACKER_APPLICATION_TEMPLATE } from './Constants'
@@ -105,7 +106,10 @@ export function HackerApplicationProvider({ children }) {
         return
       }
       const app = await getUserApplication(user.uid, dbHackathonName)
-      fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
+      const appTemplate = await fillHackerApplicationTemplate(dbHackathonName)
+      // fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
+      fillMissingProperties(app, appTemplate)
+      console.log(app)
       setApplication(app)
       applicationRef.current = app
       setUpdated(false)

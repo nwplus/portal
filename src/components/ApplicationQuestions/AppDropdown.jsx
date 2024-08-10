@@ -33,7 +33,7 @@ const AppDropdown = ({ refs, errors, formInputs, onChange, question }) => {
       {errors?.[question.formInput] && <ErrorMessage>{errors?.[question.formInput]}</ErrorMessage>}
       <Dropdown
         options={dropdownOptions}
-        placeholder={question.title}
+        placeholder="Select"
         isSearchable={false}
         value={findElement(dropdownOptions, 'value', formInputs[question.formInput])}
         onChange={e => onChange({ [question.formInput]: e.value })}
