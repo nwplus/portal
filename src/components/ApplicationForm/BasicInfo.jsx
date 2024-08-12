@@ -27,6 +27,7 @@ import {
   ShortAnswer,
   LongAnswer,
   FullLegalName,
+  Major,
 } from '../ApplicationQuestions'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
@@ -193,14 +194,11 @@ const BasicInfo = ({ refs, errors, formInputs, onChange }) => {
 
       case 'Full Legal Name':
         return (
-          <FullLegalName
-            refs={refs}
-            errors={errors}
-            formInputs={formInputs}
-            onChange={onChange}
-            question={question}
-          />
+          <FullLegalName refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
         )
+
+      case 'Major':
+        return <Major refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
 
       default:
         return null

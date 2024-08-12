@@ -142,7 +142,6 @@ export const checkForError = errors => {
 export const validateFormSection = (change, section, fields) => {
   const newErrors = {}
   Object.entries(change).forEach(([key, value]) => {
-    // if irrelevant / unused key, return
     if ((section == 'basicInfo' || section == 'skills') && !fields.includes(key)) return
     if (!validators[section][key]) return
 
@@ -179,15 +178,15 @@ const validators = {
     },
     legalFirstName: noEmptyFunction,
     legalLastName: noEmptyFunction,
-    // preferredName: noEmptyFunction,
-    // gender: noEmptyFunction,
+    preferredName: noEmptyFunction,
+    gender: noEmptyFunction,
     identifyAsUnderrepresented: noEmptyFunction,
-    // pronouns: noNoneFunction,
-    // ethnicity: noNoneFunction,
+    pronouns: noNoneFunction,
+    ethnicity: noNoneFunction,
     dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
-    // major: noEmptyFunction,
+    major: noEmptyFunction,
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     academicYear: noEmptyFunction,

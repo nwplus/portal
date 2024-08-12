@@ -35,7 +35,8 @@ const Part2 = () => {
     const fetchQuestions = async () => {
       try {
         const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Skills')
-        const selectedFormInputs = appQuestions.map(q => q.formInput)
+        // const selectedFormInputs = appQuestions.map(q => q.formInput)
+        const selectedFormInputs = appQuestions.filter(q => q.required).map(q => q.formInput)
         setQuestionsByOrder(selectedFormInputs)
       } catch (error) {
         console.error('Failed to fetch questions:', error)
