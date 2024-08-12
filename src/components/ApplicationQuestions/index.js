@@ -6,6 +6,7 @@ import School from './School'
 import SelectAll from './SelectAll'
 import ShortAnswer from './ShortAnswer'
 import Portfolio from './Portfolio'
+import FullLegalName from './FullLegalName'
 
 export {
   AppDropdown,
@@ -16,4 +17,5 @@ export {
   SelectAll,
   ShortAnswer,
   Portfolio,
+  FullLegalName,
 }

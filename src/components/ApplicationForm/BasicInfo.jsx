@@ -18,8 +18,6 @@ import {
   ErrorSpan as Required,
 } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
-import { useHackathon } from '../../utility/HackathonProvider'
-import { getHackerAppQuestions } from '../../utility/firebase'
 import {
   Country,
   School,
@@ -28,7 +26,9 @@ import {
   MultipleChoice,
   ShortAnswer,
   LongAnswer,
+  FullLegalName,
 } from '../ApplicationQuestions'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
 
 const genderOptions = [
   { value: 'female', label: 'Woman' },
@@ -126,18 +126,7 @@ const StyledTextArea = styled(TextArea)`
 
 // form part 1
 const BasicInfo = ({ refs, errors, formInputs, onChange }) => {
-  const { dbHackathonName } = useHackathon()
-  const [questions, setQuestions] = useState([
-    { title: '', description: '', type: '', options: [''], other: false, required: false },
-  ])
-
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      const appQuestions = await getHackerAppQuestions(dbHackathonName, 'BasicInfo')
-      setQuestions(appQuestions)
-    }
-    fetchQuestions()
-  }, [dbHackathonName])
+  const { basicInfoQuestions } = useHackerApplication()
 
   const renderQuestion = (question, index) => {
     switch (question.type) {
@@ -202,6 +191,17 @@ const BasicInfo = ({ refs, errors, formInputs, onChange }) => {
       case 'Country':
         return <Country refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
 
+      case 'Full Legal Name':
+        return (
+          <FullLegalName
+            refs={refs}
+            errors={errors}
+            formInputs={formInputs}
+            onChange={onChange}
+            question={question}
+          />
+        )
+
       default:
         return null
     }
@@ -217,7 +217,7 @@ const BasicInfo = ({ refs, errors, formInputs, onChange }) => {
         </H2>
       </FormSpacing>
 
-      {questions.map((question, index) => (
+      {basicInfoQuestions.map((question, index) => (
         <FormSpacing key={index}>
           <QuestionHeading>{`question ${index + 1}`}</QuestionHeading>
           <SubHeading>
