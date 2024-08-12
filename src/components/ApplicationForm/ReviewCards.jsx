@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ENGAGEMENT_SOURCES, EVENTS_ATTENDED, copyText } from '../../utility/Constants'
+import {
+  ENGAGEMENT_SOURCES,
+  EVENTS_ATTENDED,
+  copyText,
+  MAJOR_OPTIONS,
+} from '../../utility/Constants'
 import { SocialMediaLinks } from '../ApplicationDashboard'
 import Banner from '../Banner'
 import { Button, Checkbox } from '../Input'
@@ -107,6 +112,27 @@ const LegalNameInfoGroup = ({ formInputs }) => {
   )
 }
 
+const MajorInfoGroup = ({ formInputs }) => {
+  const majors = getMajors(formInputs.basicInfo.major).map(e => MAJOR_OPTIONS[e])
+  var majorValues = []
+  for (var j = 0; j < majors.length; j++) {
+    if (majors[j] === 'Other (Please Specify)') {
+      majorValues.push(formInputs.basicInfo?.otherMajor || 'Other Major')
+    } else {
+      majorValues.push(majors[j])
+    }
+    if (j < majors.length - 1) {
+      majorValues.push(', ')
+    }
+  }
+  return (
+    <InfoGroup
+      heading={'Intended Major(s):'}
+      data={majorValues.length > 0 ? majorValues : 'None'}
+    />
+  )
+}
+
 const InfoGroup = ({ heading, data, type, formInputs }) => {
   let displayText
 
@@ -116,6 +142,10 @@ const InfoGroup = ({ heading, data, type, formInputs }) => {
 
   if (type === 'Full Legal Name') {
     return <LegalNameInfoGroup formInputs={formInputs} />
+  }
+
+  if (type === 'Major') {
+    return <MajorInfoGroup formInputs={formInputs} />
   }
 
   if (type === 'Select All' && data !== null) {
@@ -134,6 +164,7 @@ const InfoGroup = ({ heading, data, type, formInputs }) => {
   )
 }
 
+const getMajors = obj => Object.keys(obj).filter(key => obj[key])
 const getEngagementSources = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
 const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
