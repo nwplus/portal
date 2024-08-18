@@ -2,10 +2,12 @@ import { Select } from '../Input'
 import { ErrorMessage } from '../Typography'
 
 const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
+  const options = question.other ? [...question.options, 'Other'] : question.options
+
   return (
     <>
       {errors?.[question.formInput] && <ErrorMessage>{errors?.[question.formInput]}</ErrorMessage>}
-      {question.options.map((option, optIndex) => (
+      {options.map((option, optIndex) => (
         <Select
           key={optIndex}
           type="radio"
