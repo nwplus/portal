@@ -1,10 +1,12 @@
 import { MAJOR_OPTIONS } from '../../utility/Constants'
 import { applyCustomSort } from '../../utility/utilities'
 import { TextInput, Select } from '../Input'
+import { ErrorMessage } from '../Typography'
 
 const Major = ({ refs, errors, formInputs, onChange }) => {
   return (
     <>
+      {errors?.major && <ErrorMessage>{errors?.major}</ErrorMessage>}
       {formInputs &&
         applyCustomSort(Object.entries(formInputs?.major), Object.keys(MAJOR_OPTIONS)).map(
           ([key, val]) => (

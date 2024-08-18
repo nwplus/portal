@@ -9,29 +9,29 @@ import { useHackathon } from '../../utility/HackathonProvider'
 import { getHackerAppQuestions } from '../../utility/firebase'
 
 // const questionsByOrder = [
-//   'legalFirstName',
-//   'legalLastName',
-//   'preferredName',
-//   'ageByHackathon',
-//   'phoneNumber',
-//   'school',
-//   'educationLevel',
-//   'graduation',
-//   'academicYear',
-//   'countryOfResidence',
-//   'dietaryRestriction',
+//   // 'legalFirstName',
+//   // 'legalLastName',
+//   // 'preferredName',
+//   // 'ageByHackathon',
+//   // 'phoneNumber',
+//   // 'school',
+//   // 'educationLevel',
+//   // 'graduation',
+//   // 'academicYear',
+//   // 'countryOfResidence',
+//   // 'dietaryRestriction',
 //   // 'willBeAgeOfMajority',
-//   'identifyAsUnderrepresented',
-//   'pronouns',
-//   'gender',
-//   'haveTransExperience',
-//   'major',
-//   'race',
-//   'indigenousIdentification',
-//   'culturalBackground',
+//   // 'identifyAsUnderrepresented',
+//   // 'pronouns',
+//   // 'gender',
+//   // 'haveTransExperience',
+//   // 'major',
+//   // 'race',
+//   // 'indigenousIdentification',
+//   // 'culturalBackground',
 //   // 'isAuthorizedToWorkInCanada',
-//   'canadianStatus',
-//   'disability',
+//   // 'canadianStatus',
+//   // 'disability',
 // ]
 
 const Part1 = () => {
@@ -46,8 +46,25 @@ const Part1 = () => {
     const fetchQuestions = async () => {
       try {
         const appQuestions = await getHackerAppQuestions(dbHackathonName, 'BasicInfo')
-        // const selectedFormInputs = appQuestions.map(q => q.formInput)
-        const selectedFormInputs = appQuestions.filter(q => q.required).map(q => q.formInput)
+        const selectedFormInputs = appQuestions.flatMap(q => {
+          if (q.type === 'Country') {
+            return [['countryOfResidence', q.required]]
+          }
+          if (q.type === 'Major') {
+            return [['major', q.required]]
+          }
+          if (q.type === 'School') {
+            return [['school', q.required]]
+          }
+          if (q.type === 'Full Legal Name') {
+            return [
+              ['legalFirstName', q.required],
+              ['legalMiddleName', false],
+              ['legalLastName', q.required],
+            ]
+          }
+          return [[q.formInput, q.required]]
+        })
         setQuestionsByOrder(selectedFormInputs)
       } catch (error) {
         console.error('Failed to fetch questions:', error)
@@ -59,10 +76,7 @@ const Part1 = () => {
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'basicInfo', questionsByOrder)
-
-    // setErrors({ ...errors, ...newErrors })
     setErrors(newErrors)
-    // return { ...errors, ...newErrors }
     return newErrors
   }
 
@@ -120,9 +134,9 @@ const Part1 = () => {
       const newErrors = validate(application.basicInfo)
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
-          if (newErrors[question]) {
+          if (newErrors[question[0]]) {
             // redirects the user to the question
-            refs[`${question}Ref`].current.focus()
+            refs[`${question[0]}Ref`].current.focus()
             break
           }
         }

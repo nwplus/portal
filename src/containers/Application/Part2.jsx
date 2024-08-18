@@ -35,8 +35,17 @@ const Part2 = () => {
     const fetchQuestions = async () => {
       try {
         const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Skills')
-        // const selectedFormInputs = appQuestions.map(q => q.formInput)
-        const selectedFormInputs = appQuestions.filter(q => q.required).map(q => q.formInput)
+        const selectedFormInputs = appQuestions.flatMap(q => {
+          if (q.type === 'Portfolio') {
+            return [
+              ['resume', q.required],
+              ['github', false],
+              ['linkedin', false],
+              ['portfolio', false],
+            ]
+          }
+          return [[q.formInput, q.required]]
+        })
         setQuestionsByOrder(selectedFormInputs)
       } catch (error) {
         console.error('Failed to fetch questions:', error)
@@ -48,9 +57,7 @@ const Part2 = () => {
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'skills', questionsByOrder)
-    // setErrors({ ...errors, ...newErrors })
     setErrors(newErrors)
-    // return { ...errors, ...newErrors }
     return newErrors
   }
 
@@ -93,8 +100,8 @@ const Part2 = () => {
       const newErrors = validate(application.skills)
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
-          if (newErrors[question]) {
-            refs[`${question}Ref`].current.focus()
+          if (newErrors[question[0]]) {
+            refs[`${question[0]}Ref`].current.focus()
             break
           }
         }

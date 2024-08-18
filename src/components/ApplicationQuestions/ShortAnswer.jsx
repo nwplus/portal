@@ -9,7 +9,6 @@ const StyledTextInput = styled(TextInput)`
 const ShortAnswer = ({ refs, errors, formInputs, onChange, question }) => {
   return (
     <>
-      {errors?.[question.formInput] && <ErrorMessage>{errors?.[question.formInput]}</ErrorMessage>}
       <StyledTextInput
         placeholder={question.title}
         value={formInputs[question.formInput]}

@@ -14,7 +14,7 @@ const Part3 = () => {
   const [loading, setLoading] = useState(false)
 
   const validate = change => {
-    const newErrors = validateFormSection(change, 'questionnaire')
+    const newErrors = validateFormSection(change, 'questionnaire', [])
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
   }

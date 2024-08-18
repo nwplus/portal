@@ -127,7 +127,7 @@ const MajorInfoGroup = ({ formInputs }) => {
   }
   return (
     <InfoGroup
-      heading={'Intended Major(s):'}
+      heading={'Major/Intended Major(s):'}
       data={majorValues.length > 0 ? majorValues : 'None'}
     />
   )

@@ -1,3 +1,5 @@
+import { getQuestionsByOrder } from './utilities'
+
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
@@ -141,23 +143,63 @@ export const checkForError = errors => {
 
 export const validateFormSection = (change, section, fields) => {
   const newErrors = {}
-  Object.entries(change).forEach(([key, value]) => {
-    if ((section == 'basicInfo' || section == 'skills') && !fields.includes(key)) return
-    if (!validators[section][key]) return
+  console.log(fields)
 
-    const { error: hasError, message: errorMessage } = validators[section][key](value)
-    newErrors[key] = hasError ? errorMessage : false
-  })
+  if (fields.length > 0) {
+    Object.entries(change).forEach(([key, value]) => {
+      const field = fields.find(([fieldKey]) => fieldKey === key)
+      const isRequired = field ? field[1] : false
+
+      let hasError = false
+      let errorMessage = ''
+
+      // question should be required or if optional, have input from user to be validated
+      if (isRequired || value) {
+        if (!validators[section][key]) {
+          const { error: noEmptyError, message: noEmptyMessage } = noEmptyFunction(value)
+          if (noEmptyError) {
+            hasError = true
+            errorMessage = noEmptyMessage
+          }
+        } else {
+          const { error: validatorError, message: validatorMessage } =
+            validators[section][key](value)
+          if (validatorError) {
+            hasError = true
+            errorMessage = validatorMessage
+          }
+        }
+      }
+
+      newErrors[key] = hasError ? errorMessage : false
+    })
+  } else {
+    Object.entries(change).forEach(([key, value]) => {
+      if (!validators[section][key]) return
+      const { error: hasError, message: errorMessage } = validators[section][key](value)
+      newErrors[key] = hasError ? errorMessage : false
+    })
+  }
+
   return newErrors
 }
 
-export const validateEntireForm = application => {
-  const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
-  const skillsErrors = validateFormSection(application.skills, 'skills')
-  const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
+export const validateEntireForm = async application => {
+  const basicInfoErrors = validateFormSection(
+    application.basicInfo,
+    'basicInfo',
+    await getQuestionsByOrder('BasicInfo')
+  )
+  const skillsErrors = validateFormSection(
+    application.skills,
+    'skills',
+    await getQuestionsByOrder('Skills')
+  )
+  const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire', [])
   const termsAndConditionsErrors = validateFormSection(
     application.termsAndConditions,
-    'termsAndConditions'
+    'termsAndConditions',
+    []
   )
 
   return {
@@ -186,7 +228,7 @@ const validators = {
     dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
-    major: noEmptyFunction,
+    major: noNoneFunction,
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     academicYear: noEmptyFunction,

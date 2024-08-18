@@ -2,6 +2,7 @@
 // "balanced" (subarrays' lengths differ as less as possible) or
 // "even" (all subarrays but the last have the same length):
 
+import { getHackerAppQuestions } from './firebase'
 import { useCallback, useState } from 'react'
 
 // https://stackoverflow.com/questions/8188548/splitting-a-js-array-into-n-arrays
@@ -154,4 +155,37 @@ export const applyCustomSort = (data, sort) => {
     return indexA - indexB
   })
   return filteredData
+}
+
+export const getQuestionsByOrder = async category => {
+  const appQuestions = await getHackerAppQuestions('HackCamp2024', category)
+  const selectedFormInputs = appQuestions.flatMap(q => {
+    if (q.type === 'Country') {
+      return [['countryOfResidence', q.required]]
+    }
+    if (q.type === 'Major') {
+      return [['major', q.required]]
+    }
+    if (q.type === 'School') {
+      return [['school', q.required]]
+    }
+    if (q.type === 'Full Legal Name') {
+      return [
+        ['legalFirstName', q.required],
+        ['legalMiddleName', false],
+        ['legalLastName', q.required],
+      ]
+    }
+    if (q.type === 'Portfolio') {
+      return [
+        ['resume', q.required],
+        ['github', false],
+        ['linkedin', false],
+        ['portfolio', false],
+      ]
+    }
+    return [[q.formInput, q.required]]
+  })
+
+  return selectedFormInputs
 }
