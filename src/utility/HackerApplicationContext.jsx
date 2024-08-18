@@ -110,9 +110,7 @@ export function HackerApplicationProvider({ children }) {
       }
       const app = await getUserApplication(user.uid, dbHackathonName)
       const appTemplate = await fillHackerApplicationTemplate(dbHackathonName)
-      // fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
       fillMissingProperties(app, appTemplate)
-      console.log(app)
       setApplication(app)
       applicationRef.current = app
       setUpdated(false)

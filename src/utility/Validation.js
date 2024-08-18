@@ -143,7 +143,6 @@ export const checkForError = errors => {
 
 export const validateFormSection = (change, section, fields) => {
   const newErrors = {}
-  console.log(fields)
 
   if (fields.length > 0) {
     Object.entries(change).forEach(([key, value]) => {
@@ -184,16 +183,16 @@ export const validateFormSection = (change, section, fields) => {
   return newErrors
 }
 
-export const validateEntireForm = async application => {
+export const validateEntireForm = async (application, basicInfoQuestions, skillsQuestions) => {
   const basicInfoErrors = validateFormSection(
     application.basicInfo,
     'basicInfo',
-    await getQuestionsByOrder('BasicInfo')
+    await getQuestionsByOrder(basicInfoQuestions)
   )
   const skillsErrors = validateFormSection(
     application.skills,
     'skills',
-    await getQuestionsByOrder('Skills')
+    await getQuestionsByOrder(skillsQuestions)
   )
   const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire', [])
   const termsAndConditionsErrors = validateFormSection(

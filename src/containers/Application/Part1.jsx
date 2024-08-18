@@ -5,74 +5,22 @@ import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
-import { useHackathon } from '../../utility/HackathonProvider'
-import { getHackerAppQuestions } from '../../utility/firebase'
-
-// const questionsByOrder = [
-//   // 'legalFirstName',
-//   // 'legalLastName',
-//   // 'preferredName',
-//   // 'ageByHackathon',
-//   // 'phoneNumber',
-//   // 'school',
-//   // 'educationLevel',
-//   // 'graduation',
-//   // 'academicYear',
-//   // 'countryOfResidence',
-//   // 'dietaryRestriction',
-//   // 'willBeAgeOfMajority',
-//   // 'identifyAsUnderrepresented',
-//   // 'pronouns',
-//   // 'gender',
-//   // 'haveTransExperience',
-//   // 'major',
-//   // 'race',
-//   // 'indigenousIdentification',
-//   // 'culturalBackground',
-//   // 'isAuthorizedToWorkInCanada',
-//   // 'canadianStatus',
-//   // 'disability',
-// ]
+import { getQuestionsByOrder } from '../../utility/utilities'
 
 const Part1 = () => {
-  const { application, updateApplication, forceSave } = useHackerApplication()
+  const { application, updateApplication, forceSave, basicInfoQuestions } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [questionsByOrder, setQuestionsByOrder] = useState([])
-  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const appQuestions = await getHackerAppQuestions(dbHackathonName, 'BasicInfo')
-        const selectedFormInputs = appQuestions.flatMap(q => {
-          if (q.type === 'Country') {
-            return [['countryOfResidence', q.required]]
-          }
-          if (q.type === 'Major') {
-            return [['major', q.required]]
-          }
-          if (q.type === 'School') {
-            return [['school', q.required]]
-          }
-          if (q.type === 'Full Legal Name') {
-            return [
-              ['legalFirstName', q.required],
-              ['legalMiddleName', false],
-              ['legalLastName', q.required],
-            ]
-          }
-          return [[q.formInput, q.required]]
-        })
-        setQuestionsByOrder(selectedFormInputs)
-      } catch (error) {
-        console.error('Failed to fetch questions:', error)
-      }
+    const fetchQuestionsByOrder = async () => {
+      const questions = await getQuestionsByOrder(basicInfoQuestions)
+      setQuestionsByOrder(questions)
     }
-
-    fetchQuestions()
-  }, [dbHackathonName])
+    fetchQuestionsByOrder()
+  }, [basicInfoQuestions])
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'basicInfo', questionsByOrder)

@@ -9,6 +9,7 @@ import {
   HACKER_APPLICATION_TEMPLATE,
   REDIRECT_STATUS,
 } from '../utility/Constants'
+import { toCamelCase } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -218,14 +219,6 @@ export const getHackerAppQuestions = async (selectedHackathon, category) => {
     .collection(category)
     .get()
   return data.docs.map(doc => doc.data())
-}
-
-const toCamelCase = str => {
-  return str
-    .toLowerCase()
-    .split(' ')
-    .map((word, index) => (index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)))
-    .join('')
 }
 
 // make template according to whatever the questions say

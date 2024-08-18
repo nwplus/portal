@@ -1,6 +1,6 @@
 import { Dropdown, TextInput } from '../Input'
 import { ErrorMessage } from '../Typography'
-import { findElement } from '../../utility/utilities'
+import { findElement, toOtherCamelCase } from '../../utility/utilities'
 
 const AppDropdown = ({ refs, errors, formInputs, onChange, question }) => {
   const transformOptions = (options, includeOther) => {
@@ -19,11 +19,6 @@ const AppDropdown = ({ refs, errors, formInputs, onChange, question }) => {
     }
 
     return transformedOptions
-  }
-
-  const toOtherCamelCase = str => {
-    const capitalizedStr = str.charAt(0).toUpperCase() + str.slice(1)
-    return `other${capitalizedStr}`
   }
 
   const dropdownOptions = transformOptions(question.options, question.other)

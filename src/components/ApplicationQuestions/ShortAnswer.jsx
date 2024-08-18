@@ -1,5 +1,4 @@
 import { TextInput } from '../Input'
-import { ErrorMessage } from '../Typography'
 import styled from 'styled-components'
 
 const StyledTextInput = styled(TextInput)`

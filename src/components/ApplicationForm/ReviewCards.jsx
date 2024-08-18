@@ -13,6 +13,7 @@ import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import { useHackathon } from '../../utility/HackathonProvider'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import { toOtherCamelCase } from '../../utility/utilities'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -167,16 +168,10 @@ const InfoGroup = ({ heading, data, type, formInputs }) => {
 const getMajors = obj => Object.keys(obj).filter(key => obj[key])
 const getEngagementSources = obj => Object.keys(obj).filter(key => obj[key])
 const getEvents = obj => Object.keys(obj).filter(key => obj[key])
-const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
 
 const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
   const { activeHackathon } = useHackathon()
   const { basicInfoQuestions, skillsQuestions } = useHackerApplication()
-
-  const toOtherCamelCase = str => {
-    const capitalizedStr = str.charAt(0).toUpperCase() + str.slice(1)
-    return `other${capitalizedStr}`
-  }
 
   // since they're lowercase in firebase
   const engagementSources = getEngagementSources(formInputs.questionnaire.engagementSource).map(
@@ -248,20 +243,6 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                 />
               )
             })}
-            {/* <InfoGroup
-              heading="Full Legal Name:"
-              data={
-                formInputs.basicInfo.legalMiddleName
-                  ? formInputs.basicInfo.legalFirstName
-                      .concat(' ')
-                      .concat(formInputs.basicInfo.legalLastName)
-                  : formInputs.basicInfo.legalFirstName
-                      .concat(' ')
-                      .concat(formInputs.basicInfo.legalMiddleName)
-                      .concat(' ')
-                      .concat(formInputs.basicInfo.legalLastName)
-              }
-            /> */}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -327,11 +308,6 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               heading="Previous events attended:"
               data={attendedValues.length > 0 ? attendedValues : 'None'}
             />
-            {/* Commenting out for nwHacks 2023 */}
-            {/* <InfoGroup
-              heading="Email of friend you're applying with:"
-              data={formInputs.questionnaire.friendEmail}
-            /> */}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>

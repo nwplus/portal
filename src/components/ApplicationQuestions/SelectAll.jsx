@@ -1,21 +1,8 @@
 import { ErrorMessage } from '../Typography'
-import { applyCustomSort } from '../../utility/utilities'
+import { applyCustomSort, toCamelCase, toOtherCamelCase } from '../../utility/utilities'
 import { TextInput, Select } from '../Input'
 
 const SelectAll = ({ refs, errors, formInputs, onChange, question }) => {
-  const toCamelCase = str => {
-    return str
-      .toLowerCase()
-      .split(' ')
-      .map((word, index) => (index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)))
-      .join('')
-  }
-
-  const toOtherCamelCase = str => {
-    const capitalizedStr = str.charAt(0).toUpperCase() + str.slice(1)
-    return `other${capitalizedStr}`
-  }
-
   const transformSelectAllOptions = (options, includeOther) => {
     const transformedOptions = options.reduce((acc, option) => {
       acc[toCamelCase(option)] = option.toString()

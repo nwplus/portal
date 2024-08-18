@@ -9,51 +9,22 @@ import {
   checkForError,
   validateFormSection,
 } from '../../utility/Validation'
-import { useHackathon } from '../../utility/HackathonProvider'
-import { getHackerAppQuestions } from '../../utility/firebase'
-
-// const questionsByOrder = [
-//   'resume',
-//   'portfolio',
-//   'github',
-//   'longAnswers1',
-//   'longAnswers2',
-//   'longAnswers3',
-//   'longAnswers4',
-//   'longAnswers5',
-// ]
+import { getQuestionsByOrder } from '../../utility/utilities'
 
 const Part2 = () => {
-  const { application, updateApplication, forceSave } = useHackerApplication()
+  const { application, updateApplication, forceSave, skillsQuestions } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [questionsByOrder, setQuestionsByOrder] = useState([])
-  const { dbHackathonName } = useHackathon()
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Skills')
-        const selectedFormInputs = appQuestions.flatMap(q => {
-          if (q.type === 'Portfolio') {
-            return [
-              ['resume', q.required],
-              ['github', false],
-              ['linkedin', false],
-              ['portfolio', false],
-            ]
-          }
-          return [[q.formInput, q.required]]
-        })
-        setQuestionsByOrder(selectedFormInputs)
-      } catch (error) {
-        console.error('Failed to fetch questions:', error)
-      }
+    const fetchQuestionsByOrder = async () => {
+      const questions = await getQuestionsByOrder(skillsQuestions)
+      setQuestionsByOrder(questions)
     }
-
-    fetchQuestions()
-  }, [dbHackathonName])
+    fetchQuestionsByOrder()
+  }, [skillsQuestions])
 
   const validate = change => {
     const newErrors = validateFormSection(change, 'skills', questionsByOrder)
