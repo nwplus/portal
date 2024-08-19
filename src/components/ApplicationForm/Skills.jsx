@@ -2,8 +2,6 @@ import React from 'react'
 import { CenteredH1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import {
-  Country,
-  School,
   SelectAll,
   AppDropdown,
   MultipleChoice,
@@ -73,12 +71,6 @@ const Skills = ({ refs, errors, formInputs, onChange, role, handleResume }) => {
             question={question}
           />
         )
-
-      case 'School':
-        return <School refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
-
-      case 'Country':
-        return <Country refs={refs} errors={errors} formInputs={formInputs} onChange={onChange} />
 
       case 'Portfolio':
         return (
