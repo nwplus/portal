@@ -1,17 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import {
-  ENGAGEMENT_SOURCES,
-  EVENTS_ATTENDED,
-  copyText,
-  MAJOR_OPTIONS,
-} from '../../utility/Constants'
+import { MAJOR_OPTIONS } from '../../utility/Constants'
 import { SocialMediaLinks } from '../ApplicationDashboard'
 import Banner from '../Banner'
 import { Button, Checkbox } from '../Input'
 import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
-import { useHackathon } from '../../utility/HackathonProvider'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { toOtherCamelCase } from '../../utility/utilities'
 
@@ -152,7 +146,15 @@ const InfoGroup = ({ heading, data, type, formInputs }) => {
   if (type === 'Select All' && data !== null) {
     const trueKeys = Object.keys(data)
       .filter(key => data[key] === true)
-      .map(key => key.charAt(0).toUpperCase() + key.slice(1))
+      .map(
+        key =>
+          key
+            .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space between lowercase and uppercase letters
+            .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // Handle cases with consecutive uppercase letters
+            .replace(/([a-z])([A-Z])/g, '$1 $2') // Handle cases with lowercase followed by uppercase
+            .toLowerCase() // Convert the entire string to lowercase
+            .replace(/\b\w/g, char => char.toUpperCase()) // Capitalize the first letter of each word
+      )
     displayText = trueKeys.length > 0 ? trueKeys.join(', ') : 'No response'
   } else {
     displayText = data || 'No response'
@@ -166,44 +168,9 @@ const InfoGroup = ({ heading, data, type, formInputs }) => {
 }
 
 const getMajors = obj => Object.keys(obj).filter(key => obj[key])
-const getEngagementSources = obj => Object.keys(obj).filter(key => obj[key])
-const getEvents = obj => Object.keys(obj).filter(key => obj[key])
 
 const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
-  const { activeHackathon } = useHackathon()
-  const { basicInfoQuestions, skillsQuestions } = useHackerApplication()
-
-  // since they're lowercase in firebase
-  const engagementSources = getEngagementSources(formInputs.questionnaire.engagementSource).map(
-    e => ENGAGEMENT_SOURCES[e]
-  )
-
-  var engagementSourcesValues = []
-
-  for (var k = 0; k < engagementSources.length; k++) {
-    if (engagementSources[k] === 'Other (Please Specify)') {
-      engagementSourcesValues.push(
-        formInputs.questionnaire?.otherEngagementSource || 'Other Engagement Source'
-      )
-    } else {
-      engagementSourcesValues.push(engagementSources[k])
-    }
-
-    if (k < engagementSources.length - 1) {
-      engagementSourcesValues.push(', ')
-    }
-  }
-
-  const events = getEvents(formInputs.questionnaire.eventsAttended).map(e => EVENTS_ATTENDED[e])
-  var attendedValues = []
-
-  for (var l = 0; l < events.length; l++) {
-    attendedValues.push(events[l])
-
-    if (l < events.length - 1) {
-      attendedValues.push(', ')
-    }
-  }
+  const { basicInfoQuestions, skillsQuestions, questionnaireQuestions } = useHackerApplication()
 
   return (
     <>
@@ -274,15 +241,6 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                 />
               )
             })}
-            {/* TODO: Change hackathonsAttended to attendedHackathons and make sure the value is an accurate representation */}
-            {/* <InfoGroup
-              heading="Number of Hackathons Attended"
-              data={formInputs.skills.numHackathonsAttended}
-            />
-            <InfoGroup
-              heading={`Contribution at ${copyText[activeHackathon].hackathonName}:`}
-              data={contributionValues}
-            /> */}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -300,14 +258,20 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            <InfoGroup
-              heading={`You heard about ${copyText[activeHackathon].hackathonName} from`}
-              data={engagementSourcesValues}
-            />
-            <InfoGroup
-              heading="Previous events attended:"
-              data={attendedValues.length > 0 ? attendedValues : 'None'}
-            />
+            {questionnaireQuestions.map(question => {
+              return (
+                <InfoGroup
+                  heading={question.title}
+                  data={
+                    formInputs.questionnaire[question.formInput] === 'other'
+                      ? formInputs.questionnaire[toOtherCamelCase(question.formInput)]
+                      : formInputs.questionnaire[question.formInput]
+                  }
+                  type={question.type}
+                  formInputs={formInputs}
+                />
+              )
+            })}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>

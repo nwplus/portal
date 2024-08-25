@@ -14,7 +14,7 @@ const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
           label={option}
           checked={formInputs[question.formInput] === option}
           onChange={() => onChange({ [question.formInput]: option })}
-          customRef={refs[`${question.formInput}Ref`]}
+          {...(refs ? { customRef: refs[`${question.formInput}Ref`] } : {})}
         />
       ))}
     </>

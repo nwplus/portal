@@ -14,7 +14,7 @@ const ShortAnswer = ({ refs, errors, formInputs, onChange, question }) => {
         errorMsg={errors?.[question.formInput]}
         invalid={!!errors?.[question.formInput]}
         onChange={e => onChange({ [question.formInput]: e.target.value })}
-        customRef={refs[`${question.formInput}Ref`]}
+        {...(refs ? { customRef: refs[`${question.formInput}Ref`] } : {})}
       />
     </>
   )

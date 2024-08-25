@@ -21,7 +21,7 @@ const LongAnswer = ({ refs, errors, formInputs, onChange, question }) => {
             [question.formInput]: val,
           })
         }
-        customRef={refs[`${question.formInput}Ref`]}
+        {...(refs ? { customRef: refs[`${question.formInput}Ref`] } : {})}
       />
     </>
   )

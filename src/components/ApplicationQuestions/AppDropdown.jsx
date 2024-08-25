@@ -33,7 +33,7 @@ const AppDropdown = ({ refs, errors, formInputs, onChange, question }) => {
         value={findElement(dropdownOptions, 'value', formInputs[question.formInput])}
         onChange={e => onChange({ [question.formInput]: e.value })}
         isValid={!errors?.[question.formInput]}
-        customRef={refs[`${question.formInput}Ref`]}
+        {...(refs ? { customRef: refs[`${question.formInput}Ref`] } : {})}
       />
       {formInputs[question.formInput] === 'other' && (
         <TextInput

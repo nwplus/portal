@@ -262,5 +262,24 @@ export const fillHackerApplicationTemplate = async selectedHackathon => {
     }
   })
 
+  const questionnaireQuestions = await getHackerAppQuestions(selectedHackathon, 'Questionnaire')
+  initialTemplate.questionnaire = { ...HACKER_APPLICATION_TEMPLATE.questionnaire }
+  questionnaireQuestions.forEach(question => {
+    if (question.type === 'Select All') {
+      initialTemplate.questionnaire[question.formInput] = {}
+      const transformedOptions = question.options.reduce((acc, option) => {
+        acc[toCamelCase(option)] = false
+        return acc
+      }, {})
+
+      if (question.other) {
+        transformedOptions.other = false
+      }
+      initialTemplate.questionnaire[question.formInput] = transformedOptions
+    } else {
+      initialTemplate.questionnaire[question.formInput] = ''
+    }
+  })
+
   return initialTemplate
 }

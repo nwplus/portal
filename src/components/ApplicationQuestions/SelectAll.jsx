@@ -36,7 +36,7 @@ const SelectAll = ({ refs, errors, formInputs, onChange, question }) => {
                 [question.formInput]: { ...formInputs[question.formInput], [key]: !val },
               })
             }}
-            customRef={refs[`${question.formInput}Ref`]}
+            {...(refs ? { customRef: refs[`${question.formInput}Ref`] } : {})}
           />
         ))}
       <br />

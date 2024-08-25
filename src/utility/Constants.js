@@ -338,9 +338,9 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
     // longAnswers5: '',
   },
   questionnaire: {
-    engagementSource: [],
-    eventsAttended: [],
-    otherEngagementSource: '',
+    // engagementSource: [],
+    // eventsAttended: [],
+    // otherEngagementSource: '',
   },
   submission: {
     lastUpdated: '',

@@ -51,6 +51,7 @@ export function HackerApplicationProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true)
   const [basicInfoQuestions, setBasicInfoQuestions] = useState([])
   const [skillsQuestions, setSkillsQuestions] = useState([])
+  const [questionnaireQuestions, setQuestionnaireQuestions] = useState([])
 
   /**Initialize retrieval of hacker application */
   // useEffect(() => {
@@ -134,9 +135,14 @@ export function HackerApplicationProvider({ children }) {
       const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Skills')
       setSkillsQuestions(appQuestions)
     }
+    const fetchQuestionnaireQuestions = async () => {
+      const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Questionnaire')
+      setQuestionnaireQuestions(appQuestions)
+    }
 
     fetchBasicInfoQuestions()
     fetchSkillsQuestions()
+    fetchQuestionnaireQuestions()
   }, [dbHackathonName])
 
   /**Checks whether the app has been updated and force saves it if it has */
@@ -213,7 +219,14 @@ export function HackerApplicationProvider({ children }) {
 
   return (
     <HackerApplicationContext.Provider
-      value={{ application, updateApplication, forceSave, basicInfoQuestions, skillsQuestions }}
+      value={{
+        application,
+        updateApplication,
+        forceSave,
+        basicInfoQuestions,
+        skillsQuestions,
+        questionnaireQuestions,
+      }}
     >
       {children}
     </HackerApplicationContext.Provider>
