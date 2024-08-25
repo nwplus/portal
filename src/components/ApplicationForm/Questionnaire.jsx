@@ -1,5 +1,5 @@
 import React from 'react'
-import { QuestionHeading, ErrorSpan as Required } from '../Typography'
+import { QuestionHeading, ErrorSpan as Required, P } from '../Typography'
 import { CenteredH1 } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
