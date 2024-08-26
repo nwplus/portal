@@ -221,65 +221,41 @@ export const getHackerAppQuestions = async (selectedHackathon, category) => {
   return data.docs.map(doc => doc.data())
 }
 
+const processQuestions = (questions, templateSection) => {
+  questions.forEach(question => {
+    if (question.type === 'Select All') {
+      templateSection[question.formInput] = question.options.reduce((acc, option) => {
+        acc[toCamelCase(option)] = false
+        return acc
+      }, {})
+      if (question.other) {
+        templateSection[question.formInput].other = false
+      }
+    } else {
+      templateSection[question.formInput] = ''
+    }
+  })
+}
+
 // make template according to whatever the questions say
 export const fillHackerApplicationTemplate = async selectedHackathon => {
-  const initialTemplate = JSON.parse(JSON.stringify(HACKER_APPLICATION_TEMPLATE)) // create copy
-  const basicInfoQuestions = await getHackerAppQuestions(selectedHackathon, 'BasicInfo')
-  initialTemplate.basicInfo = {}
-  basicInfoQuestions.forEach(question => {
-    if (question.type === 'Select All') {
-      initialTemplate.basicInfo[question.formInput] = {}
-      const transformedOptions = question.options.reduce((acc, option) => {
-        acc[toCamelCase(option)] = false
-        return acc
-      }, {})
+  try {
+    const initialTemplate = JSON.parse(JSON.stringify(HACKER_APPLICATION_TEMPLATE))
+    const categories = ['basicInfo', 'skills', 'questionnaire']
 
-      if (question.other) {
-        transformedOptions.other = false
-      }
-      initialTemplate.basicInfo[question.formInput] = transformedOptions
-    } else {
-      initialTemplate.basicInfo[question.formInput] = ''
-    }
-  })
+    await Promise.all(
+      categories.map(async category => {
+        const questions = await getHackerAppQuestions(
+          selectedHackathon,
+          category.charAt(0).toUpperCase() + category.slice(1)
+        )
+        initialTemplate[category] = { ...initialTemplate[category] }
+        processQuestions(questions, initialTemplate[category])
+      })
+    )
 
-  const skillsQuestions = await getHackerAppQuestions(selectedHackathon, 'Skills')
-  initialTemplate.skills = { ...HACKER_APPLICATION_TEMPLATE.skills }
-  skillsQuestions.forEach(question => {
-    if (question.type === 'Select All') {
-      initialTemplate.skills[question.formInput] = {}
-      const transformedOptions = question.options.reduce((acc, option) => {
-        acc[toCamelCase(option)] = false
-        return acc
-      }, {})
-
-      if (question.other) {
-        transformedOptions.other = false
-      }
-      initialTemplate.skills[question.formInput] = transformedOptions
-    } else {
-      initialTemplate.skills[question.formInput] = ''
-    }
-  })
-
-  const questionnaireQuestions = await getHackerAppQuestions(selectedHackathon, 'Questionnaire')
-  initialTemplate.questionnaire = { ...HACKER_APPLICATION_TEMPLATE.questionnaire }
-  questionnaireQuestions.forEach(question => {
-    if (question.type === 'Select All') {
-      initialTemplate.questionnaire[question.formInput] = {}
-      const transformedOptions = question.options.reduce((acc, option) => {
-        acc[toCamelCase(option)] = false
-        return acc
-      }, {})
-
-      if (question.other) {
-        transformedOptions.other = false
-      }
-      initialTemplate.questionnaire[question.formInput] = transformedOptions
-    } else {
-      initialTemplate.questionnaire[question.formInput] = ''
-    }
-  })
-
-  return initialTemplate
+    return initialTemplate
+  } catch (error) {
+    console.error('Error filling hacker application template:', error)
+  }
 }

@@ -127,22 +127,20 @@ export function HackerApplicationProvider({ children }) {
   }, [forceSave, user, dbHackathonName])
 
   useEffect(() => {
-    const fetchBasicInfoQuestions = async () => {
-      const appQuestions = await getHackerAppQuestions(dbHackathonName, 'BasicInfo')
-      setBasicInfoQuestions(appQuestions)
-    }
-    const fetchSkillsQuestions = async () => {
-      const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Skills')
-      setSkillsQuestions(appQuestions)
-    }
-    const fetchQuestionnaireQuestions = async () => {
-      const appQuestions = await getHackerAppQuestions(dbHackathonName, 'Questionnaire')
-      setQuestionnaireQuestions(appQuestions)
+    const fetchQuestions = async () => {
+      setIsLoading(true)
+      try {
+        setBasicInfoQuestions(await getHackerAppQuestions(dbHackathonName, 'BasicInfo'))
+        setSkillsQuestions(await getHackerAppQuestions(dbHackathonName, 'Skills'))
+        setQuestionnaireQuestions(await getHackerAppQuestions(dbHackathonName, 'Questionnaire'))
+      } catch (error) {
+        console.error('Error fetching hacker application questions:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
-    fetchBasicInfoQuestions()
-    fetchSkillsQuestions()
-    fetchQuestionnaireQuestions()
+    fetchQuestions()
   }, [dbHackathonName])
 
   /**Checks whether the app has been updated and force saves it if it has */
