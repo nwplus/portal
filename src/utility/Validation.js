@@ -183,7 +183,12 @@ export const validateFormSection = (change, section, fields) => {
   return newErrors
 }
 
-export const validateEntireForm = async (application, basicInfoQuestions, skillsQuestions) => {
+export const validateEntireForm = async (
+  application,
+  basicInfoQuestions,
+  skillsQuestions,
+  questionnaireQuestions
+) => {
   const basicInfoErrors = validateFormSection(
     application.basicInfo,
     'basicInfo',
@@ -194,7 +199,11 @@ export const validateEntireForm = async (application, basicInfoQuestions, skills
     'skills',
     await getQuestionsByOrder(skillsQuestions)
   )
-  const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire', [])
+  const questionnaireErrors = validateFormSection(
+    application.questionnaire,
+    'questionnaire',
+    await getQuestionsByOrder(questionnaireQuestions)
+  )
   const termsAndConditionsErrors = validateFormSection(
     application.termsAndConditions,
     'termsAndConditions',

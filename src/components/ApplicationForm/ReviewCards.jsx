@@ -80,10 +80,10 @@ const CenterH1 = styled(H1)`
 const PortfolioInfoGroup = ({ formInputs }) => {
   return (
     <>
-      <InfoGroup heading="Resume" data={formInputs.skills.resume} />
-      <InfoGroup heading="Personal Website/Portfolio Link" data={formInputs.skills.portfolio} />
-      <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
-      <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
+      <InfoGroup heading="Resume" data={formInputs.resume} />
+      <InfoGroup heading="Personal Website/Portfolio Link" data={formInputs.portfolio} />
+      <InfoGroup heading="LinkedIn" data={formInputs.linkedin} />
+      <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.github} />
     </>
   )
 }
@@ -93,26 +93,24 @@ const LegalNameInfoGroup = ({ formInputs }) => {
     <InfoGroup
       heading="Full Legal Name:"
       data={
-        formInputs.basicInfo.legalMiddleName
-          ? formInputs.basicInfo.legalFirstName
+        formInputs.legalMiddleName
+          ? formInputs.legalFirstName.concat(' ').concat(formInputs.legalLastName)
+          : formInputs.legalFirstName
               .concat(' ')
-              .concat(formInputs.basicInfo.legalLastName)
-          : formInputs.basicInfo.legalFirstName
+              .concat(formInputs.legalMiddleName)
               .concat(' ')
-              .concat(formInputs.basicInfo.legalMiddleName)
-              .concat(' ')
-              .concat(formInputs.basicInfo.legalLastName)
+              .concat(formInputs.legalLastName)
       }
     />
   )
 }
 
 const MajorInfoGroup = ({ formInputs }) => {
-  const majors = getMajors(formInputs.basicInfo.major).map(e => MAJOR_OPTIONS[e])
+  const majors = getMajors(formInputs.major).map(e => MAJOR_OPTIONS[e])
   var majorValues = []
   for (var j = 0; j < majors.length; j++) {
     if (majors[j] === 'Other (Please Specify)') {
-      majorValues.push(formInputs.basicInfo?.otherMajor || 'Other Major')
+      majorValues.push(formInputs.otherMajor || 'Other Major')
     } else {
       majorValues.push(majors[j])
     }
@@ -128,7 +126,7 @@ const MajorInfoGroup = ({ formInputs }) => {
   )
 }
 
-const InfoGroup = ({ heading, data, type, formInputs }) => {
+const InfoGroup = ({ heading, data, type, formInputs, formInput }) => {
   let displayText
 
   if (type === 'Portfolio') {
@@ -146,15 +144,19 @@ const InfoGroup = ({ heading, data, type, formInputs }) => {
   if (type === 'Select All' && data !== null) {
     const trueKeys = Object.keys(data)
       .filter(key => data[key] === true)
-      .map(
-        key =>
-          key
+      .map(key => {
+        if (key === 'other') {
+          const camelCaseKey = toOtherCamelCase(formInput)
+          return formInputs[camelCaseKey]
+        } else {
+          return key
             .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space between lowercase and uppercase letters
             .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // Handle cases with consecutive uppercase letters
             .replace(/([a-z])([A-Z])/g, '$1 $2') // Handle cases with lowercase followed by uppercase
             .toLowerCase() // Convert the entire string to lowercase
             .replace(/\b\w/g, char => char.toUpperCase()) // Capitalize the first letter of each word
-      )
+        }
+      })
     displayText = trueKeys.length > 0 ? trueKeys.join(', ') : 'No response'
   } else {
     displayText = data || 'No response'
@@ -201,12 +203,14 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                 <InfoGroup
                   heading={question.title}
                   data={
-                    formInputs.basicInfo[question.formInput] === 'other'
+                    formInputs.basicInfo[question.formInput] === 'other' ||
+                    formInputs.basicInfo[question.formInput] === 'Other'
                       ? formInputs.basicInfo[toOtherCamelCase(question.formInput)]
                       : formInputs.basicInfo[question.formInput]
                   }
                   type={question.type}
-                  formInputs={formInputs}
+                  formInputs={formInputs.basicInfo}
+                  formInput={question.formInput}
                 />
               )
             })}
@@ -232,12 +236,14 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                 <InfoGroup
                   heading={question.title}
                   data={
-                    formInputs.skills[question.formInput] === 'other'
+                    formInputs.skills[question.formInput] === 'other' ||
+                    formInputs.skills[question.formInput] === 'Other'
                       ? formInputs.skills[toOtherCamelCase(question.formInput)]
                       : formInputs.skills[question.formInput]
                   }
                   type={question.type}
-                  formInputs={formInputs}
+                  formInputs={formInputs.skills}
+                  formInput={question.formInput}
                 />
               )
             })}
@@ -263,12 +269,14 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                 <InfoGroup
                   heading={question.title}
                   data={
-                    formInputs.questionnaire[question.formInput] === 'other'
+                    formInputs.questionnaire[question.formInput] === 'other' ||
+                    formInputs.questionnaire[question.formInput] === 'Other'
                       ? formInputs.questionnaire[toOtherCamelCase(question.formInput)]
                       : formInputs.questionnaire[question.formInput]
                   }
                   type={question.type}
-                  formInputs={formInputs}
+                  formInputs={formInputs.questionnaire}
+                  formInput={question.formInput}
                 />
               )
             })}

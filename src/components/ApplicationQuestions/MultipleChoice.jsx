@@ -1,4 +1,5 @@
-import { Select } from '../Input'
+import { toOtherCamelCase } from '../../utility/utilities'
+import { Select, TextInput } from '../Input'
 import { ErrorMessage } from '../Typography'
 
 const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
@@ -17,6 +18,19 @@ const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
           {...(refs ? { customRef: refs[`${question.formInput}Ref`] } : {})}
         />
       ))}
+      {formInputs[question.formInput] === 'Other' && (
+        <TextInput
+          placeholder="Please Specify"
+          size="small"
+          noOutline
+          value={formInputs?.[toOtherCamelCase(question.formInput)]}
+          onChange={e =>
+            onChange({
+              [toOtherCamelCase(question.formInput)]: e.target.value,
+            })
+          }
+        />
+      )}
     </>
   )
 }

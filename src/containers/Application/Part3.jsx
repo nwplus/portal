@@ -17,8 +17,8 @@ const Part3 = () => {
   const [questionsByOrder, setQuestionsByOrder] = useState([])
 
   useEffect(() => {
-    const fetchQuestionsByOrder = async () => {
-      const questions = await getQuestionsByOrder(questionnaireQuestions)
+    const fetchQuestionsByOrder = () => {
+      const questions = getQuestionsByOrder(questionnaireQuestions)
       setQuestionsByOrder(questions)
     }
     fetchQuestionsByOrder()

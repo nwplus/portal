@@ -156,7 +156,7 @@ export const applyCustomSort = (data, sort) => {
   return filteredData
 }
 
-export const getQuestionsByOrder = async appQuestions => {
+export const getQuestionsByOrder = appQuestions => {
   const selectedFormInputs = appQuestions.flatMap(q => {
     if (q.type === 'Country') {
       return [['countryOfResidence', q.required]]
