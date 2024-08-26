@@ -35,6 +35,7 @@ const NestedRoutes = props => {
 
 const PageRoute = ({ path, children }) => {
   const [livesiteDoc, setLivesiteDoc] = useState(null)
+  const { activeHackathon } = useHackathon()
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(setLivesiteDoc)
@@ -47,7 +48,11 @@ const PageRoute = ({ path, children }) => {
 
   return (
     <Route path={path}>
-      {livesiteDoc?.applicationsOpen ? <Redirect to="/application" /> : <Page>{children}</Page>}
+      {livesiteDoc?.applicationsOpen[activeHackathon] ? (
+        <Redirect to="/application" />
+      ) : (
+        <Page>{children}</Page>
+      )}
     </Route>
   )
 }

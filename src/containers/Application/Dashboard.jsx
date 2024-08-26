@@ -9,15 +9,18 @@ import { currentHackathonRef, getLivesiteDoc, livesiteDocRef } from '../../utili
 import { useHackathon } from '../../utility/HackathonProvider'
 
 const ApplicationDashboardContainer = () => {
+  const { activeHackathon, dbHackathonName } = useHackathon()
+  const { user } = useAuth()
+  const [, setLocation] = useLocation()
+
   const { application, updateApplication, forceSave } = useHackerApplication()
-  const [livesiteDoc, setLivesiteDoc] = useState(false)
+  const [livesiteDoc, setLivesiteDoc] = useState(null)
   const [relevantDates, setRelevantDates] = useState({})
   const [isRsvpOpen, setIsRsvpOpen] = useState(false)
   const [isLoadingAppStatus, setIsLoadingAppStatus] = useState(true)
   const [isLoadingWaiverUpload, setIsLoadingWaiverUpload] = useState(false)
-  const { user } = useAuth()
-  const [, setLocation] = useLocation()
-  const { dbHackathonName } = useHackathon()
+  const [waiversAndForms, setWaiversAndForms] = useState([])
+  const [notionLinks, setNotionLinks] = useState([])
 
   useEffect(() => {
     const unsubscribe = currentHackathonRef(dbHackathonName).onSnapshot(doc => {
@@ -32,16 +35,19 @@ const ApplicationDashboardContainer = () => {
       const d = doc.data()
       if (d) {
         setRelevantDates({
-          applicationDeadline: d.applicationDeadline,
-          sendAcceptancesBy: d.sendAcceptancesBy,
-          rsvpBy: d.rsvpBy,
-          offWaitlistNotify: d.offWaitlistNotify,
-          hackathonWeekend: d.hackathonWeekend,
+          applicationDeadline: d.applicationDeadline[activeHackathon],
+          sendAcceptancesBy: d.sendAcceptancesBy[activeHackathon],
+          rsvpBy: d.rsvpBy[activeHackathon],
+          offWaitlistNotify: d.offWaitlistNotify[activeHackathon],
+          hackathonWeekend: d.hackathonWeekend[activeHackathon],
         })
+        setWaiversAndForms(d.waiversAndForms[activeHackathon])
+        setNotionLinks(d.notionLinks[activeHackathon])
+        setLivesiteDoc(d)
       }
     })
     return unsubscribe
-  }, [setRelevantDates])
+  }, [activeHackathon])
 
   const { applicationStatus, responded, attending } = application.status
   let hackerStatus
@@ -175,18 +181,17 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
-  useEffect(() => {
-    const unsubscribe = getLivesiteDoc(setLivesiteDoc)
-    return unsubscribe
-  }, [setLivesiteDoc])
+  if (!livesiteDoc || isLoadingAppStatus) {
+    return null
+  }
 
-  return isLoadingAppStatus ? null : (
+  return (
     <Page hackerStatus={hackerStatus}>
       <Dashboard
         editApplication={() => setLocation('/application/part-0')}
         username={user.displayName}
         hackerStatus={hackerStatus}
-        isApplicationOpen={livesiteDoc.applicationsOpen}
+        isApplicationOpen={livesiteDoc.applicationsOpen[activeHackathon]}
         setRSVP={rsvpStatus => setRSVP(rsvpStatus)}
         canRSVP={canRSVP}
         // safewalkNote={application.basicInfo.safewalkNote || false}
@@ -210,6 +215,8 @@ const ApplicationDashboardContainer = () => {
         nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
         setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
         relevantDates={relevantDates}
+        waiversAndForms={waiversAndForms}
+        notionLinks={notionLinks}
         isRsvpOpen={isRsvpOpen}
         handleWaiver={handleWaiver}
         waiverName={application.basicInfo.waiver}

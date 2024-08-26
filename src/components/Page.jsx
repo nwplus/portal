@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import Sidebar from './Sidebar'
 import MobileMenuBar from './MobileMenuBar'
 import { getLivesiteDoc } from '../utility/firebase'
+import { useHackathon } from '../utility/HackathonProvider'
+import Loading from './Loading'
 
 const Container = styled.div`
   display: flex;
@@ -28,20 +30,25 @@ const Content = styled.div`
 
 const Page = ({ hackerStatus, children }) => {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false)
-  const [livesiteDoc, setLivesiteDoc] = useState(false)
+  const [livesiteDoc, setLivesiteDoc] = useState(null)
+  const { activeHackathon } = useHackathon()
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(setLivesiteDoc)
     return unsubscribe
-  }, [setLivesiteDoc])
+  }, [])
+
+  if (!livesiteDoc) {
+    return <Loading />
+  }
 
   return (
     <Container>
       <Sidebar
-        isJudgingOpen={livesiteDoc.judgingOpen}
-        isJudgingReleased={livesiteDoc.judgingReleased}
-        isSubmissionsOpen={livesiteDoc.submissionsOpen}
-        isApplicationOpen={livesiteDoc.applicationsOpen}
+        isJudgingOpen={livesiteDoc.judgingOpen[activeHackathon]}
+        isJudgingReleased={livesiteDoc.judgingReleased[activeHackathon]}
+        isSubmissionsOpen={livesiteDoc.submissionsOpen[activeHackathon]}
+        isApplicationOpen={livesiteDoc.applicationsOpen[activeHackathon]}
         showMobileSidebar={showMobileSidebar}
         hideSidebarCallback={() => setShowMobileSidebar(false)}
         hackerStatus={hackerStatus}

@@ -89,7 +89,7 @@ export const getRedirectUrl = (redirect, activeHackathon) => {
 
 export const handleRedirect = async (redirect, setLocationCallback, activeHackathon) => {
   // alert(redirect, getRedirectUrl(redirect))
-  const submissionOpen = (await livesiteDocRef.get()).data().submissionsOpen
+  const submissionOpen = (await livesiteDocRef.get()).data().submissionsOpen[activeHackathon]
   setLocationCallback(
     submissionOpen
       ? `/app/${activeHackathon}/submission`

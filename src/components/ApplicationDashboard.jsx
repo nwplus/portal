@@ -2,17 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import HandWave from '../assets/hand-wave.svg?react'
 import Icon from './Icon'
-import {
-  ANALYTICS_EVENTS,
-  APPLICATION_STATUS,
-  SOCIAL_LINKS,
-  WAIVER_LINKS,
-  copyText,
-} from '../utility/Constants'
+import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '../utility/Constants'
 import { analytics } from '../utility/firebase'
 import { Button } from './Input/Button'
 import Checkbox from './Input/Checkbox'
 import { A, H1, HR, P, ErrorSpan as Required } from './Typography'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const Container = styled.div`
   margin: 5em auto;
@@ -216,7 +211,7 @@ const QuestionLabel = styled.div`
 //   line-height: 150%;
 // `
 
-export const hackerStatuses = (relevantDates, hackerName = null) => ({
+export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon, notionLinks) => ({
   applied: {
     sidebarText: 'In Review',
     cardText: 'Awaiting assessment',
@@ -228,18 +223,17 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     blurb: (
       <>
         Hi {hackerName}, we had a lovely time reading your application, and were very impressed with
-        your commitment to joining the technology community. We would love to see you at
-        {copyText.hackathonName} this year; however, at the moment, we cannot confirm a spot for
-        you. You have been put on our waitlist and will be notified{' '}
+        your commitment to joining the technology community. We would love to see you at{' '}
+        {copyText[activeHackathon]?.hackathonName} this year; however, at the moment, we cannot
+        confirm a spot for you. You have been put on our waitlist and will be notified{' '}
         {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
         then!
         <HR />
         We are currently at full capacity, but everyone is welcome to attend our{' '}
         <A
-          href="https://nwplus.notion.site/PUBLIC-cmd-f-2024-Pre-Hackathon-Workshops-b2429635e65a4e79957a63bfd3d8b27d?pvs=4"
+          href={notionLinks?.preHackathonWorkshops}
           target="_blank"
           rel="noopener noreferrer"
-          alt="link to cmd-f 2024 pre-hackathon workshops Notion page"
           bolded
           color="primary"
         >
@@ -256,10 +250,10 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     blurb: (
       <>
         Hi {hackerName}, we are sorry to inform you that we won't be able to give you a spot at{' '}
-        {copyText.hackathonName}. We had a lot of amazing applicants this year, and we are very
-        grateful to have gotten yours, but we can't take everyone. We do hope to see your
-        application next year and that this setback isn't the end of your tech career. Please visit
-        our site{' '}
+        {copyText[activeHackathon]?.hackathonName}. We had a lot of amazing applicants this year,
+        and we are very grateful to have gotten yours, but we can't take everyone. We do hope to see
+        your application next year and that this setback isn't the end of your tech career. Please
+        visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
         </A>{' '}
@@ -270,8 +264,7 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   acceptedNoResponseYet: {
     sidebarText: 'Accepted, Awaiting RSVP',
     cardText: 'Accepted & Awaiting RSVP',
-    // blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
-    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
+    blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText[activeHackathon]?.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
   },
   acceptedAndAttending: {
     cardText: (
@@ -282,15 +275,15 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
         </span>
       </>
     ),
-    blurb: `We can't wait to see you at ${copyText.hackathonName}! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${copyText.hackathonName} anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
+    blurb: `We can't wait to see you at ${copyText[activeHackathon]?.hackathonName}! You'll be receiving another email closer to the event date with more information regarding the schedule and other logistics. If you find out you can't make it to ${copyText[activeHackathon]?.hackathonName} anymore due to a change in your schedule, please update your RSVP status so we can allocate spots for waitlisted hackers!`,
   },
   acceptedUnRSVP: {
     sidebarText: "Un-RSVP'd",
     cardText: "Un-RSVP'd",
     blurb: (
       <>
-        We're sorry you won't be attending {copyText.hackathonName}. We do hope to see you at our
-        future events, visit our site{' '}
+        We're sorry you won't be attending {copyText[activeHackathon]?.hackathonName}. We do hope to
+        see you at our future events, visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
         </A>{' '}
@@ -304,8 +297,8 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
     cardText: 'No RSVP',
     blurb: (
       <>
-        We're sorry you won't be attending {copyText.hackathonName}. We do hope to see you at our
-        future events, visit our site{' '}
+        We're sorry you won't be attending {copyText[activeHackathon]?.hackathonName}. We do hope to
+        see you at our future events, visit our site{' '}
         <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
         </A>{' '}
@@ -317,10 +310,16 @@ export const hackerStatuses = (relevantDates, hackerName = null) => ({
   inProgress: {
     sidebarText: 'Not Submitted',
     cardText: 'Not Submitted',
-    // blurb: `Your application has not been submitted. Please complete your application and submit before the deadline on ${relevantDates?.applicationDeadline} in order to join us at ${copyText.hackathonName}!`,
-    blurb: `Your application has not been submitted. Please complete your application and submit before February 22, 2024 in order to join us at ${copyText.hackathonName}!`,
+    blurb: `Your application has not been submitted. Please complete your application and submit before ${relevantDates?.applicationDeadline} in order to join us at ${copyText[activeHackathon]?.hackathonName}!`,
   },
 })
+
+const headerText = {
+  'hackcamp': 'HackCamp 2024 is the largest beginner-only hackathon in Western Canada!',
+  'nwhacks': 'nwHacks 2025 is the largest hackathon in Western Canada!',
+  'cmd-f':
+    "cmd-f 2025 is Western Canada's largest hackathon celebrating underrepresented genders in tech!",
+}
 
 export const SocialMediaLinks = () => {
   // TODO: Color of icons for HackCamp TBD
@@ -389,11 +388,14 @@ const Dashboard = ({
   username,
   editApplication,
   relevantDates,
+  waiversAndForms,
+  notionLinks,
   isRsvpOpen,
   handleWaiver,
   waiverName,
   waiverLoading,
 }) => {
+  const { activeHackathon } = useHackathon()
   // const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
   const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
   const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
@@ -457,15 +459,15 @@ const Dashboard = ({
       </AppLinks>
       <StatusContainer>
         <div>
-          <AppStatusText>
-            cmd-f 2024 is Western Canada's largest hackathon celebrating underrepresented genders in
-            tech!
-          </AppStatusText>
+          <AppStatusText>{headerText[activeHackathon]}</AppStatusText>
           <AppStatusText>
             Registration status: {hackerStatuses()[hackerStatus]?.cardText}
           </AppStatusText>
           <StatusBlurbText>
-            {hackerStatuses(relevantDates, username)[hackerStatus]?.blurb}
+            {
+              hackerStatuses(relevantDates, username, activeHackathon, notionLinks)[hackerStatus]
+                ?.blurb
+            }
           </StatusBlurbText>
         </div>
         <div>
@@ -490,8 +492,8 @@ const Dashboard = ({
           <>
             <SelectContainer>
               <QuestionLabel>
-                Will you be attending the upcoming cmd-f event scheduled for March 9 - March 10?{' '}
-                <Required />
+                Will you be attending {copyText[activeHackathon].hackathonName} on the weekend of{' '}
+                {relevantDates.hackathonWeekend}? <Required />
               </QuestionLabel>
               <SelectOptionContainer>
                 <input
@@ -506,56 +508,44 @@ const Dashboard = ({
               </SelectOptionContainer>
             </SelectContainer>
 
-            <SelectContainer>
-              <QuestionLabel>
-                Safewalk option <Required />
-              </QuestionLabel>
-              <P>
-                While cmd-f is a 24 hour hackathon, you are not required to sleep there. If you live
-                closeby, we recommend that you sleep at home on the night of March 9. For safety, we
-                are offering a service where cmd-f organizers or volunteers walk hackers anywhere on
-                campus.
-              </P>
-              <P>Would you like to request this service?</P>
-              <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="safewalkYes"
-                  name="safewalkYes"
-                  value="safewalkYes"
-                  checked={safewalk === 'safewalkYes'}
-                  onChange={handleSafewalkSelectChange}
-                />
-                <label htmlFor="safewalkYes">Yes</label>
-              </SelectOptionContainer>
+            {(activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f') && (
+              <SelectContainer>
+                <QuestionLabel>
+                  Safewalk option <Required />
+                </QuestionLabel>
+                <P>
+                  While {copyText[activeHackathon].hackathonNameShort} is a 24 hour hackathon, you
+                  are not required to sleep there. If you live closeby, we recommend that you sleep
+                  at home on the night of {relevantDates.hackathonWeekend.split('-')[0]}. For
+                  safety, we are offering a service where nwPlus organizers or volunteers walk
+                  hackers anywhere on campus.
+                </P>
+                <P>Would you like to request this service?</P>
+                <SelectOptionContainer>
+                  <input
+                    type="radio"
+                    id="safewalkYes"
+                    name="safewalkYes"
+                    value="safewalkYes"
+                    checked={safewalk === 'safewalkYes'}
+                    onChange={handleSafewalkSelectChange}
+                  />
+                  <label htmlFor="safewalkYes">Yes</label>
+                </SelectOptionContainer>
 
-              <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="safewalkNo"
-                  name="safewalkNo"
-                  value="safewalkNo"
-                  checked={safewalk === 'safewalkNo'}
-                  onChange={handleSafewalkSelectChange}
-                />
-                <label htmlFor="safewalkNo">No</label>
-              </SelectOptionContainer>
-            </SelectContainer>
-
-            {/* <SafeWalkContainer>
-              <QuestionLabel>Safewalk option</QuestionLabel>
-              <P>
-                While cmd-f is a 24 hour hackathon, you are not required to sleep there. If you live
-                closeby, we recommend that you sleep at home on the night of March 9. For safety, we
-                are offering a service where cmd-f organizers or volunteers walk hackers anywhere on
-                campus.
-              </P>
-              <Checkbox
-                checked={safewalk}
-                onChange={handleChange}
-                label="Would you like to request this service?"
-              />
-            </SafeWalkContainer> */}
+                <SelectOptionContainer>
+                  <input
+                    type="radio"
+                    id="safewalkNo"
+                    name="safewalkNo"
+                    value="safewalkNo"
+                    checked={safewalk === 'safewalkNo'}
+                    onChange={handleSafewalkSelectChange}
+                  />
+                  <label htmlFor="safewalkNo">No</label>
+                </SelectOptionContainer>
+              </SelectContainer>
+            )}
 
             <QuestionContainer>
               <QuestionLabel>
@@ -563,8 +553,8 @@ const Dashboard = ({
               </QuestionLabel>
               <P>
                 Please read the waivers carefully. Checking the box is equivalent to signing the
-                waiver. If you will be under 19 on March 9, please print and bring a physical copy
-                of the waivers.
+                waiver. If you will be under 19 on {relevantDates.hackathonWeekend.split('-')[0]},
+                please print and bring a physical copy of the waivers.
               </P>
             </QuestionContainer>
 
@@ -577,7 +567,14 @@ const Dashboard = ({
                 promotional purposes.
               </P>
               <WaiverLinkContainer>
-                <A bolded color="primary" width="130px" href={WAIVER_LINKS.RELEASE_LIABILITY}>
+                <A
+                  bolded
+                  color="primary"
+                  width="130px"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={waiversAndForms.releaseLiability}
+                >
                   Read Full Waiver.
                 </A>{' '}
               </WaiverLinkContainer>
@@ -594,7 +591,14 @@ const Dashboard = ({
               </QuestionLabel>
               <P>This waiver clarifies that nwPlus is not liable for any COVID-19 related risks.</P>
               <WaiverLinkContainer>
-                <A bolded color="primary" width="130px" href={WAIVER_LINKS.COVID}>
+                <A
+                  bolded
+                  color="primary"
+                  width="130px"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={waiversAndForms.COVID}
+                >
                   Read Full Waiver.
                 </A>{' '}
               </WaiverLinkContainer>
@@ -612,7 +616,14 @@ const Dashboard = ({
                 promotional purposes.
               </P>
               <WaiverLinkContainer>
-                <A bolded color="primary" width="130px" href={WAIVER_LINKS.MEDIA}>
+                <A
+                  bolded
+                  color="primary"
+                  width="130px"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={waiversAndForms.media}
+                >
                   Read Full Waiver.
                 </A>{' '}
               </WaiverLinkContainer>
@@ -623,83 +634,18 @@ const Dashboard = ({
               />
             </QuestionContainer>
 
-            {/* <div style={{ marginTop: '30px' }}>
-              <QuestionLabel>
-                For Minors (Under 19) - REQUIRED IF YOU ARE UNDER 19 <Required />
-              </QuestionLabel>
-              <P>
-                If you are under 19, please download the waivers, and have them signed by your
-                parent or legal guardian. Bring the signed forms with you to the event.
-              </P>
-              <div>
-                <input
-                  type="radio"
-                  id="under19"
-                  name="under19"
-                  value="under19"
-                  checked={ageOfMajority === 'under19'}
-                  onChange={handleAgeOfMajoritySelectChange}
-                />
-                <label htmlFor="under19">
-                  I am under 19 and will bring the signed waivers on the day of the event.
-                </label>
-              </div>
-
-              <div>
-                <input
-                  type="radio"
-                  id="over19"
-                  name="over19"
-                  value="over19"
-                  checked={ageOfMajority === 'over19'}
-                  onChange={handleAgeOfMajoritySelectChange}
-                />
-                <label htmlFor="over19">I am over the age of 19.</label>
-              </div>
-            </div> */}
-
-            {/* <WaiverUpload>
-              <QuestionLabel>Waiver upload</QuestionLabel>
-              <WaiverUploadContext>
-                Please upload the signed copies of your waivers here. Merge all three waivers into a
-                single document. Waivers are required before you can RSVP.
-              </WaiverUploadContext>
-              <P>File size must be max 2 MB</P>
-              <ResumeUploadBtn
-                onChange={e => {
-                  if (e.target.files[0]) {
-                    handleWaiver(e.target.files[0])
-                  }
-                }}
-                hint={waiverName || ''}
-              />
-            </WaiverUpload> */}
-
-            {/* <QuestionContainer>
-              <QuestionLabel>nwMentorship Program</QuestionLabel>
-              <P>
-                Looking to widen your network and find an experienced mentor who can answer your
-                industry and career related questions?
-              </P>
-              <P>
-                Connect with industry mentors from various companies, such as LinkedIn and Bloomberg
-                by participating in the nwMentorship program!
-              </P>
-              <P>
-                Applications are reviewed on a rolling basis so be sure to apply ASAP through this{' '}
-                <A bolded color="primary" href={WAIVER_LINKS.NWMENTORSHIP}>
-                  Google Form
-                </A>{' '}
-                <b>by March 2nd at 11:59pm!</b>
-              </P>
-            </QuestionContainer> */}
-
             <SelectContainer>
               <QuestionLabel>nwMentorship Program</QuestionLabel>
               <P>
                 I would like to participate in the nwMentorship program to connect with an industry
                 mentor and have submitted my interest through this{' '}
-                <A bolded color="primary" href={WAIVER_LINKS.NWMENTORSHIP}>
+                <A
+                  bolded
+                  color="primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={waiversAndForms.nwMentorship}
+                >
                   Google Form
                 </A>{' '}
               </P>

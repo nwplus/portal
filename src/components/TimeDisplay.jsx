@@ -10,13 +10,14 @@ const TimeContainer = styled.div`
 const TimeText = styled.span`
   color: ${p => p.theme.colors.text};
   font-family: ${p => p.theme.typography.headerFont};
-  width: 90px;
+  width: ${p => (p.value >= 100 ? '135px' : '90px')};
   font-size: 4em;
 `
 
 const TimeUnitText = styled(TimeText)`
   font-size: 1em;
   margin: 0 10px;
+  width: ${p => (p.value >= 100 ? '135px' : '90px')};
 `
 
 const Separator = styled.span`
@@ -34,27 +35,26 @@ const TimeFlex = styled.div`
 `
 
 const TimeDisplay = ({ days, hours, minutes, seconds }) => {
-  // formats to 2-digit num with prepended 0
   function fmt(time) {
-    return ('0' + time).slice(-2)
+    return time >= 100 ? time.toString() : ('0' + time).slice(-2)
   }
 
   return (
     <TimeContainer>
       <TimeFlex>
-        <TimeText>{fmt(days)}</TimeText>
+        <TimeText value={days}>{fmt(days)}</TimeText>
         <Separator>:</Separator>
-        <TimeText>{fmt(hours)}</TimeText>
+        <TimeText value={hours}>{fmt(hours)}</TimeText>
         <Separator>:</Separator>
-        <TimeText>{fmt(minutes)}</TimeText>
+        <TimeText value={minutes}>{fmt(minutes)}</TimeText>
         <Separator>:</Separator>
-        <TimeText>{fmt(seconds)}</TimeText>
+        <TimeText value={seconds}>{fmt(seconds)}</TimeText>
       </TimeFlex>
       <TimeFlex>
-        <TimeUnitText>{days === 1 ? 'day' : 'days'}</TimeUnitText>
-        <TimeUnitText>hr</TimeUnitText>
-        <TimeUnitText>min</TimeUnitText>
-        <TimeUnitText>sec</TimeUnitText>
+        <TimeUnitText value={days}>{days === 1 ? 'day' : 'days'}</TimeUnitText>
+        <TimeUnitText value={hours}>hr</TimeUnitText>
+        <TimeUnitText value={minutes}>min</TimeUnitText>
+        <TimeUnitText value={seconds}>sec</TimeUnitText>
       </TimeFlex>
     </TimeContainer>
   )

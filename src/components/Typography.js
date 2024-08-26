@@ -87,7 +87,10 @@ export const PortalLink = styled(Link)`
 `
 
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
-export const A = styled.a`
+export const A = styled.a.attrs(props => ({
+  target: props.target,
+  rel: props.rel,
+}))`
   cursor: pointer;
   text-decoration: none;
   width: ${p => p.width || 'auto'};
