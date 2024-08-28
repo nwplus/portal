@@ -9,6 +9,7 @@ import {
   HACKER_APPLICATION_TEMPLATE,
   REDIRECT_STATUS,
 } from '../utility/Constants'
+import { toCamelCase } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
@@ -209,4 +210,52 @@ export const updateProject = (author, projectId, data, dbHackathonName) => {
 
 export const getAnnouncement = async (announcementId, dbHackathonName) => {
   return (await announcementsRef(dbHackathonName).doc(announcementId).get()).data()
+}
+
+export const getHackerAppQuestions = async (selectedHackathon, category) => {
+  const data = await db
+    .collection('HackerAppQuestions')
+    .doc(selectedHackathon.slice(0, -4))
+    .collection(category)
+    .get()
+  return data.docs.map(doc => doc.data())
+}
+
+const processQuestions = (questions, templateSection) => {
+  questions.forEach(question => {
+    if (question.type === 'Select All') {
+      templateSection[question.formInput] = question.options.reduce((acc, option) => {
+        acc[toCamelCase(option)] = false
+        return acc
+      }, {})
+      if (question.other) {
+        templateSection[question.formInput].other = false
+      }
+    } else {
+      templateSection[question.formInput] = ''
+    }
+  })
+}
+
+// make template according to whatever the questions say
+export const fillHackerApplicationTemplate = async selectedHackathon => {
+  try {
+    const initialTemplate = JSON.parse(JSON.stringify(HACKER_APPLICATION_TEMPLATE))
+    const categories = ['basicInfo', 'skills', 'questionnaire']
+
+    await Promise.all(
+      categories.map(async category => {
+        const questions = await getHackerAppQuestions(
+          selectedHackathon,
+          category.charAt(0).toUpperCase() + category.slice(1)
+        )
+        initialTemplate[category] = { ...initialTemplate[category] }
+        processQuestions(questions, initialTemplate[category])
+      })
+    )
+
+    return initialTemplate
+  } catch (error) {
+    console.error('Error filling hacker application template:', error)
+  }
 }

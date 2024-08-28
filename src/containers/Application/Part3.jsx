@@ -1,22 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import Questionnaire from '../../components/ApplicationForm/Questionnaire'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
+import { getQuestionsByOrder } from '../../utility/utilities'
 
 // form part 3
 const Part3 = () => {
-  const { application, updateApplication, forceSave } = useHackerApplication()
+  const { application, updateApplication, forceSave, questionnaireQuestions } =
+    useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [questionsByOrder, setQuestionsByOrder] = useState([])
+
+  useEffect(() => {
+    const fetchQuestionsByOrder = () => {
+      const questions = getQuestionsByOrder(questionnaireQuestions)
+      setQuestionsByOrder(questions)
+    }
+    fetchQuestionsByOrder()
+  }, [questionnaireQuestions])
 
   const validate = change => {
-    const newErrors = validateFormSection(change, 'questionnaire')
-    setErrors({ ...errors, ...newErrors })
-    return { ...errors, ...newErrors }
+    const newErrors = validateFormSection(change, 'questionnaire', questionsByOrder)
+    setErrors(newErrors)
+    return newErrors
   }
 
   const save = async () => {

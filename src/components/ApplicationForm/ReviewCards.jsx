@@ -1,22 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import {
-  CONTRIBUTION_ROLE_OPTIONS,
-  CULTURAL_BG_OPTIONS,
-  DIETARY_RESTRICTION_OPTIONS,
-  ENGAGEMENT_SOURCES,
-  EVENTS_ATTENDED,
-  MAJOR_OPTIONS,
-  PRONOUN_OPTIONS,
-  RACE_OPTIONS,
-  copyText,
-} from '../../utility/Constants'
+import { MAJOR_OPTIONS } from '../../utility/Constants'
 import { SocialMediaLinks } from '../ApplicationDashboard'
 import Banner from '../Banner'
 import { Button, Checkbox } from '../Input'
 import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
-import { useHackathon } from '../../utility/HackathonProvider'
+import { useHackerApplication } from '../../utility/HackerApplicationContext'
+import { toOtherCamelCase } from '../../utility/utilities'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -86,80 +77,40 @@ const CenterH1 = styled(H1)`
   justify-content: center;
 `
 
-const InfoGroup = ({ heading, data }) => (
-  <InfoGroupWrapper>
-    <StyledH1 heading>{heading}</StyledH1>
-    <P>{data || 'No response'}</P>
-  </InfoGroupWrapper>
-)
-
-const getMajors = obj => Object.keys(obj).filter(key => obj[key])
-const getEngagementSources = obj => Object.keys(obj).filter(key => obj[key])
-const getPronouns = obj => Object.keys(obj).filter(key => obj[key])
-const getRaces = obj => Object.keys(obj).filter(key => obj[key])
-const getCulturalBackgrounds = obj => Object.keys(obj).filter(key => obj[key])
-const getDietaryRestrictions = obj => Object.keys(obj).filter(key => obj[key])
-const getEvents = obj => Object.keys(obj).filter(key => obj[key])
-const getContribution = obj => Object.keys(obj).filter(key => obj[key])
-const capitalizeFirstLetter = val => val.charAt(0).toUpperCase() + val.slice(1)
-
-const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
-  const { activeHackathon } = useHackathon()
-  // since they're lowercase in firebase
-  const gender = capitalizeFirstLetter(formInputs.basicInfo.gender)
-  const countryOfResidence = capitalizeFirstLetter(formInputs.basicInfo.countryOfResidence)
-  const educationLevel = capitalizeFirstLetter(formInputs.basicInfo.educationLevel)
-  let identifyAsUnderrepresented = capitalizeFirstLetter(
-    formInputs.basicInfo.identifyAsUnderrepresented
+const PortfolioInfoGroup = ({ formInputs }) => {
+  return (
+    <>
+      <InfoGroup heading="Resume" data={formInputs.resume} />
+      <InfoGroup heading="Personal Website/Portfolio Link" data={formInputs.portfolio} />
+      <InfoGroup heading="LinkedIn" data={formInputs.linkedin} />
+      <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.github} />
+    </>
   )
-  if (identifyAsUnderrepresented === 'PreferNotToAnswer') {
-    identifyAsUnderrepresented = 'Prefer not to answer'
-  }
+}
 
-  let canadianStatus = formInputs.basicInfo.canadianStatus
-
-  if (canadianStatus === 'other') {
-    canadianStatus = formInputs.basicInfo.otherCanadianStatus
-      ? formInputs.basicInfo.specifiedIndigenousIdentification
-      : 'Other Canadian Status'
-  } else {
-    canadianStatus = capitalizeFirstLetter(formInputs.basicInfo.canadianStatus)
-  }
-
-  let indigenousIdentification = capitalizeFirstLetter(
-    formInputs.basicInfo.indigenousIdentification
+const LegalNameInfoGroup = ({ formInputs }) => {
+  return (
+    <InfoGroup
+      heading="Full Legal Name:"
+      data={
+        formInputs.legalMiddleName
+          ? formInputs.legalFirstName.concat(' ').concat(formInputs.legalLastName)
+          : formInputs.legalFirstName
+              .concat(' ')
+              .concat(formInputs.legalMiddleName)
+              .concat(' ')
+              .concat(formInputs.legalLastName)
+      }
+    />
   )
+}
 
-  if (indigenousIdentification === 'Yes') {
-    indigenousIdentification += formInputs.basicInfo.specifiedIndigenousIdentification
-      ? ': ' + formInputs.basicInfo.specifiedIndigenousIdentification
-      : ' Identified as Indigenous/First Nations'
-  }
-
-  const dietaryRestrictions = getDietaryRestrictions(formInputs.basicInfo.dietaryRestriction).map(
-    e => DIETARY_RESTRICTION_OPTIONS[e]
-  )
-  var dietaryRestrictionValues = []
-
-  for (var i = 0; i < dietaryRestrictions.length; i++) {
-    if (dietaryRestrictions[i] === 'Other (Please Specify)') {
-      dietaryRestrictionValues.push(
-        formInputs.basicInfo?.otherDietaryRestriction || 'Other Dietary Restriction'
-      )
-    } else {
-      dietaryRestrictionValues.push(dietaryRestrictions[i])
-    }
-    if (i < dietaryRestrictions.length - 1) {
-      dietaryRestrictionValues.push(', ')
-    }
-  }
-
-  const majors = getMajors(formInputs.basicInfo.major).map(e => MAJOR_OPTIONS[e])
+const MajorInfoGroup = ({ formInputs }) => {
+  const majors = getMajors(formInputs.major).map(e => MAJOR_OPTIONS[e])
   var majorValues = []
-
   for (var j = 0; j < majors.length; j++) {
     if (majors[j] === 'Other (Please Specify)') {
-      majorValues.push(formInputs.basicInfo?.otherMajor || 'Other Major')
+      majorValues.push(formInputs.otherMajor || 'Other Major')
     } else {
       majorValues.push(majors[j])
     }
@@ -167,102 +118,61 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
       majorValues.push(', ')
     }
   }
-
-  const engagementSources = getEngagementSources(formInputs.questionnaire.engagementSource).map(
-    e => ENGAGEMENT_SOURCES[e]
+  return (
+    <InfoGroup
+      heading={'Major/Intended Major(s):'}
+      data={majorValues.length > 0 ? majorValues : 'None'}
+    />
   )
+}
 
-  var engagementSourcesValues = []
+const InfoGroup = ({ heading, data, type, formInputs, formInput }) => {
+  let displayText
 
-  for (var k = 0; k < engagementSources.length; k++) {
-    if (engagementSources[k] === 'Other (Please Specify)') {
-      engagementSourcesValues.push(
-        formInputs.questionnaire?.otherEngagementSource || 'Other Engagement Source'
-      )
-    } else {
-      engagementSourcesValues.push(engagementSources[k])
-    }
-
-    if (k < engagementSources.length - 1) {
-      engagementSourcesValues.push(', ')
-    }
+  if (type === 'Portfolio') {
+    return <PortfolioInfoGroup formInputs={formInputs} />
   }
 
-  const events = getEvents(formInputs.questionnaire.eventsAttended).map(e => EVENTS_ATTENDED[e])
-  var attendedValues = []
-
-  for (var l = 0; l < events.length; l++) {
-    attendedValues.push(events[l])
-
-    if (l < events.length - 1) {
-      attendedValues.push(', ')
-    }
+  if (type === 'Full Legal Name') {
+    return <LegalNameInfoGroup formInputs={formInputs} />
   }
 
-  const contribution = getContribution(formInputs.skills.contributionRole).map(
-    e => CONTRIBUTION_ROLE_OPTIONS[e]
+  if (type === 'Major') {
+    return <MajorInfoGroup formInputs={formInputs} />
+  }
+
+  if (type === 'Select All' && data !== null) {
+    const trueKeys = Object.keys(data)
+      .filter(key => data[key] === true)
+      .map(key => {
+        if (key === 'other') {
+          const camelCaseKey = toOtherCamelCase(formInput)
+          return formInputs[camelCaseKey]
+        } else {
+          return key
+            .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space between lowercase and uppercase letters
+            .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // Handle cases with consecutive uppercase letters
+            .replace(/([a-z])([A-Z])/g, '$1 $2') // Handle cases with lowercase followed by uppercase
+            .toLowerCase() // Convert the entire string to lowercase
+            .replace(/\b\w/g, char => char.toUpperCase()) // Capitalize the first letter of each word
+        }
+      })
+    displayText = trueKeys.length > 0 ? trueKeys.join(', ') : 'No response'
+  } else {
+    displayText = data || 'No response'
+  }
+
+  return (
+    <InfoGroupWrapper>
+      <StyledH1>{heading}</StyledH1> <P>{displayText}</P>
+    </InfoGroupWrapper>
   )
-  var contributionValues = []
+}
 
-  for (var m = 0; m < contribution.length; m++) {
-    contributionValues.push(contribution[m])
+const getMajors = obj => Object.keys(obj).filter(key => obj[key])
 
-    if (m < contribution.length - 1) {
-      contributionValues.push(', ')
-    }
-  }
-
-  const pronouns = getPronouns(formInputs.basicInfo.pronouns).map(e => PRONOUN_OPTIONS[e])
-
-  var pronounValues = []
-
-  for (var n = 0; n < pronouns.length; n++) {
-    if (pronouns[n] === 'Other') {
-      pronounValues.push(formInputs.basicInfo?.otherPronoun || 'Other Pronoun')
-    } else {
-      pronounValues.push(pronouns[n])
-    }
-
-    if (n < pronouns.length - 1) {
-      pronounValues.push(', ')
-    }
-  }
-
-  const races = getRaces(formInputs.basicInfo.race).map(e => RACE_OPTIONS[e])
-
-  var racesValues = []
-
-  for (var o = 0; o < races.length; o++) {
-    if (races[o] === 'Other (Please Specify)') {
-      racesValues.push(formInputs.basicInfo?.otherRace || 'Other Race')
-    } else {
-      racesValues.push(races[o])
-    }
-
-    if (o < races.length - 1) {
-      racesValues.push(', ')
-    }
-  }
-
-  const culturalBgs = getCulturalBackgrounds(formInputs.basicInfo.culturalBackground).map(
-    e => CULTURAL_BG_OPTIONS[e]
-  )
-
-  var culturalBgsValues = []
-
-  for (var p = 0; p < culturalBgs.length; p++) {
-    if (culturalBgs[p] === 'Other (Please Specify)') {
-      culturalBgsValues.push(
-        formInputs.basicInfo?.otherCulturalBackground || 'Other Cultural Background'
-      )
-    } else {
-      culturalBgsValues.push(culturalBgs[p])
-    }
-
-    if (p < culturalBgs.length - 1) {
-      culturalBgsValues.push(', ')
-    }
-  }
+const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
+  const { basicInfoQuestions, skillsQuestions, questionnaireQuestions } = useHackerApplication()
 
   return (
     <>
@@ -288,69 +198,22 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper grid>
-            <InfoGroup
-              heading="Full Legal Name:"
-              data={
-                formInputs.basicInfo.legalMiddleName
-                  ? formInputs.basicInfo.legalFirstName
-                      .concat(' ')
-                      .concat(formInputs.basicInfo.legalLastName)
-                  : formInputs.basicInfo.legalFirstName
-                      .concat(' ')
-                      .concat(formInputs.basicInfo.legalMiddleName)
-                      .concat(' ')
-                      .concat(formInputs.basicInfo.legalLastName)
-              }
-            />
-            <InfoGroup
-              heading="Preferred Name:"
-              data={formInputs.basicInfo.preferredName || 'None'}
-            />
-            <InfoGroup
-              heading="Current age:"
-              data={
-                formInputs.basicInfo.ageByHackathon === 'other'
-                  ? formInputs.basicInfo.otherAgeByHackathon
-                  : formInputs.basicInfo.ageByHackathon
-              }
-            />
-            <InfoGroup heading="Phone Number:" data={formInputs.basicInfo.phoneNumber} />
-            <InfoGroup heading="School:" data={formInputs.basicInfo.school} />
-            <InfoGroup heading="Level of Education:" data={educationLevel} />
-            <InfoGroup heading="Academic Year:" data={formInputs.basicInfo.academicYear} />
-            <InfoGroup
-              heading="Graduation Year:"
-              data={formInputs.basicInfo.graduation === 0 ? '' : formInputs.basicInfo.graduation}
-            />
-            <InfoGroup heading="Country of Residence:" data={countryOfResidence} />
-            <InfoGroup heading="Dietary restriction(s):" data={dietaryRestrictionValues} />
-            <InfoGroup
-              heading="Identify As Underrepresented Gender in Tech:"
-              data={identifyAsUnderrepresented}
-            />
-            <InfoGroup
-              heading={'Pronouns:'}
-              data={pronounValues.length > 0 ? pronounValues : 'None'}
-            />
-            <InfoGroup heading="Gender:" data={gender ? gender : 'None'} />
-            <InfoGroup
-              heading={'Intended Major(s):'}
-              data={majorValues.length > 0 ? majorValues : 'None'}
-            />
-            <InfoGroup heading={'Race(s):'} data={racesValues.length > 0 ? racesValues : 'None'} />
-            <InfoGroup
-              heading="Indigenous/First Nations Identification:"
-              data={indigenousIdentification ? indigenousIdentification : 'None'}
-            />
-            <InfoGroup
-              heading={'Cultural Background:'}
-              data={culturalBgsValues.length > 0 ? culturalBgsValues : 'None'}
-            />
-            <InfoGroup heading="Canadian Status:" data={canadianStatus ? canadianStatus : 'None'} />
-            <InfoGroup
-              heading="Visible/Invisible Disability(ies):"
-              data={formInputs.basicInfo.disability ? formInputs.basicInfo.disability : 'None'}
-            />
+            {basicInfoQuestions.map(question => {
+              return (
+                <InfoGroup
+                  heading={question.title}
+                  data={
+                    formInputs.basicInfo[question.formInput] === 'other' ||
+                    formInputs.basicInfo[question.formInput] === 'Other'
+                      ? formInputs.basicInfo[toOtherCamelCase(question.formInput)]
+                      : formInputs.basicInfo[question.formInput]
+                  }
+                  type={question.type}
+                  formInputs={formInputs.basicInfo}
+                  formInput={question.formInput}
+                />
+              )
+            })}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -368,42 +231,22 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            {/* TODO: Change hackathonsAttended to attendedHackathons and make sure the value is an accurate representation */}
-            <InfoGroup
-              heading="Number of Hackathons Attended"
-              data={formInputs.skills.numHackathonsAttended}
-            />
-            <InfoGroup
-              heading={`Contribution at ${copyText[activeHackathon].hackathonName}:`}
-              data={contributionValues}
-            />
-            <InfoGroup heading="Resume" data={formInputs.skills.resume} />
-            <InfoGroup
-              heading="Personal Website/Portfolio Link"
-              data={formInputs.skills.portfolio}
-            />
-            <InfoGroup heading="LinkedIn" data={formInputs.skills.linkedin} />
-            <InfoGroup heading="GitHub/BitBucket/GitLab" data={formInputs.skills.github} />
-            <InfoGroup
-              heading="Why do you want to attend cmd-f 2024?"
-              data={formInputs.skills.longAnswers1}
-            />
-            <InfoGroup
-              heading="How would you make tech a more welcoming space for underrepresented demographics?"
-              data={formInputs.skills.longAnswers2}
-            />
-            <InfoGroup
-              heading="Tell us about a project you’re really proud of and what you learned from it."
-              data={formInputs.skills.longAnswers3}
-            />
-            <InfoGroup
-              heading="In the past, have there been reasons deterring you from attending hackathons or other tech events? (optional)"
-              data={formInputs.skills.longAnswers4 ? formInputs.skills.longAnswers4 : 'None'}
-            />
-            <InfoGroup
-              heading="Is there anything you want to let us know to ensure that we can help you feel comfortable throughout the event? (optional)"
-              data={formInputs.skills.longAnswers5 ? formInputs.skills.longAnswers5 : 'None'}
-            />
+            {skillsQuestions.map(question => {
+              return (
+                <InfoGroup
+                  heading={question.title}
+                  data={
+                    formInputs.skills[question.formInput] === 'other' ||
+                    formInputs.skills[question.formInput] === 'Other'
+                      ? formInputs.skills[toOtherCamelCase(question.formInput)]
+                      : formInputs.skills[question.formInput]
+                  }
+                  type={question.type}
+                  formInputs={formInputs.skills}
+                  formInput={question.formInput}
+                />
+              )
+            })}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>
@@ -421,19 +264,22 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         </JohnDiv>
         <StyledBanner wide={true} blur>
           <ContentWrapper>
-            <InfoGroup
-              heading={`You heard about ${copyText[activeHackathon].hackathonName} from`}
-              data={engagementSourcesValues}
-            />
-            <InfoGroup
-              heading="Previous events attended:"
-              data={attendedValues.length > 0 ? attendedValues : 'None'}
-            />
-            {/* Commenting out for nwHacks 2023 */}
-            {/* <InfoGroup
-              heading="Email of friend you're applying with:"
-              data={formInputs.questionnaire.friendEmail}
-            /> */}
+            {questionnaireQuestions.map(question => {
+              return (
+                <InfoGroup
+                  heading={question.title}
+                  data={
+                    formInputs.questionnaire[question.formInput] === 'other' ||
+                    formInputs.questionnaire[question.formInput] === 'Other'
+                      ? formInputs.questionnaire[toOtherCamelCase(question.formInput)]
+                      : formInputs.questionnaire[question.formInput]
+                  }
+                  type={question.type}
+                  formInputs={formInputs.questionnaire}
+                  formInput={question.formInput}
+                />
+              )
+            })}
           </ContentWrapper>
         </StyledBanner>
       </ReviewContainer>

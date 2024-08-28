@@ -1,47 +1,31 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
 import BasicInfo from '../../components/ApplicationForm/BasicInfo'
 import NavigationButtons from '../../components/NavigationButtons'
 import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { checkForError, validateFormSection } from '../../utility/Validation'
-
-const questionsByOrder = [
-  'legalFirstName',
-  'legalLastName',
-  'preferredName',
-  'ageByHackathon',
-  'phoneNumber',
-  'school',
-  'educationLevel',
-  'graduation',
-  'academicYear',
-  'countryOfResidence',
-  'dietaryRestriction',
-  // 'willBeAgeOfMajority',
-  'identifyAsUnderrepresented',
-  'pronouns',
-  'gender',
-  'haveTransExperience',
-  'major',
-  'race',
-  'indigenousIdentification',
-  'culturalBackground',
-  // 'isAuthorizedToWorkInCanada',
-  'canadianStatus',
-  'disability',
-]
+import { getQuestionsByOrder } from '../../utility/utilities'
 
 const Part1 = () => {
-  const { application, updateApplication, forceSave } = useHackerApplication()
+  const { application, updateApplication, forceSave, basicInfoQuestions } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [questionsByOrder, setQuestionsByOrder] = useState([])
+
+  useEffect(() => {
+    const fetchQuestionsByOrder = () => {
+      const questions = getQuestionsByOrder(basicInfoQuestions)
+      setQuestionsByOrder(questions)
+    }
+    fetchQuestionsByOrder()
+  }, [basicInfoQuestions])
 
   const validate = change => {
-    const newErrors = validateFormSection(change, 'basicInfo')
-    setErrors({ ...errors, ...newErrors })
-    return { ...errors, ...newErrors }
+    const newErrors = validateFormSection(change, 'basicInfo', questionsByOrder)
+    setErrors(newErrors)
+    return newErrors
   }
 
   const save = async () => {
@@ -98,9 +82,9 @@ const Part1 = () => {
       const newErrors = validate(application.basicInfo)
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
-          if (newErrors[question]) {
+          if (newErrors[question[0]]) {
             // redirects the user to the question
-            refs[`${question}Ref`].current.focus()
+            refs[`${question[0]}Ref`].current.focus()
             break
           }
         }

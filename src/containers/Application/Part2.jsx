@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'wouter'
 import Skills from '../../components/ApplicationForm/Skills'
 import NavigationButtons from '../../components/NavigationButtons'
@@ -9,28 +9,27 @@ import {
   checkForError,
   validateFormSection,
 } from '../../utility/Validation'
-
-const questionsByOrder = [
-  'resume',
-  'portfolio',
-  'github',
-  'longAnswers1',
-  'longAnswers2',
-  'longAnswers3',
-  'longAnswers4',
-  'longAnswers5',
-]
+import { getQuestionsByOrder } from '../../utility/utilities'
 
 const Part2 = () => {
-  const { application, updateApplication, forceSave } = useHackerApplication()
+  const { application, updateApplication, forceSave, skillsQuestions } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [questionsByOrder, setQuestionsByOrder] = useState([])
+
+  useEffect(() => {
+    const fetchQuestionsByOrder = () => {
+      const questions = getQuestionsByOrder(skillsQuestions)
+      setQuestionsByOrder(questions)
+    }
+    fetchQuestionsByOrder()
+  }, [skillsQuestions])
 
   const validate = change => {
-    const newErrors = validateFormSection(change, 'skills')
-    setErrors({ ...errors, ...newErrors })
-    return { ...errors, ...newErrors }
+    const newErrors = validateFormSection(change, 'skills', questionsByOrder)
+    setErrors(newErrors)
+    return newErrors
   }
 
   const save = async () => {
@@ -72,8 +71,8 @@ const Part2 = () => {
       const newErrors = validate(application.skills)
       if (checkForError(newErrors)) {
         for (let question of questionsByOrder) {
-          if (newErrors[question]) {
-            refs[`${question}Ref`].current.focus()
+          if (newErrors[question[0]]) {
+            refs[`${question[0]}Ref`].current.focus()
             break
           }
         }

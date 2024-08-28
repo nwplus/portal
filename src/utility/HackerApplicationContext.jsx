@@ -6,6 +6,8 @@ import {
   getUserApplication,
   updateUserApplication,
   getLivesiteDoc,
+  fillHackerApplicationTemplate,
+  getHackerAppQuestions,
 } from './firebase'
 import firebase from 'firebase/app'
 import { HACKER_APPLICATION_TEMPLATE } from './Constants'
@@ -47,6 +49,9 @@ export function HackerApplicationProvider({ children }) {
   const applicationRef = useRef()
   const { activeHackathon, dbHackathonName } = useHackathon()
   const [isLoading, setIsLoading] = useState(true)
+  const [basicInfoQuestions, setBasicInfoQuestions] = useState([])
+  const [skillsQuestions, setSkillsQuestions] = useState([])
+  const [questionnaireQuestions, setQuestionnaireQuestions] = useState([])
 
   /**Initialize retrieval of hacker application */
   // useEffect(() => {
@@ -105,7 +110,8 @@ export function HackerApplicationProvider({ children }) {
         return
       }
       const app = await getUserApplication(user.uid, dbHackathonName)
-      fillMissingProperties(app, HACKER_APPLICATION_TEMPLATE)
+      const appTemplate = await fillHackerApplicationTemplate(dbHackathonName)
+      fillMissingProperties(app, appTemplate)
       setApplication(app)
       applicationRef.current = app
       setUpdated(false)
@@ -119,6 +125,23 @@ export function HackerApplicationProvider({ children }) {
       }
     }
   }, [forceSave, user, dbHackathonName])
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      setIsLoading(true)
+      try {
+        setBasicInfoQuestions(await getHackerAppQuestions(dbHackathonName, 'BasicInfo'))
+        setSkillsQuestions(await getHackerAppQuestions(dbHackathonName, 'Skills'))
+        setQuestionnaireQuestions(await getHackerAppQuestions(dbHackathonName, 'Questionnaire'))
+      } catch (error) {
+        console.error('Error fetching hacker application questions:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchQuestions()
+  }, [dbHackathonName])
 
   /**Checks whether the app has been updated and force saves it if it has */
   const syncAppToFirebase = useCallback(async () => {
@@ -193,7 +216,16 @@ export function HackerApplicationProvider({ children }) {
   }
 
   return (
-    <HackerApplicationContext.Provider value={{ application, updateApplication, forceSave }}>
+    <HackerApplicationContext.Provider
+      value={{
+        application,
+        updateApplication,
+        forceSave,
+        basicInfoQuestions,
+        skillsQuestions,
+        questionnaireQuestions,
+      }}
+    >
       {children}
     </HackerApplicationContext.Provider>
   )

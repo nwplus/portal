@@ -12,8 +12,9 @@ const Review = () => {
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const { basicInfoQuestions, skillsQuestions, questionnaireQuestions } = useHackerApplication()
   const validate = change => {
-    const newErrors = validateFormSection(change, 'termsAndConditions')
+    const newErrors = validateFormSection(change, 'termsAndConditions', [])
     setErrors({ ...errors, ...newErrors })
     return { ...errors, ...newErrors }
   }
@@ -37,7 +38,12 @@ const Review = () => {
   }
 
   const handleSubmit = async () => {
-    const allErrors = validateEntireForm(application)
+    const allErrors = await validateEntireForm(
+      application,
+      basicInfoQuestions,
+      skillsQuestions,
+      questionnaireQuestions
+    )
     if (checkForError(allErrors)) {
       window.alert('Please agree to the required terms and conditions.')
       return
