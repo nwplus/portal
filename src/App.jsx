@@ -42,6 +42,7 @@ import {
 import { db, getAnnouncement } from './utility/firebase'
 import notifications from './utility/notifications'
 import Loading from './components/Loading'
+import HackathonSelection from './pages/HackathonSelection'
 
 function App() {
   const [announcementText, setAnnouncementText] = useState('')
@@ -105,7 +106,8 @@ function App() {
         <AnnouncementToast text={announcementText} />
         <Switch>
           <Route path="/">
-            <Landing>
+            <HackathonSelection />
+            {/* <Landing>
               <Link href="/app/hackcamp">
                 <A>Hackcamp</A>
               </Link>
@@ -117,7 +119,7 @@ function App() {
               <Link href="/app/cmd-f">
                 <A>cmd-f</A>
               </Link>
-            </Landing>
+            </Landing> */}
           </Route>
           <NoAuthRoute path="/login">
             <Login />

@@ -259,7 +259,11 @@ const cmdfTheme = {
   },
 }
 
-const THEMES = { 'hackcamp': hackcampTheme, 'nwhacks': nwHacksTheme, 'cmd-f': cmdfTheme }
+const THEMES = {
+  'hackcamp': hackcampTheme,
+  'nwhacks': nwHacksTheme,
+  'cmd-f': cmdfTheme,
+}
 
 const ThemeProvider = ({ children }) => {
   const { activeHackathon } = useHackathon()
