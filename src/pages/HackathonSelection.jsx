@@ -7,7 +7,6 @@ import hc_planet from '../assets/homepage/hc_planet.svg'
 import nwhacks_planet from '../assets/homepage/nwhacks_planet.svg'
 import cmdf_planet from '../assets/homepage/cmdf_planet.svg'
 import { H1 } from '../components/Typography'
-// import { Button } from '../components/Input'
 import { livesiteDocRef } from '../utility/firebase'
 import Loading from '../components/Loading'
 import { useLocation } from 'wouter'
@@ -23,7 +22,7 @@ const float = keyframes`
 
 const HackathonSelectionContainer = styled.div`
   display: flex;
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
   position: relative;
 
@@ -46,7 +45,6 @@ const StyledHackathonCard = styled.div`
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     justify-content: ${props => (props.isUpNext ? 'space-between' : 'center')};
-    // padding: 10px 0px;
     gap: ${props => (props.isUpNext ? '' : '10px')};
     flex-grow: ${props => (props.isUpNext ? 3 : 1)};
   }
