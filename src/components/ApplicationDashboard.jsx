@@ -354,7 +354,7 @@ export const SocialMediaLinks = () => {
       />
       <Icon
         href={SOCIAL_LINKS.TW}
-        icon="twitter"
+        icon="x-twitter"
         color="#FFF"
         brand
         size="2x"

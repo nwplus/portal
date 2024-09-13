@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'wouter'
 import styled, { keyframes } from 'styled-components'
 import moment from 'moment'
+import { H1 } from '../components/Typography'
+import Loading from '../components/Loading'
+import { SocialMediaLinks } from '../components/ApplicationDashboard'
+import { livesiteDocRef } from '../utility/firebase'
 import galaxy_desktop from '../assets/homepage/galaxy_desktop.svg'
 import galaxy_mobile from '../assets/homepage/galaxy_mobile.svg'
 import hc_planet from '../assets/homepage/hc_planet.svg'
 import nwhacks_planet from '../assets/homepage/nwhacks_planet.svg'
 import cmdf_planet from '../assets/homepage/cmdf_planet.svg'
-import { H1 } from '../components/Typography'
-import { livesiteDocRef } from '../utility/firebase'
-import Loading from '../components/Loading'
-import { useLocation } from 'wouter'
 import space_nugget from '../assets/homepage/space_nugget.svg'
+import nwplus_icon from '../assets/nwplus_icon.svg'
 
 // one of 'HackCamp', 'nwHacks', 'cmd-f', or null (when we're done for the year)
-const UP_NEXT_HACKATHON_NAME = 'nwHacks'
+const UP_NEXT_HACKATHON_NAME = 'HackCamp'
 
 const float = keyframes`
   0%, 100% { transform: translateY(0); }
@@ -28,6 +30,30 @@ const HackathonSelectionContainer = styled.div`
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     flex-direction: column;
+  }
+`
+
+const Logo = styled.img`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 50px;
+  width: auto;
+  z-index: 2;
+
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    display: none;
+  }
+`
+
+const SocialMediaLinksContainer = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    display: none;
   }
 `
 
@@ -148,6 +174,7 @@ const ButtonContainer = styled.div`
   align-items: center;
   gap: 0.25rem;
 `
+
 const Button = styled.button`
   background: ${props => props.color};
   color: ${props => props.labelColor};
@@ -207,6 +234,7 @@ const ApplicationStatusTextMobile = styled(H1)`
   }
 `
 
+// helps group items in mobile view
 const MobileWrapper = styled.div`
   display: contents;
 
@@ -231,8 +259,8 @@ const getApplicationStatusText = (applicationOpen, applicationDeadline) => {
   return 'Applications closed'
 }
 
-const handleNavigation = (visitWebsite, hackathonName, navigate) => {
-  if (!visitWebsite) return navigate(`/app/${hackathonName}`)
+const handleNavigation = (applicationOpen, visitWebsite, hackathonName, navigate) => {
+  if (applicationOpen || !visitWebsite) return navigate(`/app/${hackathonName}`)
 
   const websites = {
     'HackCamp': 'https://hackcamp.nwplus.io',
@@ -288,7 +316,7 @@ const HackathonCard = ({
             hoverColor={buttonHoverColor}
             isUpNext={isUpNext}
           >
-            {visitWebsite ? 'Visit website' : applicationOpen ? 'Apply now' : 'Enter Portal'}
+            {applicationOpen ? 'Apply now' : visitWebsite ? 'Visit website' : 'Enter Portal'}
           </Button>
           <ApplicationStatusTextDesktop isUpNext={isUpNext}>
             {getApplicationStatusText(applicationOpen, applicationDeadline)}
@@ -332,6 +360,11 @@ export default function HackathonSelection() {
   return (
     <HackathonSelectionContainer>
       <GalaxyOverlay />
+      <Logo src={nwplus_icon} />
+      <SocialMediaLinksContainer>
+        <SocialMediaLinks />
+      </SocialMediaLinksContainer>
+
       <HackathonCard
         background="linear-gradient(180deg, #605091 0%, #2C2543 92.26%)"
         hackathonName={'HackCamp'}
@@ -365,7 +398,7 @@ export default function HackathonSelection() {
         buttonHoverColor={'#E6E6E6'}
         applicationDeadline={applicationData.deadlines['cmd-f']}
         applicationOpen={applicationData.openStatuses['cmd-f']}
-        visitWebsite={true}
+        visitWebsite
       />
     </HackathonSelectionContainer>
   )
