@@ -107,19 +107,6 @@ function App() {
         <Switch>
           <Route path="/">
             <HackathonSelection />
-            {/* <Landing>
-              <Link href="/app/hackcamp">
-                <A>Hackcamp</A>
-              </Link>
-              <br />
-              <Link href="/app/nwhacks">
-                <A>nwHacks</A>
-              </Link>
-              <br />
-              <Link href="/app/cmd-f">
-                <A>cmd-f</A>
-              </Link>
-            </Landing> */}
           </Route>
           <NoAuthRoute path="/login">
             <Login />

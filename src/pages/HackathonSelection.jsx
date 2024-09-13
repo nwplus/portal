@@ -40,6 +40,7 @@ const Logo = styled.img`
   height: 50px;
   width: auto;
   z-index: 2;
+  cursor: pointer;
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     display: none;
@@ -143,7 +144,7 @@ const Planet = styled.img`
   }
 `
 
-const SpaceNuggetWrapper = styled.div`
+const SpaceNuggetContainer = styled.div`
   position: absolute;
   width: 60%;
   top: 10%;
@@ -153,7 +154,7 @@ const SpaceNuggetWrapper = styled.div`
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     width: 50%;
-    top: 30%;
+    top: 15%;
   }
 `
 
@@ -257,14 +258,14 @@ const getApplicationStatusText = (applicationOpen, applicationDeadline) => {
 }
 
 const handleNavigation = (applicationOpen, visitWebsite, hackathonName, navigate) => {
-  if (applicationOpen || !visitWebsite) return navigate(`/app/${hackathonName}`)
+  if (applicationOpen || !visitWebsite) return navigate(`/app/${hackathonName.toLowerCase()}`)
 
   const websites = {
     'HackCamp': 'https://hackcamp.nwplus.io',
     'nwHacks': 'https://nwhacks.io',
     'cmd-f': 'https://cmd-f.nwplus.io',
   }
-  window.open(websites[hackathonName], '_blank')
+  window.open(websites[hackathonName], '_blank', 'noopener,noreferrer')
 }
 
 const HackathonCard = ({
@@ -298,9 +299,9 @@ const HackathonCard = ({
         <PlanetContainer isUpNext={isUpNext}>
           <Planet src={planet} hackathonName={hackathonName} />
           {isUpNext && (
-            <SpaceNuggetWrapper>
+            <SpaceNuggetContainer>
               <SpaceNuggetImage src={space_nugget} />
-            </SpaceNuggetWrapper>
+            </SpaceNuggetContainer>
           )}
         </PlanetContainer>
 
@@ -309,7 +310,7 @@ const HackathonCard = ({
             color={buttonColour}
             labelColor={buttonTextColour}
             onClick={() => {
-              handleNavigation(visitWebsite, hackathonName, navigate)
+              handleNavigation(applicationOpen, visitWebsite, hackathonName, navigate)
             }}
             hoverColor={buttonHoverColor}
             isUpNext={isUpNext}
@@ -361,7 +362,10 @@ export default function HackathonSelection() {
   return (
     <HackathonSelectionContainer>
       <GalaxyOverlay />
-      <Logo src={nwplus_icon} />
+      <Logo
+        src={nwplus_icon}
+        onClick={() => window.open('https://nwplus.io', '_blank', 'noopener,noreferrer')}
+      />
       <SocialMediaLinksContainer>
         <SocialMediaLinks />
       </SocialMediaLinksContainer>

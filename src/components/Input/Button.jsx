@@ -5,7 +5,7 @@ import { hexToRgba } from '../../utility/utilities'
 const buttonWidth = {
   small: '40px',
   default: '60px',
-  large: '200px',
+  large: '300px',
   flex: '',
 }
 
@@ -22,7 +22,6 @@ const StyledButton = styled.a`
   text-decoration: none;
   font-family: ${p => p.theme};
   font-weight: ${p => p.theme.typography.h1.weight};
-  font-size: ${p => p.fontSize || 'inherit'};
   border: transparent;
   transition: all 250ms;
   max-width: 100%;
@@ -30,7 +29,7 @@ const StyledButton = styled.a`
   text-align: center;
   padding: ${p => (p.height ? buttonHeightPadding[p.height] : buttonHeightPadding['default'])}
     0.75em;
-  border-radius: ${p => p.borderRadius || '3px'};
+  border-radius: 3px;
   margin: 1em ${p => (!!p.no_margin ? '0px' : !!p.nav ? '0 1em 0.75em' : '0.75em')};
   :hover {
     cursor: pointer;
@@ -115,7 +114,7 @@ const StyledButton = styled.a`
         ${
           p.disabled
             ? `cursor: not-allowed;`
-            : `background: ${p.hover || p.theme.colors.tertiaryHover || ''};`
+            : `background: ${p.hover || p.theme.colors.tertiaryHover};`
         }
       }
       :focus {
