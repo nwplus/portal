@@ -24,9 +24,9 @@ const float = keyframes`
 
 const HackathonSelectionContainer = styled.div`
   display: flex;
+  position: relative;
   height: 100dvh;
   width: 100vw;
-  position: relative;
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     flex-direction: column;
@@ -43,6 +43,22 @@ const Logo = styled.img`
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     display: none;
+  }
+`
+
+const GalaxyOverlay = styled.div`
+  position: absolute;
+  opacity: 0.3;
+  inset: 0;
+  background-image: url(${galaxy_desktop});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    background-image: url(${galaxy_mobile});
+    opacity: 0.3;
   }
 `
 
@@ -76,30 +92,10 @@ const StyledHackathonCard = styled.div`
   }
 `
 
-const GalaxyOverlay = styled.div`
-  position: absolute;
-  opacity: 0.3;
-  inset: 0;
-  background-image: url(${galaxy_desktop});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
-
-  ${p => p.theme.mediaQueries.tabletLarge} {
-    background-image: url(${galaxy_mobile});
-    opacity: 0.3;
-  }
-`
-
 const Header = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 2;
-
-  ${p => p.theme.mediaQueries.tabletLarge} {
-    gap: 0;
-  }
 `
 
 const Title = styled(H1)`
@@ -118,8 +114,8 @@ const Title = styled(H1)`
 
 const Dates = styled(H1)`
   font-size: 1.25rem;
-  color: ${props => props.color};
   margin: 0;
+  color: ${props => props.color};
 
   ${p => p.theme.mediaQueries.mobile} {
     font-size: ${props => (props.isUpNext ? '1rem' : '0.8rem')};
@@ -168,27 +164,30 @@ const SpaceNuggetImage = styled.img`
 `
 
 const ButtonContainer = styled.div`
-  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
+  z-index: 2;
 `
 
 const Button = styled.button`
+  position: relative;
+  width: 250px;
+  padding: 12px 24px;
+  z-index: 2;
+
+  font-size: 1.25rem;
+  font-weight: ${p => p.theme.typography.h1.weight};
+  font-family: ${p => p.theme.typography.headerFont};
+
   background: ${props => props.color};
   color: ${props => props.labelColor};
   border: none;
   border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 1.25rem;
-  font-weight: ${p => p.theme.typography.h1.weight};
-  font-family: ${p => p.theme.typography.headerFont};
+
   cursor: pointer;
   transition: background 0.3s ease;
-  z-index: 2;
-  position: relative;
-  width: 250px;
 
   &:hover {
     background: ${props => props.hoverColor || props.color};
@@ -235,7 +234,7 @@ const ApplicationStatusTextMobile = styled(H1)`
 `
 
 // helps group items in mobile view
-const MobileWrapper = styled.div`
+const MobileContainer = styled.div`
   display: contents;
 
   ${p => p.theme.mediaQueries.tabletLarge} {
@@ -247,16 +246,14 @@ const MobileWrapper = styled.div`
   }
 `
 
+// example deadline format: February 22nd, 2025 at 11:59 PM (Pacific Time)
 const getApplicationStatusText = (applicationOpen, applicationDeadline) => {
-  const now = moment()
   const deadlineDate = moment(applicationDeadline, 'MMMM Do, YYYY [at] h:mm A')
-  const isDeadlinePassed = now.isAfter(deadlineDate)
+  const isDeadlinePassed = moment().isAfter(deadlineDate)
 
-  if (!applicationOpen && !isDeadlinePassed) return 'Applications opening soon!'
-  if (!applicationOpen && isDeadlinePassed) return 'Applications closed'
-  if (applicationOpen && !isDeadlinePassed)
-    return `Applications close on ${deadlineDate.format('MMM D, YYYY')}!`
-  return 'Applications closed'
+  if (isDeadlinePassed) return 'Applications closed'
+  if (!applicationOpen) return 'Applications opening soon!'
+  return `Applications close on ${deadlineDate.format('MMM D, YYYY')}!`
 }
 
 const handleNavigation = (applicationOpen, visitWebsite, hackathonName, navigate) => {
@@ -285,9 +282,10 @@ const HackathonCard = ({
 }) => {
   const [_, navigate] = useLocation()
   const isUpNext = UP_NEXT_HACKATHON_NAME === hackathonName
+
   return (
     <StyledHackathonCard background={background} isUpNext={isUpNext}>
-      <MobileWrapper isUpNext={isUpNext}>
+      <MobileContainer isUpNext={isUpNext}>
         <Header>
           <Title color={headerTextColour} isUpNext={isUpNext}>
             {hackathonName}
@@ -322,7 +320,7 @@ const HackathonCard = ({
             {getApplicationStatusText(applicationOpen, applicationDeadline)}
           </ApplicationStatusTextDesktop>
         </ButtonContainer>
-      </MobileWrapper>
+      </MobileContainer>
 
       <ApplicationStatusTextMobile isUpNext={isUpNext}>
         {getApplicationStatusText(applicationOpen, applicationDeadline)}
@@ -331,10 +329,12 @@ const HackathonCard = ({
   )
 }
 
+// hex codes are hardcoded in this component because they don't belong to a theme
 export default function HackathonSelection() {
   const [applicationData, setApplicationData] = useState({
     deadlines: {},
     openStatuses: {},
+    hackathonWeekends: {},
   })
   const [isLoading, setIsLoading] = useState(false)
 
@@ -346,6 +346,7 @@ export default function HackathonSelection() {
         setApplicationData({
           deadlines: data.applicationDeadline,
           openStatuses: data.applicationsOpen,
+          hackathonWeekends: data.hackathonWeekend,
         })
       }
       setIsLoading(false)
@@ -368,7 +369,7 @@ export default function HackathonSelection() {
       <HackathonCard
         background="linear-gradient(180deg, #605091 0%, #2C2543 92.26%)"
         hackathonName={'HackCamp'}
-        dates={'Nov 9-10, 2024'}
+        dates={applicationData.hackathonWeekends.hackcamp}
         planet={hc_planet}
         buttonColour={'linear-gradient(92.58deg, #0DEFE1 0%, #78FF96 100%)'}
         buttonTextColour={'#2C2543'}
@@ -379,7 +380,7 @@ export default function HackathonSelection() {
       <HackathonCard
         background="linear-gradient(180deg, #77F8EF 0%, #007A72 123.72%)"
         hackathonName={'nwHacks'}
-        dates={'Jan 18-19, 2024'}
+        dates={applicationData.hackathonWeekends.nwhacks}
         headerTextColour={'#2C2543'}
         planet={nwhacks_planet}
         buttonColour={'#2C2543'}
@@ -391,7 +392,7 @@ export default function HackathonSelection() {
       <HackathonCard
         background="linear-gradient(180deg, #C4B2F0 0%, #433860 110.44%)"
         hackathonName={'cmd-f'}
-        dates={'Mar 8-9 2024'}
+        dates={applicationData.hackathonWeekends['cmd-f']}
         planet={cmdf_planet}
         buttonColour={'#ffffff'}
         buttonTextColour={'#2C2543'}
