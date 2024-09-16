@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Redirect, Route, Switch, useLocation } from 'wouter'
+import { Redirect, Route, Switch, useLocation } from 'wouter'
 import AnnouncementToast from './components/AnnouncementToast'
-import { A } from './components/Typography'
-import Landing from './containers/Landing'
 import {
   ApplicationConfirmation,
   ApplicationReview,
