@@ -14,9 +14,6 @@ import NotificationToggle from '../containers/NotificationToggle'
 import { IS_DEVICE_IOS } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
 
-/* Old styles
-border-right: 1px solid ${p => p.theme.colors.border};
-*/
 const SidebarContainer = styled.div`
   min-width: 275px;
   min-height: 100%;
@@ -35,7 +32,7 @@ const chooseLogo = hackathon => {
       return hc_logo
     case 'cmd-f':
       return cmdf_logo
-    case 'nwhacks':
+    case 'nwHacks':
       return nwhacks_logo
     default:
       return nwplus_logo
@@ -43,37 +40,24 @@ const chooseLogo = hackathon => {
 }
 
 const Logo = styled.img.attrs(p => ({
-  src: chooseLogo(p.theme.name),
+  src: chooseLogo(p.hackathon),
 }))`
   height: 7em;
   margin: 2em auto;
   display: block;
+  cursor: pointer; // Add this to indicate it's clickable
 
   ${p =>
-    p.theme.name === 'hackcamp' &&
+    p.hackathon === 'hackcamp' &&
     `
       width: 150px;
     `}
 `
-
 const ItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-/* Old styles
-  background: ${p => p.theme.colors.secondaryBackground};
-  color: ${p =>
-    p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
-  ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
-
-  &:hover {
-    background: ${p => p.theme.colors.secondaryBackground};
-  }
-  &:focus {
-    background: ${p => p.theme.colors.secondaryBackground};
-  }
-*/
 const StyledA = styled(A)`
   text-transform: uppercase;
   display: block;
@@ -82,54 +66,31 @@ const StyledA = styled(A)`
   border-bottom: none;
   background: transparent;
 
-  color: ${p => p.theme.colors.sidebar.link};
+  color: ${p => p.theme.colors.sidebar.textDefault};
 
   &:hover {
-    color: ${p => p.theme.colors.text};
+    color: ${p => p.theme.colors.sidebar.textSelected};
     background: ${p => p.theme.colors.sidebar.hover};
     border-bottom: none;
   }
 
   &:focus {
-    color: ${p => p.theme.colors.text};
+    color: ${p => p.theme.colors.sidebar.textSelected};
     border-bottom: none;
   }
 
   ${p =>
     p.selected &&
     `
-    background: ${p.theme.colors.sidebar.selected};
-    color: #ffffff;
+    background: ${p.theme.colors.sidebar.backgroundSelected};
+    color: ${p.theme.colors.sidebar.textSelected};
 
     &:hover, &:focus {
-      color: #ffffff;
-      background: ${p.theme.colors.sidebar.hover};
+      background: ${p.theme.colors.sidebar.textHover};
       border-bottom: none;
     }
   `}
 `
-
-// const LiveDot = styled.span`
-//   height: 10px;
-//   width: 10px;
-//   background: ${p => p.theme.colors.primary};
-//   border-radius: 50%;
-//   margin: 0 7px 0 4px;
-//   display: inline-block;
-// `
-/* Old styles
-background-color: ${p => p.theme.colors.primary};
-*/
-// const LiveLabel = styled.p`
-//   margin: 1em 0 2em 2rem;
-//   font-weight: bold;
-//   font-size: 0.9em;
-//   border-radius: 7px;
-//   background: ${p => p.theme.colors.primaryGradient};
-//   color: ${p => p.theme.colors.cardText};
-//   width: 4em;
-//   padding: 5px;
-// `
 
 const StyledButton = styled(Button)`
   margin: 1em 0 1em 2rem;
@@ -165,7 +126,7 @@ const CategoryHeader = styled.h4`
   padding: 1em 50px 0 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: ${p => p.theme.colors.sidebar.primary};
+  color: ${p => p.theme.colors.sidebar.textSectionHeader};
 `
 
 const LogoContainer = styled.div`
@@ -197,7 +158,7 @@ const Sidebar = ({
   const links = {
     // General
     general: [
-      { location: '', text: 'My Ticket' },
+      { location: '/', text: 'My Ticket' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/livestream', text: 'Livestream' },
       { location: '/sponsors', text: 'Sponsors' },
@@ -224,7 +185,7 @@ const Sidebar = ({
     ],
   }
   const [sponsors, setSponsors] = useState([])
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   useEffect(() => {
     getSponsors(dbHackathonName).then(docs => {
@@ -282,7 +243,9 @@ const Sidebar = ({
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
       <LogoContainer>
-        <Logo alt="logo" />
+        <Link href="~/" onClick={hideSidebarCallback}>
+          <Logo alt="logo" hackathon={activeHackathon} />
+        </Link>
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
       </LogoContainer>
       <ItemsContainer>
@@ -291,7 +254,7 @@ const Sidebar = ({
             {Object.entries(links).map((t, k) => {
               return (
                 t[1].length > 0 &&
-                t[0] !== 'useful_links' && (
+                t[0] === 'useful_links' && (
                   <React.Fragment key={k}>
                     <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                     {t[1].map((v, i) => (
@@ -337,14 +300,6 @@ const Sidebar = ({
           Log In
         </StyledButton>
       )}
-      <StyledButton
-        as={Link}
-        href="~/"
-        color="secondary"
-        style={{ textDecoration: 'none', color: 'white' }}
-      >
-        Home
-      </StyledButton>
       <SponsorContainer>
         {sponsors &&
           sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}
