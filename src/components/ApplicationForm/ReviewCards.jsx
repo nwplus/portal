@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { MAJOR_OPTIONS } from '../../utility/Constants'
+import { MAJOR_OPTIONS, copyText } from '../../utility/Constants'
 import { SocialMediaLinks } from '../ApplicationDashboard'
 import Banner from '../Banner'
 import { Button, Checkbox } from '../Input'
@@ -8,6 +8,7 @@ import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { toOtherCamelCase } from '../../utility/utilities'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -173,6 +174,7 @@ const getMajors = obj => Object.keys(obj).filter(key => obj[key])
 
 const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
   const { basicInfoQuestions, skillsQuestions, questionnaireQuestions } = useHackerApplication()
+  const { activeHackathon } = useHackathon()
 
   return (
     <>
@@ -288,12 +290,15 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
 
         <ContentWrapper textBlock>
-          <P>
-            <span role="img" aria-label="Robot emoji">
-              🤖
-            </span>{' '}
-            cmd-f 2024 is an MLH partner event. The following 3 checkboxes are for this partnership.
-          </P>
+          {activeHackathon !== 'hackcamp' && (
+            <P>
+              <span role="img" aria-label="Robot emoji">
+                🤖
+              </span>{' '}
+              {copyText[activeHackathon].hackathonName} is an MLH partner event. The following
+              checkboxes are for this partnership.
+            </P>
+          )}
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
@@ -317,77 +322,83 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               .<Required />
             </span>
           </Checkbox>
-          <Checkbox
-            flex
-            checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
-            onChange={() =>
-              onChange({
-                MLHPrivacyPolicy: !formInputs.termsAndConditions.MLHPrivacyPolicy,
-              })
-            }
-          >
-            <span>
-              I authorize nwPlus to share application/registration information with Major League
-              Hacking for event administration, ranking, MLH administration, in-line with the{' '}
-              <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
-                MLH Privacy Policy
-              </A>
-              . I further agree to the terms of both the{' '}
-              <A
-                bolded
-                color="#FFF"
-                href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
-                target="_blank"
+          {activeHackathon !== 'hackcamp' && (
+            <>
+              <Checkbox
+                flex
+                checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
+                onChange={() =>
+                  onChange({
+                    MLHPrivacyPolicy: !formInputs.termsAndConditions.MLHPrivacyPolicy,
+                  })
+                }
               >
-                MLH Contest Terms and Conditions
-              </A>{' '}
-              and the{' '}
-              <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
-                MLH Privacy Policy
-              </A>{' '}
-              <Required />
-            </span>
-          </Checkbox>
-          <Checkbox
-            flex
-            checked={formInputs.termsAndConditions.MLHEmailSubscription}
-            onChange={() =>
-              onChange({
-                MLHEmailSubscription: !formInputs.termsAndConditions.MLHEmailSubscription,
-              })
-            }
-          >
-            <span>
-              I authorize MLH to send me occasional emails about relevant events, career
-              opportunities, and community announcements.
-            </span>
-          </Checkbox>
+                <span>
+                  I authorize nwPlus to share application/registration information with Major League
+                  Hacking for event administration, ranking, MLH administration, in-line with the{' '}
+                  <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
+                    MLH Privacy Policy
+                  </A>
+                  . I further agree to the terms of both the{' '}
+                  <A
+                    bolded
+                    color="#FFF"
+                    href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
+                    target="_blank"
+                  >
+                    MLH Contest Terms and Conditions
+                  </A>{' '}
+                  and the{' '}
+                  <A bolded color="#FFF" href="https://mlh.io/privacy" target="_blank">
+                    MLH Privacy Policy
+                  </A>{' '}
+                  <Required />
+                </span>
+              </Checkbox>
+              <Checkbox
+                flex
+                checked={formInputs.termsAndConditions.MLHEmailSubscription}
+                onChange={() =>
+                  onChange({
+                    MLHEmailSubscription: !formInputs.termsAndConditions.MLHEmailSubscription,
+                  })
+                }
+              >
+                <span>
+                  I authorize MLH to send me occasional emails about relevant events, career
+                  opportunities, and community announcements.
+                </span>
+              </Checkbox>
+            </>
+          )}
         </ContentWrapper>
 
-        <ContentWrapper textBlock>
-          <P>
-            <span role="img" aria-label="Plant sprout emoji">
-              🌱
-            </span>{' '}
-            Gender is deeply personal and can look different on each individual. We ask all
-            participants to trust that everyone attending belongs at cmd-f.
-          </P>
+        {activeHackathon === 'cmd-f' && (
+          <ContentWrapper textBlock>
+            <P>
+              <span role="img" aria-label="Plant sprout emoji">
+                🌱
+              </span>{' '}
+              Gender is deeply personal and can look different on each individual. We ask all
+              participants to trust that everyone attending belongs at cmd-f.
+            </P>
 
-          <Checkbox
-            flex
-            checked={formInputs.termsAndConditions.genderAcknowledgement}
-            onChange={() =>
-              onChange({
-                genderAcknowledgement: !formInputs.termsAndConditions.genderAcknowledgement,
-              })
-            }
-          >
-            <span>
-              I agree
-              <Required />
-            </span>
-          </Checkbox>
-        </ContentWrapper>
+            <Checkbox
+              flex
+              checked={formInputs.termsAndConditions.genderAcknowledgement}
+              onChange={() =>
+                onChange({
+                  genderAcknowledgement: !formInputs.termsAndConditions.genderAcknowledgement,
+                })
+              }
+            >
+              <span>
+                I agree
+                <Required />
+              </span>
+            </Checkbox>
+          </ContentWrapper>
+        )}
 
         <ContentWrapper textBlock>
           <P>
@@ -395,7 +406,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               💾
             </span>{' '}
             We use your (anonymized!) data to help you get the best sponsors and continuously
-            improve cmd-f with each iteration.
+            improve {copyText[activeHackathon].hackathonName} with each iteration.
           </P>
         </ContentWrapper>
 
