@@ -42,6 +42,7 @@ const HackerName = styled.h1`
   font-weight: bold;
   margin-top: 60px;
   position: relative;
+  color: ${p => p.theme.colors.cardText};
 `
 
 const HackerEmail = styled.p`
