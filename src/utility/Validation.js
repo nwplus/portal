@@ -1,10 +1,11 @@
-import { getQuestionsByOrder } from './utilities'
+import { getQuestionsByOrder, toOtherCamelCase } from './utilities'
 
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please use only numerals and/or hyphens in your phone number, eg. 1234567890 or 123-456-7890'
+const NONE_SELECTED = 'Please only select None if you have not selected any other options.'
 export const MANDATORY_URL = 'Please include a valid URL.'
 const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
@@ -154,6 +155,24 @@ export const validateFormSection = (change, section, fields) => {
 
       // question should be required or if optional, have input from user to be validated
       if (isRequired || value) {
+        // check for other
+        if (value.other === true) {
+          if (
+            !(toOtherCamelCase(key) in change) ||
+            !validateStringNotEmpty(change[toOtherCamelCase(key)])
+          ) {
+            hasError = true
+            errorMessage = NOT_EMPTY
+          }
+        }
+        // check for none
+        if (value.none === true) {
+          if (!Object.keys(value).every(key => key === 'none' || value[key] === false)) {
+            hasError = true
+            errorMessage = NONE_SELECTED
+          }
+        }
+
         if (!validators[section][key]) {
           const { error: noEmptyError, message: noEmptyMessage } = noEmptyFunction(value)
           if (noEmptyError) {
