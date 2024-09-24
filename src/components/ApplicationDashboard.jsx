@@ -692,9 +692,7 @@ const Dashboard = ({
               }
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
-              disabled={
-                !(isRsvpOpen && willBeAttending && safewalk && covidWaiver && releaseLiability)
-              }
+              disabled={!(isRsvpOpen && willBeAttending && covidWaiver && releaseLiability)}
             >
               RSVP
             </RSVPButton>
