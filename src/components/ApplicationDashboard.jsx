@@ -685,7 +685,6 @@ const Dashboard = ({
                 isRsvpOpen &&
                 canRSVP &&
                 willBeAttending &&
-                safewalk &&
                 covidWaiver &&
                 releaseLiability &&
                 (() => setRSVP(canRSVP))
