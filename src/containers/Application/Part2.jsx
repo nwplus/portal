@@ -96,6 +96,8 @@ const Part2 = () => {
     longAnswers5Ref: useRef(null),
   }
 
+  console.error(errors)
+
   return (
     <>
       <Skills
