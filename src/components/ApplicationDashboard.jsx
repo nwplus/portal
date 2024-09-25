@@ -472,16 +472,8 @@ const Dashboard = ({
         </div>
         <div>
           <SocialMediaLinks />
-          {isApplicationOpen && (
-            <EditAppButton
-              height="short"
-              onClick={() => {
-                if (isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress) {
-                  editApplication()
-                }
-              }}
-              disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
-            >
+          {isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress && (
+            <EditAppButton height="short" onClick={editApplication}>
               Complete Your Registration
             </EditAppButton>
           )}
