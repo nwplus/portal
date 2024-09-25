@@ -95,8 +95,6 @@ const Part1 = () => {
     window.scrollTo(0, 0)
   }
 
-  console.error(errors)
-
   return (
     <>
       <BasicInfo

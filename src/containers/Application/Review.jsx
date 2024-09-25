@@ -70,8 +70,6 @@ const Review = () => {
     })
   }
 
-  console.error(errors)
-
   return (
     <>
       <VerticalProgressBar percent={100} />

@@ -58,8 +58,6 @@ const Part3 = () => {
     window.scrollTo(0, 0)
   }
 
-  console.error(errors)
-
   return (
     <>
       <Questionnaire
