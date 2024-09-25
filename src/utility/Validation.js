@@ -154,7 +154,11 @@ export const validateFormSection = (change, section, fields) => {
       let errorMessage = ''
 
       // question should be required or if optional, have input from user to be validated
-      if (isRequired || value) {
+      if (
+        isRequired ||
+        (value && typeof value !== 'object') ||
+        (typeof value === 'object' && Object.values(value).includes(true))
+      ) {
         // check for other
         if (value.other === true) {
           if (

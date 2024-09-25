@@ -141,6 +141,15 @@ const InfoGroup = ({ heading, data, type, formInputs, formInput }) => {
     return <MajorInfoGroup formInputs={formInputs} />
   }
 
+  if (type === 'Country') {
+    formInput = 'countryOfResidence'
+    data = formInputs[formInput]
+  }
+  if (type === 'School') {
+    formInput = 'school'
+    data = formInputs[formInput]
+  }
+
   if (type === 'Select All' && data !== null) {
     const trueKeys = Object.keys(data)
       .filter(key => data[key] === true)
