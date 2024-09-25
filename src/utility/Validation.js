@@ -7,6 +7,7 @@ const PHONE_MESSAGE =
   'Please use only numerals and/or hyphens in your phone number, eg. 1234567890 or 123-456-7890'
 const NONE_SELECTED = 'Please only select None if you have not selected any other options.'
 export const MANDATORY_URL = 'Please include a valid URL.'
+const RESUME_UPLOAD = 'Please upload your resume here.'
 const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
@@ -188,7 +189,11 @@ export const validateFormSection = (change, section, fields) => {
             validators[section][key](value)
           if (validatorError) {
             hasError = true
-            errorMessage = validatorMessage
+            if (key === 'resume') {
+              errorMessage = RESUME_UPLOAD
+            } else {
+              errorMessage = validatorMessage
+            }
           }
         }
       }
