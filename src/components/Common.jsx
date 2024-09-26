@@ -9,7 +9,7 @@ export const CardLike = css`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 
   color: ${p => p.theme.colors.cardText};
-  background-color: ${p => p.theme.colors.card};
+  background-color: ${p => p.theme.colors.backgroundSecondary};
   margin: 1em 0;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;

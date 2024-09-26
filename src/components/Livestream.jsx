@@ -51,6 +51,8 @@ const LiveDot = styled.span`
 `
 
 const StyledH2 = styled(H2)`
+  color: ${p => p.theme.colors.textLivestream};
+  opacity: 1;
   margin-bottom: 0;
 `
 
