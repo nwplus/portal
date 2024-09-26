@@ -254,7 +254,7 @@ const Sidebar = ({
             {Object.entries(links).map((t, k) => {
               return (
                 t[1].length > 0 &&
-                t[0] === 'useful_links' && (
+                t[0] !== 'useful_links' && (
                   <React.Fragment key={k}>
                     <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                     {t[1].map((v, i) => (

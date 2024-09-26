@@ -5,6 +5,7 @@ import { Card, ScrollbarLike } from '../Common'
 import { HOUR_WIDTH, EVENT_GAP, EVENT_TYPES, MOBILE_HOUR_HEIGHT } from './Constants'
 import { PositionedTag } from './Tag'
 import expandButton from '../../assets/expand_icon.svg'
+import { useTheme } from 'styled-components'
 
 const EventDescription = styled(P)`
   opacity: 0.8;
@@ -22,11 +23,9 @@ const EventDescription = styled(P)`
 `
 
 const EventLocation = styled(P)`
-  opacity: 0.5;
   margin: 0;
   margin-bottom: 0.5em;
   font-style: italic;
-  color: ${p => p.theme.colors.schedule.description} !important;
 `
 
 const ToggleButton = styled.button`
@@ -54,16 +53,16 @@ const EventCard = styled(Card)`
   transition: max-height 0.3s ease;
   max-height: ${props => (props.isExpanded ? '1000px' : '200px')};
   margin: 1em;
+  background: ${p => p.theme.colors.backgroundTertiary};
 
   ${p =>
     p.delayed &&
     `
-    border: 3px solid ${p.theme.colors.secondaryWarning};
+    border: 3px solid ${p.theme.colors.error};
     border-radius: 7px;
-    background: ${p.theme.colors.card};
 
     & > h3 {
-      color: ${p.theme.colors.secondaryWarning};
+      color: ${p.theme.colors.error};
     }
   `};
   &&& {
@@ -88,7 +87,7 @@ const EventCard = styled(Card)`
 `
 
 const TimeStamp = styled(P)`
-  color: ${p => p.theme.colors.schedule.timestamp} !important;
+  color: ${p => p.theme.colors.textSecondary} !important;
   margin: 0;
 `
 
@@ -115,6 +114,7 @@ const Event = ({ event }) => {
   const [maxHeight, setMaxHeight] = useState(0)
   const [showToggleButton, setShowToggleButton] = useState(false)
   const descriptionRef = useRef(null)
+  const theme = useTheme()
 
   useEffect(() => {
     if (descriptionRef.current) {
@@ -143,8 +143,8 @@ const Event = ({ event }) => {
         {event.name}
         {event.delayed && ' (DELAYED)'}
       </StyledH3>
-      <PositionedTag color={EVENT_TYPES[event.type].colour}>
-        {EVENT_TYPES[event.type].label}
+      <PositionedTag color={EVENT_TYPES(theme)[event.type].colour}>
+        {EVENT_TYPES(theme)[event.type].label}
       </PositionedTag>
       <TimeStamp>
         {formatTime(event.startTime)} - {formatTime(event.endTime)}

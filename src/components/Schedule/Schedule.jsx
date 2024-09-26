@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { ScrollbarLike } from '../Common'
-import { H2 } from '../Typography'
+import { H1 } from '../Typography'
 import { EVENT_GAP, MOBILE_HOUR_HEIGHT } from './Constants'
 import Event from './Event'
 import { TagLegend } from './Tag'
 import { TimelineColumn } from './Timeline'
+import { useTheme } from 'styled-components'
 
 const ScrollableContainer = styled.div`
   ${ScrollbarLike}
@@ -104,9 +105,8 @@ const MobileOverflowContainer = styled.div`
 
 const msToHours = ms => ms / 1000 / 60 / 60
 
-const Header = styled(H2)`
+const Header = styled(H1)`
   margin: 0 0 1.5px 0;
-  color: ${p => p.theme.colors.schedule.text};
 `
 
 const HeaderContainer = styled.div`
@@ -179,6 +179,7 @@ const Schedule = ({ events, hackathonStart, hackathonEnd }) => {
   }, [])
   // Define a breakpoint for mobile (e.g., 768px)
   const isMobile = windowWidth <= 768
+  const theme = useTheme()
 
   const doEventsOverlap = (event1, event2) => {
     const event1Start = new Date(event1.startTime)
@@ -310,7 +311,7 @@ const Schedule = ({ events, hackathonStart, hackathonEnd }) => {
         <OverflowContainer>
           <HeaderContainer>
             <Header>Day-Of-Events Schedule</Header>
-            <TagLegend />
+            <TagLegend theme={theme} />
           </HeaderContainer>
           <DayLabelContainer>
             <DayLabel style={{ opacity: isSunday ? 0 : 1 }}>Saturday</DayLabel>

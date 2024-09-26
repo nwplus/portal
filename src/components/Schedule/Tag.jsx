@@ -45,10 +45,10 @@ export const StyledSVG = styled(Icon)`
   }
 `
 
-export const TagLegend = () => {
+export const TagLegend = ({ theme }) => {
   return (
     <TagLegendContainer>
-      {Object.entries(EVENT_TYPES).map(([key, event_type], i) => {
+      {Object.entries(EVENT_TYPES(theme)).map(([key, event_type], i) => {
         return (
           <React.Fragment key={key}>
             <StyledSVG color={event_type.colour} />
