@@ -297,12 +297,12 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
 
         <ContentWrapper textBlock>
-          <P>
+          {/* <P>
             <span role="img" aria-label="Robot emoji">
               🤖
             </span>{' '}
             cmd-f 2024 is an MLH partner event. The following 3 checkboxes are for this partnership.
-          </P>
+          </P> */}
           <Checkbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
@@ -321,12 +321,12 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                 href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                 target="_blank"
               >
-                MLH Code of Conduct
+                Code of Conduct
               </A>
               .<Required />
             </span>
           </Checkbox>
-          <Checkbox
+          {/* <Checkbox
             flex
             checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
@@ -370,10 +370,10 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I authorize MLH to send me occasional emails about relevant events, career
               opportunities, and community announcements.
             </span>
-          </Checkbox>
+          </Checkbox> */}
         </ContentWrapper>
 
-        <ContentWrapper textBlock>
+        {/* <ContentWrapper textBlock>
           <P>
             <span role="img" aria-label="Plant sprout emoji">
               🌱
@@ -396,7 +396,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               <Required />
             </span>
           </Checkbox>
-        </ContentWrapper>
+        </ContentWrapper> */}
 
         <ContentWrapper textBlock>
           <P>

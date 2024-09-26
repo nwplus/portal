@@ -315,9 +315,9 @@ const validators = {
   },
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,
-    MLHPrivacyPolicy: validateTrueFunction,
+    // MLHPrivacyPolicy: validateTrueFunction,
     // MLHEmailSubscription: validateTrueFunction,
-    genderAcknowledgement: validateTrueFunction,
+    // genderAcknowledgement: validateTrueFunction,
     shareWithnwPlus: validateTrueFunction,
     nwPlusPrivacyPolicy: validateTrueFunction,
   },
