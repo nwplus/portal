@@ -138,6 +138,19 @@ const getWords = value => {
   return cleanedSplit.length || 0
 }
 
+const validateLongAnswer = (answer, maxWords) => {
+  const wordCount = getWords(answer)
+  const wordLimit = maxWords || LONG_ANSWER_WORD_LIMIT
+  return {
+    error: !validateStringNotEmpty(answer) || wordCount > wordLimit,
+    message: !validateStringNotEmpty(answer)
+      ? NOT_EMPTY
+      : wordCount > wordLimit
+      ? `Please limit your response to ${wordLimit} words or less.`
+      : '',
+  }
+}
+
 export const checkForError = errors => {
   if (!errors) return true
   return Object.values(errors).some(val => val !== false)
@@ -150,6 +163,7 @@ export const validateFormSection = (change, section, fields) => {
     Object.entries(change).forEach(([key, value]) => {
       const field = fields.find(([fieldKey]) => fieldKey === key)
       const isRequired = field ? field[1] : false
+      const maxWords = field?.[2] ?? null
 
       let hasError = false
       let errorMessage = ''
@@ -185,8 +199,10 @@ export const validateFormSection = (change, section, fields) => {
             errorMessage = noEmptyMessage
           }
         } else {
-          const { error: validatorError, message: validatorMessage } =
-            validators[section][key](value)
+          const { error: validatorError, message: validatorMessage } = validators[section][key](
+            value,
+            maxWords
+          )
           if (validatorError) {
             hasError = true
             if (key === 'resume') {
@@ -284,30 +300,11 @@ const validators = {
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
     firstTimeHacker: noNeitherFunction,
-    disability: answer => {
-      return {
-        error: getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers1: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
-        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers2: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
-        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers3: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
+    disability: noEmptyFunction,
+    longAnswers1: (answer, maxWords) => validateLongAnswer(answer, maxWords),
+    longAnswers2: (answer, maxWords) => validateLongAnswer(answer, maxWords),
+    longAnswers3: (answer, maxWords) => validateLongAnswer(answer, maxWords),
+    longAnswers4: (answer, maxWords) => validateLongAnswer(answer, maxWords),
   },
   questionnaire: {
     engagementSource: noNoneFunction,
