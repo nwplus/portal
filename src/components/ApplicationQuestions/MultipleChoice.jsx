@@ -21,7 +21,6 @@ const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
       {formInputs[question.formInput] === 'Other' && (
         <TextInput
           placeholder="Please Specify"
-          size="small"
           noOutline
           value={formInputs?.[toOtherCamelCase(question.formInput)]}
           onChange={e =>
