@@ -408,6 +408,8 @@ const Dashboard = ({
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
   const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
+
+  const askSafewalk = activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f'
   // const handleChange = () => {
   //   setSafewalkCheckbox(!safewalk)
   //   setSafewalkInput(!safewalkNote)
@@ -500,7 +502,7 @@ const Dashboard = ({
               </SelectOptionContainer>
             </SelectContainer>
 
-            {(activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f') && (
+            {askSafewalk && (
               <SelectContainer>
                 <QuestionLabel>
                   Safewalk option <Required />
@@ -677,7 +679,7 @@ const Dashboard = ({
                 isRsvpOpen &&
                 canRSVP &&
                 willBeAttending &&
-                safewalk &&
+                (askSafewalk ? safewalk : true) &&
                 covidWaiver &&
                 releaseLiability &&
                 (() => setRSVP(canRSVP))
@@ -685,7 +687,13 @@ const Dashboard = ({
               shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
               color={canRSVP ? 'primary' : 'secondary'}
               disabled={
-                !(isRsvpOpen && willBeAttending && safewalk && covidWaiver && releaseLiability)
+                !(
+                  isRsvpOpen &&
+                  willBeAttending &&
+                  (askSafewalk ? safewalk : true) &&
+                  covidWaiver &&
+                  releaseLiability
+                )
               }
             >
               RSVP
