@@ -9,6 +9,7 @@ import { H1, P } from '../../components/Typography'
 import Footer from './Footer'
 import nwHacksLoginBackground from '../../../src/assets/nwHacksLogin.svg'
 import cmdfLoginBackground from '../../../src/assets/cmdf_loginbg.svg'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const LandingContainer = styled.div`
   position: absolute;
@@ -49,49 +50,21 @@ const StyledLogoLockup = styled.img`
   transform: translateX(-50%);
   z-index: 9999;
 
-  ${p =>
-    p.theme.name !== 'nwPlus' &&
-    `
-      top: 7em;
-      width: 120px;
-  `}
-
-  ${p => p.theme.mediaQueries.tabletLarge} {
-    top: 20%;
-    width: 15%;
-  }
-  ${p => p.theme.mediaQueries.tablet} {
-    top: 30%;
-    width: 20%;
-  }
-  ${p => p.theme.mediaQueries.xs} {
-    top: 30%;
-    width: 30%;
-  }
+  top: 7em;
+  height: ${p => (p.theme.name === 'hackcamp' ? '90px' : '150px')};
 `
 
 const StyledBanner = styled(Banner)`
   && {
     position: absolute;
-    top: 45%;
+    top: 40%;
     text-align: center;
     z-index: 0;
     display: block;
     padding: 0;
     width: 100%;
-
-    ${p => p.theme.mediaQueries.xs} {
-      top: 45%;
-    }
   }
 `
-// temporary comment out for lint fix
-// const StyledP = styled(P)`
-//   color: ${p => p.theme.colors.login.text};
-//   font-weight: 600;
-//   padding-top: 1rem;
-//   font-size: 1.5rem;
-// `
 
 const BackgroundContainer = styled.img`
   height: 100%;
@@ -107,7 +80,9 @@ const BackgroundContainer = styled.img`
   }
 `
 
-const Landing = ({ heading, description, showFooter, hackathon, children }) => {
+const Landing = ({ heading, description, showFooter, children }) => {
+  const { activeHackathon } = useHackathon()
+
   const options = {
     'hackcamp': { logo: hc_logo, background: null },
     'cmd-f': { logo: cmdf_logo, background: cmdfLoginBackground },
@@ -115,7 +90,7 @@ const Landing = ({ heading, description, showFooter, hackathon, children }) => {
     'default': { logo: nwplus_logo, background: nwHacksLoginBackground },
   }
 
-  const { logo, background } = options[hackathon] || options.default
+  const { logo, background } = options[activeHackathon] || options.default
 
   return (
     <LandingContainer showFooter={showFooter}>

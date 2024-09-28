@@ -11,6 +11,7 @@ import { useLocation } from 'wouter'
 import Toast from '../components/Toast'
 import { A } from '../components/Typography'
 import { useHackathon } from '../utility/HackathonProvider'
+import { copyText } from '../utility/Constants'
 
 const ErrorMessage = ({ message }) => (
   <>
@@ -80,8 +81,7 @@ const Login = () => {
   return (
     <>
       <Landing
-        heading={`Welcome to nwPlus!`}
-        hackathon={`nwPlus`}
+        heading={`Welcome to ${copyText[activeHackathon]?.hackathonName || 'nwPlus'}!`}
         background={theme.colors.login.background}
       >
         <ButtonContainer>

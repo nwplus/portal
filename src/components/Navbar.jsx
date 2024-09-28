@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
-import cmdfIcon from '../assets/cmdf_logo.png'
+import cmdfIcon from '../assets/cmdf_logo.svg'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import { Button } from './Input'

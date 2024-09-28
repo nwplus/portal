@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
-import cmdf_logo from '../assets/cmdf_logo.png'
+import cmdf_logo from '../assets/cmdf_logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import nwplus_logo from '../assets/nwplus_icon.svg'
