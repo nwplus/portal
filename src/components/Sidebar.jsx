@@ -109,6 +109,17 @@ const StyledA = styled(A)`
   `}
 `
 
+const BackLink = styled(StyledA)`
+  color: ${p => p.theme.colors.text};
+  opacity: 0.75;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 1;
+    background: transparent;
+  }
+`
+
 // const LiveDot = styled.span`
 //   height: 10px;
 //   width: 10px;
@@ -281,6 +292,10 @@ const Sidebar = ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
+      <Link href="~/">
+        <BackLink>← BACK</BackLink>
+      </Link>
+
       <LogoContainer>
         <Logo alt="logo" />
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
@@ -337,14 +352,6 @@ const Sidebar = ({
           Log In
         </StyledButton>
       )}
-      <StyledButton
-        as={Link}
-        href="~/"
-        color="secondary"
-        style={{ textDecoration: 'none', color: 'white' }}
-      >
-        Home
-      </StyledButton>
       <SponsorContainer>
         {sponsors &&
           sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}
