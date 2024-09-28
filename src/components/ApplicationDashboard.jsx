@@ -6,7 +6,7 @@ import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '..
 import { analytics } from '../utility/firebase'
 import { Button } from './Input/Button'
 import Checkbox from './Input/Checkbox'
-import { A, H1, HR, P, ErrorSpan as Required } from './Typography'
+import { A, H1, HR, P, ErrorSpan as Required, ErrorMessage } from './Typography'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const Container = styled.div`
@@ -123,7 +123,7 @@ const SocialIconContainer = styled.div`
 `
 
 const RSVPButton = styled(Button)`
-  margin-right: 0;
+  margin-right: 0 0;
   ${p => p.theme.mediaQueries.mobile} {
     margin: 1em;
   }
@@ -408,6 +408,7 @@ const Dashboard = ({
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
   const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
+  const [rsvpErrorMessage, setRsvpErrorMessage] = useState('')
 
   const askSafewalk = activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f'
   // const handleChange = () => {
@@ -448,6 +449,20 @@ const Dashboard = ({
   const handleNwMentorshipSelectChange = e => {
     setNwMentorship(e.target.value)
     setNwMentorshipSelect(e.target.value)
+  }
+
+  const handleRSVPClick = () => {
+    if (
+      isRsvpOpen &&
+      willBeAttending &&
+      (askSafewalk ? safewalk : true) &&
+      covidWaiver &&
+      releaseLiability
+    ) {
+      setRSVP(canRSVP)
+    } else {
+      setRsvpErrorMessage("Please complete all required fields before RSVP'ing!")
+    }
   }
 
   return (
@@ -673,31 +688,26 @@ const Dashboard = ({
         <FooterContainer>
           {/* Only show button if a user hasn't unRSVPed yet and can still RSVP*/}
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
-            <RSVPButton
-              width="flex"
-              onClick={
-                isRsvpOpen &&
-                canRSVP &&
-                willBeAttending &&
-                (askSafewalk ? safewalk : true) &&
-                covidWaiver &&
-                releaseLiability &&
-                (() => setRSVP(canRSVP))
-              }
-              shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
-              color={canRSVP ? 'primary' : 'secondary'}
-              disabled={
-                !(
-                  isRsvpOpen &&
-                  willBeAttending &&
-                  (askSafewalk ? safewalk : true) &&
-                  covidWaiver &&
-                  releaseLiability
-                )
-              }
-            >
-              RSVP
-            </RSVPButton>
+            <>
+              <RSVPButton
+                width="flex"
+                onClick={handleRSVPClick}
+                shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+                color={canRSVP ? 'primary' : 'secondary'}
+                disabled={
+                  !(
+                    isRsvpOpen &&
+                    willBeAttending &&
+                    (askSafewalk ? safewalk : true) &&
+                    covidWaiver &&
+                    releaseLiability
+                  )
+                }
+              >
+                RSVP
+              </RSVPButton>
+              {rsvpErrorMessage && <ErrorMessage>{rsvpErrorMessage}</ErrorMessage>}
+            </>
           )}
 
           {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
