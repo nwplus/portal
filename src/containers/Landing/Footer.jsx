@@ -7,22 +7,18 @@ import Icon from '../../components/Icon'
 import { getSponsors } from '../../utility/firebase'
 import { useHackathon } from '../../utility/HackathonProvider'
 
+const FooterContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+`
+
 const SponsorsContainer = styled.div`
   width: 100%;
-  margin-top: 38em;
   display: block;
   text-align: center;
   justify-content: center;
   align-items: center;
-  ${p => p.theme.mediaQueries.tabletLarge} {
-    margin-top: 80%;
-  }
-  ${p => p.theme.mediaQueries.tablet} {
-    margin-top: 88%;
-  }
-  ${p => p.theme.mediaQueries.xs} {
-    margin-top: 145%;
-  }
 `
 
 const LogoContainer = styled.div`
@@ -42,6 +38,10 @@ const SponsorLogo = styled.img`
   height: auto;
   float: left;
   margin: 16px 32px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    max-width: 100px;
+  }
 `
 
 const SocialIconContainer = styled.div`
@@ -82,7 +82,7 @@ const Footer = () => {
   const SponsorList = sponsors.map(sponsor => <SponsorLogo src={sponsor.imgURL} />)
 
   return (
-    <>
+    <FooterContainer>
       <SponsorsContainer>
         {sponsors.length > 0 && (
           <>
@@ -100,7 +100,7 @@ const Footer = () => {
       <CopyrightBlurb>
         Copyright &copy; {new Date().getFullYear()} <A href={SOCIAL_LINKS.WEBSITE}>nwPlus</A>
       </CopyrightBlurb>
-    </>
+    </FooterContainer>
   )
 }
 

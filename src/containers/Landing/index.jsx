@@ -21,28 +21,10 @@ const LandingContainer = styled.div`
   top: 0;
   z-index: 101;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
-
-// temporary comment out for lint fix
-// const FlexLandingContainer = styled.div`
-//   width: 100%;
-//   height: 98vh;
-//   overflow-x: hidden;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   ${p => p.background && `background: ${p.background};`}
-// `
-
-// temporary comment out for lint fix
-// const Flex = styled.div`
-//   max-width: 50%;
-//   display: flex;
-//   align-items: center;
-//   flex-direction: column;
-//   gap: 20px;
-// `
 
 const StyledLogoLockup = styled.img`
   position: absolute;
@@ -56,13 +38,11 @@ const StyledLogoLockup = styled.img`
 
 const StyledBanner = styled(Banner)`
   && {
-    position: absolute;
-    top: 40%;
     text-align: center;
     z-index: 0;
     display: block;
     padding: 0;
-    width: 100%;
+    width: 75%;
   }
 `
 
