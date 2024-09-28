@@ -460,8 +460,11 @@ const Dashboard = ({
       releaseLiability
     ) {
       setRSVP(canRSVP)
+    }
+    if (!isRsvpOpen) {
+      setRsvpErrorMessage('RSVPs are not open yet!')
     } else {
-      setRsvpErrorMessage("Please complete all required fields before RSVP'ing!")
+      setRsvpErrorMessage("Please check all required fields before RSVP'ing!")
     }
   }
 
