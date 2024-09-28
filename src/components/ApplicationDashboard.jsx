@@ -225,7 +225,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
         Hi {hackerName}, we had a lovely time reading your application, and were very impressed with
         your commitment to joining the technology community. We would love to see you at{' '}
         {copyText[activeHackathon]?.hackathonName} this year; however, at the moment, we cannot
-        confirm a spot for you. You have been put on our waitlist and will be notified{' '}
+        confirm a spot for you. You have been put on our waitlist and will be notified by{' '}
         {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
         then!
         <HR />
