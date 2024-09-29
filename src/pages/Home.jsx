@@ -16,7 +16,7 @@ import { useHackathon } from '../utility/HackathonProvider'
 //My Ticket
 const HomeContainer = styled.div`
   height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 1.5em;

@@ -11,18 +11,27 @@ const TimeText = styled.span`
   color: ${p => p.theme.colors.text};
   font-family: ${p => p.theme.typography.headerFont};
   width: ${p => (p.value >= 100 ? '135px' : '90px')};
-  font-size: 4em;
+  font-size: 3em;
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    font-size: 2em;
+  }
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 4em;
+  }
 `
 
 const TimeUnitText = styled(TimeText)`
   font-size: 1em;
   margin: 0 10px;
   width: ${p => (p.value >= 100 ? '135px' : '90px')};
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 2em;
+  }
 `
 
 const Separator = styled.span`
   width: 20px;
-  font-size: 4em;
+  font-size: 3em;
 `
 
 const TimeFlex = styled.div`
