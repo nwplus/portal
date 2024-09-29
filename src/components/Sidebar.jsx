@@ -69,8 +69,8 @@ const StyledA = styled(A)`
   color: ${p => p.theme.colors.sidebar.textDefault};
 
   &:hover {
-    color: ${p => p.theme.colors.sidebar.textSelected};
-    background: ${p => p.theme.colors.sidebar.hover};
+    color: ${p => p.theme.colors.sidebar.textHover};
+    background: ${p => p.theme.colors.sidebar.backgroundHover};
     border-bottom: none;
   }
 
