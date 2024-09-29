@@ -76,7 +76,7 @@ const JudgingCard = ({
         <StyledP>{cutString(description, MAX_CHARACTERS_IN_DESCRIPTION)}</StyledP>
         {href.includes('http') ? (
           <StyledButton
-            color="tertiary"
+            color="secondary"
             href={href}
             disabled={buttonDisabled}
             target="blank"
@@ -85,12 +85,12 @@ const JudgingCard = ({
             {buttonLabel}
           </StyledButton>
         ) : buttonDisabled ? (
-          <StyledButton color="tertiary" disabled>
+          <StyledButton color="secondary" disabled>
             {buttonLabel}
           </StyledButton>
         ) : (
           <Link href={href}>
-            <StyledButton color="tertiary">{buttonLabel}</StyledButton>
+            <StyledButton color="secondary">{buttonLabel}</StyledButton>
           </Link>
         )}
       </CardContent>
