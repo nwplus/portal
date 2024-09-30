@@ -32,7 +32,7 @@ const chooseLogo = hackathon => {
       return hc_logo
     case 'cmd-f':
       return cmdf_logo
-    case 'nwHacks':
+    case 'nwhacks':
       return nwhacks_logo
     default:
       return nwplus_logo
@@ -42,8 +42,8 @@ const chooseLogo = hackathon => {
 const Logo = styled.img.attrs(p => ({
   src: chooseLogo(p.hackathon),
 }))`
-  height: 7em;
-  margin: 2em auto;
+  max-height: 100px;
+  margin: 24px auto;
   display: block;
   cursor: pointer; // Add this to indicate it's clickable
 
@@ -93,6 +93,7 @@ const StyledA = styled(A)`
 `
 
 const BackLink = styled(StyledA)`
+  padding-top: 32px;
   color: ${p => p.theme.colors.text};
   opacity: 0.75;
   font-weight: 600;

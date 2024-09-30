@@ -52,35 +52,17 @@ const HackerAppText = styled.p`
 `
 
 const EditAppButton = styled(Button)`
-  width: 250px;
-  margin-right: 0;
-  float: right;
-  margin-top: 0px;
-  background: ${p => p.theme.colors.button.grey500};
-  color: ${p => p.theme.colors.button.grey700};
-  border: 2px solid ${p => p.theme.colors.button.grey500};
-
-  &:hover {
-    background: transparent;
-    color: ${p => p.theme.colors.button.grey500};
-    border: 2px solid ${p => p.theme.colors.button.grey700};
-  }
-
-  ${p => p.theme.mediaQueries.desktop} {
-    position: relative;
-    left: -10px;
-    float: left;
-    margin-top: 20px;
-  }
+  width: auto;
+  margin-left: auto;
 `
 
 const StatusContainer = styled.div`
-  padding: 3em 3em 2em;
+  padding: 48px;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 2em;
   }
   border-radius: 21px;
-  background-color: ${p => p.theme.colors.secondaryBackground};
+  background-color: ${p => p.theme.colors.backgroundSecondary};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -105,7 +87,7 @@ const FooterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: -24px;
+
   ${p => p.theme.mediaQueries.mobile} {
     display: block;
     text-align: center;
@@ -123,11 +105,15 @@ const SocialIconContainer = styled.div`
 `
 
 const RSVPButton = styled(Button)`
-  margin-right: 0 0;
+  margin-left: 0;
   ${p => p.theme.mediaQueries.mobile} {
     margin: 1em;
   }
   ${p => !p.shouldDisplay && 'display: none'}
+`
+
+const UnRSVPButton = styled(Button)`
+  margin-left: auto;
 `
 
 // const SafeWalkContainer = styled.div`
@@ -163,37 +149,46 @@ const QuestionContainer = styled.div`
   padding-top: 2rem;
 `
 
-const UnRSVPModelContainer = styled.div`
+const UnRSVPModalContainer = styled.div`
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 `
 
-const UnRSVPModelTint = styled.div`
+const UnRSVPModalTint = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: black;
-  opacity: 0.6;
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.6);
 `
 
-const UnRSVPModel = styled.div`
-  position: absolute;
-  display: block;
-  margin: 0 auto;
-  margin-top: -300px;
+const UnRSVPModal = styled.div`
+  position: relative;
   width: 40vw;
+  max-width: 500px;
   border-radius: 20px;
-  padding: 10px;
-  background: ${p => p.theme.colors.secondaryBackground};
-  z-index: 2;
+  background: ${p => p.theme.colors.backgroundSecondary};
+  padding: 20px;
+  z-index: 1001;
 
   ${p => p.theme.mediaQueries.mobile} {
-    width: 70vw;
-    top: -400px;
-    margin: 0;
+    width: 90%;
+    max-width: none;
   }
+`
+
+const UnRSVPButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `
 
 const QuestionLabel = styled.div`
@@ -407,7 +402,7 @@ const Dashboard = ({
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
-  const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
+  const [displayUnRSVPModal, setDisplayUnRSVPModal] = useState('none')
   const [rsvpErrorMessage, setRsvpErrorMessage] = useState('')
 
   const askSafewalk = activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f'
@@ -490,14 +485,7 @@ const Dashboard = ({
             }
           </StatusBlurbText>
         </div>
-        <div>
-          <SocialMediaLinks />
-          {isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress && (
-            <EditAppButton height="short" onClick={editApplication}>
-              Complete Your Registration
-            </EditAppButton>
-          )}
-        </div>
+        <SocialMediaLinks />
 
         {/* Hides this option if a user unRSVP'd */}
         {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
@@ -581,7 +569,6 @@ const Dashboard = ({
               <WaiverLinkContainer>
                 <A
                   bolded
-                  color="primary"
                   width="130px"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -605,7 +592,6 @@ const Dashboard = ({
               <WaiverLinkContainer>
                 <A
                   bolded
-                  color="primary"
                   width="130px"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -689,11 +675,15 @@ const Dashboard = ({
         )}
 
         <FooterContainer>
+          {isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress && (
+            <EditAppButton color="primary" onClick={editApplication}>
+              Complete Your Registration
+            </EditAppButton>
+          )}
           {/* Only show button if a user hasn't unRSVPed yet and can still RSVP*/}
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
             <>
               <RSVPButton
-                width="flex"
                 onClick={handleRSVPClick}
                 shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
                 color={canRSVP ? 'primary' : 'secondary'}
@@ -716,36 +706,38 @@ const Dashboard = ({
           {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
           {hackerStatus !== 'acceptedUnRSVP' && hackerStatus === 'acceptedAndAttending' && (
             <>
-              <Button
+              <UnRSVPButton
                 width="flex"
                 color={canRSVP ? 'primary' : 'secondary'}
-                onClick={() => setdisplayUnRSVPModel('block')}
+                onClick={() => setDisplayUnRSVPModal('block')}
               >
                 un-RSVP
-              </Button>
+              </UnRSVPButton>
 
-              {displayUnRSVPModel === 'block' && (
-                <UnRSVPModelContainer>
-                  <UnRSVPModelTint onClick={() => setdisplayUnRSVPModel('none')} />
-                  <UnRSVPModel>
-                    <p style={{ marginTop: '30px', marginLeft: '10px' }}>
-                      Are you sure that you want to un-RSVP? You won’t be able to RSVP again.
-                    </p>
+              {displayUnRSVPModal === 'block' && (
+                <UnRSVPModalContainer>
+                  <UnRSVPModalTint onClick={() => setDisplayUnRSVPModal('none')} />
+                  <UnRSVPModal>
+                    <StatusBlurbText>
+                      Are you sure that you want to un-RSVP? You won't be able to RSVP again.
+                    </StatusBlurbText>
 
-                    <Button width="flex" onClick={() => setdisplayUnRSVPModel('none')}>
-                      Cancel
-                    </Button>
-                    <RSVPButton
-                      width="flex"
-                      onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
-                      shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
-                      color={canRSVP ? 'primary' : 'secondary'}
-                      disabled={!isRsvpOpen}
-                    >
-                      Yes, I would like to un-RSVP
-                    </RSVPButton>
-                  </UnRSVPModel>
-                </UnRSVPModelContainer>
+                    <UnRSVPButtonContainer>
+                      <Button width="flex" onClick={() => setDisplayUnRSVPModal('none')}>
+                        Cancel
+                      </Button>
+                      <RSVPButton
+                        width="flex"
+                        onClick={isRsvpOpen && (() => setRSVP(canRSVP))}
+                        shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+                        color={canRSVP ? 'primary' : 'secondary'}
+                        disabled={!isRsvpOpen}
+                      >
+                        Yes, I would like to un-RSVP
+                      </RSVPButton>
+                    </UnRSVPButtonContainer>
+                  </UnRSVPModal>
+                </UnRSVPModalContainer>
               )}
             </>
           )}

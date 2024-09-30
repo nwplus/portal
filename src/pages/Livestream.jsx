@@ -6,7 +6,6 @@ import Livestream from '../components/Livestream'
 import styled, { withTheme } from 'styled-components'
 const Container = styled.div`
   height: 100%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
