@@ -14,7 +14,7 @@ import { useHackathon } from '../utility/HackathonProvider'
 import { copyText } from '../utility/Constants'
 
 const ErrorMessage = ({ message }) => (
-  <>
+  <div style={{ zIndex: 1000 }}>
     There was an issue logging you in{' '}
     <span role="img" aria-label="dizzy face">
       😵
@@ -23,7 +23,7 @@ const ErrorMessage = ({ message }) => (
     {message}
     <br />
     If this persists, please contact <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
-  </>
+  </div>
 )
 
 // custom handling of errors
