@@ -11,7 +11,7 @@ import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
 import { A } from './Typography'
 import NotificationToggle from '../containers/NotificationToggle'
-import { IS_DEVICE_IOS } from '../utility/Constants'
+import { IS_DEVICE_IOS, APPLICATION_STATUS } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const SidebarContainer = styled.div`
@@ -192,7 +192,7 @@ const Sidebar = ({
   const links = {
     // General
     general: [
-      { location: '/', text: 'My Ticket' },
+      { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/livestream', text: 'Livestream' },
       { location: '/sponsors', text: 'Sponsors' },
@@ -272,6 +272,10 @@ const Sidebar = ({
   if (isApplicationOpen) {
     // List the application as the last item on the menu
     links.information.push({ location: '/application', text: 'APPLICATION' })
+  }
+
+  if (user && user.status === APPLICATION_STATUS.accepted && isAuthed && user.uid) {
+    links.general[0] = { location: '/', text: 'My Ticket' }
   }
 
   return (
