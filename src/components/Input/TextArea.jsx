@@ -43,17 +43,11 @@ export const TextArea = ({
     }
     return cleanedSplit.length || 0
   }, [value])
-  useEffect(() => {
-    // debounced with setTimeout
-    const handler = setTimeout(() => {
-      setIsLengthExceeded(
-        maxLength ? value && value.length > maxLength : maxWords ? getWords() > maxWords : false
-      )
-    }, 500)
 
-    return () => {
-      clearTimeout(handler)
-    }
+  useEffect(() => {
+    setIsLengthExceeded(
+      maxLength ? value && value.length > maxLength : maxWords ? getWords() > maxWords : false
+    )
   }, [maxLength, value, maxWords, getWords])
 
   return (
@@ -73,17 +67,19 @@ export const TextArea = ({
         ref={customRef}
         {...rest}
       />
-      {invalid && <ErrorMessage> {errorMsg} </ErrorMessage>}
-      {isLengthExceeded && (
+
+      {isLengthExceeded ? (
         <ErrorMessage>
-          {' '}
           Sorry! It looks like your answer is{' '}
           {maxLength
-            ? `${value.length - maxLength}  character(s)`
+            ? `${value.length - maxLength} character(s)`
             : `${getWords() - maxWords} word(s)`}{' '}
-          over the limit.{' '}
+          over the limit.
         </ErrorMessage>
+      ) : (
+        invalid && <ErrorMessage>{errorMsg}</ErrorMessage>
       )}
+
       {maxLength ? (
         <Message> {value.length} characters.</Message>
       ) : maxWords ? (

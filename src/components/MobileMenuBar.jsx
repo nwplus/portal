@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import logo from '../assets/cmdf_logo.png'
+import logo from '../assets/cmdf_logo.svg'
 import menu from '../assets/menu.svg'
 
 const MobileMenuBarContainer = styled.div`

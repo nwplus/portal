@@ -182,7 +182,8 @@ export const getQuestionsByOrder = appQuestions => {
         ['portfolio', false],
       ]
     }
-    return [[q.formInput, q.required]]
+
+    return [[q.formInput, q.required, q.maxWords ? q.maxWords : undefined]]
   })
 
   return selectedFormInputs

@@ -353,9 +353,9 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   },
   termsAndConditions: {
     MLHCodeOfConduct: false,
-    MLHPrivacyPolicy: false,
-    MLHEmailSubscription: false,
-    genderAcknowledgement: false,
+    // MLHPrivacyPolicy: false, // for nwHacks and cmd-f only
+    // MLHEmailSubscription: false, // for nwHacks and cmd-f only
+    // genderAcknowledgement: false, // for cmd-f only
     shareWithnwPlus: false,
     nwPlusPrivacyPolicy: false,
     shareWithSponsors: false,

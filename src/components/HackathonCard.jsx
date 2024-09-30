@@ -4,6 +4,7 @@ import { H1 } from '../components/Typography'
 import { useLocation } from 'wouter'
 import space_nugget from '../assets/homepage/space_nugget.svg'
 import moment from 'moment'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const StyledHackathonCard = styled.div`
   flex: 1;
@@ -216,6 +217,8 @@ const HackathonCard = ({
   isUpNext,
 }) => {
   const [_, navigate] = useLocation()
+  const { setActiveHackathon } = useHackathon()
+
   return (
     <StyledHackathonCard background={background} isUpNext={isUpNext}>
       <MobileContainer isUpNext={isUpNext}>
@@ -242,6 +245,7 @@ const HackathonCard = ({
             color={buttonColour}
             labelColor={buttonTextColour}
             onClick={() => {
+              setActiveHackathon(hackathonName.toLowerCase())
               handleNavigation(applicationOpen, visitWebsite, hackathonName, navigate)
             }}
             hoverColor={buttonHoverColor}

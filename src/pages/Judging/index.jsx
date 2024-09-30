@@ -139,7 +139,7 @@ const Judging = () => {
             key={project.id}
             buttonLabel={project.judged ? 'Already Judged' : 'Judge this Submission'}
             buttonDisabled={project.judged}
-            href={`judging/view/${project.id}`}
+            href={`/judging/view/${project.id}`}
           />
         )
       })}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
-import cmdf_logo from '../assets/cmdf_logo.png'
+import cmdf_logo from '../assets/cmdf_logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import nwplus_logo from '../assets/nwplus_icon.svg'
@@ -91,6 +91,39 @@ const StyledA = styled(A)`
     }
   `}
 `
+
+const BackLink = styled(StyledA)`
+  color: ${p => p.theme.colors.text};
+  opacity: 0.75;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 1;
+    background: transparent;
+  }
+`
+
+// const LiveDot = styled.span`
+//   height: 10px;
+//   width: 10px;
+//   background: ${p => p.theme.colors.primary};
+//   border-radius: 50%;
+//   margin: 0 7px 0 4px;
+//   display: inline-block;
+// `
+/* Old styles
+background-color: ${p => p.theme.colors.primary};
+*/
+// const LiveLabel = styled.p`
+//   margin: 1em 0 2em 2rem;
+//   font-weight: bold;
+//   font-size: 0.9em;
+//   border-radius: 7px;
+//   background: ${p => p.theme.colors.primaryGradient};
+//   color: ${p => p.theme.colors.cardText};
+//   width: 4em;
+//   padding: 5px;
+// `
 
 const StyledButton = styled(Button)`
   margin: 1em 0 1em 2rem;
@@ -242,6 +275,10 @@ const Sidebar = ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
+      <Link href="~/">
+        <BackLink>← BACK</BackLink>
+      </Link>
+
       <LogoContainer>
         <Link href="~/" onClick={hideSidebarCallback}>
           <Logo alt="logo" hackathon={activeHackathon} />
