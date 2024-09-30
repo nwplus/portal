@@ -40,7 +40,7 @@ const Selector = styled.span`
   align-items: center;
   border-radius: ${p => (p.type === 'radio' ? '50%' : '4px')};
   vertical-align: middle;
-  border: 2px solid ${p.theme.colors.select.border};
+  border: 2px solid ${p => p.theme.colors.select.border};
   ${p =>
     p.checked &&
     `
