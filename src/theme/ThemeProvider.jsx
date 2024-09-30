@@ -41,6 +41,109 @@ const base = {
   },
 }
 
+const hackcampTheme = {
+  ...base,
+  name: 'hackcamp',
+  colors: {
+    background: '#371315',
+    backgroundSecondary: '#770B42',
+    backgroundTertiary: '#770B42',
+    text: '#FFFFFF',
+    textSecondary: '#F9C745',
+    highlight: '#FFFFFF',
+    warning: '#D04E51',
+    error: '#E03131',
+    scrollbar: '#5F8CA2',
+    required: '#D04E51',
+    link: '#FBBC05',
+
+    // sidebar
+    sidebar: {
+      background: 'linear-gradient(191.3deg, #CF0A1F -57.93%, #5B0B4C 78.18%)',
+      backgroundSecondary: '#D23C0D',
+      textSectionHeader: '#DCB551',
+      textSelected: '#FFFFFF',
+      textDefault: '#EBEBEB',
+      backgroundSelected: '#A8138C',
+      textHover: '#FFFFFF',
+      backgroundHover: '#A8138C',
+    },
+
+    // buttons
+    button: {
+      primary: {
+        text: '#45171A',
+        background: {
+          default: 'linear-gradient(90deg, #F9C745 0%, #F7891A 100%)',
+          hover: 'linear-gradient(90deg, #FFE090 0%, #FFA549 100%)',
+          clicked: 'linear-gradient(90deg, #E6B63A 0%, #EE851A 100%)',
+        },
+      },
+      secondary: {
+        text: '#45171A',
+        background: {
+          default: '#F9C745',
+          hover: '#FFD569',
+          clicked: '#E4B63F',
+        },
+      },
+      warning: {
+        text: '#FFFFFF',
+        background: {
+          default: '#E03131',
+          hover: '#b52828',
+          clicked: '#c92c2c',
+        },
+      },
+      backgroundDisabled: '#BDBAC3',
+    },
+
+    // schedule
+    schedule: {
+      background: 'linear-gradient(180deg, #00A3E0 0%, #FFF8E5 99.98%)',
+      mainEventTag: '#00A3E0',
+      workshopTag: '#F7891A',
+      activityTag: '#F9C745',
+      lines: '#8E7EB4',
+    },
+
+    // form elements
+    input: {
+      border: '#FFFFFF',
+      hover: '#F9C745',
+      placeholder: '#FFFFFF99',
+      disabled: '#BDBAC3',
+    },
+    select: {
+      border: '#FFFFFF',
+      background: {
+        default: 'transparent',
+        hover: '#770B42',
+      },
+    },
+    dropdown: {
+      background: {
+        selected: '#770B42',
+      },
+    },
+
+    // auth
+    login: {
+      googleAuthBackground: '#FFFFFF',
+      googleAuthBackgroundHover: '#FFFFFF',
+      googleAuthText: '#2A3C4A',
+      githubAuthText: '#FFFFFF',
+      githubAuthBackground: '#2A3C4A',
+      githubAuthBackgroundHover: '#2A3C4A',
+    },
+
+    // misc
+    faq: {
+      toggle: '#041F32',
+    },
+  },
+}
+
 const nwHacksTheme = {
   ...base,
   name: 'nwhacks',
@@ -113,68 +216,6 @@ const nwHacksTheme = {
       githubBg: '#051439',
       githubText: '#fff',
       githubBgHover: '#051439',
-    },
-  },
-}
-
-const hackcampTheme = {
-  ...base,
-  name: 'hackcamp',
-  colors: {
-    background: '#150C27',
-    card: '#433860',
-    cardText: '#191C4F',
-    border: 'rgba(255, 255, 255, 0.3)',
-    secondaryBackground: '#150C27',
-    secondaryBackgroundTransparent: '#fff',
-    sidebar: {
-      background: '#150C27',
-      link: '#F0EEF299',
-    },
-    foreground: '#FFFFFF',
-    error: '#ff0033',
-    success: '#629F5D',
-    toastText: '#fff', // Color for text in toast messages (Toast.js)
-    warning: '#FF8989',
-    secondaryWarning: '#EF6C6C',
-    primary: '#FFBF76',
-    accent: '#F6922B',
-    default: '#FFFFFF',
-    highlight: 'rgba(255, 255, 255, 0.6)',
-    text: '#fff',
-    link: '#fff',
-    linkHover: '#FFFFFF',
-    tertiaryHover: '#AD795E', // button hover
-    // Styling for schedule page
-    schedule: {
-      background: '#433860', // schedule container bg
-      event: '#140D30', // event container bg
-      text: '#fff', // title bg
-      description: '#fff', // text description
-      timestamp: '#FFBF76', // timestamp text
-    },
-    selects: {
-      border: 'rgba(255, 255, 255, 0.5)',
-      text: 'white',
-      placeholder: 'rgba(255, 255, 255, 0.5)',
-      hover: 'rgba(255, 255, 255, 0.2)',
-      focus: 'white',
-    },
-    button: {
-      outlineText: '#433860', // Secondary button
-      outlineBackground: '#FFBF76',
-      outlineBackgroundHover: '#F6922B',
-    },
-    hover: '#A0B9C0',
-    scrollbar: '#80959B',
-    banner: 'transparent',
-    login: {
-      googleBg: '#fff',
-      googleText: '#000',
-      googleBgHover: '#fff',
-      githubBg: '#577079',
-      githubText: '#fff',
-      githubBgHover: '#577079',
     },
   },
 }
@@ -259,7 +300,8 @@ const cmdfTheme = {
   },
 }
 
-const THEMES = { 'hackcamp': hackcampTheme, 'nwhacks': nwHacksTheme, 'cmd-f': cmdfTheme }
+// change when we do the rest of the reskins
+const THEMES = { 'hackcamp': hackcampTheme, 'nwhacks': hackcampTheme, 'cmd-f': hackcampTheme }
 
 const ThemeProvider = ({ children }) => {
   const { activeHackathon } = useHackathon()

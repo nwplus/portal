@@ -8,19 +8,20 @@ import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 import { APPLICATION_STATUS } from '../utility/Constants'
-import { P } from '../components/Typography'
 import backgroundImage from '../assets/cmdf_homebg.svg'
 import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
+import { copyText } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
 
 //My Ticket
 const HomeContainer = styled.div`
   height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 1.5em;
   z-index: 3;
+  background-color: ${p => p.theme.colors.background};
   ${p => p.theme.mediaQueries.mobile} {
     gap: 1em;
   }
@@ -33,13 +34,22 @@ const HomeContainerBackground = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: column;
-  background-image: url(${backgroundImage});
-  background-size: cover;
-  background-position: right bottom;
+
+  ${props =>
+    props.backgroundImage &&
+    css`
+      background-image: url(${backgroundImage});
+      background-size: cover;
+      background-position: right bottom;
+
+      ${p => p.theme.mediaQueries.mobile} {
+        background-image: url(${mobileBackgroundImage});
+        background-size: cover;
+        background-position: center;
+      }
+    `}
+
   ${p => p.theme.mediaQueries.mobile} {
-    background-image: url(${mobileBackgroundImage});
-    background-size: cover;
-    background-position: center;
     z-index: -1;
   }
 `
@@ -52,10 +62,6 @@ const HomeContainerBackground = styled.div`
 //   width: calc(100vw - 256px + 2em);
 // `
 
-const StyledP = styled(P)`
-  text-align: center;
-`
-
 export default withTheme(({ announcements, theme }) => {
   const { user, isAuthed } = useAuth()
   const { activeHackathon } = useHackathon()
@@ -64,7 +70,6 @@ export default withTheme(({ announcements, theme }) => {
     <>
       <HomeContainerBackground />
       <HomeContainer>
-        {activeHackathon === 'cmd-f'}
         {/* {activeHackathon === 'hackcamp' && <Hackcamp2023BG />} */}
         <HackerCountdown />
         {/* 
@@ -72,10 +77,8 @@ export default withTheme(({ announcements, theme }) => {
       <Announcements announcements={announcements} /> */}
 
         {/* Only display QR Code if logged in */}
-        {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid ? (
+        {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid && (
           <QrCode userInfo={user} userId={user.uid} />
-        ) : (
-          <StyledP>Please login with the email you used to apply to cmd-f 2024.</StyledP>
         )}
       </HomeContainer>
     </>

@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 const SelectWrapper = styled.span`
   display: inline-block;
-  color: ${p => p.theme.colors.selects.text};
-  border: 2px solid ${p => p.theme.colors.selects.border};
+  color: ${p => p.theme.colors.text};
+  border: 2px solid ${p => p.theme.colors.select.border};
   border-radius: 7px;
   padding: 8px 24px 8px 16px;
   margin: 8px 12px 12px 0;
@@ -16,7 +16,7 @@ const SelectWrapper = styled.span`
     `
       : `
       :hover {
-        background: ${p.theme.colors.selects.hover};
+        background: ${p.theme.colors.select.background.hover};
         cursor: pointer;
         transition: background-color 0.25s linear;
       }
@@ -24,10 +24,10 @@ const SelectWrapper = styled.span`
   ${p =>
     p.checked &&
     `
-    background: ${p.theme.colors.selects.selected};
+    background: ${p.theme.colors.select.background.default};
     transition: background-color 0.25s linear;
     :hover {
-      background: transparent;
+      background: ${p.theme.colors.select.background.hover};
     `}
 `
 
@@ -40,18 +40,14 @@ const Selector = styled.span`
   align-items: center;
   border-radius: ${p => (p.type === 'radio' ? '50%' : '4px')};
   vertical-align: middle;
+  border: 2px solid ${p => p.theme.colors.select.border};
   ${p =>
-    p.checked
-      ? `
-      background-color: ${p.theme.colors.selects.text};
-      border: 2px solid ${p.theme.colors.selects.text};
+    p.checked &&
     `
-      : `
-      border: 2px solid ${p.theme.colors.selects.text};
+      background-color: ${p.theme.colors.select.border};
     `}
   ${SelectWrapper}:hover & {
-    ${p =>
-      p.disabled ? `cursor: not-allowed;` : `border: 2px solid ${p.theme.colors.selects.text};`}
+    ${p => (p.disabled ? `cursor: not-allowed;` : `border: 2px solid ${p.theme.colors.text};`)}
   }
 `
 
@@ -63,7 +59,7 @@ const Input = styled.input`
 
 const Label = styled.label`
   align-items: center;
-  color: ${p => p.checked && p.theme.colors.selects.text};
+  color: ${p => p.checked && p.theme.colors.text};
   ${SelectWrapper}:hover {
     ${p => (p.disabled ? `cursor: not-allowed;` : `cursor: pointer;`)}
   }

@@ -9,7 +9,7 @@ export const CardLike = css`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 
   color: ${p => p.theme.colors.cardText};
-  background-color: ${p => p.theme.colors.card};
+  background-color: ${p => p.theme.colors.backgroundSecondary};
   margin: 1em 0;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 1em;
@@ -88,36 +88,36 @@ export const TextInputLike = css`
   max-width: 100%;
   background-color: transparent;
   padding: 10px;
-  border: 2px solid ${p => p.theme.colors.selects.border};
+  border: 2px solid ${p => p.theme.colors.input.border};
   border-radius: 7px;
-  color: ${p => p.theme.colors.selects.text};
+  color: ${p => p.theme.colors.text};
   font-family: ${p => p.theme.typography.bodyFont};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {
-    color: ${p => p.theme.colors.selects.placeholder};
+    color: ${p => p.theme.colors.input.placeholder};
   }
   :hover {
-    border: 2px solid ${p => p.theme.colors.selects.hover};
+    border: 2px solid ${p => p.theme.colors.input.hover};
   }
   :focus {
-    border: 2px solid ${p => p.theme.colors.selects.hover};
+    border: 2px solid ${p => p.theme.colors.input.hover};
     outline: none;
   }
   :disabled {
-    border: 2px solid ${p => p.theme.colors.selects.disabled};
+    border: 2px solid ${p => p.theme.colors.input.disabled};
     opacity: ${p => p.theme.opacity.disabled};
   }
   ${p =>
     p.invalid &&
-    `border: 2px solid ${p.theme.colors.warning};
+    `border: 2px solid ${p.theme.colors.error};
     ::placeholder {
-      color: ${p.theme.colors.warning};
+      // color: ${p.theme.colors.error};
     }
     :hover {
-      border: 2px solid ${p.theme.colors.secondaryWarning};
+      // border: 2px solid ${p.theme.colors.secondaryWarning};
     }
     :focus {
-      border: 2px solid ${p.theme.colors.secondaryWarning};
+      // border: 2px solid ${p.theme.colors.secondaryWarning};
     }`}
 `
 

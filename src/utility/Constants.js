@@ -2,7 +2,7 @@ export const DB_COLLECTION = 'Hackathons'
 
 export const DB_HACKATHON_NAMES = {
   'hackcamp': 'HackCamp2024',
-  'nwhacks': 'nwHacks2025',
+  'nwhacks': 'nwHacks2024',
   'cmd-f': 'cmd-f2025',
 }
 export const VALID_HACKATHONS = ['hackcamp', 'nwhacks', 'cmd-f']

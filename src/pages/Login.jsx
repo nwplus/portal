@@ -82,14 +82,14 @@ const Login = () => {
     <>
       <Landing
         heading={`Welcome to ${copyText[activeHackathon]?.hackathonName || 'nwPlus'}!`}
-        background={theme.colors.login.background}
+        background={theme.colors.background}
       >
         <ButtonContainer>
           <StyledButton
             width="flex"
-            labelColor={theme.colors.login.googleText}
-            color={theme.colors.login.googleBg}
-            hover={theme.colors.login.googleBgHover}
+            labelColor={theme.colors.login.googleAuthText}
+            color={theme.colors.login.googleAuthBackground}
+            hover={theme.colors.login.googleAuthBackgroundHover}
             onClick={signInWithGoogle}
           >
             <BoundingBox src={google} />
@@ -97,9 +97,9 @@ const Login = () => {
           </StyledButton>
           <StyledButton
             width="flex"
-            labelColor={theme.colors.login.githubText}
-            color={theme.colors.login.githubBg}
-            hover={theme.colors.login.githubBgHover}
+            labelColor={theme.colors.login.githubAuthText}
+            color={theme.colors.login.githubAuthBackground}
+            hover={theme.colors.login.githubAuthBackgroundHover}
             onClick={signInWithGithub}
           >
             <BoundingBox src={github} />

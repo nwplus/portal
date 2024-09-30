@@ -84,7 +84,7 @@ const Review = () => {
         firstButtonOnClick={() => handleNavigation('/application/part-3')}
         secondButtonText="Submit"
         secondButtonOnClick={() => handleSubmit()}
-        autosaveTime={application.submission.lastUpdated.toDate().toString()}
+        autosaveTime={application.submission.lastUpdated.toDate().toLocaleString()}
         loading={loading}
         showSubmitWarning
       />

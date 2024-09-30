@@ -39,8 +39,7 @@ const StyledP = styled(P)`
 `
 
 const StyledA = styled(A)`
-  color: ${p => p.theme.colors.primary};
-  border-color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.textSecondary};
 
   &:hover {
     color: ${p => p.theme.colors.tertiaryHover};
@@ -70,6 +69,10 @@ const RightButton = styled(Button)`
 
 const StyledMessage = styled(Message)`
   text-align: right;
+`
+
+const StyledH2 = styled(H2)`
+  opacity: 1;
 `
 
 const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
@@ -104,7 +107,7 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
   return (
     <Container>
       <JudgingColumn>
-        <H2>Judging "{project.title}"</H2>
+        <StyledH2>Judging "{project.title}"</StyledH2>
         <Card>
           <StyledYoutube src={project.links.youtube} />
           <StyledP>{project.description}</StyledP>
