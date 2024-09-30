@@ -113,13 +113,7 @@ const StyledButton = styled.a`
             : `background: ${p.hover || p.theme.colors.button.primary.background.hover};`
         }
       }
-      :active {
-        ${
-          p.disabled
-            ? `cursor: not-allowed;`
-            : `background: ${p.theme.colors.button.primary.background.clicked};`
-        }
-      }`}
+    `}
 
     ${p =>
     p.disabled &&

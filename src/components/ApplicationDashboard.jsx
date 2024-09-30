@@ -249,7 +249,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
         and we are very grateful to have gotten yours, but we can't take everyone. We do hope to see
         your application next year and that this setback isn't the end of your tech career. Please
         visit our site{' '}
-        <A bolded color="primary" href={SOCIAL_LINKS.WEBSITE}>
+        <A bolded href={SOCIAL_LINKS.WEBSITE}>
           nwplus.io
         </A>{' '}
         to learn about more events and other ways to engage with the technology community.

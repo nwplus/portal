@@ -44,9 +44,6 @@ const StyledH3 = styled(H3)`
 `
 
 const StyledA = styled(A)`
-  color: white;
-  border-color: white;
-
   &:hover {
     color: ${p => p.theme.colors.tertiaryHover};
   }
@@ -441,7 +438,6 @@ const SubmissionForm = ({
         </MemberList>
         {errors.self && <ErrorMessage>{errors.self}</ErrorMessage>}
       </FormSection>
-      <StyledHr />
       {Object.keys(errors).length > 0 && (
         <ErrorMessage>Please address errors before submitting</ErrorMessage>
       )}

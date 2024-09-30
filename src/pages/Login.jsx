@@ -89,7 +89,7 @@ const Login = () => {
             width="flex"
             labelColor={theme.colors.login.googleAuthText}
             color={theme.colors.login.googleAuthBackground}
-            // hover={theme.colors.login.googleBgHover}
+            hover={theme.colors.login.googleAuthBackground}
             onClick={signInWithGoogle}
           >
             <BoundingBox src={google} />
@@ -99,7 +99,7 @@ const Login = () => {
             width="flex"
             labelColor={theme.colors.login.githubAuthText}
             color={theme.colors.login.githubAuthBackground}
-            // hover={theme.colors.login.githubBgHover}
+            hover={theme.colors.login.githubAuthBackground}
             onClick={signInWithGithub}
           >
             <BoundingBox src={github} />

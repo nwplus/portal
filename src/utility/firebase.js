@@ -98,7 +98,6 @@ const createNewApplication = async (user, dbHackathonName) => {
 /**Extracts user status and redirect information for the user */
 export const getUserStatus = async (user, dbHackathonName) => {
   let applicant = await applicantsRef(dbHackathonName).doc(user.uid).get()
-  console.log('applicant', applicant.data())
   if (!applicant.exists) {
     await createNewApplication(user, dbHackathonName)
     applicant = await applicantsRef(dbHackathonName).doc(user.uid).get()

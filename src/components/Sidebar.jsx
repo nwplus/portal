@@ -249,9 +249,9 @@ const Sidebar = ({
     })
   }, [dbHackathonName])
 
-  // if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
-  //   links.tools.push({ location: '/projects', text: 'Project Gallery' })
-  // }
+  if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
+    links.tools.push({ location: '/projects', text: 'Project Gallery' })
+  }
 
   if (isSubmissionsOpen || isJudgingReleased) {
     links.tools.push({ location: '/submission', text: 'Project Submission' })
@@ -308,7 +308,7 @@ const Sidebar = ({
                 )
               )
             })}
-            {!IS_DEVICE_IOS ? <NotificationToggle /> : null}
+            {/* {!IS_DEVICE_IOS ? <NotificationToggle /> : null} */}
           </>
         ) : (
           <Link href={'/application'}>

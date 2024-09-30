@@ -46,9 +46,12 @@ const HomeContainerBackground = styled.div`
         background-image: url(${mobileBackgroundImage});
         background-size: cover;
         background-position: center;
-        z-index: -1;
       }
     `}
+
+  ${p => p.theme.mediaQueries.mobile} {
+    z-index: -1;
+  }
 `
 // temporary comment out for lint fix
 // const TopDecal = styled.img`
