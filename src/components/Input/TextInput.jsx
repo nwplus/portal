@@ -33,7 +33,7 @@ const TextInputBox = styled.input.attrs({
 
     ${TextInputNoOutline};
     padding-left: 0;
-    border-bottom-color: ${p.theme.colors.default};
+    border-bottom-color: ${p => p.theme.colors.input.border};
     height: 2em;
     :hover {
       ${TextInputNoOutline}
