@@ -24,7 +24,7 @@ const NavContainer = styled.div`
     height: 3em;
   }
   //background: linear-gradient(to bottom, #544d92, rgba(33, 30, 57, 0));
-  background: ${p => p.theme.colors.secondaryBackground};
+  background: ${p => p.theme.colors.backgroundSecondary};
 `
 
 const Icon = styled.img`
