@@ -34,6 +34,12 @@ const NavigationButtonsContainer = styled.div`
   text-align: right;
 `
 
+const RightContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`
+
 const NavigationButtons = ({
   firstButtonText,
   firstButtonOnClick,
@@ -57,12 +63,12 @@ const NavigationButtons = ({
         ) : (
           <div></div>
         )}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <MoonLoader css={{ margin: '0 10px' }} color="#fff" size="30px" loading={loading} />
+        <RightContainer>
+          <MoonLoader color="#fff" size="30px" loading={loading} />
           <StyledButton width="flex" onClick={secondButtonOnClick}>
             {secondButtonText}
           </StyledButton>
-        </div>
+        </RightContainer>
       </ButtonContainer>
     </NavigationButtonsContainer>
   )
