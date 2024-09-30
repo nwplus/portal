@@ -86,7 +86,7 @@ const StyledA = styled(A)`
     color: ${p.theme.colors.sidebar.textSelected};
 
     &:hover, &:focus {
-      background: ${p.theme.colors.sidebar.textHover};
+      background: ${p.theme.colors.sidebar.backgroundHover};
       border-bottom: none;
     }
   `}
