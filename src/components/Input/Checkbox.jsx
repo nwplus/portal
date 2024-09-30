@@ -16,7 +16,7 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 
 const Icon = styled.svg`
   fill: none;
-  stroke: ${p => p.theme.colors.secondaryBackground};
+  stroke: ${p => p.theme.colors.backgroundSecondary};
   stroke-width: 4px;
 `
 
@@ -24,18 +24,18 @@ const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${p => (p.checked ? '#FFF' : 'transparent')};
+  background: ${p => (p.checked ? p.theme.colors.select.border : 'transparent')};
   border-radius: 3px;
-  border: 2px solid ${p => (p.checked ? p.theme.colors.default : p.theme.colors.default)};
+  border: 2px solid ${p => p.theme.colors.select.border};
   transition: all 150ms;
 
   ${HiddenCheckbox}:focus + & {
-    box-shadow: 0 0 0 0px ${p => p.theme.colors.default};
+    box-shadow: 0 0 0 0px ${p => p.theme.colors.select.border};
   }
 
   :hover {
-    border: 2px solid
-      ${p => (p.checked ? p.theme.colors.default : p.theme.colors.secondaryBackgroundTransparent)};
+    background: ${p => p.theme.colors.select.background.hover};
+    border: 2px solid ${p => (p.checked ? '' : p.theme.colors.select.border)};
   }
 
   ${Icon} {
