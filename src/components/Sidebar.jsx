@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
-import cmdf_logo from '../assets/cmdf_logo.png'
+import cmdf_logo from '../assets/cmdf_logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import nwplus_logo from '../assets/nwplus_icon.svg'
@@ -107,6 +107,17 @@ const StyledA = styled(A)`
       border-bottom: none;
     }
   `}
+`
+
+const BackLink = styled(StyledA)`
+  color: ${p => p.theme.colors.text};
+  opacity: 0.75;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 1;
+    background: transparent;
+  }
 `
 
 // const LiveDot = styled.span`
@@ -281,6 +292,10 @@ const Sidebar = ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
+      <Link href="~/">
+        <BackLink>← BACK</BackLink>
+      </Link>
+
       <LogoContainer>
         <Logo alt="logo" />
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
@@ -337,14 +352,6 @@ const Sidebar = ({
           Log In
         </StyledButton>
       )}
-      <StyledButton
-        as={Link}
-        href="~/"
-        color="secondary"
-        style={{ textDecoration: 'none', color: 'white' }}
-      >
-        Home
-      </StyledButton>
       <SponsorContainer>
         {sponsors &&
           sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}

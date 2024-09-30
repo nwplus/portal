@@ -7,12 +7,10 @@ import { useHackathon } from '../../utility/HackathonProvider'
 
 const Confirmation = () => {
   const [, setLocation] = useLocation()
-  const { activeHackathon } = useHackathon()
   return (
     <Landing
       heading="Thanks for Applying!"
       description="Stay tuned as we assess your application. Expect to hear from us soon."
-      hackathon={activeHackathon}
       showFooter
     >
       <ButtonContainer>

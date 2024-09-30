@@ -6,7 +6,7 @@ import { ANALYTICS_EVENTS, APPLICATION_STATUS, SOCIAL_LINKS, copyText } from '..
 import { analytics } from '../utility/firebase'
 import { Button } from './Input/Button'
 import Checkbox from './Input/Checkbox'
-import { A, H1, HR, P, ErrorSpan as Required } from './Typography'
+import { A, H1, HR, P, ErrorSpan as Required, ErrorMessage } from './Typography'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const Container = styled.div`
@@ -123,7 +123,7 @@ const SocialIconContainer = styled.div`
 `
 
 const RSVPButton = styled(Button)`
-  margin-right: 0;
+  margin-right: 0 0;
   ${p => p.theme.mediaQueries.mobile} {
     margin: 1em;
   }
@@ -225,7 +225,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
         Hi {hackerName}, we had a lovely time reading your application, and were very impressed with
         your commitment to joining the technology community. We would love to see you at{' '}
         {copyText[activeHackathon]?.hackathonName} this year; however, at the moment, we cannot
-        confirm a spot for you. You have been put on our waitlist and will be notified{' '}
+        confirm a spot for you. You have been put on our waitlist and will be notified by{' '}
         {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
         then!
         <HR />
@@ -408,6 +408,9 @@ const Dashboard = ({
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
   const [displayUnRSVPModel, setdisplayUnRSVPModel] = useState('none')
+  const [rsvpErrorMessage, setRsvpErrorMessage] = useState('')
+
+  const askSafewalk = activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f'
   // const handleChange = () => {
   //   setSafewalkCheckbox(!safewalk)
   //   setSafewalkInput(!safewalkNote)
@@ -448,6 +451,23 @@ const Dashboard = ({
     setNwMentorshipSelect(e.target.value)
   }
 
+  const handleRSVPClick = () => {
+    if (
+      isRsvpOpen &&
+      willBeAttending &&
+      (askSafewalk ? safewalk : true) &&
+      covidWaiver &&
+      releaseLiability
+    ) {
+      setRSVP(canRSVP)
+    }
+    if (!isRsvpOpen) {
+      setRsvpErrorMessage('RSVPs are not open yet!')
+    } else {
+      setRsvpErrorMessage("Please check all required fields before RSVP'ing!")
+    }
+  }
+
   return (
     <Container>
       <WelcomeHeader>
@@ -472,16 +492,8 @@ const Dashboard = ({
         </div>
         <div>
           <SocialMediaLinks />
-          {isApplicationOpen && (
-            <EditAppButton
-              height="short"
-              onClick={() => {
-                if (isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress) {
-                  editApplication()
-                }
-              }}
-              disabled={!(isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress)}
-            >
+          {isApplicationOpen && hackerStatus === APPLICATION_STATUS.inProgress && (
+            <EditAppButton height="short" onClick={editApplication}>
               Complete Your Registration
             </EditAppButton>
           )}
@@ -508,7 +520,7 @@ const Dashboard = ({
               </SelectOptionContainer>
             </SelectContainer>
 
-            {(activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f') && (
+            {askSafewalk && (
               <SelectContainer>
                 <QuestionLabel>
                   Safewalk option <Required />
@@ -679,25 +691,26 @@ const Dashboard = ({
         <FooterContainer>
           {/* Only show button if a user hasn't unRSVPed yet and can still RSVP*/}
           {hackerRSVPStatus !== "Un-RSVP'd" && canRSVP && (
-            <RSVPButton
-              width="flex"
-              onClick={
-                isRsvpOpen &&
-                canRSVP &&
-                willBeAttending &&
-                safewalk &&
-                covidWaiver &&
-                releaseLiability &&
-                (() => setRSVP(canRSVP))
-              }
-              shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
-              color={canRSVP ? 'primary' : 'secondary'}
-              disabled={
-                !(isRsvpOpen && willBeAttending && safewalk && covidWaiver && releaseLiability)
-              }
-            >
-              RSVP
-            </RSVPButton>
+            <>
+              <RSVPButton
+                width="flex"
+                onClick={handleRSVPClick}
+                shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
+                color={canRSVP ? 'primary' : 'secondary'}
+                disabled={
+                  !(
+                    isRsvpOpen &&
+                    willBeAttending &&
+                    (askSafewalk ? safewalk : true) &&
+                    covidWaiver &&
+                    releaseLiability
+                  )
+                }
+              >
+                RSVP
+              </RSVPButton>
+              {rsvpErrorMessage && <ErrorMessage>{rsvpErrorMessage}</ErrorMessage>}
+            </>
           )}
 
           {/* If the user can unRSVP, pop up the placeholder button which pops up a modal */}
