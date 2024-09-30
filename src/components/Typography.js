@@ -45,7 +45,7 @@ export const I = styled.i`
 `
 
 export const ErrorMessage = styled.p`
-  color: ${p => p.theme.colors.warning};
+  color: ${p => p.theme.colors.error};
   margin: 0.5em 0em;
 `
 
@@ -55,7 +55,7 @@ export const Message = styled.p`
 `
 
 export const ErrorSpan = styled.span`
-  color: ${p => p.theme.colors.warning};
+  color: ${p => p.theme.colors.error};
   &:after {
     content '${p => p.content || '*'}';
   }

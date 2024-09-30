@@ -55,7 +55,7 @@ const StyledH1 = styled(H1)`
 `
 
 const StyledBanner = styled(Banner)`
-  background-color: ${p => p.theme.colors.secondaryBackground};
+  background-color: ${p => p.theme.colors.backgroundSecondary};
   && {
     top: 18em;
     padding: 0;
