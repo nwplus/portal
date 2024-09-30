@@ -6,21 +6,21 @@ import {
   ANALYTICS_EVENTS,
   APPLICATION_STATUS,
   DB_COLLECTION,
-  DB_HACKATHON,
   HACKER_APPLICATION_TEMPLATE,
   REDIRECT_STATUS,
 } from '../utility/Constants'
+import { toCamelCase } from './utilities'
 
 if (!firebase.apps.length) {
   const config = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   }
   firebase.initializeApp(config)
 }
@@ -31,14 +31,19 @@ export const storage = firebase.storage()
 
 export const analytics = firebase.analytics()
 
-export const livesiteDocRef = db.collection('InternalWebsites').doc('Livesite')
-export const currentHackathonRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON)
-export const applicantsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Applicants')
-export const projectsRef = db.collection(DB_COLLECTION).doc(DB_HACKATHON).collection('Projects')
-export const announcementsRef = db
-  .collection(DB_COLLECTION)
-  .doc(DB_HACKATHON)
-  .collection('Announcements')
+export const livesiteDocRef = db.collection('InternalWebsites').doc('Portal')
+export const currentHackathonRef = dbHackathonName => {
+  return db.collection(DB_COLLECTION).doc(dbHackathonName)
+}
+export const applicantsRef = dbHackathonName => {
+  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Applicants')
+}
+export const projectsRef = dbHackathonName => {
+  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Projects')
+}
+export const announcementsRef = dbHackathonName => {
+  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Announcements')
+}
 
 export const getLivesiteDoc = callback => {
   return livesiteDocRef.onSnapshot(doc => {
@@ -46,7 +51,7 @@ export const getLivesiteDoc = callback => {
   })
 }
 
-const createNewApplication = async user => {
+const createNewApplication = async (user, dbHackathonName) => {
   analytics.logEvent(ANALYTICS_EVENTS.signup, { userId: user.uid })
   const userId = {
     _id: user.uid,
@@ -87,15 +92,15 @@ const createNewApplication = async user => {
     ...judging,
   }
 
-  await applicantsRef.doc(user.uid).set(newApplication)
+  await applicantsRef(dbHackathonName).doc(user.uid).set(newApplication)
 }
 
 /**Extracts user status and redirect information for the user */
-export const getUserStatus = async user => {
-  let applicant = await applicantsRef.doc(user.uid).get()
+export const getUserStatus = async (user, dbHackathonName) => {
+  let applicant = await applicantsRef(dbHackathonName).doc(user.uid).get()
   if (!applicant.exists) {
-    await createNewApplication(user)
-    applicant = await applicantsRef.doc(user.uid).get()
+    await createNewApplication(user, dbHackathonName)
+    applicant = await applicantsRef(dbHackathonName).doc(user.uid).get()
   }
 
   const status = applicant.data().status.applicationStatus
@@ -115,19 +120,23 @@ export const getUserStatus = async user => {
   return { redirect: REDIRECT_STATUS.ApplicationSubmitted, status }
 }
 
-export const getUserApplication = async uuid => {
-  return (await applicantsRef.doc(uuid).get()).data()
+export const getUserApplication = async (uuid, dbHackathonName) => {
+  return (await applicantsRef(dbHackathonName).doc(uuid).get()).data()
 }
 
-export const getSubmission = async pid => {
-  const projectDoc = await projectsRef.doc(pid).get()
-  return { ...projectDoc.data(), id: projectsRef.doc(pid).id, exists: projectDoc.exists }
+export const getSubmission = async (pid, dbHackathonName) => {
+  const projectDoc = await projectsRef(dbHackathonName).doc(pid).get()
+  return {
+    ...projectDoc.data(),
+    id: projectsRef(dbHackathonName).doc(pid).id,
+    exists: projectDoc.exists,
+  }
 }
 
-export const submitGrade = async (id, score, user, errorCallback = () => {}) => {
+export const submitGrade = async (id, score, user, dbHackathonName, errorCallback = () => {}) => {
   try {
     await db.runTransaction(async transaction => {
-      const projectDoc = await transaction.get(projectsRef.doc(id))
+      const projectDoc = await transaction.get(projectsRef(dbHackathonName).doc(id))
       if (!projectDoc.exists) {
         console.error('Project does not exist')
         errorCallback(true)
@@ -136,7 +145,7 @@ export const submitGrade = async (id, score, user, errorCallback = () => {}) => 
       const oldGrades = projectDoc.data().grades
       const newGrade = user.email ? { ...score, user: user.email } : { ...score }
       const grades = { ...oldGrades, [user.uid]: newGrade }
-      transaction.update(projectsRef.doc(id), { grades })
+      transaction.update(projectsRef(dbHackathonName).doc(id), { grades })
     })
   } catch (e) {
     errorCallback(true)
@@ -144,14 +153,14 @@ export const submitGrade = async (id, score, user, errorCallback = () => {}) => 
   }
 }
 
-export const updateUserApplication = async (uuid, newApp) => {
-  return applicantsRef.doc(uuid).set(newApp)
+export const updateUserApplication = async (uuid, newApp, dbHackathonName) => {
+  return applicantsRef(dbHackathonName).doc(uuid).set(newApp)
 }
 
-export const getSponsors = () => {
+export const getSponsors = dbHackathonName => {
   return db
     .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
+    .doc(dbHackathonName)
     .collection('Sponsors')
     .get()
     .then(querySnapshot => {
@@ -159,24 +168,26 @@ export const getSponsors = () => {
     })
 }
 
-export const getProjects = () => {
-  return projectsRef.get().then(querySnapshot => {
-    return querySnapshot.docs
-  })
+export const getProjects = dbHackathonName => {
+  return projectsRef(dbHackathonName)
+    .get()
+    .then(querySnapshot => {
+      return querySnapshot.docs
+    })
 }
 // Fetch list of sponsor prizes
-export const getSponsorPrizes = () => {
+export const getSponsorPrizes = dbHackathonName => {
   return db
     .collection(DB_COLLECTION)
-    .doc(DB_HACKATHON)
+    .doc(dbHackathonName)
     .get()
     .then(querySnapshot => {
       return querySnapshot.data().sponsorPrizes
     })
 }
 
-export const createProject = (author, data) => {
-  return projectsRef.add({
+export const createProject = (author, data, dbHackathonName) => {
+  return projectsRef(dbHackathonName).add({
     ...data,
     lastEditedBy: {
       date: firebase.firestore.Timestamp.now(),
@@ -185,16 +196,66 @@ export const createProject = (author, data) => {
   })
 }
 
-export const updateProject = (author, projectId, data) => {
-  return projectsRef.doc(projectId).update({
-    ...data,
-    lastEditedBy: {
-      date: firebase.firestore.Timestamp.now(),
-      email: author,
-    },
+export const updateProject = (author, projectId, data, dbHackathonName) => {
+  return projectsRef(dbHackathonName)
+    .doc(projectId)
+    .update({
+      ...data,
+      lastEditedBy: {
+        date: firebase.firestore.Timestamp.now(),
+        email: author,
+      },
+    })
+}
+
+export const getAnnouncement = async (announcementId, dbHackathonName) => {
+  return (await announcementsRef(dbHackathonName).doc(announcementId).get()).data()
+}
+
+export const getHackerAppQuestions = async (selectedHackathon, category) => {
+  const data = await db
+    .collection('HackerAppQuestions')
+    .doc(selectedHackathon.slice(0, -4))
+    .collection(category)
+    .get()
+  return data.docs.map(doc => doc.data())
+}
+
+const processQuestions = (questions, templateSection) => {
+  questions.forEach(question => {
+    if (question.type === 'Select All') {
+      templateSection[question.formInput] = question.options.reduce((acc, option) => {
+        acc[toCamelCase(option)] = false
+        return acc
+      }, {})
+      if (question.other) {
+        templateSection[question.formInput].other = false
+      }
+    } else {
+      templateSection[question.formInput] = ''
+    }
   })
 }
 
-export const getAnnouncement = async announcementId => {
-  return (await announcementsRef.doc(announcementId).get()).data()
+// make template according to whatever the questions say
+export const fillHackerApplicationTemplate = async selectedHackathon => {
+  try {
+    const initialTemplate = JSON.parse(JSON.stringify(HACKER_APPLICATION_TEMPLATE))
+    const categories = ['basicInfo', 'skills', 'questionnaire']
+
+    await Promise.all(
+      categories.map(async category => {
+        const questions = await getHackerAppQuestions(
+          selectedHackathon,
+          category.charAt(0).toUpperCase() + category.slice(1)
+        )
+        initialTemplate[category] = { ...initialTemplate[category] }
+        processQuestions(questions, initialTemplate[category])
+      })
+    )
+
+    return initialTemplate
+  } catch (error) {
+    console.error('Error filling hacker application template:', error)
+  }
 }

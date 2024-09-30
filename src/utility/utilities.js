@@ -1,9 +1,9 @@
+import { getHackerAppQuestions } from './firebase'
+import { useCallback, useState } from 'react'
+
 // given array, split into array of chunks of size n
 // "balanced" (subarrays' lengths differ as less as possible) or
 // "even" (all subarrays but the last have the same length):
-
-import { useCallback, useState } from 'react'
-
 // https://stackoverflow.com/questions/8188548/splitting-a-js-array-into-n-arrays
 export const chunkify = (a, n, balanced) => {
   const numChunks = n
@@ -147,12 +147,57 @@ export const cutString = (string, maxLength) => {
 
 // for multi-select dropdown hacker app questions
 export const applyCustomSort = (data, sort) => {
-  data.sort((a, b) => {
+  const filteredData = data.filter(([key]) => sort.includes(key))
+  filteredData.sort((a, b) => {
     const indexA = sort.indexOf(a[0])
     const indexB = sort.indexOf(b[0])
-
     return indexA - indexB
   })
+  return filteredData
+}
 
-  return data
+export const getQuestionsByOrder = appQuestions => {
+  const selectedFormInputs = appQuestions.flatMap(q => {
+    if (q.type === 'Country') {
+      return [['countryOfResidence', q.required]]
+    }
+    if (q.type === 'Major') {
+      return [['major', q.required]]
+    }
+    if (q.type === 'School') {
+      return [['school', q.required]]
+    }
+    if (q.type === 'Full Legal Name') {
+      return [
+        ['legalFirstName', q.required],
+        ['legalMiddleName', false],
+        ['legalLastName', q.required],
+      ]
+    }
+    if (q.type === 'Portfolio') {
+      return [
+        ['resume', q.required],
+        ['github', false],
+        ['linkedin', false],
+        ['portfolio', false],
+      ]
+    }
+
+    return [[q.formInput, q.required, q.maxWords ? q.maxWords : undefined]]
+  })
+
+  return selectedFormInputs
+}
+
+export const toOtherCamelCase = str => {
+  const capitalizedStr = str.charAt(0).toUpperCase() + str.slice(1)
+  return `other${capitalizedStr}`
+}
+
+export const toCamelCase = str => {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map((word, index) => (index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)))
+    .join('')
 }

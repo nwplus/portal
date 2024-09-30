@@ -1,15 +1,28 @@
 export const DB_COLLECTION = 'Hackathons'
 
-// CHANGE: firebase collection name for this hackathon
-export const DB_HACKATHON = 'cmd-f2024'
+export const DB_HACKATHON_NAMES = {
+  'hackcamp': 'HackCamp2024',
+  'nwhacks': 'nwHacks2024',
+  'cmd-f': 'cmd-f2025',
+}
+export const VALID_HACKATHONS = ['hackcamp', 'nwhacks', 'cmd-f']
 export const DAYOF_COLLECTION = 'DayOf'
 export const FAQ_COLLECTION = 'FAQ'
 export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
-  // CHANGE: name of hackathon to be displayed on login splash
-  hackathonName: 'cmd-f 2024',
-  hackathonNameShort: 'cmd-f',
+  'hackcamp': {
+    hackathonName: 'HackCamp 2024',
+    hackathonNameShort: 'HackCamp',
+  },
+  'nwhacks': {
+    hackathonName: 'nwHacks 2025',
+    hackathonNameShort: 'nwHacks',
+  },
+  'cmd-f': {
+    hackathonName: 'cmd-f 2025',
+    hackathonNameShort: 'cmd-f',
+  },
 })
 
 export const PROJECTS_TO_JUDGE_COUNT = 4
@@ -19,16 +32,6 @@ export const NOTIFICATION_PERMISSIONS = Object.freeze({
   GRANTED: 'granted',
   DEFAULT: 'default',
   DENIED: 'denied',
-})
-
-export const WAIVER_LINKS = Object.freeze({
-  COVID:
-    'https://docs.google.com/document/d/1OlcOiEPSjngFKFEndG6wBBOYm02JTpY3KldeJ9GCfIo/edit?usp=sharing',
-  RELEASE_LIABILITY:
-    'https://docs.google.com/document/d/1BfDr_S2FNNl7Xfv0fncZLzUV2pq0O91z6k6xwiN4gPw/edit?usp=sharing',
-  MEDIA:
-    'https://docs.google.com/document/d/175Rsgz5HXUpfPUqNbRpPrJTmqqxFfhxZJBXNFMDX0SU/edit?usp=sharing',
-  NWMENTORSHIP: 'https://forms.gle/nG9vwzc5HG5X5jVB8',
 })
 
 export const SOCIAL_LINKS = Object.freeze({
@@ -197,11 +200,11 @@ export const DIETARY_RESTRICTION_OPTIONS = Object.freeze({
 })
 
 export const CONTRIBUTION_ROLE_OPTIONS = Object.freeze({
-  beginner: 'Beginner',
-  designer: 'Designer',
-  developer: 'Developer',
-  pm: 'Product/project manager',
-  other: 'Other',
+  'beginner': 'Beginner',
+  'designer': 'Designer',
+  'developer': 'Developer',
+  'product/projectManager': 'Product/project manager',
+  'other': 'Other',
 })
 
 export const ENGAGEMENT_SOURCES = Object.freeze({
@@ -236,60 +239,60 @@ export const EVENTS_ATTENDED = Object.freeze({
 export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   _id: '',
   basicInfo: {
-    email: '',
+    // email: '',
     legalFirstName: '',
     legalMiddleName: '',
     legalLastName: '',
-    preferredName: '',
-    gender: '',
-    haveTransExperience: null,
-    pronouns: {
-      sheher: false,
-      hehim: false,
-      hethey: false,
-      shethey: false,
-      theythem: false,
-      preferNot: false,
-      other: false,
-    },
-    race: {
-      asian: false,
-      black: false,
-      white: false,
-      hispanic: false,
-      pacificIslander: false,
-      dontKnow: false,
-      preferNot: false,
-      other: false,
-    },
-    culturalBackground: {
-      black: false,
-      european: false,
-      eastAsian: false,
-      southAsian: false,
-      southEastAsian: false,
-      firstNationsOrIndigenous: false,
-      hispanicOrLatinx: false,
-      middleEastern: false,
-      preferNot: false,
-      other: false,
-    },
-    dietaryRestriction: {
-      none: false,
-      dairy: false,
-      glutenFree: false,
-      halal: false,
-      kosher: false,
-      nuts: false,
-      vegetarian: false,
-      vegan: false,
-      other: false,
-    },
-    identifyAsUnderrepresented: '',
-    indigenousIdentification: '',
-    ageByHackathon: null,
-    canadianStatus: '',
-    phoneNumber: '',
+    // preferredName: '',
+    // gender: '',
+    // haveTransExperience: null,
+    // pronouns: {
+    //   sheher: false,
+    //   hehim: false,
+    //   hethey: false,
+    //   shethey: false,
+    //   theythem: false,
+    //   preferNot: false,
+    //   other: false,
+    // },
+    // race: {
+    //   asian: false,
+    //   black: false,
+    //   white: false,
+    //   hispanic: false,
+    //   pacificIslander: false,
+    //   dontKnow: false,
+    //   preferNot: false,
+    //   other: false,
+    // },
+    // culturalBackground: {
+    //   black: false,
+    //   european: false,
+    //   eastAsian: false,
+    //   southAsian: false,
+    //   southEastAsian: false,
+    //   firstNationsOrIndigenous: false,
+    //   hispanicOrLatinx: false,
+    //   middleEastern: false,
+    //   preferNot: false,
+    //   other: false,
+    // },
+    // dietaryRestriction: {
+    //   none: false,
+    //   dairy: false,
+    //   glutenFree: false,
+    //   halal: false,
+    //   kosher: false,
+    //   nuts: false,
+    //   vegetarian: false,
+    //   vegan: false,
+    //   other: false,
+    // },
+    // identifyAsUnderrepresented: '',
+    // indigenousIdentification: '',
+    // ageByHackathon: null,
+    // canadianStatus: '',
+    // phoneNumber: '',
     school: '',
     major: {
       computerScience: false,
@@ -308,37 +311,36 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
       schoolDoesNotOfferMajors: false,
       preferNotToAnswer: false,
     },
-    educationLevel: '',
-    graduation: null,
-    academicYear: '',
+    // educationLevel: '',
+    // graduation: null,
+    // academicYear: '',
     countryOfResidence: '',
-    // willBeAgeOfMajority: null,
-    disability: '',
+    // // willBeAgeOfMajority: null,
+    // disability: '',
   },
   skills: {
-    numHackathonsAttended: '',
-    contributionRole: {
-      beginner: false,
-      designer: false,
-      developer: false,
-      pm: false,
-      other: false,
-    },
+    // numHackathonsAttended: '',
+    // contributionRole: {
+    //   'beginner': false,
+    //   'designer': false,
+    //   'developer': false,
+    //   'product/projectManager': false,
+    //   'other': false,
+    // },
     resume: '',
     portfolio: '',
     linkedin: '',
     github: '',
-    longAnswers1: '',
-    longAnswers2: '',
-    longAnswers3: '',
-    longAnswers4: '',
-    longAnswers5: '',
+    // longAnswers1: '',
+    // longAnswers2: '',
+    // longAnswers3: '',
+    // longAnswers4: '',
+    // longAnswers5: '',
   },
   questionnaire: {
-    engagementSource: [],
-    eventsAttended: [],
-    otherEngagementSource: '',
-    friendEmail: '',
+    // engagementSource: [],
+    // eventsAttended: [],
+    // otherEngagementSource: '',
   },
   submission: {
     lastUpdated: '',
@@ -351,9 +353,9 @@ export const HACKER_APPLICATION_TEMPLATE = Object.freeze({
   },
   termsAndConditions: {
     MLHCodeOfConduct: false,
-    MLHPrivacyPolicy: false,
-    MLHEmailSubscription: false,
-    genderAcknowledgement: false,
+    // MLHPrivacyPolicy: false, // for nwHacks and cmd-f only
+    // MLHEmailSubscription: false, // for nwHacks and cmd-f only
+    // genderAcknowledgement: false, // for cmd-f only
     shareWithnwPlus: false,
     nwPlusPrivacyPolicy: false,
     shareWithSponsors: false,

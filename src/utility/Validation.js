@@ -1,9 +1,13 @@
+import { getQuestionsByOrder, toOtherCamelCase } from './utilities'
+
 const EMAIL_MESSAGE = 'Please include a valid email.'
 const NOT_EMPTY = 'Please include this field.'
 const NOT_NONE = 'Please select at least one that applies.'
 const PHONE_MESSAGE =
   'Please use only numerals and/or hyphens in your phone number, eg. 1234567890 or 123-456-7890'
+const NONE_SELECTED = 'Please only select None if you have not selected any other options.'
 export const MANDATORY_URL = 'Please include a valid URL.'
+const RESUME_UPLOAD = 'Please upload your resume here.'
 const OPTIONAL_URL = 'If you would like to include a URL here, please ensure it is valid.'
 const INVALID_FILE_MESSAGE = 'Please upload a valid PDF file (max 2MB).'
 const MUST_BE_TRUE = 'You must agree to the required term/condition.'
@@ -134,28 +138,120 @@ const getWords = value => {
   return cleanedSplit.length || 0
 }
 
+const validateLongAnswer = (answer, maxWords) => {
+  const wordCount = getWords(answer)
+  const wordLimit = maxWords || LONG_ANSWER_WORD_LIMIT
+  return {
+    error: !validateStringNotEmpty(answer) || wordCount > wordLimit,
+    message: !validateStringNotEmpty(answer)
+      ? NOT_EMPTY
+      : wordCount > wordLimit
+      ? `Please limit your response to ${wordLimit} words or less.`
+      : '',
+  }
+}
+
 export const checkForError = errors => {
   if (!errors) return true
   return Object.values(errors).some(val => val !== false)
 }
 
-export const validateFormSection = (change, section) => {
+export const validateFormSection = (change, section, fields) => {
   const newErrors = {}
-  Object.entries(change).forEach(([key, value]) => {
-    if (!validators[section][key]) return
-    const { error: hasError, message: errorMessage } = validators[section][key](value)
-    newErrors[key] = hasError ? errorMessage : false
-  })
+
+  if (fields.length > 0) {
+    Object.entries(change).forEach(([key, value]) => {
+      const field = fields.find(([fieldKey]) => fieldKey === key)
+      const isRequired = field ? field[1] : false
+      const maxWords = field?.[2] ?? null
+
+      let hasError = false
+      let errorMessage = ''
+
+      // question should be required or if optional, have input from user to be validated
+      if (
+        isRequired ||
+        (value && typeof value !== 'object') ||
+        (typeof value === 'object' && Object.values(value).includes(true))
+      ) {
+        // check for other
+        if (value.other === true) {
+          if (
+            !(toOtherCamelCase(key) in change) ||
+            !validateStringNotEmpty(change[toOtherCamelCase(key)])
+          ) {
+            hasError = true
+            errorMessage = NOT_EMPTY
+          }
+        }
+        // check for none
+        if (value.none === true) {
+          if (!Object.keys(value).every(key => key === 'none' || value[key] === false)) {
+            hasError = true
+            errorMessage = NONE_SELECTED
+          }
+        }
+
+        if (!validators[section][key]) {
+          const { error: noEmptyError, message: noEmptyMessage } = noEmptyFunction(value)
+          if (noEmptyError) {
+            hasError = true
+            errorMessage = noEmptyMessage
+          }
+        } else {
+          const { error: validatorError, message: validatorMessage } = validators[section][key](
+            value,
+            maxWords
+          )
+          if (validatorError) {
+            hasError = true
+            if (key === 'resume') {
+              errorMessage = RESUME_UPLOAD
+            } else {
+              errorMessage = validatorMessage
+            }
+          }
+        }
+      }
+
+      newErrors[key] = hasError ? errorMessage : false
+    })
+  } else {
+    Object.entries(change).forEach(([key, value]) => {
+      if (!validators[section][key]) return
+      const { error: hasError, message: errorMessage } = validators[section][key](value)
+      newErrors[key] = hasError ? errorMessage : false
+    })
+  }
+
   return newErrors
 }
 
-export const validateEntireForm = application => {
-  const basicInfoErrors = validateFormSection(application.basicInfo, 'basicInfo')
-  const skillsErrors = validateFormSection(application.skills, 'skills')
-  const questionnaireErrors = validateFormSection(application.questionnaire, 'questionnaire')
+export const validateEntireForm = async (
+  application,
+  basicInfoQuestions,
+  skillsQuestions,
+  questionnaireQuestions
+) => {
+  const basicInfoErrors = validateFormSection(
+    application.basicInfo,
+    'basicInfo',
+    await getQuestionsByOrder(basicInfoQuestions)
+  )
+  const skillsErrors = validateFormSection(
+    application.skills,
+    'skills',
+    await getQuestionsByOrder(skillsQuestions)
+  )
+  const questionnaireErrors = validateFormSection(
+    application.questionnaire,
+    'questionnaire',
+    await getQuestionsByOrder(questionnaireQuestions)
+  )
   const termsAndConditionsErrors = validateFormSection(
     application.termsAndConditions,
-    'termsAndConditions'
+    'termsAndConditions',
+    []
   )
 
   return {
@@ -176,15 +272,15 @@ const validators = {
     },
     legalFirstName: noEmptyFunction,
     legalLastName: noEmptyFunction,
-    // preferredName: noEmptyFunction,
-    // gender: noEmptyFunction,
+    preferredName: noEmptyFunction,
+    gender: noEmptyFunction,
     identifyAsUnderrepresented: noEmptyFunction,
-    // pronouns: noNoneFunction,
-    // ethnicity: noNoneFunction,
+    pronouns: noNoneFunction,
+    ethnicity: noNoneFunction,
     dietaryRestriction: noNoneFunction,
     ageByHackathon: noEmptyFunction,
     school: noEmptyFunction,
-    // major: noEmptyFunction,
+    major: noNoneFunction,
     educationLevel: noEmptyFunction,
     graduation: noEmptyFunction,
     academicYear: noEmptyFunction,
@@ -204,30 +300,11 @@ const validators = {
     github: optionalURLFunction,
     linkedin: optionalURLFunction,
     firstTimeHacker: noNeitherFunction,
-    disability: answer => {
-      return {
-        error: getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers1: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
-        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers2: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > MED_ANSWER_WORD_LIMIT,
-        message: answer.length > MED_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
-    longAnswers3: answer => {
-      return {
-        error: !validateStringNotEmpty(answer) || getWords(answer) > LONG_ANSWER_WORD_LIMIT,
-        message: answer.length > LONG_ANSWER_WORD_LIMIT ? '' : NOT_EMPTY,
-      }
-    },
+    disability: noEmptyFunction,
+    longAnswers1: (answer, maxWords) => validateLongAnswer(answer, maxWords),
+    longAnswers2: (answer, maxWords) => validateLongAnswer(answer, maxWords),
+    longAnswers3: (answer, maxWords) => validateLongAnswer(answer, maxWords),
+    longAnswers4: (answer, maxWords) => validateLongAnswer(answer, maxWords),
   },
   questionnaire: {
     engagementSource: noNoneFunction,
@@ -235,9 +312,9 @@ const validators = {
   },
   termsAndConditions: {
     MLHCodeOfConduct: validateTrueFunction,
-    MLHPrivacyPolicy: validateTrueFunction,
+    // MLHPrivacyPolicy: validateTrueFunction,
     // MLHEmailSubscription: validateTrueFunction,
-    genderAcknowledgement: validateTrueFunction,
+    // genderAcknowledgement: validateTrueFunction,
     shareWithnwPlus: validateTrueFunction,
     nwPlusPrivacyPolicy: validateTrueFunction,
   },

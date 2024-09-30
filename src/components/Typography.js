@@ -29,7 +29,6 @@ export const H3 = styled.h3`
   font-weight: ${p => p.theme.typography.h3.weight};
   font-size: ${p => p.theme.typography.h3.size};
   opacity: ${p => p.theme.typography.h3.opacity};
-  color: #ffffff;
 `
 
 export const P = styled.p`
@@ -46,7 +45,7 @@ export const I = styled.i`
 `
 
 export const ErrorMessage = styled.p`
-  color: ${p => p.theme.colors.warning};
+  color: ${p => p.theme.colors.error};
   margin: 0.5em 0em;
 `
 
@@ -56,7 +55,7 @@ export const Message = styled.p`
 `
 
 export const ErrorSpan = styled.span`
-  color: ${p => p.theme.colors.warning};
+  color: ${p => p.theme.colors.error};
   &:after {
     content '${p => p.content || '*'}';
   }
@@ -87,12 +86,15 @@ export const PortalLink = styled(Link)`
 `
 
 // note: didn't use text-decoration: underline here because the defaut underline doesn't match designs' thiccness - Allison
-export const A = styled.a`
+export const A = styled.a.attrs(props => ({
+  target: props.target,
+  rel: props.rel,
+}))`
   cursor: pointer;
   text-decoration: none;
   width: ${p => p.width || 'auto'};
   font-weight: ${p => (p.bolded ? 600 : 400)};
-  border-bottom: 1px solid ${p => (p.color ? p.theme.colors.primary : p.theme.colors.link)};
+  border-bottom: 1px solid ${p => p.theme.colors.link};
   color: #fff;
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   &:hover {
