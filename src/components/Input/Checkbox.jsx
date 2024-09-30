@@ -18,13 +18,15 @@ const Icon = styled.svg`
   fill: none;
   stroke: ${p => p.theme.colors.backgroundSecondary};
   stroke-width: 4px;
+  z-index: 2;
 `
 
 const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${p => (p.checked ? p.theme.colors.select.border : 'transparent')};
+  background: ${p =>
+    p.checked ? p.theme.colors.select.border : p.theme.colors.select.background.default};
   border-radius: 3px;
   border: 2px solid ${p => p.theme.colors.select.border};
   transition: all 150ms;
@@ -34,7 +36,8 @@ const StyledCheckbox = styled.div`
   }
 
   :hover {
-    background: ${p => p.theme.colors.select.background.hover};
+    background: ${p =>
+      p.checked ? p.theme.colors.select.border : p.theme.colors.select.background.hover};
     border: 2px solid ${p => (p.checked ? '' : p.theme.colors.select.border)};
   }
 
