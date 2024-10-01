@@ -223,8 +223,6 @@ export const validateFormSection = (change, section, fields) => {
       newErrors[key] = hasError ? errorMessage : false
     })
   }
-  console.log(change)
-  console.log(newErrors)
   return newErrors
 }
 
