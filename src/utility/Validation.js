@@ -175,7 +175,7 @@ export const validateFormSection = (change, section, fields) => {
         (typeof value === 'object' && Object.values(value).includes(true))
       ) {
         // check for other
-        if (value.other === true) {
+        if (value.other === true || value === 'Other') {
           if (
             !(toOtherCamelCase(key) in change) ||
             !validateStringNotEmpty(change[toOtherCamelCase(key)])
@@ -193,10 +193,19 @@ export const validateFormSection = (change, section, fields) => {
         }
 
         if (!validators[section][key]) {
-          const { error: noEmptyError, message: noEmptyMessage } = noEmptyFunction(value)
-          if (noEmptyError) {
-            hasError = true
-            errorMessage = noEmptyMessage
+          // if value is an object, go noNoneFunction; else go noEmptyFunction
+          if (typeof value === 'object') {
+            const { error: noNoneError, message: noNoneMessage } = noNoneFunction(value)
+            if (noNoneError) {
+              hasError = true
+              errorMessage = noNoneMessage
+            }
+          } else {
+            const { error: noEmptyError, message: noEmptyMessage } = noEmptyFunction(value)
+            if (noEmptyError) {
+              hasError = true
+              errorMessage = noEmptyMessage
+            }
           }
         } else {
           const { error: validatorError, message: validatorMessage } = validators[section][key](
@@ -223,7 +232,6 @@ export const validateFormSection = (change, section, fields) => {
       newErrors[key] = hasError ? errorMessage : false
     })
   }
-
   return newErrors
 }
 
@@ -273,7 +281,7 @@ const validators = {
     legalFirstName: noEmptyFunction,
     legalLastName: noEmptyFunction,
     preferredName: noEmptyFunction,
-    gender: noEmptyFunction,
+    gender: noNoneFunction,
     identifyAsUnderrepresented: noEmptyFunction,
     pronouns: noNoneFunction,
     ethnicity: noNoneFunction,
