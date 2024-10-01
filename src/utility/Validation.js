@@ -175,7 +175,7 @@ export const validateFormSection = (change, section, fields) => {
         (typeof value === 'object' && Object.values(value).includes(true))
       ) {
         // check for other
-        if (value.other === true) {
+        if (value.other === true || value === 'Other') {
           if (
             !(toOtherCamelCase(key) in change) ||
             !validateStringNotEmpty(change[toOtherCamelCase(key)])
@@ -223,7 +223,8 @@ export const validateFormSection = (change, section, fields) => {
       newErrors[key] = hasError ? errorMessage : false
     })
   }
-
+  console.log(change)
+  console.log(newErrors)
   return newErrors
 }
 
@@ -273,7 +274,7 @@ const validators = {
     legalFirstName: noEmptyFunction,
     legalLastName: noEmptyFunction,
     preferredName: noEmptyFunction,
-    gender: noEmptyFunction,
+    gender: noNoneFunction,
     identifyAsUnderrepresented: noEmptyFunction,
     pronouns: noNoneFunction,
     ethnicity: noNoneFunction,
@@ -292,6 +293,7 @@ const validators = {
         message: PHONE_MESSAGE,
       }
     },
+    culturalBackground: noNoneFunction,
   },
   skills: {
     contributionRole: noNoneFunction,
