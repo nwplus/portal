@@ -94,8 +94,8 @@ const StyledA = styled(A)`
 
 const BackLink = styled(StyledA)`
   padding-top: 32px;
-  color: ${p => p.theme.colors.text};
-  opacity: 0.75;
+  color: ${p => p.theme.colors.sidebar.textDefault};
+  opacity: 0.8;
   font-weight: 600;
 
   &:hover {

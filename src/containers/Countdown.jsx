@@ -12,25 +12,12 @@ export const Centered = styled.div`
   padding: 16px 0;
   z-index: 99;
 
-  position: relative;
-  width: calc(100% + 100px);
-  left: -50px;
-  top: -24px; // the parent component has a padding top of 24px
-
   background: ${p => p.theme.colors.sidebar.backgroundSecondary};
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     flex-direction: column;
     padding: 0;
     width: 100%;
-
-    left: 0;
-    top: -8px; // the parent component has a padding top of 8px
-
-    background: none;
-    width: calc(100% + 40px);
-    left: -20px;
-    top: -8px;
   }
 `
 
