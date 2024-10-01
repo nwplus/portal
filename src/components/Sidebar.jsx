@@ -15,7 +15,7 @@ import { IS_DEVICE_IOS, APPLICATION_STATUS } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const SidebarContainer = styled.div`
-  min-width: 275px;
+  min-width: 235px;
   min-height: 100%;
   transition: opacity 1s ease-out;
   z-index: 999;
