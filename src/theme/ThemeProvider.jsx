@@ -45,28 +45,30 @@ const hackcampTheme = {
   ...base,
   name: 'hackcamp',
   colors: {
-    background: '#371315',
-    backgroundSecondary: '#770B42',
-    backgroundTertiary: '#770B42',
-    text: '#FFFFFF',
-    textSecondary: '#F9C745',
-    highlight: '#FFFFFF',
+    background: 'linear-gradient(0deg, #94D6EF, #94D6EF)',
+    backgroundSecondary: '#75AEE2',
+    backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
+    text: '#45171A',
+    textSecondary: '#01033D',
+    highlight: '#45171A',
     warning: '#D04E51',
     error: '#E03131',
-    scrollbar: '#5F8CA2',
+    scrollbar: '#FFFFFF',
     required: '#D04E51',
     link: '#FBBC05',
+    linkHover: '#75AEE2',
+    lines: '#45171A',
 
     // sidebar
     sidebar: {
       background: 'linear-gradient(191.3deg, #CF0A1F -57.93%, #5B0B4C 78.18%)',
-      backgroundSecondary: '#D23C0D',
-      textSectionHeader: '#DCB551',
+      backgroundSecondary: 'transparent',
+      textSectionHeader: '#F9C745',
       textSelected: '#FFFFFF',
       textDefault: '#EBEBEB',
       backgroundSelected: '#A8138C',
       textHover: '#FFFFFF',
-      backgroundHover: '#A8138C',
+      backgroundHover: '#910F79',
     },
 
     // buttons
@@ -100,30 +102,32 @@ const hackcampTheme = {
 
     // schedule
     schedule: {
-      background: 'linear-gradient(180deg, #00A3E0 0%, #FFF8E5 99.98%)',
+      background:
+        'linear-gradient(180deg, rgba(0, 163, 224, 0.6) 0%, rgba(255, 248, 229, 0.6) 99.98%)',
       mainEventTag: '#00A3E0',
-      workshopTag: '#F7891A',
-      activityTag: '#F9C745',
-      lines: '#8E7EB4',
+      workshopTag: '#F3F3F3',
+      activityTag: '#A9158D',
+      lines: '#FFFFFF',
     },
 
     // form elements
     input: {
-      border: '#FFFFFF',
+      border: '#45171A',
       hover: '#F9C745',
-      placeholder: '#FFFFFF99',
+      placeholder: '#45171A99',
       disabled: '#BDBAC3',
     },
     select: {
-      border: '#FFFFFF',
+      border: '#45171A',
       background: {
         default: 'transparent',
-        hover: '#770B42',
+        hover: '#75AEE2',
       },
     },
     dropdown: {
       background: {
-        selected: '#770B42',
+        selected: '#75AEE2',
+        hover: '#669fd4',
       },
     },
 
@@ -139,7 +143,7 @@ const hackcampTheme = {
 
     // misc
     faq: {
-      toggle: '#041F32',
+      toggle: '#45171A',
     },
   },
 }

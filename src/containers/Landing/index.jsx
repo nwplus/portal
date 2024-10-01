@@ -7,8 +7,9 @@ import nwplus_logo from '../../assets/nwplus_icon.svg'
 import Banner from '../../components/Banner'
 import { H1, P } from '../../components/Typography'
 import Footer from './Footer'
-import nwHacksLoginBackground from '../../../src/assets/nwHacksLogin.svg'
-import cmdfLoginBackground from '../../../src/assets/cmdf_loginbg.svg'
+import hackcampLoginBackground from '../../assets/hc_login.svg'
+import nwHacksLoginBackground from '../../assets/nwHacksLogin.svg'
+import cmdfLoginBackground from '../../assets/cmdf_loginbg.svg'
 import { useHackathon } from '../../utility/HackathonProvider'
 
 const LandingContainer = styled.div`
@@ -32,8 +33,12 @@ const StyledLogoLockup = styled.img`
   transform: translateX(-50%);
   z-index: 9999;
 
-  top: 7em;
-  height: ${p => (p.theme.name === 'hackcamp' ? '90px' : '150px')};
+  top: 128px;
+  height: ${p => (p.theme.name === 'hackcamp' ? '100px' : '150px')};
+
+  ${p => p.theme.mediaQueries.mobile} {
+    height: ${p => (p.theme.name === 'hackcamp' ? '75px' : '100px')};
+  }
 `
 
 const StyledBanner = styled(Banner)`
@@ -42,7 +47,7 @@ const StyledBanner = styled(Banner)`
     z-index: 0;
     display: block;
     padding: 0;
-    width: 75%;
+    width: 60%;
   }
 `
 
@@ -54,17 +59,13 @@ const BackgroundContainer = styled.img`
   position: fixed;
   left: 0;
   top: 0;
-  ${p => p.theme.mediaQueries.xs} {
-    height: 100vh;
-    width: auto;
-  }
 `
 
 const Landing = ({ heading, description, showFooter, children }) => {
   const { activeHackathon } = useHackathon()
 
   const options = {
-    'hackcamp': { logo: hc_logo, background: null },
+    'hackcamp': { logo: hc_logo, background: hackcampLoginBackground },
     'cmd-f': { logo: cmdf_logo, background: cmdfLoginBackground },
     'nwhacks': { logo: nwhacks_logo, background: nwHacksLoginBackground },
     'default': { logo: nwplus_logo, background: nwHacksLoginBackground },

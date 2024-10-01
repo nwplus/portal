@@ -16,6 +16,7 @@ const ToastDiv = styled.div`
   right: 0;
   border-radius: 5px;
   word-break: break-word;
+  z-index: 1000;
 `
 const ToastText = styled.p`
   text-align: center;

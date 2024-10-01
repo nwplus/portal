@@ -112,6 +112,7 @@ export default function HackathonSelection() {
         hackathonName={'HackCamp'}
         isUpNext={UP_NEXT_HACKATHON_NAME === 'HackCamp'}
         dates={applicationData.hackathonWeekends.hackcamp}
+        headerTextColour={'#ffffff'}
         planet={hc_planet}
         buttonColour={'linear-gradient(92.58deg, #0DEFE1 0%, #78FF96 100%)'}
         buttonTextColour={'#2C2543'}
@@ -138,6 +139,7 @@ export default function HackathonSelection() {
         hackathonName={'cmd-f'}
         isUpNext={UP_NEXT_HACKATHON_NAME === 'cmd-f'}
         dates={applicationData.hackathonWeekends['cmd-f']}
+        headerTextColour={'#ffffff'}
         planet={cmdf_planet}
         buttonColour={'#ffffff'}
         buttonTextColour={'#2C2543'}
