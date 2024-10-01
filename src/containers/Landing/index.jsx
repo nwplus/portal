@@ -33,8 +33,12 @@ const StyledLogoLockup = styled.img`
   transform: translateX(-50%);
   z-index: 9999;
 
-  top: 10em;
+  top: 128px;
   height: ${p => (p.theme.name === 'hackcamp' ? '100px' : '150px')};
+
+  ${p => p.theme.mediaQueries.mobile} {
+    height: ${p => (p.theme.name === 'hackcamp' ? '75px' : '100px')};
+  }
 `
 
 const StyledBanner = styled(Banner)`
@@ -43,7 +47,7 @@ const StyledBanner = styled(Banner)`
     z-index: 0;
     display: block;
     padding: 0;
-    width: 75%;
+    width: 60%;
   }
 `
 
