@@ -13,8 +13,10 @@ import { A } from '../components/Typography'
 import { useHackathon } from '../utility/HackathonProvider'
 import { copyText } from '../utility/Constants'
 
+import hackcampLoginTicket from '../assets/hc_login_ticket.svg'
+
 const ErrorMessage = ({ message }) => (
-  <>
+  <div>
     There was an issue logging you in{' '}
     <span role="img" aria-label="dizzy face">
       😵
@@ -23,7 +25,7 @@ const ErrorMessage = ({ message }) => (
     {message}
     <br />
     If this persists, please contact <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
-  </>
+  </div>
 )
 
 // custom handling of errors
@@ -61,6 +63,33 @@ export const ButtonContainer = styled.div`
   margin: 0.5em 0;
 `
 
+const StyledWelcomeImage = styled.img`
+  width: 100%;
+  max-width: 500px;
+  margin-top: -30px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 80%;
+  }
+`
+
+const getHeading = activeHackathon => {
+  if (!copyText[activeHackathon]) {
+    return `Welcome to nwPlus!`
+  }
+  if (activeHackathon !== 'hackcamp') {
+    return `Welcome to ${copyText[activeHackathon]?.hackathonName}!`
+  }
+  return null
+}
+
+const getWelcomeImage = activeHackathon => {
+  if (activeHackathon === 'hackcamp') {
+    return hackcampLoginTicket
+  }
+  return null
+}
+
 const Login = () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
@@ -80,10 +109,8 @@ const Login = () => {
 
   return (
     <>
-      <Landing
-        heading={`Welcome to ${copyText[activeHackathon]?.hackathonName || 'nwPlus'}!`}
-        background={theme.colors.background}
-      >
+      <Landing heading={getHeading(activeHackathon)} background={theme.colors.background}>
+        <StyledWelcomeImage src={getWelcomeImage(activeHackathon)} />
         <ButtonContainer>
           <StyledButton
             width="flex"

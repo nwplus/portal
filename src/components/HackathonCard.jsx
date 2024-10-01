@@ -146,6 +146,7 @@ const Button = styled.button`
 const ApplicationStatusTextDesktop = styled(H1)`
   font-size: 1.15rem;
   font-weight: 600;
+  color: #ffffff;
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     display: ${props => (props.isUpNext ? 'block' : 'none')};
@@ -158,6 +159,7 @@ const ApplicationStatusTextDesktop = styled(H1)`
 const ApplicationStatusTextMobile = styled(H1)`
   font-weight: 600;
   display: none;
+  color: #ffffff;
 
   ${p => p.theme.mediaQueries.tabletLarge} {
     display: ${props => (props.isUpNext ? 'none' : 'block')};

@@ -10,12 +10,13 @@ import { useTheme } from 'styled-components'
 const EventDescription = styled(P)`
   opacity: 0.8;
   color: ${p => p.theme.colors.schedule.description} !important;
-  overflow: ${props => (props.expanded ? 'visible' : 'hidden')};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: ${props => (props.expanded ? 'unset' : '3')};
+  -webkit-box-orient: vertical;
   max-height: ${props => (props.expanded ? 'none' : '4.5em')};
   transition: max-height 0.3s ease;
-  display: ${props => (props.expanded ? 'block' : '-webkit-box')};
-  webkitlineclamp: ${props => (props.expanded ? 'none' : '3')};
-  webkitboxorient: 'vertical';
   ${p => p.theme.mediaQueries.mobile} {
     overflow-y: scroll;
     ${ScrollbarLike}
@@ -100,13 +101,12 @@ const StyledH3 = styled(H3)`
 const formatTime = timeString => {
   const time = new Date(timeString)
   const options = {
-    month: 'short',
-    day: 'numeric',
+    weekday: 'short',
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,
   }
-  return time.toLocaleDateString('en-US', options)
+  return time.toLocaleString('en-US', options)
 }
 
 const Event = ({ event }) => {
