@@ -3,20 +3,28 @@ import { applyCustomSort, toCamelCase, toOtherCamelCase } from '../../utility/ut
 import { TextInput, Select } from '../Input'
 
 const SelectAll = ({ refs, errors, formInputs, onChange, question }) => {
-  const transformSelectAllOptions = (options, includeOther) => {
+  const transformSelectAllOptions = (options, includeOther, formInput) => {
     const transformedOptions = options.reduce((acc, option) => {
       acc[toCamelCase(option)] = option.toString()
       return acc
     }, {})
 
     if (includeOther) {
-      transformedOptions.other = 'Other (Please specify)'
+      if (formInput === 'gender') {
+        transformedOptions.other = 'Prefer to self-describe'
+      } else {
+        transformedOptions.other = 'Other (Please specify)'
+      }
     }
 
     return transformedOptions
   }
 
-  const selectAllOptions = transformSelectAllOptions(question.options, question.other)
+  const selectAllOptions = transformSelectAllOptions(
+    question.options,
+    question.other,
+    question.formInput
+  )
 
   return (
     <>
