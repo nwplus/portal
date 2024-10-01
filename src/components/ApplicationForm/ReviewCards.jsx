@@ -8,6 +8,8 @@ import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { toOtherCamelCase } from '../../utility/utilities'
+import { copyText } from '../../utility/Constants'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -182,6 +184,7 @@ const getMajors = obj => Object.keys(obj).filter(key => obj[key])
 
 const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
   const { basicInfoQuestions, skillsQuestions, questionnaireQuestions } = useHackerApplication()
+  const { activeHackathon } = useHackathon()
 
   return (
     <>
@@ -404,7 +407,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               💾
             </span>{' '}
             We use your (anonymized!) data to help you get the best sponsors and continuously
-            improve cmd-f with each iteration.
+            improve {copyText[activeHackathon].hackathonNameShort} with each iteration.
           </P>
         </ContentWrapper>
 
