@@ -79,6 +79,10 @@ const CenterH1 = styled(H1)`
   justify-content: center;
 `
 
+const IndentedCheckbox = styled(Checkbox)`
+  margin-left: 1.5em;
+`
+
 const PortfolioInfoGroup = ({ formInputs }) => {
   return (
     <>
@@ -306,7 +310,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
             </span>{' '}
             cmd-f 2024 is an MLH partner event. The following 3 checkboxes are for this partnership.
           </P> */}
-          <Checkbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
             onChange={() =>
@@ -328,8 +332,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               </A>
               .<Required />
             </span>
-          </Checkbox>
-          {/* <Checkbox
+          </IndentedCheckbox>
+          {/* <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
@@ -359,8 +363,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               </A>{' '}
               <Required />
             </span>
-          </Checkbox>
-          <Checkbox
+          </IndentedCheckbox>
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHEmailSubscription}
             onChange={() =>
@@ -385,7 +389,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
             participants to trust that everyone attending belongs at cmd-f.
           </P>
 
-          <Checkbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.genderAcknowledgement}
             onChange={() =>
@@ -398,7 +402,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I agree
               <Required />
             </span>
-          </Checkbox>
+          </IndentedCheckbox>
         </ContentWrapper> */}
 
         <ContentWrapper textBlock>
@@ -412,7 +416,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         </ContentWrapper>
 
         <ContentWrapper textBlock>
-          <Checkbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.nwPlusPrivacyPolicy}
             onChange={() =>
@@ -429,8 +433,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               </A>
               <Required />
             </span>
-          </Checkbox>
-          <Checkbox
+          </IndentedCheckbox>
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
             onChange={() =>
@@ -444,7 +448,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I authorize nwPlus to use my anonymized data for data reporting.
               <Required />
             </span>
-          </Checkbox>
+          </IndentedCheckbox>
         </ContentWrapper>
 
         <ContentWrapper textBlock>
@@ -459,7 +463,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         </ContentWrapper>
 
         <ContentWrapper textBlock>
-          <Checkbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.shareWithSponsors}
             onChange={() =>
@@ -470,7 +474,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
           >
             I authorize nwPlus to provide my resume and supporting documents (Github, Linkedin, etc)
             to event sponsors for recruitment purposes upon request.
-          </Checkbox>
+          </IndentedCheckbox>
         </ContentWrapper>
       </ReviewContainer>
 
