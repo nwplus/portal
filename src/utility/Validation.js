@@ -193,10 +193,19 @@ export const validateFormSection = (change, section, fields) => {
         }
 
         if (!validators[section][key]) {
-          const { error: noEmptyError, message: noEmptyMessage } = noEmptyFunction(value)
-          if (noEmptyError) {
-            hasError = true
-            errorMessage = noEmptyMessage
+          // if value is an object, go noNoneFunction; else go noEmptyFunction
+          if (typeof value === 'object') {
+            const { error: noNoneError, message: noNoneMessage } = noNoneFunction(value)
+            if (noNoneError) {
+              hasError = true
+              errorMessage = noNoneMessage
+            }
+          } else {
+            const { error: noEmptyError, message: noEmptyMessage } = noEmptyFunction(value)
+            if (noEmptyError) {
+              hasError = true
+              errorMessage = noEmptyMessage
+            }
           }
         } else {
           const { error: validatorError, message: validatorMessage } = validators[section][key](
@@ -291,7 +300,6 @@ const validators = {
         message: PHONE_MESSAGE,
       }
     },
-    culturalBackground: noNoneFunction,
   },
   skills: {
     contributionRole: noNoneFunction,
