@@ -29,7 +29,8 @@ const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
           {...(refs ? { customRef: refs[`${question.formInput}Ref`] } : {})}
         />
       ))}
-      {formInputs[question.formInput] === 'Other' && (
+      {(formInputs[question.formInput] === 'Other' ||
+        formInputs[question.formInput] === 'Prefer to self-describe') && (
         <TextInput
           placeholder="Please Specify"
           noOutline
