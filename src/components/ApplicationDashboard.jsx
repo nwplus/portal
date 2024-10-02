@@ -77,7 +77,6 @@ const AppStatusText = styled.p`
 
 const StatusBlurbText = styled.p`
   color: ${p => p.theme.colors.text};
-  font-weight: 500;
   line-height: 2em;
   margin-top: 0.75em;
 `
