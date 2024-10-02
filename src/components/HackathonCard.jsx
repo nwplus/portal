@@ -253,7 +253,7 @@ const HackathonCard = ({
             hoverColor={buttonHoverColor}
             isUpNext={isUpNext}
           >
-            {applicationOpen ? 'Apply now' : visitWebsite ? 'Visit website' : 'Enter Portal'}
+            {visitWebsite ? 'Visit website' : applicationOpen ? 'Apply now' : 'Enter Portal'}
           </Button>
           <ApplicationStatusTextDesktop isUpNext={isUpNext}>
             {getApplicationStatusText(applicationOpen, applicationDeadline)}
