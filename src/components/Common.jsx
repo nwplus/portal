@@ -94,7 +94,7 @@ export const TextInputLike = css`
   font-family: ${p => p.theme.typography.bodyFont};
   font-size: ${p => p.theme.typography.h3.size};
   ::placeholder {
-    color: ${p => p.theme.colors.input.placeholder};
+    color: ${p => `${p.theme.colors.text}99`}; /* 60% opacity */
   }
   :hover {
     border: 2px solid ${p => p.theme.colors.input.hover};
@@ -105,6 +105,7 @@ export const TextInputLike = css`
   }
   :disabled {
     border: 2px solid ${p => p.theme.colors.input.disabled};
+    background-color: ${p => `${p.theme.colors.input.disabledBackground}66`}; /* 40% opacity */
     opacity: ${p => p.theme.opacity.disabled};
   }
   ${p =>
