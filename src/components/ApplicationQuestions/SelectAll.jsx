@@ -1,15 +1,7 @@
 import { ErrorMessage } from '../Typography'
 import { applyCustomSort, toCamelCase, toOtherCamelCase } from '../../utility/utilities'
 import { TextInput, Select } from '../Input'
-
-const selfDescribeInputs = new Set(
-  'gender',
-  'haveTransExperience',
-  'culturalBackground',
-  'indigenousIdentification',
-  'canadianStatus',
-  'disability'
-)
+import { SELF_DESCRIBE_FIELDS } from '../../utility/Constants'
 
 const SelectAll = ({ refs, errors, formInputs, onChange, question }) => {
   const transformSelectAllOptions = (options, includeOther, formInput) => {
@@ -19,7 +11,7 @@ const SelectAll = ({ refs, errors, formInputs, onChange, question }) => {
     }, {})
 
     if (includeOther) {
-      if (selfDescribeInputs.has(formInput)) {
+      if (SELF_DESCRIBE_FIELDS.includes(formInput)) {
         transformedOptions.other = 'Prefer to self-describe'
       } else {
         transformedOptions.other = 'Other (Please specify)'

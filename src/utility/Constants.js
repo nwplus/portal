@@ -378,3 +378,12 @@ export const FIREBASE_AUTH_ERROR = {
   EXPIRED_POPUP_REQUEST: 'auth/cancelled-popup-request',
   POPUP_CLOSED_BY_USER: 'auth/popup-closed-by-user',
 }
+
+export const SELF_DESCRIBE_FIELDS = [
+  'gender',
+  'haveTransExperience',
+  'culturalBackground',
+  'indigenousIdentification',
+  'canadianStatus',
+  'disability',
+]
