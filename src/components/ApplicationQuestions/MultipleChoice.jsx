@@ -9,7 +9,7 @@ const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
 
     const additionalOption = SELF_DESCRIBE_FIELDS.includes(question.formInput)
       ? 'Prefer to self-describe'
-      : 'Other'
+      : 'Other (Please specify)'
 
     return [...question.options, additionalOption]
   }
