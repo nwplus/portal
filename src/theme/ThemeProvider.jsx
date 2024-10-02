@@ -12,8 +12,8 @@ const SCREEN_BREAKPOINTS = {
 
 const base = {
   typography: {
-    headerFont: 'HK Grotesk',
-    bodyFont: 'HK Grotesk',
+    headerFont: 'Hanken Grotesk',
+    bodyFont: 'Hanken Grotesk',
     h1: {
       weight: 700,
       size: '2em',
