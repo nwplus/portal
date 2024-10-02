@@ -113,9 +113,8 @@ const hackcampTheme = {
     // form elements
     input: {
       border: '#45171A',
-      hover: '#F9C745',
-      placeholder: '#45171A99',
-      disabled: '#BDBAC3',
+      hover: '#A9158D',
+      disabled: '#B0B0B0',
     },
     select: {
       border: '#45171A',
@@ -134,11 +133,11 @@ const hackcampTheme = {
     // auth
     login: {
       googleAuthBackground: '#FFFFFF',
-      googleAuthBackgroundHover: '#FFFFFF',
+      googleAuthBackgroundHover: '#FB8EAD',
       googleAuthText: '#2A3C4A',
       githubAuthText: '#FFFFFF',
       githubAuthBackground: '#2A3C4A',
-      githubAuthBackgroundHover: '#2A3C4A',
+      githubAuthBackgroundHover: '#3A9BBE',
     },
 
     // misc
