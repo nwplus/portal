@@ -133,11 +133,11 @@ const hackcampTheme = {
     // auth
     login: {
       googleAuthBackground: '#FFFFFF',
-      googleAuthBackgroundHover: '#FB8EAD',
+      googleAuthBackgroundHover: '#edebeb',
       googleAuthText: '#2A3C4A',
       githubAuthText: '#FFFFFF',
       githubAuthBackground: '#2A3C4A',
-      githubAuthBackgroundHover: '#3A9BBE',
+      githubAuthBackgroundHover: '#21313d',
     },
 
     // misc
