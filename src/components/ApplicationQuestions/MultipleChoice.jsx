@@ -1,9 +1,20 @@
 import { toOtherCamelCase } from '../../utility/utilities'
 import { Select, TextInput } from '../Input'
 import { ErrorMessage } from '../Typography'
+import { SELF_DESCRIBE_FIELDS } from '../../utility/Constants'
 
 const MultipleChoice = ({ refs, errors, formInputs, onChange, question }) => {
-  const options = question.other ? [...question.options, 'Other'] : question.options
+  const getOptions = () => {
+    if (!question.other) return question.options
+
+    const additionalOption = SELF_DESCRIBE_FIELDS.includes(question.formInput)
+      ? 'Prefer to self-describe'
+      : 'Other'
+
+    return [...question.options, additionalOption]
+  }
+
+  const options = getOptions()
 
   return (
     <>
