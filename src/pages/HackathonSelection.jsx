@@ -119,7 +119,6 @@ export default function HackathonSelection() {
         buttonHoverColor={'linear-gradient(90deg, #00DBCE 0%, #00D88A 100%)'}
         applicationDeadline={applicationData.deadlines.hackcamp}
         applicationOpen={applicationData.openStatuses.hackcamp}
-        visitWebsite
       />
       <HackathonCard
         background="linear-gradient(180deg, #77F8EF 0%, #007A72 123.72%)"
