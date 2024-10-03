@@ -81,7 +81,7 @@ const Portfolio = ({ refs, errors, formInputs, onChange, question, handleResume 
         {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
       </FormRow>
       {activeHackathon === 'hackcamp' && (
-        <P>Resumes are collected for the sole purpose of sharing with our sponsors.</P>
+        <P>Resumes are collected for the sole purpose of sharing with our sponsors</P>
       )}
       <P>Maximum file size of 2MB</P>
       <FormRow fieldValue="GitHub/BitBucket/GitLab">
