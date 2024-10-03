@@ -2,6 +2,7 @@ import ResumeUploadBtn from '../ResumeUploadBtn'
 import { TextInput } from '../Input'
 import { ErrorMessage, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import styled from 'styled-components'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const QuestionForm = styled.form`
   display: flex;
@@ -63,6 +64,8 @@ const FormRow = ({ fieldValue, required, children }) => (
 )
 
 const Portfolio = ({ refs, errors, formInputs, onChange, question, handleResume }) => {
+  const { activeHackathon } = useHackathon()
+
   return (
     <QuestionForm>
       <FormRow fieldValue="resume" required>
@@ -77,6 +80,9 @@ const Portfolio = ({ refs, errors, formInputs, onChange, question, handleResume 
         />
         {errors?.resume && <ErrorMessage>{errors?.resume}</ErrorMessage>}
       </FormRow>
+      {activeHackathon === 'hackcamp' && (
+        <P>Resumes are collected for the sole purpose of sharing with our sponsors.</P>
+      )}
       <P>Maximum file size of 2MB</P>
       <FormRow fieldValue="GitHub/BitBucket/GitLab">
         <TextInput
