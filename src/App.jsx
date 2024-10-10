@@ -15,6 +15,7 @@ import {
   Schedule,
   Sponsors,
   Submission,
+  Rewards,
 } from './pages'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
@@ -127,6 +128,9 @@ function App() {
                   </PageRoute>
                   <PageRoute path="/livestream">
                     <Livestream />
+                  </PageRoute>
+                  <PageRoute path="/rewards">
+                    <Rewards />
                   </PageRoute>
                   <PageRoute path="/sponsors">
                     <Sponsors />
