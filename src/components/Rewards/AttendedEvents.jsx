@@ -24,6 +24,7 @@ const EventsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75em;
+  overflow-y: scroll;
   width: 85%;
 
   ${p => p.theme.mediaQueries.mobile} {
@@ -31,7 +32,7 @@ const EventsList = styled.div`
   }
 `
 
-const AttendedEvents = () => {
+const AttendedEvents = ({ userDetails }) => {
   const theme = useTheme()
   const event_type = EVENT_TYPES(theme)
 
@@ -49,17 +50,19 @@ const AttendedEvents = () => {
           <TagLegends theme={theme} />
         </TagLegendsContainer>
       </AttendedEventsHeader>
-      <EventsList>
-        {events.map((event, i) => (
-          <AttendedEventsCard
-            key={i}
-            name={event.name}
-            time={event.time}
-            points={event.points}
-            color={event_type[event.event_type].colour}
-          />
-        ))}
-      </EventsList>
+      {userDetails && (
+        <EventsList>
+          {events.map((event, i) => (
+            <AttendedEventsCard
+              key={i}
+              name={event.name}
+              time={event.time}
+              points={event.points}
+              color={event_type[event.event_type].colour}
+            />
+          ))}
+        </EventsList>
+      )}
     </AttendedEventsContainer>
   )
 }
