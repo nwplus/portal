@@ -7,6 +7,7 @@ import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 import { useHackathon } from './HackathonProvider'
 
+/** @type {React.Context<{isAuthed: boolean, user: firebase.User | null, setUser: React.Dispatch<React.SetStateAction<firebase.User | null>>, logout: () => Promise<void>}>} */
 const AuthContext = createContext()
 
 export function useAuth() {
