@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import React from 'react'
 import RewardCard from '../components/RewardCard'
+import egg from '../assets/egg.svg'
 
 const Container = styled.div`
   display: grid;
@@ -45,7 +46,7 @@ const rewards = [
     name: 'Kinder egg',
     req: 'Reach 500 pts',
     desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: '../assets/egg.png',
+    image: egg,
     points: 350,
     maxPoints: 500,
   },
@@ -53,7 +54,7 @@ const rewards = [
     name: 'Kinder egg',
     req: 'Reach 500 pts',
     desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: '../assets/egg.png',
+    image: egg,
     points: 500,
     maxPoints: 500,
   },
@@ -61,7 +62,7 @@ const rewards = [
     name: 'Kinder egg',
     req: 'Attend Telus’ game dev workshop',
     desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: '../assets/egg.png',
+    image: egg,
     workshops: 0,
     maxWorkshops: 1,
   },
@@ -69,7 +70,7 @@ const rewards = [
     name: 'Kinder egg',
     req: 'Attend Telus’ game dev workshop',
     desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: '../assets/egg.png',
+    image: egg,
     workshops: 1,
     maxWorkshops: 1,
   },
