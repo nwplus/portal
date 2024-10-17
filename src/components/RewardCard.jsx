@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ReactCardFlip from 'react-card-flip'
-import egg from '../assets/egg.svg'
 
 const Container = styled.div`
-  background-color: ${p => p.theme.colors.backgroundSecondary};
+  background-image: ${p => p.theme.colors.backgroundTertiary};
   border-radius: 8px;
   padding: 20px;
   width: 280px;
@@ -23,24 +22,27 @@ const Grid = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 400;
+  color: ${p => p.theme.colors.lines};
 `
 
 const Text = styled.h3`
   font-size: 18px;
   font-weight: 300;
   margin-top: -12px;
+  color: ${p => p.theme.colors.lines};
 `
 
 const Description = styled.h3`
   font-size: 18px;
   font-weight: 300;
   text-align: center;
+  color: ${p => p.theme.colors.lines};
 `
 
 const SubTitle = styled.p`
   font-size: 14px;
   font-weight: 700;
-  color: ${p => p.theme.colors.sidebar.textSectionHeader};
+  color: ${p => p.theme.colors.bar};
   text-align: right;
   margin-top: 8px;
 `
@@ -56,9 +58,9 @@ const InfoIcon = styled.div`
   right: 16px;
   width: 24px;
   height: 24px;
-  border: 2px solid white;
+  border: 2px solid ${p => p.theme.colors.lines};
   border-radius: 50%;
-  color: white;
+  color: ${p => p.theme.colors.lines};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,17 +87,17 @@ const ProgressBar = styled.progress`
   height: 20px;
 
   &::-webkit-progress-bar {
-    background-color: ${p => p.theme.colors.background};
+    background-color: ${p => p.theme.colors.barBackground};
     border-radius: 4px;
   }
 
   &::-webkit-progress-value {
-    background-color: ${p => p.theme.colors.sidebar.textSectionHeader};
+    background-color: ${p => p.theme.colors.bar};
     border-radius: 4px 0 0 4px;
   }
 
   &::-moz-progress-bar {
-    background-color: ${p => p.theme.colors.sidebar.textSectionHeader};
+    background-color: ${p => p.theme.colors.bar};
     border-radius: 4px 0 0 4px;
   }
 `
@@ -105,7 +107,6 @@ const Back = styled.div`
 `
 
 const RewardCard = ({ name, req, desc, image, points, maxPoints, workshops, maxWorkshops }) => {
-  console.log('workshops', workshops)
   const [isFlipped, setIsFlipped] = useState(false)
 
   const handleClick = e => {
@@ -137,7 +138,7 @@ const RewardCard = ({ name, req, desc, image, points, maxPoints, workshops, maxW
       <Container>
         <InfoIcon onClick={handleClick}>i</InfoIcon>
         <Grid>
-          <Icon src={egg} />
+          <Icon src={image} />
           <div>
             <Title>{name}</Title>
             <Text>{req}</Text>
