@@ -81,7 +81,7 @@ export const getRedirectUrl = (redirect, activeHackathon) => {
     case REDIRECT_STATUS.ApplicationNotSubmitted:
       return `/app/${activeHackathon}/application/part-0`
     case REDIRECT_STATUS.ApplicationSubmitted:
-      return `/app/${activeHackathon}`
+      return `/app/${activeHackathon}/application`
     default:
       return `/app/${activeHackathon}/application`
   }

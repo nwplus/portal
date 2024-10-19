@@ -15,8 +15,9 @@ const NestedRoutes = props => {
   const hackathonFromURL = props.base.split('/')[2].toLowerCase()
 
   useEffect(() => {
-    if (VALID_HACKATHONS.includes(hackathonFromURL) && hackathonFromURL !== activeHackathon) {
+    if (VALID_HACKATHONS.includes(hackathonFromURL)) {
       setActiveHackathon(hackathonFromURL)
+      localStorage.setItem('activeHackathon', activeHackathon)
     }
   }, [props.base, activeHackathon, setActiveHackathon])
 
