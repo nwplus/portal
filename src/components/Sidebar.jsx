@@ -266,9 +266,9 @@ const Sidebar = ({
     links.tools.push({ location: '/judging/admin', text: 'Judging Admin' })
   }
 
-  if (import.meta.env.NODE_ENV !== 'production') {
-    links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
-  }
+  // if (import.meta.env.NODE_ENV !== 'production') {
+  //   links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
+  // }
 
   if (isApplicationOpen) {
     // List the application as the last item on the menu
