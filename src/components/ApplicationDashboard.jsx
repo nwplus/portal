@@ -377,8 +377,10 @@ const Dashboard = ({
   setWillBeAttendingSelect,
   safewalkSelect,
   setSafewalkSelect,
-  nwMentorshipSelect,
-  setNwMentorshipSelect,
+  // nwMentorshipSelect,
+  // setNwMentorshipSelect,
+  hcFeatureSelect,
+  setHcFeatureSelect,
   username,
   editApplication,
   relevantDates,
@@ -397,7 +399,8 @@ const Dashboard = ({
   // const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
   const [willBeAttending, setWillBeAttending] = useState(willBeAttendingSelect || undefined)
   const [safewalk, setSafewalk] = useState(safewalkSelect || undefined)
-  const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || undefined)
+  // const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || undefined)
+  const [hcFeature, setHcFeature] = useState(hcFeatureSelect || undefined)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
@@ -440,9 +443,14 @@ const Dashboard = ({
     setSafewalkSelect(e.target.value)
   }
 
-  const handleNwMentorshipSelectChange = e => {
-    setNwMentorship(e.target.value)
-    setNwMentorshipSelect(e.target.value)
+  // const handleNwMentorshipSelectChange = e => {
+  //   setNwMentorship(e.target.value)
+  //   setNwMentorshipSelect(e.target.value)
+  // }
+
+  const handleHcFeatureSelectChange = e => {
+    setHcFeature(e.target.value)
+    setHcFeatureSelect(e.target.value)
   }
 
   const handleRSVPClick = () => {
@@ -594,7 +602,7 @@ const Dashboard = ({
                   width="130px"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={waiversAndForms.COVID}
+                  href={waiversAndForms.covid}
                 >
                   Read Full Waiver.
                 </A>{' '}
@@ -632,6 +640,39 @@ const Dashboard = ({
             </QuestionContainer>
 
             <SelectContainer>
+              <QuestionLabel>HackCamp 2024 Feature Preference</QuestionLabel>
+              <P>
+                We are looking for people to be featured in interview videos about their experience
+                at HackCamp. Filming will take ~10 mins and will take place during Day 2 Build Day.
+                If chosen, our team will reach out with further instructions. Are you interested in
+                participating?{' '}
+              </P>
+              <SelectOptionContainer>
+                <input
+                  type="radio"
+                  id="hcFeatureYes"
+                  name="hcFeatureYes"
+                  value="hcFeatureYes"
+                  checked={hcFeature === 'hcFeatureYes'}
+                  onChange={handleHcFeatureSelectChange}
+                />
+                <label htmlFor="hcFeatureYes">Yes</label>
+              </SelectOptionContainer>
+
+              <SelectOptionContainer>
+                <input
+                  type="radio"
+                  id="hcFeatureNo"
+                  name="hcFeatureNo"
+                  value="hcFeatureNo"
+                  checked={hcFeature === 'hcFeatureNo'}
+                  onChange={handleHcFeatureSelectChange}
+                />
+                <label htmlFor="hcFeatureNo">No</label>
+              </SelectOptionContainer>
+            </SelectContainer>
+
+            {/* <SelectContainer>
               <QuestionLabel>nwMentorship Program</QuestionLabel>
               <P>
                 I would like to participate in the nwMentorship program to connect with an industry
@@ -669,7 +710,7 @@ const Dashboard = ({
                 />
                 <label htmlFor="nwMentorshipNo">No</label>
               </SelectOptionContainer>
-            </SelectContainer>
+            </SelectContainer> */}
           </>
         )}
 
