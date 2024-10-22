@@ -137,10 +137,10 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
-  const setWillBeAttendingSelect = willBeAttendingSelect => {
+  const setWillBeAttendingCheck = willBeAttendingCheck => {
     updateApplication({
       basicInfo: {
-        willBeAttendingSelect,
+        willBeAttendingCheck,
       },
     })
     forceSave()
@@ -215,9 +215,9 @@ const ApplicationDashboardContainer = () => {
         setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
         ageOfMajoritySelect={application.basicInfo.ageOfMajoritySelect || undefined}
         setAgeOfMajoritySelect={ageOfMajoritySelect => setAgeOfMajoritySelect(ageOfMajoritySelect)}
-        willBeAttendingSelect={application.basicInfo.willBeAttendingSelect || undefined}
-        setWillBeAttendingSelect={willBeAttendingSelect =>
-          setWillBeAttendingSelect(willBeAttendingSelect)
+        willBeAttendingCheck={application.basicInfo.willBeAttendingCheck || false}
+        setWillBeAttendingCheck={willBeAttendingCheck =>
+          setWillBeAttendingCheck(willBeAttendingCheck)
         }
         safewalkSelect={application.basicInfo.safewalkSelect || undefined}
         setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}

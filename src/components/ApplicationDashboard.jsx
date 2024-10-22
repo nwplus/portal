@@ -373,8 +373,8 @@ const Dashboard = ({
   setMediaConsentCheck,
   ageOfMajoritySelect,
   setAgeOfMajoritySelect,
-  willBeAttendingSelect,
-  setWillBeAttendingSelect,
+  willBeAttendingCheck,
+  setWillBeAttendingCheck,
   safewalkSelect,
   setSafewalkSelect,
   // nwMentorshipSelect,
@@ -397,10 +397,10 @@ const Dashboard = ({
   const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
   const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
   // const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
-  const [willBeAttending, setWillBeAttending] = useState(willBeAttendingSelect || undefined)
+  const [willBeAttending, setWillBeAttending] = useState(willBeAttendingCheck || false)
   const [safewalk, setSafewalk] = useState(safewalkSelect || undefined)
   // const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || undefined)
-  const [hcFeature, setHcFeature] = useState(hcFeatureSelect || undefined)
+  const [hcFeature, setHcFeature] = useState(hcFeatureSelect || false)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
@@ -433,9 +433,9 @@ const Dashboard = ({
   //   setAgeOfMajoritySelect(e.target.value)
   // }
 
-  const handleWillBeAttendingSelectChange = e => {
-    setWillBeAttending(e.target.value)
-    setWillBeAttendingSelect(e.target.value)
+  const handleWillBeAttendingChange = () => {
+    setWillBeAttending(!willBeAttending)
+    setWillBeAttendingCheck(!willBeAttendingCheck)
   }
 
   const handleSafewalkSelectChange = e => {
@@ -448,9 +448,9 @@ const Dashboard = ({
   //   setNwMentorshipSelect(e.target.value)
   // }
 
-  const handleHcFeatureSelectChange = e => {
-    setHcFeature(e.target.value)
-    setHcFeatureSelect(e.target.value)
+  const handleHcFeatureChange = value => {
+    setHcFeature(value)
+    setHcFeatureSelect(value)
   }
 
   const handleRSVPClick = () => {
@@ -503,15 +503,11 @@ const Dashboard = ({
                 {relevantDates.hackathonWeekend}? <Required />
               </QuestionLabel>
               <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="willBeAttendingYes"
-                  name="willBeAttendingYes"
-                  value="willBeAttendingYes"
-                  checked={willBeAttending === 'willBeAttendingYes'}
-                  onChange={handleWillBeAttendingSelectChange}
+                <Checkbox
+                  checked={willBeAttending}
+                  onChange={handleWillBeAttendingChange}
+                  label="Yes, I will be attending"
                 />
-                <label htmlFor="willBeAttendingYes">Yes</label>
               </SelectOptionContainer>
             </SelectContainer>
 
@@ -648,27 +644,18 @@ const Dashboard = ({
                 participating?{' '}
               </P>
               <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="hcFeatureYes"
-                  name="hcFeatureYes"
-                  value="hcFeatureYes"
-                  checked={hcFeature === 'hcFeatureYes'}
-                  onChange={handleHcFeatureSelectChange}
+                <Checkbox
+                  checked={hcFeature}
+                  onChange={() => handleHcFeatureChange(true)}
+                  label="Yes"
                 />
-                <label htmlFor="hcFeatureYes">Yes</label>
               </SelectOptionContainer>
-
               <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="hcFeatureNo"
-                  name="hcFeatureNo"
-                  value="hcFeatureNo"
-                  checked={hcFeature === 'hcFeatureNo'}
-                  onChange={handleHcFeatureSelectChange}
+                <Checkbox
+                  checked={!hcFeature}
+                  onChange={() => handleHcFeatureChange(false)}
+                  label="No"
                 />
-                <label htmlFor="hcFeatureNo">No</label>
               </SelectOptionContainer>
             </SelectContainer>
 
