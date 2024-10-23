@@ -28,12 +28,22 @@ const QRTicketContainer = styled.div`
   width: 442.8px;
   height: 583.2px;
   margin-top: 30px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 354.24px;
+    height: 464.4px;
+  }
 `
 
 const QRCodeBackground = styled.img`
   position: absolute;
   width: 442.8px;
   height: 583.2px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 354.24px;
+    height: 464.4px;
+  }
 `
 
 const QRCodeDesign = styled.div`
@@ -45,6 +55,11 @@ const QRCodeDesign = styled.div`
   top: 80px;
   border-radius: 20px;
   z-index: 10;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    left: 30px;
+    top: 40px;
+  }
 `
 
 const HackerName = styled.h1`
@@ -53,12 +68,20 @@ const HackerName = styled.h1`
   margin-top: 60px;
   position: relative;
   color: ${p => p.theme.colors.cardText};
+
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 1.5em;
+  }
 `
 
 const HackerEmail = styled.p`
   color: #2e2e2e !important;
   font-size: 1.2em;
   margin-top: -10px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 1em;
+  }
 `
 
 const QRTags = styled.div`
@@ -188,8 +211,8 @@ const QrCode = ({ userInfo, userId }) => {
             options={{
               level: 'M',
               margin: 2,
-              scale: 3,
-              width: 180,
+              scale: 4.5,
+              // width: '100%',
               color: {
                 dark: '#000000',
                 light: '#FFFFFF',
@@ -197,7 +220,7 @@ const QrCode = ({ userInfo, userId }) => {
             }}
           />
 
-          <AppleWalletButton onClick={() => downloadAppleWalletPass()} />
+          {/* <AppleWalletButton onClick={() => downloadAppleWalletPass()} /> */}
         </QRCodeDesign>
       </QRTicketContainer>
 
@@ -206,7 +229,7 @@ const QrCode = ({ userInfo, userId }) => {
         <QRInfoName>{userInfo.displayName}!</QRInfoName>
         <QRInfoDes>
           This ticket contains your personal QR code which will be scanned throughout the event.
-          Please add this ticket to your mobile wallet or take a screenshot.
+          Please take a screenshot or otherwise have your QR code ready to scan.
         </QRInfoDes>
       </QRInfo>
     </QRContainer>
