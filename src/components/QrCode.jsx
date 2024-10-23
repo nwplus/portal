@@ -3,15 +3,18 @@ import styled from 'styled-components'
 import { useQRCode } from 'next-qrcode'
 // import JsPDF from 'jspdf'
 // import html2canvas from 'html2canvas'
-import qrcodeBackground from '../assets/cmdf2024qrcode.svg'
+import qrcodeBackground from '../assets/hc2024qrcode.svg'
 import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
 
 const QRContainer = styled.div`
   display: flex;
   z-index: 98;
-  ${p => p.theme.mediaQueries.mobile} {
+  justify-content: space-around;
+
+  ${p => p.theme.mediaQueries.tabletLarge} {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 `
 
@@ -20,21 +23,28 @@ const QRContainer = styled.div`
 //   display: flex;
 // `
 
-const QRCodeDesignContainer = styled.div``
+const QRTicketContainer = styled.div`
+  position: relative;
+  width: 442.8px;
+  height: 583.2px;
+  margin-top: 30px;
+`
+
+const QRCodeBackground = styled.img`
+  position: absolute;
+  width: 442.8px;
+  height: 583.2px;
+`
 
 const QRCodeDesign = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   position: relative;
-  width: 300px;
-  height: 500px;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  padding: 45px;
+  left: 50px;
+  top: 80px;
   border-radius: 20px;
   z-index: 10;
-  background-image: url(${qrcodeBackground});
-  margin: 0 auto;
-  display: block;
-  margin-top: 30px;
 `
 
 const HackerName = styled.h1`
@@ -78,14 +88,6 @@ const QRTags = styled.div`
 //   display: block;
 // `
 
-const QRTicketContainer = styled.div`
-  float: left;
-  width: 50%;
-  ${p => p.theme.mediaQueries.mobile} {
-    float: none;
-    width: 100%;
-  }
-`
 const QRInfo = styled.div`
   float: right;
   width: 45%;
@@ -94,7 +96,7 @@ const QRInfo = styled.div`
 
   ${p => p.theme.mediaQueries.mobile} {
     float: none;
-    margin-top: 0;
+    margin-top: 20px;
     width: 100%;
     padding-left: 0px;
   }
@@ -125,9 +127,6 @@ const QRInfoName = styled.h1`
 const QRInfoDes = styled.p``
 
 const AppleWalletButton = styled.button`
-  position: absolute;
-  left: 40px;
-  bottom: 100px;
   width: 110px;
   height: 35px;
   padding: 10px;
@@ -136,7 +135,9 @@ const AppleWalletButton = styled.button`
   background-size: auto auto;
   background-color: transparent;
   cursor: pointer;
+  margin-top: 30px;
 `
+
 // temporary comment out for lint fix
 // const generatePDF = () => {
 //   // const report = new JsPDF('portrait', 'pt', [300, 500.01])
@@ -171,40 +172,33 @@ const QrCode = ({ userInfo, userId }) => {
       <QRInfoMobileWelcome>Welcome, {userInfo.displayName}!</QRInfoMobileWelcome>
 
       <QRTicketContainer>
-        <QRCodeDesignContainer>
-          <QRCodeDesign id="QRCodeContainer">
-            <HackerName>{userInfo.displayName}</HackerName>
-            <HackerEmail>{userInfo.email}</HackerEmail>
+        <QRCodeBackground src={qrcodeBackground} />
+        <QRCodeDesign id="QRCodeContainer">
+          <HackerName>{userInfo.displayName}</HackerName>
+          <HackerEmail>{userInfo.email}</HackerEmail>
 
-            <QRTags>
-              {/* {userInfo.safewalkNote ? <SafeWalk>SafeWalk: Yes</SafeWalk> : <SafeWalk >SafeWalk: No</SafeWalk>}
+          <QRTags>
+            {/* {userInfo.safewalkNote ? <SafeWalk>SafeWalk: Yes</SafeWalk> : <SafeWalk >SafeWalk: No</SafeWalk>}
               <ShirtSize></ShirtSize>
               <Allergies></Allergies> */}
-            </QRTags>
+          </QRTags>
 
-            <Canvas
-              text={userId}
-              options={{
-                level: 'M',
-                margin: 2,
-                scale: 3,
-                width: 140,
-                color: {
-                  dark: '#000000',
-                  light: '#FFFFFF',
-                },
-              }}
-            />
+          <Canvas
+            text={userId}
+            options={{
+              level: 'M',
+              margin: 2,
+              scale: 3,
+              width: 180,
+              color: {
+                dark: '#000000',
+                light: '#FFFFFF',
+              },
+            }}
+          />
 
-            {/* <QRInstructions>Please hold onto this QR Code for check-in, meals, etc</QRInstructions> */}
-            <AppleWalletButton onClick={() => downloadAppleWalletPass()} />
-          </QRCodeDesign>
-        </QRCodeDesignContainer>
-
-        {/* <SavePDFBtn color="secondary" onClick={generatePDF}>
-          {' '}
-          Save as PDF
-        </SavePDFBtn> */}
+          <AppleWalletButton onClick={() => downloadAppleWalletPass()} />
+        </QRCodeDesign>
       </QRTicketContainer>
 
       <QRInfo>

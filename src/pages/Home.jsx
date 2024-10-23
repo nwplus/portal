@@ -22,7 +22,6 @@ const HomeContainer = styled.div`
   flex-direction: column;
   gap: 1.5em;
   z-index: 3;
-  background-color: ${p => p.theme.colors.background};
   ${p => p.theme.mediaQueries.mobile} {
     gap: 1em;
   }
@@ -44,8 +43,6 @@ const HomeContainerBackground = styled.div`
       background-position: right bottom;
 
       ${p => p.theme.mediaQueries.mobile} {
-        background-image: none;
-        background-size: cover;
         background-position: center;
       }
     `}
