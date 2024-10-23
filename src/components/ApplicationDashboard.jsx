@@ -639,9 +639,9 @@ const Dashboard = ({
               <QuestionLabel>HackCamp 2024 Feature Preference</QuestionLabel>
               <P>
                 We are looking for people to be featured in interview videos about their experience
-                at HackCamp. Filming will take ~10 mins and will take place during Day 2 Build Day.
-                If chosen, our team will reach out with further instructions. Are you interested in
-                participating?{' '}
+                at HackCamp. Filming will take ~10 mins and will take place during Build Day
+                (Sunday, November 10th). If chosen, our team will reach out with further
+                instructions. Are you interested in participating?{' '}
               </P>
               <SelectOptionContainer>
                 <Checkbox
