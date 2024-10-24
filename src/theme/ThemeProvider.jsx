@@ -45,8 +45,8 @@ const hackcampTheme = {
   ...base,
   name: 'hackcamp',
   colors: {
-    background: 'linear-gradient(0deg, #94D6EF, #94D6EF)',
-    backgroundSecondary: '#75AEE2',
+    background: '#C8E5F0',
+    backgroundSecondary: '#93BEE5',
     backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
     text: '#45171A',
     textSecondary: '#01033D',
@@ -104,8 +104,8 @@ const hackcampTheme = {
     schedule: {
       background:
         'linear-gradient(180deg, rgba(0, 163, 224, 0.6) 0%, rgba(255, 248, 229, 0.6) 99.98%)',
-      mainEventTag: '#00A3E0',
-      workshopTag: '#F3F3F3',
+      mainEventTag: '#3268A5',
+      workshopTag: '#DE0148',
       activityTag: '#A9158D',
       lines: '#FFFFFF',
     },
