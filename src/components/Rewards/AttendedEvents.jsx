@@ -46,6 +46,7 @@ const AttendedEvents = ({ userDetails }) => {
     // prettier insisted on the semicolon
     ;(async () => {
       if (userDetails && dbHackathonName) {
+        console.log(userDetails)
         const eventIds = userDetails.dayOf.events.map(event => event.eventId)
         const events = await getEvents(dbHackathonName)
         const filteredEvents = events.filter(event => eventIds.includes(event.key))
@@ -70,7 +71,7 @@ const AttendedEvents = ({ userDetails }) => {
               name={event.title}
               time={new Date(event.date.seconds * 1000).toLocaleString()}
               points={event.points}
-              color={event_type[event.event_type]?.colour ?? theme.colors.schedule.mainEventTag}
+              color={event_type[event.type]?.colour ?? 'gray'}
             />
           ))}
         </EventsList>
