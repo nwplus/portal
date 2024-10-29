@@ -15,8 +15,9 @@ const NestedRoutes = props => {
   const hackathonFromURL = props.base.split('/')[2].toLowerCase()
 
   useEffect(() => {
-    if (VALID_HACKATHONS.includes(hackathonFromURL) && hackathonFromURL !== activeHackathon) {
+    if (VALID_HACKATHONS.includes(hackathonFromURL)) {
       setActiveHackathon(hackathonFromURL)
+      localStorage.setItem('activeHackathon', activeHackathon)
     }
   }, [props.base, activeHackathon, setActiveHackathon])
 
@@ -48,7 +49,8 @@ const PageRoute = ({ path, children }) => {
 
   return (
     <Route path={path}>
-      {livesiteDoc?.applicationsOpen[activeHackathon] ? (
+      {livesiteDoc?.applicationsOpen[activeHackathon] ||
+      !livesiteDoc?.portalLive[activeHackathon] ? (
         <Redirect to="/application" />
       ) : (
         <Page>{children}</Page>
