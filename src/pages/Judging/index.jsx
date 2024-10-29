@@ -16,28 +16,32 @@ const StyledJudgingCard = styled(JudgingCard)`
 const getProjects = async (userId, projectId, dbHackathonName) => {
   const getAndAssignProjects = async () => {
     return db.runTransaction(async transaction => {
-      const projectDocs = await projectsRef(dbHackathonName)
-        .where('draftStatus', '==', 'public')
-        .orderBy('countAssigned')
-        .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
-        .get()
+      const projectDocs = await transaction.get(
+        projectsRef(dbHackathonName)
+          .where('draftStatus', '==', 'public')
+          .orderBy('countAssigned')
+          .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
+      )
+
       let projectIds = projectDocs.docs.map(project => project.id)
       projectIds = projectIds.filter(id => id !== projectId)
       if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
         projectIds.pop()
       }
-      const batch = db.batch()
 
       // increment assigned counters
       projectIds.forEach(projectId => {
-        batch.update(projectsRef(dbHackathonName).doc(projectId), {
+        const projectRef = projectsRef(dbHackathonName).doc(projectId)
+        transaction.update(projectRef, {
           countAssigned: firestore.FieldValue.increment(1),
         })
       })
 
       // add projects to user
-      batch.update(applicantsRef(dbHackathonName).doc(userId), { projectsAssigned: projectIds })
-      await batch.commit()
+      const applicantRef = applicantsRef(dbHackathonName).doc(userId)
+      transaction.update(applicantRef, {
+        projectsAssigned: projectIds,
+      })
       return projectIds
     })
   }
