@@ -147,7 +147,7 @@ const RewardCard = ({ name, desc, company, image, points, prizes }) => {
       <Back onClick={handleClick}>
         <Container>
           <Description>
-            {desc} from {company}
+            {desc} {company !== 'None' && `from ${company}`}
           </Description>
         </Container>
       </Back>
