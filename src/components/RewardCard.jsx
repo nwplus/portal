@@ -106,7 +106,7 @@ const Back = styled.div`
   cursor: pointer;
 `
 
-const RewardCard = ({ name, desc, company, image, maxPoints }) => {
+const RewardCard = ({ name, desc, company, image, points, prizes }) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const handleClick = e => {
@@ -131,7 +131,7 @@ const RewardCard = ({ name, desc, company, image, maxPoints }) => {
           <Icon src={image} />
           <div>
             <Title>{name}</Title>
-            <Text>Reach {maxPoints} pts</Text>
+            <Text>Reach {points} pts</Text>
           </div>
         </Grid>
         {/* <div style={{ justifyContent: 'center', alignItems: 'center' }}>
