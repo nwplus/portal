@@ -89,12 +89,12 @@ const Rewards = () => {
           {rewards.map((reward, index) => (
             <RewardCard
               key={index}
-              name={reward.title}
+              name={reward.reward}
               desc={reward.blurb}
               company={reward.from}
               image={reward.imgURL}
-              // points={reward.points}
-              // maxPoints={reward.maxPoints}
+              points={reward.requiredPoints}
+              prizes={reward.prizesAvailable}
             />
           ))}
         </Cards>
