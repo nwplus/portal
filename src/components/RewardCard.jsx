@@ -106,7 +106,7 @@ const Back = styled.div`
   cursor: pointer;
 `
 
-const RewardCard = ({ name, req, desc, image, points, maxPoints, workshops, maxWorkshops }) => {
+const RewardCard = ({ name, desc, company, image, maxPoints }) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const handleClick = e => {
@@ -114,24 +114,14 @@ const RewardCard = ({ name, req, desc, image, points, maxPoints, workshops, maxW
     setIsFlipped(prevState => !prevState)
   }
 
-  const isWorkshop = typeof maxWorkshops !== 'undefined'
   let progress = 0
 
-  if (isWorkshop) {
-    if (workshops === maxWorkshops) {
-      progress = 1
-      req = 'Completed!'
-    } else {
-      progress = workshops / maxWorkshops
-    }
-  } else {
-    if (points === maxPoints) {
-      progress = 1
-      req = 'Completed!'
-    } else {
-      progress = points / maxPoints
-    }
-  }
+  // if (points === maxPoints) {
+  //   progress = 1
+  //   req = 'Completed!'
+  // } else {
+  //   progress = points / maxPoints
+  // }
 
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
@@ -141,28 +131,24 @@ const RewardCard = ({ name, req, desc, image, points, maxPoints, workshops, maxW
           <Icon src={image} />
           <div>
             <Title>{name}</Title>
-            <Text>{req}</Text>
+            <Text>Reach {maxPoints} pts</Text>
           </div>
         </Grid>
-        <div style={{ justifyContent: 'center', alignItems: 'center' }}>
-          {isWorkshop ? (
-            <SubTitle>
-              {workshops}/{maxWorkshops} workshops
-            </SubTitle>
-          ) : (
-            <SubTitle>
-              {points}/{maxPoints} pts
-            </SubTitle>
-          )}
+        {/* <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <SubTitle>
+            {points}/{maxPoints} pts
+          </SubTitle>
           <ProgressContainer>
             <ProgressBar value={progress} />
           </ProgressContainer>
-        </div>
+        </div> */}
       </Container>
 
       <Back onClick={handleClick}>
         <Container>
-          <Description>{desc}</Description>
+          <Description>
+            {desc} from {company}
+          </Description>
         </Container>
       </Back>
     </ReactCardFlip>

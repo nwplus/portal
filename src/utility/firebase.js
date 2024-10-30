@@ -44,6 +44,9 @@ export const projectsRef = dbHackathonName => {
 export const announcementsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Announcements')
 }
+export const rewardsRef = dbHackathonName => {
+  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Rewards')
+}
 
 export const getLivesiteDoc = callback => {
   return livesiteDocRef.onSnapshot(doc => {

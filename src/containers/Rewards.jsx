@@ -1,5 +1,7 @@
+import React, { useEffect, useState } from 'react'
+import { useHackathon } from '../utility/HackathonProvider'
+import { rewardsRef } from '../utility/firebase'
 import styled from 'styled-components'
-import React from 'react'
 import RewardCard from '../components/RewardCard'
 import egg from '../assets/egg.svg'
 
@@ -41,42 +43,43 @@ const Cards = styled.div`
   }
 `
 
-const rewards = [
-  {
-    name: 'Kinder egg',
-    req: 'Reach 500 pts',
-    desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: egg,
-    points: 350,
-    maxPoints: 500,
-  },
-  {
-    name: 'Kinder egg',
-    req: 'Reach 500 pts',
-    desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: egg,
-    points: 500,
-    maxPoints: 500,
-  },
-  {
-    name: 'Kinder egg',
-    req: 'Attend Telus’ game dev workshop',
-    desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: egg,
-    workshops: 0,
-    maxWorkshops: 1,
-  },
-  {
-    name: 'Kinder egg',
-    req: 'Attend Telus’ game dev workshop',
-    desc: 'A Kinder egg is a wonderful treat that simply melts in your mouth.',
-    image: egg,
-    workshops: 1,
-    maxWorkshops: 1,
-  },
-]
+// const rewards = [
+//   {
+//     title: 'Kinder egg',
+//     blurb: 'A Kinder egg is a wonderful treat that simply melts in your mouth',
+//     from: 'Kinder',
+//     image: egg,
+//     // points: 350,
+//     maxPoints: 500,
+//   },
+//   {
+//     title: 'Kinder egg',
+//     blurb: 'A Kinder egg is a wonderful treat that simply melts in your mouth',
+//     from: 'Kinder',
+//     image: egg,
+//     // points: 500,
+//     maxPoints: 500,
+//   },
+// ]
 
 const Rewards = () => {
+  const [rewards, setRewards] = useState([])
+  const { dbHackathonName } = useHackathon()
+
+  useEffect(() => {
+    const fetchRewards = async () => {
+      try {
+        const rewardsCollection = await rewardsRef(dbHackathonName).get()
+        const rewardList = rewardsCollection.docs.map(doc => doc.data())
+        setRewards(rewardList)
+      } catch (error) {
+        console.error('Error fetching rewards:', error)
+      }
+    }
+
+    fetchRewards()
+  }, [])
+
   return (
     <Container>
       <div></div>
@@ -87,14 +90,12 @@ const Rewards = () => {
           {rewards.map((reward, index) => (
             <RewardCard
               key={index}
-              name={reward.name}
-              req={reward.req}
-              desc={reward.desc}
-              image={reward.image}
-              points={reward.points}
-              maxPoints={reward.maxPoints}
-              workshops={reward.workshops}
-              maxWorkshops={reward.maxWorkshops}
+              name={reward.title}
+              desc={reward.blurb}
+              company={reward.from}
+              image={reward.imgURL}
+              // points={reward.points}
+              // maxPoints={reward.maxPoints}
             />
           ))}
         </Cards>
