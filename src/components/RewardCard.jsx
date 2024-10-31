@@ -106,6 +106,7 @@ const Back = styled.div`
   cursor: pointer;
 `
 
+// commented code related to points for nwhacks
 const RewardCard = ({ name, desc, company, image, points, prizes }) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
@@ -124,17 +125,20 @@ const RewardCard = ({ name, desc, company, image, points, prizes }) => {
   // }
 
   return (
-    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-      <Container>
-        <InfoIcon onClick={handleClick}>i</InfoIcon>
-        <Grid>
-          <Icon src={image} />
-          <div>
-            <Title>{name}</Title>
-            <Text>Reach {points} pts</Text>
-          </div>
-        </Grid>
-        {/* <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+    // <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+    <Container>
+      {/* <InfoIcon onClick={handleClick}>i</InfoIcon> */}
+      <Grid>
+        <Icon src={image} />
+        <div>
+          <Title>{name}</Title>
+          {/* <Text>Reach {points} pts</Text> */}
+          <Text>
+            {desc} {company !== 'None' && `from ${company}`}
+          </Text>
+        </div>
+      </Grid>
+      {/* <div style={{ justifyContent: 'center', alignItems: 'center' }}>
           <SubTitle>
             {points}/{maxPoints} pts
           </SubTitle>
@@ -142,16 +146,16 @@ const RewardCard = ({ name, desc, company, image, points, prizes }) => {
             <ProgressBar value={progress} />
           </ProgressContainer>
         </div> */}
-      </Container>
+    </Container>
 
-      <Back onClick={handleClick}>
-        <Container>
-          <Description>
-            {desc} {company !== 'None' && `from ${company}`}
-          </Description>
-        </Container>
-      </Back>
-    </ReactCardFlip>
+    //   <Back onClick={handleClick}>
+    //     <Container>
+    //       <Description>
+    //         {desc} {company !== 'None' && `from ${company}`}
+    //       </Description>
+    //     </Container>
+    //   </Back>
+    // </ReactCardFlip>
   )
 }
 
