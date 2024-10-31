@@ -41,7 +41,7 @@ const TotalPoints = ({ userDetails }) => {
   useEffect(() => {
     ;(async () => {
       if (userDetails && dbHackathonName) {
-        const eventIds = userDetails.events.map(event => event.eventId)
+        const eventIds = userDetails.dayOf.events.map(event => event.eventId)
         const events = await getEvents(dbHackathonName)
         const filteredEvents = events.filter(event => eventIds.includes(event.key))
 
