@@ -48,7 +48,7 @@ const hackcampTheme = {
     background: '#C8E5F0',
     backgroundSecondary: '#93BEE5',
     backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
-    text: '#FFF',
+    text: '#45171A',
     textSecondary: '#01033D',
     highlight: '#45171A',
     warning: '#D04E51',

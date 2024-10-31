@@ -45,6 +45,7 @@ const MobileScrollableContainer = styled.div`
   margin-top: 1em;
   border-radius: 10px;
   background: #244556;
+  background: ${p => p.theme.colors.schedule.background};
   &:after {
     content: '';
     position: fixed;
@@ -338,7 +339,7 @@ const Schedule = ({ events, hackathonStart, hackathonEnd }) => {
         <MobileOverflowContainer>
           <HeaderContainer>
             <Header>Day-Of-Events Schedule</Header>
-            <TagLegend />
+            <TagLegend theme={theme} />
           </HeaderContainer>
           <MobileScrollableContainer>
             <ScheduleFlexContainer>

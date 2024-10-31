@@ -373,12 +373,14 @@ const Dashboard = ({
   setMediaConsentCheck,
   ageOfMajoritySelect,
   setAgeOfMajoritySelect,
-  willBeAttendingSelect,
-  setWillBeAttendingSelect,
+  willBeAttendingCheck,
+  setWillBeAttendingCheck,
   safewalkSelect,
   setSafewalkSelect,
-  nwMentorshipSelect,
-  setNwMentorshipSelect,
+  // nwMentorshipSelect,
+  // setNwMentorshipSelect,
+  hcFeatureSelect,
+  setHcFeatureSelect,
   username,
   editApplication,
   relevantDates,
@@ -395,9 +397,10 @@ const Dashboard = ({
   const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
   const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
   // const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
-  const [willBeAttending, setWillBeAttending] = useState(willBeAttendingSelect || undefined)
+  const [willBeAttending, setWillBeAttending] = useState(willBeAttendingCheck || false)
   const [safewalk, setSafewalk] = useState(safewalkSelect || undefined)
-  const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || undefined)
+  // const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || undefined)
+  const [hcFeature, setHcFeature] = useState(hcFeatureSelect || false)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
@@ -430,9 +433,9 @@ const Dashboard = ({
   //   setAgeOfMajoritySelect(e.target.value)
   // }
 
-  const handleWillBeAttendingSelectChange = e => {
-    setWillBeAttending(e.target.value)
-    setWillBeAttendingSelect(e.target.value)
+  const handleWillBeAttendingChange = () => {
+    setWillBeAttending(!willBeAttending)
+    setWillBeAttendingCheck(!willBeAttendingCheck)
   }
 
   const handleSafewalkSelectChange = e => {
@@ -440,9 +443,14 @@ const Dashboard = ({
     setSafewalkSelect(e.target.value)
   }
 
-  const handleNwMentorshipSelectChange = e => {
-    setNwMentorship(e.target.value)
-    setNwMentorshipSelect(e.target.value)
+  // const handleNwMentorshipSelectChange = e => {
+  //   setNwMentorship(e.target.value)
+  //   setNwMentorshipSelect(e.target.value)
+  // }
+
+  const handleHcFeatureChange = value => {
+    setHcFeature(value)
+    setHcFeatureSelect(value)
   }
 
   const handleRSVPClick = () => {
@@ -495,15 +503,11 @@ const Dashboard = ({
                 {relevantDates.hackathonWeekend}? <Required />
               </QuestionLabel>
               <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="willBeAttendingYes"
-                  name="willBeAttendingYes"
-                  value="willBeAttendingYes"
-                  checked={willBeAttending === 'willBeAttendingYes'}
-                  onChange={handleWillBeAttendingSelectChange}
+                <Checkbox
+                  checked={willBeAttending}
+                  onChange={handleWillBeAttendingChange}
+                  label="Yes, I will be attending"
                 />
-                <label htmlFor="willBeAttendingYes">Yes</label>
               </SelectOptionContainer>
             </SelectContainer>
 
@@ -594,7 +598,7 @@ const Dashboard = ({
                   width="130px"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={waiversAndForms.COVID}
+                  href={waiversAndForms.covid}
                 >
                   Read Full Waiver.
                 </A>{' '}
@@ -632,6 +636,30 @@ const Dashboard = ({
             </QuestionContainer>
 
             <SelectContainer>
+              <QuestionLabel>HackCamp 2024 Feature Preference</QuestionLabel>
+              <P>
+                We are looking for people to be featured in interview videos about their experience
+                at HackCamp. Filming will take ~10 mins and will take place during Build Day
+                (Sunday, November 10th). If chosen, our team will reach out with further
+                instructions. Are you interested in participating?{' '}
+              </P>
+              <SelectOptionContainer>
+                <Checkbox
+                  checked={hcFeature}
+                  onChange={() => handleHcFeatureChange(true)}
+                  label="Yes"
+                />
+              </SelectOptionContainer>
+              <SelectOptionContainer>
+                <Checkbox
+                  checked={!hcFeature}
+                  onChange={() => handleHcFeatureChange(false)}
+                  label="No"
+                />
+              </SelectOptionContainer>
+            </SelectContainer>
+
+            {/* <SelectContainer>
               <QuestionLabel>nwMentorship Program</QuestionLabel>
               <P>
                 I would like to participate in the nwMentorship program to connect with an industry
@@ -669,7 +697,7 @@ const Dashboard = ({
                 />
                 <label htmlFor="nwMentorshipNo">No</label>
               </SelectOptionContainer>
-            </SelectContainer>
+            </SelectContainer> */}
           </>
         )}
 
