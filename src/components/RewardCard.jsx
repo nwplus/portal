@@ -50,6 +50,7 @@ const SubTitle = styled.p`
 const Icon = styled.img`
   width: 70px;
   height: 100%;
+  object-fit: contain;
 `
 
 const InfoIcon = styled.div`
@@ -134,7 +135,7 @@ const RewardCard = ({ name, desc, company, image, points, prizes }) => {
           <Title>{name}</Title>
           {/* <Text>Reach {points} pts</Text> */}
           <Text>
-            {desc} {company !== 'None' && `from ${company}`}
+            {desc} {company !== 'None' || (undefined && `from ${company}`)}
           </Text>
         </div>
       </Grid>

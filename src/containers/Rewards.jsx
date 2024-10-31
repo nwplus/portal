@@ -42,25 +42,6 @@ const Cards = styled.div`
   }
 `
 
-// const rewards = [
-//   {
-//     title: 'Kinder egg',
-//     blurb: 'A Kinder egg is a wonderful treat that simply melts in your mouth',
-//     from: 'Kinder',
-//     image: egg,
-//     // points: 350,
-//     maxPoints: 500,
-//   },
-//   {
-//     title: 'Kinder egg',
-//     blurb: 'A Kinder egg is a wonderful treat that simply melts in your mouth',
-//     from: 'Kinder',
-//     image: egg,
-//     // points: 500,
-//     maxPoints: 500,
-//   },
-// ]
-
 const Rewards = () => {
   const [rewards, setRewards] = useState([])
   const { dbHackathonName } = useHackathon()
