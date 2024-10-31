@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import TotalPoints from '../components/Rewards/TotalPoints'
+import AttendedEvents from '../components/Rewards/AttendedEvents'
 import { useAuth } from '../utility/Auth'
 import { getUserApplication } from '../utility/firebase'
 import { useHackathon } from '../utility/HackathonProvider'
@@ -40,6 +41,7 @@ const Rewards = () => {
     <RewardsContainer>
       <RewardsSummaryContainer>
         <TotalPoints userDetails={userDetails} />
+        <AttendedEvents userDetails={userDetails} />
       </RewardsSummaryContainer>
       <RewardsContentContainer></RewardsContentContainer>
     </RewardsContainer>
