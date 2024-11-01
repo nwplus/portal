@@ -4,7 +4,7 @@ import { ScrollbarLike } from '../Common'
 import { H1 } from '../Typography'
 import { EVENT_GAP, MOBILE_HOUR_HEIGHT } from './Constants'
 import Event from './Event'
-import { TagLegend } from './Tag'
+import { TagLegends, TagLegendContainer } from './Tag'
 import { TimelineColumn } from './Timeline'
 import { useTheme } from 'styled-components'
 
@@ -45,6 +45,7 @@ const MobileScrollableContainer = styled.div`
   margin-top: 1em;
   border-radius: 10px;
   background: #244556;
+  background: ${p => p.theme.colors.schedule.background};
   &:after {
     content: '';
     position: fixed;
@@ -311,7 +312,9 @@ const Schedule = ({ events, hackathonStart, hackathonEnd }) => {
         <OverflowContainer>
           <HeaderContainer>
             <Header>Day-Of-Events Schedule</Header>
-            <TagLegend theme={theme} />
+            <TagLegendContainer>
+              <TagLegends theme={theme} />
+            </TagLegendContainer>
           </HeaderContainer>
           <DayLabelContainer>
             <DayLabel style={{ opacity: isSunday ? 0 : 1 }}>Saturday</DayLabel>
@@ -338,7 +341,9 @@ const Schedule = ({ events, hackathonStart, hackathonEnd }) => {
         <MobileOverflowContainer>
           <HeaderContainer>
             <Header>Day-Of-Events Schedule</Header>
-            <TagLegend />
+            <TagLegendContainer>
+              <TagLegends theme={theme} />
+            </TagLegendContainer>
           </HeaderContainer>
           <MobileScrollableContainer>
             <ScheduleFlexContainer>

@@ -15,50 +15,68 @@ const StyledJudgingCard = styled(JudgingCard)`
 
 const getProjects = async (userId, projectId, dbHackathonName) => {
   const getAndAssignProjects = async () => {
-    const projectDocs = await projectsRef(dbHackathonName)
-      .where('draftStatus', '==', 'public')
-      .orderBy('countAssigned')
-      .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
-      .get()
-    let projectIds = projectDocs.docs.map(project => project.id)
-    projectIds = projectIds.filter(id => id !== projectId)
-    if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
-      projectIds.pop()
-    }
-    const batch = db.batch()
+    try {
+      return db.runTransaction(async transaction => {
+        const projectDocs = await transaction.get(
+          projectsRef(dbHackathonName)
+            .where('draftStatus', '==', 'public')
+            .orderBy('countAssigned')
+            .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
+        )
 
-    // increment assigned counters
-    projectIds.forEach(projectId => {
-      batch.update(projectsRef(dbHackathonName).doc(projectId), {
-        countAssigned: firestore.FieldValue.increment(1),
+        let projectIds = projectDocs.docs.map(project => project.id)
+        projectIds = projectIds.filter(id => id !== projectId)
+        if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
+          projectIds.pop()
+        }
+
+        // increment assigned counters
+        projectIds.forEach(projectId => {
+          const projectRef = projectsRef(dbHackathonName).doc(projectId)
+          transaction.update(projectRef, {
+            countAssigned: firestore.FieldValue.increment(1),
+          })
+        })
+
+        // add projects to user
+        const applicantRef = applicantsRef(dbHackathonName).doc(userId)
+        transaction.update(applicantRef, {
+          projectsAssigned: projectIds,
+        })
+        return projectIds
       })
-    })
-
-    // add projects to user
-    batch.update(applicantsRef(dbHackathonName).doc(userId), { projectsAssigned: projectIds })
-    await batch.commit()
-    return projectIds
+    } catch (error) {
+      console.error('Error assigning projects:', error)
+    }
   }
 
   const queryProjects = async projectIds => {
-    const projectDocs = await projectsRef(dbHackathonName)
-      .where(firestore.FieldPath.documentId(), 'in', projectIds)
-      .get()
-    if (projectDocs.docs.length < 1) {
-      // projects are missing
-      const newProjectIds = await getAndAssignProjects()
-      return await queryProjects(newProjectIds)
+    try {
+      const projectDocs = await projectsRef(dbHackathonName)
+        .where(firestore.FieldPath.documentId(), 'in', projectIds)
+        .get()
+      if (projectDocs.docs.length < 1) {
+        // projects are missing
+        const newProjectIds = await getAndAssignProjects()
+        return await queryProjects(newProjectIds)
+      }
+      return projectDocs
+    } catch (error) {
+      console.error('Error querying projects:', error)
     }
-    return projectDocs
   }
 
   const getProjectsData = async projectIds => {
-    let projectDocs = await queryProjects(projectIds)
-    return projectDocs.docs.map(project => {
-      const formattedProject = formatProject({ ...project.data(), id: project.id })
-      formattedProject.judged = formattedProject.grades && formattedProject.grades[userId]
-      return formattedProject
-    })
+    try {
+      let projectDocs = await queryProjects(projectIds)
+      return projectDocs.docs.map(project => {
+        const formattedProject = formatProject({ ...project.data(), id: project.id })
+        formattedProject.judged = formattedProject.grades && formattedProject.grades[userId]
+        return formattedProject
+      })
+    } catch (error) {
+      console.error('Error getting project data:', error)
+    }
   }
 
   const applicantDoc = await applicantsRef(dbHackathonName).doc(userId).get()

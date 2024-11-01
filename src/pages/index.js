@@ -18,6 +18,7 @@ import ApplicationForm from './Application/Form'
 import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
 import Livestream from './Livestream'
+import Rewards from './Rewards'
 
 export {
   NotFound,
@@ -32,6 +33,7 @@ export {
   JudgingAdmin,
   DiscordBot,
   Livestream,
+  Rewards,
   Gallery,
   JudgingView,
   Submission,
