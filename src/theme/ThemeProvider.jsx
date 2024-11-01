@@ -58,6 +58,8 @@ const hackcampTheme = {
     link: '#FBBC05',
     linkHover: '#75AEE2',
     lines: '#45171A',
+    bar: '#00A4E0',
+    barBackground: '#371315',
 
     // sidebar
     sidebar: {
