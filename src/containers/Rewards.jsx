@@ -1,50 +1,93 @@
 import styled from 'styled-components'
-import TotalPoints from '../components/Rewards/TotalPoints'
-import AttendedEvents from '../components/Rewards/AttendedEvents'
-import { useAuth } from '../utility/Auth'
-import { getUserApplication } from '../utility/firebase'
+import React, { useEffect, useState } from 'react'
 import { useHackathon } from '../utility/HackathonProvider'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { rewardsRef } from '../utility/firebase'
+import RewardCard from '../components/RewardCard'
+// import TotalPoints from '../components/Rewards/TotalPoints'
+// import AttendedEvents from '../components/Rewards/AttendedEvents'
+// import { useAuth } from '../utility/Auth'
+// import { getUserApplication } from '../utility/firebase'
 
-const RewardsContainer = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
 
-  ${p => p.theme.mediaQueries.mobile} {
+  @media (max-width: 768px) {
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `
 
-const RewardsSummaryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-basis: 35%;
-  flex-shrink: 0;
+const Header = styled.h1`
+  font-weight: 800;
+  font-size: 2.5rem;
 `
 
-const RewardsContentContainer = styled.div``
+const Subtitle = styled.h3`
+  font-weight: 400;
+  margin-top: -18px;
+  margin-bottom: 36px;
+`
+
+const Cards = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 32px;
+  row-gap: 32px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+`
 
 const Rewards = () => {
-  const { user } = useAuth()
+  const [rewards, setRewards] = useState([])
   const { dbHackathonName } = useHackathon()
-  const [userDetails, setUserDetails] = useState(null)
 
   useEffect(() => {
-    getUserApplication(user.uid, dbHackathonName).then(user => {
-      setUserDetails(user)
-    })
-  }, [user, dbHackathonName])
+    const fetchRewards = async () => {
+      try {
+        const rewardsCollection = await rewardsRef(dbHackathonName).get()
+        const rewardList = rewardsCollection.docs.map(doc => doc.data())
+        setRewards(rewardList)
+      } catch (error) {
+        console.error('Error fetching rewards:', error)
+      }
+    }
+
+    fetchRewards()
+  }, [])
 
   return (
-    <RewardsContainer>
-      <RewardsSummaryContainer>
-        <TotalPoints userDetails={userDetails} />
-        <AttendedEvents userDetails={userDetails} />
-      </RewardsSummaryContainer>
-      <RewardsContentContainer></RewardsContentContainer>
-    </RewardsContainer>
+    <Container>
+      {/* <div></div> */}
+      <div>
+        <Header>Rewards</Header>
+        <Subtitle>
+          A list of hackathon and raffle prizes available! Enter a raffle for prizes by collecting
+          points or attending events!
+        </Subtitle>
+        <Cards>
+          {rewards.map((reward, index) => (
+            <RewardCard
+              key={index}
+              name={reward.reward}
+              desc={reward.blurb}
+              company={reward.from}
+              image={reward.imgURL}
+              points={reward.requiredPoints}
+              prizes={reward.prizesAvailable}
+            />
+          ))}
+        </Cards>
+      </div>
+    </Container>
   )
 }
 
