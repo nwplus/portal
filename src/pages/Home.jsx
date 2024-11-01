@@ -8,10 +8,11 @@ import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 import { APPLICATION_STATUS } from '../utility/Constants'
-import backgroundImage from '../assets/cmdf_homebg.svg'
+import backgroundImage from '../assets/hc_background.svg'
 import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
 import { copyText } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
+import { css } from 'styled-components'
 
 //My Ticket
 const HomeContainer = styled.div`
@@ -21,7 +22,6 @@ const HomeContainer = styled.div`
   flex-direction: column;
   gap: 1.5em;
   z-index: 3;
-  background-color: ${p => p.theme.colors.background};
   ${p => p.theme.mediaQueries.mobile} {
     gap: 1em;
   }
@@ -38,13 +38,11 @@ const HomeContainerBackground = styled.div`
   ${props =>
     props.backgroundImage &&
     css`
-      background-image: url(${backgroundImage});
+      background-image: url(${props.backgroundImage});
       background-size: cover;
       background-position: right bottom;
 
       ${p => p.theme.mediaQueries.mobile} {
-        background-image: url(${mobileBackgroundImage});
-        background-size: cover;
         background-position: center;
       }
     `}
@@ -68,7 +66,7 @@ export default withTheme(({ announcements, theme }) => {
 
   return (
     <>
-      <HomeContainerBackground />
+      <HomeContainerBackground backgroundImage={backgroundImage} />
       <HomeContainer>
         {/* {activeHackathon === 'hackcamp' && <Hackcamp2023BG />} */}
         <HackerCountdown />

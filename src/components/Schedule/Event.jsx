@@ -76,7 +76,7 @@ const EventCard = styled(Card)`
       margin-right: 0;
       margin-top: -0.5em;
       width: 100%;
-      height: ${MOBILE_HOUR_HEIGHT - EVENT_GAP} px;
+      height: ${MOBILE_HOUR_HEIGHT - EVENT_GAP}px;
     }
   }
 

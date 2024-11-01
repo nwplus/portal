@@ -211,7 +211,7 @@ export function HackerApplicationProvider({ children }) {
     return null
   }
 
-  if (!applicationOpen && window.location.pathname !== '/application') {
+  if (!applicationOpen && !window.location.pathname.endsWith('/application')) {
     return <Closed />
   }
 

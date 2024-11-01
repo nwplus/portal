@@ -7,6 +7,7 @@ import Spinner from '../components/Loading'
 import { useLocation } from 'wouter'
 import { useHackathon } from './HackathonProvider'
 
+/** @type {React.Context<{isAuthed: boolean, user: firebase.User | null, setUser: React.Dispatch<React.SetStateAction<firebase.User | null>>, logout: () => Promise<void>}>} */
 const AuthContext = createContext()
 
 export function useAuth() {
@@ -81,7 +82,7 @@ export const getRedirectUrl = (redirect, activeHackathon) => {
     case REDIRECT_STATUS.ApplicationNotSubmitted:
       return `/app/${activeHackathon}/application/part-0`
     case REDIRECT_STATUS.ApplicationSubmitted:
-      return `/app/${activeHackathon}`
+      return `/app/${activeHackathon}/application`
     default:
       return `/app/${activeHackathon}/application`
   }
