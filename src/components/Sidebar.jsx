@@ -195,7 +195,7 @@ const Sidebar = ({
       { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/livestream', text: 'Livestream' },
-      { location: '/rewards', text: 'Rewards' },
+      // { location: '/rewards', text: 'Rewards' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
     // Tools
@@ -266,9 +266,9 @@ const Sidebar = ({
     links.tools.push({ location: '/judging/admin', text: 'Judging Admin' })
   }
 
-  if (import.meta.env.NODE_ENV !== 'production') {
-    links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
-  }
+  // if (import.meta.env.NODE_ENV !== 'production') {
+  //   links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
+  // }
 
   if (isApplicationOpen) {
     // List the application as the last item on the menu

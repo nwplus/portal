@@ -1,8 +1,12 @@
+import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import { useHackathon } from '../utility/HackathonProvider'
 import { rewardsRef } from '../utility/firebase'
-import styled from 'styled-components'
 import RewardCard from '../components/RewardCard'
+// import TotalPoints from '../components/Rewards/TotalPoints'
+// import AttendedEvents from '../components/Rewards/AttendedEvents'
+// import { useAuth } from '../utility/Auth'
+// import { getUserApplication } from '../utility/firebase'
 
 const Container = styled.div`
   display: grid;
@@ -30,7 +34,7 @@ const Subtitle = styled.h3`
 const Cards = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 0px;
+  column-gap: 32px;
   row-gap: 32px;
 
   @media (max-width: 768px) {
@@ -62,10 +66,13 @@ const Rewards = () => {
 
   return (
     <Container>
-      <div></div>
+      {/* <div></div> */}
       <div>
         <Header>Rewards</Header>
-        <Subtitle>Enter a raffle for prizes by collecting points or attending events!</Subtitle>
+        <Subtitle>
+          A list of hackathon and raffle prizes available! Enter a raffle for prizes by collecting
+          points or attending events!
+        </Subtitle>
         <Cards>
           {rewards.map((reward, index) => (
             <RewardCard
