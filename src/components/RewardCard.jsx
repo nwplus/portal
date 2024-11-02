@@ -42,7 +42,7 @@ const Description = styled.h3`
 const SubTitle = styled.p`
   font-size: 14px;
   font-weight: 700;
-  color: ${p => p.theme.colors.text};
+  color: ${p => p.theme.colors.bar};
   text-align: right;
   margin-top: 8px;
 `
