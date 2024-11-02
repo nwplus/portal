@@ -22,27 +22,27 @@ const Grid = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 400;
-  color: ${p => p.theme.colors.lines};
+  color: ${p => p.theme.colors.text};
 `
 
 const Text = styled.h3`
   font-size: 18px;
   font-weight: 300;
   margin-top: -12px;
-  color: ${p => p.theme.colors.lines};
+  color: ${p => p.theme.colors.text};
 `
 
 const Description = styled.h3`
   font-size: 18px;
   font-weight: 300;
   text-align: center;
-  color: ${p => p.theme.colors.lines};
+  color: ${p => p.theme.colors.text};
 `
 
 const SubTitle = styled.p`
   font-size: 14px;
   font-weight: 700;
-  color: ${p => p.theme.colors.bar};
+  color: ${p => p.theme.colors.text};
   text-align: right;
   margin-top: 8px;
 `
@@ -61,7 +61,7 @@ const InfoIcon = styled.div`
   height: 24px;
   border: 2px solid ${p => p.theme.colors.lines};
   border-radius: 50%;
-  color: ${p => p.theme.colors.lines};
+  color: ${p => p.theme.colors.text};
   display: flex;
   justify-content: center;
   align-items: center;
