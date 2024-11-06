@@ -63,12 +63,18 @@ const ButtonContainer = styled.div`
 `
 
 const charities = [
-  { value: "GiveWell's Top Charities Fund", label: "GiveWell's Top Charities Fund" },
   {
-    value: 'British Columbia Centre for Ability Association',
-    label: 'British Columbia Centre for Ability Association',
+    value: 'BC Children’s Hospital',
+    label: 'BC Children’s Hospital',
   },
-  { value: 'Covenant House', label: 'Covenant House' },
+  {
+    value: 'Alzheimer Society of Canada',
+    label: 'Alzheimer Society of Canada',
+  },
+  {
+    value: 'Nature Trust of British Columbia',
+    label: 'Nature Trust of British Columbia',
+  },
 ]
 
 const TextInputWithField = ({
@@ -349,7 +355,7 @@ const SubmissionForm = ({
         </div>
         <div>
           <P>
-            Every project submitted at HackCamp 2023, regardless of completion, will be eligible for
+            Every project submitted at HackCamp 2024, regardless of completion, will be eligible for
             a $10 donation to the charity of your choice from a curated list by the HackCamp team!
             This is done so as to emphasize HackCamp's mission of focusing on the learning and
             growth aspect of hackathons!
