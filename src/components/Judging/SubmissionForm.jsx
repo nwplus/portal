@@ -48,6 +48,7 @@ const StyledH3 = styled(H3)`
 `
 
 const StyledA = styled(A)`
+  font-weight: bold;
   &:hover {
     color: ${p => p.theme.colors.tertiaryHover};
   }
