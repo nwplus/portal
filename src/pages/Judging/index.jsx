@@ -113,6 +113,8 @@ const Judging = () => {
           : false
 
         if (!isValidProject) {
+          console.error('User cannot access judging: No valid submitted project found')
+          console.log('User:', user.uid, 'Submitted Project:', submittedProject)
           setIsBlocked(true)
         } else {
           setProjects(await getProjects(user.uid, submittedProject, dbHackathonName))
@@ -138,8 +140,8 @@ const Judging = () => {
   if (isBlocked) {
     return (
       <HeroPage>
-        <h2>Error, permission denied</h2>
-        <p>To access judging you must have submitted a project</p>
+        <h2>There was an error</h2>
+        <p>Please contact an organizer to resolve this issue!</p>
       </HeroPage>
     )
   }
