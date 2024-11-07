@@ -242,7 +242,7 @@ const JudgingPanel = () => {
 
   const setProjectsAndStats = async () => {
     setLoading(true)
-    setGradedProjects(await getGradedProjects(dbHackathonName))
+    setGradedProjects(await getGradedProjects(2, dbHackathonName))
     setGrades(await getGrades(dbHackathonName))
     getStats(dbHackathonName).then(data => setStats(data))
     setLoading(false)
