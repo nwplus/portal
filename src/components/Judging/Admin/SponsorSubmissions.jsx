@@ -5,6 +5,7 @@ import Accordion from '../../Accordion'
 import { CardLike } from '../../Common'
 import { Button } from '../../Input'
 import { H1 } from '../../Typography'
+import { useHackathon } from '../../../utility/HackathonProvider'
 
 const SponsorPrize = styled.div`
   ${CardLike};
@@ -23,13 +24,14 @@ const LinkContainer = styled.div`
 `
 
 const SponsorSubmissions = ({ sponsorPrizes }) => {
+  const { activeHackathon } = useHackathon()
   const getCsvFriendlyData = projects => {
     const formattedProjects = projects.map(project => {
       const portalLink = window.location.origin // to support local development as well
       const projectInfo = {
-        Title: project.title,
-        Link: `${portalLink}/projects/${project.id}`,
-        Devpost: project.links.devpost,
+        'Title': project.title,
+        'Link': `${portalLink}/app/${activeHackathon}/projects/${project.id}`,
+        'Devpost': project.links.devpost,
         'Charity choice': project.charityChoice,
       }
       project.teamMembers.forEach((member, index) => {

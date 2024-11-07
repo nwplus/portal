@@ -192,7 +192,7 @@ const JudgingPanel = () => {
     numProjects: 0,
   })
   const [toggle, setToggle] = useState({})
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   const removeGrade = async row => {
     const { id, gradeId, ...score } = row
@@ -298,7 +298,7 @@ const JudgingPanel = () => {
       const portalLink = window.location.origin // to support local development as well
       const projectInfo = {
         'Title': project.title,
-        'Link': `${portalLink}/projects/${project.id}`,
+        'Link': `${portalLink}/app/${activeHackathon}/projects/${project.id}`,
         'Devpost': project.links.devpost,
         'Charity choice': project.charityChoice,
       }
