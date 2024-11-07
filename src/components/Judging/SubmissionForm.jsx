@@ -26,6 +26,10 @@ const StyledHr = styled.hr`
   border-color: ${p => p.theme.colors.border};
 `
 
+const HeadingLabel = styled(Label)`
+  color: ${p => p.theme.colors.text};
+`
+
 const MemberList = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -44,6 +48,7 @@ const StyledH3 = styled(H3)`
 `
 
 const StyledA = styled(A)`
+  font-weight: bold;
   &:hover {
     color: ${p => p.theme.colors.tertiaryHover};
   }
@@ -63,12 +68,18 @@ const ButtonContainer = styled.div`
 `
 
 const charities = [
-  { value: "GiveWell's Top Charities Fund", label: "GiveWell's Top Charities Fund" },
   {
-    value: 'British Columbia Centre for Ability Association',
-    label: 'British Columbia Centre for Ability Association',
+    value: 'BC Children’s Hospital',
+    label: 'BC Children’s Hospital',
   },
-  { value: 'Covenant House', label: 'Covenant House' },
+  {
+    value: 'Alzheimer Society of Canada',
+    label: 'Alzheimer Society of Canada',
+  },
+  {
+    value: 'Nature Trust of British Columbia',
+    label: 'Nature Trust of British Columbia',
+  },
 ]
 
 const TextInputWithField = ({
@@ -273,7 +284,7 @@ const SubmissionForm = ({
       <H1>Project Submission</H1>
       <FormSection>
         <div>
-          <Label color="white">Project title</Label>
+          <HeadingLabel>Project title</HeadingLabel>
           <Required />
         </div>
         <StyledTextInput
@@ -285,7 +296,7 @@ const SubmissionForm = ({
       </FormSection>
       <FormSection>
         <div>
-          <Label color="white">Project description</Label>
+          <HeadingLabel>Project description</HeadingLabel>
           <Required />
         </div>
         <TextArea
@@ -297,7 +308,7 @@ const SubmissionForm = ({
         />
       </FormSection>
       <FormSection>
-        <Label color="white">Links</Label>
+        <HeadingLabel>Links</HeadingLabel>
         <TextInputWithField
           fieldName="Source code (GitHub/BitBucket/GitLab)"
           value={links?.sourceCode}
@@ -306,10 +317,10 @@ const SubmissionForm = ({
           errorMsg={errors?.sourceCode}
           onChange={e => setLinks({ ...links, sourceCode: e.target.value })}
         />
-        <P>
+        {/* <P>
           <b>Please note</b>: only code projects can be eligible for prizes. If you built a no-code
           project, please enter your prototype link.
-        </P>
+        </P> */}
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
@@ -335,7 +346,7 @@ const SubmissionForm = ({
         />
       </FormSection>
       <FormSection>
-        <Label color="white">Mentor Nomination</Label>
+        <HeadingLabel>Mentor Nomination</HeadingLabel>
         <TextInputWithField
           fieldName="Nominate the most helpful mentor that assisted you or your team"
           value={mentorNomination}
@@ -344,13 +355,13 @@ const SubmissionForm = ({
       </FormSection>
       <FormSection>
         <div>
-          <Label color="white">Charity Choice</Label>
+          <HeadingLabel>Charity Choice</HeadingLabel>
           <Required />
         </div>
         <div>
           <P>
-            Every project submitted at HackCamp 2023, regardless of completion, will be eligible for
-            a $10 donation to the charity of your choice from a curated list by the HackCamp team!
+            Every project submitted at HackCamp 2024, regardless of completion, will be eligible for
+            a $5 donation to the charity of your choice from a curated list by the HackCamp team!
             This is done so as to emphasize HackCamp's mission of focusing on the learning and
             growth aspect of hackathons!
           </P>
@@ -359,7 +370,7 @@ const SubmissionForm = ({
             <StyledA
               target="_blank"
               rel="noreferrer noopener"
-              href="https://nwplus.notion.site/PUBLIC-Charities-2716e8e72c7742b082ec06c8c463965f?pvs=4"
+              href="https://nwplus.notion.site/PUBLIC-Charities-4ec11b0a63e843d7bf7d681576caecd1"
             >
               here
             </StyledA>
@@ -380,7 +391,7 @@ const SubmissionForm = ({
       </FormSection>
       {sponsorPrizes && (
         <FormSection>
-          <Label color="white">Sponsor Prizes</Label>
+          <HeadingLabel>Sponsor Prizes</HeadingLabel>
           <div>
             {sponsorPrizes.map(prize => {
               return (
@@ -398,7 +409,7 @@ const SubmissionForm = ({
       )}
       <StyledHr />
       <FormSection>
-        <Label color="white">Add up to 4 team members</Label>
+        <HeadingLabel>Add up to 4 team members</HeadingLabel>
         <MemberList>
           {members.map((member, index) => (
             <TeamMember>
