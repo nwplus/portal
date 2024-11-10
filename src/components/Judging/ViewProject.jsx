@@ -36,6 +36,7 @@ const StyledYoutube = styled(Youtube)`
 
 const StyledP = styled(P)`
   margin: 1em 0;
+  color: ${p => p.theme.colors.text};
 `
 
 const StyledA = styled(A)`
@@ -47,7 +48,8 @@ const StyledA = styled(A)`
 `
 
 const ExternalLink = styled(A)`
-  color: ${p => 'white'};
+  color: ${p => p.theme.colors.tertiaryHover};
+  font-weight: bold;
 
   &:hover {
     color: ${p => p.theme.colors.tertiaryHover};
@@ -55,6 +57,7 @@ const ExternalLink = styled(A)`
 `
 
 const StyledLabel = styled(Label)`
+  color: ${p => p.theme.colors.textSecondary};
   display: block;
   margin: 1em 0 0.25em 0;
 `
