@@ -137,7 +137,7 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
           <ExternalLink
             target="_blank"
             rel="noreferrer noopener"
-            href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42"
+            href="https://nwplus.notion.site/PUBLIC-HackCamp-2024-Peer-Judging-Rubric-23ecd01e56b04442a7dfe0c7cbabbc62"
           >
             Hacker Package
           </ExternalLink>
