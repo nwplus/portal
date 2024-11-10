@@ -112,7 +112,7 @@ const Charcuterie = () => {
       <>
         <H2>Countdown</H2>
         <Countdown
-          countDownDate={new Date('Fri Aug 05 2020 00:01:22 GMT-0700 (Pacific Daylight Time)')}
+          countDownDate={new Date('Fri Aug 05 2020 01:01:22 GMT-0700 (Pacific Daylight Time)')}
           eventDurationHours={48}
           eventName="Hacking ends in..."
         />
