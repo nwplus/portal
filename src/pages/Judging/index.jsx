@@ -16,21 +16,19 @@ const StyledJudgingCard = styled(JudgingCard)`
 const getProjects = async (userId, projectId, dbHackathonName) => {
   const getAndAssignProjects = async () => {
     try {
-      return db.runTransaction(async transaction => {
-        const projectDocs = await transaction.get(
-          projectsRef(dbHackathonName)
-            .where('draftStatus', '==', 'public')
-            .orderBy('countAssigned')
-            .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
-        )
+      const projectSnapshot = await projectsRef(dbHackathonName)
+        .where('draftStatus', '==', 'public')
+        .orderBy('countAssigned')
+        .limit(PROJECTS_TO_JUDGE_COUNT + 1)
+        .get()
 
-        let projectIds = projectDocs.docs.map(project => project.id)
-        projectIds = projectIds.filter(id => id !== projectId)
-        if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
-          projectIds.pop()
-        }
+      let projectIds = projectSnapshot.docs.map(project => project.id)
+      projectIds = projectIds.filter(id => id !== projectId)
+      if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
+        projectIds.pop()
+      }
 
-        // increment assigned counters
+      await db.runTransaction(async transaction => {
         projectIds.forEach(projectId => {
           const projectRef = projectsRef(dbHackathonName).doc(projectId)
           transaction.update(projectRef, {
@@ -43,8 +41,9 @@ const getProjects = async (userId, projectId, dbHackathonName) => {
         transaction.update(applicantRef, {
           projectsAssigned: projectIds,
         })
-        return projectIds
       })
+
+      return projectIds
     } catch (error) {
       console.error('Error assigning projects:', error)
     }
