@@ -13,7 +13,7 @@ import nwplus_icon from '../assets/nwplus_icon.svg'
 import HackathonCard from '../components/HackathonCard'
 
 // one of 'HackCamp', 'nwHacks', 'cmd-f', or null (when we're done for the year)
-const UP_NEXT_HACKATHON_NAME = 'HackCamp'
+const UP_NEXT_HACKATHON_NAME = 'nwHacks'
 
 const HackathonSelectionContainer = styled.div`
   display: flex;
