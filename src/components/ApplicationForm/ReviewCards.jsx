@@ -304,12 +304,13 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
 
         <ContentWrapper textBlock>
-          {/* <P>
+          <P>
             <span role="img" aria-label="Robot emoji">
               🤖
             </span>{' '}
-            cmd-f 2024 is an MLH partner event. The following 3 checkboxes are for this partnership.
-          </P> */}
+            {copyText[activeHackathon].hackathonNameShort} is an MLH partner event. The following 3
+            checkboxes are for this partnership.
+          </P>
           <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
@@ -333,7 +334,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               .<Required />
             </span>
           </IndentedCheckbox>
-          {/* <IndentedCheckbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
@@ -377,33 +378,35 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I authorize MLH to send me occasional emails about relevant events, career
               opportunities, and community announcements.
             </span>
-          </Checkbox> */}
+          </IndentedCheckbox>
         </ContentWrapper>
 
-        {/* <ContentWrapper textBlock>
-          <P>
-            <span role="img" aria-label="Plant sprout emoji">
-              🌱
-            </span>{' '}
-            Gender is deeply personal and can look different on each individual. We ask all
-            participants to trust that everyone attending belongs at cmd-f.
-          </P>
+        {activeHackathon === 'cmd-f' && (
+          <ContentWrapper textBlock>
+            <P>
+              <span role="img" aria-label="Plant sprout emoji">
+                🌱
+              </span>{' '}
+              Gender is deeply personal and can look different on each individual. We ask all
+              participants to trust that everyone attending belongs at cmd-f.
+            </P>
 
-          <IndentedCheckbox
-            flex
-            checked={formInputs.termsAndConditions.genderAcknowledgement}
-            onChange={() =>
-              onChange({
-                genderAcknowledgement: !formInputs.termsAndConditions.genderAcknowledgement,
-              })
-            }
-          >
-            <span>
-              I agree
-              <Required />
-            </span>
-          </IndentedCheckbox>
-        </ContentWrapper> */}
+            <IndentedCheckbox
+              flex
+              checked={formInputs.termsAndConditions.genderAcknowledgement}
+              onChange={() =>
+                onChange({
+                  genderAcknowledgement: !formInputs.termsAndConditions.genderAcknowledgement,
+                })
+              }
+            >
+              <span>
+                I agree
+                <Required />
+              </span>
+            </IndentedCheckbox>
+          </ContentWrapper>
+        )}
 
         <ContentWrapper textBlock>
           <P>
