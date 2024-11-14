@@ -395,8 +395,8 @@ const Dashboard = ({
   setSafewalkSelect,
   // nwMentorshipSelect,
   // setNwMentorshipSelect,
-  hcFeatureSelect,
-  setHcFeatureSelect,
+  marketingFeatureSelect,
+  setMarketingFeatureSelect,
   username,
   editApplication,
   relevantDates,
@@ -416,7 +416,7 @@ const Dashboard = ({
   const [willBeAttending, setWillBeAttending] = useState(willBeAttendingCheck || false)
   const [safewalk, setSafewalk] = useState(safewalkSelect || undefined)
   // const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || undefined)
-  const [hcFeature, setHcFeature] = useState(hcFeatureSelect || false)
+  const [marketingFeature, setMarketingFeature] = useState(marketingFeatureSelect || false)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
 
@@ -464,9 +464,9 @@ const Dashboard = ({
   //   setNwMentorshipSelect(e.target.value)
   // }
 
-  const handleHcFeatureChange = value => {
-    setHcFeature(value)
-    setHcFeatureSelect(value)
+  const handleMarketingFeatureChange = value => {
+    setMarketingFeature(value)
+    setMarketingFeatureSelect(value)
   }
 
   const handleRSVPClick = () => {
@@ -652,24 +652,26 @@ const Dashboard = ({
             </QuestionContainer>
 
             <SelectContainer>
-              <QuestionLabel>HackCamp 2024 Feature Preference</QuestionLabel>
+              <QuestionLabel>
+                {copyText[activeHackathon].hackathonName} Feature Preference
+              </QuestionLabel>
               <P>
                 We are looking for people to be featured in interview videos about their experience
-                at HackCamp. Filming will take ~10 mins and will take place during Build Day
-                (Sunday, November 10th). If chosen, our team will reach out with further
-                instructions. Are you interested in participating?{' '}
+                at {copyText[activeHackathon].hackathonNameShort}. Filming will take ~10 mins and
+                will take place during the hackathon. If chosen, our team will reach out with
+                further instructions. Are you interested in participating?{' '}
               </P>
               <SelectOptionContainer>
                 <Checkbox
-                  checked={hcFeature}
-                  onChange={() => handleHcFeatureChange(true)}
+                  checked={marketingFeature}
+                  onChange={() => handleMarketingFeatureChange(true)}
                   label="Yes"
                 />
               </SelectOptionContainer>
               <SelectOptionContainer>
                 <Checkbox
-                  checked={!hcFeature}
-                  onChange={() => handleHcFeatureChange(false)}
+                  checked={!marketingFeature}
+                  onChange={() => handleMarketingFeatureChange(false)}
                   label="No"
                 />
               </SelectOptionContainer>

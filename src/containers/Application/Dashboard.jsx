@@ -164,10 +164,10 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
-  const setHcFeatureSelect = hcFeatureSelect => {
+  const setMarketingFeatureSelect = marketingFeatureSelect => {
     updateApplication({
       basicInfo: {
-        hcFeatureSelect,
+        marketingFeatureSelect,
       },
     })
     forceSave()
@@ -223,8 +223,10 @@ const ApplicationDashboardContainer = () => {
         setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}
         // nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
         // setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
-        hcFeatureSelect={application.basicInfo.hcFeatureSelect || undefined}
-        setHcFeatureSelect={hcFeatureSelect => setHcFeatureSelect(hcFeatureSelect)}
+        marketingFeatureSelect={application.basicInfo.marketingFeatureSelect || undefined}
+        setMarketingFeatureSelect={marketingFeatureSelect =>
+          setMarketingFeatureSelect(marketingFeatureSelect)
+        }
         relevantDates={relevantDates}
         waiversAndForms={waiversAndForms}
         notionLinks={notionLinks}
