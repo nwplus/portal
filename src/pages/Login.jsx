@@ -122,7 +122,7 @@ const Login = () => {
             <BoundingBox src={google} />
             Sign in with Google
           </StyledButton>
-          <StyledButton
+          {/* <StyledButton
             width="flex"
             labelColor={theme.colors.login.githubAuthText}
             color={theme.colors.login.githubAuthBackground}
@@ -131,7 +131,7 @@ const Login = () => {
           >
             <BoundingBox src={github} />
             Sign in with GitHub
-          </StyledButton>
+          </StyledButton> */}
         </ButtonContainer>
       </Landing>
       <Toast>{error ? handleAuthError(error.code, error.message) : null}</Toast>
