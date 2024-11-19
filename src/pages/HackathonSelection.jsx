@@ -133,7 +133,6 @@ export default function HackathonSelection() {
         buttonHoverColor={'#423764'}
         applicationDeadline={applicationData.deadlines.nwhacks}
         applicationOpen={applicationData.openStatuses.nwhacks}
-        visitWebsite
       />
       <HackathonCard
         background="linear-gradient(180deg, #C4B2F0 0%, #433860 110.44%)"
