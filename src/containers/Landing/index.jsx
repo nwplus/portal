@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import cmdf_logo from '../../assets/cmdf_logo.png'
 import hc_logo from '../../assets/hc_logo.svg'
@@ -9,6 +9,7 @@ import { H1, P } from '../../components/Typography'
 import Footer from './Footer'
 import hackcampLoginBackground from '../../assets/hc_login.svg'
 import nwHacksLoginBackground from '../../assets/nwHacksLogin.svg'
+import nwHacksMobileLoginBackground from '../../assets/nwHacksMobileLogin.svg'
 import cmdfLoginBackground from '../../assets/cmdf_loginbg.svg'
 import { useHackathon } from '../../utility/HackathonProvider'
 
@@ -63,19 +64,42 @@ const BackgroundContainer = styled.img`
 
 const Landing = ({ heading, description, showFooter, children }) => {
   const { activeHackathon } = useHackathon()
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 600)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const options = {
-    'hackcamp': { logo: hc_logo, background: hackcampLoginBackground },
-    'cmd-f': { logo: cmdf_logo, background: cmdfLoginBackground },
-    'nwhacks': { logo: nwhacks_logo, background: nwHacksLoginBackground },
-    'default': { logo: nwplus_logo, background: nwHacksLoginBackground },
+    'hackcamp': {
+      logo: hc_logo,
+      background: hackcampLoginBackground,
+      mobileBackground: hackcampLoginBackground,
+    },
+    'cmd-f': {
+      logo: cmdf_logo,
+      background: cmdfLoginBackground,
+      mobileBackground: cmdfLoginBackground,
+    },
+    'nwhacks': {
+      logo: nwhacks_logo,
+      background: nwHacksLoginBackground,
+      mobileBackground: nwHacksMobileLoginBackground,
+    },
+    'default': {
+      logo: nwplus_logo,
+      background: nwHacksLoginBackground,
+      mobileBackground: nwHacksMobileLoginBackground,
+    },
   }
 
-  const { logo, background } = options[activeHackathon] || options.default
+  const { logo, background, mobileBackground } = options[activeHackathon] || options.default
 
   return (
     <LandingContainer showFooter={showFooter}>
-      {background && <BackgroundContainer src={background} />}
+      {background && <BackgroundContainer src={isMobile ? mobileBackground : background} />}
       <StyledLogoLockup src={logo} />
       <StyledBanner>
         <H1 size="1.5em">{heading}</H1>
