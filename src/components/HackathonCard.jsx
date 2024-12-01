@@ -219,7 +219,6 @@ const HackathonCard = ({
   isUpNext,
 }) => {
   const [_, navigate] = useLocation()
-  const { setActiveHackathon } = useHackathon()
 
   return (
     <StyledHackathonCard background={background} isUpNext={isUpNext}>
@@ -247,7 +246,6 @@ const HackathonCard = ({
             color={buttonColour}
             labelColor={buttonTextColour}
             onClick={() => {
-              setActiveHackathon(hackathonName.toLowerCase())
               handleNavigation(applicationOpen, visitWebsite, hackathonName, navigate)
             }}
             hoverColor={buttonHoverColor}
