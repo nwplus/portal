@@ -15,16 +15,11 @@ function getValidHackathon(hackathon) {
 export default function HackathonProvider({ children }) {
   const [location] = useLocation()
   const urlHackathon = location.split('/')[2]?.toLowerCase()
-  const [activeHackathon, setActiveHackathon] = useState(getValidHackathon(urlHackathon || ''))
+  const activeHackathon = getValidHackathon(urlHackathon || '')
   const dbHackathonName = DB_HACKATHON_NAMES[activeHackathon]
 
-  useEffect(() => {
-    const newHackathon = getValidHackathon(urlHackathon || '')
-    setActiveHackathon(newHackathon)
-  }, [location])
-
   return (
-    <HackathonContext.Provider value={{ activeHackathon, setActiveHackathon, dbHackathonName }}>
+    <HackathonContext.Provider value={{ activeHackathon, dbHackathonName }}>
       {children}
     </HackathonContext.Provider>
   )
