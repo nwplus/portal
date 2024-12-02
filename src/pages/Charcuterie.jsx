@@ -56,7 +56,7 @@ const toggleTheme = (navigate, activeHackathon) => {
 }
 
 const Charcuterie = () => {
-  const { activeHackathon, setActiveHackathon } = useHackathon()
+  const { activeHackathon } = useHackathon()
   const [_, navigate] = useLocation()
   const [states, setStates] = useState({
     checkbox: false,
@@ -77,11 +77,7 @@ const Charcuterie = () => {
   `
   return (
     <>
-      <Button
-        color="secondary"
-        width="flex"
-        onClick={() => toggleTheme(navigate, activeHackathon, setActiveHackathon)}
-      >
+      <Button color="secondary" width="flex" onClick={() => toggleTheme(navigate, activeHackathon)}>
         Toggle Theme
       </Button>
       <Button color="secondary" width="flex" onClick={() => setIsLoading(!isLoading)}>
