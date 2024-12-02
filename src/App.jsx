@@ -50,7 +50,6 @@ function App() {
 
   useEffect(() => {
     if (location === '/') {
-      localStorage.removeItem('activeHackathon')
       document.title = 'Hacker Portal'
     }
   }, [location])

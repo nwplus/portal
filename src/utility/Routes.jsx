@@ -11,15 +11,7 @@ import { useHackathon } from './HackathonProvider'
 const NestedRoutes = props => {
   const router = useRouter()
   const [location] = useLocation()
-  const { activeHackathon, setActiveHackathon } = useHackathon()
   const hackathonFromURL = props.base.split('/')[2].toLowerCase()
-
-  useEffect(() => {
-    if (VALID_HACKATHONS.includes(hackathonFromURL)) {
-      setActiveHackathon(hackathonFromURL)
-      localStorage.setItem('activeHackathon', activeHackathon)
-    }
-  }, [props.base, activeHackathon, setActiveHackathon])
 
   if (!location.startsWith(props.base)) return null
 
