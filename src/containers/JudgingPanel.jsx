@@ -326,8 +326,8 @@ const JudgingPanel = () => {
 
   const filteredGradedProjects = () => {
     return toggle.filterDisqualify
-      ? gradedProjects.filter(project => !project.disqualified)
-      : gradedProjects
+      ? gradedProjects.filter(project => !project.disqualified && project.draftStatus !== 'draft')
+      : gradedProjects.filter(project => project.draftStatus !== 'draft')
   }
 
   return (
