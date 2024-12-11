@@ -8,8 +8,6 @@ import { getSponsors } from '../../utility/firebase'
 import { useHackathon } from '../../utility/HackathonProvider'
 
 const FooterContainer = styled.div`
-  position: absolute;
-  bottom: 0;
   width: 100%;
 `
 

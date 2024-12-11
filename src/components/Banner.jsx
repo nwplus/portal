@@ -12,7 +12,6 @@ const StyledContainer = styled.div`
   backdrop-filter: ${p => (!!p.blur ? 'blur(15px)' : 'none')};
   border-radius: 4px;
   padding: 48px;
-  ${CenterHorizontally}
   width: ${p => (p.wide ? bannerWidth.wide : bannerWidth.default)};
 `
 

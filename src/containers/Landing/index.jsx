@@ -25,16 +25,14 @@ const LandingContainer = styled.div`
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
 `
 
 const StyledLogoLockup = styled.img`
-  position: absolute;
-  margin: 0 50%;
-  transform: translateX(-50%);
   z-index: 9999;
 
-  top: 128px;
+  margin-top: 5vh;
   height: ${p => (p.theme.name === 'hackcamp' ? '100px' : '150px')};
 
   ${p => p.theme.mediaQueries.mobile} {
@@ -46,7 +44,10 @@ const StyledBanner = styled(Banner)`
   && {
     text-align: center;
     z-index: 0;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
     padding: 0;
     width: 60%;
   }

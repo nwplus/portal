@@ -3,7 +3,6 @@ import { useLocation } from 'wouter'
 import { Button } from '../../components/Input'
 import Landing from '../../containers/Landing'
 import { ButtonContainer } from '../Login'
-import { useHackathon } from '../../utility/HackathonProvider'
 
 const Confirmation = () => {
   const [, setLocation] = useLocation()
