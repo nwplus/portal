@@ -8,8 +8,8 @@ import { getSponsors } from '../../utility/firebase'
 import { useHackathon } from '../../utility/HackathonProvider'
 
 const FooterContainer = styled.div`
-  position: absolute;
-  bottom: 0;
+  // position: absolute;
+  // bottom: 0;
   width: 100%;
 `
 
@@ -32,12 +32,12 @@ const LogoContainer = styled.div`
 `
 
 const SponsorLogo = styled.img`
-  max-width: 230px;
-  max-height: 45px;
+  max-width: 150px;
+  max-height: max(5vh, 35px);
   width: auto;
   height: auto;
   float: left;
-  margin: 16px 32px;
+  margin: 8px 32px;
 
   ${p => p.theme.mediaQueries.mobile} {
     max-width: 100px;
