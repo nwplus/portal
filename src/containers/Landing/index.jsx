@@ -34,7 +34,8 @@ const StyledLogoLockup = styled.img`
   transform: translateX(-50%);
   z-index: 9999;
 
-  top: 128px;
+  top: 10vh;
+
   height: ${p => (p.theme.name === 'hackcamp' ? '100px' : '150px')};
 
   ${p => p.theme.mediaQueries.mobile} {
@@ -60,6 +61,13 @@ const BackgroundContainer = styled.img`
   position: fixed;
   left: 0;
   top: 0;
+`
+
+const FooterContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  max-height: 40vh;
 `
 
 const Landing = ({ heading, description, showFooter, children }) => {
@@ -106,7 +114,11 @@ const Landing = ({ heading, description, showFooter, children }) => {
         <P>{description}</P>
         {children}
       </StyledBanner>
-      {showFooter && <Footer />}
+      {showFooter && (
+        <FooterContainer>
+          <Footer />
+        </FooterContainer>
+      )}
     </LandingContainer>
   )
 }
