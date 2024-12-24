@@ -64,7 +64,11 @@ const ApplicationDashboardContainer = () => {
     } else {
       hackerStatus = 'acceptedNoRSVP'
     }
-  } else if (applicationStatus === 'scored') {
+  } else if (
+    applicationStatus === 'scored' ||
+    applicationStatus === 'gradinginprog' ||
+    applicationStatus == 'ungraded'
+  ) {
     hackerStatus = 'applied'
   } else {
     hackerStatus = applicationStatus
