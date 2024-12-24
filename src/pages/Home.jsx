@@ -63,12 +63,14 @@ const HomeContainerBackground = styled.div`
 export default withTheme(({ announcements, theme }) => {
   const { user, isAuthed } = useAuth()
   const { activeHackathon } = useHackathon()
-  const backgroundImage = {
+
+  const backgroundImages = {
     hackcamp: hc_background,
     // 'cmd-f': cmdfLoginBackground,
-    // 'nwhacks': nwHacksLoginBackground,
-    // 'default': nwHacksLoginBackground,
+    // 'nwhacks': nwHacksLoginBackground
   }
+
+  const backgroundImage = backgroundImages[activeHackathon] || ''
 
   return (
     <>
