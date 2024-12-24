@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ReactCardFlip from 'react-card-flip'
 
 const Container = styled.div`
-  background-image: ${p => p.theme.colors.backgroundTertiary};
+  background-color: ${p => p.theme.colors.backgroundTertiary};
   border-radius: 8px;
   padding: 20px;
   width: 280px;

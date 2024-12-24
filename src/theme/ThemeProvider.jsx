@@ -155,7 +155,7 @@ const nwHacksTheme = {
   colors: {
     background: '#EDDECC',
     backgroundSecondary: '#E2D0BA',
-    backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
+    backgroundTertiary: '#FFEDD7',
     text: '#3A2F21',
     textSecondary: '#01033D',
     highlight: '#30C55A',
