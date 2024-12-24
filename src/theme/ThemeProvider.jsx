@@ -155,7 +155,7 @@ const nwHacksTheme = {
   colors: {
     background: '#EDDECC',
     backgroundSecondary: '#E2D0BA',
-    backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
+    backgroundTertiary: '#FFEDD7',
     text: '#3A2F21',
     textSecondary: '#01033D',
     highlight: '#30C55A',
@@ -172,7 +172,7 @@ const nwHacksTheme = {
     // sidebar
     sidebar: {
       background: 'linear-gradient(191.3deg, #77CFDC -57.93%, #23A2CE 78.18%)',
-      backgroundSecondary: '#EDDECC',
+      backgroundSecondary: 'transparent',
       textSectionHeader: '#F9C745',
       textSelected: '#FFFFFF',
       textDefault: '#EBEBEB',
