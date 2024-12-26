@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'wouter'
-import cmdf_logo from '../assets/cmdf_logo.png'
+import cmdf_logo from '../assets/cmdf_logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import nwplus_logo from '../assets/nwplus_icon.svg'
@@ -11,14 +11,11 @@ import { hackerStatuses } from './ApplicationDashboard'
 import { Button } from './Input/index'
 import { A } from './Typography'
 import NotificationToggle from '../containers/NotificationToggle'
-import { IS_DEVICE_IOS } from '../utility/Constants'
+import { IS_DEVICE_IOS, APPLICATION_STATUS } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
 
-/* Old styles
-border-right: 1px solid ${p => p.theme.colors.border};
-*/
 const SidebarContainer = styled.div`
-  min-width: 275px;
+  min-width: 235px;
   min-height: 100%;
   transition: opacity 1s ease-out;
   z-index: 999;
@@ -43,37 +40,24 @@ const chooseLogo = hackathon => {
 }
 
 const Logo = styled.img.attrs(p => ({
-  src: chooseLogo(p.theme.name),
+  src: chooseLogo(p.hackathon),
 }))`
-  height: 7em;
-  margin: 2em auto;
+  max-height: 100px;
+  margin: 24px auto;
   display: block;
+  cursor: pointer; // Add this to indicate it's clickable
 
   ${p =>
-    p.theme.name === 'hackcamp' &&
+    p.hackathon === 'hackcamp' &&
     `
       width: 150px;
     `}
 `
-
 const ItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-/* Old styles
-  background: ${p => p.theme.colors.secondaryBackground};
-  color: ${p =>
-    p.theme.name !== 'cmdf' && p.selected ? p.theme.colors.primary : p.theme.colors.highlight};
-  ${p => p.selected && `background: ${p.theme.colors.secondaryBackgroundTransparent};`}
-
-  &:hover {
-    background: ${p => p.theme.colors.secondaryBackground};
-  }
-  &:focus {
-    background: ${p => p.theme.colors.secondaryBackground};
-  }
-*/
 const StyledA = styled(A)`
   text-transform: uppercase;
   display: block;
@@ -82,31 +66,42 @@ const StyledA = styled(A)`
   border-bottom: none;
   background: transparent;
 
-  color: ${p => p.theme.colors.sidebar.link};
+  color: ${p => p.theme.colors.sidebar.textDefault};
 
   &:hover {
-    color: ${p => p.theme.colors.text};
-    background: ${p => p.theme.colors.sidebar.hover};
+    color: ${p => p.theme.colors.sidebar.textHover};
+    background: ${p => p.theme.colors.sidebar.backgroundHover};
     border-bottom: none;
   }
 
   &:focus {
-    color: ${p => p.theme.colors.text};
+    color: ${p => p.theme.colors.sidebar.textSelected};
     border-bottom: none;
   }
 
   ${p =>
     p.selected &&
     `
-    background: ${p.theme.colors.sidebar.selected};
-    color: #ffffff;
+    background: ${p.theme.colors.sidebar.backgroundSelected};
+    color: ${p.theme.colors.sidebar.textSelected};
 
     &:hover, &:focus {
-      color: #ffffff;
-      background: ${p.theme.colors.sidebar.hover};
+      background: ${p.theme.colors.sidebar.backgroundHover};
       border-bottom: none;
     }
   `}
+`
+
+const BackLink = styled(StyledA)`
+  padding-top: 32px;
+  color: ${p => p.theme.colors.sidebar.textDefault};
+  opacity: 0.8;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 1;
+    background: transparent;
+  }
 `
 
 // const LiveDot = styled.span`
@@ -165,7 +160,7 @@ const CategoryHeader = styled.h4`
   padding: 1em 50px 0 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: ${p => p.theme.colors.sidebar.primary};
+  color: ${p => p.theme.colors.sidebar.textSectionHeader};
 `
 
 const LogoContainer = styled.div`
@@ -197,9 +192,10 @@ const Sidebar = ({
   const links = {
     // General
     general: [
-      { location: '', text: 'My Ticket' },
+      { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       { location: '/livestream', text: 'Livestream' },
+      { location: '/rewards', text: 'Rewards' },
       { location: '/sponsors', text: 'Sponsors' },
     ],
     // Tools
@@ -224,7 +220,7 @@ const Sidebar = ({
     ],
   }
   const [sponsors, setSponsors] = useState([])
-  const { dbHackathonName } = useHackathon()
+  const { activeHackathon, dbHackathonName } = useHackathon()
 
   useEffect(() => {
     getSponsors(dbHackathonName).then(docs => {
@@ -254,9 +250,9 @@ const Sidebar = ({
     })
   }, [dbHackathonName])
 
-  // if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
-  //   links.tools.push({ location: '/projects', text: 'Project Gallery' })
-  // }
+  if (isSubmissionsOpen || isJudgingOpen || isJudgingReleased) {
+    links.tools.push({ location: '/projects', text: 'Project Gallery' })
+  }
 
   if (isSubmissionsOpen || isJudgingReleased) {
     links.tools.push({ location: '/submission', text: 'Project Submission' })
@@ -270,19 +266,29 @@ const Sidebar = ({
     links.tools.push({ location: '/judging/admin', text: 'Judging Admin' })
   }
 
-  if (import.meta.env.NODE_ENV !== 'production') {
-    links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
-  }
+  // if (import.meta.env.NODE_ENV !== 'production') {
+  //   links.information.push({ location: '/charcuterie', text: 'CHARCUTERIE' })
+  // }
 
   if (isApplicationOpen) {
     // List the application as the last item on the menu
     links.information.push({ location: '/application', text: 'APPLICATION' })
   }
 
+  if (user && user.status === APPLICATION_STATUS.accepted && isAuthed && user.uid) {
+    links.general[0] = { location: '/', text: 'My Ticket' }
+  }
+
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
+      <Link href="~/">
+        <BackLink>← BACK</BackLink>
+      </Link>
+
       <LogoContainer>
-        <Logo alt="logo" />
+        <Link href="~/" onClick={hideSidebarCallback}>
+          <Logo alt="logo" hackathon={activeHackathon} />
+        </Link>
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
       </LogoContainer>
       <ItemsContainer>
@@ -303,7 +309,7 @@ const Sidebar = ({
                 )
               )
             })}
-            {!IS_DEVICE_IOS ? <NotificationToggle /> : null}
+            {/* {!IS_DEVICE_IOS ? <NotificationToggle /> : null} */}
           </>
         ) : (
           <Link href={'/application'}>
@@ -337,14 +343,6 @@ const Sidebar = ({
           Log In
         </StyledButton>
       )}
-      <StyledButton
-        as={Link}
-        href="~/"
-        color="secondary"
-        style={{ textDecoration: 'none', color: 'white' }}
-      >
-        Home
-      </StyledButton>
       <SponsorContainer>
         {sponsors &&
           sponsors.map(sponsor => <SponsorLogo key={sponsor.name} src={sponsor.imgURL} />)}

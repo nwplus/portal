@@ -147,10 +147,6 @@ const Charcuterie = () => {
       />
 
       <P>Colors</P>
-      <Button color="aurora">Aurora</Button>
-      <Button color="aurora" disabled>
-        Aurora
-      </Button>
       <Button color="primary">Primary</Button>
       <Button color="primary" disabled>
         Primary
@@ -161,25 +157,15 @@ const Charcuterie = () => {
       <Button color="secondary" width="flex" disabled>
         Secondary
       </Button>
-      <Button color="tertiary">Tertiary</Button>
-      <Button color="tertiary" disabled>
-        Tertiary
-      </Button>
       <Button color="warning">Warning</Button>
       <Button color="warning" disabled>
         Warning
       </Button>
       <P>Widths</P>
-      <Button width="small" color="secondary">
-        Small
-      </Button>
-      <Button color="secondary">Default</Button>
-      <Button width="flex" color="secondary">
-        Flex (ie. as wide as the label)
-      </Button>
-      <Button width="large" color="secondary">
-        Large
-      </Button>
+      <Button width="small">Small</Button>
+      <Button>Default</Button>
+      <Button width="flex">Flex (ie. as wide as the label)</Button>
+      <Button width="large">Large</Button>
       <P>Heights</P>
       <Button height="short" color="secondary">
         Short
@@ -201,6 +187,7 @@ const Charcuterie = () => {
         onChange={() => setStates({ ...states, checkbox: !states.checkbox })}
       />
       <Checkbox label="Selected state" checked readOnly />
+
       <H2>Selects</H2>
       <H3>Radio</H3>
       <Select
@@ -245,6 +232,7 @@ const Charcuterie = () => {
       />
       <Select type="checkbox" label="Selected state" checked readOnly />
       <Select type="checkbox" label="Disabled state" disabled />
+
       <H2>Dropdowns</H2>
       <H3>Normal dropdown</H3>
       <Dropdown
@@ -321,6 +309,7 @@ const Charcuterie = () => {
         debounceEnabled
         throttleTime={1000}
       />
+
       <H1>Form Wrapper</H1>
       <FormContainer>
         <H2>Checkbox</H2>
@@ -462,6 +451,7 @@ const Charcuterie = () => {
           errorMessage="Please select something!"
         />
       </FormContainer>
+
       <H2>Change Progress Bar</H2>
       <Button width="flex" onClick={() => progress < 100 && setProgress(progress + 10)}>
         Increase!

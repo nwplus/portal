@@ -38,7 +38,6 @@ const AppDropdown = ({ refs, errors, formInputs, onChange, question }) => {
       {formInputs[question.formInput] === 'other' && (
         <TextInput
           placeholder="Please Specify"
-          size="small"
           noOutline
           value={formInputs[toOtherCamelCase(question.formInput)]}
           onChange={e =>

@@ -8,6 +8,8 @@ import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import { toOtherCamelCase } from '../../utility/utilities'
+import { copyText } from '../../utility/Constants'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const ReviewContainer = styled.div`
   position: relative;
@@ -55,7 +57,7 @@ const StyledH1 = styled(H1)`
 `
 
 const StyledBanner = styled(Banner)`
-  background-color: ${p => p.theme.colors.secondaryBackground};
+  background-color: ${p => p.theme.colors.backgroundSecondary};
   && {
     top: 18em;
     padding: 0;
@@ -75,6 +77,10 @@ const CenterH1 = styled(H1)`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+const IndentedCheckbox = styled(Checkbox)`
+  margin-left: 1.5em;
 `
 
 const PortfolioInfoGroup = ({ formInputs }) => {
@@ -141,6 +147,15 @@ const InfoGroup = ({ heading, data, type, formInputs, formInput }) => {
     return <MajorInfoGroup formInputs={formInputs} />
   }
 
+  if (type === 'Country') {
+    formInput = 'countryOfResidence'
+    data = formInputs[formInput]
+  }
+  if (type === 'School') {
+    formInput = 'school'
+    data = formInputs[formInput]
+  }
+
   if (type === 'Select All' && data !== null) {
     const trueKeys = Object.keys(data)
       .filter(key => data[key] === true)
@@ -173,6 +188,7 @@ const getMajors = obj => Object.keys(obj).filter(key => obj[key])
 
 const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
   const { basicInfoQuestions, skillsQuestions, questionnaireQuestions } = useHackerApplication()
+  const { activeHackathon } = useHackathon()
 
   return (
     <>
@@ -292,9 +308,10 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
             <span role="img" aria-label="Robot emoji">
               🤖
             </span>{' '}
-            cmd-f 2024 is an MLH partner event. The following 3 checkboxes are for this partnership.
+            {copyText[activeHackathon].hackathonNameShort} is an MLH partner event. The following 3
+            checkboxes are for this partnership.
           </P>
-          <Checkbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
             onChange={() =>
@@ -312,12 +329,12 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                 href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf"
                 target="_blank"
               >
-                MLH Code of Conduct
+                Code of Conduct
               </A>
               .<Required />
             </span>
-          </Checkbox>
-          <Checkbox
+          </IndentedCheckbox>
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
@@ -347,8 +364,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               </A>{' '}
               <Required />
             </span>
-          </Checkbox>
-          <Checkbox
+          </IndentedCheckbox>
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHEmailSubscription}
             onChange={() =>
@@ -361,33 +378,35 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I authorize MLH to send me occasional emails about relevant events, career
               opportunities, and community announcements.
             </span>
-          </Checkbox>
+          </IndentedCheckbox>
         </ContentWrapper>
 
-        <ContentWrapper textBlock>
-          <P>
-            <span role="img" aria-label="Plant sprout emoji">
-              🌱
-            </span>{' '}
-            Gender is deeply personal and can look different on each individual. We ask all
-            participants to trust that everyone attending belongs at cmd-f.
-          </P>
+        {activeHackathon === 'cmd-f' && (
+          <ContentWrapper textBlock>
+            <P>
+              <span role="img" aria-label="Plant sprout emoji">
+                🌱
+              </span>{' '}
+              Gender is deeply personal and can look different on each individual. We ask all
+              participants to trust that everyone attending belongs at cmd-f.
+            </P>
 
-          <Checkbox
-            flex
-            checked={formInputs.termsAndConditions.genderAcknowledgement}
-            onChange={() =>
-              onChange({
-                genderAcknowledgement: !formInputs.termsAndConditions.genderAcknowledgement,
-              })
-            }
-          >
-            <span>
-              I agree
-              <Required />
-            </span>
-          </Checkbox>
-        </ContentWrapper>
+            <IndentedCheckbox
+              flex
+              checked={formInputs.termsAndConditions.genderAcknowledgement}
+              onChange={() =>
+                onChange({
+                  genderAcknowledgement: !formInputs.termsAndConditions.genderAcknowledgement,
+                })
+              }
+            >
+              <span>
+                I agree
+                <Required />
+              </span>
+            </IndentedCheckbox>
+          </ContentWrapper>
+        )}
 
         <ContentWrapper textBlock>
           <P>
@@ -395,12 +414,12 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               💾
             </span>{' '}
             We use your (anonymized!) data to help you get the best sponsors and continuously
-            improve cmd-f with each iteration.
+            improve {copyText[activeHackathon].hackathonNameShort} with each iteration.
           </P>
         </ContentWrapper>
 
         <ContentWrapper textBlock>
-          <Checkbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.nwPlusPrivacyPolicy}
             onChange={() =>
@@ -417,8 +436,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               </A>
               <Required />
             </span>
-          </Checkbox>
-          <Checkbox
+          </IndentedCheckbox>
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.shareWithnwPlus}
             onChange={() =>
@@ -432,7 +451,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I authorize nwPlus to use my anonymized data for data reporting.
               <Required />
             </span>
-          </Checkbox>
+          </IndentedCheckbox>
         </ContentWrapper>
 
         <ContentWrapper textBlock>
@@ -447,7 +466,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         </ContentWrapper>
 
         <ContentWrapper textBlock>
-          <Checkbox
+          <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.shareWithSponsors}
             onChange={() =>
@@ -458,7 +477,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
           >
             I authorize nwPlus to provide my resume and supporting documents (Github, Linkedin, etc)
             to event sponsors for recruitment purposes upon request.
-          </Checkbox>
+          </IndentedCheckbox>
         </ContentWrapper>
       </ReviewContainer>
 

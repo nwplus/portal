@@ -16,7 +16,7 @@ const BasePaginationButton = styled.button`
         line-height: normal;
         content: url(${p.contentUrl});
     }`}
-  font-family: HK Grotesk;
+  font-family: ${p => p.theme.typography.bodyFont};
   font-weight: ${p => (p.active ? `600` : `normal`)};
   font-style: normal;
   font-size: 24px;

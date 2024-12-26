@@ -137,10 +137,10 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
-  const setWillBeAttendingSelect = willBeAttendingSelect => {
+  const setWillBeAttendingCheck = willBeAttendingCheck => {
     updateApplication({
       basicInfo: {
-        willBeAttendingSelect,
+        willBeAttendingCheck,
       },
     })
     forceSave()
@@ -159,6 +159,15 @@ const ApplicationDashboardContainer = () => {
     updateApplication({
       basicInfo: {
         nwMentorshipSelect,
+      },
+    })
+    forceSave()
+  }
+
+  const setMarketingFeatureSelect = marketingFeatureSelect => {
+    updateApplication({
+      basicInfo: {
+        marketingFeatureSelect,
       },
     })
     forceSave()
@@ -206,14 +215,18 @@ const ApplicationDashboardContainer = () => {
         setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
         ageOfMajoritySelect={application.basicInfo.ageOfMajoritySelect || undefined}
         setAgeOfMajoritySelect={ageOfMajoritySelect => setAgeOfMajoritySelect(ageOfMajoritySelect)}
-        willBeAttendingSelect={application.basicInfo.willBeAttendingSelect || undefined}
-        setWillBeAttendingSelect={willBeAttendingSelect =>
-          setWillBeAttendingSelect(willBeAttendingSelect)
+        willBeAttendingCheck={application.basicInfo.willBeAttendingCheck || false}
+        setWillBeAttendingCheck={willBeAttendingCheck =>
+          setWillBeAttendingCheck(willBeAttendingCheck)
         }
         safewalkSelect={application.basicInfo.safewalkSelect || undefined}
         setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}
-        nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
-        setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
+        // nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
+        // setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
+        marketingFeatureSelect={application.basicInfo.marketingFeatureSelect || undefined}
+        setMarketingFeatureSelect={marketingFeatureSelect =>
+          setMarketingFeatureSelect(marketingFeatureSelect)
+        }
         relevantDates={relevantDates}
         waiversAndForms={waiversAndForms}
         notionLinks={notionLinks}

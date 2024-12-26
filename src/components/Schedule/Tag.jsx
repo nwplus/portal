@@ -45,17 +45,13 @@ export const StyledSVG = styled(Icon)`
   }
 `
 
-export const TagLegend = () => {
-  return (
-    <TagLegendContainer>
-      {Object.entries(EVENT_TYPES).map(([key, event_type], i) => {
-        return (
-          <React.Fragment key={key}>
-            <StyledSVG color={event_type.colour} />
-            <Tag>{event_type.label}</Tag>
-          </React.Fragment>
-        )
-      })}
-    </TagLegendContainer>
-  )
+export const TagLegends = ({ theme }) => {
+  return Object.entries(EVENT_TYPES(theme)).map(([key, event_type], i) => {
+    return (
+      <React.Fragment key={key}>
+        <StyledSVG color={event_type.colour} />
+        <Tag>{event_type.label}</Tag>
+      </React.Fragment>
+    )
+  })
 }

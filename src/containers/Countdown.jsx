@@ -4,8 +4,25 @@ import { H2 } from '../components/Typography'
 import TimeDisplay from '../components/TimeDisplay'
 
 export const Centered = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  padding: 16px 0;
   z-index: 99;
+
+  background: ${p => p.theme.colors.sidebar.backgroundSecondary};
+
+  ${p => p.theme.mediaQueries.tabletLarge} {
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+  }
+`
+
+const StyledH2 = styled(H2)`
+  opacity: 1;
 `
 
 const Countdown = ({ countDownDate, eventName, theme }) => {
@@ -27,7 +44,7 @@ const Countdown = ({ countDownDate, eventName, theme }) => {
 
   return (
     <Centered>
-      <H2>{eventName.toUpperCase()}</H2>
+      <StyledH2>{eventName.toUpperCase()}</StyledH2>
       <TimeDisplay days={days} hours={hours} minutes={minutes} seconds={seconds} />
       {/* <ProgressBar percent={progress * 100} /> */}
     </Centered>

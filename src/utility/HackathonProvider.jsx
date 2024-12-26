@@ -20,20 +20,6 @@ export default function HackathonProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('activeHackathon', activeHackathon)
     setDbHackathonName(DB_HACKATHON_NAMES[activeHackathon])
-
-    switch (activeHackathon) {
-      case 'hackcamp':
-        document.title = 'HackCamp Hacker Portal'
-        break
-      case 'nwhacks':
-        document.title = 'nwHacks Hacker Portal'
-        break
-      case 'cmd-f':
-        document.title = 'cmd-f Hacker Portal'
-        break
-      default:
-        document.title = 'Hacker Portal'
-    }
   }, [activeHackathon])
 
   return (

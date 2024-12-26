@@ -211,7 +211,9 @@ export function HackerApplicationProvider({ children }) {
     return null
   }
 
-  if (!applicationOpen && window.location.pathname !== '/application') {
+  const canViewApplication =
+    applicationOpen || window.location.pathname.endsWith('/application') || user?.admin
+  if (!canViewApplication) {
     return <Closed />
   }
 

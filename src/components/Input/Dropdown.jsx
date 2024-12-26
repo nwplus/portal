@@ -21,7 +21,7 @@ const sharedStyle = css`
     box-shadow: none;
     max-width: ${p => (p.isSearchable ? dropdownWidth.searchable : dropdownWidth.normal)};
     height: 2.5em;
-    border-color: ${p => (p.isValid ? p.theme.colors.selects.border : p.theme.colors.warning)};
+    border-color: ${p => (p.isValid ? p.theme.colors.input.border : p.theme.colors.error)};
     padding-right: 17px;
     padding-left: 7px;
     flex-direction: ${p => p.isSearchable && `row-reverse`};
@@ -30,8 +30,7 @@ const sharedStyle = css`
 
   .react-select__control:hover,
   .react-select__control--is-focused {
-    border-color: ${p =>
-      p.isValid ? p.theme.colors.selects.hover : p.theme.colors.secondaryWarning};
+    border-color: ${p => (p.isValid ? p.theme.colors.input.hover : p.theme.colors.error)};
   }
 
   .react-select__option {
@@ -40,7 +39,7 @@ const sharedStyle = css`
   }
 
   .react-select__menu {
-    background-color: ${p => p.theme.colors.secondaryBackground};
+    background-color: ${p => p.theme.colors.backgroundSecondary};
     border-radius: 7px;
     margin-top: 0px;
     max-width: ${p => (p.isSearchable ? dropdownWidth.searchable : dropdownWidth.normal)};
@@ -65,19 +64,19 @@ const sharedStyle = css`
 
   .react-select__option:hover,
   .react-select__option--is-selected {
-    background-color: ${p => p.theme.colors.card};
+    background-color: ${p => p.theme.colors.dropdown.background.hover};
     color: white;
     border-radius: 5px;
     font-weight: bold;
   }
 
   .react-select__placeholder {
-    color: ${p => p.theme.colors.selects.text};
+    color: ${p => p.theme.colors.text};
   }
 
   .react-select__single-value,
   .react-select__input {
-    color: ${p => p.theme.colors.selects.text};
+    color: ${p => p.theme.colors.text};
   }
 
   .react-select__menu-notice--no-options {
@@ -104,13 +103,13 @@ const StyledAsyncCreatableDropdown = styled(AsyncCreatableSelect)`
 
 const StyledUserMessage = styled.div`
   // color: ${p => p.theme.colors.background};
-  color: ${p => p.theme.colors.selects.text};
+  color: ${p => p.theme.colors.text};
   font-weight: bold;
   padding: 8px 12px;
 `
 
 const StyledErrorMsg = styled.div`
-  color: ${p => p.theme.colors.warning};
+  color: ${p => p.theme.colors.error};
   font-weight: 400;
   font-size: 16px;
   position: absolute;
@@ -120,7 +119,7 @@ const StyledErrorMsg = styled.div`
 
 const DropdownIcon = ({ className, isSearchable }) =>
   isSearchable ? (
-    <Icon icon="search" color={p => p.theme.colors.selects.text} />
+    <Icon icon="search" color={p => p.theme.colors.text} />
   ) : (
     <svg
       className={className}
@@ -134,13 +133,8 @@ const DropdownIcon = ({ className, isSearchable }) =>
   )
 
 const StyledDropdownIcon = styled(DropdownIcon)`
-  transform: ${p => !p.isSearchable && p.menuIsOpen && `rotate(90deg)`};
-  fill: ${p =>
-    p.isSearchable
-      ? p.theme.colors.primary
-      : p.menuIsOpen || p.hasValue
-      ? p.theme.colors.default
-      : p.theme.colors.default};
+  transform: ${p => !p.isSearchable && !p.menuIsOpen && `rotate(90deg)`};
+  fill: ${p => p.theme.colors.text};
 `
 
 const Control = props => {

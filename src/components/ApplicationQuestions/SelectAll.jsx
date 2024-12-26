@@ -1,22 +1,31 @@
 import { ErrorMessage } from '../Typography'
 import { applyCustomSort, toCamelCase, toOtherCamelCase } from '../../utility/utilities'
 import { TextInput, Select } from '../Input'
+import { SELF_DESCRIBE_FIELDS } from '../../utility/Constants'
 
 const SelectAll = ({ refs, errors, formInputs, onChange, question }) => {
-  const transformSelectAllOptions = (options, includeOther) => {
+  const transformSelectAllOptions = (options, includeOther, formInput) => {
     const transformedOptions = options.reduce((acc, option) => {
       acc[toCamelCase(option)] = option.toString()
       return acc
     }, {})
 
     if (includeOther) {
-      transformedOptions.other = 'Other (Please specify)'
+      if (SELF_DESCRIBE_FIELDS.includes(formInput)) {
+        transformedOptions.other = 'Prefer to self-describe'
+      } else {
+        transformedOptions.other = 'Other (Please specify)'
+      }
     }
 
     return transformedOptions
   }
 
-  const selectAllOptions = transformSelectAllOptions(question.options, question.other)
+  const selectAllOptions = transformSelectAllOptions(
+    question.options,
+    question.other,
+    question.formInput
+  )
 
   return (
     <>
@@ -43,7 +52,6 @@ const SelectAll = ({ refs, errors, formInputs, onChange, question }) => {
       {formInputs?.[question.formInput]?.other && (
         <TextInput
           placeholder="Please Specify"
-          size="small"
           noOutline
           value={formInputs?.[toOtherCamelCase(question.formInput)]}
           onChange={e =>

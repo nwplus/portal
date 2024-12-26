@@ -9,7 +9,6 @@ const StyledTextArea = styled(TextArea)`
 const LongAnswer = ({ refs, errors, formInputs, onChange, question }) => {
   return (
     <>
-      {errors?.[question.formInput] && <ErrorMessage>{errors?.[question.formInput]}</ErrorMessage>}
       <StyledTextArea
         maxWords={question.maxWords || '150'}
         width="100%"

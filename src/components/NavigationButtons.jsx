@@ -34,6 +34,17 @@ const NavigationButtonsContainer = styled.div`
   text-align: right;
 `
 
+const RightContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`
+
+const StyledErrorMessage = styled(ErrorMessage)`
+  font-weight: 600;
+  color: ${p => p.theme.colors.warning};
+`
+
 const NavigationButtons = ({
   firstButtonText,
   firstButtonOnClick,
@@ -47,7 +58,9 @@ const NavigationButtons = ({
     <NavigationButtonsContainer>
       {autosaveTime && <b>Answers have been autosaved on {autosaveTime}</b>}
       {showSubmitWarning && (
-        <ErrorMessage>Caution! You cannot edit your application after submitting.</ErrorMessage>
+        <StyledErrorMessage>
+          Caution! You cannot edit your application after submitting.
+        </StyledErrorMessage>
       )}
       <ButtonContainer>
         {firstButtonText && firstButtonOnClick ? (
@@ -57,12 +70,12 @@ const NavigationButtons = ({
         ) : (
           <div></div>
         )}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <MoonLoader css={{ margin: '0 10px' }} color="#fff" size="30" loading={loading} />
-          <StyledButton width="flex" onClick={secondButtonOnClick}>
+        <RightContainer>
+          <MoonLoader color="#fff" size="30px" loading={loading} />
+          <StyledButton color="secondary" width="flex" onClick={secondButtonOnClick}>
             {secondButtonText}
           </StyledButton>
-        </div>
+        </RightContainer>
       </ButtonContainer>
     </NavigationButtonsContainer>
   )

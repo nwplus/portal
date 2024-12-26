@@ -15,50 +15,67 @@ const StyledJudgingCard = styled(JudgingCard)`
 
 const getProjects = async (userId, projectId, dbHackathonName) => {
   const getAndAssignProjects = async () => {
-    const projectDocs = await projectsRef(dbHackathonName)
-      .where('draftStatus', '==', 'public')
-      .orderBy('countAssigned')
-      .limit(PROJECTS_TO_JUDGE_COUNT + 1) // get an extra in case we got our own project
-      .get()
-    let projectIds = projectDocs.docs.map(project => project.id)
-    projectIds = projectIds.filter(id => id !== projectId)
-    if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
-      projectIds.pop()
-    }
-    const batch = db.batch()
+    try {
+      const projectSnapshot = await projectsRef(dbHackathonName)
+        .where('draftStatus', '==', 'public')
+        .orderBy('countAssigned')
+        .limit(PROJECTS_TO_JUDGE_COUNT + 1)
+        .get()
 
-    // increment assigned counters
-    projectIds.forEach(projectId => {
-      batch.update(projectsRef(dbHackathonName).doc(projectId), {
-        countAssigned: firestore.FieldValue.increment(1),
+      let projectIds = projectSnapshot.docs.map(project => project.id)
+      projectIds = projectIds.filter(id => id !== projectId)
+      if (projectIds.length > PROJECTS_TO_JUDGE_COUNT) {
+        projectIds.pop()
+      }
+
+      await db.runTransaction(async transaction => {
+        projectIds.forEach(projectId => {
+          const projectRef = projectsRef(dbHackathonName).doc(projectId)
+          transaction.update(projectRef, {
+            countAssigned: firestore.FieldValue.increment(1),
+          })
+        })
+
+        // add projects to user
+        const applicantRef = applicantsRef(dbHackathonName).doc(userId)
+        transaction.update(applicantRef, {
+          projectsAssigned: projectIds,
+        })
       })
-    })
 
-    // add projects to user
-    batch.update(applicantsRef(dbHackathonName).doc(userId), { projectsAssigned: projectIds })
-    await batch.commit()
-    return projectIds
+      return projectIds
+    } catch (error) {
+      console.error('Error assigning projects:', error)
+    }
   }
 
   const queryProjects = async projectIds => {
-    const projectDocs = await projectsRef(dbHackathonName)
-      .where(firestore.FieldPath.documentId(), 'in', projectIds)
-      .get()
-    if (projectDocs.docs.length < 1) {
-      // projects are missing
-      const newProjectIds = await getAndAssignProjects()
-      return await queryProjects(newProjectIds)
+    try {
+      const projectDocs = await projectsRef(dbHackathonName)
+        .where(firestore.FieldPath.documentId(), 'in', projectIds)
+        .get()
+      if (projectDocs.docs.length < 1) {
+        // projects are missing
+        const newProjectIds = await getAndAssignProjects()
+        return await queryProjects(newProjectIds)
+      }
+      return projectDocs
+    } catch (error) {
+      console.error('Error querying projects:', error)
     }
-    return projectDocs
   }
 
   const getProjectsData = async projectIds => {
-    let projectDocs = await queryProjects(projectIds)
-    return projectDocs.docs.map(project => {
-      const formattedProject = formatProject({ ...project.data(), id: project.id })
-      formattedProject.judged = formattedProject.grades && formattedProject.grades[userId]
-      return formattedProject
-    })
+    try {
+      let projectDocs = await queryProjects(projectIds)
+      return projectDocs.docs.map(project => {
+        const formattedProject = formatProject({ ...project.data(), id: project.id })
+        formattedProject.judged = formattedProject.grades && formattedProject.grades[userId]
+        return formattedProject
+      })
+    } catch (error) {
+      console.error('Error getting project data:', error)
+    }
   }
 
   const applicantDoc = await applicantsRef(dbHackathonName).doc(userId).get()
@@ -95,6 +112,8 @@ const Judging = () => {
           : false
 
         if (!isValidProject) {
+          console.error('User cannot access judging: No valid submitted project found')
+          console.log('User:', user.uid, 'Submitted Project:', submittedProject)
           setIsBlocked(true)
         } else {
           setProjects(await getProjects(user.uid, submittedProject, dbHackathonName))
@@ -120,8 +139,8 @@ const Judging = () => {
   if (isBlocked) {
     return (
       <HeroPage>
-        <h2>Error, permission denied</h2>
-        <p>To access judging you must have submitted a project</p>
+        <h2>There was an error</h2>
+        <p>Please contact an organizer to resolve this issue!</p>
       </HeroPage>
     )
   }
@@ -139,7 +158,7 @@ const Judging = () => {
             key={project.id}
             buttonLabel={project.judged ? 'Already Judged' : 'Judge this Submission'}
             buttonDisabled={project.judged}
-            href={`judging/view/${project.id}`}
+            href={`/judging/view/${project.id}`}
           />
         )
       })}

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
-import cmdfIcon from '../assets/cmdf_logo.png'
+import cmdfIcon from '../assets/cmdf_logo.svg'
 import nwhacks_logo from '../assets/nwhacks_logo.svg'
 import hc_logo from '../assets/hc_logo.svg'
 import { Button } from './Input'
@@ -24,7 +24,7 @@ const NavContainer = styled.div`
     height: 3em;
   }
   //background: linear-gradient(to bottom, #544d92, rgba(33, 30, 57, 0));
-  background: ${p => p.theme.colors.secondaryBackground};
+  background: ${p => p.theme.colors.backgroundSecondary};
 `
 
 const Icon = styled.img`

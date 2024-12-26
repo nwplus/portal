@@ -23,7 +23,6 @@ const Closed = () => {
         </>
       }
       showFooter
-      hackathon={activeHackathon}
     />
   )
 }

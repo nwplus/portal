@@ -36,11 +36,11 @@ const StyledYoutube = styled(Youtube)`
 
 const StyledP = styled(P)`
   margin: 1em 0;
+  color: ${p => p.theme.colors.text};
 `
 
 const StyledA = styled(A)`
-  color: ${p => p.theme.colors.primary};
-  border-color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.textSecondary};
 
   &:hover {
     color: ${p => p.theme.colors.tertiaryHover};
@@ -48,7 +48,8 @@ const StyledA = styled(A)`
 `
 
 const ExternalLink = styled(A)`
-  color: ${p => 'white'};
+  color: ${p => p.theme.colors.tertiaryHover};
+  font-weight: bold;
 
   &:hover {
     color: ${p => p.theme.colors.tertiaryHover};
@@ -56,6 +57,7 @@ const ExternalLink = styled(A)`
 `
 
 const StyledLabel = styled(Label)`
+  color: ${p => p.theme.colors.textSecondary};
   display: block;
   margin: 1em 0 0.25em 0;
 `
@@ -70,6 +72,10 @@ const RightButton = styled(Button)`
 
 const StyledMessage = styled(Message)`
   text-align: right;
+`
+
+const StyledH2 = styled(H2)`
+  opacity: 1;
 `
 
 const ScoreInput = ({ id, label, description, maxScore, score, onChange }) => {
@@ -104,7 +110,7 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
   return (
     <Container>
       <JudgingColumn>
-        <H2>Judging "{project.title}"</H2>
+        <StyledH2>Judging "{project.title}"</StyledH2>
         <Card>
           <StyledYoutube src={project.links.youtube} />
           <StyledP>{project.description}</StyledP>
@@ -131,7 +137,7 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
           <ExternalLink
             target="_blank"
             rel="noreferrer noopener"
-            href="https://www.notion.so/nwplus/Judging-Rubric-2023-026e041c729d48ca8c75efa63d430c42"
+            href="https://nwplus.notion.site/PUBLIC-HackCamp-2024-Peer-Judging-Rubric-23ecd01e56b04442a7dfe0c7cbabbc62"
           >
             Hacker Package
           </ExternalLink>

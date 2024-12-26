@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Redirect, Route, Switch, useLocation } from 'wouter'
+import { Redirect, Route, Switch, useLocation } from 'wouter'
 import AnnouncementToast from './components/AnnouncementToast'
-import { A } from './components/Typography'
-import Landing from './containers/Landing'
 import {
   ApplicationConfirmation,
   ApplicationReview,
@@ -17,6 +15,7 @@ import {
   Schedule,
   Sponsors,
   Submission,
+  Rewards,
 } from './pages'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
@@ -42,6 +41,7 @@ import {
 import { db, getAnnouncement } from './utility/firebase'
 import notifications from './utility/notifications'
 import Loading from './components/Loading'
+import HackathonSelection from './pages/HackathonSelection'
 
 function App() {
   const [announcementText, setAnnouncementText] = useState('')
@@ -102,22 +102,10 @@ function App() {
     <ThemeProvider>
       <GlobalStyle />
       <AuthProvider>
-        <AnnouncementToast text={announcementText} />
+        {/* <AnnouncementToast text={announcementText} /> */}
         <Switch>
           <Route path="/">
-            <Landing>
-              <Link href="/app/hackcamp">
-                <A>Hackcamp</A>
-              </Link>
-              <br />
-              <Link href="/app/nwhacks">
-                <A>nwHacks</A>
-              </Link>
-              <br />
-              <Link href="/app/cmd-f">
-                <A>cmd-f</A>
-              </Link>
-            </Landing>
+            <HackathonSelection />
           </Route>
           <NoAuthRoute path="/login">
             <Login />
@@ -140,6 +128,9 @@ function App() {
                   </PageRoute>
                   <PageRoute path="/livestream">
                     <Livestream />
+                  </PageRoute>
+                  <PageRoute path="/rewards">
+                    <Rewards />
                   </PageRoute>
                   <PageRoute path="/sponsors">
                     <Sponsors />

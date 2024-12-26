@@ -11,9 +11,12 @@ import { useLocation } from 'wouter'
 import Toast from '../components/Toast'
 import { A } from '../components/Typography'
 import { useHackathon } from '../utility/HackathonProvider'
+import { copyText } from '../utility/Constants'
+
+import hackcampLoginTicket from '../assets/hc_login_ticket.svg'
 
 const ErrorMessage = ({ message }) => (
-  <>
+  <div>
     There was an issue logging you in{' '}
     <span role="img" aria-label="dizzy face">
       😵
@@ -22,7 +25,7 @@ const ErrorMessage = ({ message }) => (
     {message}
     <br />
     If this persists, please contact <A href="mailto:info@nwplus.io">info@nwplus.io</A>.
-  </>
+  </div>
 )
 
 // custom handling of errors
@@ -60,6 +63,33 @@ export const ButtonContainer = styled.div`
   margin: 0.5em 0;
 `
 
+const StyledWelcomeImage = styled.img`
+  width: 100%;
+  max-width: 500px;
+  margin-top: -30px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 80%;
+  }
+`
+
+const getHeading = activeHackathon => {
+  if (!copyText[activeHackathon]) {
+    return `Welcome to nwPlus!`
+  }
+  if (activeHackathon !== 'hackcamp') {
+    return `Welcome to ${copyText[activeHackathon]?.hackathonName}!`
+  }
+  return null
+}
+
+const getWelcomeImage = activeHackathon => {
+  if (activeHackathon === 'hackcamp') {
+    return hackcampLoginTicket
+  }
+  return null
+}
+
 const Login = () => {
   const theme = useContext(ThemeContext)
   const { setUser } = useAuth()
@@ -79,32 +109,29 @@ const Login = () => {
 
   return (
     <>
-      <Landing
-        heading={`Welcome to nwPlus!`}
-        hackathon={`nwPlus`}
-        background={theme.colors.login.background}
-      >
+      <Landing heading={getHeading(activeHackathon)} background={theme.colors.background}>
+        <StyledWelcomeImage src={getWelcomeImage(activeHackathon)} />
         <ButtonContainer>
           <StyledButton
             width="flex"
-            labelColor={theme.colors.login.googleText}
-            color={theme.colors.login.googleBg}
-            hover={theme.colors.login.googleBgHover}
+            labelColor={theme.colors.login.googleAuthText}
+            color={theme.colors.login.googleAuthBackground}
+            hover={theme.colors.login.googleAuthBackgroundHover}
             onClick={signInWithGoogle}
           >
             <BoundingBox src={google} />
             Sign in with Google
           </StyledButton>
-          <StyledButton
+          {/* <StyledButton
             width="flex"
-            labelColor={theme.colors.login.githubText}
-            color={theme.colors.login.githubBg}
-            hover={theme.colors.login.githubBgHover}
+            labelColor={theme.colors.login.githubAuthText}
+            color={theme.colors.login.githubAuthBackground}
+            hover={theme.colors.login.githubAuthBackgroundHover}
             onClick={signInWithGithub}
           >
             <BoundingBox src={github} />
             Sign in with GitHub
-          </StyledButton>
+          </StyledButton> */}
         </ButtonContainer>
       </Landing>
       <Toast>{error ? handleAuthError(error.code, error.message) : null}</Toast>
