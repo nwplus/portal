@@ -9,7 +9,7 @@ import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 import { APPLICATION_STATUS } from '../utility/Constants'
 import { P } from '../components/Typography'
-import AIChatbot from '../components/AIChatbot'
+// import AIChatbot from '../components/AIChatbot'
 import backgroundImage from '../assets/cmdf_homebg.svg'
 import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
 import { useHackathon } from '../utility/HackathonProvider'
@@ -78,7 +78,7 @@ export default withTheme(({ announcements, theme }) => {
         ) : (
           <StyledP>Please login with the email you used to apply to cmd-f 2024.</StyledP>
         )}
-        <AIChatbot />
+        {/* <AIChatbot /> */}
       </HomeContainer>
     </>
   )
