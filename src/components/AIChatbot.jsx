@@ -5,6 +5,7 @@ const ChatbotContainer = styled.div`
   position: fixed;
   bottom: 24px;
   right: 24px;
+  z-index: 2;
 `
 
 const ChatbotToggle = styled.button`
