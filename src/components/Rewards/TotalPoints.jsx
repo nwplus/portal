@@ -22,13 +22,13 @@ const TotalPointsCard = styled.div`
 `
 
 const PointsTitle = styled.div`
-  color: ${p => p.theme.colors.textSecondary};
+  color: ${p => p.theme.colors.text};
   font-size: 18px;
   font-weight: 700;
 `
 
 const PointsValue = styled.div`
-  color: ${p => p.theme.colors.highlight};
+  color: ${p => p.theme.colors.text};
   font-size: 40px;
   font-weight: 700;
 `

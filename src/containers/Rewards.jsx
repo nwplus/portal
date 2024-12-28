@@ -1,16 +1,17 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import { useHackathon } from '../utility/HackathonProvider'
-import { rewardsRef } from '../utility/firebase'
+import { applicantsRef, rewardsRef } from '../utility/firebase'
 import RewardCard from '../components/RewardCard'
-// import TotalPoints from '../components/Rewards/TotalPoints'
-// import AttendedEvents from '../components/Rewards/AttendedEvents'
-// import { useAuth } from '../utility/Auth'
+import TotalPoints from '../components/Rewards/TotalPoints'
+import AttendedEvents from '../components/Rewards/AttendedEvents'
+import { useAuth } from '../utility/Auth'
 // import { getUserApplication } from '../utility/firebase'
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.2fr 1.8fr;
+  align-items: center;
 
   @media (max-width: 768px) {
     display: flex;
@@ -18,6 +19,15 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
   }
+`
+
+const Column = styled.div`
+  margin-right: 20px;
+`
+
+const Name = styled.h1`
+  font-weight: 800;
+  font-size: 1.8rem;
 `
 
 const Header = styled.h1`
@@ -48,7 +58,10 @@ const Cards = styled.div`
 
 const Rewards = () => {
   const [rewards, setRewards] = useState([])
+  const [userDetails, setUserDetails] = useState(null)
+  const [userPoints, setUserPoints] = useState(0)
   const { dbHackathonName } = useHackathon()
+  const { user } = useAuth()
 
   useEffect(() => {
     const fetchRewards = async () => {
@@ -61,12 +74,36 @@ const Rewards = () => {
       }
     }
 
+    const getUserPoints = async () => {
+      if (!user) return
+      try {
+        const userDoc = await applicantsRef(dbHackathonName).doc(user.uid).get()
+        if (!userDoc.exists) {
+          console.log('No user data found')
+          return
+        }
+        const userData = userDoc.data()
+        const points = userData.points || 0
+        setUserPoints(points)
+        setUserDetails(userData)
+        console.log(userData)
+      } catch (error) {
+        console.error('Error fetching user points:', error)
+      }
+    }
     fetchRewards()
-  }, [])
+    getUserPoints()
+  }, [dbHackathonName, user])
 
   return (
     <Container>
-      {/* <div></div> */}
+      <Column>
+        <Name>
+          {userDetails.basicInfo.legalFirstName} {userDetails.basicInfo.legalLastName}
+        </Name>
+        <TotalPoints userDetails={userDetails} />
+        <AttendedEvents userDetails={userDetails} />
+      </Column>
       <div>
         <Header>Rewards</Header>
         <Subtitle>
@@ -81,7 +118,8 @@ const Rewards = () => {
               desc={reward.blurb}
               company={reward.from}
               image={reward.imgURL}
-              points={reward.requiredPoints}
+              points={userPoints}
+              requiredPoints={reward.requiredPoints}
               prizes={reward.prizesAvailable}
             />
           ))}
