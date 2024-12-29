@@ -30,6 +30,10 @@ const Column = styled.div`
   }
 `
 
+const Spacer = styled.div`
+  margin-bottom: 24px;
+`
+
 const Name = styled.h1`
   font-weight: 800;
   font-size: 2rem;
@@ -102,10 +106,12 @@ const Rewards = () => {
   return (
     <Container>
       <Column>
-        <Name>
-          {userDetails?.basicInfo?.legalFirstName} {userDetails?.basicInfo?.legalLastName}
-        </Name>
-        <TotalPoints userDetails={userDetails} />
+        <Spacer>
+          <Name>
+            {userDetails?.basicInfo?.legalFirstName} {userDetails?.basicInfo?.legalLastName}
+          </Name>
+          <TotalPoints userDetails={userDetails} />
+        </Spacer>
         <AttendedEvents userDetails={userDetails} />
       </Column>
       <div>
