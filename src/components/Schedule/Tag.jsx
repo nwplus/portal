@@ -28,6 +28,7 @@ export const Tag = styled.span`
     padding: 1px 3px;
     font-size: 0.75em;
   }
+  text-wrap: nowrap;
 `
 
 export const PositionedTag = styled(Icon)`

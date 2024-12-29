@@ -11,7 +11,6 @@ import { useAuth } from '../utility/Auth'
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1.2fr 1.8fr;
-  align-items: center;
 
   @media (max-width: 768px) {
     display: flex;
@@ -22,12 +21,18 @@ const Container = styled.div`
 `
 
 const Column = styled.div`
-  margin-right: 20px;
+  margin-right: 24px;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    margin-right: 0px;
+    margin-top: 0px;
+  }
 `
 
 const Name = styled.h1`
   font-weight: 800;
-  font-size: 1.8rem;
+  font-size: 2rem;
 `
 
 const Header = styled.h1`
@@ -86,7 +91,6 @@ const Rewards = () => {
         const points = userData.points || 0
         setUserPoints(points)
         setUserDetails(userData)
-        console.log(userData)
       } catch (error) {
         console.error('Error fetching user points:', error)
       }
@@ -99,7 +103,7 @@ const Rewards = () => {
     <Container>
       <Column>
         <Name>
-          {userDetails.basicInfo.legalFirstName} {userDetails.basicInfo.legalLastName}
+          {userDetails?.basicInfo?.legalFirstName} {userDetails?.basicInfo?.legalLastName}
         </Name>
         <TotalPoints userDetails={userDetails} />
         <AttendedEvents userDetails={userDetails} />
