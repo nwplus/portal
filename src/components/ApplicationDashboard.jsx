@@ -190,6 +190,12 @@ const UnRSVPButtonContainer = styled.div`
   margin-top: 20px;
 `
 
+const SectionLabel = styled.div`
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-top: 20px;
+`
+
 const QuestionLabel = styled.div`
   font-weight: bold;
 `
@@ -387,14 +393,16 @@ const Dashboard = ({
   setReleaseLiabilityCheck,
   mediaConsentCheck,
   setMediaConsentCheck,
+  sponsorEmailConsentCheck,
+  setSponsorEmailConsentCheck,
   ageOfMajoritySelect,
   setAgeOfMajoritySelect,
   willBeAttendingCheck,
   setWillBeAttendingCheck,
   safewalkSelect,
   setSafewalkSelect,
-  // nwMentorshipSelect,
-  // setNwMentorshipSelect,
+  nwMentorshipSelect,
+  setNwMentorshipSelect,
   marketingFeatureSelect,
   setMarketingFeatureSelect,
   username,
@@ -412,10 +420,11 @@ const Dashboard = ({
   const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
   const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
   const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
+  const [sponsorEmailConsent, setSponsorEmailConsent] = useState(sponsorEmailConsentCheck || false)
   // const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
   const [willBeAttending, setWillBeAttending] = useState(willBeAttendingCheck || false)
-  const [safewalk, setSafewalk] = useState(safewalkSelect || undefined)
-  // const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || undefined)
+  const [safewalk, setSafewalk] = useState(safewalkSelect || false)
+  const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || false)
   const [marketingFeature, setMarketingFeature] = useState(marketingFeatureSelect || false)
 
   const hackerRSVPStatus = hackerStatuses()[hackerStatus]?.sidebarText
@@ -424,10 +433,11 @@ const Dashboard = ({
   const [rsvpErrorMessage, setRsvpErrorMessage] = useState('')
 
   const askSafewalk = activeHackathon === 'nwhacks' || activeHackathon === 'cmd-f'
-  // const handleChange = () => {
-  //   setSafewalkCheckbox(!safewalk)
-  //   setSafewalkInput(!safewalkNote)
-  // }
+
+  const handleSafewalkChange = () => {
+    setSafewalk(!safewalk)
+    setSafewalkSelect(!safewalk)
+  }
 
   const handleCovidWaiverChange = () => {
     setCovidWaiver(!covidWaiver)
@@ -444,6 +454,11 @@ const Dashboard = ({
     setMediaConsentCheck(!mediaConsentCheck)
   }
 
+  const handleSponsorEmailConsentChange = () => {
+    setSponsorEmailConsent(!sponsorEmailConsent)
+    setSponsorEmailConsentCheck(!sponsorEmailConsentCheck)
+  }
+
   // const handleAgeOfMajoritySelectChange = e => {
   //   setAgeOfMajority(e.target.value)
   //   setAgeOfMajoritySelect(e.target.value)
@@ -454,29 +469,18 @@ const Dashboard = ({
     setWillBeAttendingCheck(!willBeAttendingCheck)
   }
 
-  const handleSafewalkSelectChange = e => {
-    setSafewalk(e.target.value)
-    setSafewalkSelect(e.target.value)
+  const handleNwMentorshipChange = () => {
+    setNwMentorship(!nwMentorship)
+    setNwMentorshipSelect(!nwMentorship)
   }
 
-  // const handleNwMentorshipSelectChange = e => {
-  //   setNwMentorship(e.target.value)
-  //   setNwMentorshipSelect(e.target.value)
-  // }
-
-  const handleMarketingFeatureChange = value => {
-    setMarketingFeature(value)
-    setMarketingFeatureSelect(value)
+  const handleMarketingFeatureChange = () => {
+    setMarketingFeature(!marketingFeature)
+    setMarketingFeatureSelect(!marketingFeature)
   }
 
   const handleRSVPClick = () => {
-    if (
-      isRsvpOpen &&
-      willBeAttending &&
-      (askSafewalk ? safewalk : true) &&
-      covidWaiver &&
-      releaseLiability
-    ) {
+    if (isRsvpOpen && willBeAttending && covidWaiver && releaseLiability) {
       setRSVP(canRSVP)
     }
     if (!isRsvpOpen) {
@@ -527,49 +531,10 @@ const Dashboard = ({
               </SelectOptionContainer>
             </SelectContainer>
 
-            {askSafewalk && (
-              <SelectContainer>
-                <QuestionLabel>
-                  Safewalk option <Required />
-                </QuestionLabel>
-                <P>
-                  While {copyText[activeHackathon].hackathonNameShort} is a 24 hour hackathon, you
-                  are not required to sleep there. If you live closeby, we recommend that you sleep
-                  at home on the night of {relevantDates.hackathonWeekend.split('-')[0]}. For
-                  safety, we are offering a service where nwPlus organizers or volunteers walk
-                  hackers anywhere on campus.
-                </P>
-                <P>Would you like to request this service?</P>
-                <SelectOptionContainer>
-                  <input
-                    type="radio"
-                    id="safewalkYes"
-                    name="safewalkYes"
-                    value="safewalkYes"
-                    checked={safewalk === 'safewalkYes'}
-                    onChange={handleSafewalkSelectChange}
-                  />
-                  <label htmlFor="safewalkYes">Yes</label>
-                </SelectOptionContainer>
-
-                <SelectOptionContainer>
-                  <input
-                    type="radio"
-                    id="safewalkNo"
-                    name="safewalkNo"
-                    value="safewalkNo"
-                    checked={safewalk === 'safewalkNo'}
-                    onChange={handleSafewalkSelectChange}
-                  />
-                  <label htmlFor="safewalkNo">No</label>
-                </SelectOptionContainer>
-              </SelectContainer>
-            )}
-
             <QuestionContainer>
-              <QuestionLabel>
+              <SectionLabel>
                 Waivers <Required />
-              </QuestionLabel>
+              </SectionLabel>
               <P>
                 Please read the waivers carefully. Checking the box is equivalent to signing the
                 waiver. If you will be under 19 on {relevantDates.hackathonWeekend.split('-')[0]},
@@ -651,6 +616,41 @@ const Dashboard = ({
               />
             </QuestionContainer>
 
+            <QuestionContainer>
+              <SectionLabel>Other information</SectionLabel>
+            </QuestionContainer>
+
+            {askSafewalk && (
+              <SelectContainer>
+                <QuestionLabel>Safewalk</QuestionLabel>
+                <P>
+                  While {copyText[activeHackathon].hackathonNameShort} is a 24 hour hackathon, you
+                  are not required to sleep there. If you live closeby, we recommend that you sleep
+                  at home on the night of {relevantDates.hackathonWeekend.split('-')[0]}. For
+                  safety, we are offering a service where nwPlus organizers or volunteers walk
+                  hackers anywhere on campus.
+                </P>
+                <Checkbox
+                  checked={safewalk}
+                  onChange={handleSafewalkChange}
+                  label="Yes, I would like to request this service"
+                />
+              </SelectContainer>
+            )}
+
+            <QuestionContainer>
+              <QuestionLabel>Sponsor Email Consent</QuestionLabel>
+              <P>
+                Would you like to receive hiring opportunities, promotions, and information from
+                participating {copyText[activeHackathon].hackathonNameShort} sponsors?
+              </P>
+              <Checkbox
+                checked={sponsorEmailConsent}
+                onChange={handleSponsorEmailConsentChange}
+                label={`I authorize the use of my email to receive emails from ${copyText[activeHackathon].hackathonNameShort} sponsors`}
+              />
+            </QuestionContainer>
+
             <SelectContainer>
               <QuestionLabel>
                 {copyText[activeHackathon].hackathonName} Feature Preference
@@ -659,29 +659,26 @@ const Dashboard = ({
                 We are looking for people to be featured in interview videos about their experience
                 at {copyText[activeHackathon].hackathonNameShort}. Filming will take ~10 mins and
                 will take place during the hackathon. If chosen, our team will reach out with
-                further instructions. Are you interested in participating?{' '}
+                further instructions.
               </P>
-              <SelectOptionContainer>
-                <Checkbox
-                  checked={marketingFeature}
-                  onChange={() => handleMarketingFeatureChange(true)}
-                  label="Yes"
-                />
-              </SelectOptionContainer>
-              <SelectOptionContainer>
-                <Checkbox
-                  checked={!marketingFeature}
-                  onChange={() => handleMarketingFeatureChange(false)}
-                  label="No"
-                />
-              </SelectOptionContainer>
+              <Checkbox
+                checked={marketingFeature}
+                onChange={handleMarketingFeatureChange}
+                label="Yes, I am interested in participating in feature videos"
+              />
             </SelectContainer>
 
-            {/* <SelectContainer>
+            <SelectContainer>
               <QuestionLabel>nwMentorship Program</QuestionLabel>
               <P>
-                I would like to participate in the nwMentorship program to connect with an industry
-                mentor and have submitted my interest through this{' '}
+                nwMentorship is a program that runs from January 2025 to March 2025 designed to
+                foster professional and personal growth by connecting experienced mentors with
+                hackers seeking guidance and industry insight.
+              </P>
+              {/* hardcoded for nwHacks */}
+              <P>
+                If interested in participating in nwMentorship as a mentee and can commit 3-5 hours
+                per month to the program, please fill out this {'  '}
                 <A
                   bolded
                   color="primary"
@@ -690,32 +687,15 @@ const Dashboard = ({
                   href={waiversAndForms.nwMentorship}
                 >
                   Google Form
-                </A>{' '}
+                </A>
+                {'  '} by Jan 8th, 11:59pm.
               </P>
-              <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="nwMentorshipYes"
-                  name="nwMentorshipYes"
-                  value="nwMentorshipYes"
-                  checked={nwMentorship === 'nwMentorshipYes'}
-                  onChange={handleNwMentorshipSelectChange}
-                />
-                <label htmlFor="nwMentorshipYes">Yes</label>
-              </SelectOptionContainer>
-
-              <SelectOptionContainer>
-                <input
-                  type="radio"
-                  id="nwMentorshipNo"
-                  name="nwMentorshipNo"
-                  value="nwMentorshipNo"
-                  checked={nwMentorship === 'nwMentorshipNo'}
-                  onChange={handleNwMentorshipSelectChange}
-                />
-                <label htmlFor="nwMentorshipNo">No</label>
-              </SelectOptionContainer>
-            </SelectContainer> */}
+              <Checkbox
+                checked={nwMentorship}
+                onChange={handleNwMentorshipChange}
+                label="Yes, I would like to participate in the nwMentorship program and have filled out the form"
+              />
+            </SelectContainer>
           </>
         )}
 
@@ -732,15 +712,7 @@ const Dashboard = ({
                 onClick={handleRSVPClick}
                 shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
                 color={canRSVP ? 'primary' : 'secondary'}
-                disabled={
-                  !(
-                    isRsvpOpen &&
-                    willBeAttending &&
-                    (askSafewalk ? safewalk : true) &&
-                    covidWaiver &&
-                    releaseLiability
-                  )
-                }
+                disabled={!(isRsvpOpen && willBeAttending && covidWaiver && releaseLiability)}
               >
                 RSVP
               </RSVPButton>

@@ -132,6 +132,15 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
+  const setSponsorEmailConsentCheck = sponsorEmailConsentCheck => {
+    updateApplication({
+      basicInfo: {
+        sponsorEmailConsentCheck,
+      },
+    })
+    forceSave()
+  }
+
   const setAgeOfMajoritySelect = ageOfMajoritySelect => {
     updateApplication({
       basicInfo: {
@@ -217,17 +226,33 @@ const ApplicationDashboardContainer = () => {
         }
         mediaConsentCheck={application.basicInfo.mediaConsentCheck || false}
         setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
+        sponsorEmailConsentCheck={
+          typeof application.basicInfo.sponsorEmailConsentCheck === 'boolean' &&
+          application.basicInfo.sponsorEmailConsentCheck
+        }
+        setSponsorEmailConsentCheck={sponsorEmailConsentCheck =>
+          setSponsorEmailConsentCheck(sponsorEmailConsentCheck)
+        }
         ageOfMajoritySelect={application.basicInfo.ageOfMajoritySelect || undefined}
         setAgeOfMajoritySelect={ageOfMajoritySelect => setAgeOfMajoritySelect(ageOfMajoritySelect)}
         willBeAttendingCheck={application.basicInfo.willBeAttendingCheck || false}
         setWillBeAttendingCheck={willBeAttendingCheck =>
           setWillBeAttendingCheck(willBeAttendingCheck)
         }
-        safewalkSelect={application.basicInfo.safewalkSelect || undefined}
+        safewalkSelect={
+          typeof application.basicInfo.safewalkSelect === 'boolean' &&
+          application.basicInfo.safewalkSelect
+        }
         setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}
-        // nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
-        // setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
-        marketingFeatureSelect={application.basicInfo.marketingFeatureSelect || undefined}
+        nwMentorshipSelect={
+          typeof application.basicInfo.nwMentorshipSelect === 'boolean' &&
+          application.basicInfo.nwMentorshipSelect
+        }
+        setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
+        marketingFeatureSelect={
+          typeof application.basicInfo.marketingFeatureSelect === 'boolean' &&
+          application.basicInfo.marketingFeatureSelect
+        }
         setMarketingFeatureSelect={marketingFeatureSelect =>
           setMarketingFeatureSelect(marketingFeatureSelect)
         }
