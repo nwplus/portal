@@ -105,15 +105,6 @@ const ApplicationDashboardContainer = () => {
   //   forceSave()
   // }
 
-  const setCovidWaiverCheck = covidWaiverCheck => {
-    updateApplication({
-      basicInfo: {
-        covidWaiverCheck,
-      },
-    })
-    forceSave()
-  }
-
   const setReleaseLiabilityCheck = releaseLiabilityCheck => {
     updateApplication({
       basicInfo: {
@@ -218,8 +209,6 @@ const ApplicationDashboardContainer = () => {
         canRSVP={canRSVP}
         // safewalkNote={application.basicInfo.safewalkNote || false}
         // setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
-        covidWaiverCheck={application.basicInfo.covidWaiverCheck || undefined}
-        setCovidWaiverCheck={covidWaiverCheck => setCovidWaiverCheck(covidWaiverCheck)}
         releaseLiabilityCheck={application.basicInfo.releaseLiabilityCheck || undefined}
         setReleaseLiabilityCheck={releaseLiabilityCheck =>
           setReleaseLiabilityCheck(releaseLiabilityCheck)

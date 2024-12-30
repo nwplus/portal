@@ -387,8 +387,6 @@ const Dashboard = ({
   setRSVP,
   safewalkNote,
   setSafewalkInput,
-  covidWaiverCheck,
-  setCovidWaiverCheck,
   releaseLiabilityCheck,
   setReleaseLiabilityCheck,
   mediaConsentCheck,
@@ -417,7 +415,6 @@ const Dashboard = ({
 }) => {
   const { activeHackathon } = useHackathon()
   // const [safewalk, setSafewalkCheckbox] = useState(safewalkNote || false)
-  const [covidWaiver, setCovidWaiver] = useState(covidWaiverCheck || undefined)
   const [releaseLiability, setReleaseLiability] = useState(releaseLiabilityCheck || undefined)
   const [mediaConsent, setMediaConsent] = useState(mediaConsentCheck || undefined)
   const [sponsorEmailConsent, setSponsorEmailConsent] = useState(sponsorEmailConsentCheck || false)
@@ -437,11 +434,6 @@ const Dashboard = ({
   const handleSafewalkChange = () => {
     setSafewalk(!safewalk)
     setSafewalkSelect(!safewalk)
-  }
-
-  const handleCovidWaiverChange = () => {
-    setCovidWaiver(!covidWaiver)
-    setCovidWaiverCheck(!covidWaiverCheck)
   }
 
   const handleReleaseLiabilityChange = () => {
@@ -480,7 +472,7 @@ const Dashboard = ({
   }
 
   const handleRSVPClick = () => {
-    if (isRsvpOpen && willBeAttending && covidWaiver && releaseLiability) {
+    if (isRsvpOpen && willBeAttending && releaseLiability) {
       setRSVP(canRSVP)
     }
     if (!isRsvpOpen) {
@@ -565,29 +557,6 @@ const Dashboard = ({
                 checked={releaseLiability}
                 onChange={handleReleaseLiabilityChange}
                 label="I have read the Release of Liability Waiver and agree to its terms."
-              />
-            </QuestionContainer>
-
-            <QuestionContainer>
-              <QuestionLabel>
-                COVID Liability <Required />
-              </QuestionLabel>
-              <P>This waiver clarifies that nwPlus is not liable for any COVID-19 related risks.</P>
-              <WaiverLinkContainer>
-                <A
-                  bolded
-                  width="130px"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={waiversAndForms.covid}
-                >
-                  Read Full Waiver.
-                </A>{' '}
-              </WaiverLinkContainer>
-              <Checkbox
-                checked={covidWaiver}
-                onChange={handleCovidWaiverChange}
-                label="I have read the COVID Liability Waiver and agree to its terms."
               />
             </QuestionContainer>
 
@@ -712,7 +681,7 @@ const Dashboard = ({
                 onClick={handleRSVPClick}
                 shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
                 color={canRSVP ? 'primary' : 'secondary'}
-                disabled={!(isRsvpOpen && willBeAttending && covidWaiver && releaseLiability)}
+                disabled={!(isRsvpOpen && willBeAttending && releaseLiability)}
               >
                 RSVP
               </RSVPButton>
