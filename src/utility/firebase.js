@@ -41,8 +41,8 @@ export const applicantsRef = dbHackathonName => {
 export const projectsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Projects')
 }
-export const eventsRef = dbHackathonName => {
-  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Events')
+export const dayOfRef = dbHackathonName => {
+  return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('DayOf')
 }
 export const announcementsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Announcements')
@@ -58,7 +58,7 @@ export const getLivesiteDoc = callback => {
 }
 
 export const getEvents = async dbHackathonName => {
-  return (await eventsRef(dbHackathonName).get()).docs.map(doc => doc.data())
+  return (await dayOfRef(dbHackathonName).get()).docs.map(doc => doc.data())
 }
 
 const createNewApplication = async (user, dbHackathonName) => {
