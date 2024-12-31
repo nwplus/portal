@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import { useHackathon } from '../utility/HackathonProvider'
-import { applicantsRef, rewardsRef } from '../utility/firebase'
+import { applicantsRef, rewardsRef, getEvents } from '../utility/firebase'
 import RewardCard from '../components/RewardCard'
 import TotalPoints from '../components/Rewards/TotalPoints'
 import AttendedEvents from '../components/Rewards/AttendedEvents'
@@ -92,8 +92,30 @@ const Rewards = () => {
           return
         }
         const userData = userDoc.data()
-        const points = userData.points || 0
-        setUserPoints(points)
+
+        if (userData && dbHackathonName) {
+          const eventIds = userData.dayOf.events.map(event => event.eventId)
+          const events = await getEvents(dbHackathonName)
+          const filteredEvents = events.filter(event => eventIds.includes(event.key))
+          console.log(filteredEvents)
+          // setName(`${userData.basicInfo.preferredName} ${userData.basicInfo.legalLastName}`)
+          setUserPoints(
+            filteredEvents.reduce((accumulator, event) => {
+              const points = parseInt(event.points) // Attempt to convert to integer
+              if (!isNaN(points)) {
+                // Only add valid numbers
+                console.log('Adding Points:', points)
+                return accumulator + points
+              } else {
+                console.log('Skipping Invalid Points:', event.points)
+                return accumulator
+              }
+            }, 0)
+          )
+        }
+
+        // const points = userData.points || 0
+        // setUserPoints(points)
         setUserDetails(userData)
       } catch (error) {
         console.error('Error fetching user points:', error)
