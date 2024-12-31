@@ -5,17 +5,21 @@ const ChatbotContainer = styled.div`
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 2;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 16px;
 `
 
 const ChatbotToggle = styled.button`
-  background-color: #666ea2;
+  background-color: ${p => p.theme.colors.text};
   border: none;
   border-radius: 50%;
   height: 72px;
   width: 72px;
   color: white;
-  padding: 22px;
+  padding: 20px;
   font-size: 24px;
   cursor: pointer;
 `
@@ -23,23 +27,30 @@ const ChatbotToggle = styled.button`
 const Chatbox = styled.div`
   width: 300px;
   height: 400px;
-  background: white;
+  background: ${p => p.theme.colors.background};
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 250px;
+    height: 350px;
+  }
 `
 
-const ChatboxHeader = styled.div`
-  background: #666ea2;
+const ChatboxHeader = styled.h3`
+  background: ${p => p.theme.colors.sidebar.background};
   color: white;
-  padding: 0px 10px;
+  margin: 0;
+  padding: 16px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  font-size: 20px;
 `
 
 const ChatboxMessages = styled.div`
@@ -58,23 +69,30 @@ const Message = styled.div`
   padding: 10px 12px;
   max-width: 80%;
   border-radius: 5px;
-  background: ${({ role }) => (role === 'user' ? '#666EA2' : '#898c8f')};
+  background: ${({ role, theme }) => (role === 'user' ? theme.colors.text : 'white')};
   align-self: ${({ role }) => (role === 'user' ? 'flex-end' : 'flex-start')};
   word-wrap: break-word;
   overflow-wrap: break-word;
+  color: ${({ role }) => (role === 'user' ? 'white' : 'black')};
 `
 
 const ChatboxInput = styled.div`
+  position: relative;
   display: flex;
   border-top: 1px solid #ddd;
+  padding: 8px;
 `
 
 const Input = styled.input`
   flex: 1;
-  padding: 12px;
+  padding: 10px 70px 12px 12px;
   border: none;
-  border-bottom-left-radius: 10px;
-  font-family: HK Grotesk;
+  border-radius: 10px;
+  font-family: Hanken Grotesk;
+
+  @media (max-width: 768px) {
+    padding-right: 60px;
+  }
 `
 
 const TypingIndicator = styled.div`
@@ -84,21 +102,21 @@ const TypingIndicator = styled.div`
 `
 
 const SendButton = styled.button`
-  background: #666ea2;
+  position: absolute;
+  right: 14px;
+  top: 13.5px;
+  background: ${p => p.theme.colors.sidebar.background};
   border: none;
   color: white;
-  padding: 12px;
+  padding: 6px 14px;
   cursor: pointer;
-  border-bottom-right-radius: 10px;
+  border-radius: 7px;
   font-family: HK Grotesk;
-`
+  font-weight: bold;
 
-const XButton = styled.button`
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
+  @media (max-width: 768px) {
+    padding: 6px 10px;
+  }
 `
 
 const Chatbot = () => {
@@ -135,12 +153,9 @@ const Chatbot = () => {
 
   return (
     <ChatbotContainer>
-      {isOpen ? (
+      {isOpen && (
         <Chatbox>
-          <ChatboxHeader>
-            <h3>nwChatbot</h3>
-            <XButton onClick={toggleChatbox}>x</XButton>
-          </ChatboxHeader>
+          <ChatboxHeader>nwChatbot</ChatboxHeader>
           <ChatboxMessages>
             {messages.map((msg, index) => (
               <Message key={index} role={msg.role}>
@@ -160,9 +175,22 @@ const Chatbot = () => {
             <SendButton onClick={handleSend}>Send</SendButton>
           </ChatboxInput>
         </Chatbox>
-      ) : (
-        <ChatbotToggle onClick={toggleChatbox}>💬</ChatbotToggle>
       )}
+
+      <ChatbotToggle onClick={toggleChatbox}>
+        {!isOpen ? (
+          '💬'
+        ) : (
+          <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+            <path
+              d="M2 2L13 13L24 2"
+              stroke="white"
+              stroke-width="3.38462"
+              stroke-linecap="round"
+            />
+          </svg>
+        )}
+      </ChatbotToggle>
     </ChatbotContainer>
   )
 }
