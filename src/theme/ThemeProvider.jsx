@@ -178,7 +178,7 @@ const nwHacksTheme = {
       textDefault: '#EBEBEB',
       backgroundSelected: '#1A94BC',
       textHover: '#FFFFFF',
-      backgroundHover: '#A8138C',
+      backgroundHover: '#1A94BC',
     },
 
     // buttons
