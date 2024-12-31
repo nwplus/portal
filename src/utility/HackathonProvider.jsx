@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { useLocation } from 'wouter'
 import { DB_HACKATHON_NAMES, VALID_HACKATHONS } from './Constants'
 
 const HackathonContext = createContext()
@@ -12,18 +13,13 @@ function getValidHackathon(hackathon) {
 }
 
 export default function HackathonProvider({ children }) {
-  const storedHackathon = localStorage.getItem('activeHackathon')
-  const initialHackathon = getValidHackathon(storedHackathon || '')
-  const [activeHackathon, setActiveHackathon] = useState(initialHackathon)
-  const [dbHackathonName, setDbHackathonName] = useState(DB_HACKATHON_NAMES[initialHackathon])
-
-  useEffect(() => {
-    localStorage.setItem('activeHackathon', activeHackathon)
-    setDbHackathonName(DB_HACKATHON_NAMES[activeHackathon])
-  }, [activeHackathon])
+  const [location] = useLocation()
+  const urlHackathon = location.split('/')[2]?.toLowerCase()
+  const activeHackathon = getValidHackathon(urlHackathon || '')
+  const dbHackathonName = DB_HACKATHON_NAMES[activeHackathon]
 
   return (
-    <HackathonContext.Provider value={{ activeHackathon, setActiveHackathon, dbHackathonName }}>
+    <HackathonContext.Provider value={{ activeHackathon, dbHackathonName }}>
       {children}
     </HackathonContext.Provider>
   )

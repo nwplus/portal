@@ -64,7 +64,11 @@ const ApplicationDashboardContainer = () => {
     } else {
       hackerStatus = 'acceptedNoRSVP'
     }
-  } else if (applicationStatus === 'scored') {
+  } else if (
+    applicationStatus === 'scored' ||
+    applicationStatus === 'gradinginprog' ||
+    applicationStatus == 'ungraded'
+  ) {
     hackerStatus = 'applied'
   } else {
     hackerStatus = applicationStatus
@@ -101,15 +105,6 @@ const ApplicationDashboardContainer = () => {
   //   forceSave()
   // }
 
-  const setCovidWaiverCheck = covidWaiverCheck => {
-    updateApplication({
-      basicInfo: {
-        covidWaiverCheck,
-      },
-    })
-    forceSave()
-  }
-
   const setReleaseLiabilityCheck = releaseLiabilityCheck => {
     updateApplication({
       basicInfo: {
@@ -123,6 +118,15 @@ const ApplicationDashboardContainer = () => {
     updateApplication({
       basicInfo: {
         mediaConsentCheck,
+      },
+    })
+    forceSave()
+  }
+
+  const setSponsorEmailConsentCheck = sponsorEmailConsentCheck => {
+    updateApplication({
+      basicInfo: {
+        sponsorEmailConsentCheck,
       },
     })
     forceSave()
@@ -205,25 +209,39 @@ const ApplicationDashboardContainer = () => {
         canRSVP={canRSVP}
         // safewalkNote={application.basicInfo.safewalkNote || false}
         // setSafewalkInput={safewalkNote => setSafewalkInput(safewalkNote)}
-        covidWaiverCheck={application.basicInfo.covidWaiverCheck || undefined}
-        setCovidWaiverCheck={covidWaiverCheck => setCovidWaiverCheck(covidWaiverCheck)}
         releaseLiabilityCheck={application.basicInfo.releaseLiabilityCheck || undefined}
         setReleaseLiabilityCheck={releaseLiabilityCheck =>
           setReleaseLiabilityCheck(releaseLiabilityCheck)
         }
         mediaConsentCheck={application.basicInfo.mediaConsentCheck || false}
         setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
+        sponsorEmailConsentCheck={
+          typeof application.basicInfo.sponsorEmailConsentCheck === 'boolean' &&
+          application.basicInfo.sponsorEmailConsentCheck
+        }
+        setSponsorEmailConsentCheck={sponsorEmailConsentCheck =>
+          setSponsorEmailConsentCheck(sponsorEmailConsentCheck)
+        }
         ageOfMajoritySelect={application.basicInfo.ageOfMajoritySelect || undefined}
         setAgeOfMajoritySelect={ageOfMajoritySelect => setAgeOfMajoritySelect(ageOfMajoritySelect)}
         willBeAttendingCheck={application.basicInfo.willBeAttendingCheck || false}
         setWillBeAttendingCheck={willBeAttendingCheck =>
           setWillBeAttendingCheck(willBeAttendingCheck)
         }
-        safewalkSelect={application.basicInfo.safewalkSelect || undefined}
+        safewalkSelect={
+          typeof application.basicInfo.safewalkSelect === 'boolean' &&
+          application.basicInfo.safewalkSelect
+        }
         setSafewalkSelect={safewalkSelect => setSafewalkSelect(safewalkSelect)}
-        // nwMentorshipSelect={application.basicInfo.nwMentorshipSelect || undefined}
-        // setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
-        marketingFeatureSelect={application.basicInfo.marketingFeatureSelect || undefined}
+        nwMentorshipSelect={
+          typeof application.basicInfo.nwMentorshipSelect === 'boolean' &&
+          application.basicInfo.nwMentorshipSelect
+        }
+        setNwMentorshipSelect={nwMentorshipSelect => setNwMentorshipSelect(nwMentorshipSelect)}
+        marketingFeatureSelect={
+          typeof application.basicInfo.marketingFeatureSelect === 'boolean' &&
+          application.basicInfo.marketingFeatureSelect
+        }
         setMarketingFeatureSelect={marketingFeatureSelect =>
           setMarketingFeatureSelect(marketingFeatureSelect)
         }

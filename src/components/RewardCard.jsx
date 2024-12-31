@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import ReactCardFlip from 'react-card-flip'
 
 const Container = styled.div`
-  background-image: ${p => p.theme.colors.backgroundTertiary};
+  background-color: ${p => p.theme.colors.backgroundTertiary};
   border-radius: 8px;
   padding: 20px;
-  width: 280px;
-  height: 160px;
+  width: 300px;
+  height: 180px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -107,8 +107,7 @@ const Back = styled.div`
   cursor: pointer;
 `
 
-// commented code related to points for nwhacks
-const RewardCard = ({ name, desc, company, image, points, prizes }) => {
+const RewardCard = ({ name, desc, company, image, points, requiredPoints }) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const handleClick = e => {
@@ -118,45 +117,42 @@ const RewardCard = ({ name, desc, company, image, points, prizes }) => {
 
   let progress = 0
 
-  // if (points === maxPoints) {
-  //   progress = 1
-  //   req = 'Completed!'
-  // } else {
-  //   progress = points / maxPoints
-  // }
+  if (points === requiredPoints) {
+    progress = 1
+    req = 'Completed!'
+  } else {
+    progress = points / requiredPoints
+  }
 
   return (
-    // <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-    <Container>
-      {/* <InfoIcon onClick={handleClick}>i</InfoIcon> */}
-      <Grid>
-        <Icon src={image} />
-        <div>
-          <Title>{name}</Title>
-          {/* <Text>Reach {points} pts</Text> */}
-          <Text>
-            {desc} {company !== 'None' || (undefined && `from ${company}`)}
-          </Text>
-        </div>
-      </Grid>
-      {/* <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+      <Container>
+        <InfoIcon onClick={handleClick}>i</InfoIcon>
+        <Grid>
+          <Icon src={image} />
+          <div>
+            <Title>{name}</Title>
+            <Text>Reach {requiredPoints - points} pts</Text>
+          </div>
+        </Grid>
+        <div style={{ justifyContent: 'center', alignItems: 'center' }}>
           <SubTitle>
-            {points}/{maxPoints} pts
+            {points}/{requiredPoints} pts
           </SubTitle>
           <ProgressContainer>
             <ProgressBar value={progress} />
           </ProgressContainer>
-        </div> */}
-    </Container>
+        </div>
+      </Container>
 
-    //   <Back onClick={handleClick}>
-    //     <Container>
-    //       <Description>
-    //         {desc} {company !== 'None' && `from ${company}`}
-    //       </Description>
-    //     </Container>
-    //   </Back>
-    // </ReactCardFlip>
+      <Back onClick={handleClick}>
+        <Container>
+          <Description>
+            {desc} {company && company !== 'None' ? `from ${company}` : ''}
+          </Description>
+        </Container>
+      </Back>
+    </ReactCardFlip>
   )
 }
 

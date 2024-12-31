@@ -8,7 +8,7 @@ import QrCode from '../components/QrCode'
 import { useAuth } from '../utility/Auth'
 // import Hackcamp2023BG from '../components/BackgroundImage'
 import { APPLICATION_STATUS } from '../utility/Constants'
-import backgroundImage from '../assets/hc_background.svg'
+import hc_background from '../assets/hc_background.svg'
 import mobileBackgroundImage from '../assets/cmdf_mobilebg.svg'
 import { copyText } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
@@ -63,6 +63,14 @@ const HomeContainerBackground = styled.div`
 export default withTheme(({ announcements, theme }) => {
   const { user, isAuthed } = useAuth()
   const { activeHackathon } = useHackathon()
+
+  const backgroundImages = {
+    hackcamp: hc_background,
+    // 'cmd-f': cmdfLoginBackground,
+    // 'nwhacks': nwHacksLoginBackground
+  }
+
+  const backgroundImage = backgroundImages[activeHackathon] || ''
 
   return (
     <>

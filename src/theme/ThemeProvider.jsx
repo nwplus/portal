@@ -155,7 +155,7 @@ const nwHacksTheme = {
   colors: {
     background: '#EDDECC',
     backgroundSecondary: '#E2D0BA',
-    backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
+    backgroundTertiary: '#FFEDD7',
     text: '#3A2F21',
     textSecondary: '#01033D',
     highlight: '#30C55A',
@@ -172,13 +172,13 @@ const nwHacksTheme = {
     // sidebar
     sidebar: {
       background: 'linear-gradient(191.3deg, #77CFDC -57.93%, #23A2CE 78.18%)',
-      backgroundSecondary: '#EDDECC',
+      backgroundSecondary: 'transparent',
       textSectionHeader: '#F9C745',
       textSelected: '#FFFFFF',
       textDefault: '#EBEBEB',
       backgroundSelected: '#1A94BC',
       textHover: '#FFFFFF',
-      backgroundHover: '#A8138C',
+      backgroundHover: '#1A94BC',
     },
 
     // buttons
@@ -187,7 +187,7 @@ const nwHacksTheme = {
         text: '#3A2F21',
         background: {
           default: 'linear-gradient(90deg, #F1BC3E 26.5%, #ECB32A 100%)',
-          hover: 'linear-gradient(90deg, #F7D175 0%, #FBC951 100%);',
+          hover: 'linear-gradient(90deg, #F7D175 0%, #FBC951 100%)',
           clicked: 'linear-gradient(90deg, #F3BC3A 0%, #DDA419 100%)',
         },
       },
@@ -230,7 +230,7 @@ const nwHacksTheme = {
       border: '#453017',
       background: {
         default: 'transparent',
-        hover: '#75AEE2',
+        hover: '#D4BEA4',
       },
     },
     dropdown: {
