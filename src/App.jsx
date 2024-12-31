@@ -42,6 +42,7 @@ import { db, getAnnouncement } from './utility/firebase'
 import notifications from './utility/notifications'
 import Loading from './components/Loading'
 import HackathonSelection from './pages/HackathonSelection'
+import AIChatbot from './components/AIChatbot'
 
 function App() {
   const [announcementText, setAnnouncementText] = useState('')
@@ -100,6 +101,7 @@ function App() {
   return (
     <ThemeProvider>
       <GlobalStyle />
+      <AIChatbot />
       <AuthProvider>
         {/* <AnnouncementToast text={announcementText} /> */}
         <Switch>
