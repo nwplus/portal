@@ -3,11 +3,11 @@ import { getEvents } from '../../utility/firebase'
 import { useHackathon } from '../../utility/HackathonProvider'
 import { useState, useEffect } from 'react'
 
-const TotalPointsName = styled.h2`
-  color: ${p => p.theme.colors.highlight};
-  font-weight: 700;
-  font-size: 30px;
-`
+// const TotalPointsName = styled.h2`
+//   color: ${p => p.theme.colors.highlight};
+//   font-weight: 700;
+//   font-size: 30px;
+// `
 
 const TotalPointsCard = styled.div`
   background: ${p => p.theme.colors.backgroundTertiary};
@@ -35,7 +35,7 @@ const PointsValue = styled.div`
 
 const TotalPoints = ({ userDetails }) => {
   const { dbHackathonName } = useHackathon()
-  const [name, setName] = useState('')
+  // const [name, setName] = useState('')
   const [totalPoints, setTotalPoints] = useState(0)
 
   useEffect(() => {
@@ -44,11 +44,19 @@ const TotalPoints = ({ userDetails }) => {
         const eventIds = userDetails.dayOf.events.map(event => event.eventId)
         const events = await getEvents(dbHackathonName)
         const filteredEvents = events.filter(event => eventIds.includes(event.key))
-
-        setName(`${userDetails.basicInfo.preferredName} ${userDetails.basicInfo.legalLastName}`)
+        console.log(filteredEvents)
+        // setName(`${userDetails.basicInfo.preferredName} ${userDetails.basicInfo.legalLastName}`)
         setTotalPoints(
           filteredEvents.reduce((accumulator, event) => {
-            return accumulator + parseInt(event.points)
+            const points = parseInt(event.points) // Attempt to convert to integer
+            if (!isNaN(points)) {
+              // Only add valid numbers
+              console.log('Adding Points:', points)
+              return accumulator + points
+            } else {
+              console.log('Skipping Invalid Points:', event.points)
+              return accumulator
+            }
           }, 0)
         )
       }
@@ -57,10 +65,10 @@ const TotalPoints = ({ userDetails }) => {
 
   return (
     <div>
-      <TotalPointsName>{name}</TotalPointsName>
+      {/* <TotalPointsName>{name}</TotalPointsName> */}
       <TotalPointsCard>
         <PointsTitle>TOTAL POINTS</PointsTitle>
-        <PointsValue>{totalPoints.toLocaleString()} pts</PointsValue>
+        <PointsValue>{totalPoints ? totalPoints : 0} pts</PointsValue>
       </TotalPointsCard>
     </div>
   )
