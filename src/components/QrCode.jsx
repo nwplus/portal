@@ -64,7 +64,7 @@ const QRCodeDesign = styled.div`
   `}
 
   ${p => p.theme.mediaQueries.mobile} {
-    left: 30px;
+    left: 40px;
     top: 40px;
   }
 `
@@ -97,6 +97,13 @@ const QR = styled.div`
     `
     margin-top: 20px;
   `}
+
+  ${p => p.theme.mediaQueries.mobile} {
+    canvas {
+      max-width: 125px;
+      max-height: 125px;
+    }
+  }
 `
 
 const QRTags = styled.div`
