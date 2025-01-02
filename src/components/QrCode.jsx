@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useQRCode } from 'next-qrcode'
-// import JsPDF from 'jspdf'
-// import html2canvas from 'html2canvas'
-import qrcodeBackground from '../assets/hc2024qrcode.svg'
+import hcQrBackground from '../assets/hc2024qrcode.svg'
+import nwHacksQrBackground from '../assets/nwhacks2025qrcode.svg'
 import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
+import { useHackathon } from '../utility/HackathonProvider'
 
 const QRContainer = styled.div`
   display: flex;
@@ -56,6 +56,13 @@ const QRCodeDesign = styled.div`
   border-radius: 20px;
   z-index: 10;
 
+  ${p =>
+    p.hackathon === 'nwhacks' &&
+    `
+    left: 60px;
+    top: 50px;
+  `}
+
   ${p => p.theme.mediaQueries.mobile} {
     left: 30px;
     top: 40px;
@@ -82,6 +89,14 @@ const HackerEmail = styled.p`
   ${p => p.theme.mediaQueries.mobile} {
     font-size: 1em;
   }
+`
+
+const QR = styled.div`
+  ${p =>
+    p.hackathon === 'nwhacks' &&
+    `
+    margin-top: 20px;
+  `}
 `
 
 const QRTags = styled.div`
@@ -181,14 +196,23 @@ const AppleWalletButton = styled.button`
 
 const QrCode = ({ userInfo, userId }) => {
   const { Canvas } = useQRCode()
+  const { activeHackathon } = useHackathon()
 
-  const downloadAppleWalletPass = () => {
-    const userId = userInfo.uid
-    const name = userInfo.displayName
-    const email = userInfo.email
-    const url = `https://us-central1-wallet-cloud-func.cloudfunctions.net/getAppleWalletPass?userId=${userId}&name=${name}&email=${email}`
-    window.location.href = url
+  const backgrounds = {
+    'hackcamp': hcQrBackground,
+    'nwhacks': nwHacksQrBackground,
+    'cmd-f': nwHacksQrBackground,
   }
+
+  const qrcodeBackground = backgrounds[activeHackathon] || nwHacksQrBackground
+
+  // const downloadAppleWalletPass = () => {
+  //   const userId = userInfo.uid
+  //   const name = userInfo.displayName
+  //   const email = userInfo.email
+  //   const url = `https://us-central1-wallet-cloud-func.cloudfunctions.net/getAppleWalletPass?userId=${userId}&name=${name}&email=${email}`
+  //   window.location.href = url
+  // }
 
   return (
     <QRContainer>
@@ -196,29 +220,30 @@ const QrCode = ({ userInfo, userId }) => {
 
       <QRTicketContainer>
         <QRCodeBackground src={qrcodeBackground} />
-        <QRCodeDesign id="QRCodeContainer">
+        <QRCodeDesign id="QRCodeContainer" hackathon={activeHackathon}>
           <HackerName>{userInfo.displayName}</HackerName>
           <HackerEmail>{userInfo.email}</HackerEmail>
 
-          <QRTags>
-            {/* {userInfo.safewalkNote ? <SafeWalk>SafeWalk: Yes</SafeWalk> : <SafeWalk >SafeWalk: No</SafeWalk>}
+          {/* <QRTags>
+            {userInfo.safewalkNote ? <SafeWalk>SafeWalk: Yes</SafeWalk> : <SafeWalk >SafeWalk: No</SafeWalk>}
               <ShirtSize></ShirtSize>
-              <Allergies></Allergies> */}
-          </QRTags>
-
-          <Canvas
-            text={userId}
-            options={{
-              level: 'M',
-              margin: 2,
-              scale: 4.5,
-              // width: '100%',
-              color: {
-                dark: '#000000',
-                light: '#FFFFFF',
-              },
-            }}
-          />
+              <Allergies></Allergies>
+          </QRTags> */}
+          <QR hackathon={activeHackathon}>
+            <Canvas
+              text={userId}
+              options={{
+                level: 'M',
+                margin: 2,
+                scale: 4.5,
+                // width: '100%',
+                color: {
+                  dark: '#000000',
+                  light: '#FFFFFF',
+                },
+              }}
+            />
+          </QR>
 
           {/* <AppleWalletButton onClick={() => downloadAppleWalletPass()} /> */}
         </QRCodeDesign>
