@@ -183,6 +183,7 @@ const Sidebar = ({
   isJudgingReleased,
   isSubmissionsOpen,
   isApplicationOpen,
+  isPortalLive,
   hideSidebarCallback,
   hackerStatus,
 }) => {
@@ -291,7 +292,7 @@ const Sidebar = ({
         {/* <SponsorIcon src={poweredBy} alt="powered by Livepeer" /> */}
       </LogoContainer>
       <ItemsContainer>
-        {!hackerStatus || hackerStatus === 'acceptedAndAttending' ? (
+        {!hackerStatus || (hackerStatus === 'acceptedAndAttending' && isPortalLive) ? (
           <>
             {Object.entries(links).map((t, k) => {
               return (

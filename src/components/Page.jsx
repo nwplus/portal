@@ -49,6 +49,7 @@ const Page = ({ hackerStatus, children }) => {
         isJudgingReleased={livesiteDoc.judgingReleased[activeHackathon]}
         isSubmissionsOpen={livesiteDoc.submissionsOpen[activeHackathon]}
         isApplicationOpen={livesiteDoc.applicationsOpen[activeHackathon]}
+        isPortalLive={livesiteDoc.portalLive[activeHackathon]}
         showMobileSidebar={showMobileSidebar}
         hideSidebarCallback={() => setShowMobileSidebar(false)}
         hackerStatus={hackerStatus}
