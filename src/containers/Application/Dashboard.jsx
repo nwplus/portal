@@ -7,6 +7,7 @@ import { uploadWaiverToStorage, useHackerApplication } from '../../utility/Hacke
 import { MAX_WAIVER_FILE_SIZE_MB } from '../../utility/Validation'
 import { currentHackathonRef, getLivesiteDoc, livesiteDocRef } from '../../utility/firebase'
 import { useHackathon } from '../../utility/HackathonProvider'
+import Loading from '../../components/Loading'
 
 const ApplicationDashboardContainer = () => {
   const { activeHackathon, dbHackathonName } = useHackathon()
@@ -48,6 +49,10 @@ const ApplicationDashboardContainer = () => {
     })
     return unsubscribe
   }, [activeHackathon])
+
+  if (!application) {
+    return <Loading />
+  }
 
   const { applicationStatus, responded, attending } = application.status
   let hackerStatus
