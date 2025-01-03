@@ -68,9 +68,18 @@ const AttendedEvents = ({ userDetails }) => {
           {events.map((event, i) => (
             <AttendedEventsCard
               key={i}
-              name={event.title}
-              time={new Date(event.date.seconds * 1000).toLocaleString()}
-              points={event.points}
+              name={event.name}
+              startTime={new Date(event.startTime).toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+              })}
+              endTime={new Date(event.endTime).toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+              })}
+              points={event.points ? event.points : '0'}
               color={event_type[event.type]?.colour ?? 'gray'}
             />
           ))}

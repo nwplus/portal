@@ -65,14 +65,16 @@ const PointsText = styled(P)`
 /**
  * @param {AttendedEventsCardProps} param0
  */
-const AttendedEventsCard = ({ name, time, points, color }) => {
+const AttendedEventsCard = ({ name, startTime, endTime, points, color }) => {
   return (
     <AttendedEventsCardContainer>
       <CheckmarkSVG color={color} />
       <EventDetailsContainer>
         <EventDetails>
           <EventName>{name}</EventName>
-          <EventTime>{time}</EventTime>
+          <EventTime>
+            {startTime} - {endTime}
+          </EventTime>
         </EventDetails>
         <TagPointsContainer>
           <StyledSVG color={color} />

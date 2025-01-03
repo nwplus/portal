@@ -178,7 +178,7 @@ const nwHacksTheme = {
       textDefault: '#EBEBEB',
       backgroundSelected: '#1A94BC',
       textHover: '#FFFFFF',
-      backgroundHover: '#A8138C',
+      backgroundHover: '#1A94BC',
     },
 
     // buttons
@@ -187,7 +187,7 @@ const nwHacksTheme = {
         text: '#3A2F21',
         background: {
           default: 'linear-gradient(90deg, #F1BC3E 26.5%, #ECB32A 100%)',
-          hover: 'linear-gradient(90deg, #F7D175 0%, #FBC951 100%);',
+          hover: 'linear-gradient(90deg, #F7D175 0%, #FBC951 100%)',
           clicked: 'linear-gradient(90deg, #F3BC3A 0%, #DDA419 100%)',
         },
       },
@@ -230,7 +230,7 @@ const nwHacksTheme = {
       border: '#453017',
       background: {
         default: 'transparent',
-        hover: '#75AEE2',
+        hover: '#D4BEA4',
       },
     },
     dropdown: {
