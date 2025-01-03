@@ -283,6 +283,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
     blurb: `Congratulations! We loved the passion and drive we saw in your application, and we'd love even more for you to join us at ${copyText[activeHackathon]?.hackathonName} over the weekend of ${relevantDates?.hackathonWeekend}! Please RSVP before ${relevantDates?.rsvpBy} to confirm your spot.`,
   },
   acceptedAndAttending: {
+    sidebarText: "RSVP'd!",
     cardText: (
       <>
         Accepted &amp; RSVP'd{' '}
