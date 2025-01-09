@@ -119,7 +119,6 @@ const RewardCard = ({ name, desc, company, image, points, requiredPoints }) => {
 
   if (points === requiredPoints) {
     progress = 1
-    req = 'Completed!'
   } else {
     progress = points / requiredPoints
   }
@@ -132,13 +131,23 @@ const RewardCard = ({ name, desc, company, image, points, requiredPoints }) => {
           <Icon src={image} />
           <div>
             <Title>{name}</Title>
-            <Text>Reach {requiredPoints - points} pts</Text>
+            {points >= requiredPoints ? (
+              <Text>Completed!</Text>
+            ) : (
+              <Text>Reach {requiredPoints - points} pts</Text>
+            )}
           </div>
         </Grid>
         <div style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <SubTitle>
-            {points}/{requiredPoints} pts
-          </SubTitle>
+          {points >= requiredPoints ? (
+            <SubTitle>
+              {requiredPoints}/{requiredPoints} pts
+            </SubTitle>
+          ) : (
+            <SubTitle>
+              {points}/{requiredPoints} pts
+            </SubTitle>
+          )}
           <ProgressContainer>
             <ProgressBar value={progress} />
           </ProgressContainer>

@@ -128,6 +128,15 @@ const ApplicationDashboardContainer = () => {
     forceSave()
   }
 
+  const setCheckInDisclaimerCheck = checkInDisclaimerCheck => {
+    updateApplication({
+      basicInfo: {
+        checkInDisclaimerCheck,
+      },
+    })
+    forceSave()
+  }
+
   const setSponsorEmailConsentCheck = sponsorEmailConsentCheck => {
     updateApplication({
       basicInfo: {
@@ -220,6 +229,13 @@ const ApplicationDashboardContainer = () => {
         }
         mediaConsentCheck={application.basicInfo.mediaConsentCheck || false}
         setMediaConsentCheck={mediaConsentCheck => setMediaConsentCheck(mediaConsentCheck)}
+        checkInDisclaimerCheck={
+          typeof application.basicInfo.checkInDisclaimerCheck === 'boolean' &&
+          application.basicInfo.checkInDisclaimerCheck
+        }
+        setCheckInDisclaimerCheck={checkInDisclaimerCheck =>
+          setCheckInDisclaimerCheck(checkInDisclaimerCheck)
+        }
         sponsorEmailConsentCheck={
           typeof application.basicInfo.sponsorEmailConsentCheck === 'boolean' &&
           application.basicInfo.sponsorEmailConsentCheck
