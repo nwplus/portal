@@ -398,6 +398,8 @@ const Dashboard = ({
   setAgeOfMajoritySelect,
   willBeAttendingCheck,
   setWillBeAttendingCheck,
+  checkInDisclaimerCheck,
+  setCheckInDisclaimerCheck,
   safewalkSelect,
   setSafewalkSelect,
   nwMentorshipSelect,
@@ -421,6 +423,7 @@ const Dashboard = ({
   const [sponsorEmailConsent, setSponsorEmailConsent] = useState(sponsorEmailConsentCheck || false)
   // const [ageOfMajority, setAgeOfMajority] = useState(ageOfMajoritySelect || undefined)
   const [willBeAttending, setWillBeAttending] = useState(willBeAttendingCheck || false)
+  const [checkInDisclaimer, setCheckInDisclaimer] = useState(checkInDisclaimerCheck || undefined)
   const [safewalk, setSafewalk] = useState(safewalkSelect || false)
   const [nwMentorship, setNwMentorship] = useState(nwMentorshipSelect || false)
   const [marketingFeature, setMarketingFeature] = useState(marketingFeatureSelect || false)
@@ -445,6 +448,11 @@ const Dashboard = ({
   const handleMediaConsentChange = () => {
     setMediaConsent(!mediaConsent)
     setMediaConsentCheck(!mediaConsentCheck)
+  }
+
+  const handleCheckInDisclaimerChange = () => {
+    setCheckInDisclaimer(!checkInDisclaimer)
+    setCheckInDisclaimerCheck(!checkInDisclaimerCheck)
   }
 
   const handleSponsorEmailConsentChange = () => {
@@ -473,7 +481,7 @@ const Dashboard = ({
   }
 
   const handleRSVPClick = () => {
-    if (isRsvpOpen && willBeAttending && releaseLiability) {
+    if (isRsvpOpen && willBeAttending && releaseLiability && checkInDisclaimer) {
       setRSVP(canRSVP)
     }
     if (!isRsvpOpen) {
@@ -590,6 +598,22 @@ const Dashboard = ({
               <SectionLabel>Other information</SectionLabel>
             </QuestionContainer>
 
+            <QuestionContainer>
+              <QuestionLabel>
+                Check-in Disclaimer <Required />
+              </QuestionLabel>
+              <P>
+                I understand that if I do not arrive during the designated check-in period, my spot
+                may be given to someone else. In this case my RSVP does not guarantee entry to the
+                event.
+              </P>
+              <Checkbox
+                checked={checkInDisclaimer}
+                onChange={handleCheckInDisclaimerChange}
+                label="I agree"
+              />
+            </QuestionContainer>
+
             {askSafewalk && (
               <SelectContainer>
                 <QuestionLabel>Safewalk</QuestionLabel>
@@ -682,7 +706,7 @@ const Dashboard = ({
                 onClick={handleRSVPClick}
                 shouldDisplay={canRSVP || hackerStatus === 'acceptedAndAttending'}
                 color={canRSVP ? 'primary' : 'secondary'}
-                disabled={!(isRsvpOpen && willBeAttending && releaseLiability)}
+                disabled={!(isRsvpOpen && willBeAttending && releaseLiability && checkInDisclaimer)}
               >
                 RSVP
               </RSVPButton>
