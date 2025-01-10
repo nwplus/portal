@@ -26,11 +26,13 @@ const SponsorImage = styled.img`
 
 const maxSponsorWidth = 250
 const tierRanks = {
-  platinum: 0,
-  gold: 1,
-  silver: 2,
-  bronze: 3,
-  inkind: 4,
+  title: 0,
+  platinum: 1,
+  gold: 2,
+  silver: 3,
+  bronze: 4,
+  startup: 5,
+  inkind: 6,
 }
 
 const SponsorLogos = ({ sponsors }) => {
