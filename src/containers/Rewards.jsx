@@ -147,6 +147,7 @@ const Rewards = () => {
             <RewardCard
               key={index}
               name={reward.reward}
+              type={reward.type}
               desc={reward.blurb}
               company={reward.from}
               image={reward.imgURL}
