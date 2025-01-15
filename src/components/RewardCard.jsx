@@ -107,7 +107,7 @@ const Back = styled.div`
   cursor: pointer;
 `
 
-const RewardCard = ({ name, desc, company, image, points, requiredPoints }) => {
+const RewardCard = ({ name, type, desc, company, image, points, requiredPoints }) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const handleClick = e => {
@@ -136,22 +136,25 @@ const RewardCard = ({ name, desc, company, image, points, requiredPoints }) => {
             ) : (
               <Text>Reach {requiredPoints - points} pts</Text>
             )}
+            {type === 'Raffle' ? <Text>Raffle Prize</Text> : type && <Text>Type: {type}</Text>}
           </div>
         </Grid>
-        <div style={{ justifyContent: 'center', alignItems: 'center' }}>
-          {points >= requiredPoints ? (
-            <SubTitle>
-              {requiredPoints}/{requiredPoints} pts
-            </SubTitle>
-          ) : (
-            <SubTitle>
-              {points}/{requiredPoints} pts
-            </SubTitle>
-          )}
-          <ProgressContainer>
-            <ProgressBar value={progress} />
-          </ProgressContainer>
-        </div>
+        {points > 0 && (
+          <div style={{ justifyContent: 'center', alignItems: 'center' }}>
+            {points >= requiredPoints ? (
+              <SubTitle>
+                {requiredPoints}/{requiredPoints} pts
+              </SubTitle>
+            ) : (
+              <SubTitle>
+                {points}/{requiredPoints} pts
+              </SubTitle>
+            )}
+            <ProgressContainer>
+              <ProgressBar value={progress} />
+            </ProgressContainer>
+          </div>
+        )}
       </Container>
 
       <Back onClick={handleClick}>
