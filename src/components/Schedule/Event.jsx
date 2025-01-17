@@ -29,6 +29,11 @@ const EventLocation = styled(P)`
   font-style: italic;
 `
 
+const Points = styled(P)`
+  margin: 0;
+  margin-top: -0.5em;
+`
+
 const ToggleButton = styled.button`
   background-image: url(${expandButton});
   background-color: transparent;
@@ -150,6 +155,7 @@ const Event = ({ event }) => {
         {formatTime(event.startTime)} - {formatTime(event.endTime)}
       </TimeStamp>
       <EventLocation>{event.location}</EventLocation>
+      <Points>{event.points && `Points: ${event.points}`}</Points>
       <EventDescription ref={descriptionRef} expanded={expanded} maxHeight={maxHeight}>
         {event.description}
       </EventDescription>
