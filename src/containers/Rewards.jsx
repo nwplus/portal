@@ -97,17 +97,14 @@ const Rewards = () => {
           const eventIds = userData.dayOf.events.map(event => event.eventId)
           const events = await getEvents(dbHackathonName)
           const filteredEvents = events.filter(event => eventIds.includes(event.key))
-          console.log(filteredEvents)
           // setName(`${userData.basicInfo.preferredName} ${userData.basicInfo.legalLastName}`)
           setUserPoints(
             filteredEvents.reduce((accumulator, event) => {
               const points = parseInt(event.points) // Attempt to convert to integer
               if (!isNaN(points)) {
                 // Only add valid numbers
-                console.log('Adding Points:', points)
                 return accumulator + points
               } else {
-                console.log('Skipping Invalid Points:', event.points)
                 return accumulator
               }
             }, 0)
@@ -154,6 +151,7 @@ const Rewards = () => {
               points={userPoints}
               requiredPoints={reward.requiredPoints}
               prizes={reward.prizesAvailable}
+              redeemed={userDetails?.dayOf?.rewards?.some(r => r.rewardId === reward.key)}
             />
           ))}
         </Cards>
