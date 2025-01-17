@@ -14,6 +14,20 @@ const Container = styled.div`
   justify-content: center;
 `
 
+const RedeemedOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 20px;
+  padding: 10px;
+`
+
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -107,9 +121,8 @@ const Back = styled.div`
   cursor: pointer;
 `
 
-const RewardCard = ({ name, type, desc, company, image, points, requiredPoints }) => {
+const RewardCard = ({ name, type, desc, company, image, points, requiredPoints, redeemed }) => {
   const [isFlipped, setIsFlipped] = useState(false)
-
   const handleClick = e => {
     e.preventDefault()
     setIsFlipped(prevState => !prevState)
@@ -126,6 +139,7 @@ const RewardCard = ({ name, type, desc, company, image, points, requiredPoints }
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
       <Container>
+        {redeemed && <RedeemedOverlay>Already redeemed!</RedeemedOverlay>}
         <InfoIcon onClick={handleClick}>i</InfoIcon>
         <Grid>
           <Icon src={image} />
