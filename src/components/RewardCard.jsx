@@ -14,20 +14,6 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const RedeemedOverlay = styled.div`
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 20px;
-  padding: 10px;
-`
-
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -59,6 +45,12 @@ const SubTitle = styled.p`
   color: ${p => p.theme.colors.bar};
   text-align: right;
   margin-top: 8px;
+`
+
+const RedeemedText = styled(SubTitle)`
+  text-align: center;
+  margin-top: 8px;
+  padding-top: 8px;
 `
 
 const Icon = styled.img`
@@ -139,7 +131,6 @@ const RewardCard = ({ name, type, desc, company, image, points, requiredPoints, 
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
       <Container>
-        {redeemed && <RedeemedOverlay>Already redeemed!</RedeemedOverlay>}
         <InfoIcon onClick={handleClick}>i</InfoIcon>
         <Grid>
           <Icon src={image} />
@@ -153,7 +144,12 @@ const RewardCard = ({ name, type, desc, company, image, points, requiredPoints, 
             {type === 'Raffle' ? <Text>Raffle Prize</Text> : type && <Text>Type: {type}</Text>}
           </div>
         </Grid>
-        {points > 0 && (
+        {redeemed && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'end' }}>
+            <RedeemedText>Already redeemed!</RedeemedText>
+          </div>
+        )}
+        {points > 0 && !redeemed && (
           <div style={{ justifyContent: 'center', alignItems: 'center' }}>
             {points >= requiredPoints ? (
               <SubTitle>
