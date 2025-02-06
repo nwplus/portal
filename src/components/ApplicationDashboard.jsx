@@ -348,7 +348,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.IG}
         icon="instagram"
-        color="#FFF"
+        color="#324554"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('instagram')}
@@ -356,7 +356,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.FB}
         icon="facebook"
-        color="#FFF"
+        color="#324554"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('facebook')}
@@ -364,7 +364,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.MEDIUM}
         icon="medium"
-        color="#FFF"
+        color="#324554"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('medium')}
@@ -372,7 +372,7 @@ export const SocialMediaLinks = () => {
       <Icon
         href={SOCIAL_LINKS.TW}
         icon="x-twitter"
-        color="#FFF"
+        color="#324554"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('twitter')}
