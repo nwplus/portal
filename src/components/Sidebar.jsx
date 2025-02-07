@@ -131,10 +131,6 @@ const StyledButton = styled(Button)`
   text-transform: capitalize;
 `
 
-const ApplicationText = styled.div`
-  color: #ffffff;
-`
-
 const StatusText = styled.div`
   font-size: 0.8em;
   color: ${p => p.theme.colors.sidebar.secondary};
@@ -314,7 +310,7 @@ const Sidebar = ({
         ) : (
           <Link href={'/application'}>
             <StyledA selected={location === '/application'}>
-              <ApplicationText>APPLICATION</ApplicationText>
+              <div>APPLICATION</div>
               <StatusText>{hackerStatuses()[hackerStatus]?.sidebarText}</StatusText>
             </StyledA>
           </Link>
