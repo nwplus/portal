@@ -93,7 +93,7 @@ const Footer = () => {
         <Icon href={SOCIAL_LINKS.FB} icon="facebook" brand size="2x" color="#324554" />
         <Icon href={SOCIAL_LINKS.IG} icon="instagram" brand size="2x" color="#324554" />
         <Icon href={SOCIAL_LINKS.MEDIUM} icon="medium" brand size="2x" color="#324554" />
-        <Icon href={SOCIAL_LINKS.TW} icon="twitter" brand size="2x" color="#324554" />
+        {/* <Icon href={SOCIAL_LINKS.TW} icon="twitter" brand size="2x" color="#324554" /> */}
       </SocialIconContainer>
       <CopyrightBlurb>
         Copyright &copy; {new Date().getFullYear()} <A href={SOCIAL_LINKS.WEBSITE}>nwPlus</A>

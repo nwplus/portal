@@ -284,7 +284,7 @@ const GettingStarted = () => {
       </StyledP>
       <HR />
       <StyledH2>Tag Us on Social Media! #hackcamp2022</StyledH2>
-      <StyledP>Instagram, Facebook, Twitter: @nwplusubc</StyledP>
+      <StyledP>Instagram and Facebook: @nwplusubc</StyledP>
       <StyledP>
         Be sure to also follow all of our{' '}
         <A href="https://linktr.ee/nwplusubc" target="_blank" rel="noreferrer noopener">
