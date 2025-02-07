@@ -369,14 +369,14 @@ export const SocialMediaLinks = () => {
         size="2x"
         onClick={() => UpdateAnalytics('medium')}
       />
-      <Icon
+      {/* <Icon
         href={SOCIAL_LINKS.TW}
         icon="x-twitter"
         color="#FFF"
         brand
         size="2x"
         onClick={() => UpdateAnalytics('twitter')}
-      />
+      /> */}
     </SocialIconContainer>
   )
 }
