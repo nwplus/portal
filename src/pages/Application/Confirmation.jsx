@@ -12,6 +12,8 @@ const Confirmation = () => {
       heading="Thanks for Applying!"
       description="Stay tuned as we assess your application. Expect to hear from us soon."
       showFooter
+      hasHeader
+      showAltBackground
     >
       <ButtonContainer>
         <Button color="primary" width="flex" onClick={() => setLocation('/application')}>

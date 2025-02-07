@@ -9,7 +9,9 @@ export const useHackathon = function () {
 }
 
 function getValidHackathon(hackathon) {
-  return VALID_HACKATHONS.includes(hackathon) ? hackathon : 'nwhacks'
+  // TODO: right now this logic fails when we're on a non-hackathon specific page like login
+  // so for each hackathon we need to manually change fallback. This shouldn't be necessary ;-;
+  return VALID_HACKATHONS.includes(hackathon) ? hackathon : 'cmd-f'
 }
 
 export default function HackathonProvider({ children }) {
