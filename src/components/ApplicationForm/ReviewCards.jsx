@@ -484,8 +484,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
       <ReviewContainer>
         <QuestionHeading>Social Media</QuestionHeading>
         <SubHeading>
-          Connect with the community of nwPlus on Medium, and Facebook! Share your story and
-          excitement with us!
+          Connect with the community of nwPlus on Instagram, Facebook, and Medium! Share your story
+          and excitement with us!
         </SubHeading>
         <ContentWrapper textBlock>
           <SocialMediaLinks />
