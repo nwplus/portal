@@ -287,7 +287,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   data={
                     formInputs.questionnaire[question.formInput] === 'other' ||
                     formInputs.questionnaire[question.formInput] === 'Other'
-                      ? formInputs.questionnaire[toOtherCamelCase(question.formInput)]
+                      ? formInputs.questionnaire[question.formInput]
                       : formInputs.questionnaire[question.formInput]
                   }
                   type={question.type}
