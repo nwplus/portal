@@ -147,7 +147,6 @@ export default function HackathonSelection() {
         buttonHoverColor={'#E6E6E6'}
         applicationDeadline={applicationData.deadlines['cmd-f']}
         applicationOpen={applicationData.openStatuses['cmd-f']}
-        visitWebsite
       />
     </HackathonSelectionContainer>
   )
