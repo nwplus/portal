@@ -4,10 +4,12 @@ import VerticalProgressBar from '../../components/VerticalProgressBar'
 import { useLocation } from 'wouter'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
 import ReviewCards from '../../components/ApplicationForm/ReviewCards'
-import { APPLICATION_STATUS } from '../../utility/Constants'
+import { APPLICATION_STATUS, copyText } from '../../utility/Constants'
 import { validateFormSection, checkForError, validateEntireForm } from '../../utility/Validation'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const Review = () => {
+  const { activeHackathon } = useHackathon()
   const { application, updateApplication, forceSave } = useHackerApplication()
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
@@ -57,6 +59,41 @@ const Review = () => {
       })
     }
     await save()
+
+    try {
+      const currentTime = new Date()
+
+      const pstTime =
+        new Intl.DateTimeFormat('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+          timeZone: 'America/Los_Angeles',
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric',
+        }).format(currentTime) + ' PST'
+
+      await fetch('https://us-central1-nwplus-ubc.cloudfunctions.net/sendConfirmationEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          email: application.basicInfo.email,
+          timestamp: pstTime,
+          hackathonName: copyText[activeHackathon].hackathonName,
+        }),
+      })
+    } catch (error) {
+      console.error('Error sending confirmation email:', error)
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+      })
+    }
+
     setLocation('/application/confirmation')
     window.scrollTo(0, 0)
   }
