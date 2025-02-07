@@ -261,8 +261,8 @@ const cmdfTheme = {
   ...base,
   name: 'cmd-f',
   colors: {
-    background: '#C8E5F0',
-    backgroundSecondary: '#93BEE5',
+    background: '#F0E9D7',
+    backgroundSecondary: '#E2D0BA',
     backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
     text: '#45171A',
     textSecondary: '#01033D',
@@ -279,32 +279,32 @@ const cmdfTheme = {
 
     // sidebar
     sidebar: {
-      background: 'linear-gradient(191.3deg, #CF0A1F -57.93%, #5B0B4C 78.18%)',
+      background: '#4F2F22',
       backgroundSecondary: 'transparent',
-      textSectionHeader: '#F9C745',
-      textSelected: '#FFFFFF',
+      textSectionHeader: '#E5CEAD',
+      textSelected: '#4F2F22',
       textDefault: '#EBEBEB',
-      backgroundSelected: '#A8138C',
+      backgroundSelected: '#B8D2F3',
       textHover: '#FFFFFF',
-      backgroundHover: '#910F79',
+      backgroundHover: '#A6321E',
     },
 
     // buttons
     button: {
       primary: {
-        text: '#45171A',
+        text: '#F0E9D7',
         background: {
-          default: 'linear-gradient(90deg, #F9C745 0%, #F7891A 100%)',
-          hover: 'linear-gradient(90deg, #FFE090 0%, #FFA549 100%)',
-          clicked: 'linear-gradient(90deg, #E6B63A 0%, #EE851A 100%)',
+          default: '#456774',
+          hover: '#456774',
+          clicked: '#456774',
         },
       },
       secondary: {
-        text: '#45171A',
+        text: '#F0E9D7',
         background: {
-          default: '#F9C745',
-          hover: '#FFD569',
-          clicked: '#E4B63F',
+          default: '#A6321E',
+          hover: '#A6321E',
+          clicked: '#A6321E',
         },
       },
       warning: {
@@ -331,14 +331,14 @@ const cmdfTheme = {
     // form elements
     input: {
       border: '#45171A',
-      hover: '#A9158D',
+      hover: '#324554',
       disabled: '#B0B0B0',
     },
     select: {
       border: '#45171A',
       background: {
         default: 'transparent',
-        hover: '#75AEE2',
+        hover: '#B8D2F3',
       },
     },
     dropdown: {
