@@ -7,7 +7,7 @@ import { Button, Checkbox } from '../Input'
 import { A, H1, P, QuestionHeading, ErrorSpan as Required } from '../Typography'
 import { FormSpacing, SubHeading } from './index'
 import { useHackerApplication } from '../../utility/HackerApplicationContext'
-import { toOtherCamelCase } from '../../utility/utilities'
+import { toCamelCase, toOtherCamelCase } from '../../utility/utilities'
 import { copyText } from '../../utility/Constants'
 import { useHackathon } from '../../utility/HackathonProvider'
 
@@ -163,6 +163,12 @@ const InfoGroup = ({ heading, data, type, formInputs, formInput }) => {
         if (key === 'other') {
           const camelCaseKey = toOtherCamelCase(formInput)
           return formInputs[camelCaseKey]
+        } else if (key.toLowerCase() === 'hackcamp') {
+          return 'HackCamp'
+        } else if (key.toLowerCase() === 'nwhacks') {
+          return 'nwHacks'
+        } else if (key.toLowerCase() === 'cmd-f') {
+          return 'cmd-f'
         } else {
           return key
             .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space between lowercase and uppercase letters
@@ -287,7 +293,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   data={
                     formInputs.questionnaire[question.formInput] === 'other' ||
                     formInputs.questionnaire[question.formInput] === 'Other'
-                      ? formInputs.questionnaire[question.formInput]
+                      ? formInputs.questionnaire[toCamelCase(question.formInput)]
                       : formInputs.questionnaire[question.formInput]
                   }
                   type={question.type}
