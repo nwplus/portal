@@ -14,6 +14,7 @@ const Review = () => {
   const [, setLocation] = useLocation()
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { basicInfoQuestions, skillsQuestions, questionnaireQuestions } = useHackerApplication()
   const validate = change => {
     const newErrors = validateFormSection(change, 'termsAndConditions', [])
@@ -40,6 +41,9 @@ const Review = () => {
   }
 
   const handleSubmit = async () => {
+    if (isSubmitting) return
+    setIsSubmitting(true)
+
     const allErrors = await validateEntireForm(
       application,
       basicInfoQuestions,
@@ -48,6 +52,7 @@ const Review = () => {
     )
     if (checkForError(allErrors)) {
       window.alert('Please agree to the required terms and conditions.')
+      setIsSubmitting(false)
       return
     }
     const status = application.status.applicationStatus
@@ -92,6 +97,8 @@ const Review = () => {
         message: error.message,
         stack: error.stack,
       })
+    } finally {
+      setIsSubmitting(false)
     }
 
     setLocation('/application/confirmation')
@@ -122,7 +129,7 @@ const Review = () => {
         secondButtonText="Submit"
         secondButtonOnClick={() => handleSubmit()}
         autosaveTime={application.submission.lastUpdated.toDate().toLocaleString()}
-        loading={loading}
+        loading={loading || isSubmitting}
         showSubmitWarning
       />
     </>
