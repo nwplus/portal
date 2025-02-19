@@ -204,6 +204,7 @@ const AppleWalletButton = styled.button`
 const QrCode = ({ userInfo, userId }) => {
   const { Canvas } = useQRCode()
   const { activeHackathon } = useHackathon()
+  const baseUrl = window.location.origin
 
   const backgrounds = {
     'hackcamp': hcQrBackground,
@@ -238,12 +239,11 @@ const QrCode = ({ userInfo, userId }) => {
           </QRTags> */}
           <QR hackathon={activeHackathon}>
             <Canvas
-              text={userId}
+              text={`${baseUrl}/app/${activeHackathon}/socials/${userId}`}
               options={{
                 level: 'M',
                 margin: 2,
                 scale: 4.5,
-                // width: '100%',
                 color: {
                   dark: '#000000',
                   light: '#FFFFFF',
