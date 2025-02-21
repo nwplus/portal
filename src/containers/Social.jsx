@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Redirect, useLocation } from 'wouter'
 import Loading from '../components/Loading'
 import { useAuth } from '../utility/Auth'
-import { applicantsRef, publicInfoRef } from '../utility/firebase'
+import { applicantsRef, socialsRef } from '../utility/firebase'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const SocialContainer = styled.div``
@@ -30,15 +30,15 @@ const Social = ({ userId }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const publicInfoDoc = await publicInfoRef.doc(currentUserId).get()
+        const socialsDoc = await socialsRef.doc(currentUserId).get()
 
-        if (publicInfoDoc.exists && publicInfoDoc.data().preferredName) {
-          setPreferredName(publicInfoDoc.data().preferredName)
+        if (socialsDoc.exists && socialsDoc.data().preferredName) {
+          setPreferredName(socialsDoc.data().preferredName)
           setLoading(false)
           return
         }
 
-        // if user is logged in and PublicInfo doesn't exist/have preferredName
+        // if user is logged in and Socials doesn't exist/have preferredName
         if (user?.uid === currentUserId) {
           const userDoc = await applicantsRef(dbHackathonName).doc(currentUserId).get()
           if (userDoc.exists) {
@@ -51,7 +51,7 @@ const Social = ({ userId }) => {
               'Your name'
             setPreferredName(name)
 
-            await publicInfoRef.doc(currentUserId).set(
+            await socialsRef.doc(currentUserId).set(
               {
                 preferredName: name,
               },
