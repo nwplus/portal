@@ -285,8 +285,8 @@ const cmdfTheme = {
       textSelected: '#4F2F22',
       textDefault: '#EBEBEB',
       backgroundSelected: '#B8D2F3',
-      textHover: '#FFFFFF',
-      backgroundHover: '#A6321E',
+      textHover: '#4F2F22',
+      backgroundHover: '#B8D2F3',
     },
 
     // buttons

@@ -19,6 +19,7 @@ import ApplicationReview from './Application/Review'
 import ApplicationConfirmation from './Application/Confirmation'
 import Livestream from './Livestream'
 import Rewards from './Rewards'
+import Social from './Social'
 
 export {
   NotFound,
@@ -42,4 +43,5 @@ export {
   ApplicationForm,
   ApplicationReview,
   ApplicationConfirmation,
+  Social,
 }

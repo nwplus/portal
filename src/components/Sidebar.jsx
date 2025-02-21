@@ -193,6 +193,7 @@ const Sidebar = ({
       { location: '/livestream', text: 'Livestream' },
       { location: '/rewards', text: 'Rewards' },
       { location: '/sponsors', text: 'Sponsors' },
+      { location: '/social', text: 'Social' },
     ],
     // Tools
     tools: [
@@ -298,7 +299,9 @@ const Sidebar = ({
                     <CategoryHeader>{t[0].replace('_', ' ')}</CategoryHeader>
                     {t[1].map((v, i) => (
                       <Link key={v.location} href={v.location} onClick={hideSidebarCallback}>
-                        <StyledA selected={location === v.location}>{v.text}</StyledA>
+                        <StyledA selected={`/${location.split('/')[1]}` === v.location}>
+                          {v.text}
+                        </StyledA>
                       </Link>
                     ))}
                   </React.Fragment>

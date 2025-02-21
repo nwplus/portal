@@ -41,12 +41,14 @@ const PageRoute = ({ path, children }) => {
 
   return (
     <Route path={path}>
-      {livesiteDoc?.applicationsOpen[activeHackathon] ||
-      !livesiteDoc?.portalLive[activeHackathon] ? (
-        <Redirect to="/application" />
-      ) : (
-        <Page>{children}</Page>
-      )}
+      {params =>
+        livesiteDoc?.applicationsOpen[activeHackathon] ||
+        !livesiteDoc?.portalLive[activeHackathon] ? (
+          <Redirect to="/application" />
+        ) : (
+          <Page>{typeof children === 'function' ? children(params) : children}</Page>
+        )
+      }
     </Route>
   )
 }
