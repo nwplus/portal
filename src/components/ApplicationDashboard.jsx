@@ -662,14 +662,13 @@ const Dashboard = ({
               />
             </SelectContainer>
 
-            <SelectContainer>
+            {/* <SelectContainer>
               <QuestionLabel>nwMentorship Program</QuestionLabel>
               <P>
                 nwMentorship is a program that runs from January 2025 to March 2025 designed to
                 foster professional and personal growth by connecting experienced mentors with
                 hackers seeking guidance and industry insight.
               </P>
-              {/* hardcoded for nwHacks */}
               <P>
                 If interested in participating in nwMentorship as a mentee and can commit 3-5 hours
                 per month to the program, please fill out this {'  '}
@@ -689,7 +688,7 @@ const Dashboard = ({
                 onChange={handleNwMentorshipChange}
                 label="Yes, I would like to participate in the nwMentorship program and have filled out the form"
               />
-            </SelectContainer>
+            </SelectContainer> */}
           </>
         )}
 
