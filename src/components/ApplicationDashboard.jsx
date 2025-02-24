@@ -559,8 +559,8 @@ const Dashboard = ({
                 Release of Liability <Required />
               </QuestionLabel>
               <P>
-                This waiver allows nwPlus to use any photos or videos taken during the event for
-                promotional purposes.
+                This waives your right to hold nwPlus responsible for any injuries, damages, or
+                losses incurred from cmd-f.
               </P>
               <WaiverLinkContainer>
                 <A
