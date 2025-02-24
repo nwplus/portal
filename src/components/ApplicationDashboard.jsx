@@ -539,7 +539,17 @@ const Dashboard = ({
               <P>
                 Please read the waivers carefully. Checking the box is equivalent to signing the
                 waiver. If you will be under 19 on {relevantDates.hackathonWeekend.split('-')[0]},
-                please print and bring a physical copy of the waivers.
+                please submit your waivers with your legal guardian's signature through this{' '}
+                <A
+                  bolded
+                  width="130px"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://forms.gle/e272jUBi8fCEbZne8"
+                >
+                  form
+                </A>
+                .
               </P>
             </QuestionContainer>
 
