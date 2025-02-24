@@ -258,7 +258,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
           nwplus.io
         </A>{' '}
         to learn about more events and other ways to engage with the technology community.
-        <HR />
+        {/* <HR />
         While we are currently at full capacity, we'd love to still have you join our community!
         Join us for Learn Day - a jam-packed day of workshops that's open to everyone, regardless of
         your application status. Everyone is welcome to attend our{' '}
@@ -273,7 +273,7 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
         </A>
         , where you can expand your technical and career knowledge while connecting with other
         students. Visit the workshop page to find detailed descriptions and pre-requisite
-        information for each session!
+        information for each session! */}
       </>
     ),
   },
