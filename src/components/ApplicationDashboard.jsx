@@ -538,8 +538,9 @@ const Dashboard = ({
               </SectionLabel>
               <P>
                 Please read the waivers carefully. Checking the box is equivalent to signing the
-                waiver. If you will be under 19 on {relevantDates.hackathonWeekend.split('-')[0]},
-                please submit your waivers with your legal guardian's signature through this{' '}
+                waiver. If you will be under 19 years old on{' '}
+                {relevantDates.hackathonWeekend.split('-')[0]}, please submit your waivers with your
+                legal guardian's signature through this{' '}
                 <A
                   bolded
                   width="130px"
