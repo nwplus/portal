@@ -50,6 +50,7 @@ export const announcementsRef = dbHackathonName => {
 export const rewardsRef = dbHackathonName => {
   return db.collection(DB_COLLECTION).doc(dbHackathonName).collection('Rewards')
 }
+export const socialsRef = db.collection('Socials')
 
 export const getLivesiteDoc = callback => {
   return livesiteDocRef.onSnapshot(doc => {

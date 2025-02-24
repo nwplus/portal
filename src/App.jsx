@@ -16,6 +16,7 @@ import {
   Sponsors,
   Submission,
   Rewards,
+  Social,
 } from './pages'
 import GlobalStyle from './theme/GlobalStyle'
 import ThemeProvider from './theme/ThemeProvider'
@@ -133,6 +134,9 @@ function App() {
                   </PageRoute>
                   <PageRoute path="/sponsors">
                     <Sponsors />
+                  </PageRoute>
+                  <PageRoute path="/social/:userId?">
+                    {params => <Social params={params} />}
                   </PageRoute>
 
                   <AuthPageRoute path="/judging">

@@ -538,8 +538,19 @@ const Dashboard = ({
               </SectionLabel>
               <P>
                 Please read the waivers carefully. Checking the box is equivalent to signing the
-                waiver. If you will be under 19 on {relevantDates.hackathonWeekend.split('-')[0]},
-                please print and bring a physical copy of the waivers.
+                waiver. If you will be under 19 years old on{' '}
+                {relevantDates.hackathonWeekend.split('-')[0]}, please submit your waivers with your
+                legal guardian's signature through this{' '}
+                <A
+                  bolded
+                  width="130px"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://forms.gle/e272jUBi8fCEbZne8"
+                >
+                  form
+                </A>
+                .
               </P>
             </QuestionContainer>
 
@@ -548,8 +559,8 @@ const Dashboard = ({
                 Release of Liability <Required />
               </QuestionLabel>
               <P>
-                This waiver allows nwPlus to use any photos or videos taken during the event for
-                promotional purposes.
+                This waives your right to hold nwPlus responsible for any injuries, damages, or
+                losses incurred from cmd-f.
               </P>
               <WaiverLinkContainer>
                 <A
@@ -662,14 +673,13 @@ const Dashboard = ({
               />
             </SelectContainer>
 
-            <SelectContainer>
+            {/* <SelectContainer>
               <QuestionLabel>nwMentorship Program</QuestionLabel>
               <P>
                 nwMentorship is a program that runs from January 2025 to March 2025 designed to
                 foster professional and personal growth by connecting experienced mentors with
                 hackers seeking guidance and industry insight.
               </P>
-              {/* hardcoded for nwHacks */}
               <P>
                 If interested in participating in nwMentorship as a mentee and can commit 3-5 hours
                 per month to the program, please fill out this {'  '}
@@ -689,7 +699,7 @@ const Dashboard = ({
                 onChange={handleNwMentorshipChange}
                 label="Yes, I would like to participate in the nwMentorship program and have filled out the form"
               />
-            </SelectContainer>
+            </SelectContainer> */}
           </>
         )}
 
