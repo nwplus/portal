@@ -93,6 +93,16 @@ export const creatableDropdownValue = (arr, key, val) => {
 
 const isNullOrUndefined = obj => obj === null || obj === undefined
 
+export function ensureHttps(url) {
+  if (url === '') {
+    return url
+  }
+  if (!url.startsWith('https://')) {
+    return 'https://' + url
+  }
+  return url
+}
+
 export function verifyObjectExists(obj, templateObj, key) {
   if (
     !key ||
