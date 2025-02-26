@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, TextArea, TextInput } from '../Input'
+import { Button, Checkbox, TextArea, TextInput } from '../Input'
 import veebs from '../../assets/profilePictures/veebs.svg'
 import { ensureHttps } from '../../utility/utilities'
 
@@ -41,15 +41,15 @@ const EditProfileButton = styled(Button)`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   justify-content: space-between;
+  margin: 0.3rem;
 `
 
 const InputPair = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.7rem;
   flex-wrap: wrap;
-  /* justify-content: center; */
 `
 
 const Heading = styled.div`
@@ -59,7 +59,7 @@ const Heading = styled.div`
 `
 
 const SubHeading = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: ${p => p.theme.colors.text};
 `
@@ -80,7 +80,6 @@ const Bio = styled(TextArea)`
   font-size: 1rem;
   width: 100%;
   min-height: 8rem;
-  /* color: ${p => p.theme.colors.text}; */
 `
 
 const BtnContainer = styled.div`
@@ -99,6 +98,7 @@ const EditSocial = ({
   year,
   areaOfStudy,
   socialLinks,
+  hideRecentlyViewed,
   onSave,
 }) => {
   const currentUserId = userId || user?.uid
@@ -115,12 +115,11 @@ const EditSocial = ({
   const [linkedin, setLinkedin] = useState(socialLinks?.linkedin ?? '')
   const [github, setGithub] = useState(socialLinks?.github ?? '')
   const [instagram, setInstagram] = useState(socialLinks?.instagram ?? '')
-  const [portfolio, setPortfolio] = useState(socialLinks?.portfolio ?? '')
+  const [website, setWebsite] = useState(socialLinks?.website ?? '')
   const [devpost, setDevpost] = useState(socialLinks?.devpost ?? '')
 
-  useEffect(() => {
-    console.log(socialLinks, ' is this')
-  }, [socialLinks])
+  const [newHideRecentlyViewed, setNewHideRecentlyViewed] = useState(hideRecentlyViewed)
+
   return (
     <>
       <TopRow>
@@ -131,7 +130,7 @@ const EditSocial = ({
           <BtnContainer>
             <EditProfileButton
               onClick={() => {
-                setIsEditing(prev => !prev)
+                setIsEditing(false)
               }}
               color="primary"
               width="flex"
@@ -140,8 +139,7 @@ const EditSocial = ({
             </EditProfileButton>
             <EditProfileButton
               onClick={() => {
-                console.log('hello world')
-                setIsEditing(prev => !prev)
+                setIsEditing(false)
                 const updatedData = {
                   preferredName: name,
                   pronouns: newPronouns,
@@ -154,12 +152,12 @@ const EditSocial = ({
                     linkedin: ensureHttps(linkedin),
                     github: ensureHttps(github),
                     instagram: ensureHttps(instagram),
-                    portfolio: ensureHttps(portfolio),
+                    website: ensureHttps(website),
                     devpost: ensureHttps(devpost),
                   },
+                  hideRecentlyViewed: newHideRecentlyViewed,
                 }
                 onSave(updatedData)
-                // saveUserData()
               }}
               color="secondary"
               width="flex"
@@ -228,13 +226,21 @@ const EditSocial = ({
           </Input>
           <Input>
             <SubHeading>Portfolio</SubHeading>
-            <InputField value={portfolio} onChange={e => setPortfolio(e.target.value)} />
+            <InputField value={website} onChange={e => setWebsite(e.target.value)} />
           </Input>
         </InputPair>
         <Input>
           <SubHeading>Devpost</SubHeading>
           <InputField value={devpost} onChange={e => setDevpost(e.target.value)} />
         </Input>
+      </InputContainer>
+      <InputContainer>
+        <Heading>Recently Viewed</Heading>
+        <Checkbox
+          checked={newHideRecentlyViewed}
+          onChange={e => setNewHideRecentlyViewed(e.target.checked)}
+          label='I would like to opt out of appearing in "Recently Viewed Profiles" for those who have viewed my profile.'
+        />
       </InputContainer>
     </>
   )

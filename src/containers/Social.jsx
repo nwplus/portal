@@ -204,6 +204,7 @@ const Social = ({ userId }) => {
           year={year}
           areaOfStudy={areaOfStudy}
           socialLinks={socialLinks}
+          hideRecentlyViewed={hideRecentlyViewed}
           onSave={async updatedData => {
             await saveUserData(updatedData)
             // after saving, update the parent's state if you want
@@ -214,6 +215,7 @@ const Social = ({ userId }) => {
             setRole(updatedData.role)
             setSchool(updatedData.school)
             setYear(updatedData.year)
+            setHideRecentlyViewed(updatedData.hideRecentlyViewed)
             setAreaOfStudy(updatedData.areaOfStudy)
           }}
         />

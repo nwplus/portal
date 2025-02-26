@@ -115,9 +115,7 @@ const ViewSocial = ({
         {user?.uid === currentUserId && (
           <EditProfileButton
             onClick={() => {
-              console.log('hello world')
-              setIsEditing(prev => !prev)
-              // saveUserData()
+              setIsEditing(true)
             }}
             color="secondary"
             width="flex"
