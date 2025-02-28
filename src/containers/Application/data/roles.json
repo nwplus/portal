@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "label": "Beginner"
+  },
+  {
+    "id": 2,
+    "label": "Designer"
+  },
+  {
+    "id": 3,
+    "label": "Developer"
+  },
+  {
+    "id": 4,
+    "label": "Product/project manager"
+  },
+  {
+    "id": 5,
+    "label": "Other"
+  }
+]

@@ -4,6 +4,9 @@ import { Button, Checkbox, Dropdown, TextArea, TextInput } from '../Input'
 import veebs from '../../assets/profilePictures/veebs.svg'
 import { ensureHttps } from '../../utility/utilities'
 import schoolOptions from '../../containers/Application/data/schools.json'
+import majors from '../../containers/Application/data/majors.json'
+import roles from '../../containers/Application/data/roles.json'
+import years from '../../containers/Application/data/years.json'
 
 const TopRow = styled.div`
   display: flex;
@@ -50,6 +53,7 @@ const InputContainer = styled.div`
 const InputDropdown = styled(Dropdown)`
   .react-select__control {
     height: 2.9rem;
+    max-width: 20.3rem;
     min-height: 2.5rem;
   }
 `
@@ -204,7 +208,15 @@ const EditSocial = ({
         <InputPair>
           <Input>
             <SubHeading>Role</SubHeading>
-            <InputField value={newRole} onChange={e => setNewRole(e.target.value)} />
+            <InputDropdown
+              isSearchable={false}
+              options={roles}
+              isValid
+              placeholder="Select a role"
+              value={roles.find(option => option.label === newRole)}
+              onChange={selectedOption => setNewRole(selectedOption.label)}
+            />
+            {/* <InputField value={newRole} onChange={e => setNewRole(e.target.value)} /> */}
           </Input>
           <Input>
             <SubHeading>School</SubHeading>
@@ -220,11 +232,24 @@ const EditSocial = ({
         <InputPair>
           <Input>
             <SubHeading>Year Level</SubHeading>
-            <InputField required value={newYear} onChange={e => setNewYear(e.target.value)} />
+            <InputDropdown
+              options={years}
+              isSearchable={false}
+              isValid
+              placeholder="Select a year level"
+              value={years.find(option => option.label === newYear)}
+              onChange={selectedOption => setNewYear(selectedOption.label)}
+            />
           </Input>
           <Input>
             <SubHeading>Area of Study</SubHeading>
-            <InputField value={newAreaOfStudy} onChange={e => setNewAreaOfStudy(e.target.value)} />
+            <InputDropdown
+              options={majors}
+              isValid
+              placeholder="Select an area of study"
+              value={majors.find(option => option.label === newAreaOfStudy)}
+              onChange={selectedOption => setNewAreaOfStudy(selectedOption.label)}
+            />
           </Input>
         </InputPair>
       </InputContainer>
