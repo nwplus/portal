@@ -94,7 +94,7 @@ const Social = ({ userId }) => {
   const currentUserId = userId || user?.uid
 
   if (!userId && !user?.uid) {
-    return <Redirect to="/login" />
+    return <Redirect to="~/login" />
   }
 
   useEffect(() => {
