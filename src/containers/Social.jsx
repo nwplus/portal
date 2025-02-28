@@ -162,7 +162,7 @@ const Social = ({ userId }) => {
         }
 
         if (user?.uid === currentUserId) {
-          await socialsRef.doc(currentUserId).set(finalData, { merge: true })
+          await saveUserData(finalData)
         }
 
         setPreferredName(finalData.preferredName)
@@ -207,7 +207,7 @@ const Social = ({ userId }) => {
           hideRecentlyViewed={hideRecentlyViewed}
           onSave={async updatedData => {
             await saveUserData(updatedData)
-            // after saving, update the parent's state if you want
+            // after saving, update the parent's state
             setPreferredName(updatedData.preferredName)
             setPronouns(updatedData.pronouns)
             setSocialLinks(updatedData.socialLinks)

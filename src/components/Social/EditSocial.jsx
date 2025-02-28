@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Checkbox, TextArea, TextInput } from '../Input'
+import { Button, Checkbox, Dropdown, TextArea, TextInput } from '../Input'
 import veebs from '../../assets/profilePictures/veebs.svg'
 import { ensureHttps } from '../../utility/utilities'
+import schoolOptions from '../../containers/Application/data/schools.json'
 
 const TopRow = styled.div`
   display: flex;
@@ -44,6 +45,13 @@ const InputContainer = styled.div`
   gap: 1rem;
   justify-content: space-between;
   margin: 0.3rem;
+`
+
+const InputDropdown = styled(Dropdown)`
+  .react-select__control {
+    height: 2.9rem;
+    min-height: 2.5rem;
+  }
 `
 
 const InputPair = styled.div`
@@ -138,26 +146,29 @@ const EditSocial = ({
               Discard Changes
             </EditProfileButton>
             <EditProfileButton
+              disabled={name.trim() === '' || newPronouns === ''}
               onClick={() => {
-                setIsEditing(false)
-                const updatedData = {
-                  preferredName: name,
-                  pronouns: newPronouns,
-                  bio: newBio,
-                  role: newRole,
-                  school: newSchool,
-                  year: newYear,
-                  areaOfStudy: newAreaOfStudy,
-                  socialLinks: {
-                    linkedin: ensureHttps(linkedin),
-                    github: ensureHttps(github),
-                    instagram: ensureHttps(instagram),
-                    website: ensureHttps(website),
-                    devpost: ensureHttps(devpost),
-                  },
-                  hideRecentlyViewed: newHideRecentlyViewed,
+                if (name.trim() !== '' && newPronouns !== '') {
+                  setIsEditing(false)
+                  const updatedData = {
+                    preferredName: name,
+                    pronouns: newPronouns,
+                    bio: newBio,
+                    role: newRole,
+                    school: newSchool,
+                    year: newYear,
+                    areaOfStudy: newAreaOfStudy,
+                    socialLinks: {
+                      linkedin: ensureHttps(linkedin),
+                      github: ensureHttps(github),
+                      instagram: ensureHttps(instagram),
+                      website: ensureHttps(website),
+                      devpost: ensureHttps(devpost),
+                    },
+                    hideRecentlyViewed: newHideRecentlyViewed,
+                  }
+                  onSave(updatedData)
                 }
-                onSave(updatedData)
               }}
               color="secondary"
               width="flex"
@@ -171,11 +182,15 @@ const EditSocial = ({
         <Heading>Personal</Heading>
         <InputPair>
           <Input>
-            <SubHeading>Name</SubHeading>
+            <SubHeading>
+              Name <span style={{ color: 'red' }}>*</span>
+            </SubHeading>
             <InputField value={name} onChange={e => setName(e.target.value)} />
           </Input>
           <Input>
-            <SubHeading>Pronouns</SubHeading>
+            <SubHeading>
+              Pronouns <span style={{ color: 'red' }}>*</span>
+            </SubHeading>
             <InputField value={newPronouns} onChange={e => setNewPronouns(e.target.value)} />
           </Input>
         </InputPair>
@@ -193,13 +208,19 @@ const EditSocial = ({
           </Input>
           <Input>
             <SubHeading>School</SubHeading>
-            <InputField value={newSchool} onChange={e => setNewSchool(e.target.value)} />
+            <InputDropdown
+              options={schoolOptions}
+              isValid
+              placeholder="Select a school"
+              value={schoolOptions.find(option => option.label === newSchool)}
+              onChange={selectedOption => setNewSchool(selectedOption.label)}
+            />
           </Input>
         </InputPair>
         <InputPair>
           <Input>
             <SubHeading>Year Level</SubHeading>
-            <InputField value={newYear} onChange={e => setNewYear(e.target.value)} />
+            <InputField required value={newYear} onChange={e => setNewYear(e.target.value)} />
           </Input>
           <Input>
             <SubHeading>Area of Study</SubHeading>
