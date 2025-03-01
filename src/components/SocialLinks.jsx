@@ -74,8 +74,10 @@ const SOCIAL_ICONS = {
 
 const SocialLinks = withTheme(({ socialLinks, theme }) => (
   <SocialLinksContainer>
-    {Object.entries(socialLinks).map(([platform, link]) => {
-      if (!link || !SOCIAL_ICONS[platform]) return null
+    {Object.keys(SOCIAL_ICONS).map(platform => {
+      const link = socialLinks[platform]
+      if (!link) return null
+
       const { icon: IconComponent, brand, isCustom } = SOCIAL_ICONS[platform]
 
       return (

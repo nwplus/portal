@@ -6,15 +6,14 @@ import Icon from '../Icon'
 import veebs from '../../assets/profilePictures/veebs.svg'
 
 const ViewSocialContainer = styled.div`
-  margin-top: -120px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: -120px;
 
   ${p => p.theme.mediaQueries.mobile} {
     align-items: center;
     gap: 1rem;
-
     margin-top: min(-120px, -15vh);
   }
 `
@@ -26,17 +25,18 @@ const TopRow = styled.div`
 `
 
 const ProfilePicture = styled.div`
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
-  background-color: ${p => p.theme.colors.background};
-  overflow: hidden;
-  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  padding: 10px;
   margin-left: -20px;
+
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  background-color: ${p => p.theme.colors.background};
 
   img {
     width: 100%;
@@ -66,11 +66,11 @@ const MobileEditProfileButton = styled.div`
 
   ${p => p.theme.mediaQueries.mobile} {
     position: absolute;
-    right: 10%;
-    top: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
+    right: 10%;
+    top: 15px;
   }
 `
 
@@ -93,8 +93,9 @@ const NavbarItem = styled.div`
   font-size: 1.1rem;
   font-weight: 600;
   text-align: center;
-  padding: 0.5rem 0;
+
   width: 49%;
+  padding: 0.5rem 0;
   border-radius: 0.75rem 0.75rem 0 0;
   background-color: ${p => p.theme.colors.backgroundSecondary};
   opacity: ${p => (p.active ? 1 : 0.5)};
@@ -131,10 +132,10 @@ const Header = styled.div`
 `
 
 const NameAndPronounsContainer = styled.div`
+  position: relative;
   display: flex;
   gap: 10px;
   align-items: flex-end;
-  position: relative;
 
   ${p => p.theme.mediaQueries.mobile} {
     flex-direction: column;
@@ -198,11 +199,11 @@ const LabelContainer = styled.div`
 
 const Label = styled.div`
   font-size: 1rem;
+  text-align: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
   color: ${p => p.theme.colors.text};
   background-color: ${p => p.theme.colors.backgroundSecondary};
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  text-align: center;
 
   ${p => p.theme.mediaQueries.mobile} {
     font-size: 0.8rem;

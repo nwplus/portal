@@ -10,11 +10,10 @@ import EditSocial from '../components/Social/EditSocial'
 import ViewSocial from '../components/Social/ViewSocial'
 
 const SocialContainer = styled.div`
-  padding: 0 60px;
-
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0 60px;
 
   ${p => p.theme.mediaQueries.mobile} {
     padding: 0;
@@ -23,8 +22,9 @@ const SocialContainer = styled.div`
 `
 
 const Banner = styled.div`
-  color: #fff;
   margin: -25px -115px 25px;
+  height: 27vh;
+
   background-image: url(${props => {
     switch (props.activeHackathon) {
       case 'hackcamp':
@@ -39,7 +39,6 @@ const Banner = styled.div`
   }});
   background-size: cover;
   background-position: center;
-  height: 27vh;
 
   ${p => p.theme.mediaQueries.mobile} {
     margin: -110px -100px 0px;
