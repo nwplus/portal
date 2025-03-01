@@ -6,9 +6,8 @@ import { useAuth } from '../utility/Auth'
 import { applicantsRef, socialsRef } from '../utility/firebase'
 import { useHackathon } from '../utility/HackathonProvider'
 import cmdfSocialsBanner from '../assets/cmdf_socials_banner.svg'
-import veebs from '../assets/profilePictures/veebs.svg'
-import { Button } from '../components/Input'
-import SocialIcons from '../components/SocialIcons'
+import EditSocial from '../components/Social/EditSocial'
+import ViewSocial from '../components/Social/ViewSocial'
 
 const SocialContainer = styled.div`
   padding: 0 60px;
@@ -39,94 +38,6 @@ const Banner = styled.div`
   @media (max-width: 768px) {
     margin: -8px -20px 8px;
   }
-`
-
-const TopRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  margin-top: -120px;
-`
-
-const ProfilePicture = styled.div`
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
-  background-color: ${p => p.theme.colors.background};
-  overflow: hidden;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-left: -20px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-`
-
-const EditProfileButton = styled(Button)`
-  font-size: 1rem;
-  box-shadow: none;
-  margin-bottom: 2rem;
-`
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-const HeaderLeft = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: flex-end;
-`
-
-const Name = styled.div`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: ${p => p.theme.colors.text};
-`
-
-const Pronouns = styled.div`
-  font-size: 1rem;
-  color: ${p => p.theme.colors.text};
-  font-weight: 600;
-  padding-bottom: 0.6rem;
-`
-
-const HeaderRight = styled.div`
-  display: flex;
-  gap: 1rem;
-`
-
-const Bio = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`
-
-const BioText = styled.div`
-  font-size: 1rem;
-  color: ${p => p.theme.colors.text};
-`
-
-const LabelContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-`
-
-const Label = styled.div`
-  font-size: 1rem;
-  color: ${p => p.theme.colors.text};
-  background-color: ${p => p.theme.colors.backgroundSecondary};
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  text-align: center;
 `
 
 const parsePronouns = pronouns => {
@@ -173,6 +84,8 @@ const Social = ({ userId }) => {
   const [areaOfStudy, setAreaOfStudy] = useState('')
   const [hideRecentlyViewed, setHideRecentlyViewed] = useState(false)
 
+  const [isEditing, setIsEditing] = useState(false)
+
   const [loading, setLoading] = useState(true)
   const { user } = useAuth()
   const { dbHackathonName, activeHackathon } = useHackathon()
@@ -181,7 +94,7 @@ const Social = ({ userId }) => {
   const currentUserId = userId || user?.uid
 
   if (!userId && !user?.uid) {
-    return <Redirect to="/login" />
+    return <Redirect to="~/login" />
   }
 
   useEffect(() => {
@@ -189,6 +102,15 @@ const Social = ({ userId }) => {
       setLocation(`/social/${user.uid}`, { replace: true })
     }
   }, [userId, user?.uid])
+
+  const saveUserData = async updatedData => {
+    try {
+      await socialsRef.doc(currentUserId).set(updatedData, { merge: true })
+      console.log('saved!')
+    } catch (error) {
+      console.error('error saving user data: ', error)
+    }
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -240,7 +162,7 @@ const Social = ({ userId }) => {
         }
 
         if (user?.uid === currentUserId) {
-          await socialsRef.doc(currentUserId).set(finalData, { merge: true })
+          await saveUserData(finalData)
         }
 
         setPreferredName(finalData.preferredName)
@@ -269,38 +191,49 @@ const Social = ({ userId }) => {
   return (
     <SocialContainer>
       <Banner activeHackathon={activeHackathon} />
-
-      <TopRow>
-        <ProfilePicture>
-          <img src={veebs} alt="Profile Picture" />
-        </ProfilePicture>
-        {user?.uid === currentUserId && (
-          <EditProfileButton color="secondary" width="flex">
-            Edit Profile
-          </EditProfileButton>
-        )}
-      </TopRow>
-
-      <Header>
-        <HeaderLeft>
-          {preferredName && <Name>{preferredName}</Name>}
-          {pronouns && <Pronouns>({pronouns})</Pronouns>}
-        </HeaderLeft>
-
-        <HeaderRight>
-          <SocialIcons socialLinks={socialLinks} />
-        </HeaderRight>
-      </Header>
-
-      <Bio>
-        <BioText>{bio}</BioText>
-        <LabelContainer>
-          {role && <Label>{role}</Label>}
-          {school && <Label>{school}</Label>}
-          {year && <Label>{year}</Label>}
-          {areaOfStudy && <Label>{areaOfStudy}</Label>}
-        </LabelContainer>
-      </Bio>
+      {isEditing ? (
+        <EditSocial
+          setIsEditing={setIsEditing}
+          user={user}
+          userId={userId}
+          preferredName={preferredName}
+          pronouns={pronouns}
+          bio={bio}
+          role={role}
+          school={school}
+          year={year}
+          areaOfStudy={areaOfStudy}
+          socialLinks={socialLinks}
+          hideRecentlyViewed={hideRecentlyViewed}
+          onSave={async updatedData => {
+            await saveUserData(updatedData)
+            // after saving, update the parent's state
+            setPreferredName(updatedData.preferredName)
+            setPronouns(updatedData.pronouns)
+            setSocialLinks(updatedData.socialLinks)
+            setBio(updatedData.bio)
+            setRole(updatedData.role)
+            setSchool(updatedData.school)
+            setYear(updatedData.year)
+            setHideRecentlyViewed(updatedData.hideRecentlyViewed)
+            setAreaOfStudy(updatedData.areaOfStudy)
+          }}
+        />
+      ) : (
+        <ViewSocial
+          setIsEditing={setIsEditing}
+          user={user}
+          userId={userId}
+          preferredName={preferredName}
+          pronouns={pronouns}
+          bio={bio}
+          role={role}
+          school={school}
+          year={year}
+          areaOfStudy={areaOfStudy}
+          socialLinks={socialLinks}
+        />
+      )}
     </SocialContainer>
   )
 }

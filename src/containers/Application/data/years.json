@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "label": "Pre-University"
+  },
+  {
+    "id": 2,
+    "label": "Year 1"
+  },
+  {
+    "id": 3,
+    "label": "Year 2"
+  },
+  {
+    "id": 4,
+    "label": "Year 3"
+  },
+  {
+    "id": 5,
+    "label": "Year 4"
+  },
+  {
+    "id": 6,
+    "label": "Year 5+"
+  },
+  {
+    "id": 7,
+    "label": "Post Undergraduate"
+  }
+]
