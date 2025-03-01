@@ -22,7 +22,7 @@ const SocialLink = styled.a`
   color: ${p => p.theme.colors.text};
 
   ${p => p.theme.mediaQueries.mobile} {
-    background-color: ${p => p.theme.colors.background};
+    background-color: transparent;
     border: 2px solid ${p => p.theme.colors.text};
     border-radius: 8px;
     padding: 1rem 1.5rem;

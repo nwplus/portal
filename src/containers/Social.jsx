@@ -18,7 +18,7 @@ const SocialContainer = styled.div`
 
   ${p => p.theme.mediaQueries.mobile} {
     padding: 0;
-    margin-bottom: 5vh;
+    margin-bottom: -8px;
   }
 `
 

@@ -269,7 +269,7 @@ const cmdfTheme = {
     highlight: '#45171A',
     warning: '#D04E51',
     error: '#E03131',
-    scrollbar: '#FFFFFF',
+    scrollbar: '#CAB69D',
     required: '#D04E51',
     link: '#FBBC05',
     linkHover: '#75AEE2',

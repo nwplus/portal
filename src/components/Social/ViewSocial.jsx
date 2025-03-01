@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Button } from '../Input'
 import SocialLinks from '../SocialLinks'
+import Icon from '../Icon'
 import veebs from '../../assets/profilePictures/veebs.svg'
 
 const ViewSocialContainer = styled.div`
@@ -60,6 +61,65 @@ const EditProfileButton = styled(Button)`
   }
 `
 
+const MobileEditProfileButton = styled.div`
+  display: none;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    position: absolute;
+    right: 10%;
+    top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`
+
+const MobileNavbar = styled.div`
+  display: none;
+
+  ${p =>
+    p.currentUser &&
+    p.theme.mediaQueries.mobile &&
+    `
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    overflow: hidden;
+  `}
+`
+
+const NavbarItem = styled.div`
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.5rem 0;
+  width: 49%;
+  border-radius: 0.75rem 0.75rem 0 0;
+  background-color: ${p => p.theme.colors.backgroundSecondary};
+  opacity: ${p => (p.active ? 1 : 0.5)};
+`
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    align-items: center;
+    padding-bottom: 5vh;
+    margin-top: -1rem;
+    min-height: 50vh;
+
+    ${p =>
+      p.isCurrentUser &&
+      `
+      width: 100vw;
+      background-color: ${p.theme.colors.backgroundSecondary};
+      padding-top: 2vh;
+    `}
+  }
+`
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -73,11 +133,13 @@ const NameAndPronounsContainer = styled.div`
   display: flex;
   gap: 10px;
   align-items: flex-end;
+  position: relative;
 
   ${p => p.theme.mediaQueries.mobile} {
     flex-direction: column;
     align-items: center;
     gap: 0;
+    width: 100vw;
   }
 `
 
@@ -144,6 +206,13 @@ const Label = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     font-size: 0.8rem;
     padding: 0.25rem 0.5rem;
+
+    ${p =>
+      p.isCurrentUser &&
+      `
+      background-color: ${p.theme.colors.scrollbar};
+      color: ${p.theme.colors.text};
+    `}
   }
 `
 
@@ -171,45 +240,76 @@ const ViewSocial = ({
   socialLinks,
 }) => {
   const currentUserId = userId || user?.uid
+  const isCurrentUser = user?.uid === currentUserId
+  const [activeTab, setActiveTab] = useState('Profile')
+
   return (
     <ViewSocialContainer>
       <TopRow>
         <ProfilePicture>
           <img src={veebs} alt="Profile Picture" />
         </ProfilePicture>
-        {user?.uid === currentUserId && (
-          <EditProfileButton
-            onClick={() => {
-              setIsEditing(true)
-            }}
-            color="secondary"
-            width="flex"
-          >
-            Edit Profile
-          </EditProfileButton>
+        {isCurrentUser && (
+          <>
+            <EditProfileButton
+              onClick={() => {
+                setIsEditing(true)
+              }}
+              color="secondary"
+              width="flex"
+            >
+              Edit Profile
+            </EditProfileButton>
+          </>
         )}
       </TopRow>
-      <Header>
-        <NameAndPronounsContainer>
-          {preferredName && <Name>{preferredName}</Name>}
-          {pronouns && <Pronouns>({pronouns})</Pronouns>}
-        </NameAndPronounsContainer>
-        <DesktopSocialIconsContainer>
-          <SocialLinks socialLinks={socialLinks} />
-        </DesktopSocialIconsContainer>
-      </Header>
-      <Bio>
-        <BioText>{bio}</BioText>
-        <LabelContainer>
-          {role && <Label>{role}</Label>}
-          {school && <Label>{school}</Label>}
-          {year && <Label>{year}</Label>}
-          {areaOfStudy && <Label>{areaOfStudy}</Label>}
-        </LabelContainer>
-      </Bio>
-      <MobileSocialIconsContainer>
-        <SocialLinks socialLinks={socialLinks} />
-      </MobileSocialIconsContainer>
+      <MobileNavbar currentUser={isCurrentUser}>
+        <NavbarItem active={activeTab === 'Profile'} onClick={() => setActiveTab('Profile')}>
+          Profile
+        </NavbarItem>
+        <NavbarItem
+          active={activeTab === 'Recently Viewed'}
+          onClick={() => setActiveTab('Recently Viewed')}
+        >
+          Recently Viewed
+        </NavbarItem>
+      </MobileNavbar>
+      <ContentContainer isCurrentUser={isCurrentUser}>
+        {activeTab === 'Profile' && (
+          <>
+            <Header>
+              <NameAndPronounsContainer>
+                {preferredName && <Name>{preferredName}</Name>}
+                {pronouns && <Pronouns>({pronouns})</Pronouns>}
+
+                {isCurrentUser && (
+                  <MobileEditProfileButton onClick={() => setIsEditing(true)}>
+                    <Icon icon="pen" color={p => p.theme.colors.text} size="2x" />
+                  </MobileEditProfileButton>
+                )}
+              </NameAndPronounsContainer>
+              <DesktopSocialIconsContainer>
+                <SocialLinks socialLinks={socialLinks} />
+              </DesktopSocialIconsContainer>
+            </Header>
+            <Bio>
+              <BioText>{bio}</BioText>
+              <LabelContainer>
+                {role && <Label isCurrentUser={isCurrentUser}>{role}</Label>}
+                {school && <Label isCurrentUser={isCurrentUser}>{school}</Label>}
+                {year && <Label isCurrentUser={isCurrentUser}>{year}</Label>}
+                {areaOfStudy && <Label isCurrentUser={isCurrentUser}>{areaOfStudy}</Label>}
+              </LabelContainer>
+            </Bio>
+            <MobileSocialIconsContainer>
+              <SocialLinks socialLinks={socialLinks} />
+            </MobileSocialIconsContainer>
+          </>
+        )}
+        {activeTab === 'Recently Viewed' && (
+          <p>Recently Viewed Profiles</p> // placeholder
+        )}
+      </ContentContainer>
     </ViewSocialContainer>
   )
 }
