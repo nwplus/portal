@@ -77,15 +77,16 @@ const MobileEditProfileButton = styled.div`
 const MobileNavbar = styled.div`
   display: none;
 
-  ${p =>
-    p.currentUser &&
-    p.theme.mediaQueries.mobile &&
-    `
-    display: flex;
-    justify-content: space-between;
-    width: 100vw;
-    overflow: hidden;
-  `}
+  ${p => p.theme.mediaQueries.mobile} {
+    ${p =>
+      p.currentUser &&
+      `
+      display: flex;
+      justify-content: space-between;
+      width: 100vw;
+      overflow: hidden;
+    `}
+  }
 `
 
 const NavbarItem = styled.div`
