@@ -4,6 +4,8 @@ import { Button } from '../Input'
 import SocialLinks from '../SocialLinks'
 import Icon from '../Icon'
 import veebs from '../../assets/profilePictures/veebs.svg'
+import trash from '../../assets/delete.svg'
+import trash_hover from '../../assets/delete_hover.svg'
 
 const ViewSocialContainer = styled.div`
   display: flex;
@@ -255,6 +257,14 @@ const DateText = styled.p`
   color: ${p => p.theme.colors.text};
 `
 
+const TrashIcon = styled.div`
+  width: 25px;
+  height: 25px;
+  background-image: url(${trash});
+  background-size: contain;
+  background-repeat: no-repeat;
+`
+
 const Profile = styled.div`
   display: flex;
   justify-content: space-between;
@@ -277,6 +287,10 @@ const Profile = styled.div`
   &:hover ${DateText} {
     color: ${p => p.theme.colors.button.primary.text};
   }
+
+  &:hover ${TrashIcon} {
+    background-image: url(${trash_hover});
+  }
 `
 
 const Text = styled.p`
@@ -284,6 +298,13 @@ const Text = styled.p`
   font-weight: 500;
   color: ${p => p.theme.colors.text};
   margin-top: -24px;
+`
+
+const IconSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 `
 
 const ViewSocial = ({
@@ -386,9 +407,12 @@ const ViewSocial = ({
                     <Username href={`/app/cmd-f/social/${profile.profileId}`}>
                       {profile.name}
                     </Username>
-                    <DateText>
-                      {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
-                    </DateText>
+                    <IconSection>
+                      <DateText>
+                        {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
+                      </DateText>
+                      <TrashIcon />
+                    </IconSection>
                   </Profile>
                 ))}
               </Container>
