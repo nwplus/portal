@@ -14,7 +14,6 @@ const SocialContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   padding: 0 60px;
-
   ${p => p.theme.mediaQueries.mobile} {
     padding: 0;
     margin-bottom: -8px;
