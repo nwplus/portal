@@ -11,10 +11,13 @@ import ViewSocial from '../components/Social/ViewSocial'
 
 const SocialContainer = styled.div`
   padding: 0 60px;
-
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 0;
+    margin-bottom: -8px;
+  }
 `
 
 const Banner = styled.div`
@@ -34,9 +37,9 @@ const Banner = styled.div`
   }});
   background-size: cover;
   background-position: center;
-  height: 27vh;
-  @media (max-width: 768px) {
-    margin: -8px -20px 8px;
+  ${p => p.theme.mediaQueries.mobile} {
+    margin: -110px -100px 0px;
+    height: 32vh;
   }
 `
 

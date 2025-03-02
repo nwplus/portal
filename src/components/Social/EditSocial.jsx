@@ -153,9 +153,11 @@ const InputDropdown = styled(Dropdown)`
 
 const TabHeader = styled.div`
   display: flex;
+  padding: 0em 3rem;
+  align-self: center;
   justify-content: center;
-  gap: 0.2rem;
-  width: 100%;
+  gap: 0.3rem;
+  width: 106%;
   margin-bottom: 1rem;
 `
 
@@ -173,7 +175,9 @@ const TabButton = styled.button`
 
 const MobileTabsContent = styled.div`
   margin-top: -1.3em;
-  padding: 3em;
+  align-self: center;
+  padding: 3em 3rem;
+  width: 100%;
   background-color: ${p => p.theme.colors.backgroundSecondary};
   overflow-y: auto;
 `
@@ -182,6 +186,8 @@ const MobileButtonContainer = styled.div`
   display: none;
 
   ${p => p.theme.mediaQueries.mobile} {
+    padding: 0em 3rem;
+    align-self: center;
     display: flex;
     width: 100%;
     background-color: white;
