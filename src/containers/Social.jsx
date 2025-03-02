@@ -61,6 +61,13 @@ const Name = styled.a`
   color: ${p => p.theme.colors.text};
 `
 
+const Text = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+  margin-top: -24px;
+`
+
 const DateText = styled.p`
   font-size: 18px;
   font-weight: 500;
@@ -136,6 +143,7 @@ const Social = ({ userId }) => {
   const [hideRecentlyViewed, setHideRecentlyViewed] = useState(false)
   const [visitedProfileData, setVisitedProfileData] = useState(null)
   const [recentlyViewedProfiles, setRecentlyViewedProfiles] = useState([])
+  const [isOwnProfile, setIsOwnProfile] = useState(null)
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -221,6 +229,11 @@ const Social = ({ userId }) => {
   }
 
   useEffect(() => {
+    if (user) {
+      const currentProfile = userId ? user.uid === userId : true
+      setIsOwnProfile(currentProfile)
+    }
+
     const fetchUserData = async () => {
       try {
         const socialsDoc = await socialsRef.doc(currentUserId).get()
@@ -344,7 +357,7 @@ const Social = ({ userId }) => {
             areaOfStudy={areaOfStudy}
             socialLinks={socialLinks}
           />
-          {user?.uid === currentUserId ? (
+          {isOwnProfile === true ? (
             <>
               <Header>Recently Viewed Profiles</Header>
               {recentlyViewedProfiles.length > 0 ? (
@@ -361,7 +374,7 @@ const Social = ({ userId }) => {
                   </RecentlyViewedContainer>
                 </>
               ) : (
-                <h1>No recently viewed profiles.</h1>
+                <Text>No recently viewed profiles.</Text>
               )}
             </>
           ) : (
