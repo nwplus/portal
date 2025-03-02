@@ -11,16 +11,20 @@ import EditSocial from '../components/Social/EditSocial'
 import ViewSocial from '../components/Social/ViewSocial'
 
 const SocialContainer = styled.div`
-  padding: 0 60px;
-
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0 60px;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 0;
+    margin-bottom: -8px;
+  }
 `
 
 const Banner = styled.div`
-  color: #fff;
   margin: -25px -115px 25px;
+  height: 27vh;
+
   background-image: url(${props => {
     switch (props.activeHackathon) {
       case 'hackcamp':
@@ -35,9 +39,67 @@ const Banner = styled.div`
   }});
   background-size: cover;
   background-position: center;
-  height: 27vh;
-  @media (max-width: 768px) {
-    margin: -8px -20px 8px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    margin: -110px -100px 0px;
+    height: 32vh;
+  }
+`
+
+const Header = styled.h1`
+  font-size: 32px;
+  font-weight: 800;
+`
+
+const RecentlyViewedContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: -24px;
+`
+
+const Name = styled.a`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const Text = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+  margin-top: -24px;
+`
+
+const DateText = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const Profile = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid ${p => p.theme.colors.sidebar.background};
+  border-radius: 5px;
+  padding: 0px 20px;
+  color: ${p => p.theme.colors.text};
+
+  &:hover {
+    background-color: ${p => p.theme.colors.button.primary.background.default};
+    border: 2px solid ${p => p.theme.colors.button.primary.background.default};
+    cursor: pointer;
+  }
+
+  &:hover ${Name} {
+    color: ${p => p.theme.colors.button.primary.text};
+  }
+
+  &:hover ${DateText} {
+    color: ${p => p.theme.colors.button.primary.text};
   }
 `
 
@@ -306,39 +368,11 @@ const Social = ({ userId }) => {
   }
 
   return (
-    <SocialContainer>
+    <>
       <Banner activeHackathon={activeHackathon} />
-      {isEditing ? (
-        <EditSocial
-          setIsEditing={setIsEditing}
-          user={user}
-          userId={userId}
-          preferredName={preferredName}
-          pronouns={pronouns}
-          bio={bio}
-          role={role}
-          school={school}
-          year={year}
-          areaOfStudy={areaOfStudy}
-          socialLinks={socialLinks}
-          hideRecentlyViewed={hideRecentlyViewed}
-          onSave={async updatedData => {
-            await saveUserData(updatedData)
-            // after saving, update the parent's state
-            setPreferredName(updatedData.preferredName)
-            setPronouns(updatedData.pronouns)
-            setSocialLinks(updatedData.socialLinks)
-            setBio(updatedData.bio)
-            setRole(updatedData.role)
-            setSchool(updatedData.school)
-            setYear(updatedData.year)
-            setHideRecentlyViewed(updatedData.hideRecentlyViewed)
-            setAreaOfStudy(updatedData.areaOfStudy)
-          }}
-        />
-      ) : (
-        <>
-          <ViewSocial
+      <SocialContainer>
+        {isEditing ? (
+          <EditSocial
             setIsEditing={setIsEditing}
             user={user}
             userId={userId}
@@ -350,31 +384,63 @@ const Social = ({ userId }) => {
             year={year}
             areaOfStudy={areaOfStudy}
             socialLinks={socialLinks}
+            hideRecentlyViewed={hideRecentlyViewed}
+            onSave={async updatedData => {
+              await saveUserData(updatedData)
+              // after saving, update the parent's state
+              setPreferredName(updatedData.preferredName)
+              setPronouns(updatedData.pronouns)
+              setSocialLinks(updatedData.socialLinks)
+              setBio(updatedData.bio)
+              setRole(updatedData.role)
+              setSchool(updatedData.school)
+              setYear(updatedData.year)
+              setHideRecentlyViewed(updatedData.hideRecentlyViewed)
+              setAreaOfStudy(updatedData.areaOfStudy)
+            }}
           />
-          {user?.uid === currentUserId && (
-            <>
-              <Header>Recently Viewed Profiles</Header>
-              {recentlyViewedProfiles.length > 0 ? (
-                <>
-                  <RecentlyViewedContainer>
-                    {recentlyViewedProfiles.map((profile, index) => (
-                      <Profile key={index}>
-                        <Name href={`/app/cmd-f/social/${profile.profileId}`}>{profile.name}</Name>
-                        <DateText>
-                          {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
-                        </DateText>
-                      </Profile>
-                    ))}
-                  </RecentlyViewedContainer>
-                </>
-              ) : (
-                <Text>No recently viewed profiles.</Text>
-              )}
-            </>
-          )}
-        </>
-      )}
-    </SocialContainer>
+        ) : (
+          <>
+            <ViewSocial
+              setIsEditing={setIsEditing}
+              user={user}
+              userId={userId}
+              preferredName={preferredName}
+              pronouns={pronouns}
+              bio={bio}
+              role={role}
+              school={school}
+              year={year}
+              areaOfStudy={areaOfStudy}
+              socialLinks={socialLinks}
+            />
+            {user?.uid === currentUserId && (
+              <>
+                <Header>Recently Viewed Profiles</Header>
+                {recentlyViewedProfiles.length > 0 ? (
+                  <>
+                    <RecentlyViewedContainer>
+                      {recentlyViewedProfiles.map((profile, index) => (
+                        <Profile key={index}>
+                          <Name href={`/app/cmd-f/social/${profile.profileId}`}>
+                            {profile.name}
+                          </Name>
+                          <DateText>
+                            {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
+                          </DateText>
+                        </Profile>
+                      ))}
+                    </RecentlyViewedContainer>
+                  </>
+                ) : (
+                  <Text>No recently viewed profiles.</Text>
+                )}
+              </>
+            )}
+          </>
+        )}
+      </SocialContainer>
+    </>
   )
 }
 
