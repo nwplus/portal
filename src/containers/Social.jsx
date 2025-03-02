@@ -191,8 +191,7 @@ const Social = ({ userId }) => {
             return
           }
 
-          const profileName =
-            (visitedProfileData && visitedProfileData.preferredName) || 'Unknown Name'
+          const profileName = visitedProfileData && visitedProfileData.preferredName
 
           const newItem = {
             profileId: userId,
