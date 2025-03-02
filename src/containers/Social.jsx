@@ -174,6 +174,8 @@ const Social = ({ userId }) => {
 
   useEffect(() => {
     if (user && user.uid && userId && user.uid !== userId) {
+      if (visitedProfileData === null) return
+
       const updateRecentlyViewedProfile = async () => {
         try {
           const docRef = socialsRef.doc(user.uid)
@@ -183,7 +185,14 @@ const Social = ({ userId }) => {
 
           currentRecentlyViewed = currentRecentlyViewed.filter(item => item.profileId !== userId)
 
-          const profileName = visitedProfileData && visitedProfileData.preferredName
+          if (visitedProfileData.hideRecentlyViewed) {
+            // skip users who have checked hideRecentlyViewed
+            await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+            return
+          }
+
+          const profileName =
+            (visitedProfileData && visitedProfileData.preferredName) || 'Unknown Name'
 
           const newItem = {
             profileId: userId,
