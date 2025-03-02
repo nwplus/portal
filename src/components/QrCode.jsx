@@ -239,7 +239,7 @@ const QrCode = ({ userInfo, userId }) => {
           </QRTags> */}
           <QR hackathon={activeHackathon}>
             <Canvas
-              text={`${baseUrl}/app/${activeHackathon}/socials/${userId}`}
+              text={`${baseUrl}/app/${activeHackathon}/social/${userId}`}
               options={{
                 level: 'M',
                 margin: 2,

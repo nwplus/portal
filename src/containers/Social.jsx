@@ -10,10 +10,10 @@ import EditSocial from '../components/Social/EditSocial'
 import ViewSocial from '../components/Social/ViewSocial'
 
 const SocialContainer = styled.div`
-  padding: 0 60px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0 60px;
   ${p => p.theme.mediaQueries.mobile} {
     padding: 0;
     margin-bottom: -8px;
@@ -21,8 +21,9 @@ const SocialContainer = styled.div`
 `
 
 const Banner = styled.div`
-  color: #fff;
   margin: -25px -115px 25px;
+  height: 27vh;
+
   background-image: url(${props => {
     switch (props.activeHackathon) {
       case 'hackcamp':
@@ -37,6 +38,7 @@ const Banner = styled.div`
   }});
   background-size: cover;
   background-position: center;
+
   ${p => p.theme.mediaQueries.mobile} {
     margin: -110px -100px 0px;
     height: 32vh;
@@ -192,52 +194,54 @@ const Social = ({ userId }) => {
   }
 
   return (
-    <SocialContainer>
+    <>
       <Banner activeHackathon={activeHackathon} />
-      {isEditing ? (
-        <EditSocial
-          setIsEditing={setIsEditing}
-          user={user}
-          userId={userId}
-          preferredName={preferredName}
-          pronouns={pronouns}
-          bio={bio}
-          role={role}
-          school={school}
-          year={year}
-          areaOfStudy={areaOfStudy}
-          socialLinks={socialLinks}
-          hideRecentlyViewed={hideRecentlyViewed}
-          onSave={async updatedData => {
-            await saveUserData(updatedData)
-            // after saving, update the parent's state
-            setPreferredName(updatedData.preferredName)
-            setPronouns(updatedData.pronouns)
-            setSocialLinks(updatedData.socialLinks)
-            setBio(updatedData.bio)
-            setRole(updatedData.role)
-            setSchool(updatedData.school)
-            setYear(updatedData.year)
-            setHideRecentlyViewed(updatedData.hideRecentlyViewed)
-            setAreaOfStudy(updatedData.areaOfStudy)
-          }}
-        />
-      ) : (
-        <ViewSocial
-          setIsEditing={setIsEditing}
-          user={user}
-          userId={userId}
-          preferredName={preferredName}
-          pronouns={pronouns}
-          bio={bio}
-          role={role}
-          school={school}
-          year={year}
-          areaOfStudy={areaOfStudy}
-          socialLinks={socialLinks}
-        />
-      )}
-    </SocialContainer>
+      <SocialContainer>
+        {isEditing ? (
+          <EditSocial
+            setIsEditing={setIsEditing}
+            user={user}
+            userId={userId}
+            preferredName={preferredName}
+            pronouns={pronouns}
+            bio={bio}
+            role={role}
+            school={school}
+            year={year}
+            areaOfStudy={areaOfStudy}
+            socialLinks={socialLinks}
+            hideRecentlyViewed={hideRecentlyViewed}
+            onSave={async updatedData => {
+              await saveUserData(updatedData)
+              // after saving, update the parent's state
+              setPreferredName(updatedData.preferredName)
+              setPronouns(updatedData.pronouns)
+              setSocialLinks(updatedData.socialLinks)
+              setBio(updatedData.bio)
+              setRole(updatedData.role)
+              setSchool(updatedData.school)
+              setYear(updatedData.year)
+              setHideRecentlyViewed(updatedData.hideRecentlyViewed)
+              setAreaOfStudy(updatedData.areaOfStudy)
+            }}
+          />
+        ) : (
+          <ViewSocial
+            setIsEditing={setIsEditing}
+            user={user}
+            userId={userId}
+            preferredName={preferredName}
+            pronouns={pronouns}
+            bio={bio}
+            role={role}
+            school={school}
+            year={year}
+            areaOfStudy={areaOfStudy}
+            socialLinks={socialLinks}
+          />
+        )}
+      </SocialContainer>
+    </>
   )
 }
 
