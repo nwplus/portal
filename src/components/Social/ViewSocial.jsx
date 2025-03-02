@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Button } from '../Input'
 import SocialLinks from '../SocialLinks'
@@ -228,6 +228,64 @@ const MobileSocialIconsContainer = styled.div`
   }
 `
 
+const HeaderText = styled.h1`
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 1rem;
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: -24px;
+`
+
+const Username = styled.a`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const DateText = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const Profile = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid ${p => p.theme.colors.sidebar.background};
+  border-radius: 5px;
+  padding: 0px 20px;
+  color: ${p => p.theme.colors.text};
+
+  &:hover {
+    background-color: ${p => p.theme.colors.button.primary.background.default};
+    border: 2px solid ${p => p.theme.colors.button.primary.background.default};
+    cursor: pointer;
+  }
+
+  &:hover ${Username} {
+    color: ${p => p.theme.colors.button.primary.text};
+  }
+
+  &:hover ${DateText} {
+    color: ${p => p.theme.colors.button.primary.text};
+  }
+`
+
+const Text = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+  margin-top: -24px;
+`
+
 const ViewSocial = ({
   setIsEditing,
   user,
@@ -240,10 +298,20 @@ const ViewSocial = ({
   year,
   areaOfStudy,
   socialLinks,
+  recentlyViewedProfiles,
 }) => {
   const currentUserId = userId || user?.uid
   const isCurrentUser = user?.uid === currentUserId
   const [activeTab, setActiveTab] = useState('Profile')
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const isMobile = windowWidth <= 768
 
   return (
     <ViewSocialContainer>
@@ -308,8 +376,26 @@ const ViewSocial = ({
             </MobileSocialIconsContainer>
           </>
         )}
-        {activeTab === 'Recently Viewed' && (
-          <p>Recently Viewed Profiles</p> // placeholder
+        {isCurrentUser && (isMobile ? activeTab === 'Recently Viewed' : true) && (
+          <>
+            <HeaderText>Recently Viewed Profiles</HeaderText>
+            {recentlyViewedProfiles.length > 0 ? (
+              <Container>
+                {recentlyViewedProfiles.map((profile, index) => (
+                  <Profile key={index}>
+                    <Username href={`/app/cmd-f/social/${profile.profileId}`}>
+                      {profile.name}
+                    </Username>
+                    <DateText>
+                      {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
+                    </DateText>
+                  </Profile>
+                ))}
+              </Container>
+            ) : (
+              <Text>No recently viewed profiles.</Text>
+            )}
+          </>
         )}
       </ContentContainer>
     </ViewSocialContainer>

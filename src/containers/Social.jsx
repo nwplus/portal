@@ -46,63 +46,6 @@ const Banner = styled.div`
   }
 `
 
-const Header = styled.h1`
-  font-size: 32px;
-  font-weight: 800;
-`
-
-const RecentlyViewedContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-height: 300px;
-  overflow-y: auto;
-  margin-top: -24px;
-`
-
-const Name = styled.a`
-  font-size: 18px;
-  font-weight: 500;
-  color: ${p => p.theme.colors.text};
-`
-
-const Text = styled.p`
-  font-size: 18px;
-  font-weight: 500;
-  color: ${p => p.theme.colors.text};
-  margin-top: -24px;
-`
-
-const DateText = styled.p`
-  font-size: 18px;
-  font-weight: 500;
-  color: ${p => p.theme.colors.text};
-`
-
-const Profile = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 2px solid ${p => p.theme.colors.sidebar.background};
-  border-radius: 5px;
-  padding: 0px 20px;
-  color: ${p => p.theme.colors.text};
-
-  &:hover {
-    background-color: ${p => p.theme.colors.button.primary.background.default};
-    border: 2px solid ${p => p.theme.colors.button.primary.background.default};
-    cursor: pointer;
-  }
-
-  &:hover ${Name} {
-    color: ${p => p.theme.colors.button.primary.text};
-  }
-
-  &:hover ${DateText} {
-    color: ${p => p.theme.colors.button.primary.text};
-  }
-`
-
 const parsePronouns = pronouns => {
   if (!pronouns) return ''
 
@@ -343,44 +286,20 @@ const Social = ({ userId }) => {
             }}
           />
         ) : (
-          <>
-            <ViewSocial
-              setIsEditing={setIsEditing}
-              user={user}
-              userId={userId}
-              preferredName={preferredName}
-              pronouns={pronouns}
-              bio={bio}
-              role={role}
-              school={school}
-              year={year}
-              areaOfStudy={areaOfStudy}
-              socialLinks={socialLinks}
-            />
-            {user?.uid === currentUserId && (
-              <>
-                <Header>Recently Viewed Profiles</Header>
-                {recentlyViewedProfiles.length > 0 ? (
-                  <>
-                    <RecentlyViewedContainer>
-                      {recentlyViewedProfiles.map((profile, index) => (
-                        <Profile key={index}>
-                          <Name href={`/app/cmd-f/social/${profile.profileId}`}>
-                            {profile.name}
-                          </Name>
-                          <DateText>
-                            {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
-                          </DateText>
-                        </Profile>
-                      ))}
-                    </RecentlyViewedContainer>
-                  </>
-                ) : (
-                  <Text>No recently viewed profiles.</Text>
-                )}
-              </>
-            )}
-          </>
+          <ViewSocial
+            setIsEditing={setIsEditing}
+            user={user}
+            userId={userId}
+            preferredName={preferredName}
+            pronouns={pronouns}
+            bio={bio}
+            role={role}
+            school={school}
+            year={year}
+            areaOfStudy={areaOfStudy}
+            socialLinks={socialLinks}
+            recentlyViewedProfiles={recentlyViewedProfiles}
+          />
         )}
       </SocialContainer>
     </>
