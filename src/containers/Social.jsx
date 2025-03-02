@@ -4,6 +4,7 @@ import { Redirect, useLocation } from 'wouter'
 import Loading from '../components/Loading'
 import { useAuth } from '../utility/Auth'
 import { applicantsRef, socialsRef } from '../utility/firebase'
+import firebase from 'firebase/app'
 import { useHackathon } from '../utility/HackathonProvider'
 import cmdfSocialsBanner from '../assets/cmdf_socials_banner.svg'
 import EditSocial from '../components/Social/EditSocial'
@@ -37,6 +38,56 @@ const Banner = styled.div`
   height: 27vh;
   @media (max-width: 768px) {
     margin: -8px -20px 8px;
+  }
+`
+
+const Header = styled.h1`
+  font-size: 32px;
+  font-weight: 800;
+`
+
+const RecentlyViewedContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: -24px;
+`
+
+const Name = styled.a`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const DateText = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const Profile = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid ${p => p.theme.colors.sidebar.background};
+  border-radius: 5px;
+  padding: 0px 20px;
+  color: ${p => p.theme.colors.text};
+
+  &:hover {
+    background-color: ${p => p.theme.colors.button.primary.background.default};
+    border: 2px solid ${p => p.theme.colors.button.primary.background.default};
+    cursor: pointer;
+  }
+
+  &:hover ${Name} {
+    color: ${p => p.theme.colors.button.primary.text};
+  }
+
+  &:hover ${DateText} {
+    color: ${p => p.theme.colors.button.primary.text};
   }
 `
 
@@ -83,6 +134,8 @@ const Social = ({ userId }) => {
   const [year, setYear] = useState('')
   const [areaOfStudy, setAreaOfStudy] = useState('')
   const [hideRecentlyViewed, setHideRecentlyViewed] = useState(false)
+  const [visitedProfileData, setVisitedProfileData] = useState(null)
+  const [recentlyViewedProfiles, setRecentlyViewedProfiles] = useState([])
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -102,6 +155,53 @@ const Social = ({ userId }) => {
       setLocation(`/social/${user.uid}`, { replace: true })
     }
   }, [userId, user?.uid])
+
+  useEffect(() => {
+    if (user && user.uid && userId && user.uid !== userId) {
+      const fetchVisitedProfileData = async () => {
+        try {
+          const visitedDoc = await socialsRef.doc(userId).get()
+          if (visitedDoc.exists) {
+            setVisitedProfileData(visitedDoc.data())
+          }
+        } catch (error) {
+          console.error('Error fetching visited profile data:', error)
+        }
+      }
+      fetchVisitedProfileData()
+    }
+  }, [user, userId])
+
+  useEffect(() => {
+    if (user && user.uid && userId && user.uid !== userId) {
+      const updateRecentlyViewedProfile = async () => {
+        try {
+          const docRef = socialsRef.doc(user.uid)
+          const docSnapshot = await docRef.get()
+          const socialsData = docSnapshot.data() || {}
+          let currentRecentlyViewed = socialsData.recentlyViewedProfiles || []
+
+          currentRecentlyViewed = currentRecentlyViewed.filter(item => item.profileId !== userId)
+
+          const profileName = visitedProfileData && visitedProfileData.preferredName
+
+          const newItem = {
+            profileId: userId,
+            name: profileName,
+            viewedAt: firebase.firestore.Timestamp.now(),
+          }
+
+          currentRecentlyViewed.unshift(newItem)
+
+          await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+        } catch (error) {
+          console.error('Error updating recently viewed profiles: ', error)
+        }
+      }
+
+      updateRecentlyViewedProfile()
+    }
+  }, [user, userId, visitedProfileData])
 
   const saveUserData = async updatedData => {
     try {
@@ -165,6 +265,8 @@ const Social = ({ userId }) => {
           await saveUserData(finalData)
         }
 
+        setRecentlyViewedProfiles(socialsData.recentlyViewedProfiles || [])
+
         setPreferredName(finalData.preferredName)
         setPronouns(finalData.pronouns)
         setSocialLinks(finalData.socialLinks)
@@ -220,19 +322,44 @@ const Social = ({ userId }) => {
           }}
         />
       ) : (
-        <ViewSocial
-          setIsEditing={setIsEditing}
-          user={user}
-          userId={userId}
-          preferredName={preferredName}
-          pronouns={pronouns}
-          bio={bio}
-          role={role}
-          school={school}
-          year={year}
-          areaOfStudy={areaOfStudy}
-          socialLinks={socialLinks}
-        />
+        <>
+          <ViewSocial
+            setIsEditing={setIsEditing}
+            user={user}
+            userId={userId}
+            preferredName={preferredName}
+            pronouns={pronouns}
+            bio={bio}
+            role={role}
+            school={school}
+            year={year}
+            areaOfStudy={areaOfStudy}
+            socialLinks={socialLinks}
+          />
+          {user?.uid === currentUserId ? (
+            <>
+              <Header>Recently Viewed Profiles</Header>
+              {recentlyViewedProfiles.length > 0 ? (
+                <>
+                  <RecentlyViewedContainer>
+                    {recentlyViewedProfiles.map((profile, index) => (
+                      <Profile key={index}>
+                        <Name href={`/app/cmd-f/social/${profile.profileId}`}>{profile.name}</Name>
+                        <DateText>
+                          {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
+                        </DateText>
+                      </Profile>
+                    ))}
+                  </RecentlyViewedContainer>
+                </>
+              ) : (
+                <h1>No recently viewed profiles.</h1>
+              )}
+            </>
+          ) : (
+            <></>
+          )}
+        </>
       )}
     </SocialContainer>
   )
