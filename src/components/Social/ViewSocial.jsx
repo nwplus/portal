@@ -6,6 +6,7 @@ import Icon from '../Icon'
 import veebs from '../../assets/profilePictures/veebs.svg'
 import trash from '../../assets/delete.svg'
 import trash_hover from '../../assets/delete_hover.svg'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const ViewSocialContainer = styled.div`
   display: flex;
@@ -346,6 +347,7 @@ const ViewSocial = ({
 }) => {
   const currentUserId = userId || user?.uid
   const isCurrentUser = user?.uid === currentUserId
+  const { activeHackathon } = useHackathon()
   const [activeTab, setActiveTab] = useState('Profile')
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
@@ -427,7 +429,7 @@ const ViewSocial = ({
               <RecentlyViewedContainer>
                 {recentlyViewedProfiles.map((profile, index) => (
                   <Profile key={index}>
-                    <Username href={`/app/cmd-f/social/${profile.profileId}`}>
+                    <Username href={`/app/${activeHackathon}/social/${profile.profileId}`}>
                       {profile.name}
                     </Username>
                     <IconSection>
