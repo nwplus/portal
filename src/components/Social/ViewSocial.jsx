@@ -237,6 +237,8 @@ const HeaderText = styled.h1`
 
   ${p => p.theme.mediaQueries.mobile} {
     font-size: 28px;
+    align-self: flex-start;
+    padding-left: 5%;
   }
 `
 
