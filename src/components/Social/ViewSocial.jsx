@@ -234,15 +234,27 @@ const HeaderText = styled.h1`
   font-size: 32px;
   font-weight: 800;
   margin-top: 1rem;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 28px;
+  }
 `
 
-const Container = styled.div`
+const RecentlyViewedContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
   max-height: 300px;
   overflow-y: auto;
   margin-top: -24px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    max-height: none;
+    overflow-y: visible;
+    justify-content: center;
+    align-items: center;
+    margin-top: -18px;
+  }
 `
 
 const Username = styled.a`
@@ -291,6 +303,10 @@ const Profile = styled.div`
   &:hover ${TrashIcon} {
     background-image: url(${trash_hover});
   }
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 80%;
+  }
 `
 
 const Text = styled.p`
@@ -305,6 +321,10 @@ const IconSection = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    gap: 8px;
+  }
 `
 
 const ViewSocial = ({
@@ -401,7 +421,7 @@ const ViewSocial = ({
           <>
             <HeaderText>Recently Viewed Profiles</HeaderText>
             {recentlyViewedProfiles.length > 0 ? (
-              <Container>
+              <RecentlyViewedContainer>
                 {recentlyViewedProfiles.map((profile, index) => (
                   <Profile key={index}>
                     <Username href={`/app/cmd-f/social/${profile.profileId}`}>
@@ -415,7 +435,7 @@ const ViewSocial = ({
                     </IconSection>
                   </Profile>
                 ))}
-              </Container>
+              </RecentlyViewedContainer>
             ) : (
               <Text>No recently viewed profiles.</Text>
             )}
