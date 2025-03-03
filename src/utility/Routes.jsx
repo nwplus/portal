@@ -29,6 +29,7 @@ const NestedRoutes = props => {
 const PageRoute = ({ path, children }) => {
   const [livesiteDoc, setLivesiteDoc] = useState(null)
   const { activeHackathon } = useHackathon()
+  const { user } = useAuth()
 
   useEffect(() => {
     const unsubscribe = getLivesiteDoc(setLivesiteDoc)
@@ -42,8 +43,9 @@ const PageRoute = ({ path, children }) => {
   return (
     <Route path={path}>
       {params =>
-        livesiteDoc?.applicationsOpen[activeHackathon] ||
-        !livesiteDoc?.portalLive[activeHackathon] ? (
+        !user?.admin &&
+        (livesiteDoc?.applicationsOpen[activeHackathon] ||
+          !livesiteDoc?.portalLive[activeHackathon]) ? (
           <Redirect to="/application" />
         ) : (
           <Page>{typeof children === 'function' ? children(params) : children}</Page>
