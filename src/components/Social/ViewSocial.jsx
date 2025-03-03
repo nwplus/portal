@@ -256,6 +256,7 @@ const RecentlyViewedContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: -18px;
+    width: 100%;
   }
 `
 
