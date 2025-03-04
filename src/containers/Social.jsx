@@ -4,6 +4,7 @@ import { Redirect, useLocation } from 'wouter'
 import Loading from '../components/Loading'
 import { useAuth } from '../utility/Auth'
 import { applicantsRef, socialsRef } from '../utility/firebase'
+import firebase from 'firebase/app'
 import { useHackathon } from '../utility/HackathonProvider'
 import cmdfSocialsBanner from '../assets/cmdf_socials_banner.svg'
 import EditSocial from '../components/Social/EditSocial'
@@ -88,6 +89,8 @@ const Social = ({ userId }) => {
   const [year, setYear] = useState('')
   const [areaOfStudy, setAreaOfStudy] = useState('')
   const [hideRecentlyViewed, setHideRecentlyViewed] = useState(false)
+  const [visitedProfileData, setVisitedProfileData] = useState(null)
+  const [recentlyViewedProfiles, setRecentlyViewedProfiles] = useState([])
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -107,6 +110,61 @@ const Social = ({ userId }) => {
       setLocation(`/social/${user.uid}`, { replace: true })
     }
   }, [userId, user?.uid])
+
+  useEffect(() => {
+    if (user && user.uid && userId && user.uid !== userId) {
+      const fetchVisitedProfileData = async () => {
+        try {
+          const visitedDoc = await socialsRef.doc(userId).get()
+          if (visitedDoc.exists) {
+            setVisitedProfileData(visitedDoc.data())
+          }
+        } catch (error) {
+          console.error('Error fetching visited profile data:', error)
+        }
+      }
+      fetchVisitedProfileData()
+    }
+  }, [user, userId])
+
+  useEffect(() => {
+    if (user && user.uid && userId && user.uid !== userId) {
+      if (visitedProfileData === null) return
+
+      const updateRecentlyViewedProfile = async () => {
+        try {
+          const docRef = socialsRef.doc(user.uid)
+          const docSnapshot = await docRef.get()
+          const socialsData = docSnapshot.data() || {}
+          let currentRecentlyViewed = socialsData.recentlyViewedProfiles || []
+
+          currentRecentlyViewed = currentRecentlyViewed.filter(item => item.profileId !== userId)
+
+          if (visitedProfileData.hideRecentlyViewed) {
+            // skip users who have checked hideRecentlyViewed
+            await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+            return
+          }
+
+          const profileName = visitedProfileData && visitedProfileData.preferredName
+
+          const newItem = {
+            profileId: userId,
+            name: profileName,
+            viewedAt: firebase.firestore.Timestamp.now(),
+          }
+
+          currentRecentlyViewed.unshift(newItem)
+
+          await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+        } catch (error) {
+          console.error('Error updating recently viewed profiles: ', error)
+        }
+      }
+
+      updateRecentlyViewedProfile()
+    }
+  }, [user, userId, visitedProfileData])
 
   const saveUserData = async updatedData => {
     try {
@@ -169,6 +227,8 @@ const Social = ({ userId }) => {
         if (user?.uid === currentUserId) {
           await saveUserData(finalData)
         }
+
+        setRecentlyViewedProfiles(socialsData.recentlyViewedProfiles || [])
 
         setPreferredName(finalData.preferredName)
         setPronouns(finalData.pronouns)
@@ -238,6 +298,7 @@ const Social = ({ userId }) => {
             year={year}
             areaOfStudy={areaOfStudy}
             socialLinks={socialLinks}
+            recentlyViewedProfiles={recentlyViewedProfiles}
           />
         )}
       </SocialContainer>
