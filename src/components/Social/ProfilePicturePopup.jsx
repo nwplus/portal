@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import one from '../../assets/profilePictures/1.svg'
 import two from '../../assets/profilePictures/2.svg'
@@ -18,6 +18,8 @@ import fifteen from '../../assets/profilePictures/15.svg'
 import sixteen from '../../assets/profilePictures/16.svg'
 import seventeen from '../../assets/profilePictures/17.svg'
 import eighteen from '../../assets/profilePictures/18.svg'
+import close from '../../assets/profilePictures/close.png'
+import save from '../../assets/profilePictures/save.png'
 
 const profilePictures = [
   one,
@@ -50,11 +52,12 @@ const PopupOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `
 
 const PopupContainer = styled.div`
-  background-color: white;
-  padding: 20px;
+  background-color: ${p => p.theme.colors.backgroundSecondary};
+  padding: 50px 40px 20px; // Reduced bottom padding
   border-radius: 8px;
   width: 350px;
   max-height: 500px;
@@ -67,9 +70,23 @@ const PopupContainer = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  overflow-y: auto;
+  padding: 10px;
+  gap: 25px;
+  overflow-y: scroll;
   max-height: 400px;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 1px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${p => p.theme.colors.button.secondary.background.default};
+    border-radius: 1px;
+  }
+  scrollbar-color: black transparent;
 `
 
 const ProfilePic = styled.img`
@@ -77,37 +94,62 @@ const ProfilePic = styled.img`
   height: 100%;
   object-fit: contain;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 100px;
+  border: 2px solid ${p => (p.selected ? 'red' : 'transparent')};
   transition: transform 0.3s ease;
+
+  &:hover {
+    border-color: red;
+  }
+`
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 2px;
+  right: -10px;
+  background-color: transparent;
+  border: none;
+  color: #ff6f61;
+  cursor: pointer;
+
+  img {
+    width: 75%;
+    height: 75%;
+  }
+`
+
+const SaveButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`
+
+const SaveButton = styled.img`
+  margin-top: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: 25%;
+  height: 25%;
 
   &:hover {
     transform: scale(1.1);
   }
 `
 
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: #ff6f61;
-  cursor: pointer;
-`
-
-const SaveButton = styled.button`
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #ff6f61;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-`
-
 const ProfilePicturePopup = ({ closePopup, selectProfilePicture }) => {
+  const [selectedPic, setSelectedPic] = useState(null)
+
+  const handleSelect = index => {
+    setSelectedPic(index)
+  }
+
+  const handleSave = () => {
+    if (selectedPic !== null) {
+      selectProfilePicture(selectedPic + 1)
+      closePopup()
+    }
+  }
+
   return (
     <PopupOverlay>
       <PopupContainer>
@@ -117,7 +159,7 @@ const ProfilePicturePopup = ({ closePopup, selectProfilePicture }) => {
             closePopup()
           }}
         >
-          X
+          <img src={close} alt="" />
         </CloseButton>
         <Grid>
           {profilePictures.map((pic, index) => (
@@ -125,12 +167,14 @@ const ProfilePicturePopup = ({ closePopup, selectProfilePicture }) => {
               key={index}
               src={pic}
               alt={`Profile ${index + 1}`}
-              onClick={() => {
-                selectProfilePicture(index + 1)
-              }}
+              onClick={() => handleSelect(index)}
+              selected={selectedPic === index}
             />
           ))}
         </Grid>
+        <SaveButtonContainer>
+          <SaveButton src={save} alt="Save" onClick={handleSave} />
+        </SaveButtonContainer>
       </PopupContainer>
     </PopupOverlay>
   )
