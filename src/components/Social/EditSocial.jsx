@@ -57,35 +57,6 @@ const MobileContainer = styled.div`
   }
 `
 
-const EditSocialContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: -120px;
-
-  ${p => p.theme.mediaQueries.mobile} {
-    align-items: center;
-    gap: 1rem;
-    margin-top: min(-120px, -15vh);
-  }
-`
-
-const DesktopContainer = styled.div`
-  ${p => p.theme.mediaQueries.mobile} {
-    display: none;
-  }
-`
-
-const MobileContainer = styled.div`
-  display: none;
-
-  ${p => p.theme.mediaQueries.mobile} {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-`
-
 const TopRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -115,7 +86,6 @@ const ProfilePicture = styled.div`
   &:hover img {
     filter: grayscale(75%);
   }
-
 
   ${p => p.theme.mediaQueries.mobile} {
     margin-left: 0;
@@ -362,30 +332,6 @@ const EditSocial = ({
         },
         hideRecentlyViewed: newHideRecentlyViewed,
         profilePicture: newProfilePicture,
-      }
-      onSave(updatedData)
-    }
-  }
-
-  const handleSave = () => {
-    if (name.trim() && newPronouns.trim()) {
-      setIsEditing(false)
-      const updatedData = {
-        preferredName: name,
-        pronouns: newPronouns,
-        bio: newBio,
-        role: newRole,
-        school: newSchool,
-        year: newYear,
-        areaOfStudy: newAreaOfStudy,
-        socialLinks: {
-          linkedin: ensureHttps(linkedin),
-          github: ensureHttps(github),
-          instagram: ensureHttps(instagram),
-          website: ensureHttps(website),
-          devpost: ensureHttps(devpost),
-        },
-        hideRecentlyViewed: newHideRecentlyViewed,
       }
       onSave(updatedData)
     }
