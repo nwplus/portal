@@ -68,7 +68,7 @@ const TotalPoints = ({ userDetails }) => {
       {/* <TotalPointsName>{name}</TotalPointsName> */}
       <TotalPointsCard>
         <PointsTitle>TOTAL POINTS</PointsTitle>
-        <PointsValue>{totalPoints ? totalPoints : 0} pts</PointsValue>
+        <PointsValue>{totalPoints ? totalPoints : 15} pts</PointsValue>
       </TotalPointsCard>
     </div>
   )

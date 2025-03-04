@@ -68,7 +68,7 @@ const Cards = styled.div`
 const Rewards = () => {
   const [rewards, setRewards] = useState([])
   const [userDetails, setUserDetails] = useState(null)
-  const [userPoints, setUserPoints] = useState(0)
+  const [userPoints, setUserPoints] = useState(15) // points set to a default of 15
   const { dbHackathonName } = useHackathon()
   const { user } = useAuth()
 
@@ -98,17 +98,17 @@ const Rewards = () => {
           const events = await getEvents(dbHackathonName)
           const filteredEvents = events.filter(event => eventIds.includes(event.key))
           // setName(`${userData.basicInfo.preferredName} ${userData.basicInfo.legalLastName}`)
-          setUserPoints(
-            filteredEvents.reduce((accumulator, event) => {
-              const points = parseInt(event.points) // Attempt to convert to integer
-              if (!isNaN(points)) {
-                // Only add valid numbers
-                return accumulator + points
-              } else {
-                return accumulator
-              }
-            }, 0)
-          )
+          const points = filteredEvents.reduce((accumulator, event) => {
+            const eventPoints = parseInt(event.points)
+            if (!isNaN(eventPoints)) {
+              return accumulator + eventPoints
+            } else {
+              return accumulator
+            }
+          }, 0)
+
+          // If the calculated points are 0, don't reset it back to 15
+          setUserPoints(points === 0 ? 0 : points)
         }
 
         // const points = userData.points || 0
@@ -116,6 +116,7 @@ const Rewards = () => {
         setUserDetails(userData)
       } catch (error) {
         console.error('Error fetching user points:', error)
+        setUserPoints(15) // default to 15 points in case of an error
       }
     }
     fetchRewards()
