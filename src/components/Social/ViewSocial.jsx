@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Button } from '../Input'
 import SocialLinks from '../SocialLinks'
@@ -22,6 +22,9 @@ import fifteen from '../../assets/profilePictures/15.svg'
 import sixteen from '../../assets/profilePictures/16.svg'
 import seventeen from '../../assets/profilePictures/17.svg'
 import eighteen from '../../assets/profilePictures/18.svg'
+import trash from '../../assets/delete.svg'
+import trash_hover from '../../assets/delete_hover.svg'
+import { useHackathon } from '../../utility/HackathonProvider'
 
 const ViewSocialContainer = styled.div`
   display: flex;
@@ -267,6 +270,106 @@ const profilePicturesMap = {
   18: eighteen,
 }
 
+const HeaderText = styled.h1`
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 1rem;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 28px;
+    align-self: flex-start;
+    padding-left: 5%;
+  }
+`
+
+const RecentlyViewedContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: -24px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    max-height: none;
+    overflow-y: visible;
+    justify-content: center;
+    align-items: center;
+    margin-top: -18px;
+    width: 100%;
+  }
+`
+
+const Username = styled.a`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const DateText = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+`
+
+const TrashIcon = styled.div`
+  width: 25px;
+  height: 25px;
+  background-image: url(${trash});
+  background-size: contain;
+  background-repeat: no-repeat;
+`
+
+const Profile = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid ${p => p.theme.colors.sidebar.background};
+  border-radius: 5px;
+  padding: 0px 20px;
+  color: ${p => p.theme.colors.text};
+
+  &:hover {
+    background-color: ${p => p.theme.colors.button.primary.background.default};
+    border: 2px solid ${p => p.theme.colors.button.primary.background.default};
+    cursor: pointer;
+  }
+
+  &:hover ${Username} {
+    color: ${p => p.theme.colors.button.primary.text};
+  }
+
+  &:hover ${DateText} {
+    color: ${p => p.theme.colors.button.primary.text};
+  }
+
+  &:hover ${TrashIcon} {
+    background-image: url(${trash_hover});
+  }
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 80%;
+  }
+`
+
+const Text = styled.p`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${p => p.theme.colors.text};
+  margin-top: -24px;
+`
+
+const IconSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    gap: 8px;
+  }
+`
+
 const ViewSocial = ({
   setIsEditing,
   user,
@@ -280,12 +383,23 @@ const ViewSocial = ({
   areaOfStudy,
   profilePicture,
   socialLinks,
+  recentlyViewedProfiles,
 }) => {
   const profilePicSrc = profilePicturesMap[profilePicture] || veebs
 
   const currentUserId = userId || user?.uid
   const isCurrentUser = user?.uid === currentUserId
+  const { activeHackathon } = useHackathon()
   const [activeTab, setActiveTab] = useState('Profile')
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const isMobile = windowWidth <= 768
 
   return (
     <ViewSocialContainer>
@@ -350,8 +464,29 @@ const ViewSocial = ({
             </MobileSocialIconsContainer>
           </>
         )}
-        {activeTab === 'Recently Viewed' && (
-          <p>Recently Viewed Profiles</p> // placeholder
+        {isCurrentUser && (isMobile ? activeTab === 'Recently Viewed' : true) && (
+          <>
+            <HeaderText>Recently Viewed Profiles</HeaderText>
+            {recentlyViewedProfiles.length > 0 ? (
+              <RecentlyViewedContainer>
+                {recentlyViewedProfiles.map((profile, index) => (
+                  <Profile key={index}>
+                    <Username href={`/app/${activeHackathon}/social/${profile.profileId}`}>
+                      {profile.name}
+                    </Username>
+                    <IconSection>
+                      <DateText>
+                        {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
+                      </DateText>
+                      <TrashIcon />
+                    </IconSection>
+                  </Profile>
+                ))}
+              </RecentlyViewedContainer>
+            ) : (
+              <Text>No recently viewed profiles.</Text>
+            )}
+          </>
         )}
       </ContentContainer>
     </ViewSocialContainer>
