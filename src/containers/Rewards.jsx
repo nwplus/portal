@@ -107,7 +107,7 @@ const Rewards = () => {
             }
           }, 0)
 
-          // If the calculated points are 0, don't reset it back to 15
+          // if the calculated points are 0, don't reset it back to 15 should stay at 0
           setUserPoints(points === 0 ? 0 : points)
         }
 
@@ -116,7 +116,6 @@ const Rewards = () => {
         setUserDetails(userData)
       } catch (error) {
         console.error('Error fetching user points:', error)
-        setUserPoints(15) // default to 15 points in case of an error
       }
     }
     fetchRewards()
