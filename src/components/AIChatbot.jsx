@@ -9,7 +9,7 @@ const ChatbotContainer = styled.div`
 `
 
 const ChatbotToggle = styled.button`
-  background-color: #666ea2;
+  background-color: rgb(69, 23, 26);
   border: none;
   border-radius: 50%;
   height: 72px;
@@ -32,7 +32,7 @@ const Chatbox = styled.div`
 `
 
 const ChatboxHeader = styled.div`
-  background: #666ea2;
+  background: rgb(69, 23, 26);
   color: white;
   padding: 0px 10px;
   display: flex;
@@ -58,8 +58,9 @@ const Message = styled.div`
   padding: 10px 12px;
   max-width: 80%;
   border-radius: 5px;
-  background: ${({ role }) => (role === 'user' ? '#666EA2' : '#898c8f')};
+  background: ${({ role }) => (role === 'user' ? 'rgb(69, 23, 26)' : '#eeeeee')};
   align-self: ${({ role }) => (role === 'user' ? 'flex-end' : 'flex-start')};
+  color: ${({ role }) => (role === 'user' ? 'white' : 'black')};
   word-wrap: break-word;
   overflow-wrap: break-word;
 `
@@ -80,11 +81,11 @@ const Input = styled.input`
 const TypingIndicator = styled.div`
   padding: 10px;
   font-style: italic;
-  color: #666;
+  color: rgb(69, 23, 26);
 `
 
 const SendButton = styled.button`
-  background: #666ea2;
+  background: rgb(69, 23, 26);
   border: none;
   color: white;
   padding: 12px;
@@ -118,8 +119,7 @@ const Chatbot = () => {
     setIsTyping(true)
 
     try {
-      const response = await fetch('http://localhost:8000/api/chatbot', {
-        // replace with chatbot api
+      const response = await fetch('https://chatbot-service-e7343f6ioq-uw.a.run.app/api/chatbot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_query: userQuery }),
