@@ -146,6 +146,7 @@ const hackcampTheme = {
     faq: {
       toggle: '#45171A',
     },
+    qrCodeText: '#45171A',
   },
 }
 
@@ -254,6 +255,7 @@ const nwHacksTheme = {
     faq: {
       toggle: '#45171A',
     },
+    qrCodeText: '#3A2F21',
   },
 }
 
@@ -264,14 +266,14 @@ const cmdfTheme = {
     background: '#F0E9D7',
     backgroundSecondary: '#E2D0BA',
     backgroundTertiary: '#D9C5AC',
-    text: '#45171A',
-    textSecondary: '#01033D',
-    highlight: '#45171A',
+    text: '#4F2F22',
+    textSecondary: '#453017',
+    highlight: '#757651',
     warning: '#D04E51',
-    error: '#E03131',
+    error: '#A6321E',
     scrollbar: '#CAB69D',
     required: '#D04E51',
-    link: '#FBBC05',
+    link: '#F3BC1C',
     linkHover: '#75AEE2',
     lines: '#45171A',
     bar: '#00A4E0',
@@ -323,8 +325,8 @@ const cmdfTheme = {
       background: 'linear-gradient(180deg, #F0E9D7 0%, #DECBB4 99.98%)',
       mainEventTag: '#5B849F',
       workshopTag: '#D53A1A',
-      activityTag: '#F9C745',
-      lines: '#FFFFFF',
+      activityTag: '#757651',
+      lines: '#8C5C48',
     },
 
     // form elements
@@ -334,7 +336,7 @@ const cmdfTheme = {
       disabled: '#B0B0B0',
     },
     select: {
-      border: '#45171A',
+      border: '#453017',
       background: {
         default: 'transparent',
         hover: '#B8D2F3',
@@ -361,6 +363,7 @@ const cmdfTheme = {
     faq: {
       toggle: '#45171A',
     },
+    qrCodeText: '#FEF9F3',
   },
 }
 
