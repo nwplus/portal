@@ -109,11 +109,12 @@ const ProfilePic = styled.img`
   object-fit: contain;
   cursor: pointer;
   border-radius: 100px;
-  border: 2px solid ${p => (p.selected ? 'red' : 'transparent')};
+  border: 4px solid
+    ${p => (p.selected ? p.theme.colors.button.secondary.background.default : 'transparent')};
   transition: transform 0.3s ease;
 
   &:hover {
-    border-color: red;
+    border-color: ${p => p.theme.colors.button.secondary.background.default};
   }
 `
 
