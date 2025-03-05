@@ -22,8 +22,7 @@ import fifteen from '../../assets/profilePictures/15.svg'
 import sixteen from '../../assets/profilePictures/16.svg'
 import seventeen from '../../assets/profilePictures/17.svg'
 import eighteen from '../../assets/profilePictures/18.svg'
-import trash from '../../assets/delete.svg'
-import trash_hover from '../../assets/delete_hover.svg'
+import TrashIcon from '../../assets/trash.svg?react'
 import { useHackathon } from '../../utility/HackathonProvider'
 
 const ViewSocialContainer = styled.div`
@@ -312,12 +311,13 @@ const DateText = styled.p`
   color: ${p => p.theme.colors.text};
 `
 
-const TrashIcon = styled.div`
+const StyledTrashIcon = styled(TrashIcon)`
   width: 25px;
   height: 25px;
-  background-image: url(${trash});
-  background-size: contain;
-  background-repeat: no-repeat;
+
+  & path {
+    fill: ${p => p.theme.colors.text};
+  }
 `
 
 const Profile = styled.div`
@@ -343,8 +343,10 @@ const Profile = styled.div`
     color: ${p => p.theme.colors.button.primary.text};
   }
 
-  &:hover ${TrashIcon} {
-    background-image: url(${trash_hover});
+  &:hover ${StyledTrashIcon} {
+    & path {
+      fill: ${p => p.theme.colors.button.primary.text};
+    }
   }
 
   ${p => p.theme.mediaQueries.mobile} {
@@ -478,7 +480,7 @@ const ViewSocial = ({
                       <DateText>
                         {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
                       </DateText>
-                      <TrashIcon />
+                      <StyledTrashIcon />
                     </IconSection>
                   </Profile>
                 ))}
