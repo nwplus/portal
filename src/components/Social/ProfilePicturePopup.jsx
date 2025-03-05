@@ -119,16 +119,22 @@ const ProfilePic = styled.img`
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 2px;
-  right: -10px;
+  top: 8px;
+  right: 8px;
   background-color: transparent;
   border: none;
-  color: #ff6f61;
   cursor: pointer;
+`
 
-  img {
-    width: 75%;
-    height: 75%;
+const StyledCloseIcon = styled(CloseIcon)`
+  width: 30px;
+  height: 30px;
+
+  & path {
+    stroke: ${p => p.theme.colors.text};
+    stroke-width: 2px;
+    transform: scale(0.85);
+    transform-origin: center;
   }
 `
 
