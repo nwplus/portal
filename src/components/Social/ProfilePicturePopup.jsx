@@ -172,7 +172,9 @@ const ProfilePicturePopup = ({ closePopup, selectProfilePicture }) => {
           ))}
         </Grid>
         <SaveButtonContainer>
-          <SaveButton src={save} alt="Save" onClick={handleSave} />
+          <SaveButton color="secondary" width="flex" onClick={handleSave}>
+            Select Nugget
+          </SaveButton>
         </SaveButtonContainer>
       </PopupContainer>
     </PopupOverlay>
