@@ -314,6 +314,8 @@ const DateText = styled.p`
 const StyledTrashIcon = styled(TrashIcon)`
   width: 25px;
   height: 25px;
+  position: relative;
+  z-index: 2;
 
   & path {
     fill: ${p => p.theme.colors.text};
@@ -321,6 +323,7 @@ const StyledTrashIcon = styled(TrashIcon)`
 `
 
 const Profile = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -337,6 +340,7 @@ const Profile = styled.div`
 
   &:hover ${Username} {
     color: ${p => p.theme.colors.button.primary.text};
+    text-decoration: underline;
   }
 
   &:hover ${DateText} {
@@ -352,6 +356,12 @@ const Profile = styled.div`
   ${p => p.theme.mediaQueries.mobile} {
     width: 80%;
   }
+`
+
+const ProfileLink = styled.a`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 `
 
 const Text = styled.p`
@@ -474,9 +484,8 @@ const ViewSocial = ({
               <RecentlyViewedContainer>
                 {recentlyViewedProfiles.map((profile, index) => (
                   <Profile key={index}>
-                    <Username href={`/app/${activeHackathon}/social/${profile.profileId}`}>
-                      {profile.name}
-                    </Username>
+                    <ProfileLink href={`/app/${activeHackathon}/social/${profile.profileId}`} />
+                    <Username>{profile.name}</Username>
                     <IconSection>
                       <DateText>
                         {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}

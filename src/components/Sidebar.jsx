@@ -190,7 +190,7 @@ const Sidebar = ({
     general: [
       { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
-      { location: '/livestream', text: 'Livestream' },
+      // { location: '/livestream', text: 'Livestream' },
       { location: '/rewards', text: 'Rewards' },
       { location: '/sponsors', text: 'Sponsors' },
       { location: '/social', text: 'Portal Profiles' },
