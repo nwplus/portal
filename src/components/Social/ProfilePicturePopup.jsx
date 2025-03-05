@@ -57,20 +57,25 @@ const PopupOverlay = styled.div`
 
 const PopupContainer = styled.div`
   background-color: ${p => p.theme.colors.backgroundSecondary};
-  padding: 50px 40px 20px; // Reduced bottom padding
+  padding: 50px 20px 0px;
   border-radius: 8px;
-  width: 350px;
+  width: 450px;
   max-height: 500px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 70vw;
+    padding: 30px 30px 15px;
+  }
 `
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 10px;
+  padding: 10px 25px;
   gap: 25px;
   overflow-y: scroll;
   max-height: 400px;
@@ -87,6 +92,15 @@ const Grid = styled.div`
     border-radius: 1px;
   }
   scrollbar-color: black transparent;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 10px 10px;
+    gap: 15px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none;
+  }
 `
 
 const ProfilePic = styled.img`
