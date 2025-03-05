@@ -263,7 +263,7 @@ const cmdfTheme = {
   colors: {
     background: '#F0E9D7',
     backgroundSecondary: '#E2D0BA',
-    backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
+    backgroundTertiary: '#D9C5AC',
     text: '#45171A',
     textSecondary: '#01033D',
     highlight: '#45171A',
@@ -320,11 +320,10 @@ const cmdfTheme = {
 
     // schedule
     schedule: {
-      background:
-        'linear-gradient(180deg, rgba(0, 163, 224, 0.6) 0%, rgba(255, 248, 229, 0.6) 99.98%)',
-      mainEventTag: '#3268A5',
-      workshopTag: '#DE0148',
-      activityTag: '#A9158D',
+      background: 'linear-gradient(180deg, #F0E9D7 0%, #DECBB4 99.98%)',
+      mainEventTag: '#5B849F',
+      workshopTag: '#D53A1A',
+      activityTag: '#F9C745',
       lines: '#FFFFFF',
     },
 
