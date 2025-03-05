@@ -343,8 +343,8 @@ const cmdfTheme = {
     },
     dropdown: {
       background: {
-        selected: '#75AEE2',
-        hover: '#669fd4',
+        selected: '#D4BEA4',
+        hover: '#D4BEA4',
       },
     },
 

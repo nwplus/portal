@@ -1,22 +1,22 @@
 [
   {
-    "id": 1,
+    "value": 1,
     "label": "Beginner"
   },
   {
-    "id": 2,
+    "value": 2,
     "label": "Designer"
   },
   {
-    "id": 3,
+    "value": 3,
     "label": "Developer"
   },
   {
-    "id": 4,
+    "value": 4,
     "label": "Product/project manager"
   },
   {
-    "id": 5,
+    "value": 5,
     "label": "Other"
   }
 ]
