@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import ProfilePicturePopup from './ProfilePicturePopup'
 import { Button, Checkbox, Dropdown, TextArea, TextInput } from '../Input'
 import veebs from '../../assets/profilePictures/veebs.svg'
 import { ensureHttps } from '../../utility/utilities'
@@ -7,6 +8,25 @@ import schoolOptions from '../../containers/Application/data/schools.json'
 import majors from '../../containers/Application/data/majors.json'
 import roles from '../../containers/Application/data/roles.json'
 import years from '../../containers/Application/data/years.json'
+import one from '../../assets/profilePictures/1.svg'
+import two from '../../assets/profilePictures/2.svg'
+import three from '../../assets/profilePictures/3.svg'
+import four from '../../assets/profilePictures/4.svg'
+import five from '../../assets/profilePictures/5.svg'
+import six from '../../assets/profilePictures/6.svg'
+import seven from '../../assets/profilePictures/7.svg'
+import eight from '../../assets/profilePictures/8.svg'
+import nine from '../../assets/profilePictures/9.svg'
+import ten from '../../assets/profilePictures/10.svg'
+import eleven from '../../assets/profilePictures/11.svg'
+import twelve from '../../assets/profilePictures/12.svg'
+import thirteen from '../../assets/profilePictures/13.svg'
+import fourteen from '../../assets/profilePictures/14.svg'
+import fifteen from '../../assets/profilePictures/15.svg'
+import sixteen from '../../assets/profilePictures/16.svg'
+import seventeen from '../../assets/profilePictures/17.svg'
+import eighteen from '../../assets/profilePictures/18.svg'
+import upload from '../../assets/profilePictures/upload.svg'
 
 const EditSocialContainer = styled.div`
   display: flex;
@@ -53,6 +73,8 @@ const ProfilePicture = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  cursor: pointer;
 
   margin-left: -20px;
 
@@ -62,10 +84,27 @@ const ProfilePicture = styled.div`
     object-fit: contain;
   }
 
+  &:hover img {
+    filter: grayscale(75%);
+  }
+
   ${p => p.theme.mediaQueries.mobile} {
     margin-left: 0;
     width: clamp(160px, 50vw, 210px);
     height: clamp(160px, 50vw, 210px);
+  }
+`
+const OverlayImage = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+
+  ${ProfilePicture}:hover & {
+    opacity: 1;
+    width: 75px;
+    height: 75px;
   }
 `
 
@@ -203,6 +242,27 @@ const MobileEditProfileButton = styled(Button)`
   flex: 1;
 `
 
+const profilePicturesMap = {
+  1: one,
+  2: two,
+  3: three,
+  4: four,
+  5: five,
+  6: six,
+  7: seven,
+  8: eight,
+  9: nine,
+  10: ten,
+  11: eleven,
+  12: twelve,
+  13: thirteen,
+  14: fourteen,
+  15: fifteen,
+  16: sixteen,
+  17: seventeen,
+  18: eighteen,
+}
+
 const EditSocial = ({
   setIsEditing,
   user,
@@ -214,6 +274,7 @@ const EditSocial = ({
   school,
   year,
   areaOfStudy,
+  profilePicture,
   socialLinks,
   hideRecentlyViewed,
   onSave,
@@ -238,6 +299,19 @@ const EditSocial = ({
   const [devpost, setDevpost] = useState(socialLinks?.devpost ?? '')
 
   const [newHideRecentlyViewed, setNewHideRecentlyViewed] = useState(hideRecentlyViewed)
+  const [showPopup, setShowPopup] = useState(false)
+  const [newProfilePicture, setNewProfilePicture] = useState(profilePicture)
+
+  const newProfilePictureSrc = profilePicturesMap[newProfilePicture] || veebs
+  console.log(profilePicturesMap[newProfilePicture])
+
+  const openPopup = () => setShowPopup(true)
+  const closePopup = () => setShowPopup(false)
+
+  const selectProfilePicture = picId => {
+    setNewProfilePicture(picId)
+    closePopup()
+  }
 
   const handleSave = () => {
     if (name.trim() && newPronouns.trim()) {
@@ -258,6 +332,7 @@ const EditSocial = ({
           devpost: ensureHttps(devpost),
         },
         hideRecentlyViewed: newHideRecentlyViewed,
+        profilePicture: newProfilePicture,
       }
       onSave(updatedData)
     }
@@ -266,8 +341,9 @@ const EditSocial = ({
   return (
     <EditSocialContainer>
       <TopRow>
-        <ProfilePicture>
-          <img src={veebs} alt="Profile" />
+        <ProfilePicture onClick={openPopup}>
+          <img src={newProfilePictureSrc} alt="Profile Picture" />
+          <OverlayImage src={upload} alt="Overlay Icon" />
         </ProfilePicture>
         <DesktopContainer>
           {isCurrentUser && (
@@ -293,7 +369,9 @@ const EditSocial = ({
           )}
         </DesktopContainer>
       </TopRow>
-
+      {showPopup && (
+        <ProfilePicturePopup closePopup={closePopup} selectProfilePicture={selectProfilePicture} />
+      )}
       <DesktopContainer>
         <InputContainer>
           <Heading>Personal</Heading>

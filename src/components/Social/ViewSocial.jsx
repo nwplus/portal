@@ -4,6 +4,24 @@ import { Button } from '../Input'
 import SocialLinks from '../SocialLinks'
 import Icon from '../Icon'
 import veebs from '../../assets/profilePictures/veebs.svg'
+import one from '../../assets/profilePictures/1.svg'
+import two from '../../assets/profilePictures/2.svg'
+import three from '../../assets/profilePictures/3.svg'
+import four from '../../assets/profilePictures/4.svg'
+import five from '../../assets/profilePictures/5.svg'
+import six from '../../assets/profilePictures/6.svg'
+import seven from '../../assets/profilePictures/7.svg'
+import eight from '../../assets/profilePictures/8.svg'
+import nine from '../../assets/profilePictures/9.svg'
+import ten from '../../assets/profilePictures/10.svg'
+import eleven from '../../assets/profilePictures/11.svg'
+import twelve from '../../assets/profilePictures/12.svg'
+import thirteen from '../../assets/profilePictures/13.svg'
+import fourteen from '../../assets/profilePictures/14.svg'
+import fifteen from '../../assets/profilePictures/15.svg'
+import sixteen from '../../assets/profilePictures/16.svg'
+import seventeen from '../../assets/profilePictures/17.svg'
+import eighteen from '../../assets/profilePictures/18.svg'
 import TrashIcon from '../../assets/trash.svg?react'
 import { useHackathon } from '../../utility/HackathonProvider'
 
@@ -230,6 +248,27 @@ const MobileSocialIconsContainer = styled.div`
   }
 `
 
+const profilePicturesMap = {
+  1: one,
+  2: two,
+  3: three,
+  4: four,
+  5: five,
+  6: six,
+  7: seven,
+  8: eight,
+  9: nine,
+  10: ten,
+  11: eleven,
+  12: twelve,
+  13: thirteen,
+  14: fourteen,
+  15: fifteen,
+  16: sixteen,
+  17: seventeen,
+  18: eighteen,
+}
+
 const HeaderText = styled.h1`
   font-size: 32px;
   font-weight: 800;
@@ -344,9 +383,12 @@ const ViewSocial = ({
   school,
   year,
   areaOfStudy,
+  profilePicture,
   socialLinks,
   recentlyViewedProfiles,
 }) => {
+  const profilePicSrc = profilePicturesMap[profilePicture] || veebs
+
   const currentUserId = userId || user?.uid
   const isCurrentUser = user?.uid === currentUserId
   const { activeHackathon } = useHackathon()
@@ -365,7 +407,7 @@ const ViewSocial = ({
     <ViewSocialContainer>
       <TopRow>
         <ProfilePicture>
-          <img src={veebs} alt="Profile Picture" />
+          <img src={profilePicSrc} alt="Profile Picture" />
         </ProfilePicture>
         {isCurrentUser && (
           <>

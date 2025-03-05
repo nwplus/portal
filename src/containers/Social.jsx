@@ -88,6 +88,7 @@ const Social = ({ userId }) => {
   const [school, setSchool] = useState('')
   const [year, setYear] = useState('')
   const [areaOfStudy, setAreaOfStudy] = useState('')
+  const [profilePicture, setProfilePicture] = useState('')
   const [hideRecentlyViewed, setHideRecentlyViewed] = useState(false)
   const [visitedProfileData, setVisitedProfileData] = useState(null)
   const [recentlyViewedProfiles, setRecentlyViewedProfiles] = useState([])
@@ -196,6 +197,7 @@ const Social = ({ userId }) => {
           school: socialsData?.school || '',
           year: socialsData?.year || '',
           areaOfStudy: socialsData?.areaOfStudy || '',
+          profilePicture: socialsData?.profilePicture || '',
           hideRecentlyViewed: socialsData?.hideRecentlyViewed || false,
         }
 
@@ -211,7 +213,6 @@ const Social = ({ userId }) => {
               applicantData.basicInfo?.preferredName ||
               applicantData.basicInfo?.legalFirstName ||
               ''
-
             console.log(applicantData.basicInfo)
             const applicantPronouns =
               socialsData.pronouns ||
@@ -239,6 +240,7 @@ const Social = ({ userId }) => {
         setYear(finalData.year)
         setAreaOfStudy(finalData.areaOfStudy)
         setHideRecentlyViewed(finalData.hideRecentlyViewed)
+        setProfilePicture(finalData.profilePicture)
         setLoading(false)
       } catch (error) {
         console.error('Error fetching user data:', error)
@@ -270,6 +272,7 @@ const Social = ({ userId }) => {
             year={year}
             areaOfStudy={areaOfStudy}
             socialLinks={socialLinks}
+            profilePicture={profilePicture}
             hideRecentlyViewed={hideRecentlyViewed}
             onSave={async updatedData => {
               await saveUserData(updatedData)
@@ -282,6 +285,7 @@ const Social = ({ userId }) => {
               setSchool(updatedData.school)
               setYear(updatedData.year)
               setHideRecentlyViewed(updatedData.hideRecentlyViewed)
+              setProfilePicture(updatedData.profilePicture)
               setAreaOfStudy(updatedData.areaOfStudy)
             }}
           />
@@ -297,6 +301,7 @@ const Social = ({ userId }) => {
             school={school}
             year={year}
             areaOfStudy={areaOfStudy}
+            profilePicture={profilePicture}
             socialLinks={socialLinks}
             recentlyViewedProfiles={recentlyViewedProfiles}
           />
