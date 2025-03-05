@@ -54,7 +54,6 @@ const MobileScrollableContainer = styled.div`
     right: 0;
     bottom: 0;
     pointer-events: none;
-    background: linear-gradient(to bottom, transparent 80%, #193545 100%);
   }
 `
 

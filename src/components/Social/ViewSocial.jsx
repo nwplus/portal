@@ -316,6 +316,8 @@ const StyledTrashIcon = styled(TrashIcon)`
   height: 25px;
   position: relative;
   z-index: 2;
+  padding: 10px;
+  margin: -10px;
 
   & path {
     fill: ${p => p.theme.colors.text};
