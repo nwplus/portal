@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useQRCode } from 'next-qrcode'
 import hcQrBackground from '../assets/hc2024qrcode.svg'
 import nwHacksQrBackground from '../assets/nwhacks2025qrcode.svg'
+import cmdfQrBackground from '../assets/cmdf2025qrcode.svg'
 import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
 import { useHackathon } from '../utility/HackathonProvider'
 
@@ -74,7 +75,7 @@ const HackerName = styled.h1`
   font-weight: bold;
   margin-top: 60px;
   position: relative;
-  color: ${p => p.theme.colors.cardText};
+  color: ${p => p.theme.colors.qrCodeText};
 
   ${p => p.theme.mediaQueries.mobile} {
     font-size: 1.5em;
@@ -82,9 +83,9 @@ const HackerName = styled.h1`
 `
 
 const HackerEmail = styled.p`
-  color: #2e2e2e !important;
   font-size: 1.2em;
   margin-top: -10px;
+  color: ${p => p.theme.colors.qrCodeText};
 
   ${p => p.theme.mediaQueries.mobile} {
     font-size: 1em;
@@ -100,8 +101,8 @@ const QR = styled.div`
 
   ${p => p.theme.mediaQueries.mobile} {
     canvas {
-      max-width: 125px;
-      max-height: 125px;
+      max-width: 150px;
+      max-height: 150px;
     }
   }
 `
@@ -209,7 +210,7 @@ const QrCode = ({ userInfo, userId }) => {
   const backgrounds = {
     'hackcamp': hcQrBackground,
     'nwhacks': nwHacksQrBackground,
-    'cmd-f': nwHacksQrBackground,
+    'cmd-f': cmdfQrBackground,
   }
 
   const qrcodeBackground = backgrounds[activeHackathon] || nwHacksQrBackground
@@ -239,7 +240,7 @@ const QrCode = ({ userInfo, userId }) => {
           </QRTags> */}
           <QR hackathon={activeHackathon}>
             <Canvas
-              text={`${baseUrl}/app/${activeHackathon}/socials/${userId}`}
+              text={`${baseUrl}/app/${activeHackathon}/social/${userId}`}
               options={{
                 level: 'M',
                 margin: 2,

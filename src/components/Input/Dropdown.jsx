@@ -36,6 +36,7 @@ const sharedStyle = css`
   .react-select__option {
     color: ${p => p.theme.colors.text};
     overflow-wrap: break-word;
+    background-color: ${p => p.theme.colors.backgroundSecondary};
   }
 
   .react-select__menu {
@@ -65,9 +66,7 @@ const sharedStyle = css`
   .react-select__option:hover,
   .react-select__option--is-selected {
     background-color: ${p => p.theme.colors.dropdown.background.hover};
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
+    color: ${p => p.theme.colors.text};
   }
 
   .react-select__placeholder {

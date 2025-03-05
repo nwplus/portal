@@ -1,0 +1,22 @@
+[
+  {
+    "value": 1,
+    "label": "Beginner"
+  },
+  {
+    "value": 2,
+    "label": "Designer"
+  },
+  {
+    "value": 3,
+    "label": "Developer"
+  },
+  {
+    "value": 4,
+    "label": "Product/project manager"
+  },
+  {
+    "value": 5,
+    "label": "Other"
+  }
+]

@@ -146,6 +146,7 @@ const hackcampTheme = {
     faq: {
       toggle: '#45171A',
     },
+    qrCodeText: '#45171A',
   },
 }
 
@@ -254,6 +255,7 @@ const nwHacksTheme = {
     faq: {
       toggle: '#45171A',
     },
+    qrCodeText: '#3A2F21',
   },
 }
 
@@ -263,15 +265,15 @@ const cmdfTheme = {
   colors: {
     background: '#F0E9D7',
     backgroundSecondary: '#E2D0BA',
-    backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
-    text: '#45171A',
-    textSecondary: '#01033D',
-    highlight: '#45171A',
+    backgroundTertiary: '#D9C5AC',
+    text: '#4F2F22',
+    textSecondary: '#453017',
+    highlight: '#757651',
     warning: '#D04E51',
-    error: '#E03131',
-    scrollbar: '#FFFFFF',
+    error: '#A6321E',
+    scrollbar: '#CAB69D',
     required: '#D04E51',
-    link: '#FBBC05',
+    link: '#F3BC1C',
     linkHover: '#75AEE2',
     lines: '#45171A',
     bar: '#00A4E0',
@@ -284,9 +286,9 @@ const cmdfTheme = {
       textSectionHeader: '#E5CEAD',
       textSelected: '#4F2F22',
       textDefault: '#EBEBEB',
-      backgroundSelected: '#B8D2F3',
+      backgroundSelected: '#D9C5AC',
       textHover: '#4F2F22',
-      backgroundHover: '#B8D2F3',
+      backgroundHover: '#D9C5AC',
     },
 
     // buttons
@@ -295,16 +297,16 @@ const cmdfTheme = {
         text: '#F0E9D7',
         background: {
           default: '#456774',
-          hover: '#456774',
-          clicked: '#456774',
+          hover: '#5c8899',
+          clicked: '#7199a8',
         },
       },
       secondary: {
         text: '#F0E9D7',
         background: {
           default: '#A6321E',
-          hover: '#A6321E',
-          clicked: '#A6321E',
+          hover: '#ad4b39',
+          clicked: '#c46b5a',
         },
       },
       warning: {
@@ -320,12 +322,11 @@ const cmdfTheme = {
 
     // schedule
     schedule: {
-      background:
-        'linear-gradient(180deg, rgba(0, 163, 224, 0.6) 0%, rgba(255, 248, 229, 0.6) 99.98%)',
-      mainEventTag: '#3268A5',
-      workshopTag: '#DE0148',
-      activityTag: '#A9158D',
-      lines: '#FFFFFF',
+      background: 'linear-gradient(180deg, #F0E9D7 0%, #DECBB4 99.98%)',
+      mainEventTag: '#5B849F',
+      workshopTag: '#D53A1A',
+      activityTag: '#757651',
+      lines: '#8C5C48',
     },
 
     // form elements
@@ -335,7 +336,7 @@ const cmdfTheme = {
       disabled: '#B0B0B0',
     },
     select: {
-      border: '#45171A',
+      border: '#453017',
       background: {
         default: 'transparent',
         hover: '#B8D2F3',
@@ -343,8 +344,8 @@ const cmdfTheme = {
     },
     dropdown: {
       background: {
-        selected: '#75AEE2',
-        hover: '#669fd4',
+        selected: '#D4BEA4',
+        hover: '#D4BEA4',
       },
     },
 
@@ -362,6 +363,7 @@ const cmdfTheme = {
     faq: {
       toggle: '#45171A',
     },
+    qrCodeText: '#FEF9F3',
   },
 }
 

@@ -4,23 +4,27 @@ import { Redirect, useLocation } from 'wouter'
 import Loading from '../components/Loading'
 import { useAuth } from '../utility/Auth'
 import { applicantsRef, socialsRef } from '../utility/firebase'
+import firebase from 'firebase/app'
 import { useHackathon } from '../utility/HackathonProvider'
 import cmdfSocialsBanner from '../assets/cmdf_socials_banner.svg'
-import veebs from '../assets/profilePictures/veebs.svg'
-import { Button } from '../components/Input'
-import SocialIcons from '../components/SocialIcons'
+import EditSocial from '../components/Social/EditSocial'
+import ViewSocial from '../components/Social/ViewSocial'
 
 const SocialContainer = styled.div`
-  padding: 0 60px;
-
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0 60px;
+  ${p => p.theme.mediaQueries.mobile} {
+    padding: 0;
+    margin-bottom: -8px;
+  }
 `
 
 const Banner = styled.div`
-  color: #fff;
   margin: -25px -115px 25px;
+  height: 27vh;
+
   background-image: url(${props => {
     switch (props.activeHackathon) {
       case 'hackcamp':
@@ -35,98 +39,11 @@ const Banner = styled.div`
   }});
   background-size: cover;
   background-position: center;
-  height: 27vh;
-  @media (max-width: 768px) {
-    margin: -8px -20px 8px;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    margin: -110px -100px 0px;
+    height: 32vh;
   }
-`
-
-const TopRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  margin-top: -120px;
-`
-
-const ProfilePicture = styled.div`
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
-  background-color: ${p => p.theme.colors.background};
-  overflow: hidden;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-left: -20px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-`
-
-const EditProfileButton = styled(Button)`
-  font-size: 1rem;
-  box-shadow: none;
-  margin-bottom: 2rem;
-`
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-const HeaderLeft = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: flex-end;
-`
-
-const Name = styled.div`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: ${p => p.theme.colors.text};
-`
-
-const Pronouns = styled.div`
-  font-size: 1rem;
-  color: ${p => p.theme.colors.text};
-  font-weight: 600;
-  padding-bottom: 0.6rem;
-`
-
-const HeaderRight = styled.div`
-  display: flex;
-  gap: 1rem;
-`
-
-const Bio = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`
-
-const BioText = styled.div`
-  font-size: 1rem;
-  color: ${p => p.theme.colors.text};
-`
-
-const LabelContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-`
-
-const Label = styled.div`
-  font-size: 1rem;
-  color: ${p => p.theme.colors.text};
-  background-color: ${p => p.theme.colors.backgroundSecondary};
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  text-align: center;
 `
 
 const parsePronouns = pronouns => {
@@ -171,7 +88,12 @@ const Social = ({ userId }) => {
   const [school, setSchool] = useState('')
   const [year, setYear] = useState('')
   const [areaOfStudy, setAreaOfStudy] = useState('')
+  const [profilePicture, setProfilePicture] = useState('')
   const [hideRecentlyViewed, setHideRecentlyViewed] = useState(false)
+  const [visitedProfileData, setVisitedProfileData] = useState(null)
+  const [recentlyViewedProfiles, setRecentlyViewedProfiles] = useState([])
+
+  const [isEditing, setIsEditing] = useState(false)
 
   const [loading, setLoading] = useState(true)
   const { user } = useAuth()
@@ -181,7 +103,7 @@ const Social = ({ userId }) => {
   const currentUserId = userId || user?.uid
 
   if (!userId && !user?.uid) {
-    return <Redirect to="/login" />
+    return <Redirect to="~/login" />
   }
 
   useEffect(() => {
@@ -189,6 +111,97 @@ const Social = ({ userId }) => {
       setLocation(`/social/${user.uid}`, { replace: true })
     }
   }, [userId, user?.uid])
+
+  useEffect(() => {
+    if (user && user.uid && userId && user.uid !== userId) {
+      const fetchVisitedProfileData = async () => {
+        try {
+          const visitedDoc = await socialsRef.doc(userId).get()
+          if (visitedDoc.exists) {
+            setVisitedProfileData(visitedDoc.data())
+          }
+        } catch (error) {
+          console.error('Error fetching visited profile data:', error)
+        }
+      }
+      fetchVisitedProfileData()
+    }
+  }, [user, userId])
+
+  useEffect(() => {
+    if (user && user.uid && userId && user.uid !== userId) {
+      if (visitedProfileData === null) return
+
+      const updateRecentlyViewedProfile = async () => {
+        try {
+          const docRef = socialsRef.doc(user.uid)
+          const docSnapshot = await docRef.get()
+          const socialsData = docSnapshot.data() || {}
+          let currentRecentlyViewed = socialsData.recentlyViewedProfiles || []
+
+          currentRecentlyViewed = currentRecentlyViewed.filter(item => item.profileId !== userId)
+
+          if (visitedProfileData.hideRecentlyViewed) {
+            // skip users who have checked hideRecentlyViewed
+            await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+            return
+          }
+
+          const profileName = visitedProfileData && visitedProfileData.preferredName
+
+          const newItem = {
+            profileId: userId,
+            name: profileName,
+            viewedAt: firebase.firestore.Timestamp.now(),
+          }
+
+          currentRecentlyViewed.unshift(newItem)
+
+          await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+        } catch (error) {
+          console.error('Error updating recently viewed profiles: ', error)
+        }
+      }
+
+      updateRecentlyViewedProfile()
+    }
+  }, [user, userId, visitedProfileData])
+
+  const saveUserData = async updatedData => {
+    try {
+      await socialsRef.doc(currentUserId).set(updatedData, { merge: true })
+      console.log('saved!')
+    } catch (error) {
+      console.error('error saving user data: ', error)
+    }
+  }
+
+  const handleDeleteViewedProfile = async profileId => {
+    try {
+      if (!user || !user.uid) return
+
+      const docRef = socialsRef.doc(user.uid)
+      const docSnapshot = await docRef.get()
+
+      if (!docSnapshot.exists) return
+
+      const socialsData = docSnapshot.data() || {}
+      let currentRecentlyViewed = socialsData.recentlyViewedProfiles || []
+
+      // Filter out the profile to delete
+      currentRecentlyViewed = currentRecentlyViewed.filter(item => item.profileId !== profileId)
+
+      // Update Firestore
+      await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+
+      // Update local state
+      setRecentlyViewedProfiles(currentRecentlyViewed)
+
+      console.log(`Deleted viewed profile: ${profileId}`)
+    } catch (error) {
+      console.error('Error deleting viewed profile: ', error)
+    }
+  }
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -211,6 +224,7 @@ const Social = ({ userId }) => {
           school: socialsData?.school || '',
           year: socialsData?.year || '',
           areaOfStudy: socialsData?.areaOfStudy || '',
+          profilePicture: socialsData?.profilePicture || '',
           hideRecentlyViewed: socialsData?.hideRecentlyViewed || false,
         }
 
@@ -226,7 +240,6 @@ const Social = ({ userId }) => {
               applicantData.basicInfo?.preferredName ||
               applicantData.basicInfo?.legalFirstName ||
               ''
-
             console.log(applicantData.basicInfo)
             const applicantPronouns =
               socialsData.pronouns ||
@@ -240,8 +253,10 @@ const Social = ({ userId }) => {
         }
 
         if (user?.uid === currentUserId) {
-          await socialsRef.doc(currentUserId).set(finalData, { merge: true })
+          await saveUserData(finalData)
         }
+
+        setRecentlyViewedProfiles(socialsData.recentlyViewedProfiles || [])
 
         setPreferredName(finalData.preferredName)
         setPronouns(finalData.pronouns)
@@ -252,6 +267,7 @@ const Social = ({ userId }) => {
         setYear(finalData.year)
         setAreaOfStudy(finalData.areaOfStudy)
         setHideRecentlyViewed(finalData.hideRecentlyViewed)
+        setProfilePicture(finalData.profilePicture)
         setLoading(false)
       } catch (error) {
         console.error('Error fetching user data:', error)
@@ -267,41 +283,59 @@ const Social = ({ userId }) => {
   }
 
   return (
-    <SocialContainer>
+    <>
       <Banner activeHackathon={activeHackathon} />
-
-      <TopRow>
-        <ProfilePicture>
-          <img src={veebs} alt="Profile Picture" />
-        </ProfilePicture>
-        {user?.uid === currentUserId && (
-          <EditProfileButton color="secondary" width="flex">
-            Edit Profile
-          </EditProfileButton>
+      <SocialContainer>
+        {isEditing ? (
+          <EditSocial
+            setIsEditing={setIsEditing}
+            user={user}
+            userId={userId}
+            preferredName={preferredName}
+            pronouns={pronouns}
+            bio={bio}
+            role={role}
+            school={school}
+            year={year}
+            areaOfStudy={areaOfStudy}
+            socialLinks={socialLinks}
+            profilePicture={profilePicture}
+            hideRecentlyViewed={hideRecentlyViewed}
+            onSave={async updatedData => {
+              await saveUserData(updatedData)
+              // after saving, update the parent's state
+              setPreferredName(updatedData.preferredName)
+              setPronouns(updatedData.pronouns)
+              setSocialLinks(updatedData.socialLinks)
+              setBio(updatedData.bio)
+              setRole(updatedData.role)
+              setSchool(updatedData.school)
+              setYear(updatedData.year)
+              setHideRecentlyViewed(updatedData.hideRecentlyViewed)
+              setProfilePicture(updatedData.profilePicture)
+              setAreaOfStudy(updatedData.areaOfStudy)
+            }}
+          />
+        ) : (
+          <ViewSocial
+            setIsEditing={setIsEditing}
+            user={user}
+            userId={userId}
+            preferredName={preferredName}
+            pronouns={pronouns}
+            bio={bio}
+            role={role}
+            school={school}
+            year={year}
+            areaOfStudy={areaOfStudy}
+            profilePicture={profilePicture}
+            socialLinks={socialLinks}
+            recentlyViewedProfiles={recentlyViewedProfiles}
+            handleDeleteViewedProfile={handleDeleteViewedProfile}
+          />
         )}
-      </TopRow>
-
-      <Header>
-        <HeaderLeft>
-          {preferredName && <Name>{preferredName}</Name>}
-          {pronouns && <Pronouns>({pronouns})</Pronouns>}
-        </HeaderLeft>
-
-        <HeaderRight>
-          <SocialIcons socialLinks={socialLinks} />
-        </HeaderRight>
-      </Header>
-
-      <Bio>
-        <BioText>{bio}</BioText>
-        <LabelContainer>
-          {role && <Label>{role}</Label>}
-          {school && <Label>{school}</Label>}
-          {year && <Label>{year}</Label>}
-          {areaOfStudy && <Label>{areaOfStudy}</Label>}
-        </LabelContainer>
-      </Bio>
-    </SocialContainer>
+      </SocialContainer>
+    </>
   )
 }
 
