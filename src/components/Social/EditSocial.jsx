@@ -320,7 +320,6 @@ const EditSocial = ({
   const [newProfilePicture, setNewProfilePicture] = useState(profilePicture)
 
   const newProfilePictureSrc = profilePicturesMap[newProfilePicture] || veebs
-  console.log(profilePicturesMap[newProfilePicture])
 
   const openPopup = () => setShowPopup(true)
   const closePopup = () => setShowPopup(false)
@@ -420,8 +419,8 @@ const EditSocial = ({
               <InputDropdown
                 isSearchable={false}
                 options={roles}
-                isValid
                 placeholder="Select a role"
+                isValid
                 value={roles.find(opt => opt.label === newRole)}
                 onChange={opt => setNewRole(opt.label)}
               />
