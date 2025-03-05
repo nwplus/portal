@@ -18,7 +18,7 @@ import fifteen from '../../assets/profilePictures/15.svg'
 import sixteen from '../../assets/profilePictures/16.svg'
 import seventeen from '../../assets/profilePictures/17.svg'
 import eighteen from '../../assets/profilePictures/18.svg'
-import CloseIcon from '../../assets/trash.svg?react'
+import CloseIcon from '../../assets/close.svg?react'
 import { Button } from '../Input'
 
 const profilePictures = [
