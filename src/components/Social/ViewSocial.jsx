@@ -320,7 +320,7 @@ const StyledTrashIcon = styled(TrashIcon)`
   }
 `
 
-const Profile = styled.a`
+const Profile = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -328,7 +328,6 @@ const Profile = styled.a`
   border-radius: 5px;
   padding: 0px 20px;
   color: ${p => p.theme.colors.text};
-  text-decoration: none;
 
   &:hover {
     background-color: ${p => p.theme.colors.button.primary.background.default};
@@ -387,6 +386,7 @@ const ViewSocial = ({
   profilePicture,
   socialLinks,
   recentlyViewedProfiles,
+  handleDeleteViewedProfile,
 }) => {
   const profilePicSrc = profilePicturesMap[profilePicture] || veebs
 
@@ -473,13 +473,17 @@ const ViewSocial = ({
             {recentlyViewedProfiles.length > 0 ? (
               <RecentlyViewedContainer>
                 {recentlyViewedProfiles.map((profile, index) => (
-                  <Profile key={index} href={`/app/${activeHackathon}/social/${profile.profileId}`}>
-                    <Username>{profile.name}</Username>
+                  <Profile key={index}>
+                    <Username href={`/app/${activeHackathon}/social/${profile.profileId}`}>
+                      {profile.name}
+                    </Username>
                     <IconSection>
                       <DateText>
                         {new Date(profile.viewedAt.seconds * 1000).toLocaleDateString()}
                       </DateText>
-                      <StyledTrashIcon />
+                      <StyledTrashIcon
+                        onClick={() => handleDeleteViewedProfile(profile.profileId)}
+                      />
                     </IconSection>
                   </Profile>
                 ))}

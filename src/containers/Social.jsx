@@ -176,6 +176,33 @@ const Social = ({ userId }) => {
     }
   }
 
+  const handleDeleteViewedProfile = async profileId => {
+    try {
+      if (!user || !user.uid) return
+
+      const docRef = socialsRef.doc(user.uid)
+      const docSnapshot = await docRef.get()
+
+      if (!docSnapshot.exists) return
+
+      const socialsData = docSnapshot.data() || {}
+      let currentRecentlyViewed = socialsData.recentlyViewedProfiles || []
+
+      // Filter out the profile to delete
+      currentRecentlyViewed = currentRecentlyViewed.filter(item => item.profileId !== profileId)
+
+      // Update Firestore
+      await docRef.update({ recentlyViewedProfiles: currentRecentlyViewed })
+
+      // Update local state
+      setRecentlyViewedProfiles(currentRecentlyViewed)
+
+      console.log(`Deleted viewed profile: ${profileId}`)
+    } catch (error) {
+      console.error('Error deleting viewed profile: ', error)
+    }
+  }
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -304,6 +331,7 @@ const Social = ({ userId }) => {
             profilePicture={profilePicture}
             socialLinks={socialLinks}
             recentlyViewedProfiles={recentlyViewedProfiles}
+            handleDeleteViewedProfile={handleDeleteViewedProfile}
           />
         )}
       </SocialContainer>
