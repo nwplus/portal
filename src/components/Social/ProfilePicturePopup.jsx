@@ -124,15 +124,14 @@ const SaveButtonContainer = styled.div`
   width: 100%;
 `
 
-const SaveButton = styled.img`
-  margin-top: 10px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  width: 25%;
-  height: 25%;
+const SaveButton = styled(Button)`
+  box-shadow: none;
+  font-size: 0.8rem;
+  margin: 20px 0;
 
-  &:hover {
-    transform: scale(1.1);
+  ${p => p.theme.mediaQueries.mobile} {
+    margin-top: 10px;
+    margin-bottom: 0;
   }
 `
 
