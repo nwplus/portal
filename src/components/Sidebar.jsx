@@ -193,7 +193,7 @@ const Sidebar = ({
       { location: '/livestream', text: 'Livestream' },
       { location: '/rewards', text: 'Rewards' },
       { location: '/sponsors', text: 'Sponsors' },
-      { location: '/social', text: 'Social' },
+      { location: '/social', text: 'Portal Profiles' },
     ],
     // Tools
     tools: [
