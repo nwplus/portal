@@ -191,6 +191,20 @@ const InputDropdown = styled(Dropdown)`
     max-width: 20.3rem;
     min-height: 2.5rem;
   }
+
+  ${p => p.theme.mediaQueries.mobile} {
+    .react-select__control {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .react-select__menu {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+  }
 `
 
 const TabHeader = styled.div`
