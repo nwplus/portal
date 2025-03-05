@@ -295,16 +295,16 @@ const cmdfTheme = {
         text: '#F0E9D7',
         background: {
           default: '#456774',
-          hover: '#456774',
-          clicked: '#456774',
+          hover: '#5c8899',
+          clicked: '#7199a8',
         },
       },
       secondary: {
         text: '#F0E9D7',
         background: {
           default: '#A6321E',
-          hover: '#A6321E',
-          clicked: '#A6321E',
+          hover: '#ad4b39',
+          clicked: '#c46b5a',
         },
       },
       warning: {
