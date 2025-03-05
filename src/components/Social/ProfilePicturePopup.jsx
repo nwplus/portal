@@ -155,11 +155,10 @@ const ProfilePicturePopup = ({ closePopup, selectProfilePicture }) => {
       <PopupContainer>
         <CloseButton
           onClick={() => {
-            console.log('Click')
             closePopup()
           }}
         >
-          <img src={close} alt="" />
+          <StyledCloseIcon />
         </CloseButton>
         <Grid>
           {profilePictures.map((pic, index) => (
