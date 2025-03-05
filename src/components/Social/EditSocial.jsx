@@ -96,7 +96,7 @@ const InputPair = styled.div`
 
 const Heading = styled.div`
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: ${p => p.theme.colors.text};
   ${p => p.theme.mediaQueries.mobile} {
     font-size: 1.3rem;
@@ -110,17 +110,11 @@ const SubHeading = styled.div`
 `
 
 const Input = styled.div`
-  max-width: 24rem;
   width: 100%;
+  max-width: 24rem;
 
   ${p => p.theme.mediaQueries.mobile} {
-    max-width: 100% !important;
-    width: 100% !important;
-
-    input {
-      width: 100% !important;
-      max-width: 100% !important;
-    }
+    max-width: 100%;
   }
 `
 
@@ -128,7 +122,16 @@ const InputField = styled(TextInput)`
   width: 100%;
   font-size: 1rem;
   max-width: 24rem;
-  margin-left: 0 !important;
+  margin-left: 0;
+  margin-right: 0;
+
+  ${p => p.theme.mediaQueries.mobile} {
+    max-width: 100%;
+    input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
 `
 
 const Bio = styled(TextArea)`
@@ -161,16 +164,16 @@ const TabHeader = styled.div`
   margin-bottom: 1rem;
 `
 
-const TabButton = styled.button`
+const TabButton = styled.div`
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+
+  width: 49%;
+  padding: 0.5rem 0;
+  border-radius: 0.75rem 0.75rem 0 0;
   background-color: ${p => p.theme.colors.backgroundSecondary};
   opacity: ${p => (p.active ? 1 : 0.5)};
-  border: 0px;
-  padding: 1rem 1rem;
-  width: 100%;
-  cursor: pointer;
-  border-radius: 0.75rem 0.75rem 0 0;
-  font-weight: 600;
-  font-size: 1rem;
 `
 
 const MobileTabsContent = styled.div`
@@ -190,7 +193,7 @@ const MobileButtonContainer = styled.div`
     align-self: center;
     display: flex;
     width: 100%;
-    background-color: white;
+    background-color: ${p => p.theme.colors.backgroundSecondary};
   }
 `
 
