@@ -94,21 +94,21 @@ const Rewards = () => {
         const userData = userDoc.data()
 
         if (userData && dbHackathonName) {
+          const userCheckedIn = userData.dayOf.checkedIn
           const eventIds = userData.dayOf.events.map(event => event.eventId)
           const events = await getEvents(dbHackathonName)
           const filteredEvents = events.filter(event => eventIds.includes(event.key))
           // setName(`${userData.basicInfo.preferredName} ${userData.basicInfo.legalLastName}`)
-          setUserPoints(
-            filteredEvents.reduce((accumulator, event) => {
-              const points = parseInt(event.points) // Attempt to convert to integer
-              if (!isNaN(points)) {
-                // Only add valid numbers
-                return accumulator + points
-              } else {
-                return accumulator
-              }
-            }, 0)
-          )
+          const points = filteredEvents.reduce((accumulator, event) => {
+            const eventPoints = parseInt(event.points)
+            if (!isNaN(eventPoints)) {
+              return accumulator + eventPoints
+            } else {
+              return accumulator
+            }
+          }, 0)
+
+          setUserPoints(userCheckedIn ? points + 15 : points)
         }
 
         // const points = userData.points || 0
