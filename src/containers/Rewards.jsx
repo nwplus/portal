@@ -68,7 +68,7 @@ const Cards = styled.div`
 const Rewards = () => {
   const [rewards, setRewards] = useState([])
   const [userDetails, setUserDetails] = useState(null)
-  const [userPoints, setUserPoints] = useState(15) // points set to a default of 15
+  const [userPoints, setUserPoints] = useState(0)
   const { dbHackathonName } = useHackathon()
   const { user } = useAuth()
 
@@ -94,6 +94,7 @@ const Rewards = () => {
         const userData = userDoc.data()
 
         if (userData && dbHackathonName) {
+          const userCheckedIn = userData.dayOf.checkedIn
           const eventIds = userData.dayOf.events.map(event => event.eventId)
           const events = await getEvents(dbHackathonName)
           const filteredEvents = events.filter(event => eventIds.includes(event.key))
@@ -107,8 +108,7 @@ const Rewards = () => {
             }
           }, 0)
 
-          // if the calculated points are 0, don't reset it back to 15 should stay at 0
-          setUserPoints(points === 0 ? 0 : points)
+          setUserPoints(userCheckedIn ? points + 15 : points)
         }
 
         // const points = userData.points || 0

@@ -41,24 +41,25 @@ const TotalPoints = ({ userDetails }) => {
   useEffect(() => {
     ;(async () => {
       if (userDetails && dbHackathonName) {
+        const userCheckedIn = userDetails.dayOf.checkedIn
         const eventIds = userDetails.dayOf.events.map(event => event.eventId)
         const events = await getEvents(dbHackathonName)
         const filteredEvents = events.filter(event => eventIds.includes(event.key))
         console.log(filteredEvents)
         // setName(`${userDetails.basicInfo.preferredName} ${userDetails.basicInfo.legalLastName}`)
-        setTotalPoints(
-          filteredEvents.reduce((accumulator, event) => {
-            const points = parseInt(event.points) // Attempt to convert to integer
-            if (!isNaN(points)) {
-              // Only add valid numbers
-              console.log('Adding Points:', points)
-              return accumulator + points
-            } else {
-              console.log('Skipping Invalid Points:', event.points)
-              return accumulator
-            }
-          }, 0)
-        )
+        const points = filteredEvents.reduce((accumulator, event) => {
+          const points = parseInt(event.points) // Attempt to convert to integer
+          if (!isNaN(points)) {
+            // Only add valid numbers
+            console.log('Adding Points:', points)
+            return accumulator + points
+          } else {
+            console.log('Skipping Invalid Points:', event.points)
+            return accumulator
+          }
+        }, 0)
+
+        setTotalPoints(userCheckedIn ? points + 15 : points)
       }
     })()
   }, [userDetails, dbHackathonName])
@@ -68,7 +69,7 @@ const TotalPoints = ({ userDetails }) => {
       {/* <TotalPointsName>{name}</TotalPointsName> */}
       <TotalPointsCard>
         <PointsTitle>TOTAL POINTS</PointsTitle>
-        <PointsValue>{totalPoints ? totalPoints : 15} pts</PointsValue>
+        <PointsValue>{totalPoints ? totalPoints : 0} pts</PointsValue>
       </TotalPointsCard>
     </div>
   )
