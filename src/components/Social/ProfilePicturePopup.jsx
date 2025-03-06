@@ -105,10 +105,9 @@ const Grid = styled.div`
 
 const ProfilePic = styled.img`
   width: 100%;
-  height: 100%;
   object-fit: contain;
   cursor: pointer;
-  border-radius: 100px;
+  border-radius: 100%;
   border: 4px solid
     ${p => (p.selected ? p.theme.colors.button.secondary.background.default : 'transparent')};
   transition: transform 0.3s ease;
