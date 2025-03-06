@@ -169,6 +169,13 @@ const Name = styled.div`
   font-size: 2.5rem;
   font-weight: 700;
   color: ${p => p.theme.colors.text};
+
+  ${p => p.theme.mediaQueries.mobile} {
+    font-size: 2.25rem;
+    max-width: 65%;
+    text-align: center;
+    word-wrap: break-word;
+  }
 `
 
 const Pronouns = styled.div`
