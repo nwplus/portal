@@ -127,7 +127,8 @@ const Rewards = () => {
       <Column>
         <Spacer>
           <Name>
-            {userDetails?.basicInfo?.legalFirstName} {userDetails?.basicInfo?.legalLastName}
+            {userDetails?.basicInfo?.preferredName || userDetails?.basicInfo?.legalFirstName}{' '}
+            {userDetails?.basicInfo?.legalLastName}
           </Name>
           <TotalPoints userDetails={userDetails} />
         </Spacer>
