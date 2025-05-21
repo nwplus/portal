@@ -13,7 +13,7 @@ import nwplus_icon from '../assets/nwplus_icon.svg'
 import HackathonCard from '../components/HackathonCard'
 
 // one of 'HackCamp', 'nwHacks', 'cmd-f', or null (when we're done for the year)
-const UP_NEXT_HACKATHON_NAME = 'cmd-f'
+const UP_NEXT_HACKATHON_NAME = null
 
 const HackathonSelectionContainer = styled.div`
   display: flex;
@@ -147,6 +147,7 @@ export default function HackathonSelection() {
         buttonHoverColor={'#E6E6E6'}
         applicationDeadline={applicationData.deadlines['cmd-f']}
         applicationOpen={applicationData.openStatuses['cmd-f']}
+        visitWebsite
       />
     </HackathonSelectionContainer>
   )
