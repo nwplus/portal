@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { useQRCode } from 'next-qrcode'
+import html2canvas from 'html2canvas'
 import hcQrBackground from '../assets/hc2024qrcode.svg'
 import nwHacksQrBackground from '../assets/nwhacks2025qrcode.svg'
 import cmdfQrBackground from '../assets/cmdf2025qrcode.svg'
@@ -29,17 +30,10 @@ const QRTicketContainer = styled.div`
   width: 442.8px;
   height: 583.2px;
   margin-top: 30px;
-
-  ${p => p.theme.mediaQueries.mobile} {
-    width: 354.24px;
-    height: 464.4px;
-  }
-`
-
-const QRCodeBackground = styled.img`
-  position: absolute;
-  width: 442.8px;
-  height: 583.2px;
+  background-image: url(${props => props.backgroundImage});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 
   ${p => p.theme.mediaQueries.mobile} {
     width: 354.24px;
@@ -184,6 +178,60 @@ const AppleWalletButton = styled.button`
   margin-top: 30px;
 `
 
+const DownloadButton = styled.button`
+  background: ${p => p.theme.colors.primary};
+  color: black;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background: ${p => p.theme.colors.primaryHover || p.theme.colors.primary};
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  ${p => p.theme.mediaQueries.mobile} {
+    width: 100%;
+    justify-content: center;
+    font-size: 18px;
+    padding: 16px 24px;
+  }
+`
+
+const SaveMessage = styled.div`
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+
+  &.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  &.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+`
+
 // temporary comment out for lint fix
 // const generatePDF = () => {
 //   // const report = new JsPDF('portrait', 'pt', [300, 500.01])
@@ -206,6 +254,11 @@ const QrCode = ({ userInfo, userId }) => {
   const { Canvas } = useQRCode()
   const { activeHackathon } = useHackathon()
   const baseUrl = window.location.origin
+  const qrTicketRef = useRef(null)
+
+  const [isDownloading, setIsDownloading] = useState(false)
+  const [saveMessage, setSaveMessage] = useState('')
+  const [messageType, setMessageType] = useState('')
 
   const backgrounds = {
     'hackcamp': hcQrBackground,
@@ -214,6 +267,106 @@ const QrCode = ({ userInfo, userId }) => {
   }
 
   const qrcodeBackground = backgrounds[activeHackathon] || nwHacksQrBackground
+
+  // Device detection
+  const isMobile = () => {
+    return (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      (navigator.maxTouchPoints &&
+        navigator.maxTouchPoints > 2 &&
+        /MacIntel/.test(navigator.platform))
+    )
+  }
+
+  const generateFilename = () => {
+    const hackathonNames = {
+      'hackcamp': 'HackCamp',
+      'nwhacks': 'nwHacks',
+      'cmd-f': 'cmd-f',
+    }
+    const hackathonName = hackathonNames[activeHackathon] || 'Event'
+    const userName = userInfo.displayName.replace(/[^a-zA-Z0-9]/g, '_')
+    return `${hackathonName}_QR_${userName}.png`
+  }
+
+  const showMessage = (message, type) => {
+    setSaveMessage(message)
+    setMessageType(type)
+    setTimeout(() => {
+      setSaveMessage('')
+      setMessageType('')
+    }, 3000)
+  }
+
+  // Save QR ticket (works for both desktop and mobile)
+  const saveQRTicket = async () => {
+    if (isDownloading) return
+
+    setIsDownloading(true)
+
+    try {
+      const element = qrTicketRef.current
+      if (!element) {
+        throw new Error('QR ticket element not found')
+      }
+      const canvas = await html2canvas(element, {
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        logging: false,
+        scale: 1,
+      })
+
+      canvas.toBlob(
+        async blob => {
+          if (!blob) {
+            throw new Error('Failed to generate image')
+          }
+
+          const filename = generateFilename()
+
+          if (isMobile() && navigator.share && navigator.canShare) {
+            try {
+              const file = new File([blob], filename, { type: 'image/png' })
+              if (navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  files: [file],
+                  title: 'My QR Ticket',
+                  text: 'My event QR ticket',
+                })
+                showMessage('QR ticket shared successfully!', 'success')
+                return
+              }
+            } catch (shareError) {
+              console.warn('Share failed, falling back to download:', shareError)
+            }
+          }
+
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.download = filename
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          URL.revokeObjectURL(url)
+
+          if (isMobile()) {
+            showMessage('QR ticket downloaded! Check your Downloads folder.', 'success')
+          } else {
+            showMessage('QR ticket downloaded successfully!', 'success')
+          }
+        },
+        'image/png',
+        1.0
+      )
+    } catch (error) {
+      console.error('Error saving QR ticket:', error)
+      showMessage('Failed to save QR ticket. Please try again.', 'error')
+    } finally {
+      setIsDownloading(false)
+    }
+  }
 
   // const downloadAppleWalletPass = () => {
   //   const userId = userInfo.uid
@@ -227,8 +380,7 @@ const QrCode = ({ userInfo, userId }) => {
     <QRContainer>
       <QRInfoMobileWelcome>Welcome, {userInfo.displayName}!</QRInfoMobileWelcome>
 
-      <QRTicketContainer>
-        <QRCodeBackground src={qrcodeBackground} />
+      <QRTicketContainer ref={qrTicketRef} backgroundImage={qrcodeBackground}>
         <QRCodeDesign id="QRCodeContainer" hackathon={activeHackathon}>
           <HackerName>{userInfo.displayName}</HackerName>
           <HackerEmail>{userInfo.email}</HackerEmail>
@@ -264,6 +416,14 @@ const QrCode = ({ userInfo, userId }) => {
           This ticket contains your personal QR code which will be scanned throughout the event.
           Please take a screenshot or otherwise have your QR code ready to scan.
         </QRInfoDes>
+
+        {/* Save Button (Desktop/Mobile) */}
+        <DownloadButton onClick={saveQRTicket} disabled={isDownloading}>
+          {isDownloading ? 'Generating...' : isMobile() ? 'Save QR Ticket' : 'Download QR Ticket'}
+        </DownloadButton>
+
+        {/* Save Message */}
+        {saveMessage && <SaveMessage className={messageType}>{saveMessage}</SaveMessage>}
       </QRInfo>
     </QRContainer>
   )
