@@ -6,6 +6,7 @@ import hcQrBackground from '../assets/hc2024qrcode.svg'
 import nwHacksQrBackground from '../assets/nwhacks2025qrcode.svg'
 import cmdfQrBackground from '../assets/cmdf2025qrcode.svg'
 import AppleWalletButtonImage from '../assets/apple_wallet_button.svg'
+import { copyText } from '../utility/Constants'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const QRContainer = styled.div`
@@ -28,7 +29,7 @@ const QRContainer = styled.div`
 const QRTicketContainer = styled.div`
   position: relative;
   width: 442.8px;
-  height: 583.2px;
+  aspect-ratio: 1/1.3;
   margin-top: 30px;
   background-image: url(${props => props.backgroundImage});
   background-size: contain;
@@ -179,7 +180,7 @@ const AppleWalletButton = styled.button`
 `
 
 const DownloadButton = styled.button`
-  background: ${p => p.theme.colors.primary};
+  background: white;
   color: black;
   border: none;
   padding: 12px 24px;
@@ -194,7 +195,7 @@ const DownloadButton = styled.button`
   gap: 8px;
 
   &:hover {
-    background: ${p => p.theme.colors.primaryHover || p.theme.colors.primary};
+    background: white;
     transform: translateY(-1px);
   }
 
@@ -279,12 +280,7 @@ const QrCode = ({ userInfo, userId }) => {
   }
 
   const generateFilename = () => {
-    const hackathonNames = {
-      'hackcamp': 'HackCamp',
-      'nwhacks': 'nwHacks',
-      'cmd-f': 'cmd-f',
-    }
-    const hackathonName = hackathonNames[activeHackathon] || 'Event'
+    const hackathonName = copyText[activeHackathon].hackathonNameShort
     const userName = userInfo.displayName.replace(/[^a-zA-Z0-9]/g, '_')
     return `${hackathonName}_QR_${userName}.png`
   }
