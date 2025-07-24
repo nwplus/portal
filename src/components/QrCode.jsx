@@ -391,9 +391,9 @@ const QrCode = ({ userInfo, userId }) => {
             <Canvas
               text={`${baseUrl}/app/${activeHackathon}/social/${userId}`}
               options={{
-                level: 'M',
+                level: 'H',
                 margin: 2,
-                scale: 4.5,
+                scale: 5,
                 color: {
                   dark: '#000000',
                   light: '#FFFFFF',
