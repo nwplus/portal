@@ -311,7 +311,7 @@ const QrCode = ({ userInfo, userId }) => {
         backgroundColor: null,
         logging: false,
         scale: 3,
-        pixelRatio: 1,
+        pixelRatio: 2,
       })
 
       canvas.toBlob(
