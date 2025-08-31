@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FormSpacing } from './index'
-import { A, CenteredH1, P } from '../Typography'
+import { CenteredH1 } from '../Typography'
 import { useHackathon } from '../../utility/HackathonProvider'
 import { getHackerAppQuestions } from '../../utility/firebase'
-import parse, { domToReact } from 'html-react-parser'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 const HackathonInfo = () => {
   const { dbHackathonName } = useHackathon()
@@ -19,25 +20,11 @@ const HackathonInfo = () => {
     fetchQuestions()
   }, [dbHackathonName])
 
-  const options = {
-    replace: ({ name, attribs, children }) => {
-      if (name === 'p') {
-        return <P>{domToReact(children, options)}</P>
-      }
-      if (name === 'a') {
-        return (
-          <A href={attribs.href} target={attribs.target}>
-            {domToReact(children, options)}
-          </A>
-        )
-      }
-    },
-  }
   return (
     <>
       <FormSpacing>
         <CenteredH1>{title}</CenteredH1>
-        {parse(content, options)}
+        <ReactMarkdown children={content} remarkPlugins={[remarkGfm]} />
       </FormSpacing>
     </>
   )
