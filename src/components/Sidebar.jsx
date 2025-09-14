@@ -191,7 +191,7 @@ const Sidebar = ({
       { location: '/', text: 'Home' },
       { location: '/schedule', text: 'Schedule' },
       // { location: '/livestream', text: 'Livestream' },
-      { location: '/rewards', text: 'Rewards' },
+      // { location: '/rewards', text: 'Rewards' },
       { location: '/sponsors', text: 'Sponsors' },
       { location: '/social', text: 'Portal Profiles' },
     ],
