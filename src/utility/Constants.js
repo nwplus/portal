@@ -1,7 +1,7 @@
 export const DB_COLLECTION = 'Hackathons'
 
 export const DB_HACKATHON_NAMES = {
-  'hackcamp': 'HackCamp2024',
+  'hackcamp': 'HackCamp2025',
   'nwhacks': 'nwHacks2025',
   'cmd-f': 'cmd-f2025',
 }
@@ -12,7 +12,7 @@ export const NOTIFICATION_SETTINGS_CACHE_KEY = 'livesiteNotificationSettings'
 export const IS_DEVICE_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 export const copyText = Object.freeze({
   'hackcamp': {
-    hackathonName: 'HackCamp 2024',
+    hackathonName: 'HackCamp 2025',
     hackathonNameShort: 'HackCamp',
   },
   'nwhacks': {
