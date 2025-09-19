@@ -131,9 +131,10 @@ function App() {
                   <PageRoute path="/livestream">
                     <Livestream />
                   </PageRoute>
-                  <PageRoute path="/rewards">
+                  {/* disable gamification for HC 2025 */}
+                  {/* <PageRoute path="/rewards">
                     <Rewards />
-                  </PageRoute>
+                  </PageRoute> */}
                   <PageRoute path="/sponsors">
                     <Sponsors />
                   </PageRoute>
