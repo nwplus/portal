@@ -29,7 +29,7 @@ const NavContainer = styled.div`
 
 const Icon = styled.img`
   object-fit: cover;
-  height: 65px;
+  height: 42px;
   ${p => p.theme.mediaQueries.mobile} {
     height: 21px;
   }

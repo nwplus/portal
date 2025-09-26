@@ -13,7 +13,7 @@ import { A } from '../components/Typography'
 import { useHackathon } from '../utility/HackathonProvider'
 import { copyText } from '../utility/Constants'
 
-import hackcampLoginTicket from '../assets/hc_login_header.svg'
+import hackcampLoginTicket from '../assets/hc_login_ticket.svg'
 
 const ErrorMessage = ({ message }) => (
   <div>

@@ -105,7 +105,7 @@ const Landing = ({ heading, description, showFooter, hasHeader, showAltBackgroun
 
   const options = {
     'hackcamp': {
-      // logo: hc_logo,
+      logo: hc_logo,
       background: hackcampLoginBackground,
       mobileBackground: hackcampLoginBackground,
       altBackground: hackcampLoginBackground,

@@ -72,7 +72,7 @@ const NavigationButtons = ({
         )}
         <RightContainer>
           <MoonLoader color="#fff" size="30px" loading={loading} />
-          <StyledButton color="primary" width="flex" onClick={secondButtonOnClick}>
+          <StyledButton color="secondary" width="flex" onClick={secondButtonOnClick}>
             {secondButtonText}
           </StyledButton>
         </RightContainer>

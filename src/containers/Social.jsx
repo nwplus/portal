@@ -28,13 +28,13 @@ const Banner = styled.div`
   background-image: url(${props => {
     switch (props.activeHackathon) {
       case 'hackcamp':
-        return
+        return cmdfSocialsBanner
       case 'nwhacks':
-        return
+        return cmdfSocialsBanner
       case 'cmd-f':
         return cmdfSocialsBanner
       default:
-        return
+        return cmdfSocialsBanner
     }
   }});
   background-size: cover;
