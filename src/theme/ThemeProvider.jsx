@@ -45,50 +45,50 @@ const hackcampTheme = {
   ...base,
   name: 'hackcamp',
   colors: {
-    background: '#C8E5F0',
-    backgroundSecondary: '#93BEE5',
-    backgroundTertiary: 'linear-gradient(180deg, #F9C745 0%, #FF880F 100%)',
-    text: '#45171A',
-    textSecondary: '#01033D',
+    background: '#DFEDFF',
+    backgroundSecondary: '#C3DFBB',
+    backgroundTertiary: '#B4CFF2',
+    text: '#203219',
+    textSecondary: '#091803',
     highlight: '#45171A',
-    warning: '#D04E51',
-    error: '#E03131',
-    scrollbar: '#FFFFFF',
-    required: '#D04E51',
-    link: '#FBBC05',
+    warning: '#D91613',
+    error: '#D91613',
+    scrollbar: '#B4CFF2',
+    required: '#D91613',
+    link: '#FF9D66',
     linkHover: '#75AEE2',
-    lines: '#45171A',
+    lines: '#304428',
     bar: '#00A4E0',
     barBackground: '#371315',
 
     // sidebar
     sidebar: {
-      background: 'linear-gradient(191.3deg, #CF0A1F -57.93%, #5B0B4C 78.18%)',
+      background: '#304428',
       backgroundSecondary: 'transparent',
-      textSectionHeader: '#F9C745',
+      textSectionHeader: '#D2E6AD',
       textSelected: '#FFFFFF',
       textDefault: '#EBEBEB',
-      backgroundSelected: '#A8138C',
+      backgroundSelected: '#D94713',
       textHover: '#FFFFFF',
-      backgroundHover: '#910F79',
+      backgroundHover: '#D94713',
     },
 
     // buttons
     button: {
       primary: {
-        text: '#45171A',
+        text: '#FBEEF2',
         background: {
-          default: 'linear-gradient(90deg, #F9C745 0%, #F7891A 100%)',
-          hover: 'linear-gradient(90deg, #FFE090 0%, #FFA549 100%)',
-          clicked: 'linear-gradient(90deg, #E6B63A 0%, #EE851A 100%)',
+          default: '#D85475',
+          hover: '#D85475',
+          clicked: '#D85475',
         },
       },
       secondary: {
-        text: '#45171A',
+        text: '#FBEEF2',
         background: {
-          default: '#F9C745',
-          hover: '#FFD569',
-          clicked: '#E4B63F',
+          default: '#2C6D7D',
+          hover: '#2C6D7D',
+          clicked: '#2C6D7D',
         },
       },
       warning: {
@@ -104,22 +104,21 @@ const hackcampTheme = {
 
     // schedule
     schedule: {
-      background:
-        'linear-gradient(180deg, rgba(0, 163, 224, 0.6) 0%, rgba(255, 248, 229, 0.6) 99.98%)',
-      mainEventTag: '#3268A5',
-      workshopTag: '#DE0148',
-      activityTag: '#A9158D',
+      background: 'linear-gradient(180deg, #DFEDFF 0%, #C2DCFF 100%)',
+      mainEventTag: '#2C6D7D',
+      workshopTag: '#D85475',
+      activityTag: '#DB693B',
       lines: '#FFFFFF',
     },
 
     // form elements
     input: {
-      border: '#45171A',
-      hover: '#A9158D',
+      border: '#102809',
+      hover: '#2C6D7D',
       disabled: '#B0B0B0',
     },
     select: {
-      border: '#45171A',
+      border: '#082A0B',
       background: {
         default: 'transparent',
         hover: '#75AEE2',
@@ -127,7 +126,7 @@ const hackcampTheme = {
     },
     dropdown: {
       background: {
-        selected: '#75AEE2',
+        selected: '#ACCBA3',
         hover: '#669fd4',
       },
     },
@@ -144,7 +143,7 @@ const hackcampTheme = {
 
     // misc
     faq: {
-      toggle: '#45171A',
+      toggle: '#304428',
     },
     qrCodeText: '#45171A',
   },
