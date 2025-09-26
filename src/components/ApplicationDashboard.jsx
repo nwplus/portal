@@ -62,7 +62,7 @@ const StatusContainer = styled.div`
     padding: 2em;
   }
   border-radius: 21px;
-  background-color: ${p => p.theme.colors.backgroundSecondary};
+  background-color: ${p => p.theme.colors.backgroundTertiary};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -229,17 +229,8 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
         {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
         then!
         <HR />
-        We are currently at full capacity, but everyone is welcome to attend our{' '}
-        <A
-          href={notionLinks?.preHackathonWorkshops}
-          target="_blank"
-          rel="noopener noreferrer"
-          bolded
-          color="primary"
-        >
-          pre-hackathon workshops
-        </A>
-        .
+        We are currently at full capacity, but everyone is welcome to attend our pre-hackathon
+        workshops.
       </>
     ),
   },
@@ -331,11 +322,12 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
   },
 })
 
+// TODO: remove hardcoding of years and grab dynamically from firebase
 const headerText = {
-  'hackcamp': 'HackCamp 2024 is the largest beginner-only hackathon in Western Canada!',
-  'nwhacks': 'nwHacks 2025 is the largest hackathon in Western Canada!',
+  'hackcamp': 'HackCamp 2025 is the largest beginner-only hackathon in Western Canada!',
+  'nwhacks': 'nwHacks 2026 is the largest hackathon in Western Canada!',
   'cmd-f':
-    "cmd-f 2025 is Western Canada's largest hackathon celebrating underrepresented genders in tech!",
+    "cmd-f 2026 is Western Canada's largest hackathon celebrating underrepresented genders in tech!",
 }
 
 export const SocialMediaLinks = () => {
@@ -744,7 +736,11 @@ const Dashboard = ({
                     </StatusBlurbText>
 
                     <UnRSVPButtonContainer>
-                      <Button width="flex" onClick={() => setDisplayUnRSVPModal('none')}>
+                      <Button
+                        color="primary"
+                        width="flex"
+                        onClick={() => setDisplayUnRSVPModal('none')}
+                      >
                         Cancel
                       </Button>
                       <RSVPButton

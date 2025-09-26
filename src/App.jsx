@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect, Route, Switch, useLocation } from 'wouter'
 import AnnouncementToast from './components/AnnouncementToast'
+import PortalLiveBanner from './components/PortalLiveBanner'
 import {
   ApplicationConfirmation,
   ApplicationReview,
@@ -103,6 +104,7 @@ function App() {
       <GlobalStyle />
       <AuthProvider>
         {/* <AnnouncementToast text={announcementText} /> */}
+        <PortalLiveBanner />
         <Switch>
           <Route path="/">
             <HackathonSelection />
