@@ -229,8 +229,17 @@ export const hackerStatuses = (relevantDates, hackerName = null, activeHackathon
         {relevantDates?.offWaitlistNotify} if we find a spot for you, so please check your email
         then!
         <HR />
-        We are currently at full capacity, but everyone is welcome to attend our pre-hackathon
-        workshops.
+        We are currently at full capacity, but everyone is welcome to attend our{' '}
+        <A
+          href={notionLinks?.preHackathonWorkshops}
+          target="_blank"
+          rel="noopener noreferrer"
+          bolded
+          color="primary"
+        >
+          pre-hackathon workshops
+        </A>
+        .
       </>
     ),
   },
