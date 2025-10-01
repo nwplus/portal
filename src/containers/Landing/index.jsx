@@ -64,7 +64,7 @@ const StyledBanner = styled(Banner)`
 const BackgroundContainer = styled.img`
   height: ${p => (p.hasHeader ? '80%' : '100%')};
   width: 100vw;
-  object-fit: contain;
+  object-fit: cover;
   ${p => (!p.hasHeader ? 'object-position: center top;' : '')}
   z-index: -1;
   position: fixed;
