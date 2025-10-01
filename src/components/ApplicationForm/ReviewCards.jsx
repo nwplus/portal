@@ -310,13 +310,13 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
 
         <ContentWrapper textBlock>
-          <P>
+          {/* <P>
             <span role="img" aria-label="Robot emoji">
               🤖
             </span>{' '}
             {copyText[activeHackathon].hackathonNameShort} is an MLH partner event. The following 3
             checkboxes are for this partnership.
-          </P>
+          </P> */}
           <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
@@ -340,7 +340,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               .<Required />
             </span>
           </IndentedCheckbox>
-          <IndentedCheckbox
+          {/* <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
@@ -370,8 +370,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               </A>{' '}
               <Required />
             </span>
-          </IndentedCheckbox>
-          <IndentedCheckbox
+          </IndentedCheckbox> */}
+          {/* <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHEmailSubscription}
             onChange={() =>
@@ -384,7 +384,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I authorize MLH to send me occasional emails about relevant events, career
               opportunities, and community announcements.
             </span>
-          </IndentedCheckbox>
+          </IndentedCheckbox> */}
         </ContentWrapper>
 
         {activeHackathon === 'cmd-f' && (
