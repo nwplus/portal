@@ -278,7 +278,15 @@ const Sidebar = ({
 
   return (
     <SidebarContainer showMobileSidebar={showMobileSidebar}>
-      <Link href="~/">
+      <Link
+        href="~/"
+        onClick={e => {
+          if (showMobileSidebar) {
+            e.preventDefault()
+            hideSidebarCallback()
+          }
+        }}
+      >
         <BackLink>← BACK</BackLink>
       </Link>
 
