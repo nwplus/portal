@@ -226,7 +226,9 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   heading={question.title}
                   data={
                     formInputs.basicInfo[question.formInput] === 'other' ||
-                    formInputs.basicInfo[question.formInput] === 'Other'
+                    formInputs.basicInfo[question.formInput] === 'Other' ||
+                    formInputs.basicInfo[question.formInput] === 'Other (Please specify)' ||
+                    formInputs.basicInfo[question.formInput] === 'Prefer to self-describe'
                       ? formInputs.basicInfo[toOtherCamelCase(question.formInput)]
                       : formInputs.basicInfo[question.formInput]
                   }
@@ -259,7 +261,9 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   heading={question.title}
                   data={
                     formInputs.skills[question.formInput] === 'other' ||
-                    formInputs.skills[question.formInput] === 'Other'
+                    formInputs.skills[question.formInput] === 'Other' ||
+                    formInputs.skills[question.formInput] === 'Other (Please specify)' ||
+                    formInputs.skills[question.formInput] === 'Prefer to self-describe'
                       ? formInputs.skills[toOtherCamelCase(question.formInput)]
                       : formInputs.skills[question.formInput]
                   }
@@ -292,7 +296,9 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   heading={question.title}
                   data={
                     formInputs.questionnaire[question.formInput] === 'other' ||
-                    formInputs.questionnaire[question.formInput] === 'Other'
+                    formInputs.questionnaire[question.formInput] === 'Other' ||
+                    formInputs.questionnaire[question.formInput] === 'Other (Please specify)' ||
+                    formInputs.questionnaire[question.formInput] === 'Prefer to self-describe'
                       ? formInputs.questionnaire[toCamelCase(question.formInput)]
                       : formInputs.questionnaire[question.formInput]
                   }
