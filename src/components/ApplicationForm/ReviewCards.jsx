@@ -226,7 +226,9 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   heading={question.title}
                   data={
                     formInputs.basicInfo[question.formInput] === 'other' ||
-                    formInputs.basicInfo[question.formInput] === 'Other'
+                    formInputs.basicInfo[question.formInput] === 'Other' ||
+                    formInputs.basicInfo[question.formInput] === 'Other (Please specify)' ||
+                    formInputs.basicInfo[question.formInput] === 'Prefer to self-describe'
                       ? formInputs.basicInfo[toOtherCamelCase(question.formInput)]
                       : formInputs.basicInfo[question.formInput]
                   }
@@ -259,7 +261,9 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   heading={question.title}
                   data={
                     formInputs.skills[question.formInput] === 'other' ||
-                    formInputs.skills[question.formInput] === 'Other'
+                    formInputs.skills[question.formInput] === 'Other' ||
+                    formInputs.skills[question.formInput] === 'Other (Please specify)' ||
+                    formInputs.skills[question.formInput] === 'Prefer to self-describe'
                       ? formInputs.skills[toOtherCamelCase(question.formInput)]
                       : formInputs.skills[question.formInput]
                   }
@@ -292,7 +296,9 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
                   heading={question.title}
                   data={
                     formInputs.questionnaire[question.formInput] === 'other' ||
-                    formInputs.questionnaire[question.formInput] === 'Other'
+                    formInputs.questionnaire[question.formInput] === 'Other' ||
+                    formInputs.questionnaire[question.formInput] === 'Other (Please specify)' ||
+                    formInputs.questionnaire[question.formInput] === 'Prefer to self-describe'
                       ? formInputs.questionnaire[toCamelCase(question.formInput)]
                       : formInputs.questionnaire[question.formInput]
                   }
@@ -310,13 +316,13 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
         <QuestionHeading>Terms &amp; conditions</QuestionHeading>
 
         <ContentWrapper textBlock>
-          <P>
+          {/* <P>
             <span role="img" aria-label="Robot emoji">
               🤖
             </span>{' '}
             {copyText[activeHackathon].hackathonNameShort} is an MLH partner event. The following 3
             checkboxes are for this partnership.
-          </P>
+          </P> */}
           <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHCodeOfConduct}
@@ -340,7 +346,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               .<Required />
             </span>
           </IndentedCheckbox>
-          <IndentedCheckbox
+          {/* <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHPrivacyPolicy}
             onChange={() =>
@@ -370,8 +376,8 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               </A>{' '}
               <Required />
             </span>
-          </IndentedCheckbox>
-          <IndentedCheckbox
+          </IndentedCheckbox> */}
+          {/* <IndentedCheckbox
             flex
             checked={formInputs.termsAndConditions.MLHEmailSubscription}
             onChange={() =>
@@ -384,7 +390,7 @@ const ReviewCards = ({ formInputs, handleEdit, onChange }) => {
               I authorize MLH to send me occasional emails about relevant events, career
               opportunities, and community announcements.
             </span>
-          </IndentedCheckbox>
+          </IndentedCheckbox> */}
         </ContentWrapper>
 
         {activeHackathon === 'cmd-f' && (
