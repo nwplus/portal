@@ -13,7 +13,7 @@ import nwplus_icon from '../assets/nwplus_icon.svg'
 import HackathonCard from '../components/HackathonCard'
 
 // one of 'HackCamp', 'nwHacks', 'cmd-f', or null (when we're done for the year)
-const UP_NEXT_HACKATHON_NAME = null
+const UP_NEXT_HACKATHON_NAME = 'HackCamp'
 
 const HackathonSelectionContainer = styled.div`
   display: flex;
@@ -119,7 +119,6 @@ export default function HackathonSelection() {
         buttonHoverColor={'linear-gradient(90deg, #00DBCE 0%, #00D88A 100%)'}
         applicationDeadline={applicationData.deadlines.hackcamp}
         applicationOpen={applicationData.openStatuses.hackcamp}
-        visitWebsite
       />
       <HackathonCard
         background="linear-gradient(180deg, #77F8EF 0%, #007A72 123.72%)"
