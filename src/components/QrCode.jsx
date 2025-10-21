@@ -48,7 +48,7 @@ const QRCodeDesign = styled.div`
   align-items: flex-start;
   position: relative;
   left: 50px;
-  top: 80px;
+  top: 50px;
   border-radius: 20px;
   z-index: 10;
 
