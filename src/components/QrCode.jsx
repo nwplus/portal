@@ -393,7 +393,7 @@ const QrCode = ({ userInfo, userId }) => {
               options={{
                 level: 'H',
                 margin: 2,
-                scale: 5,
+                scale: 4.5,
                 color: {
                   dark: '#000000',
                   light: '#FFFFFF',
