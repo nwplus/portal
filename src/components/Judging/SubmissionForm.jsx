@@ -7,12 +7,13 @@ import {
   validateURL,
   validateYoutubeURL,
 } from '../../utility/Validation'
-import { getSponsorPrizes } from '../../utility/firebase'
+import { getSponsorPrizes, getSuperlativePrizes } from '../../utility/firebase'
 import { findElement } from '../../utility/utilities'
 import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
 import Toast from '../Toast'
 import { A, ErrorMessage, H1, H3, Label, P, ErrorSpan as Required } from '../Typography'
 import { useHackathon } from '../../utility/HackathonProvider'
+import { copyText } from '../../utility/Constants'
 
 const FormSection = styled.div`
   display: flex;
@@ -69,16 +70,16 @@ const ButtonContainer = styled.div`
 
 const charities = [
   {
-    value: 'BC Children’s Hospital',
-    label: 'BC Children’s Hospital',
+    value: 'AMS Food Bank',
+    label: 'AMS Food Bank',
   },
   {
-    value: 'Alzheimer Society of Canada',
-    label: 'Alzheimer Society of Canada',
+    value: 'GiveInternet.Org',
+    label: 'GiveInternet.Org',
   },
   {
-    value: 'Nature Trust of British Columbia',
-    label: 'Nature Trust of British Columbia',
+    value: 'Michael Cuccione Foundation',
+    label: 'Michael Cuccione Foundation',
   },
 ]
 
@@ -130,18 +131,27 @@ const SubmissionForm = ({
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
   const [links, setLinks] = useState(project.links || {})
   const [sponsorPrizes, setSponsorPrizes] = useState([])
+  const [superlativePrizes, setSuperlativePrizes] = useState([
+    'Most Accessible Design',
+    'Future Startup',
+    'Best Pitch',
+    'Best Hack for Social Good',
+  ])
   const [mentorNomination, setMentorNomination] = useState(project.mentorNomination || '')
   const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
+  const [superlativeSelectedPrizes, setSuperlativeSelectedPrizes] = useState(
+    project.superlativePrizes || []
+  )
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
   const { dbHackathonName } = useHackathon()
 
-  // Fetch list of sponsor prizes from Firebase
+  // Fetch list of sponsor and superlative prizes from Firebase
   useEffect(() => {
     async function getPrizes() {
-      const prizes = await getSponsorPrizes(dbHackathonName)
-      setSponsorPrizes(prizes)
+      const sponsorPrizes = await getSponsorPrizes(dbHackathonName)
+      setSponsorPrizes(sponsorPrizes)
     }
     getPrizes()
   }, [dbHackathonName])
@@ -155,6 +165,7 @@ const SubmissionForm = ({
     setMentorNomination(project.mentorNomination || '')
     setCharityChoice(project.charityChoice || '')
     setSelectedPrizes(project.sponsorPrizes || [])
+    setSuperlativeSelectedPrizes(project.superlativePrizes || [])
     setDraftStatus(project.draftStatus || 'draft')
 
     const newArray = project.teamMembers ? [...project.teamMembers] : []
@@ -167,6 +178,8 @@ const SubmissionForm = ({
     setMembers(newArray)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project])
+
+  const { activeHackathon } = useHackathon()
 
   const updateMember = (index, field, value) => {
     const newMembers = [...members]
@@ -271,6 +284,7 @@ const SubmissionForm = ({
         teamMembers: filteredMembers,
         links,
         sponsorPrizes: selectedPrizes,
+        superlativePrizes: superlativeSelectedPrizes,
         charityChoice,
         mentorNomination,
         uid: project.uid,
@@ -360,17 +374,18 @@ const SubmissionForm = ({
         </div>
         <div>
           <P>
-            Every project submitted at HackCamp 2024, regardless of completion, will be eligible for
-            a $5 donation to the charity of your choice from a curated list by the HackCamp team!
-            This is done so as to emphasize HackCamp's mission of focusing on the learning and
-            growth aspect of hackathons!
+            Every project submitted at {copyText[activeHackathon].hackathonName}, regardless of
+            completion, will be eligible for a $5 donation to the charity of your choice from a
+            curated list by the {copyText[activeHackathon].hackathonNameShort} team! This is done so
+            as to emphasize {copyText[activeHackathon].hackathonNameShort}'s mission of focusing on
+            the learning and growth aspect of hackathons!
           </P>
           <P style={{ marginTop: '8px' }}>
             Click &#8202;
             <StyledA
               target="_blank"
               rel="noreferrer noopener"
-              href="https://nwplus.notion.site/PUBLIC-Charities-4ec11b0a63e843d7bf7d681576caecd1"
+              href="https://nwplus.notion.site/2025-Charity-Selection-1ed14d529faa81e9ac98c7a8821bc6d5?source=copy_link"
             >
               here
             </StyledA>
@@ -401,6 +416,26 @@ const SubmissionForm = ({
                   checked={selectedPrizes.includes(prize)}
                   label={prize}
                   onChange={() => handleCheck(prize)}
+                />
+              )
+            })}
+          </div>
+        </FormSection>
+      )}
+      {superlativePrizes && (
+        <FormSection>
+          <HeadingLabel>Superlative Prizes</HeadingLabel>
+          <div>
+            {superlativePrizes.map(prize => {
+              return (
+                <Select
+                  key={prize}
+                  type="radio"
+                  checked={superlativeSelectedPrizes.includes(prize)}
+                  label={prize}
+                  onChange={() =>
+                    setSuperlativeSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))
+                  }
                 />
               )
             })}
