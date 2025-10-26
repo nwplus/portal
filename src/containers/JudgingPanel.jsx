@@ -5,11 +5,17 @@ import styled from 'styled-components'
 import { Card } from '../components/Common'
 import { Button, ToggleSwitch } from '../components/Input'
 import SponsorSubmissions from '../components/Judging/Admin/SponsorSubmissions'
+import SuperlativeSubmissions from '../components/Judging/Admin/SuperlativeSubmissions'
 import { GradeTable, ProjectGradeTable } from '../components/Judging/Admin/Table'
 import ProgressBar from '../components/ProgressBar'
 import { H1, H3, P } from '../components/Typography'
 import { JUDGING_RUBRIC, PROJECTS_TO_JUDGE_COUNT, calculateGrade } from '../utility/Constants'
-import { getSponsorPrizes, projectsRef, submitGrade } from '../utility/firebase'
+import {
+  getSponsorPrizes,
+  getSuperlativePrizes,
+  projectsRef,
+  submitGrade,
+} from '../utility/firebase'
 import { useHackathon } from '../utility/HackathonProvider'
 
 const Columns = styled.div`
@@ -181,6 +187,7 @@ const getGradedProjects = async (dropOutliers = 2, dbHackathonName) => {
 
 const JudgingPanel = () => {
   const [sponsorPrizes, setSponsorPrizes] = useState([])
+  const [superlativePrizes, setSuperlativePrizes] = useState([])
   const [gradedProjects, setGradedProjects] = useState([])
   const [CSVProjectData, setCSVProjectData] = useState([])
   const [grades, setGrades] = useState([]) // Individual "grade" objects
@@ -240,6 +247,35 @@ const JudgingPanel = () => {
     return prizesToProjectsMap
   }
 
+  const parseSuperlativePrizes = async dbHackathonName => {
+    const superlativePrizes = (await getSuperlativePrizes(dbHackathonName)) || []
+    const projects = (await getProjectData(dbHackathonName)) || []
+
+    const prizesToProjectsMap = {}
+
+    for (let i = 0; i < superlativePrizes.length; i++) {
+      prizesToProjectsMap[superlativePrizes[i]] = []
+    }
+
+    for (let i = 0; i < projects.length; i++) {
+      const project = projects[i]
+
+      // if a project added superlative prize consideration
+      if (project.superlativePrizes && project.superlativePrizes.length > 0) {
+        // for each superlative prize consideration, add this project to the map of projects
+        for (let j = 0; j < project.superlativePrizes.length; j++) {
+          let currentProjectsOfPrize = JSON.parse(
+            JSON.stringify(prizesToProjectsMap[project.superlativePrizes[j]])
+          )
+          currentProjectsOfPrize.push(project)
+          prizesToProjectsMap[project.superlativePrizes[j]] = currentProjectsOfPrize
+        }
+      }
+    }
+
+    return prizesToProjectsMap
+  }
+
   const setProjectsAndStats = async () => {
     setLoading(true)
     setGradedProjects(await getGradedProjects(2, dbHackathonName))
@@ -254,6 +290,7 @@ const JudgingPanel = () => {
 
   const getProjectsByPrizes = async () => {
     setSponsorPrizes(await parseSponsorPrizes(dbHackathonName))
+    setSuperlativePrizes(await parseSuperlativePrizes(dbHackathonName))
   }
 
   // const [firstTimeStats, setFirstTimeStats] = useState(null)
@@ -342,6 +379,7 @@ const JudgingPanel = () => {
           </div>
         ))} */}
       <SponsorSubmissions sponsorPrizes={sponsorPrizes} />
+      <SuperlativeSubmissions superlativePrizes={superlativePrizes} />
       <H1>Grades</H1>
       <H3>{percentageAssigned}% of projects assigned</H3>
       <ProgressBar percent={percentageAssigned} />

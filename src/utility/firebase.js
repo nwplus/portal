@@ -197,6 +197,18 @@ export const getSponsorPrizes = dbHackathonName => {
     })
 }
 
+// Fetch list of superlative prizes
+export const getSuperlativePrizes = dbHackathonName => {
+  return db
+    .collection(DB_COLLECTION)
+    .doc(dbHackathonName)
+    .get()
+    .then(querySnapshot => {
+      console.log('Superlative Prizes:', querySnapshot.data().superlativePrizes)
+      return querySnapshot.data().superlativePrizes
+    })
+}
+
 export const createProject = (author, data, dbHackathonName) => {
   return projectsRef(dbHackathonName).add({
     ...data,
