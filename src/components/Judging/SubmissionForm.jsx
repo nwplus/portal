@@ -131,6 +131,12 @@ const SubmissionForm = ({
   const [members, setMembers] = useState(project.teamMembers || defaultMembers)
   const [links, setLinks] = useState(project.links || {})
   const [sponsorPrizes, setSponsorPrizes] = useState([])
+  const [superlativePrizes, setSuperlativePrizes] = useState([
+    'Most Accessible Design',
+    'Future Startup',
+    'Best Pitch',
+    'Best Hack for Social Good',
+  ])
   const [mentorNomination, setMentorNomination] = useState(project.mentorNomination || '')
   const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
@@ -405,6 +411,24 @@ const SubmissionForm = ({
                   checked={selectedPrizes.includes(prize)}
                   label={prize}
                   onChange={() => handleCheck(prize)}
+                />
+              )
+            })}
+          </div>
+        </FormSection>
+      )}
+      {superlativePrizes && (
+        <FormSection>
+          <HeadingLabel>Superlative Prizes</HeadingLabel>
+          <div>
+            {superlativePrizes.map(prize => {
+              return (
+                <Select
+                  key={prize}
+                  type="radio"
+                  checked={selectedPrizes.includes(prize)}
+                  label={prize}
+                  onChange={() => setSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))}
                 />
               )
             })}
