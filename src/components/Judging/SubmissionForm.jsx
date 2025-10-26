@@ -374,7 +374,7 @@ const SubmissionForm = ({
             <StyledA
               target="_blank"
               rel="noreferrer noopener"
-              href="https://www.notion.so/nwplus/2025-Charity-Selection-1ed14d529faa81e9ac98c7a8821bc6d5?source=copy_link"
+              href="https://nwplus.notion.site/2025-Charity-Selection-1ed14d529faa81e9ac98c7a8821bc6d5?source=copy_link"
             >
               here
             </StyledA>
