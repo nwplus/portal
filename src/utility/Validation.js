@@ -175,7 +175,13 @@ export const validateFormSection = (change, section, fields) => {
         (typeof value === 'object' && Object.values(value).includes(true))
       ) {
         // check for other
-        if (value.other === true || value === 'Other') {
+        if (
+          value.other === true ||
+          value === 'Other' ||
+          value === 'Other (Please specify)' ||
+          value === 'Prefer to self-describe' ||
+          value === 'other'
+        ) {
           if (
             !(toOtherCamelCase(key) in change) ||
             !validateStringNotEmpty(change[toOtherCamelCase(key)])

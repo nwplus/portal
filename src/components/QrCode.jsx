@@ -48,7 +48,7 @@ const QRCodeDesign = styled.div`
   align-items: flex-start;
   position: relative;
   left: 50px;
-  top: 80px;
+  top: 50px;
   border-radius: 20px;
   z-index: 10;
 
@@ -393,7 +393,7 @@ const QrCode = ({ userInfo, userId }) => {
               options={{
                 level: 'H',
                 margin: 2,
-                scale: 5,
+                scale: 4.5,
                 color: {
                   dark: '#000000',
                   light: '#FFFFFF',

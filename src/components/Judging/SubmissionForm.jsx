@@ -70,16 +70,16 @@ const ButtonContainer = styled.div`
 
 const charities = [
   {
-    value: 'BC Children’s Hospital',
-    label: 'BC Children’s Hospital',
+    value: 'AMS Food Bank',
+    label: 'AMS Food Bank',
   },
   {
-    value: 'Alzheimer Society of Canada',
-    label: 'Alzheimer Society of Canada',
+    value: 'GiveInternet.Org',
+    label: 'GiveInternet.Org',
   },
   {
-    value: 'Nature Trust of British Columbia',
-    label: 'Nature Trust of British Columbia',
+    value: 'Michael Cuccione Foundation',
+    label: 'Michael Cuccione Foundation',
   },
 ]
 
@@ -380,7 +380,7 @@ const SubmissionForm = ({
             <StyledA
               target="_blank"
               rel="noreferrer noopener"
-              href="https://nwplus.notion.site/PUBLIC-Charities-4ec11b0a63e843d7bf7d681576caecd1"
+              href="https://nwplus.notion.site/2025-Charity-Selection-1ed14d529faa81e9ac98c7a8821bc6d5?source=copy_link"
             >
               here
             </StyledA>
