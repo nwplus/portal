@@ -7,7 +7,7 @@ import {
   validateURL,
   validateYoutubeURL,
 } from '../../utility/Validation'
-import { getSponsorPrizes } from '../../utility/firebase'
+import { getSponsorPrizes, getSuperlativePrizes } from '../../utility/firebase'
 import { findElement } from '../../utility/utilities'
 import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
 import Toast from '../Toast'
@@ -140,15 +140,18 @@ const SubmissionForm = ({
   const [mentorNomination, setMentorNomination] = useState(project.mentorNomination || '')
   const [charityChoice, setCharityChoice] = useState(project.charityChoice || '')
   const [selectedPrizes, setSelectedPrizes] = useState(project.sponsorPrizes || [])
+  const [superlativeSelectedPrizes, setSuperlativeSelectedPrizes] = useState(
+    project.superlativePrizes || []
+  )
   const [draftStatus, setDraftStatus] = useState(project.draftStatus || 'draft')
   const [errors, setErrors] = useState({})
   const { dbHackathonName } = useHackathon()
 
-  // Fetch list of sponsor prizes from Firebase
+  // Fetch list of sponsor and superlative prizes from Firebase
   useEffect(() => {
     async function getPrizes() {
-      const prizes = await getSponsorPrizes(dbHackathonName)
-      setSponsorPrizes(prizes)
+      const sponsorPrizes = await getSponsorPrizes(dbHackathonName)
+      setSponsorPrizes(sponsorPrizes)
     }
     getPrizes()
   }, [dbHackathonName])
@@ -162,6 +165,7 @@ const SubmissionForm = ({
     setMentorNomination(project.mentorNomination || '')
     setCharityChoice(project.charityChoice || '')
     setSelectedPrizes(project.sponsorPrizes || [])
+    setSuperlativeSelectedPrizes(project.superlativePrizes || [])
     setDraftStatus(project.draftStatus || 'draft')
 
     const newArray = project.teamMembers ? [...project.teamMembers] : []
@@ -280,6 +284,7 @@ const SubmissionForm = ({
         teamMembers: filteredMembers,
         links,
         sponsorPrizes: selectedPrizes,
+        superlativePrizes: superlativeSelectedPrizes,
         charityChoice,
         mentorNomination,
         uid: project.uid,
@@ -426,9 +431,11 @@ const SubmissionForm = ({
                 <Select
                   key={prize}
                   type="radio"
-                  checked={selectedPrizes.includes(prize)}
+                  checked={superlativeSelectedPrizes.includes(prize)}
                   label={prize}
-                  onChange={() => setSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))}
+                  onChange={() =>
+                    setSuperlativeSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))
+                  }
                 />
               )
             })}
