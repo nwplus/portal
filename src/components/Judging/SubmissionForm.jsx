@@ -13,6 +13,7 @@ import { Button, Dropdown, Select, TextArea, TextInput } from '../Input'
 import Toast from '../Toast'
 import { A, ErrorMessage, H1, H3, Label, P, ErrorSpan as Required } from '../Typography'
 import { useHackathon } from '../../utility/HackathonProvider'
+import { copyText } from '../../utility/Constants'
 
 const FormSection = styled.div`
   display: flex;
@@ -167,6 +168,8 @@ const SubmissionForm = ({
     setMembers(newArray)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project])
+
+  const { activeHackathon } = useHackathon()
 
   const updateMember = (index, field, value) => {
     const newMembers = [...members]
@@ -360,10 +363,11 @@ const SubmissionForm = ({
         </div>
         <div>
           <P>
-            Every project submitted at HackCamp 2024, regardless of completion, will be eligible for
-            a $5 donation to the charity of your choice from a curated list by the HackCamp team!
-            This is done so as to emphasize HackCamp's mission of focusing on the learning and
-            growth aspect of hackathons!
+            Every project submitted at {copyText[activeHackathon].hackathonName}, regardless of
+            completion, will be eligible for a $5 donation to the charity of your choice from a
+            curated list by the {copyText[activeHackathon].hackathonNameShort} team! This is done so
+            as to emphasize {copyText[activeHackathon].hackathonNameShort}'s mission of focusing on
+            the learning and growth aspect of hackathons!
           </P>
           <P style={{ marginTop: '8px' }}>
             Click &#8202;
