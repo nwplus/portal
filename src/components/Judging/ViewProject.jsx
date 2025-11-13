@@ -107,6 +107,9 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
   const cleanedUpDevpostLink = project.links.devpost
     ? project.links.devpost.replace(/https?:\/\//, '')
     : ''
+  const cleanedUpFigmaLink = project.links.figma
+    ? project.links.figma.replace(/https?:\/\//, '')
+    : ''
   return (
     <Container>
       <JudgingColumn>
@@ -127,6 +130,15 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
             <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpLink}`}>
               View source code
             </StyledA>
+          </StyledP>
+          <StyledP>
+            {cleanedUpFigmaLink ? (
+              <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpFigmaLink}`}>
+                View Figma
+              </StyledA>
+            ) : (
+              ''
+            )}
           </StyledP>
         </Card>
       </JudgingColumn>
