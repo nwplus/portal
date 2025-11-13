@@ -340,14 +340,6 @@ const SubmissionForm = ({
           project, please enter your prototype link.
         </P> */}
         <TextInputWithField
-          fieldName="Figma URL"
-          value={links?.figma}
-          required
-          invalid={errors?.figma}
-          errorMsg={errors?.figma}
-          onChange={e => setLinks({ ...links, figma: e.target.value })}
-        />
-        <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
           required
@@ -362,6 +354,13 @@ const SubmissionForm = ({
           invalid={errors?.youtube}
           errorMsg={errors?.youtube}
           onChange={e => setLinks({ ...links, youtube: e.target.value })}
+        />
+        <TextInputWithField
+          fieldName="Figma URL"
+          value={links?.figma}
+          invalid={errors?.figma}
+          errorMsg={errors?.figma}
+          onChange={e => setLinks({ ...links, figma: e.target.value })}
         />
         <TextInputWithField
           fieldName="Other"
@@ -438,7 +437,8 @@ const SubmissionForm = ({
         <FormSection>
           <HeadingLabel>Superlative Prizes</HeadingLabel>
           <P style={{ marginTop: '8px' }}>
-            NOTE: To be considered for "Most Accessible Design", you must include a Figma link.
+            NOTE: To be considered for "Most Accessible Design", you must include a Figma link
+            above.
           </P>
           <div>
             {superlativePrizes.map(prize => {
