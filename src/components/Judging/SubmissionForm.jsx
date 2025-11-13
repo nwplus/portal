@@ -263,6 +263,10 @@ const SubmissionForm = ({
       newErrors.sourceCode = 'Please enter a valid source code URL'
     }
 
+    if (links.figma && !validateURL(links.figma)) {
+      newErrors.figma = 'Please enter a valid URL for Figma'
+    }
+
     // Validate charity selection
     if (!charityChoice) {
       newErrors.charity = 'Please select a charity'
@@ -335,6 +339,14 @@ const SubmissionForm = ({
           <b>Please note</b>: only code projects can be eligible for prizes. If you built a no-code
           project, please enter your prototype link.
         </P> */}
+        <TextInputWithField
+          fieldName="Figma URL"
+          value={links?.figma}
+          required
+          invalid={errors?.figma}
+          errorMsg={errors?.figma}
+          onChange={e => setLinks({ ...links, figma: e.target.value })}
+        />
         <TextInputWithField
           fieldName="Devpost URL"
           value={links?.devpost}
@@ -425,18 +437,23 @@ const SubmissionForm = ({
       {superlativePrizes && (
         <FormSection>
           <HeadingLabel>Superlative Prizes</HeadingLabel>
+          <P style={{ marginTop: '8px' }}>
+            NOTE: To be considered for "Most Accessible Design", you must include a Figma link.
+          </P>
           <div>
             {superlativePrizes.map(prize => {
               return (
-                <Select
-                  key={prize}
-                  type="radio"
-                  checked={superlativeSelectedPrizes.includes(prize)}
-                  label={prize}
-                  onChange={() =>
-                    setSuperlativeSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))
-                  }
-                />
+                <>
+                  <Select
+                    key={prize}
+                    type="radio"
+                    checked={superlativeSelectedPrizes.includes(prize)}
+                    label={prize}
+                    onChange={() =>
+                      setSuperlativeSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))
+                    }
+                  />
+                </>
               )
             })}
           </div>
