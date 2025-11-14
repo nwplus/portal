@@ -222,6 +222,8 @@ const JudgingPanel = () => {
     const sponsorPrizes = (await getSponsorPrizes(dbHackathonName)) || []
     const projects = (await getProjectData(dbHackathonName)) || []
 
+    if (!sponsorPrizes.length) return {}
+
     const prizesToProjectsMap = {}
 
     for (let i = 0; i < sponsorPrizes.length; i++) {
@@ -250,6 +252,8 @@ const JudgingPanel = () => {
   const parseSuperlativePrizes = async dbHackathonName => {
     const superlativePrizes = (await getSuperlativePrizes(dbHackathonName)) || []
     const projects = (await getProjectData(dbHackathonName)) || []
+
+    if (!superlativePrizes.length) return {}
 
     const prizesToProjectsMap = {}
 
