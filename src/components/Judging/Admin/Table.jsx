@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { JUDGING_RUBRIC } from '../../../utility/Constants'
 import { Button } from '../../Input'
 import { A } from '../../Typography'
+import { useHackathon } from '../../../utility/HackathonProvider'
 
 const StyledTable = styled.table`
   width: 100%;
@@ -88,8 +89,9 @@ const ProjectGradeTitles = [
 ]
 
 export const ProjectGradeTable = ({ data, onDisqualify }) => {
+  const { activeHackathon } = useHackathon()
   const formattedData = data?.map(row => {
-    const projectLink = `/projects/${row.id}`
+    const projectLink = `/app/${activeHackathon}/projects/${row.id}`
     return [
       row.title,
       projectLink,
