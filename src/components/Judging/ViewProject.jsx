@@ -107,6 +107,9 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
   const cleanedUpDevpostLink = project.links.devpost
     ? project.links.devpost.replace(/https?:\/\//, '')
     : ''
+  const cleanedUpFigmaLink = project.links.figma
+    ? project.links.figma.replace(/https?:\/\//, '')
+    : ''
   return (
     <Container>
       <JudgingColumn>
@@ -128,6 +131,15 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
               View source code
             </StyledA>
           </StyledP>
+          <StyledP>
+            {cleanedUpFigmaLink ? (
+              <StyledA target="_blank" rel="noreferrer noopener" href={`//${cleanedUpFigmaLink}`}>
+                View Figma
+              </StyledA>
+            ) : (
+              ''
+            )}
+          </StyledP>
         </Card>
       </JudgingColumn>
       <Column>
@@ -137,7 +149,7 @@ const ViewProject = ({ project, score, error, success, isSubmitting, onChange, o
           <ExternalLink
             target="_blank"
             rel="noreferrer noopener"
-            href="https://nwplus.notion.site/PUBLIC-HackCamp-2024-Peer-Judging-Rubric-23ecd01e56b04442a7dfe0c7cbabbc62"
+            href="https://nwplus.notion.site/PUBLIC-HackCamp-2025-Peer-Judging-Rubric-1ed14d529faa811ba7f2c17e5fa454df?pvs=74"
           >
             Hacker Package
           </ExternalLink>
