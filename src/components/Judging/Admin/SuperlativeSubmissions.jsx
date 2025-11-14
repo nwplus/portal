@@ -8,6 +8,7 @@ import { H1 } from '../../Typography'
 import { useHackathon } from '../../../utility/HackathonProvider'
 import { JUDGING_RUBRIC, calculateGrade } from '../../../utility/Constants'
 
+
 const SuperlativePrize = styled.div`
   ${CardLike};
   padding: 0.25em 0.5em;
