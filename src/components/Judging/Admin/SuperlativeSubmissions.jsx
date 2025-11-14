@@ -52,7 +52,6 @@ const SuperlativeSubmissions = ({ superlativePrizes }) => {
         const avgForCalc = {}
         JUDGING_RUBRIC.forEach(item => {
           const avg = totals[item.id] ? totals[item.id] / count : 0
-          // use the rubric id as the CSV column header to match other exports
           projectInfo[item.id] = Number.isFinite(avg) ? avg.toFixed(2) : ''
           avgForCalc[item.id] = avg
         })
@@ -66,6 +65,7 @@ const SuperlativeSubmissions = ({ superlativePrizes }) => {
         })
         projectInfo['Overall grade'] = ''
       }
+
       project.teamMembers.forEach((member, index) => {
         projectInfo[`Member ${index + 1} Name`] = member.name
         projectInfo[`Member ${index + 1} Email`] = member.email
