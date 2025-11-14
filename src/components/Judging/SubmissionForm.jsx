@@ -263,6 +263,10 @@ const SubmissionForm = ({
       newErrors.sourceCode = 'Please enter a valid source code URL'
     }
 
+    if (links.figma && !validateURL(links.figma)) {
+      newErrors.figma = 'Please enter a valid URL for Figma'
+    }
+
     // Validate charity selection
     if (!charityChoice) {
       newErrors.charity = 'Please select a charity'
@@ -352,6 +356,13 @@ const SubmissionForm = ({
           onChange={e => setLinks({ ...links, youtube: e.target.value })}
         />
         <TextInputWithField
+          fieldName="Figma URL"
+          value={links?.figma}
+          invalid={errors?.figma}
+          errorMsg={errors?.figma}
+          onChange={e => setLinks({ ...links, figma: e.target.value })}
+        />
+        <TextInputWithField
           fieldName="Other"
           value={links?.other}
           invalid={errors?.other}
@@ -425,18 +436,24 @@ const SubmissionForm = ({
       {superlativePrizes && (
         <FormSection>
           <HeadingLabel>Superlative Prizes</HeadingLabel>
+          <P style={{ marginTop: '8px' }}>
+            NOTE: To be considered for "Most Accessible Design", you must include a Figma link
+            above.
+          </P>
           <div>
             {superlativePrizes.map(prize => {
               return (
-                <Select
-                  key={prize}
-                  type="radio"
-                  checked={superlativeSelectedPrizes.includes(prize)}
-                  label={prize}
-                  onChange={() =>
-                    setSuperlativeSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))
-                  }
-                />
+                <>
+                  <Select
+                    key={prize}
+                    type="radio"
+                    checked={superlativeSelectedPrizes.includes(prize)}
+                    label={prize}
+                    onChange={() =>
+                      setSuperlativeSelectedPrizes(prev => (prev.includes(prize) ? [] : [prize]))
+                    }
+                  />
+                </>
               )
             })}
           </div>
