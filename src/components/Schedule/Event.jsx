@@ -35,20 +35,25 @@ const Points = styled(P)`
 `
 
 const ToggleButton = styled.button`
-  background-image: url(${expandButton});
-  background-color: transparent;
+  background: transparent;
   border: none;
   position: absolute;
   cursor: pointer;
-  width: 15px;
-  height: 15px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  transform: ${props => (props.expanded ? 'rotate(180deg)' : 'rotate(0deg)')};
-  transition: transform 0.3s ease;
+  width: 28px;
+  height: 28px;
   right: 15px;
   bottom: 15px;
   z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > img {
+    width: 15px;
+    height: 15px;
+    transform: ${props => (props.expanded ? 'rotate(180deg)' : 'rotate(0deg)')};
+    transition: transform 0.3s ease;
+    display: block;
+  }
   ${p => p.theme.mediaQueries.mobile} {
     display: none;
   }
@@ -218,11 +223,15 @@ const Event = ({ event }) => {
         {formatTime(event.startTime)} - {formatTime(event.endTime)}
       </TimeStamp>
       <EventLocation>{event.location}</EventLocation>
-      {/* <Points>{event.points && `Points: ${event.points}`}</Points> */}
+      {event.points > 0 && <Points>Points: ${event.points}</Points>}
       <EventDescription ref={descriptionRef} expanded={expanded} maxHeight={maxHeight}>
         {event.description}
       </EventDescription>
-      {showToggleButton && <ToggleButton onClick={toggleExpanded} expanded={expanded} />}
+      {showToggleButton && (
+        <ToggleButton onClick={toggleExpanded} expanded={expanded} aria-label="Toggle description">
+          <img src={expandButton} alt="expand" />
+        </ToggleButton>
+      )}
     </EventCard>
   )
 }
