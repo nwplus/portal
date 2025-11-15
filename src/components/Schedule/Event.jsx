@@ -15,10 +15,10 @@ const EventDescription = styled(P)`
   display: -webkit-box;
   -webkit-line-clamp: ${props => (props.expanded ? 'unset' : '3')};
   -webkit-box-orient: vertical;
-  max-height: ${props => (props.expanded ? 'none' : '4.5em')};
+  max-height: ${props => (props.expanded ? `${props.maxHeight}px` : '4.5em')};
   transition: max-height 0.3s ease;
   ${p => p.theme.mediaQueries.mobile} {
-    overflow-y: scroll;
+    overflow-y: auto;
     ${ScrollbarLike}
   }
 `
@@ -48,6 +48,7 @@ const ToggleButton = styled.button`
   transition: transform 0.3s ease;
   right: 15px;
   bottom: 15px;
+  z-index: 3;
   ${p => p.theme.mediaQueries.mobile} {
     display: none;
   }
@@ -125,8 +126,32 @@ const Event = ({ event }) => {
     const el = descriptionRef.current
     if (!el) return
 
+    const clampLines = 3
+
+    const measureFullHeight = node => {
+      const clone = node.cloneNode(true)
+      // keep same wrapping so measurement matches on-card layout
+      clone.style.width = `${node.clientWidth}px`
+      clone.style.position = 'absolute'
+      clone.style.visibility = 'hidden'
+      clone.style.pointerEvents = 'none'
+      clone.style.maxHeight = 'none'
+      clone.style.webkitLineClamp = 'unset'
+      clone.style.display = 'block'
+      clone.style.boxSizing = 'border-box'
+      document.body.appendChild(clone)
+      const h = clone.scrollHeight
+      document.body.removeChild(clone)
+      return h
+    }
+
     const checkOverflow = () => {
-      setShowToggleButton(el.scrollHeight > el.clientHeight)
+      const style = getComputedStyle(el)
+      const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.2
+      const allowedHeight = lineHeight * clampLines
+      const fullHeight = measureFullHeight(el)
+      const isOverflowed = fullHeight >= Math.ceil(allowedHeight)
+      setShowToggleButton(isOverflowed)
     }
 
     // initial check on next paint
@@ -145,21 +170,33 @@ const Event = ({ event }) => {
       document.fonts.ready.then(checkOverflow).catch(() => {})
     }
 
+    // when expanded, measure and set the full pixel height (with a small buffer)
+    // to ensure the animated max-height is never slightly short of the content.
+    const HEIGHT_BUFFER = 6 // extra pixels to avoid 1-2px clipping on some browsers
+    const setMeasuredHeightWhenExpanded = () => {
+      if (!expanded) return
+      // measure via clone to avoid mutating the live node
+      const fullHeight = measureFullHeight(el)
+      // add a small buffer so rounding doesn't clip the last line
+      setMaxHeight(fullHeight + HEIGHT_BUFFER)
+    }
+
+    // set measured height initially if already expanded
+    const rafSetHeight = requestAnimationFrame(setMeasuredHeightWhenExpanded)
+
     const onResize = () => checkOverflow()
     window.addEventListener('resize', onResize)
 
     return () => {
       cancelAnimationFrame(rafId)
+      cancelAnimationFrame(rafSetHeight)
       if (ro) ro.disconnect()
       window.removeEventListener('resize', onResize)
     }
   }, [event.description, expanded])
 
   const toggleExpanded = () => {
-    setExpanded(!expanded)
-    if (!expanded) {
-      setMaxHeight(descriptionRef.current.scrollHeight)
-    }
+    setExpanded(prev => !prev)
   }
 
   return (
