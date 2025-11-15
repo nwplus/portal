@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { P, H3 } from '../Typography'
 import { Card, ScrollbarLike } from '../Common'
@@ -121,13 +121,39 @@ const Event = ({ event }) => {
   const descriptionRef = useRef(null)
   const theme = useTheme()
 
-  useEffect(() => {
-    if (descriptionRef.current) {
-      const isOverflowing =
-        descriptionRef.current.scrollHeight > descriptionRef.current.clientHeight
-      setShowToggleButton(isOverflowing)
+  useLayoutEffect(() => {
+    const el = descriptionRef.current
+    if (!el) return
+
+    const checkOverflow = () => {
+      setShowToggleButton(el.scrollHeight > el.clientHeight)
     }
-  }, [descriptionRef, event.description])
+
+    // initial check on next paint
+    const rafId = requestAnimationFrame(checkOverflow)
+
+    // re-check when the element or its parent resizes (fonts, layout, CSS)
+    let ro
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(checkOverflow)
+      ro.observe(el)
+      if (el.parentElement) ro.observe(el.parentElement)
+    }
+
+    // re-check after fonts load (if supported)
+    if (document?.fonts && document.fonts.ready) {
+      document.fonts.ready.then(checkOverflow).catch(() => {})
+    }
+
+    const onResize = () => checkOverflow()
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      if (ro) ro.disconnect()
+      window.removeEventListener('resize', onResize)
+    }
+  }, [event.description, expanded])
 
   const toggleExpanded = () => {
     setExpanded(!expanded)
