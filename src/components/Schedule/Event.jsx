@@ -155,7 +155,7 @@ const Event = ({ event }) => {
         {formatTime(event.startTime)} - {formatTime(event.endTime)}
       </TimeStamp>
       <EventLocation>{event.location}</EventLocation>
-      <Points>{event.points && `Points: ${event.points}`}</Points>
+      {/* <Points>{event.points && `Points: ${event.points}`}</Points> */}
       <EventDescription ref={descriptionRef} expanded={expanded} maxHeight={maxHeight}>
         {event.description}
       </EventDescription>
