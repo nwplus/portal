@@ -85,6 +85,7 @@ export default withTheme(({ announcements, theme }) => {
         {user?.status === APPLICATION_STATUS.accepted && isAuthed && user.uid && (
           <QrCode userInfo={user} userId={user.uid} />
         )}
+        {/* <AIChatbot /> */}
       </HomeContainer>
     </>
   )
