@@ -72,16 +72,34 @@ const calculatePointTotals = project => {
 
 const calculateResiduals = project => {
   const residuals = []
-  Object.entries(project.grades).forEach(([key, grade]) => {
-    Object.entries(grade).forEach(([subkey, value]) => {
-      if (typeof value !== 'number') {
-        return
+
+  const gradeEntries = Object.entries(project.grades || {})
+  if (!gradeEntries.length) {
+    return residuals
+  }
+
+  // Compute overall grade per judge so we can measure how far each judge is from the mean
+  const gradesWithTotals = gradeEntries
+    .map(([id, grade]) => {
+      const total = parseFloat(calculateGrade(grade))
+      if (!Number.isFinite(total)) {
+        return null
       }
-      const mean = project[subkey] / project.countGraded
-      grade.residual = (mean - value) ** 2
-      residuals.push({ id: key, value: grade.residual })
+      return { id, total }
     })
+    .filter(Boolean)
+
+  if (!gradesWithTotals.length) {
+    return residuals
+  }
+
+  const mean = gradesWithTotals.reduce((sum, { total }) => sum + total, 0) / gradesWithTotals.length
+
+  gradesWithTotals.forEach(({ id, total }) => {
+    const value = (total - mean) ** 2
+    residuals.push({ id, value })
   })
+
   return residuals
 }
 
@@ -151,13 +169,14 @@ const getGradedProjects = async (dropOutliers = 2, dbHackathonName) => {
       JUDGING_RUBRIC.forEach(item => (project[item.id] = avg(project[item.id])))
       project.grade = calculateGrade(project)
 
-      if (rawProjectData.length > dropOutliers) {
-        // sort residuals
-        const residuals = calculateResiduals(project).sort()
-        for (var i = 0; i < dropOutliers; i++) {
-          // remove top dropOutliers
-          const residual = residuals.pop()
-          delete project.grades[residual.id]
+      const gradeCount = Object.keys(project.grades).length
+
+      if (gradeCount > dropOutliers) {
+        // sort residuals by how far each judge's overall score is from the mean
+        const residuals = calculateResiduals(project).sort((a, b) => b.value - a.value)
+        for (let i = 0; i < dropOutliers && i < residuals.length; i++) {
+          const { id } = residuals[i]
+          delete project.grades[id]
         }
 
         // recalculate if any grades were dropped
