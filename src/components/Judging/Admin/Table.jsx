@@ -130,8 +130,9 @@ const RemoveButton = ({ onRemove }) => {
 }
 
 export const GradeTable = ({ data, onRemove }) => {
+  const { activeHackathon } = useHackathon()
   const formattedData = data?.map(row => {
-    const projectLink = `/projects/${row.id}`
+    const projectLink = `/app/${activeHackathon}/projects/${row.id}`
     return [
       row.title,
       projectLink,
